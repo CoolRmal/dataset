@@ -45,7 +45,7 @@ def IsRealcompact (X : Type u) [tX : TopologicalSpace X] : Prop :=
 def IsDiscreteFamily {X : Type u} [TopologicalSpace X] {ι : Type v}
     (U : ι → Set X) : Prop :=
   ∀ x : X, ∃ V ∈ 𝓝 x, {i : ι | (V ∩ U i).Nonempty}.Subsingleton
-↔
+
 /-- An indexed family is an open cover. -/
 def IsOpenCover {X : Type u} [TopologicalSpace X] {ι : Type v}
     (U : ι → Set X) : Prop :=
