@@ -1,0 +1,481 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R 9 0 R] /Count 4 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 11 0 R /F2 12 0 R /F3 13 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 9956 >>
+stream
+BT /F2 12 Tf 24.00 586.00 Td (Engelking General Topology Benchmark) Tj ET
+BT /F1 7 Tf 740.00 586.00 Td (p. 1) Tj ET
+BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
+BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
+BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
+20.00 558.00 m 772.00 558.00 l S
+20.00 550.00 m 20.00 358.00 l S
+310.00 550.00 m 310.00 358.00 l S
+390.00 550.00 m 390.00 358.00 l S
+772.00 550.00 m 772.00 358.00 l S
+20.00 550.00 m 772.00 550.00 l S
+20.00 358.00 m 772.00 358.00 l S
+BT /F1 5.8 Tf 24.00 542.00 Td (Definition. A topological space X is called a realcompact) Tj ET
+BT /F1 5.8 Tf 24.00 535.00 Td (space if X is a Tychonoff space and there is no Tychonoff) Tj ET
+BT /F1 5.8 Tf 24.00 528.00 Td (space X which satisfies: \(RC1\) there exists a homeomorphic) Tj ET
+BT /F1 5.8 Tf 24.00 521.00 Td (embedding r: X -> X such that r\(X\) != closure\(r\(X\)\) = X; \(RC2\)) Tj ET
+BT /F1 5.8 Tf 24.00 514.00 Td (for every continuous real-valued function f: X -> R there) Tj ET
+BT /F1 5.8 Tf 24.00 507.00 Td (exists a continuous function f: X -> R such that fr = f.) Tj ET
+BT /F1 5.8 Tf 24.00 500.00 Td (3.11.16. Theorem. For every Tychonoff space X there exists) Tj ET
+BT /F1 5.8 Tf 24.00 493.00 Td (exactly one \(up to a homeomorphism\) realcompact space nuX) Tj ET
+BT /F1 5.8 Tf 24.00 486.00 Td (which satisfies: \(i\) there exists a homeomorphic embedding nu:) Tj ET
+BT /F1 5.8 Tf 24.00 479.00 Td (X -> nuX such that closure\(nu\(X\)\) = nuX; \(ii\) for every) Tj ET
+BT /F1 5.8 Tf 24.00 472.00 Td (continuous real-valued function f: X -> R there exists a) Tj ET
+BT /F1 5.8 Tf 24.00 465.00 Td (continuous function f^nu: nuX -> R such that f^nunu = f. The) Tj ET
+BT /F1 5.8 Tf 24.00 458.00 Td (space nuX also satisfies: \(iii\) for every continuous mapping) Tj ET
+BT /F1 5.8 Tf 24.00 451.00 Td (f: X -> Y of X to a realcompact space Y there exists a) Tj ET
+BT /F1 5.8 Tf 24.00 444.00 Td (continuous mapping f^nu: nuX -> Y such that f^nunu = f.) Tj ET
+BT /F1 5.8 Tf 314.00 542.00 Td (Topology) Tj ET
+BT /F3 4.9 Tf 394.00 542.00 Td (def IsRealcompact \(X : Type u\) [tX : TopologicalSpace X] : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (  T35Space X /\\ not exists \(Y : Type u\) \(tY : TopologicalSpace Y\),) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (    @T35Space Y tY /\\ exists r : X -> Y,) Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (      @IsEmbedding X Y tX tY r /\\ range r != closure \(range r\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (        closure \(range r\) = univ /\\) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (          forall f : X -> R, Continuous f ->) Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (            exists g : Y -> R, @Continuous Y R tY _ g /\\ g comp r = f) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td (theorem engelking_3_11_16_hewitt_realcompactification) Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (    {X : Type u} [TopologicalSpace X] [T35Space X] :) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td (    exists \(Y : Type u\) \(tY : TopologicalSpace Y\) \(nu : X -> Y\),) Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (      @IsRealcompact Y tY /\\ @IsEmbedding X Y _ tY nu /\\ closure \(range nu\)) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td (      = univ /\\) Tj ET
+BT /F3 4.9 Tf 394.00 451.00 Td (        \(forall f : X -> R, Continuous f ->) Tj ET
+BT /F3 4.9 Tf 394.00 444.00 Td (          exists g : Y -> R, @Continuous Y R tY _ g /\\ g comp nu = f\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 437.00 Td (        \(forall \(Z : Type u\) \(tZ : TopologicalSpace Z\), @IsRealcompact Z tZ) Tj ET
+BT /F3 4.9 Tf 394.00 430.00 Td (        ->) Tj ET
+BT /F3 4.9 Tf 394.00 423.00 Td (          forall f : X -> Z, @Continuous X Z _ tZ f ->) Tj ET
+BT /F3 4.9 Tf 394.00 416.00 Td (            exists g : Y -> Z, @Continuous Y Z tY tZ g /\\ g comp nu = f\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 409.00 Td (        forall \(Z : Type u\) \(tZ : TopologicalSpace Z\) \(zeta : X -> Z\),) Tj ET
+BT /F3 4.9 Tf 394.00 402.00 Td (          @IsRealcompact Z tZ -> @IsEmbedding X Z _ tZ zeta -> closure) Tj ET
+BT /F3 4.9 Tf 394.00 395.00 Td (        \(range zeta\) = univ ->) Tj ET
+BT /F3 4.9 Tf 394.00 388.00 Td (          \(forall f : X -> R, Continuous f ->) Tj ET
+BT /F3 4.9 Tf 394.00 381.00 Td (            exists g : Z -> R, @Continuous Z R tZ _ g /\\ g comp zeta = f\) ->) Tj ET
+BT /F3 4.9 Tf 394.00 374.00 Td (          exists h : @Homeomorph Y Z tY tZ, h comp nu = zeta := by) Tj ET
+BT /F3 4.9 Tf 394.00 367.00 Td (  sorry) Tj ET
+20.00 358.00 m 20.00 201.00 l S
+310.00 358.00 m 310.00 201.00 l S
+390.00 358.00 m 390.00 201.00 l S
+772.00 358.00 m 772.00 201.00 l S
+20.00 358.00 m 772.00 358.00 l S
+20.00 201.00 m 772.00 201.00 l S
+BT /F1 5.8 Tf 24.00 350.00 Td (Definition. A topological space X is called countably) Tj ET
+BT /F1 5.8 Tf 24.00 343.00 Td (paracompact if X is a Hausdorff space and every countable open) Tj ET
+BT /F1 5.8 Tf 24.00 336.00 Td (cover of X has a locally finite open refinement. 5.2.8.) Tj ET
+BT /F1 5.8 Tf 24.00 329.00 Td (Theorem. A topological space X is normal and countably) Tj ET
+BT /F1 5.8 Tf 24.00 322.00 Td (paracompact if and only if the Cartesian product X  x  I of X) Tj ET
+BT /F1 5.8 Tf 24.00 315.00 Td (and the closed unit interval I is normal.) Tj ET
+BT /F1 5.8 Tf 314.00 350.00 Td (Topology) Tj ET
+BT /F3 4.9 Tf 394.00 350.00 Td (def IsOpenCover {X : Type u} [TopologicalSpace X] {iota : Type v}) Tj ET
+BT /F3 4.9 Tf 394.00 343.00 Td (    \(U : iota -> Set X\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 336.00 Td (  \(forall i, IsOpen \(U i\)\) /\\ union i, U i = univ) Tj ET
+BT /F3 4.9 Tf 394.00 329.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 322.00 Td (def Refines {X : Type u} {iota : Type v} {kappa : Type w} \(V : kappa -> Set) Tj ET
+BT /F3 4.9 Tf 394.00 315.00 Td (X\)) Tj ET
+BT /F3 4.9 Tf 394.00 308.00 Td (    \(U : iota -> Set X\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 301.00 Td (  forall j, exists i, V j subset U i) Tj ET
+BT /F3 4.9 Tf 394.00 294.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 287.00 Td (def IsCountablyParacompact \(X : Type u\) [TopologicalSpace X] : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 280.00 Td (  T2Space X /\\) Tj ET
+BT /F3 4.9 Tf 394.00 273.00 Td (    forall \(iota : Type v\) \(_ : Countable iota\) \(U : iota -> Set X\),) Tj ET
+BT /F3 4.9 Tf 394.00 266.00 Td (    IsOpenCover U ->) Tj ET
+BT /F3 4.9 Tf 394.00 259.00 Td (      exists \(kappa : Type v\) \(V : kappa -> Set X\), IsOpenCover V /\\) Tj ET
+BT /F3 4.9 Tf 394.00 252.00 Td (      Refines V U /\\ LocallyFinite V) Tj ET
+BT /F3 4.9 Tf 394.00 245.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 238.00 Td (theorem engelking_5_2_8_normal_product_interval) Tj ET
+BT /F3 4.9 Tf 394.00 231.00 Td (    {X : Type u} [TopologicalSpace X] :) Tj ET
+BT /F3 4.9 Tf 394.00 224.00 Td (    \(NormalSpace X /\\ IsCountablyParacompact X\) <->) Tj ET
+BT /F3 4.9 Tf 394.00 217.00 Td (      NormalSpace \(X  x  Set.Icc \(0 : R\) 1\) := by) Tj ET
+BT /F3 4.9 Tf 394.00 210.00 Td (  sorry) Tj ET
+20.00 201.00 m 20.00 37.00 l S
+310.00 201.00 m 310.00 37.00 l S
+390.00 201.00 m 390.00 37.00 l S
+772.00 201.00 m 772.00 37.00 l S
+20.00 201.00 m 772.00 201.00 l S
+20.00 37.00 m 772.00 37.00 l S
+BT /F1 5.8 Tf 24.00 193.00 Td (Definitions. A family {A_s}_{sinS} is star-finite \(star-) Tj ET
+BT /F1 5.8 Tf 24.00 186.00 Td (countable\) if for every s0 in S the set {s in S : A_s inter) Tj ET
+BT /F1 5.8 Tf 24.00 179.00 Td (A_{s0} != empty} is finite \(countable\). A topological space X) Tj ET
+BT /F1 5.8 Tf 24.00 172.00 Td (is called strongly paracompact if X is a Hausdorff space and) Tj ET
+BT /F1 5.8 Tf 24.00 165.00 Td (every open cover of X has a star-finite open refinement.) Tj ET
+BT /F1 5.8 Tf 24.00 158.00 Td (5.3.10. Theorem. For every regular space X the following) Tj ET
+BT /F1 5.8 Tf 24.00 151.00 Td (conditions are equivalent: \(i\) X is strongly paracompact; \(ii\)) Tj ET
+BT /F1 5.8 Tf 24.00 144.00 Td (every open cover of X has a closed refinement which is both) Tj ET
+BT /F1 5.8 Tf 24.00 137.00 Td (locally finite and star-finite; \(iii\) every open cover of X) Tj ET
+BT /F1 5.8 Tf 24.00 130.00 Td (has a closed refinement which is both locally finite and star-) Tj ET
+BT /F1 5.8 Tf 24.00 123.00 Td (countable; \(iv\) every open cover of X has a star-countable) Tj ET
+BT /F1 5.8 Tf 24.00 116.00 Td (open refinement.) Tj ET
+BT /F1 5.8 Tf 314.00 193.00 Td (Topology) Tj ET
+BT /F3 4.9 Tf 394.00 193.00 Td (def IsOpenCover {X : Type u} [TopologicalSpace X] {iota : Type v}) Tj ET
+BT /F3 4.9 Tf 394.00 186.00 Td (    \(U : iota -> Set X\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 179.00 Td (  \(forall i, IsOpen \(U i\)\) /\\ union i, U i = univ) Tj ET
+BT /F3 4.9 Tf 394.00 172.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 165.00 Td (def Refines {X : Type u} {iota : Type v} {kappa : Type w} \(V : kappa -> Set) Tj ET
+BT /F3 4.9 Tf 394.00 158.00 Td (X\)) Tj ET
+BT /F3 4.9 Tf 394.00 151.00 Td (    \(U : iota -> Set X\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 144.00 Td (  forall j, exists i, V j subset U i) Tj ET
+BT /F3 4.9 Tf 394.00 137.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 130.00 Td (def IsClosedCover {X : Type u} [TopologicalSpace X] {iota : Type v}) Tj ET
+BT /F3 4.9 Tf 394.00 123.00 Td (    \(F : iota -> Set X\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 116.00 Td (  \(forall i, IsClosed \(F i\)\) /\\ union i, F i = univ) Tj ET
+BT /F3 4.9 Tf 394.00 109.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 102.00 Td (def IsStarFiniteFamily {X : Type u} {iota : Type v} \(A : iota -> Set X\) :) Tj ET
+BT /F3 4.9 Tf 394.00 95.00 Td (Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 88.00 Td (  forall i, {j | \(A i inter A j\).Nonempty}.Finite) Tj ET
+BT /F3 4.9 Tf 394.00 81.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 74.00 Td (def IsStarCountableFamily {X : Type u} {iota : Type v} \(A : iota -> Set X\)) Tj ET
+BT /F3 4.9 Tf 394.00 67.00 Td (: Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 60.00 Td (  forall i, {j | \(A i inter A j\).Nonempty}.Countable) Tj ET
+BT /F3 4.9 Tf 394.00 53.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 46.00 Td (def IsStronglyParacompact \(X : Type u\) [TopologicalSpace X] : Prop :=) Tj ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 11 0 R /F2 12 0 R /F3 13 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 7764 >>
+stream
+BT /F2 12 Tf 24.00 586.00 Td (Engelking General Topology Benchmark) Tj ET
+BT /F1 7 Tf 740.00 586.00 Td (p. 2) Tj ET
+BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
+BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
+BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
+20.00 558.00 m 772.00 558.00 l S
+20.00 550.00 m 20.00 372.00 l S
+310.00 550.00 m 310.00 372.00 l S
+390.00 550.00 m 390.00 372.00 l S
+772.00 550.00 m 772.00 372.00 l S
+20.00 550.00 m 772.00 550.00 l S
+20.00 372.00 m 772.00 372.00 l S
+BT /F3 4.9 Tf 394.00 542.00 Td (  T2Space X /\\) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (    forall \(iota : Type v\) \(U : iota -> Set X\), IsOpenCover U ->) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (      exists \(kappa : Type v\) \(V : kappa -> Set X\),) Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (        IsOpenCover V /\\ Refines V U /\\ IsStarFiniteFamily V) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (theorem engelking_5_3_10_strong_paracompactness) Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (    {X : Type u} [TopologicalSpace X] [RegularSpace X] [T1Space X] :) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td (    let closedLocallyFiniteStarFinite :=) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td (      forall \(iota : Type v\) \(U : iota -> Set X\), IsOpenCover U ->) Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (        exists \(kappa : Type v\) \(F : kappa -> Set X\),) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td (          IsClosedCover F /\\ Refines F U /\\ LocallyFinite F /\\) Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (        IsStarFiniteFamily F) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td (    let closedLocallyFiniteStarCountable :=) Tj ET
+BT /F3 4.9 Tf 394.00 451.00 Td (      forall \(iota : Type v\) \(U : iota -> Set X\), IsOpenCover U ->) Tj ET
+BT /F3 4.9 Tf 394.00 444.00 Td (        exists \(kappa : Type v\) \(F : kappa -> Set X\),) Tj ET
+BT /F3 4.9 Tf 394.00 437.00 Td (          IsClosedCover F /\\ Refines F U /\\ LocallyFinite F /\\) Tj ET
+BT /F3 4.9 Tf 394.00 430.00 Td (        IsStarCountableFamily F) Tj ET
+BT /F3 4.9 Tf 394.00 423.00 Td (    let starCountableOpen := forall \(iota : Type v\) \(U : iota -> Set X\),) Tj ET
+BT /F3 4.9 Tf 394.00 416.00 Td (    IsOpenCover U ->) Tj ET
+BT /F3 4.9 Tf 394.00 409.00 Td (      exists \(kappa : Type v\) \(V : kappa -> Set X\),) Tj ET
+BT /F3 4.9 Tf 394.00 402.00 Td (        IsOpenCover V /\\ Refines V U /\\ IsStarCountableFamily V) Tj ET
+BT /F3 4.9 Tf 394.00 395.00 Td (    List.TFAE [IsStronglyParacompact X, closedLocallyFiniteStarFinite,) Tj ET
+BT /F3 4.9 Tf 394.00 388.00 Td (      closedLocallyFiniteStarCountable, starCountableOpen] := by) Tj ET
+BT /F3 4.9 Tf 394.00 381.00 Td (  sorry) Tj ET
+20.00 372.00 m 20.00 208.00 l S
+310.00 372.00 m 310.00 208.00 l S
+390.00 372.00 m 390.00 208.00 l S
+772.00 372.00 m 772.00 208.00 l S
+20.00 372.00 m 772.00 372.00 l S
+20.00 208.00 m 772.00 208.00 l S
+BT /F1 5.8 Tf 24.00 364.00 Td (4.4.1. The Stone Theorem. Every open cover of a metrizable) Tj ET
+BT /F1 5.8 Tf 24.00 357.00 Td (space has an open refinement which is both locally finite and) Tj ET
+BT /F1 5.8 Tf 24.00 350.00 Td (sigma-discrete.) Tj ET
+BT /F1 5.8 Tf 314.00 364.00 Td (Topology) Tj ET
+BT /F3 4.9 Tf 394.00 364.00 Td (def IsDiscreteFamily {X : Type u} [TopologicalSpace X] {iota : Type v}) Tj ET
+BT /F3 4.9 Tf 394.00 357.00 Td (    \(U : iota -> Set X\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 350.00 Td (  forall x : X, exists V in nhds x, {i : iota | \(V inter U) Tj ET
+BT /F3 4.9 Tf 394.00 343.00 Td (  i\).Nonempty}.Subsingleton) Tj ET
+BT /F3 4.9 Tf 394.00 336.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 329.00 Td (def IsOpenCover {X : Type u} [TopologicalSpace X] {iota : Type v}) Tj ET
+BT /F3 4.9 Tf 394.00 322.00 Td (    \(U : iota -> Set X\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 315.00 Td (  \(forall i, IsOpen \(U i\)\) /\\ union i, U i = univ) Tj ET
+BT /F3 4.9 Tf 394.00 308.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 301.00 Td (def Refines {X : Type u} {iota : Type v} {kappa : Type w} \(V : kappa -> Set) Tj ET
+BT /F3 4.9 Tf 394.00 294.00 Td (X\)) Tj ET
+BT /F3 4.9 Tf 394.00 287.00 Td (    \(U : iota -> Set X\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 280.00 Td (  forall j, exists i, V j subset U i) Tj ET
+BT /F3 4.9 Tf 394.00 273.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 266.00 Td (theorem engelking_4_4_1_stone_open_refinement) Tj ET
+BT /F3 4.9 Tf 394.00 259.00 Td (    {X : Type u} [TopologicalSpace X] [MetrizableSpace X] :) Tj ET
+BT /F3 4.9 Tf 394.00 252.00 Td (    forall \(iota : Type v\) \(U : iota -> Set X\), IsOpenCover U ->) Tj ET
+BT /F3 4.9 Tf 394.00 245.00 Td (      exists \(kappa : Type w\) \(V : kappa -> Set X\) \(level : kappa -> N\),) Tj ET
+BT /F3 4.9 Tf 394.00 238.00 Td (        IsOpenCover V /\\ Refines V U /\\ LocallyFinite V /\\) Tj ET
+BT /F3 4.9 Tf 394.00 231.00 Td (          forall n, IsDiscreteFamily fun j : {j : kappa // level j = n} =>) Tj ET
+BT /F3 4.9 Tf 394.00 224.00 Td (        V j := by) Tj ET
+BT /F3 4.9 Tf 394.00 217.00 Td (  sorry) Tj ET
+20.00 208.00 m 20.00 128.00 l S
+310.00 208.00 m 310.00 128.00 l S
+390.00 208.00 m 390.00 128.00 l S
+772.00 208.00 m 772.00 128.00 l S
+20.00 208.00 m 772.00 208.00 l S
+20.00 128.00 m 772.00 128.00 l S
+BT /F1 5.8 Tf 24.00 200.00 Td (4.4.7. The Nagata-Smirnov Metrization Theorem. A topological) Tj ET
+BT /F1 5.8 Tf 24.00 193.00 Td (space is metrizable if and only if it is regular and has a) Tj ET
+BT /F1 5.8 Tf 24.00 186.00 Td (sigma-locally finite base.) Tj ET
+BT /F1 5.8 Tf 314.00 200.00 Td (Topology) Tj ET
+BT /F3 4.9 Tf 394.00 200.00 Td (def HasSigmaLocallyFiniteBase \(X : Type u\) [TopologicalSpace X] : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 193.00 Td (  exists \(iota : N -> Type v\) \(B : forall n, iota n -> Set X\),) Tj ET
+BT /F3 4.9 Tf 394.00 186.00 Td (    IsTopologicalBasis {V : Set X | exists n i, B n i = V} /\\) Tj ET
+BT /F3 4.9 Tf 394.00 179.00 Td (      forall n, LocallyFinite \(B n\)) Tj ET
+BT /F3 4.9 Tf 394.00 172.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 165.00 Td (theorem engelking_4_4_7_nagata_smirnov_metrization) Tj ET
+BT /F3 4.9 Tf 394.00 158.00 Td (    {X : Type u} [TopologicalSpace X] [T1Space X] :) Tj ET
+BT /F3 4.9 Tf 394.00 151.00 Td (    MetrizableSpace X <-> RegularSpace X /\\ HasSigmaLocallyFiniteBase X :=) Tj ET
+BT /F3 4.9 Tf 394.00 144.00 Td (    by) Tj ET
+BT /F3 4.9 Tf 394.00 137.00 Td (  sorry) Tj ET
+20.00 128.00 m 20.00 34.00 l S
+310.00 128.00 m 310.00 34.00 l S
+390.00 128.00 m 390.00 34.00 l S
+772.00 128.00 m 772.00 34.00 l S
+20.00 128.00 m 772.00 128.00 l S
+20.00 34.00 m 772.00 34.00 l S
+BT /F1 5.8 Tf 24.00 120.00 Td (4.4.8. The Bing Metrization Theorem. A topological space is) Tj ET
+BT /F1 5.8 Tf 24.00 113.00 Td (metrizable if and only if it is regular and has a sigma-) Tj ET
+BT /F1 5.8 Tf 24.00 106.00 Td (discrete base.) Tj ET
+BT /F1 5.8 Tf 314.00 120.00 Td (Topology) Tj ET
+BT /F3 4.9 Tf 394.00 120.00 Td (def IsDiscreteFamily {X : Type u} [TopologicalSpace X] {iota : Type v}) Tj ET
+BT /F3 4.9 Tf 394.00 113.00 Td (    \(U : iota -> Set X\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 106.00 Td (  forall x : X, exists V in nhds x, {i : iota | \(V inter U) Tj ET
+BT /F3 4.9 Tf 394.00 99.00 Td (  i\).Nonempty}.Subsingleton) Tj ET
+BT /F3 4.9 Tf 394.00 92.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 85.00 Td (def HasSigmaDiscreteBase \(X : Type u\) [TopologicalSpace X] : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 78.00 Td (  exists \(iota : N -> Type v\) \(B : forall n, iota n -> Set X\),) Tj ET
+BT /F3 4.9 Tf 394.00 71.00 Td (    IsTopologicalBasis {V : Set X | exists n i, B n i = V} /\\) Tj ET
+BT /F3 4.9 Tf 394.00 64.00 Td (      forall n, IsDiscreteFamily \(B n\)) Tj ET
+BT /F3 4.9 Tf 394.00 57.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 50.00 Td (theorem engelking_4_4_8_bing_metrization) Tj ET
+BT /F3 4.9 Tf 394.00 43.00 Td (    {X : Type u} [TopologicalSpace X] [T1Space X] :) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 11 0 R /F2 12 0 R /F3 13 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 8504 >>
+stream
+BT /F2 12 Tf 24.00 586.00 Td (Engelking General Topology Benchmark) Tj ET
+BT /F1 7 Tf 740.00 586.00 Td (p. 3) Tj ET
+BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
+BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
+BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
+20.00 558.00 m 772.00 558.00 l S
+20.00 550.00 m 20.00 526.00 l S
+310.00 550.00 m 310.00 526.00 l S
+390.00 550.00 m 390.00 526.00 l S
+772.00 550.00 m 772.00 526.00 l S
+20.00 550.00 m 772.00 550.00 l S
+20.00 526.00 m 772.00 526.00 l S
+BT /F3 4.9 Tf 394.00 542.00 Td (    MetrizableSpace X <-> RegularSpace X /\\ HasSigmaDiscreteBase X := by) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (  sorry) Tj ET
+20.00 526.00 m 20.00 404.00 l S
+310.00 526.00 m 310.00 404.00 l S
+390.00 526.00 m 390.00 404.00 l S
+772.00 526.00 m 772.00 404.00 l S
+20.00 526.00 m 772.00 526.00 l S
+20.00 404.00 m 772.00 404.00 l S
+BT /F1 5.8 Tf 24.00 518.00 Td (5.1.9. Theorem. For every T1-space X the following conditions) Tj ET
+BT /F1 5.8 Tf 24.00 511.00 Td (are equivalent: \(i\) the space X is paracompact; \(ii\) every) Tj ET
+BT /F1 5.8 Tf 24.00 504.00 Td (open cover of the space X has a locally finite partition of) Tj ET
+BT /F1 5.8 Tf 24.00 497.00 Td (unity subordinated to it; \(iii\) every open cover of X has a) Tj ET
+BT /F1 5.8 Tf 24.00 490.00 Td (partition of unity subordinated to it.) Tj ET
+BT /F1 5.8 Tf 314.00 518.00 Td (Topology) Tj ET
+BT /F3 4.9 Tf 394.00 518.00 Td (def IsOpenCover {X : Type u} [TopologicalSpace X] {iota : Type v}) Tj ET
+BT /F3 4.9 Tf 394.00 511.00 Td (    \(U : iota -> Set X\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 504.00 Td (  \(forall i, IsOpen \(U i\)\) /\\ union i, U i = univ) Tj ET
+BT /F3 4.9 Tf 394.00 497.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 490.00 Td (theorem engelking_5_1_9_paracompact_partition_of_unity) Tj ET
+BT /F3 4.9 Tf 394.00 483.00 Td (    {X : Type u} [TopologicalSpace X] [T1Space X] :) Tj ET
+BT /F3 4.9 Tf 394.00 476.00 Td (    let locallyFinitePartition := forall \(iota : Type v\) \(U : iota -> Set) Tj ET
+BT /F3 4.9 Tf 394.00 469.00 Td (    X\), IsOpenCover U ->) Tj ET
+BT /F3 4.9 Tf 394.00 462.00 Td (      exists rho : PartitionOfUnity iota X, rho.IsSubordinate U) Tj ET
+BT /F3 4.9 Tf 394.00 455.00 Td (    let partition := forall \(iota : Type v\) \(U : iota -> Set X\),) Tj ET
+BT /F3 4.9 Tf 394.00 448.00 Td (    IsOpenCover U ->) Tj ET
+BT /F3 4.9 Tf 394.00 441.00 Td (      exists rho : iota -> C\(X, R\), 0 <= rho /\\ \(forall x, HasSum \(fun i =>) Tj ET
+BT /F3 4.9 Tf 394.00 434.00 Td (      rho i x\) 1\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 427.00 Td (        forall i, tsupport \(rho i\) subset U i) Tj ET
+BT /F3 4.9 Tf 394.00 420.00 Td (    List.TFAE [ParacompactSpace X, locallyFinitePartition, partition] := by) Tj ET
+BT /F3 4.9 Tf 394.00 413.00 Td (  sorry) Tj ET
+20.00 404.00 m 20.00 254.00 l S
+310.00 404.00 m 310.00 254.00 l S
+390.00 404.00 m 390.00 254.00 l S
+772.00 404.00 m 772.00 254.00 l S
+20.00 404.00 m 772.00 404.00 l S
+20.00 254.00 m 772.00 254.00 l S
+BT /F1 5.8 Tf 24.00 396.00 Td (5.1.38. The Tamano Theorem. For every Tychonoff space X the) Tj ET
+BT /F1 5.8 Tf 24.00 389.00 Td (following conditions are equivalent: \(i\) the space X is) Tj ET
+BT /F1 5.8 Tf 24.00 382.00 Td (paracompact; \(ii\) for every compactification cX of the space X) Tj ET
+BT /F1 5.8 Tf 24.00 375.00 Td (the Cartesian product X  x  cX is normal; \(iii\) the Cartesian) Tj ET
+BT /F1 5.8 Tf 24.00 368.00 Td (product X  x  betaX is normal; \(iv\) there exists a) Tj ET
+BT /F1 5.8 Tf 24.00 361.00 Td (compactification cX of X such that X  x  cX is normal.) Tj ET
+BT /F1 5.8 Tf 314.00 396.00 Td (Topology) Tj ET
+BT /F3 4.9 Tf 394.00 396.00 Td (def IsCompactification {X : Type u} {K : Type v} [TopologicalSpace X]) Tj ET
+BT /F3 4.9 Tf 394.00 389.00 Td (    [TopologicalSpace K] \(e : X -> K\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 382.00 Td (  IsEmbedding e /\\ DenseRange e /\\ IsCompact \(univ : Set K\)) Tj ET
+BT /F3 4.9 Tf 394.00 375.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 368.00 Td (theorem engelking_5_1_38_tamano_theorem) Tj ET
+BT /F3 4.9 Tf 394.00 361.00 Td (    {X : Type u} [tX : TopologicalSpace X] [T35Space X] :) Tj ET
+BT /F3 4.9 Tf 394.00 354.00 Td (    let everyCompactification := forall \(K : Type v\) \(tK : TopologicalSpace) Tj ET
+BT /F3 4.9 Tf 394.00 347.00 Td (    K\) \(e : X -> K\),) Tj ET
+BT /F3 4.9 Tf 394.00 340.00 Td (      @IsCompactification X K tX tK e ->) Tj ET
+BT /F3 4.9 Tf 394.00 333.00 Td (        @NormalSpace \(X  x  K\) \(tX.induced Prod.fst  tK.induced Prod.snd\)) Tj ET
+BT /F3 4.9 Tf 394.00 326.00 Td (        /\\ T1Space \(X  x  K\)) Tj ET
+BT /F3 4.9 Tf 394.00 319.00 Td (    let someCompactification := exists \(K : Type v\) \(tK : TopologicalSpace) Tj ET
+BT /F3 4.9 Tf 394.00 312.00 Td (    K\) \(e : X -> K\),) Tj ET
+BT /F3 4.9 Tf 394.00 305.00 Td (      @IsCompactification X K tX tK e /\\) Tj ET
+BT /F3 4.9 Tf 394.00 298.00 Td (        @NormalSpace \(X  x  K\) \(tX.induced Prod.fst  tK.induced Prod.snd\)) Tj ET
+BT /F3 4.9 Tf 394.00 291.00 Td (        /\\ T1Space \(X  x  K\)) Tj ET
+BT /F3 4.9 Tf 394.00 284.00 Td (    List.TFAE [ParacompactSpace X, everyCompactification,) Tj ET
+BT /F3 4.9 Tf 394.00 277.00 Td (      NormalSpace \(X  x  StoneCech X\) /\\ T1Space \(X  x  StoneCech X\),) Tj ET
+BT /F3 4.9 Tf 394.00 270.00 Td (      someCompactification] := by) Tj ET
+BT /F3 4.9 Tf 394.00 263.00 Td (  sorry) Tj ET
+20.00 254.00 m 20.00 62.00 l S
+310.00 254.00 m 310.00 62.00 l S
+390.00 254.00 m 390.00 62.00 l S
+772.00 254.00 m 772.00 62.00 l S
+20.00 254.00 m 772.00 254.00 l S
+20.00 62.00 m 772.00 62.00 l S
+BT /F1 5.8 Tf 24.00 246.00 Td (7.2.1. The Countable Sum Theorem. If a normal space X has a) Tj ET
+BT /F1 5.8 Tf 24.00 239.00 Td (countable closed cover {F_j} such that dim F_j <= n for j =) Tj ET
+BT /F1 5.8 Tf 24.00 232.00 Td (1,2,..., then dim X <= n.) Tj ET
+BT /F1 5.8 Tf 314.00 246.00 Td (Topology) Tj ET
+BT /F3 4.9 Tf 394.00 246.00 Td (def IsOpenCover {X : Type u} [TopologicalSpace X] {iota : Type v}) Tj ET
+BT /F3 4.9 Tf 394.00 239.00 Td (    \(U : iota -> Set X\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 232.00 Td (  \(forall i, IsOpen \(U i\)\) /\\ union i, U i = univ) Tj ET
+BT /F3 4.9 Tf 394.00 225.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 218.00 Td (def Refines {X : Type u} {iota : Type v} {kappa : Type w} \(V : kappa -> Set) Tj ET
+BT /F3 4.9 Tf 394.00 211.00 Td (X\)) Tj ET
+BT /F3 4.9 Tf 394.00 204.00 Td (    \(U : iota -> Set X\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 197.00 Td (  forall j, exists i, V j subset U i) Tj ET
+BT /F3 4.9 Tf 394.00 190.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 183.00 Td (def CoverOrderLE {X : Type u} {iota : Type v} \(U : iota -> Set X\) \(n : N\) :) Tj ET
+BT /F3 4.9 Tf 394.00 176.00 Td (Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 169.00 Td (  forall x : X, forall s : Finset iota, \(forall i in s, x in U i\) -> s.card) Tj ET
+BT /F3 4.9 Tf 394.00 162.00 Td (  <= n + 1) Tj ET
+BT /F3 4.9 Tf 394.00 155.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 148.00 Td (def CoveringDimensionLE \(X : Type u\) [TopologicalSpace X] \(n : N\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 141.00 Td (  forall \(m : N\) \(U : Fin m -> Set X\), IsOpenCover U ->) Tj ET
+BT /F3 4.9 Tf 394.00 134.00 Td (    exists \(k : N\) \(V : Fin k -> Set X\),) Tj ET
+BT /F3 4.9 Tf 394.00 127.00 Td (      IsOpenCover V /\\ Refines V U /\\ CoverOrderLE V n) Tj ET
+BT /F3 4.9 Tf 394.00 120.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 113.00 Td (theorem engelking_7_2_1_countable_sum_theorem) Tj ET
+BT /F3 4.9 Tf 394.00 106.00 Td (    {X : Type u} [TopologicalSpace X] [NormalSpace X] {n : N}) Tj ET
+BT /F3 4.9 Tf 394.00 99.00 Td (    \(hcover : exists F : N -> Set X, \(forall j, IsClosed \(F j\)\) /\\ union j,) Tj ET
+BT /F3 4.9 Tf 394.00 92.00 Td (    F j = univ /\\) Tj ET
+BT /F3 4.9 Tf 394.00 85.00 Td (      forall j, CoveringDimensionLE \(F j\) n\) :) Tj ET
+BT /F3 4.9 Tf 394.00 78.00 Td (    CoveringDimensionLE X n := by) Tj ET
+BT /F3 4.9 Tf 394.00 71.00 Td (  sorry) Tj ET
+20.00 62.00 m 20.00 38.00 l S
+310.00 62.00 m 310.00 38.00 l S
+390.00 62.00 m 390.00 38.00 l S
+772.00 62.00 m 772.00 38.00 l S
+20.00 62.00 m 772.00 62.00 l S
+20.00 38.00 m 772.00 38.00 l S
+BT /F1 5.8 Tf 24.00 54.00 Td (8.4.13. The Smirnov Theorem. Assigning to every) Tj ET
+BT /F1 5.8 Tf 24.00 47.00 Td (compactification cX of a Tychonoff space X the proximity) Tj ET
+BT /F1 5.8 Tf 314.00 54.00 Td (Topology) Tj ET
+BT /F3 4.9 Tf 394.00 54.00 Td (def IsCompactification {X : Type u} {K : Type v} [TopologicalSpace X]) Tj ET
+BT /F3 4.9 Tf 394.00 47.00 Td (    [TopologicalSpace K] \(e : X -> K\) : Prop :=) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 11 0 R /F2 12 0 R /F3 13 0 R >> >> /Contents 10 0 R >>
+endobj
+10 0 obj
+<< /Length 3776 >>
+stream
+BT /F2 12 Tf 24.00 586.00 Td (Engelking General Topology Benchmark) Tj ET
+BT /F1 7 Tf 740.00 586.00 Td (p. 4) Tj ET
+BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
+BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
+BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
+20.00 558.00 m 772.00 558.00 l S
+20.00 550.00 m 20.00 288.00 l S
+310.00 550.00 m 310.00 288.00 l S
+390.00 550.00 m 390.00 288.00 l S
+772.00 550.00 m 772.00 288.00 l S
+20.00 550.00 m 772.00 550.00 l S
+20.00 288.00 m 772.00 288.00 l S
+BT /F1 5.8 Tf 24.00 542.00 Td (delta\(c\) establishes a one-to-one correspondence between) Tj ET
+BT /F1 5.8 Tf 24.00 535.00 Td (compactifications of X and proximities on X.) Tj ET
+BT /F3 4.9 Tf 394.00 542.00 Td (  IsEmbedding e /\\ DenseRange e /\\ IsCompact \(univ : Set K\)) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (def EquivalentCompactifications {X : Type u} {K L : Type v}) Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td ([TopologicalSpace X]) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (    [TopologicalSpace K] [TopologicalSpace L] \(e : X -> K\) \(f : X -> L\) :) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (    Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (  exists h : K equivt L, h comp e = f) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td (structure Proximity \(X : Type u\) where) Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (  close : Set X -> Set X -> Prop) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td (  empty_left : forall A, not close empty A) Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (  intersects : forall A B, \(A inter B\).Nonempty -> close A B) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td (  symmetric : forall A B, close A B <-> close B A) Tj ET
+BT /F3 4.9 Tf 394.00 451.00 Td (  union_left : forall A B C, close \(A union B\) C <-> close A C \\/ close B C) Tj ET
+BT /F3 4.9 Tf 394.00 444.00 Td (  strong : forall A B, not close A B -> exists E : Set X, not close A E /\\) Tj ET
+BT /F3 4.9 Tf 394.00 437.00 Td (  not close E^c B) Tj ET
+BT /F3 4.9 Tf 394.00 430.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 423.00 Td (def IsAssignedProximity {X : Type u} {K : Type v} [TopologicalSpace X]) Tj ET
+BT /F3 4.9 Tf 394.00 416.00 Td (    [TopologicalSpace K] \(e : X -> K\) \(p : Proximity X\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 409.00 Td (  forall A B : Set X,) Tj ET
+BT /F3 4.9 Tf 394.00 402.00 Td (    p.close A B <-> \(closure \(e '' A\) inter closure \(e '' B\)\).Nonempty) Tj ET
+BT /F3 4.9 Tf 394.00 395.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 388.00 Td (theorem engelking_8_4_13_smirnov_proximity_compactification) Tj ET
+BT /F3 4.9 Tf 394.00 381.00 Td (    {X : Type u} [TopologicalSpace X] [T35Space X] :) Tj ET
+BT /F3 4.9 Tf 394.00 374.00 Td (    \(forall \(K : Type v\) \(tK : TopologicalSpace K\) \(e : X -> K\),) Tj ET
+BT /F3 4.9 Tf 394.00 367.00 Td (      @IsCompactification X K _ tK e ->) Tj ET
+BT /F3 4.9 Tf 394.00 360.00 Td (        exists p : Proximity X, @IsAssignedProximity X K _ tK e p\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 353.00 Td (    \(forall p : Proximity X, exists \(K : Type v\) \(_ : TopologicalSpace K\)) Tj ET
+BT /F3 4.9 Tf 394.00 346.00 Td (    \(e : X -> K\),) Tj ET
+BT /F3 4.9 Tf 394.00 339.00 Td (      IsCompactification e /\\ IsAssignedProximity e p\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 332.00 Td (    forall \(K L : Type v\) \(_ : TopologicalSpace K\) \(_ : TopologicalSpace L\)) Tj ET
+BT /F3 4.9 Tf 394.00 325.00 Td (      \(e : X -> K\) \(f : X -> L\) \(p : Proximity X\),) Tj ET
+BT /F3 4.9 Tf 394.00 318.00 Td (        IsCompactification e -> IsCompactification f ->) Tj ET
+BT /F3 4.9 Tf 394.00 311.00 Td (        IsAssignedProximity e p -> IsAssignedProximity f p ->) Tj ET
+BT /F3 4.9 Tf 394.00 304.00 Td (        EquivalentCompactifications e f := by) Tj ET
+BT /F3 4.9 Tf 394.00 297.00 Td (  sorry) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+12 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+13 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+xref
+0 14
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000139 00000 n 
+0000000288 00000 n 
+0000010296 00000 n 
+0000010445 00000 n 
+0000018261 00000 n 
+0000018410 00000 n 
+0000026966 00000 n 
+0000027116 00000 n 
+0000030945 00000 n 
+0000031016 00000 n 
+0000031092 00000 n 
+trailer
+<< /Size 14 /Root 1 0 R >>
+startxref
+31161
+%%EOF
