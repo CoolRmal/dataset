@@ -39,10 +39,9 @@ def HasWeakType {X : Type u} {Y : Type v} [MeasurableSpace X] [MeasurableSpace Y
 /-- Strong type `L^p(μ) → L^q(ν)` with a specified constant. -/
 def HasStrongType {X : Type u} {Y : Type v} [MeasurableSpace X] [MeasurableSpace Y]
     (μ : Measure X) (ν : Measure Y) (T : (X → ℂ) → Y → ℂ)
-    (p q : ℝ) (C : ℝ≥0∞) : Prop :=
-  ∀ f : X → ℂ, MemLp f (ENNReal.ofReal p) μ →
-    MemLp (T f) (ENNReal.ofReal q) ν ∧
-      eLpNorm (T f) (ENNReal.ofReal q) ν ≤ C * eLpNorm f (ENNReal.ofReal p) μ
+    (p q : ℝ≥0∞) (C : ℝ≥0∞) : Prop :=
+  ∀ f : X → ℂ, MemLp f p μ →
+    MemLp (T f) q ν ∧ eLpNorm (T f) q ν ≤ C * eLpNorm f p μ
 
 /-- The uncentered Hardy-Littlewood maximal function on Euclidean space. -/
 noncomputable def hardyLittlewoodMaximal (n : ℕ)
@@ -95,7 +94,7 @@ theorem grafakos_1_3_2_marcinkiewicz_interpolation
     (hA₀ : A₀ < ∞) (hA₁ : A₁ < ∞)
     (hT : IsSublinearOperator T) (h₀ : HasWeakType μ ν T p₀ A₀)
     (h₁ : HasWeakType μ ν T p₁ A₁) :
-    HasStrongType μ ν T p p
+    HasStrongType μ ν T (ENNReal.ofReal p) (ENNReal.ofReal p)
       (2 * ENNReal.rpow
         (ENNReal.ofReal (p / (p - p₀) + p / (p₁ - p))) (1 / p) *
           ENNReal.rpow A₀ ((p₀ / p) * ((p₁ - p) / (p₁ - p₀))) *
@@ -106,12 +105,12 @@ theorem grafakos_1_3_2_marcinkiewicz_interpolation
 theorem grafakos_1_3_4_riesz_thorin_interpolation
     {X : Type u} {Y : Type v} [MeasurableSpace X] [MeasurableSpace Y]
     (μ : Measure X) (ν : Measure Y) (T : (X → ℂ) →ₗ[ℂ] (Y → ℂ))
-    {p₀ p₁ q₀ q₁ p q θ : ℝ} {M₀ M₁ : ℝ≥0∞}
+    {p₀ p₁ q₀ q₁ p q : ℝ≥0∞} {θ : ℝ} {M₀ M₁ : ℝ≥0∞}
     (hθ : 0 < θ ∧ θ < 1)
     (hexponents : 1 ≤ p₀ ∧ 1 ≤ p₁ ∧ 1 ≤ q₀ ∧ 1 ≤ q₁)
     (hM₀ : M₀ < ∞) (hM₁ : M₁ < ∞)
-    (hp : 1 / p = (1 - θ) / p₀ + θ / p₁)
-    (hq : 1 / q = (1 - θ) / q₀ + θ / q₁)
+    (hp : p⁻¹ = ENNReal.ofReal (1 - θ) * p₀⁻¹ + ENNReal.ofReal θ * p₁⁻¹)
+    (hq : q⁻¹ = ENNReal.ofReal (1 - θ) * q₀⁻¹ + ENNReal.ofReal θ * q₁⁻¹)
     (h₀ : HasStrongType μ ν T p₀ q₀ M₀)
     (h₁ : HasStrongType μ ν T p₁ q₁ M₁) :
     HasStrongType μ ν T p q
@@ -188,9 +187,10 @@ theorem grafakos_4_1_1_torus_summability_uniform_boundedness
     ((∀ f, MemLp f (ENNReal.ofReal p) μ →
         Tendsto (fun R ↦ eLpNorm (S R f - A f) (ENNReal.ofReal p) μ) atTop (𝓝 0)) ↔
       ∃ C : ℝ≥0∞, C < ∞ ∧ ∀ R, 0 < R →
-        HasStrongType μ μ (S R) p p C) ∧
-    ∀ C : ℝ≥0∞, (∀ R, 0 < R → HasStrongType μ μ (S R) p p C) →
-      HasStrongType μ μ A p p C := by
+        HasStrongType μ μ (S R) (ENNReal.ofReal p) (ENNReal.ofReal p) C) ∧
+    ∀ C : ℝ≥0∞,
+      (∀ R, 0 < R → HasStrongType μ μ (S R) (ENNReal.ofReal p) (ENNReal.ofReal p) C) →
+        HasStrongType μ μ A (ENNReal.ofReal p) (ENNReal.ofReal p) C := by
   sorry
 
 /-- Grafakos 4.3.15, the Carleson-Hunt maximal estimate on the line. -/

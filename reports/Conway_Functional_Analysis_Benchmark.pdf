@@ -292,7 +292,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 11 0 R /F2 12 0 R /F3 13 0 R >> >> /Contents 8 0 R >>
 endobj
 8 0 obj
-<< /Length 8365 >>
+<< /Length 8462 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Conway Functional Analysis Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 3) Tj ET
@@ -396,22 +396,22 @@ BT /F1 5.8 Tf 24.00 95.00 Td (parameter unitary group, then there is a self-adjo
 BT /F1 5.8 Tf 24.00 88.00 Td (A such that U\(t\) = exp\(itA\).) Tj ET
 BT /F1 5.8 Tf 314.00 102.00 Td (Operator) Tj ET
 BT /F1 5.8 Tf 314.00 95.00 Td (theory) Tj ET
-BT /F3 4.9 Tf 394.00 102.00 Td (structure DenselyDefinedOperator \(H : Type*\) [NormedAddCommGroup H]) Tj ET
-BT /F3 4.9 Tf 394.00 95.00 Td (    [InnerProductSpace C H] where) Tj ET
-BT /F3 4.9 Tf 394.00 88.00 Td (  domain : Submodule C H) Tj ET
-BT /F3 4.9 Tf 394.00 81.00 Td (  op : domain ->l[C] H) Tj ET
-BT /F3 4.9 Tf 394.00 74.00 Td (  dense_domain : Dense \(domain : Set H\)) Tj ET
-BT /F3 4.9 Tf 394.00 67.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 60.00 Td (def IsSelfAdjointUnbounded {H : Type*} [NormedAddCommGroup H]) Tj ET
-BT /F3 4.9 Tf 394.00 53.00 Td (    [InnerProductSpace C H] \(A : DenselyDefinedOperator H\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 46.00 Td (  \(forall y : H, y in A.domain <->) Tj ET
+BT /F3 4.9 Tf 394.00 102.00 Td (structure ProjectionValuedMeasure \(H : Type*\) [NormedAddCommGroup H]) Tj ET
+BT /F3 4.9 Tf 394.00 95.00 Td (    [InnerProductSpace C H] [CompleteSpace H] where) Tj ET
+BT /F3 4.9 Tf 394.00 88.00 Td (  toFun : Set C -> H ->L[C] H) Tj ET
+BT /F3 4.9 Tf 394.00 81.00 Td (  empty : toFun empty = 0) Tj ET
+BT /F3 4.9 Tf 394.00 74.00 Td (  univ : toFun univ = ContinuousLinearMap.id C H) Tj ET
+BT /F3 4.9 Tf 394.00 67.00 Td (  projection : forall B : Set C, MeasurableSet B -> IsOrthogonalProjection) Tj ET
+BT /F3 4.9 Tf 394.00 60.00 Td (  \(toFun B\)) Tj ET
+BT /F3 4.9 Tf 394.00 53.00 Td (  nonmeasurable : forall B : Set C, not MeasurableSet B -> toFun B = 0) Tj ET
+BT /F3 4.9 Tf 394.00 46.00 Td (  orthogonal : forall B C : Set C, MeasurableSet B -> MeasurableSet C ->) Tj ET
 endstream
 endobj
 9 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 11 0 R /F2 12 0 R /F3 13 0 R >> >> /Contents 10 0 R >>
 endobj
 10 0 obj
-<< /Length 2736 >>
+<< /Length 5336 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Conway Functional Analysis Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 4) Tj ET
@@ -419,39 +419,70 @@ BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
 BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
 BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
 20.00 558.00 m 772.00 558.00 l S
-20.00 550.00 m 20.00 351.00 l S
-310.00 550.00 m 310.00 351.00 l S
-390.00 550.00 m 390.00 351.00 l S
-772.00 550.00 m 772.00 351.00 l S
+20.00 550.00 m 20.00 134.00 l S
+310.00 550.00 m 310.00 134.00 l S
+390.00 550.00 m 390.00 134.00 l S
+772.00 550.00 m 772.00 134.00 l S
 20.00 550.00 m 772.00 550.00 l S
-20.00 351.00 m 772.00 351.00 l S
-BT /F3 4.9 Tf 394.00 542.00 Td (    exists z : H, forall x : A.domain, inner C \(A.op x\) y = inner C \(x : H\)) Tj ET
-BT /F3 4.9 Tf 394.00 535.00 Td (    z\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 528.00 Td (  forall y : A.domain, forall z : H,) Tj ET
-BT /F3 4.9 Tf 394.00 521.00 Td (    \(forall x : A.domain, inner C \(A.op x\) y = inner C \(x : H\) z\) -> z =) Tj ET
-BT /F3 4.9 Tf 394.00 514.00 Td (    A.op y) Tj ET
-BT /F3 4.9 Tf 394.00 507.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 500.00 Td (def IsUnitaryOperator {H : Type*} [NormedAddCommGroup H]) Tj ET
-BT /F3 4.9 Tf 394.00 493.00 Td (    [InnerProductSpace C H] [CompleteSpace H] \(U : H ->L[C] H\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 486.00 Td (  U.adjoint.comp U = ContinuousLinearMap.id C H /\\) Tj ET
-BT /F3 4.9 Tf 394.00 479.00 Td (    U.comp U.adjoint = ContinuousLinearMap.id C H) Tj ET
-BT /F3 4.9 Tf 394.00 472.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 465.00 Td (def StronglyContinuousUnitaryGroup {H : Type*} [NormedAddCommGroup H]) Tj ET
-BT /F3 4.9 Tf 394.00 458.00 Td (    [InnerProductSpace C H] [CompleteSpace H] \(U : R -> H ->L[C] H\) : Prop) Tj ET
-BT /F3 4.9 Tf 394.00 451.00 Td (    :=) Tj ET
-BT /F3 4.9 Tf 394.00 444.00 Td (  U 0 = ContinuousLinearMap.id C H /\\) Tj ET
-BT /F3 4.9 Tf 394.00 437.00 Td (    \(forall s t : R, U \(s + t\) = \(U s\).comp \(U t\)\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 430.00 Td (    \(forall t : R, IsUnitaryOperator \(U t\)\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 423.00 Td (    forall x : H, Continuous fun t => U t x) Tj ET
-BT /F3 4.9 Tf 394.00 416.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 409.00 Td (theorem conway_X_5_6_stone_theorem) Tj ET
-BT /F3 4.9 Tf 394.00 402.00 Td (    {H : Type*} [NormedAddCommGroup H] [InnerProductSpace C H]) Tj ET
-BT /F3 4.9 Tf 394.00 395.00 Td (    [CompleteSpace H]) Tj ET
-BT /F3 4.9 Tf 394.00 388.00 Td (    \(U : R -> H ->L[C] H\) \(hU : StronglyContinuousUnitaryGroup U\) :) Tj ET
-BT /F3 4.9 Tf 394.00 381.00 Td (    exists! A : DenselyDefinedOperator H, IsSelfAdjointUnbounded A /\\) Tj ET
-BT /F3 4.9 Tf 394.00 374.00 Td (      forall x : A.domain, HasDerivAt \(fun t : R => U t x\) \(Complex.I  * ) Tj ET
-BT /F3 4.9 Tf 394.00 367.00 Td (      A.op x\) 0 := by) Tj ET
-BT /F3 4.9 Tf 394.00 360.00 Td (  sorry) Tj ET
+20.00 134.00 m 772.00 134.00 l S
+BT /F3 4.9 Tf 394.00 542.00 Td (  Disjoint B C ->) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (    \(toFun B\).comp \(toFun C\) = 0) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (  countablyAdditive : forall \(B : N -> Set C\), \(forall n, MeasurableSet \(B) Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (  n\)\) ->) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (    Pairwise \(fun m n => Disjoint \(B m\) \(B n\)\) -> forall x : H,) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (      Tendsto \(fun N => sum n in Finset.range N, toFun \(B n\) x\) atTop) Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (        \(nhds \(toFun \(union n, B n\) x\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td (structure DenselyDefinedOperator \(H : Type*\) [NormedAddCommGroup H]) Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (    [InnerProductSpace C H] where) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td (  domain : Submodule C H) Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (  op : domain ->l[C] H) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td (  dense_domain : Dense \(domain : Set H\)) Tj ET
+BT /F3 4.9 Tf 394.00 451.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 444.00 Td (def IsSelfAdjointUnbounded {H : Type*} [NormedAddCommGroup H]) Tj ET
+BT /F3 4.9 Tf 394.00 437.00 Td (    [InnerProductSpace C H] \(A : DenselyDefinedOperator H\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 430.00 Td (  \(forall y : H, y in A.domain <->) Tj ET
+BT /F3 4.9 Tf 394.00 423.00 Td (    exists z : H, forall x : A.domain, inner C \(A.op x\) y = inner C \(x : H\)) Tj ET
+BT /F3 4.9 Tf 394.00 416.00 Td (    z\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 409.00 Td (  forall y : A.domain, forall z : H,) Tj ET
+BT /F3 4.9 Tf 394.00 402.00 Td (    \(forall x : A.domain, inner C \(A.op x\) y = inner C \(x : H\) z\) -> z =) Tj ET
+BT /F3 4.9 Tf 394.00 395.00 Td (    A.op y) Tj ET
+BT /F3 4.9 Tf 394.00 388.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 381.00 Td (def IsUnitaryOperator {H : Type*} [NormedAddCommGroup H]) Tj ET
+BT /F3 4.9 Tf 394.00 374.00 Td (    [InnerProductSpace C H] [CompleteSpace H] \(U : H ->L[C] H\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 367.00 Td (  U.adjoint.comp U = ContinuousLinearMap.id C H /\\) Tj ET
+BT /F3 4.9 Tf 394.00 360.00 Td (    U.comp U.adjoint = ContinuousLinearMap.id C H) Tj ET
+BT /F3 4.9 Tf 394.00 353.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 346.00 Td (def StronglyContinuousUnitaryGroup {H : Type*} [NormedAddCommGroup H]) Tj ET
+BT /F3 4.9 Tf 394.00 339.00 Td (    [InnerProductSpace C H] [CompleteSpace H] \(U : R -> H ->L[C] H\) : Prop) Tj ET
+BT /F3 4.9 Tf 394.00 332.00 Td (    :=) Tj ET
+BT /F3 4.9 Tf 394.00 325.00 Td (  U 0 = ContinuousLinearMap.id C H /\\) Tj ET
+BT /F3 4.9 Tf 394.00 318.00 Td (    \(forall s t : R, U \(s + t\) = \(U s\).comp \(U t\)\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 311.00 Td (    \(forall t : R, IsUnitaryOperator \(U t\)\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 304.00 Td (    forall x : H, Continuous fun t => U t x) Tj ET
+BT /F3 4.9 Tf 394.00 297.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 290.00 Td (def IsSpectralExponential {H : Type*} [NormedAddCommGroup H]) Tj ET
+BT /F3 4.9 Tf 394.00 283.00 Td ([InnerProductSpace C H]) Tj ET
+BT /F3 4.9 Tf 394.00 276.00 Td (    [CompleteSpace H] \(A : DenselyDefinedOperator H\) \(U : R -> H ->L[C] H\)) Tj ET
+BT /F3 4.9 Tf 394.00 269.00 Td (    : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 262.00 Td (  exists \(E : ProjectionValuedMeasure H\) \(scalarMeasure : H -> H ->) Tj ET
+BT /F3 4.9 Tf 394.00 255.00 Td (  ComplexMeasure C\),) Tj ET
+BT /F3 4.9 Tf 394.00 248.00 Td (    E.toFun {z : C | z.im != 0} = 0 /\\) Tj ET
+BT /F3 4.9 Tf 394.00 241.00 Td (      \(forall x y : H, forall B : Set C, MeasurableSet B ->) Tj ET
+BT /F3 4.9 Tf 394.00 234.00 Td (        scalarMeasure x y B = inner C \(E.toFun B x\) y\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 227.00 Td (      \(forall x : A.domain, forall y : H, inner C \(A.op x\) y =) Tj ET
+BT /F3 4.9 Tf 394.00 220.00 Td (        integralv z, z d[ContinuousLinearMap.mul R C; scalarMeasure x y]\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 213.00 Td (      forall t : R, forall x y : H, inner C \(U t x\) y =) Tj ET
+BT /F3 4.9 Tf 394.00 206.00 Td (        integralv z, Complex.exp \(Complex.I * t * z\)) Tj ET
+BT /F3 4.9 Tf 394.00 199.00 Td (          d[ContinuousLinearMap.mul R C; scalarMeasure x y]) Tj ET
+BT /F3 4.9 Tf 394.00 192.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 185.00 Td (theorem conway_X_5_6_stone_theorem) Tj ET
+BT /F3 4.9 Tf 394.00 178.00 Td (    {H : Type*} [NormedAddCommGroup H] [InnerProductSpace C H]) Tj ET
+BT /F3 4.9 Tf 394.00 171.00 Td (    [CompleteSpace H]) Tj ET
+BT /F3 4.9 Tf 394.00 164.00 Td (    \(U : R -> H ->L[C] H\) \(hU : StronglyContinuousUnitaryGroup U\) :) Tj ET
+BT /F3 4.9 Tf 394.00 157.00 Td (    exists! A : DenselyDefinedOperator H,) Tj ET
+BT /F3 4.9 Tf 394.00 150.00 Td (      IsSelfAdjointUnbounded A /\\ IsSpectralExponential A U := by) Tj ET
+BT /F3 4.9 Tf 394.00 143.00 Td (  sorry) Tj ET
 endstream
 endobj
 11 0 obj
@@ -474,13 +505,13 @@ xref
 0000011310 00000 n 
 0000020508 00000 n 
 0000020657 00000 n 
-0000029074 00000 n 
-0000029224 00000 n 
-0000032013 00000 n 
-0000032084 00000 n 
-0000032160 00000 n 
+0000029171 00000 n 
+0000029321 00000 n 
+0000034710 00000 n 
+0000034781 00000 n 
+0000034857 00000 n 
 trailer
 << /Size 14 /Root 1 0 R >>
 startxref
-32229
+34926
 %%EOF

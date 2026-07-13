@@ -10,7 +10,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 11 0 R /F2 12 0 R /F3 13 0 R >> >> /Contents 4 0 R >>
 endobj
 4 0 obj
-<< /Length 9995 >>
+<< /Length 10112 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Grafakos Classical Fourier Analysis Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 1) Tj ET
@@ -18,12 +18,12 @@ BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
 BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
 BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
 20.00 558.00 m 772.00 558.00 l S
-20.00 550.00 m 20.00 267.00 l S
-310.00 550.00 m 310.00 267.00 l S
-390.00 550.00 m 390.00 267.00 l S
-772.00 550.00 m 772.00 267.00 l S
+20.00 550.00 m 20.00 281.00 l S
+310.00 550.00 m 310.00 281.00 l S
+390.00 550.00 m 390.00 281.00 l S
+772.00 550.00 m 772.00 281.00 l S
 20.00 550.00 m 772.00 550.00 l S
-20.00 267.00 m 772.00 267.00 l S
+20.00 281.00 m 772.00 281.00 l S
 BT /F1 5.8 Tf 24.00 542.00 Td (Theorem 1.3.2. Let \(X, mu\) be a sigma-finite measure space,) Tj ET
 BT /F1 5.8 Tf 24.00 535.00 Td (let \(Y, nu\) be another measure space, and let 0 < p0 < p1 <=) Tj ET
 BT /F1 5.8 Tf 24.00 528.00 Td (inf. Let T be a sublinear operator defined on L^{p0}\(X\) +) Tj ET
@@ -57,97 +57,97 @@ BT /F3 4.9 Tf 394.00 437.00 Td () Tj ET
 BT /F3 4.9 Tf 394.00 430.00 Td (def HasStrongType {X : Type u} {Y : Type v} [MeasurableSpace X]) Tj ET
 BT /F3 4.9 Tf 394.00 423.00 Td ([MeasurableSpace Y]) Tj ET
 BT /F3 4.9 Tf 394.00 416.00 Td (    \(mu : Measure X\) \(nu : Measure Y\) \(T : \(X -> C\) -> Y -> C\)) Tj ET
-BT /F3 4.9 Tf 394.00 409.00 Td (    \(p q : R\) \(C : R>=0inf\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 402.00 Td (  forall f : X -> C, MemLp f \(ENNReal.ofReal p\) mu ->) Tj ET
-BT /F3 4.9 Tf 394.00 395.00 Td (    MemLp \(T f\) \(ENNReal.ofReal q\) nu /\\) Tj ET
-BT /F3 4.9 Tf 394.00 388.00 Td (      eLpNorm \(T f\) \(ENNReal.ofReal q\) nu <= C * eLpNorm f \(ENNReal.ofReal) Tj ET
-BT /F3 4.9 Tf 394.00 381.00 Td (      p\) mu) Tj ET
-BT /F3 4.9 Tf 394.00 374.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 367.00 Td (theorem grafakos_1_3_2_marcinkiewicz_interpolation) Tj ET
-BT /F3 4.9 Tf 394.00 360.00 Td (    {X : Type u} {Y : Type v} [MeasurableSpace X] [MeasurableSpace Y]) Tj ET
-BT /F3 4.9 Tf 394.00 353.00 Td (    \(mu : Measure X\) \(nu : Measure Y\) [SigmaFinite mu]) Tj ET
-BT /F3 4.9 Tf 394.00 346.00 Td (    \(T : \(X -> C\) -> Y -> C\) {p0 p1 p : R} {A0 A1 : R>=0inf}) Tj ET
-BT /F3 4.9 Tf 394.00 339.00 Td (    \(hp : 0 < p0 /\\ p0 < p /\\ p < p1\)) Tj ET
-BT /F3 4.9 Tf 394.00 332.00 Td (    \(hA0 : A0 < inf\) \(hA1 : A1 < inf\)) Tj ET
-BT /F3 4.9 Tf 394.00 325.00 Td (    \(hT : IsSublinearOperator T\) \(h0 : HasWeakType mu nu T p0 A0\)) Tj ET
-BT /F3 4.9 Tf 394.00 318.00 Td (    \(h1 : HasWeakType mu nu T p1 A1\) :) Tj ET
-BT /F3 4.9 Tf 394.00 311.00 Td (    HasStrongType mu nu T p p) Tj ET
-BT /F3 4.9 Tf 394.00 304.00 Td (      \(2 * ENNReal.rpow) Tj ET
-BT /F3 4.9 Tf 394.00 297.00 Td (        \(ENNReal.ofReal \(p / \(p - p0\) + p / \(p1 - p\)\)\) \(1 / p\) *) Tj ET
-BT /F3 4.9 Tf 394.00 290.00 Td (          ENNReal.rpow A0 \(\(p0 / p\) * \(\(p1 - p\) / \(p1 - p0\)\)\) *) Tj ET
-BT /F3 4.9 Tf 394.00 283.00 Td (            ENNReal.rpow A1 \(\(p1 / p\) * \(\(p - p0\) / \(p1 - p0\)\)\)\) := by) Tj ET
-BT /F3 4.9 Tf 394.00 276.00 Td (  sorry) Tj ET
-20.00 267.00 m 20.00 96.00 l S
-310.00 267.00 m 310.00 96.00 l S
-390.00 267.00 m 390.00 96.00 l S
-772.00 267.00 m 772.00 96.00 l S
-20.00 267.00 m 772.00 267.00 l S
-20.00 96.00 m 772.00 96.00 l S
-BT /F1 5.8 Tf 24.00 259.00 Td (Theorem 1.3.4. Let \(X, mu\) and \(Y, nu\) be two sigma-finite) Tj ET
-BT /F1 5.8 Tf 24.00 252.00 Td (measure spaces. Let T be a linear operator defined on the set) Tj ET
-BT /F1 5.8 Tf 24.00 245.00 Td (of all finitely simple functions on X and taking values in the) Tj ET
-BT /F1 5.8 Tf 24.00 238.00 Td (set of measurable functions on Y. Let 1 <= p0, p1, q0, q1 <=) Tj ET
-BT /F1 5.8 Tf 24.00 231.00 Td (inf and assume that ||T\(f\)||_{L^{q0}} <= M0||f||_{L^{p0}} and) Tj ET
-BT /F1 5.8 Tf 24.00 224.00 Td (||T\(f\)||_{L^{q1}} <= M1||f||_{L^{p1}} for all finitely simple) Tj ET
-BT /F1 5.8 Tf 24.00 217.00 Td (functions f on X. Then for all 0 < theta < 1 we have) Tj ET
-BT /F1 5.8 Tf 24.00 210.00 Td (||T\(f\)||_{L^q} <= M0^{1-theta}M1^theta||f||_{L^p} for all) Tj ET
-BT /F1 5.8 Tf 24.00 203.00 Td (finitely simple functions f on X, where 1/p = \(1-theta\)/p0 +) Tj ET
-BT /F1 5.8 Tf 24.00 196.00 Td (theta/p1 and 1/q = \(1-theta\)/q0 + theta/q1. Consequently, when) Tj ET
-BT /F1 5.8 Tf 24.00 189.00 Td (p < inf, by density, T has a unique bounded extension from) Tj ET
-BT /F1 5.8 Tf 24.00 182.00 Td (Lp\(X, mu\) to L^q\(Y, nu\) when p and q are as above.) Tj ET
-BT /F1 5.8 Tf 314.00 259.00 Td (Fourier) Tj ET
-BT /F1 5.8 Tf 314.00 252.00 Td (analysis) Tj ET
-BT /F3 4.9 Tf 394.00 259.00 Td (def HasStrongType {X : Type u} {Y : Type v} [MeasurableSpace X]) Tj ET
-BT /F3 4.9 Tf 394.00 252.00 Td ([MeasurableSpace Y]) Tj ET
-BT /F3 4.9 Tf 394.00 245.00 Td (    \(mu : Measure X\) \(nu : Measure Y\) \(T : \(X -> C\) -> Y -> C\)) Tj ET
-BT /F3 4.9 Tf 394.00 238.00 Td (    \(p q : R\) \(C : R>=0inf\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 231.00 Td (  forall f : X -> C, MemLp f \(ENNReal.ofReal p\) mu ->) Tj ET
-BT /F3 4.9 Tf 394.00 224.00 Td (    MemLp \(T f\) \(ENNReal.ofReal q\) nu /\\) Tj ET
-BT /F3 4.9 Tf 394.00 217.00 Td (      eLpNorm \(T f\) \(ENNReal.ofReal q\) nu <= C * eLpNorm f \(ENNReal.ofReal) Tj ET
-BT /F3 4.9 Tf 394.00 210.00 Td (      p\) mu) Tj ET
-BT /F3 4.9 Tf 394.00 203.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 196.00 Td (theorem grafakos_1_3_4_riesz_thorin_interpolation) Tj ET
-BT /F3 4.9 Tf 394.00 189.00 Td (    {X : Type u} {Y : Type v} [MeasurableSpace X] [MeasurableSpace Y]) Tj ET
-BT /F3 4.9 Tf 394.00 182.00 Td (    \(mu : Measure X\) \(nu : Measure Y\) \(T : \(X -> C\) ->l[C] \(Y -> C\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 175.00 Td (    {p0 p1 q0 q1 p q theta : R} {M0 M1 : R>=0inf}) Tj ET
-BT /F3 4.9 Tf 394.00 168.00 Td (    \(htheta : 0 < theta /\\ theta < 1\)) Tj ET
-BT /F3 4.9 Tf 394.00 161.00 Td (    \(hexponents : 1 <= p0 /\\ 1 <= p1 /\\ 1 <= q0 /\\ 1 <= q1\)) Tj ET
-BT /F3 4.9 Tf 394.00 154.00 Td (    \(hM0 : M0 < inf\) \(hM1 : M1 < inf\)) Tj ET
-BT /F3 4.9 Tf 394.00 147.00 Td (    \(hp : 1 / p = \(1 - theta\) / p0 + theta / p1\)) Tj ET
-BT /F3 4.9 Tf 394.00 140.00 Td (    \(hq : 1 / q = \(1 - theta\) / q0 + theta / q1\)) Tj ET
-BT /F3 4.9 Tf 394.00 133.00 Td (    \(h0 : HasStrongType mu nu T p0 q0 M0\)) Tj ET
-BT /F3 4.9 Tf 394.00 126.00 Td (    \(h1 : HasStrongType mu nu T p1 q1 M1\) :) Tj ET
-BT /F3 4.9 Tf 394.00 119.00 Td (    HasStrongType mu nu T p q) Tj ET
-BT /F3 4.9 Tf 394.00 112.00 Td (      \(ENNReal.rpow M0 \(1 - theta\) * ENNReal.rpow M1 theta\) := by) Tj ET
-BT /F3 4.9 Tf 394.00 105.00 Td (  sorry) Tj ET
-20.00 96.00 m 20.00 37.00 l S
-310.00 96.00 m 310.00 37.00 l S
-390.00 96.00 m 390.00 37.00 l S
-772.00 96.00 m 772.00 37.00 l S
-20.00 96.00 m 772.00 96.00 l S
+BT /F3 4.9 Tf 394.00 409.00 Td (    \(p q : R>=0inf\) \(C : R>=0inf\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 402.00 Td (  forall f : X -> C, MemLp f p mu ->) Tj ET
+BT /F3 4.9 Tf 394.00 395.00 Td (    MemLp \(T f\) q nu /\\ eLpNorm \(T f\) q nu <= C * eLpNorm f p mu) Tj ET
+BT /F3 4.9 Tf 394.00 388.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 381.00 Td (theorem grafakos_1_3_2_marcinkiewicz_interpolation) Tj ET
+BT /F3 4.9 Tf 394.00 374.00 Td (    {X : Type u} {Y : Type v} [MeasurableSpace X] [MeasurableSpace Y]) Tj ET
+BT /F3 4.9 Tf 394.00 367.00 Td (    \(mu : Measure X\) \(nu : Measure Y\) [SigmaFinite mu]) Tj ET
+BT /F3 4.9 Tf 394.00 360.00 Td (    \(T : \(X -> C\) -> Y -> C\) {p0 p1 p : R} {A0 A1 : R>=0inf}) Tj ET
+BT /F3 4.9 Tf 394.00 353.00 Td (    \(hp : 0 < p0 /\\ p0 < p /\\ p < p1\)) Tj ET
+BT /F3 4.9 Tf 394.00 346.00 Td (    \(hA0 : A0 < inf\) \(hA1 : A1 < inf\)) Tj ET
+BT /F3 4.9 Tf 394.00 339.00 Td (    \(hT : IsSublinearOperator T\) \(h0 : HasWeakType mu nu T p0 A0\)) Tj ET
+BT /F3 4.9 Tf 394.00 332.00 Td (    \(h1 : HasWeakType mu nu T p1 A1\) :) Tj ET
+BT /F3 4.9 Tf 394.00 325.00 Td (    HasStrongType mu nu T \(ENNReal.ofReal p\) \(ENNReal.ofReal p\)) Tj ET
+BT /F3 4.9 Tf 394.00 318.00 Td (      \(2 * ENNReal.rpow) Tj ET
+BT /F3 4.9 Tf 394.00 311.00 Td (        \(ENNReal.ofReal \(p / \(p - p0\) + p / \(p1 - p\)\)\) \(1 / p\) *) Tj ET
+BT /F3 4.9 Tf 394.00 304.00 Td (          ENNReal.rpow A0 \(\(p0 / p\) * \(\(p1 - p\) / \(p1 - p0\)\)\) *) Tj ET
+BT /F3 4.9 Tf 394.00 297.00 Td (            ENNReal.rpow A1 \(\(p1 / p\) * \(\(p - p0\) / \(p1 - p0\)\)\)\) := by) Tj ET
+BT /F3 4.9 Tf 394.00 290.00 Td (  sorry) Tj ET
+20.00 281.00 m 20.00 110.00 l S
+310.00 281.00 m 310.00 110.00 l S
+390.00 281.00 m 390.00 110.00 l S
+772.00 281.00 m 772.00 110.00 l S
+20.00 281.00 m 772.00 281.00 l S
+20.00 110.00 m 772.00 110.00 l S
+BT /F1 5.8 Tf 24.00 273.00 Td (Theorem 1.3.4. Let \(X, mu\) and \(Y, nu\) be two sigma-finite) Tj ET
+BT /F1 5.8 Tf 24.00 266.00 Td (measure spaces. Let T be a linear operator defined on the set) Tj ET
+BT /F1 5.8 Tf 24.00 259.00 Td (of all finitely simple functions on X and taking values in the) Tj ET
+BT /F1 5.8 Tf 24.00 252.00 Td (set of measurable functions on Y. Let 1 <= p0, p1, q0, q1 <=) Tj ET
+BT /F1 5.8 Tf 24.00 245.00 Td (inf and assume that ||T\(f\)||_{L^{q0}} <= M0||f||_{L^{p0}} and) Tj ET
+BT /F1 5.8 Tf 24.00 238.00 Td (||T\(f\)||_{L^{q1}} <= M1||f||_{L^{p1}} for all finitely simple) Tj ET
+BT /F1 5.8 Tf 24.00 231.00 Td (functions f on X. Then for all 0 < theta < 1 we have) Tj ET
+BT /F1 5.8 Tf 24.00 224.00 Td (||T\(f\)||_{L^q} <= M0^{1-theta}M1^theta||f||_{L^p} for all) Tj ET
+BT /F1 5.8 Tf 24.00 217.00 Td (finitely simple functions f on X, where 1/p = \(1-theta\)/p0 +) Tj ET
+BT /F1 5.8 Tf 24.00 210.00 Td (theta/p1 and 1/q = \(1-theta\)/q0 + theta/q1. Consequently, when) Tj ET
+BT /F1 5.8 Tf 24.00 203.00 Td (p < inf, by density, T has a unique bounded extension from) Tj ET
+BT /F1 5.8 Tf 24.00 196.00 Td (Lp\(X, mu\) to L^q\(Y, nu\) when p and q are as above.) Tj ET
+BT /F1 5.8 Tf 314.00 273.00 Td (Fourier) Tj ET
+BT /F1 5.8 Tf 314.00 266.00 Td (analysis) Tj ET
+BT /F3 4.9 Tf 394.00 273.00 Td (def HasStrongType {X : Type u} {Y : Type v} [MeasurableSpace X]) Tj ET
+BT /F3 4.9 Tf 394.00 266.00 Td ([MeasurableSpace Y]) Tj ET
+BT /F3 4.9 Tf 394.00 259.00 Td (    \(mu : Measure X\) \(nu : Measure Y\) \(T : \(X -> C\) -> Y -> C\)) Tj ET
+BT /F3 4.9 Tf 394.00 252.00 Td (    \(p q : R>=0inf\) \(C : R>=0inf\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 245.00 Td (  forall f : X -> C, MemLp f p mu ->) Tj ET
+BT /F3 4.9 Tf 394.00 238.00 Td (    MemLp \(T f\) q nu /\\ eLpNorm \(T f\) q nu <= C * eLpNorm f p mu) Tj ET
+BT /F3 4.9 Tf 394.00 231.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 224.00 Td (theorem grafakos_1_3_4_riesz_thorin_interpolation) Tj ET
+BT /F3 4.9 Tf 394.00 217.00 Td (    {X : Type u} {Y : Type v} [MeasurableSpace X] [MeasurableSpace Y]) Tj ET
+BT /F3 4.9 Tf 394.00 210.00 Td (    \(mu : Measure X\) \(nu : Measure Y\) \(T : \(X -> C\) ->l[C] \(Y -> C\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 203.00 Td (    {p0 p1 q0 q1 p q : R>=0inf} {theta : R} {M0 M1 : R>=0inf}) Tj ET
+BT /F3 4.9 Tf 394.00 196.00 Td (    \(htheta : 0 < theta /\\ theta < 1\)) Tj ET
+BT /F3 4.9 Tf 394.00 189.00 Td (    \(hexponents : 1 <= p0 /\\ 1 <= p1 /\\ 1 <= q0 /\\ 1 <= q1\)) Tj ET
+BT /F3 4.9 Tf 394.00 182.00 Td (    \(hM0 : M0 < inf\) \(hM1 : M1 < inf\)) Tj ET
+BT /F3 4.9 Tf 394.00 175.00 Td (    \(hp : p^-1 = ENNReal.ofReal \(1 - theta\) * p0^-1 + ENNReal.ofReal theta) Tj ET
+BT /F3 4.9 Tf 394.00 168.00 Td (    * p1^-1\)) Tj ET
+BT /F3 4.9 Tf 394.00 161.00 Td (    \(hq : q^-1 = ENNReal.ofReal \(1 - theta\) * q0^-1 + ENNReal.ofReal theta) Tj ET
+BT /F3 4.9 Tf 394.00 154.00 Td (    * q1^-1\)) Tj ET
+BT /F3 4.9 Tf 394.00 147.00 Td (    \(h0 : HasStrongType mu nu T p0 q0 M0\)) Tj ET
+BT /F3 4.9 Tf 394.00 140.00 Td (    \(h1 : HasStrongType mu nu T p1 q1 M1\) :) Tj ET
+BT /F3 4.9 Tf 394.00 133.00 Td (    HasStrongType mu nu T p q) Tj ET
+BT /F3 4.9 Tf 394.00 126.00 Td (      \(ENNReal.rpow M0 \(1 - theta\) * ENNReal.rpow M1 theta\) := by) Tj ET
+BT /F3 4.9 Tf 394.00 119.00 Td (  sorry) Tj ET
+20.00 110.00 m 20.00 37.00 l S
+310.00 110.00 m 310.00 37.00 l S
+390.00 110.00 m 390.00 37.00 l S
+772.00 110.00 m 772.00 37.00 l S
+20.00 110.00 m 772.00 110.00 l S
 20.00 37.00 m 772.00 37.00 l S
-BT /F1 5.8 Tf 24.00 88.00 Td (Theorem 2.1.6. The uncentered and centered Hardy-Littlewood) Tj ET
-BT /F1 5.8 Tf 24.00 81.00 Td (maximal operators M and M^c map L1\(Rn\) to L^{1,inf}\(Rn\) with) Tj ET
-BT /F1 5.8 Tf 24.00 74.00 Td (constant at most 3n and also Lp\(Rn\) to Lp\(Rn\) for 1 < p < inf) Tj ET
-BT /F1 5.8 Tf 24.00 67.00 Td (with constant at most 3^{n/p}p\(p-1\)^{-1}. For any f in L1\(Rn\)) Tj ET
-BT /F1 5.8 Tf 24.00 60.00 Td (we also have |{M\(f\)>alpha}| <=) Tj ET
-BT /F1 5.8 Tf 24.00 53.00 Td (\(3n/alpha\)integral_{M\(f\)>alpha}|f\(y\)|dy.) Tj ET
-BT /F1 5.8 Tf 314.00 88.00 Td (Fourier) Tj ET
-BT /F1 5.8 Tf 314.00 81.00 Td (analysis) Tj ET
-BT /F3 4.9 Tf 394.00 88.00 Td (noncomputable def hardyLittlewoodMaximal \(n : N\)) Tj ET
-BT /F3 4.9 Tf 394.00 81.00 Td (    \(f : EuclideanSpace R \(Fin n\) -> C\) \(x : EuclideanSpace R \(Fin n\)\) :) Tj ET
-BT /F3 4.9 Tf 394.00 74.00 Td (    R>=0inf :=) Tj ET
-BT /F3 4.9 Tf 394.00 67.00 Td (   y : EuclideanSpace R \(Fin n\),  r : {r : R // 0 < r},) Tj ET
-BT /F3 4.9 Tf 394.00 60.00 Td (     \(_ : x in ball y r\),) Tj ET
-BT /F3 4.9 Tf 394.00 53.00 Td (      \(integral^- z in ball y r, ||f z||e\) / volume \(ball y r\)) Tj ET
-BT /F3 4.9 Tf 394.00 46.00 Td () Tj ET
+BT /F1 5.8 Tf 24.00 102.00 Td (Theorem 2.1.6. The uncentered and centered Hardy-Littlewood) Tj ET
+BT /F1 5.8 Tf 24.00 95.00 Td (maximal operators M and M^c map L1\(Rn\) to L^{1,inf}\(Rn\) with) Tj ET
+BT /F1 5.8 Tf 24.00 88.00 Td (constant at most 3n and also Lp\(Rn\) to Lp\(Rn\) for 1 < p < inf) Tj ET
+BT /F1 5.8 Tf 24.00 81.00 Td (with constant at most 3^{n/p}p\(p-1\)^{-1}. For any f in L1\(Rn\)) Tj ET
+BT /F1 5.8 Tf 24.00 74.00 Td (we also have |{M\(f\)>alpha}| <=) Tj ET
+BT /F1 5.8 Tf 24.00 67.00 Td (\(3n/alpha\)integral_{M\(f\)>alpha}|f\(y\)|dy.) Tj ET
+BT /F1 5.8 Tf 314.00 102.00 Td (Fourier) Tj ET
+BT /F1 5.8 Tf 314.00 95.00 Td (analysis) Tj ET
+BT /F3 4.9 Tf 394.00 102.00 Td (noncomputable def hardyLittlewoodMaximal \(n : N\)) Tj ET
+BT /F3 4.9 Tf 394.00 95.00 Td (    \(f : EuclideanSpace R \(Fin n\) -> C\) \(x : EuclideanSpace R \(Fin n\)\) :) Tj ET
+BT /F3 4.9 Tf 394.00 88.00 Td (    R>=0inf :=) Tj ET
+BT /F3 4.9 Tf 394.00 81.00 Td (   y : EuclideanSpace R \(Fin n\),  r : {r : R // 0 < r},) Tj ET
+BT /F3 4.9 Tf 394.00 74.00 Td (     \(_ : x in ball y r\),) Tj ET
+BT /F3 4.9 Tf 394.00 67.00 Td (      \(integral^- z in ball y r, ||f z||e\) / volume \(ball y r\)) Tj ET
+BT /F3 4.9 Tf 394.00 60.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 53.00 Td (noncomputable def hardyLittlewoodCenteredMaximal \(n : N\)) Tj ET
+BT /F3 4.9 Tf 394.00 46.00 Td (    \(f : EuclideanSpace R \(Fin n\) -> C\) \(x : EuclideanSpace R \(Fin n\)\) :) Tj ET
 endstream
 endobj
 5 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 11 0 R /F2 12 0 R /F3 13 0 R >> >> /Contents 6 0 R >>
 endobj
 6 0 obj
-<< /Length 10073 >>
+<< /Length 10195 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Grafakos Classical Fourier Analysis Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 2) Tj ET
@@ -155,135 +155,137 @@ BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
 BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
 BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
 20.00 558.00 m 772.00 558.00 l S
-20.00 550.00 m 20.00 372.00 l S
-310.00 550.00 m 310.00 372.00 l S
-390.00 550.00 m 390.00 372.00 l S
-772.00 550.00 m 772.00 372.00 l S
+20.00 550.00 m 20.00 386.00 l S
+310.00 550.00 m 310.00 386.00 l S
+390.00 550.00 m 390.00 386.00 l S
+772.00 550.00 m 772.00 386.00 l S
 20.00 550.00 m 772.00 550.00 l S
-20.00 372.00 m 772.00 372.00 l S
-BT /F3 4.9 Tf 394.00 542.00 Td (noncomputable def hardyLittlewoodCenteredMaximal \(n : N\)) Tj ET
-BT /F3 4.9 Tf 394.00 535.00 Td (    \(f : EuclideanSpace R \(Fin n\) -> C\) \(x : EuclideanSpace R \(Fin n\)\) :) Tj ET
-BT /F3 4.9 Tf 394.00 528.00 Td (    R>=0inf :=) Tj ET
-BT /F3 4.9 Tf 394.00 521.00 Td (   r : {r : R // 0 < r},) Tj ET
-BT /F3 4.9 Tf 394.00 514.00 Td (    \(integral^- z in ball x r, ||f z||e\) / volume \(ball x r\)) Tj ET
-BT /F3 4.9 Tf 394.00 507.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 500.00 Td (theorem grafakos_2_1_6_hardy_littlewood_maximal {n : N} :) Tj ET
-BT /F3 4.9 Tf 394.00 493.00 Td (    let operators := \({hardyLittlewoodMaximal n,) Tj ET
-BT /F3 4.9 Tf 394.00 486.00 Td (      hardyLittlewoodCenteredMaximal n} : Set \(\(EuclideanSpace R \(Fin n\) ->) Tj ET
-BT /F3 4.9 Tf 394.00 479.00 Td (      C\) ->) Tj ET
-BT /F3 4.9 Tf 394.00 472.00 Td (        EuclideanSpace R \(Fin n\) -> R>=0inf\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 465.00 Td (    \(forall M in operators, forall f : EuclideanSpace R \(Fin n\) -> C, MemLp) Tj ET
-BT /F3 4.9 Tf 394.00 458.00 Td (    f 1 volume ->) Tj ET
-BT /F3 4.9 Tf 394.00 451.00 Td (      forall alpha : R, 0 < alpha -> volume {x | ENNReal.ofReal alpha < M f) Tj ET
-BT /F3 4.9 Tf 394.00 444.00 Td (      x} <=) Tj ET
-BT /F3 4.9 Tf 394.00 437.00 Td (        ENNReal.ofReal \(3 ^ n / alpha\) *) Tj ET
-BT /F3 4.9 Tf 394.00 430.00 Td (          integral^- x in {x | ENNReal.ofReal alpha < M f x}, ||f x||e\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 423.00 Td (    forall M in operators, forall p : R, 1 < p -> forall f : EuclideanSpace) Tj ET
-BT /F3 4.9 Tf 394.00 416.00 Td (    R \(Fin n\) -> C,) Tj ET
-BT /F3 4.9 Tf 394.00 409.00 Td (      MemLp f \(ENNReal.ofReal p\) volume ->) Tj ET
-BT /F3 4.9 Tf 394.00 402.00 Td (        ENNReal.rpow \(integral^- x, ENNReal.rpow \(M f x\) p\) \(1 / p\) <=) Tj ET
-BT /F3 4.9 Tf 394.00 395.00 Td (          ENNReal.ofReal \(3 ^ \(\(n : R\) / p\) * p / \(p - 1\)\) *) Tj ET
-BT /F3 4.9 Tf 394.00 388.00 Td (            eLpNorm f \(ENNReal.ofReal p\) volume := by) Tj ET
-BT /F3 4.9 Tf 394.00 381.00 Td (  sorry) Tj ET
-20.00 372.00 m 20.00 299.00 l S
-310.00 372.00 m 310.00 299.00 l S
-390.00 372.00 m 390.00 299.00 l S
-772.00 372.00 m 772.00 299.00 l S
-20.00 372.00 m 772.00 372.00 l S
-20.00 299.00 m 772.00 299.00 l S
-BT /F1 5.8 Tf 24.00 364.00 Td (Theorem 2.2.14. Given f, g, and h in S\(Rn\), we have \(1\)) Tj ET
-BT /F1 5.8 Tf 24.00 357.00 Td (integralRn f\(x\)g\(x\) dx = integralRn f\(x\)g\(x\) dx; \(2\) \(Fourier) Tj ET
-BT /F1 5.8 Tf 24.00 350.00 Td (Inversion\) \(f\)\\/ = f = \(f\\/\); \(3\) \(Parseval's relation\)) Tj ET
-BT /F1 5.8 Tf 24.00 343.00 Td (integralRn f\(x\)h\(x\) dx = integralRn f\(xi\)h\(xi\) dxi; \(4\)) Tj ET
-BT /F1 5.8 Tf 24.00 336.00 Td (\(Plancherel's identity\) ||f||_{L2} = ||f||_{L2} =) Tj ET
-BT /F1 5.8 Tf 24.00 329.00 Td (||f\\/||_{L2}; \(5\) integralRn f\(x\)h\(x\) dx = integralRn) Tj ET
-BT /F1 5.8 Tf 24.00 322.00 Td (f\(x\)h\\/\(x\) dx.) Tj ET
-BT /F1 5.8 Tf 314.00 364.00 Td (Fourier) Tj ET
-BT /F1 5.8 Tf 314.00 357.00 Td (analysis) Tj ET
-BT /F3 4.9 Tf 394.00 364.00 Td (theorem grafakos_2_2_14_fourier_identities_on_schwartz) Tj ET
-BT /F3 4.9 Tf 394.00 357.00 Td (    {n : N} \(f g h : S\(EuclideanSpace R \(Fin n\), C\)\) :) Tj ET
-BT /F3 4.9 Tf 394.00 350.00 Td (    \(\(integral x, f x * F g x\) = integral x, F f x * g x\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 343.00 Td (      F^- \(F f\) = f /\\ F \(F^- f\) = f /\\) Tj ET
-BT /F3 4.9 Tf 394.00 336.00 Td (      \(integral x, star \(F f x\) * F g x\) = integral x, star \(f x\) * g x /\\) Tj ET
-BT /F3 4.9 Tf 394.00 329.00 Td (      eLpNorm \(fun x => F f x\) 2 volume = eLpNorm f 2 volume /\\) Tj ET
-BT /F3 4.9 Tf 394.00 322.00 Td (      eLpNorm \(fun x => F^- f x\) 2 volume = eLpNorm f 2 volume /\\) Tj ET
-BT /F3 4.9 Tf 394.00 315.00 Td (      \(integral x, F f x * h x\) = integral x, f x * F h x := by) Tj ET
-BT /F3 4.9 Tf 394.00 308.00 Td (  sorry) Tj ET
-20.00 299.00 m 20.00 226.00 l S
-310.00 299.00 m 310.00 226.00 l S
-390.00 299.00 m 390.00 226.00 l S
-772.00 299.00 m 772.00 226.00 l S
-20.00 299.00 m 772.00 299.00 l S
-20.00 226.00 m 772.00 226.00 l S
-BT /F1 5.8 Tf 24.00 291.00 Td (Proposition 2.2.16 \(Hausdorff-Young inequality\). For every) Tj ET
-BT /F1 5.8 Tf 24.00 284.00 Td (function f in Lp\(Rn\) we have the estimate ||f||_{p'} <=) Tj ET
-BT /F1 5.8 Tf 24.00 277.00 Td (||f||_p whenever 1 <= p <= 2.) Tj ET
-BT /F1 5.8 Tf 314.00 291.00 Td (Fourier) Tj ET
-BT /F1 5.8 Tf 314.00 284.00 Td (analysis) Tj ET
-BT /F3 4.9 Tf 394.00 291.00 Td (theorem grafakos_2_2_16_hausdorff_young) Tj ET
-BT /F3 4.9 Tf 394.00 284.00 Td (    {n : N} {p : R} {f : EuclideanSpace R \(Fin n\) -> C}) Tj ET
-BT /F3 4.9 Tf 394.00 277.00 Td (    \(hp : 1 <= p /\\ p <= 2\) \(hf : MemLp f \(ENNReal.ofReal p\) volume\) :) Tj ET
-BT /F3 4.9 Tf 394.00 270.00 Td (    let conjugateExponent : R>=0inf := if p = 1 then inf else) Tj ET
-BT /F3 4.9 Tf 394.00 263.00 Td (    ENNReal.ofReal \(p / \(p - 1\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 256.00 Td (    MemLp \(F f\) conjugateExponent volume /\\) Tj ET
-BT /F3 4.9 Tf 394.00 249.00 Td (      eLpNorm \(F f\) conjugateExponent volume <=) Tj ET
-BT /F3 4.9 Tf 394.00 242.00 Td (        eLpNorm f \(ENNReal.ofReal p\) volume := by) Tj ET
-BT /F3 4.9 Tf 394.00 235.00 Td (  sorry) Tj ET
-20.00 226.00 m 20.00 111.00 l S
-310.00 226.00 m 310.00 111.00 l S
-390.00 226.00 m 390.00 111.00 l S
-772.00 226.00 m 772.00 111.00 l S
-20.00 226.00 m 772.00 226.00 l S
-20.00 111.00 m 772.00 111.00 l S
-BT /F1 5.8 Tf 24.00 218.00 Td (Theorem 3.2.8 \(Poisson summation formula\). Let f be a) Tj ET
-BT /F1 5.8 Tf 24.00 211.00 Td (continuous function on Rn which satisfies |f\(x\)| <=) Tj ET
-BT /F1 5.8 Tf 24.00 204.00 Td (C\(1+|x|\)^{-n-delta} for some C,delta > 0 and whose Fourier) Tj ET
-BT /F1 5.8 Tf 24.00 197.00 Td (transform f restricted on Zn satisfies sum_{minZn}|f\(m\)| <) Tj ET
-BT /F1 5.8 Tf 24.00 190.00 Td (inf. Then for all x in Rn, sum_{minZn} f\(m\)e^{2piim.x} =) Tj ET
-BT /F1 5.8 Tf 24.00 183.00 Td (sum_{kinZn} f\(x+k\), and in particular sum_{minZn} f\(m\) =) Tj ET
-BT /F1 5.8 Tf 24.00 176.00 Td (sum_{kinZn} f\(k\).) Tj ET
-BT /F1 5.8 Tf 314.00 218.00 Td (Fourier) Tj ET
-BT /F1 5.8 Tf 314.00 211.00 Td (analysis) Tj ET
-BT /F3 4.9 Tf 394.00 218.00 Td (theorem grafakos_3_2_8_poisson_summation) Tj ET
-BT /F3 4.9 Tf 394.00 211.00 Td (    {n : N} {f : EuclideanSpace R \(Fin n\) -> C}) Tj ET
-BT /F3 4.9 Tf 394.00 204.00 Td (    \(hf : Continuous f /\\ Integrable f /\\) Tj ET
-BT /F3 4.9 Tf 394.00 197.00 Td (      \(exists C delta : R, 0 < C /\\ 0 < delta /\\ forall x,) Tj ET
-BT /F3 4.9 Tf 394.00 190.00 Td (        ||f x|| <= C * \(1 + ||x||\) ^ \(-\(n : R\) - delta\)\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 183.00 Td (      Summable fun m : Fin n -> Z => F f \(\(WithLp.toLp 2 fun i => \(m i :) Tj ET
-BT /F3 4.9 Tf 394.00 176.00 Td (      R\)\)\)\) :) Tj ET
-BT /F3 4.9 Tf 394.00 169.00 Td (    \(forall x : EuclideanSpace R \(Fin n\),) Tj ET
-BT /F3 4.9 Tf 394.00 162.00 Td (      sum' m : Fin n -> Z, F f \(\(WithLp.toLp 2 fun i => \(m i : R\)\)\) *) Tj ET
-BT /F3 4.9 Tf 394.00 155.00 Td (          Complex.exp \(2 * Real.pi * Complex.I * \(sum i, \(m i : C\) * \(x i :) Tj ET
-BT /F3 4.9 Tf 394.00 148.00 Td (        C\)\)\) =) Tj ET
-BT /F3 4.9 Tf 394.00 141.00 Td (        sum' k : Fin n -> Z, f \(x + \(WithLp.toLp 2 fun i => \(k i : R\)\)\)\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 134.00 Td (      \(sum' m : Fin n -> Z, F f \(\(WithLp.toLp 2 fun i => \(m i : R\)\)\)\) =) Tj ET
-BT /F3 4.9 Tf 394.00 127.00 Td (        sum' k : Fin n -> Z, f \(\(WithLp.toLp 2 fun i => \(k i : R\)\)\) := by) Tj ET
-BT /F3 4.9 Tf 394.00 120.00 Td (  sorry) Tj ET
-20.00 111.00 m 20.00 38.00 l S
-310.00 111.00 m 310.00 38.00 l S
-390.00 111.00 m 390.00 38.00 l S
-772.00 111.00 m 772.00 38.00 l S
-20.00 111.00 m 772.00 111.00 l S
+20.00 386.00 m 772.00 386.00 l S
+BT /F3 4.9 Tf 394.00 542.00 Td (    R>=0inf :=) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (   r : {r : R // 0 < r},) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (    \(integral^- z in ball x r, ||f z||e\) / volume \(ball x r\)) Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (theorem grafakos_2_1_6_hardy_littlewood_maximal {n : N} :) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (    let operators := \({hardyLittlewoodMaximal n,) Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (      hardyLittlewoodCenteredMaximal n} : Set \(\(EuclideanSpace R \(Fin n\) ->) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td (      C\) ->) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td (        EuclideanSpace R \(Fin n\) -> R>=0inf\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (    \(forall M in operators, forall f : EuclideanSpace R \(Fin n\) -> C, MemLp) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td (    f 1 volume ->) Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (      forall alpha : R, 0 < alpha -> volume {x | ENNReal.ofReal alpha < M f) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td (      x} <=) Tj ET
+BT /F3 4.9 Tf 394.00 451.00 Td (        ENNReal.ofReal \(3 ^ n / alpha\) *) Tj ET
+BT /F3 4.9 Tf 394.00 444.00 Td (          integral^- x in {x | ENNReal.ofReal alpha < M f x}, ||f x||e\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 437.00 Td (    forall M in operators, forall p : R, 1 < p -> forall f : EuclideanSpace) Tj ET
+BT /F3 4.9 Tf 394.00 430.00 Td (    R \(Fin n\) -> C,) Tj ET
+BT /F3 4.9 Tf 394.00 423.00 Td (      MemLp f \(ENNReal.ofReal p\) volume ->) Tj ET
+BT /F3 4.9 Tf 394.00 416.00 Td (        ENNReal.rpow \(integral^- x, ENNReal.rpow \(M f x\) p\) \(1 / p\) <=) Tj ET
+BT /F3 4.9 Tf 394.00 409.00 Td (          ENNReal.ofReal \(3 ^ \(\(n : R\) / p\) * p / \(p - 1\)\) *) Tj ET
+BT /F3 4.9 Tf 394.00 402.00 Td (            eLpNorm f \(ENNReal.ofReal p\) volume := by) Tj ET
+BT /F3 4.9 Tf 394.00 395.00 Td (  sorry) Tj ET
+20.00 386.00 m 20.00 313.00 l S
+310.00 386.00 m 310.00 313.00 l S
+390.00 386.00 m 390.00 313.00 l S
+772.00 386.00 m 772.00 313.00 l S
+20.00 386.00 m 772.00 386.00 l S
+20.00 313.00 m 772.00 313.00 l S
+BT /F1 5.8 Tf 24.00 378.00 Td (Theorem 2.2.14. Given f, g, and h in S\(Rn\), we have \(1\)) Tj ET
+BT /F1 5.8 Tf 24.00 371.00 Td (integralRn f\(x\)g\(x\) dx = integralRn f\(x\)g\(x\) dx; \(2\) \(Fourier) Tj ET
+BT /F1 5.8 Tf 24.00 364.00 Td (Inversion\) \(f\)\\/ = f = \(f\\/\); \(3\) \(Parseval's relation\)) Tj ET
+BT /F1 5.8 Tf 24.00 357.00 Td (integralRn f\(x\)h\(x\) dx = integralRn f\(xi\)h\(xi\) dxi; \(4\)) Tj ET
+BT /F1 5.8 Tf 24.00 350.00 Td (\(Plancherel's identity\) ||f||_{L2} = ||f||_{L2} =) Tj ET
+BT /F1 5.8 Tf 24.00 343.00 Td (||f\\/||_{L2}; \(5\) integralRn f\(x\)h\(x\) dx = integralRn) Tj ET
+BT /F1 5.8 Tf 24.00 336.00 Td (f\(x\)h\\/\(x\) dx.) Tj ET
+BT /F1 5.8 Tf 314.00 378.00 Td (Fourier) Tj ET
+BT /F1 5.8 Tf 314.00 371.00 Td (analysis) Tj ET
+BT /F3 4.9 Tf 394.00 378.00 Td (theorem grafakos_2_2_14_fourier_identities_on_schwartz) Tj ET
+BT /F3 4.9 Tf 394.00 371.00 Td (    {n : N} \(f g h : S\(EuclideanSpace R \(Fin n\), C\)\) :) Tj ET
+BT /F3 4.9 Tf 394.00 364.00 Td (    \(\(integral x, f x * F g x\) = integral x, F f x * g x\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 357.00 Td (      F^- \(F f\) = f /\\ F \(F^- f\) = f /\\) Tj ET
+BT /F3 4.9 Tf 394.00 350.00 Td (      \(integral x, star \(F f x\) * F g x\) = integral x, star \(f x\) * g x /\\) Tj ET
+BT /F3 4.9 Tf 394.00 343.00 Td (      eLpNorm \(fun x => F f x\) 2 volume = eLpNorm f 2 volume /\\) Tj ET
+BT /F3 4.9 Tf 394.00 336.00 Td (      eLpNorm \(fun x => F^- f x\) 2 volume = eLpNorm f 2 volume /\\) Tj ET
+BT /F3 4.9 Tf 394.00 329.00 Td (      \(integral x, F f x * h x\) = integral x, f x * F h x := by) Tj ET
+BT /F3 4.9 Tf 394.00 322.00 Td (  sorry) Tj ET
+20.00 313.00 m 20.00 240.00 l S
+310.00 313.00 m 310.00 240.00 l S
+390.00 313.00 m 390.00 240.00 l S
+772.00 313.00 m 772.00 240.00 l S
+20.00 313.00 m 772.00 313.00 l S
+20.00 240.00 m 772.00 240.00 l S
+BT /F1 5.8 Tf 24.00 305.00 Td (Proposition 2.2.16 \(Hausdorff-Young inequality\). For every) Tj ET
+BT /F1 5.8 Tf 24.00 298.00 Td (function f in Lp\(Rn\) we have the estimate ||f||_{p'} <=) Tj ET
+BT /F1 5.8 Tf 24.00 291.00 Td (||f||_p whenever 1 <= p <= 2.) Tj ET
+BT /F1 5.8 Tf 314.00 305.00 Td (Fourier) Tj ET
+BT /F1 5.8 Tf 314.00 298.00 Td (analysis) Tj ET
+BT /F3 4.9 Tf 394.00 305.00 Td (theorem grafakos_2_2_16_hausdorff_young) Tj ET
+BT /F3 4.9 Tf 394.00 298.00 Td (    {n : N} {p : R} {f : EuclideanSpace R \(Fin n\) -> C}) Tj ET
+BT /F3 4.9 Tf 394.00 291.00 Td (    \(hp : 1 <= p /\\ p <= 2\) \(hf : MemLp f \(ENNReal.ofReal p\) volume\) :) Tj ET
+BT /F3 4.9 Tf 394.00 284.00 Td (    let conjugateExponent : R>=0inf := if p = 1 then inf else) Tj ET
+BT /F3 4.9 Tf 394.00 277.00 Td (    ENNReal.ofReal \(p / \(p - 1\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 270.00 Td (    MemLp \(F f\) conjugateExponent volume /\\) Tj ET
+BT /F3 4.9 Tf 394.00 263.00 Td (      eLpNorm \(F f\) conjugateExponent volume <=) Tj ET
+BT /F3 4.9 Tf 394.00 256.00 Td (        eLpNorm f \(ENNReal.ofReal p\) volume := by) Tj ET
+BT /F3 4.9 Tf 394.00 249.00 Td (  sorry) Tj ET
+20.00 240.00 m 20.00 125.00 l S
+310.00 240.00 m 310.00 125.00 l S
+390.00 240.00 m 390.00 125.00 l S
+772.00 240.00 m 772.00 125.00 l S
+20.00 240.00 m 772.00 240.00 l S
+20.00 125.00 m 772.00 125.00 l S
+BT /F1 5.8 Tf 24.00 232.00 Td (Theorem 3.2.8 \(Poisson summation formula\). Let f be a) Tj ET
+BT /F1 5.8 Tf 24.00 225.00 Td (continuous function on Rn which satisfies |f\(x\)| <=) Tj ET
+BT /F1 5.8 Tf 24.00 218.00 Td (C\(1+|x|\)^{-n-delta} for some C,delta > 0 and whose Fourier) Tj ET
+BT /F1 5.8 Tf 24.00 211.00 Td (transform f restricted on Zn satisfies sum_{minZn}|f\(m\)| <) Tj ET
+BT /F1 5.8 Tf 24.00 204.00 Td (inf. Then for all x in Rn, sum_{minZn} f\(m\)e^{2piim.x} =) Tj ET
+BT /F1 5.8 Tf 24.00 197.00 Td (sum_{kinZn} f\(x+k\), and in particular sum_{minZn} f\(m\) =) Tj ET
+BT /F1 5.8 Tf 24.00 190.00 Td (sum_{kinZn} f\(k\).) Tj ET
+BT /F1 5.8 Tf 314.00 232.00 Td (Fourier) Tj ET
+BT /F1 5.8 Tf 314.00 225.00 Td (analysis) Tj ET
+BT /F3 4.9 Tf 394.00 232.00 Td (theorem grafakos_3_2_8_poisson_summation) Tj ET
+BT /F3 4.9 Tf 394.00 225.00 Td (    {n : N} {f : EuclideanSpace R \(Fin n\) -> C}) Tj ET
+BT /F3 4.9 Tf 394.00 218.00 Td (    \(hf : Continuous f /\\ Integrable f /\\) Tj ET
+BT /F3 4.9 Tf 394.00 211.00 Td (      \(exists C delta : R, 0 < C /\\ 0 < delta /\\ forall x,) Tj ET
+BT /F3 4.9 Tf 394.00 204.00 Td (        ||f x|| <= C * \(1 + ||x||\) ^ \(-\(n : R\) - delta\)\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 197.00 Td (      Summable fun m : Fin n -> Z => F f \(\(WithLp.toLp 2 fun i => \(m i :) Tj ET
+BT /F3 4.9 Tf 394.00 190.00 Td (      R\)\)\)\) :) Tj ET
+BT /F3 4.9 Tf 394.00 183.00 Td (    \(forall x : EuclideanSpace R \(Fin n\),) Tj ET
+BT /F3 4.9 Tf 394.00 176.00 Td (      sum' m : Fin n -> Z, F f \(\(WithLp.toLp 2 fun i => \(m i : R\)\)\) *) Tj ET
+BT /F3 4.9 Tf 394.00 169.00 Td (          Complex.exp \(2 * Real.pi * Complex.I * \(sum i, \(m i : C\) * \(x i :) Tj ET
+BT /F3 4.9 Tf 394.00 162.00 Td (        C\)\)\) =) Tj ET
+BT /F3 4.9 Tf 394.00 155.00 Td (        sum' k : Fin n -> Z, f \(x + \(WithLp.toLp 2 fun i => \(k i : R\)\)\)\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 148.00 Td (      \(sum' m : Fin n -> Z, F f \(\(WithLp.toLp 2 fun i => \(m i : R\)\)\)\) =) Tj ET
+BT /F3 4.9 Tf 394.00 141.00 Td (        sum' k : Fin n -> Z, f \(\(WithLp.toLp 2 fun i => \(k i : R\)\)\) := by) Tj ET
+BT /F3 4.9 Tf 394.00 134.00 Td (  sorry) Tj ET
+20.00 125.00 m 20.00 38.00 l S
+310.00 125.00 m 310.00 38.00 l S
+390.00 125.00 m 390.00 38.00 l S
+772.00 125.00 m 772.00 38.00 l S
+20.00 125.00 m 772.00 125.00 l S
 20.00 38.00 m 772.00 38.00 l S
-BT /F1 5.8 Tf 24.00 103.00 Td (Theorem 4.1.1. For R > 0 and m in Zn, let a\(m, R\) be complex) Tj ET
-BT /F1 5.8 Tf 24.00 96.00 Td (numbers such that \(i\) for every R > 0 there is a qR such that) Tj ET
-BT /F1 5.8 Tf 24.00 89.00 Td (a\(m, R\) = 0 if |m| > qR; \(ii\) there is an M0 < inf such that) Tj ET
-BT /F1 5.8 Tf 24.00 82.00 Td (|a\(m, R\)| <= M0 for all m in Zn and all R > 0; \(iii\) for each) Tj ET
-BT /F1 5.8 Tf 24.00 75.00 Td (m in Zn, the limit of a\(m, R\) exists as R -> inf and limR->inf) Tj ET
-BT /F1 5.8 Tf 24.00 68.00 Td (a\(m, R\) = am. Let 1 <= p < inf. For f in Lp\(Tn\) and x in Tn) Tj ET
-BT /F1 5.8 Tf 24.00 61.00 Td (define S_R\(f\)\(x\) = sum_{minZn} a\(m, R\)f\(m\)e^{2piim.x}, noting) Tj ET
-BT /F1 5.8 Tf 24.00 54.00 Td (that the sum is well defined because of \(i\). Also, for h in) Tj ET
-BT /F1 5.8 Tf 24.00 47.00 Td (Cinf\(Tn\) define A\(h\)\(x\) = sum_{minZn} amh\(m\)e^{2piim.x}. Then) Tj ET
-BT /F1 5.8 Tf 314.00 103.00 Td (Fourier) Tj ET
-BT /F1 5.8 Tf 314.00 96.00 Td (analysis) Tj ET
-BT /F3 4.9 Tf 394.00 103.00 Td (def HasStrongType {X : Type u} {Y : Type v} [MeasurableSpace X]) Tj ET
-BT /F3 4.9 Tf 394.00 96.00 Td ([MeasurableSpace Y]) Tj ET
-BT /F3 4.9 Tf 394.00 89.00 Td (    \(mu : Measure X\) \(nu : Measure Y\) \(T : \(X -> C\) -> Y -> C\)) Tj ET
-BT /F3 4.9 Tf 394.00 82.00 Td (    \(p q : R\) \(C : R>=0inf\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 75.00 Td (  forall f : X -> C, MemLp f \(ENNReal.ofReal p\) mu ->) Tj ET
-BT /F3 4.9 Tf 394.00 68.00 Td (    MemLp \(T f\) \(ENNReal.ofReal q\) nu /\\) Tj ET
-BT /F3 4.9 Tf 394.00 61.00 Td (      eLpNorm \(T f\) \(ENNReal.ofReal q\) nu <= C * eLpNorm f \(ENNReal.ofReal) Tj ET
-BT /F3 4.9 Tf 394.00 54.00 Td (      p\) mu) Tj ET
+BT /F1 5.8 Tf 24.00 117.00 Td (Theorem 4.1.1. For R > 0 and m in Zn, let a\(m, R\) be complex) Tj ET
+BT /F1 5.8 Tf 24.00 110.00 Td (numbers such that \(i\) for every R > 0 there is a qR such that) Tj ET
+BT /F1 5.8 Tf 24.00 103.00 Td (a\(m, R\) = 0 if |m| > qR; \(ii\) there is an M0 < inf such that) Tj ET
+BT /F1 5.8 Tf 24.00 96.00 Td (|a\(m, R\)| <= M0 for all m in Zn and all R > 0; \(iii\) for each) Tj ET
+BT /F1 5.8 Tf 24.00 89.00 Td (m in Zn, the limit of a\(m, R\) exists as R -> inf and limR->inf) Tj ET
+BT /F1 5.8 Tf 24.00 82.00 Td (a\(m, R\) = am. Let 1 <= p < inf. For f in Lp\(Tn\) and x in Tn) Tj ET
+BT /F1 5.8 Tf 24.00 75.00 Td (define S_R\(f\)\(x\) = sum_{minZn} a\(m, R\)f\(m\)e^{2piim.x}, noting) Tj ET
+BT /F1 5.8 Tf 24.00 68.00 Td (that the sum is well defined because of \(i\). Also, for h in) Tj ET
+BT /F1 5.8 Tf 24.00 61.00 Td (Cinf\(Tn\) define A\(h\)\(x\) = sum_{minZn} amh\(m\)e^{2piim.x}. Then) Tj ET
+BT /F1 5.8 Tf 24.00 54.00 Td (for all f in Lp\(Tn\) the sequence S_R\(f\) converges in Lp as R) Tj ET
+BT /F1 5.8 Tf 24.00 47.00 Td (-> inf if and only if there exists a constant K < inf such) Tj ET
+BT /F1 5.8 Tf 314.00 117.00 Td (Fourier) Tj ET
+BT /F1 5.8 Tf 314.00 110.00 Td (analysis) Tj ET
+BT /F3 4.9 Tf 394.00 117.00 Td (def HasStrongType {X : Type u} {Y : Type v} [MeasurableSpace X]) Tj ET
+BT /F3 4.9 Tf 394.00 110.00 Td ([MeasurableSpace Y]) Tj ET
+BT /F3 4.9 Tf 394.00 103.00 Td (    \(mu : Measure X\) \(nu : Measure Y\) \(T : \(X -> C\) -> Y -> C\)) Tj ET
+BT /F3 4.9 Tf 394.00 96.00 Td (    \(p q : R>=0inf\) \(C : R>=0inf\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 89.00 Td (  forall f : X -> C, MemLp f p mu ->) Tj ET
+BT /F3 4.9 Tf 394.00 82.00 Td (    MemLp \(T f\) q nu /\\ eLpNorm \(T f\) q nu <= C * eLpNorm f p mu) Tj ET
+BT /F3 4.9 Tf 394.00 75.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 68.00 Td (noncomputable def torusCharacter {n : N} \(m : Fin n -> Z\)) Tj ET
+BT /F3 4.9 Tf 394.00 61.00 Td (    \(x : Fin n -> AddCircle \(1 : R\)\) : C :=) Tj ET
+BT /F3 4.9 Tf 394.00 54.00 Td (  prod i, fourier \(m i\) \(x i\)) Tj ET
 BT /F3 4.9 Tf 394.00 47.00 Td () Tj ET
 endstream
 endobj
@@ -291,7 +293,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 11 0 R /F2 12 0 R /F3 13 0 R >> >> /Contents 8 0 R >>
 endobj
 8 0 obj
-<< /Length 8849 >>
+<< /Length 8738 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Grafakos Classical Fourier Analysis Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 3) Tj ET
@@ -299,123 +301,121 @@ BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
 BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
 BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
 20.00 558.00 m 772.00 558.00 l S
-20.00 550.00 m 20.00 302.00 l S
-310.00 550.00 m 310.00 302.00 l S
-390.00 550.00 m 390.00 302.00 l S
-772.00 550.00 m 772.00 302.00 l S
+20.00 550.00 m 20.00 316.00 l S
+310.00 550.00 m 310.00 316.00 l S
+390.00 550.00 m 390.00 316.00 l S
+772.00 550.00 m 772.00 316.00 l S
 20.00 550.00 m 772.00 550.00 l S
-20.00 302.00 m 772.00 302.00 l S
-BT /F1 5.8 Tf 24.00 542.00 Td (for all f in Lp\(Tn\) the sequence S_R\(f\) converges in Lp as R) Tj ET
-BT /F1 5.8 Tf 24.00 535.00 Td (-> inf if and only if there exists a constant K < inf such) Tj ET
-BT /F1 5.8 Tf 24.00 528.00 Td (that supR>0 ||S_R||_{Lp->Lp} <= K. Furthermore, if this holds,) Tj ET
-BT /F1 5.8 Tf 24.00 521.00 Td (then for the same constant K we have sup_{hinCinf, h!=0}) Tj ET
-BT /F1 5.8 Tf 24.00 514.00 Td (||A\(h\)||_{Lp}/||h||_{Lp} <= K, and then A extends to a bounded) Tj ET
-BT /F1 5.8 Tf 24.00 507.00 Td (operator A from Lp\(Tn\) to itself; moreover, for every f in) Tj ET
-BT /F1 5.8 Tf 24.00 500.00 Td (Lp\(Tn\) we have that S_R\(f\) -> A\(f\) in Lp as R -> inf.) Tj ET
-BT /F3 4.9 Tf 394.00 542.00 Td (noncomputable def torusCharacter {n : N} \(m : Fin n -> Z\)) Tj ET
-BT /F3 4.9 Tf 394.00 535.00 Td (    \(x : Fin n -> AddCircle \(1 : R\)\) : C :=) Tj ET
-BT /F3 4.9 Tf 394.00 528.00 Td (  prod i, fourier \(m i\) \(x i\)) Tj ET
-BT /F3 4.9 Tf 394.00 521.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 514.00 Td (noncomputable def torusFourierCoefficient {n : N}) Tj ET
-BT /F3 4.9 Tf 394.00 507.00 Td (    [MeasurableSpace \(Fin n -> AddCircle \(1 : R\)\)]) Tj ET
-BT /F3 4.9 Tf 394.00 500.00 Td (    \(mu : Measure \(Fin n -> AddCircle \(1 : R\)\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 493.00 Td (    \(f : \(Fin n -> AddCircle \(1 : R\)\) -> C\) \(m : Fin n -> Z\) : C :=) Tj ET
-BT /F3 4.9 Tf 394.00 486.00 Td (  integral x, star \(torusCharacter m x\) * f x dmu) Tj ET
-BT /F3 4.9 Tf 394.00 479.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 472.00 Td (theorem grafakos_4_1_1_torus_summability_uniform_boundedness) Tj ET
-BT /F3 4.9 Tf 394.00 465.00 Td (    {n : N}) Tj ET
-BT /F3 4.9 Tf 394.00 458.00 Td (    \(a : R -> \(Fin n -> Z\) -> C\) \(aLimit : \(Fin n -> Z\) -> C\)) Tj ET
-BT /F3 4.9 Tf 394.00 451.00 Td (    \(hfinite : forall R, 0 < R -> \(Function.support \(a R\)\).Finite\)) Tj ET
-BT /F3 4.9 Tf 394.00 444.00 Td (    \(hbounded : exists M : R, 0 <= M /\\ forall R m, 0 < R -> ||a R m|| <= M\)) Tj ET
-BT /F3 4.9 Tf 394.00 437.00 Td (    \(htendsto : forall m, Tendsto \(fun R => a R m\) atTop \(nhds \(aLimit m\)\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 430.00 Td (    {p : R} \(hp : 1 <= p\) :) Tj ET
-BT /F3 4.9 Tf 394.00 423.00 Td (    let mu : Measure \(Fin n -> AddCircle \(1 : R\)\) := volume) Tj ET
-BT /F3 4.9 Tf 394.00 416.00 Td (    let S := fun R \(f : \(Fin n -> AddCircle \(1 : R\)\) -> C\)) Tj ET
-BT /F3 4.9 Tf 394.00 409.00 Td (      \(x : Fin n -> AddCircle \(1 : R\)\) =>) Tj ET
-BT /F3 4.9 Tf 394.00 402.00 Td (        sum' m, a R m * torusFourierCoefficient mu f m * torusCharacter m x) Tj ET
-BT /F3 4.9 Tf 394.00 395.00 Td (    let A := fun \(f : \(Fin n -> AddCircle \(1 : R\)\) -> C\)) Tj ET
-BT /F3 4.9 Tf 394.00 388.00 Td (      \(x : Fin n -> AddCircle \(1 : R\)\) =>) Tj ET
-BT /F3 4.9 Tf 394.00 381.00 Td (        sum' m, aLimit m * torusFourierCoefficient mu f m * torusCharacter) Tj ET
-BT /F3 4.9 Tf 394.00 374.00 Td (        m x) Tj ET
-BT /F3 4.9 Tf 394.00 367.00 Td (    \(\(forall f, MemLp f \(ENNReal.ofReal p\) mu ->) Tj ET
-BT /F3 4.9 Tf 394.00 360.00 Td (        Tendsto \(fun R => eLpNorm \(S R f - A f\) \(ENNReal.ofReal p\) mu\)) Tj ET
-BT /F3 4.9 Tf 394.00 353.00 Td (        atTop \(nhds 0\)\) <->) Tj ET
-BT /F3 4.9 Tf 394.00 346.00 Td (      exists C : R>=0inf, C < inf /\\ forall R, 0 < R ->) Tj ET
-BT /F3 4.9 Tf 394.00 339.00 Td (        HasStrongType mu mu \(S R\) p p C\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 332.00 Td (    forall C : R>=0inf, \(forall R, 0 < R -> HasStrongType mu mu \(S R\) p p) Tj ET
-BT /F3 4.9 Tf 394.00 325.00 Td (    C\) ->) Tj ET
-BT /F3 4.9 Tf 394.00 318.00 Td (      HasStrongType mu mu A p p C := by) Tj ET
-BT /F3 4.9 Tf 394.00 311.00 Td (  sorry) Tj ET
-20.00 302.00 m 20.00 215.00 l S
-310.00 302.00 m 310.00 215.00 l S
-390.00 302.00 m 390.00 215.00 l S
-772.00 302.00 m 772.00 215.00 l S
-20.00 302.00 m 772.00 302.00 l S
-20.00 215.00 m 772.00 215.00 l S
-BT /F1 5.8 Tf 24.00 294.00 Td (Theorem 4.3.15. For every 1 < p < inf there exists a finite) Tj ET
-BT /F1 5.8 Tf 24.00 287.00 Td (constant Cp such that for all f in C0inf\(R\) we have) Tj ET
-BT /F1 5.8 Tf 24.00 280.00 Td (||C**\(f\)||_{Lp\(R\)} <= Cp||f||_{Lp\(R\)}, where C**\(f\)\(x\) =) Tj ET
-BT /F1 5.8 Tf 24.00 273.00 Td (supR>0 |integral_{|xi|<=R} f\(xi\)e^{2piixxi} dxi| is the) Tj ET
-BT /F1 5.8 Tf 24.00 266.00 Td (Carleson operator.) Tj ET
-BT /F1 5.8 Tf 314.00 294.00 Td (Fourier) Tj ET
-BT /F1 5.8 Tf 314.00 287.00 Td (analysis) Tj ET
-BT /F3 4.9 Tf 394.00 294.00 Td (noncomputable def carlesonHuntMaximal \(f : S\(R, C\)\) \(x : R\) : R>=0inf :=) Tj ET
-BT /F3 4.9 Tf 394.00 287.00 Td (   R : {R : R // 0 < R},) Tj ET
-BT /F3 4.9 Tf 394.00 280.00 Td (    ||integral xi in Set.Icc \(-R.1\) R.1,) Tj ET
-BT /F3 4.9 Tf 394.00 273.00 Td (      F f xi * Complex.exp \(2 * Real.pi * Complex.I * xi * x\)||e) Tj ET
-BT /F3 4.9 Tf 394.00 266.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 259.00 Td (theorem grafakos_4_3_15_carleson_hunt_line {p : R} \(hp : 1 < p\) :) Tj ET
-BT /F3 4.9 Tf 394.00 252.00 Td (    exists C : R>=0inf, C < inf /\\ forall f : S\(R, C\),) Tj ET
-BT /F3 4.9 Tf 394.00 245.00 Td (      ENNReal.rpow \(integral^- x, ENNReal.rpow \(carlesonHuntMaximal f x\) p\)) Tj ET
-BT /F3 4.9 Tf 394.00 238.00 Td (      \(1 / p\) <=) Tj ET
-BT /F3 4.9 Tf 394.00 231.00 Td (        C * eLpNorm \(f : R -> C\) \(ENNReal.ofReal p\) volume := by) Tj ET
-BT /F3 4.9 Tf 394.00 224.00 Td (  sorry) Tj ET
-20.00 215.00 m 20.00 37.00 l S
-310.00 215.00 m 310.00 37.00 l S
-390.00 215.00 m 390.00 37.00 l S
-772.00 215.00 m 772.00 37.00 l S
-20.00 215.00 m 772.00 215.00 l S
+20.00 316.00 m 772.00 316.00 l S
+BT /F1 5.8 Tf 24.00 542.00 Td (that supR>0 ||S_R||_{Lp->Lp} <= K. Furthermore, if this holds,) Tj ET
+BT /F1 5.8 Tf 24.00 535.00 Td (then for the same constant K we have sup_{hinCinf, h!=0}) Tj ET
+BT /F1 5.8 Tf 24.00 528.00 Td (||A\(h\)||_{Lp}/||h||_{Lp} <= K, and then A extends to a bounded) Tj ET
+BT /F1 5.8 Tf 24.00 521.00 Td (operator A from Lp\(Tn\) to itself; moreover, for every f in) Tj ET
+BT /F1 5.8 Tf 24.00 514.00 Td (Lp\(Tn\) we have that S_R\(f\) -> A\(f\) in Lp as R -> inf.) Tj ET
+BT /F3 4.9 Tf 394.00 542.00 Td (noncomputable def torusFourierCoefficient {n : N}) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (    [MeasurableSpace \(Fin n -> AddCircle \(1 : R\)\)]) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (    \(mu : Measure \(Fin n -> AddCircle \(1 : R\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (    \(f : \(Fin n -> AddCircle \(1 : R\)\) -> C\) \(m : Fin n -> Z\) : C :=) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (  integral x, star \(torusCharacter m x\) * f x dmu) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (theorem grafakos_4_1_1_torus_summability_uniform_boundedness) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td (    {n : N}) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td (    \(a : R -> \(Fin n -> Z\) -> C\) \(aLimit : \(Fin n -> Z\) -> C\)) Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (    \(hfinite : forall R, 0 < R -> \(Function.support \(a R\)\).Finite\)) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td (    \(hbounded : exists M : R, 0 <= M /\\ forall R m, 0 < R -> ||a R m|| <= M\)) Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (    \(htendsto : forall m, Tendsto \(fun R => a R m\) atTop \(nhds \(aLimit m\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td (    {p : R} \(hp : 1 <= p\) :) Tj ET
+BT /F3 4.9 Tf 394.00 451.00 Td (    let mu : Measure \(Fin n -> AddCircle \(1 : R\)\) := volume) Tj ET
+BT /F3 4.9 Tf 394.00 444.00 Td (    let S := fun R \(f : \(Fin n -> AddCircle \(1 : R\)\) -> C\)) Tj ET
+BT /F3 4.9 Tf 394.00 437.00 Td (      \(x : Fin n -> AddCircle \(1 : R\)\) =>) Tj ET
+BT /F3 4.9 Tf 394.00 430.00 Td (        sum' m, a R m * torusFourierCoefficient mu f m * torusCharacter m x) Tj ET
+BT /F3 4.9 Tf 394.00 423.00 Td (    let A := fun \(f : \(Fin n -> AddCircle \(1 : R\)\) -> C\)) Tj ET
+BT /F3 4.9 Tf 394.00 416.00 Td (      \(x : Fin n -> AddCircle \(1 : R\)\) =>) Tj ET
+BT /F3 4.9 Tf 394.00 409.00 Td (        sum' m, aLimit m * torusFourierCoefficient mu f m * torusCharacter) Tj ET
+BT /F3 4.9 Tf 394.00 402.00 Td (        m x) Tj ET
+BT /F3 4.9 Tf 394.00 395.00 Td (    \(\(forall f, MemLp f \(ENNReal.ofReal p\) mu ->) Tj ET
+BT /F3 4.9 Tf 394.00 388.00 Td (        Tendsto \(fun R => eLpNorm \(S R f - A f\) \(ENNReal.ofReal p\) mu\)) Tj ET
+BT /F3 4.9 Tf 394.00 381.00 Td (        atTop \(nhds 0\)\) <->) Tj ET
+BT /F3 4.9 Tf 394.00 374.00 Td (      exists C : R>=0inf, C < inf /\\ forall R, 0 < R ->) Tj ET
+BT /F3 4.9 Tf 394.00 367.00 Td (        HasStrongType mu mu \(S R\) \(ENNReal.ofReal p\) \(ENNReal.ofReal p\) C\)) Tj ET
+BT /F3 4.9 Tf 394.00 360.00 Td (        /\\) Tj ET
+BT /F3 4.9 Tf 394.00 353.00 Td (    forall C : R>=0inf,) Tj ET
+BT /F3 4.9 Tf 394.00 346.00 Td (      \(forall R, 0 < R -> HasStrongType mu mu \(S R\) \(ENNReal.ofReal p\)) Tj ET
+BT /F3 4.9 Tf 394.00 339.00 Td (      \(ENNReal.ofReal p\) C\) ->) Tj ET
+BT /F3 4.9 Tf 394.00 332.00 Td (        HasStrongType mu mu A \(ENNReal.ofReal p\) \(ENNReal.ofReal p\) C := by) Tj ET
+BT /F3 4.9 Tf 394.00 325.00 Td (  sorry) Tj ET
+20.00 316.00 m 20.00 229.00 l S
+310.00 316.00 m 310.00 229.00 l S
+390.00 316.00 m 390.00 229.00 l S
+772.00 316.00 m 772.00 229.00 l S
+20.00 316.00 m 772.00 316.00 l S
+20.00 229.00 m 772.00 229.00 l S
+BT /F1 5.8 Tf 24.00 308.00 Td (Theorem 4.3.15. For every 1 < p < inf there exists a finite) Tj ET
+BT /F1 5.8 Tf 24.00 301.00 Td (constant Cp such that for all f in C0inf\(R\) we have) Tj ET
+BT /F1 5.8 Tf 24.00 294.00 Td (||C**\(f\)||_{Lp\(R\)} <= Cp||f||_{Lp\(R\)}, where C**\(f\)\(x\) =) Tj ET
+BT /F1 5.8 Tf 24.00 287.00 Td (supR>0 |integral_{|xi|<=R} f\(xi\)e^{2piixxi} dxi| is the) Tj ET
+BT /F1 5.8 Tf 24.00 280.00 Td (Carleson operator.) Tj ET
+BT /F1 5.8 Tf 314.00 308.00 Td (Fourier) Tj ET
+BT /F1 5.8 Tf 314.00 301.00 Td (analysis) Tj ET
+BT /F3 4.9 Tf 394.00 308.00 Td (noncomputable def carlesonHuntMaximal \(f : S\(R, C\)\) \(x : R\) : R>=0inf :=) Tj ET
+BT /F3 4.9 Tf 394.00 301.00 Td (   R : {R : R // 0 < R},) Tj ET
+BT /F3 4.9 Tf 394.00 294.00 Td (    ||integral xi in Set.Icc \(-R.1\) R.1,) Tj ET
+BT /F3 4.9 Tf 394.00 287.00 Td (      F f xi * Complex.exp \(2 * Real.pi * Complex.I * xi * x\)||e) Tj ET
+BT /F3 4.9 Tf 394.00 280.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 273.00 Td (theorem grafakos_4_3_15_carleson_hunt_line {p : R} \(hp : 1 < p\) :) Tj ET
+BT /F3 4.9 Tf 394.00 266.00 Td (    exists C : R>=0inf, C < inf /\\ forall f : S\(R, C\),) Tj ET
+BT /F3 4.9 Tf 394.00 259.00 Td (      ENNReal.rpow \(integral^- x, ENNReal.rpow \(carlesonHuntMaximal f x\) p\)) Tj ET
+BT /F3 4.9 Tf 394.00 252.00 Td (      \(1 / p\) <=) Tj ET
+BT /F3 4.9 Tf 394.00 245.00 Td (        C * eLpNorm \(f : R -> C\) \(ENNReal.ofReal p\) volume := by) Tj ET
+BT /F3 4.9 Tf 394.00 238.00 Td (  sorry) Tj ET
+20.00 229.00 m 20.00 37.00 l S
+310.00 229.00 m 310.00 37.00 l S
+390.00 229.00 m 390.00 37.00 l S
+772.00 229.00 m 772.00 37.00 l S
+20.00 229.00 m 772.00 229.00 l S
 20.00 37.00 m 772.00 37.00 l S
-BT /F1 5.8 Tf 24.00 207.00 Td (Theorem 5.3.1. Let f in L1\(Rn\) and alpha > 0. Then there exist) Tj ET
-BT /F1 5.8 Tf 24.00 200.00 Td (functions g and b on Rn such that f = g+b; ||g||_{L1} <=) Tj ET
-BT /F1 5.8 Tf 24.00 193.00 Td (||f||_{L1} and ||g||_{Linf} <= 2nalpha; b = sum_j b_j where) Tj ET
-BT /F1 5.8 Tf 24.00 186.00 Td (each b_j is supported in a dyadic cube Q_j, the cubes are) Tj ET
-BT /F1 5.8 Tf 24.00 179.00 Td (disjoint, integral_{Q_j}b_j\(x\)dx=0,) Tj ET
-BT /F1 5.8 Tf 24.00 172.00 Td (||b_j||_{L1}<=2^{n+1}alpha|Q_j|, and sum_j) Tj ET
-BT /F1 5.8 Tf 24.00 165.00 Td (|Q_j|<=alpha^{-1}||f||_{L1}.) Tj ET
-BT /F1 5.8 Tf 314.00 207.00 Td (Fourier) Tj ET
-BT /F1 5.8 Tf 314.00 200.00 Td (analysis) Tj ET
-BT /F3 4.9 Tf 394.00 207.00 Td (structure DyadicCube \(n : N\) where) Tj ET
-BT /F3 4.9 Tf 394.00 200.00 Td (  scale : Z) Tj ET
-BT /F3 4.9 Tf 394.00 193.00 Td (  corner : Fin n -> Z) Tj ET
-BT /F3 4.9 Tf 394.00 186.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 179.00 Td (def DyadicCube.carrier {n : N} \(Q : DyadicCube n\) : Set \(EuclideanSpace R) Tj ET
-BT /F3 4.9 Tf 394.00 172.00 Td (\(Fin n\)\) :=) Tj ET
-BT /F3 4.9 Tf 394.00 165.00 Td (  {x | forall i,) Tj ET
-BT /F3 4.9 Tf 394.00 158.00 Td (    \(Q.corner i : R\) * 2 ^ Q.scale <= x i /\\) Tj ET
-BT /F3 4.9 Tf 394.00 151.00 Td (      x i < \(Q.corner i + 1 : Z\) * 2 ^ Q.scale}) Tj ET
-BT /F3 4.9 Tf 394.00 144.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 137.00 Td (theorem grafakos_5_3_1_calderon_zygmund_decomposition) Tj ET
-BT /F3 4.9 Tf 394.00 130.00 Td (    {n : N} {f : EuclideanSpace R \(Fin n\) -> C} {alpha : R}) Tj ET
-BT /F3 4.9 Tf 394.00 123.00 Td (    \(hf : MemLp f 1 volume\) \(halpha : 0 < alpha\) :) Tj ET
-BT /F3 4.9 Tf 394.00 116.00 Td (    exists g b : EuclideanSpace R \(Fin n\) -> C,) Tj ET
-BT /F3 4.9 Tf 394.00 109.00 Td (      exists \(Q : N -> DyadicCube n\) \(bad : N -> EuclideanSpace R \(Fin n\)) Tj ET
-BT /F3 4.9 Tf 394.00 102.00 Td (      -> C\),) Tj ET
-BT /F3 4.9 Tf 394.00 95.00 Td (        f = g + b /\\ HasSum bad b /\\ eLpNorm g 1 volume <= eLpNorm f 1) Tj ET
-BT /F3 4.9 Tf 394.00 88.00 Td (        volume /\\) Tj ET
-BT /F3 4.9 Tf 394.00 81.00 Td (          eLpNorm g inf volume <= ENNReal.ofReal \(2 ^ n * alpha\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 74.00 Td (          \(Pairwise fun i j => Disjoint \(Q i\).carrier \(Q j\).carrier\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 67.00 Td (          \(forall j, Function.support \(bad j\) subset \(Q j\).carrier\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 60.00 Td (          \(forall j, integral x, bad j x = 0\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 53.00 Td (          \(forall j, eLpNorm \(bad j\) 1 volume <=) Tj ET
-BT /F3 4.9 Tf 394.00 46.00 Td (            ENNReal.ofReal \(2 ^ \(n + 1\) * alpha\) * volume \(Q j\).carrier\) /\\) Tj ET
+BT /F1 5.8 Tf 24.00 221.00 Td (Theorem 5.3.1. Let f in L1\(Rn\) and alpha > 0. Then there exist) Tj ET
+BT /F1 5.8 Tf 24.00 214.00 Td (functions g and b on Rn such that f = g+b; ||g||_{L1} <=) Tj ET
+BT /F1 5.8 Tf 24.00 207.00 Td (||f||_{L1} and ||g||_{Linf} <= 2nalpha; b = sum_j b_j where) Tj ET
+BT /F1 5.8 Tf 24.00 200.00 Td (each b_j is supported in a dyadic cube Q_j, the cubes are) Tj ET
+BT /F1 5.8 Tf 24.00 193.00 Td (disjoint, integral_{Q_j}b_j\(x\)dx=0,) Tj ET
+BT /F1 5.8 Tf 24.00 186.00 Td (||b_j||_{L1}<=2^{n+1}alpha|Q_j|, and sum_j) Tj ET
+BT /F1 5.8 Tf 24.00 179.00 Td (|Q_j|<=alpha^{-1}||f||_{L1}.) Tj ET
+BT /F1 5.8 Tf 314.00 221.00 Td (Fourier) Tj ET
+BT /F1 5.8 Tf 314.00 214.00 Td (analysis) Tj ET
+BT /F3 4.9 Tf 394.00 221.00 Td (structure DyadicCube \(n : N\) where) Tj ET
+BT /F3 4.9 Tf 394.00 214.00 Td (  scale : Z) Tj ET
+BT /F3 4.9 Tf 394.00 207.00 Td (  corner : Fin n -> Z) Tj ET
+BT /F3 4.9 Tf 394.00 200.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 193.00 Td (def DyadicCube.carrier {n : N} \(Q : DyadicCube n\) : Set \(EuclideanSpace R) Tj ET
+BT /F3 4.9 Tf 394.00 186.00 Td (\(Fin n\)\) :=) Tj ET
+BT /F3 4.9 Tf 394.00 179.00 Td (  {x | forall i,) Tj ET
+BT /F3 4.9 Tf 394.00 172.00 Td (    \(Q.corner i : R\) * 2 ^ Q.scale <= x i /\\) Tj ET
+BT /F3 4.9 Tf 394.00 165.00 Td (      x i < \(Q.corner i + 1 : Z\) * 2 ^ Q.scale}) Tj ET
+BT /F3 4.9 Tf 394.00 158.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 151.00 Td (theorem grafakos_5_3_1_calderon_zygmund_decomposition) Tj ET
+BT /F3 4.9 Tf 394.00 144.00 Td (    {n : N} {f : EuclideanSpace R \(Fin n\) -> C} {alpha : R}) Tj ET
+BT /F3 4.9 Tf 394.00 137.00 Td (    \(hf : MemLp f 1 volume\) \(halpha : 0 < alpha\) :) Tj ET
+BT /F3 4.9 Tf 394.00 130.00 Td (    exists g b : EuclideanSpace R \(Fin n\) -> C,) Tj ET
+BT /F3 4.9 Tf 394.00 123.00 Td (      exists \(Q : N -> DyadicCube n\) \(bad : N -> EuclideanSpace R \(Fin n\)) Tj ET
+BT /F3 4.9 Tf 394.00 116.00 Td (      -> C\),) Tj ET
+BT /F3 4.9 Tf 394.00 109.00 Td (        f = g + b /\\ HasSum bad b /\\ eLpNorm g 1 volume <= eLpNorm f 1) Tj ET
+BT /F3 4.9 Tf 394.00 102.00 Td (        volume /\\) Tj ET
+BT /F3 4.9 Tf 394.00 95.00 Td (          eLpNorm g inf volume <= ENNReal.ofReal \(2 ^ n * alpha\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 88.00 Td (          \(Pairwise fun i j => Disjoint \(Q i\).carrier \(Q j\).carrier\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 81.00 Td (          \(forall j, Function.support \(bad j\) subset \(Q j\).carrier\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 74.00 Td (          \(forall j, integral x, bad j x = 0\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 67.00 Td (          \(forall j, eLpNorm \(bad j\) 1 volume <=) Tj ET
+BT /F3 4.9 Tf 394.00 60.00 Td (            ENNReal.ofReal \(2 ^ \(n + 1\) * alpha\) * volume \(Q j\).carrier\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 53.00 Td (          sum' j, volume \(Q j\).carrier <= eLpNorm f 1 volume /) Tj ET
+BT /F3 4.9 Tf 394.00 46.00 Td (        ENNReal.ofReal alpha := by) Tj ET
 endstream
 endobj
 9 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 11 0 R /F2 12 0 R /F3 13 0 R >> >> /Contents 10 0 R >>
 endobj
 10 0 obj
-<< /Length 3859 >>
+<< /Length 3681 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Grafakos Classical Fourier Analysis Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 4) Tj ET
@@ -423,54 +423,52 @@ BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
 BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
 BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
 20.00 558.00 m 772.00 558.00 l S
-20.00 550.00 m 20.00 519.00 l S
-310.00 550.00 m 310.00 519.00 l S
-390.00 550.00 m 390.00 519.00 l S
-772.00 550.00 m 772.00 519.00 l S
+20.00 550.00 m 20.00 533.00 l S
+310.00 550.00 m 310.00 533.00 l S
+390.00 550.00 m 390.00 533.00 l S
+772.00 550.00 m 772.00 533.00 l S
 20.00 550.00 m 772.00 550.00 l S
-20.00 519.00 m 772.00 519.00 l S
-BT /F3 4.9 Tf 394.00 542.00 Td (          sum' j, volume \(Q j\).carrier <= eLpNorm f 1 volume /) Tj ET
-BT /F3 4.9 Tf 394.00 535.00 Td (        ENNReal.ofReal alpha := by) Tj ET
-BT /F3 4.9 Tf 394.00 528.00 Td (  sorry) Tj ET
-20.00 519.00 m 20.00 327.00 l S
-310.00 519.00 m 310.00 327.00 l S
-390.00 519.00 m 390.00 327.00 l S
-772.00 519.00 m 772.00 327.00 l S
-20.00 519.00 m 772.00 519.00 l S
-20.00 327.00 m 772.00 327.00 l S
-BT /F1 5.8 Tf 24.00 511.00 Td (Theorem 5.6.6. For 1 < p,r < inf the Hardy-Littlewood maximal) Tj ET
-BT /F1 5.8 Tf 24.00 504.00 Td (function M satisfies the vector-valued inequalities ||\(sum_j) Tj ET
-BT /F1 5.8 Tf 24.00 497.00 Td (|M\(f_j\)|^r\)^{1/r}||_{1,inf} <= C_n\(1+\(r-1\)^{-1}\)||\(sum_j) Tj ET
-BT /F1 5.8 Tf 24.00 490.00 Td (|f_j|^r\)^{1/r}||_1 and ||\(sum_j |M\(f_j\)|^r\)^{1/r}||_p <= C_n) Tj ET
-BT /F1 5.8 Tf 24.00 483.00 Td (c\(p,r\)||\(sum_j |f_j|^r\)^{1/r}||_p.) Tj ET
-BT /F1 5.8 Tf 314.00 511.00 Td (Fourier) Tj ET
-BT /F1 5.8 Tf 314.00 504.00 Td (analysis) Tj ET
-BT /F3 4.9 Tf 394.00 511.00 Td (noncomputable def hardyLittlewoodMaximal \(n : N\)) Tj ET
-BT /F3 4.9 Tf 394.00 504.00 Td (    \(f : EuclideanSpace R \(Fin n\) -> C\) \(x : EuclideanSpace R \(Fin n\)\) :) Tj ET
-BT /F3 4.9 Tf 394.00 497.00 Td (    R>=0inf :=) Tj ET
-BT /F3 4.9 Tf 394.00 490.00 Td (   y : EuclideanSpace R \(Fin n\),  r : {r : R // 0 < r},) Tj ET
-BT /F3 4.9 Tf 394.00 483.00 Td (     \(_ : x in ball y r\),) Tj ET
-BT /F3 4.9 Tf 394.00 476.00 Td (      \(integral^- z in ball y r, ||f z||e\) / volume \(ball y r\)) Tj ET
-BT /F3 4.9 Tf 394.00 469.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 462.00 Td (theorem grafakos_5_6_6_vector_valued_maximal) Tj ET
-BT /F3 4.9 Tf 394.00 455.00 Td (    {n : N} {p r : R} \(hp : 1 < p\) \(hr : 1 < r\) :) Tj ET
-BT /F3 4.9 Tf 394.00 448.00 Td (    let ellNorm := fun \(f : N -> EuclideanSpace R \(Fin n\) -> C\) x =>) Tj ET
-BT /F3 4.9 Tf 394.00 441.00 Td (      ENNReal.rpow \(sum' j, ENNReal.rpow ||f j x||e r\) \(1 / r\)) Tj ET
-BT /F3 4.9 Tf 394.00 434.00 Td (    let maximalNorm := fun \(f : N -> EuclideanSpace R \(Fin n\) -> C\) x =>) Tj ET
-BT /F3 4.9 Tf 394.00 427.00 Td (      ENNReal.rpow \(sum' j, ENNReal.rpow \(hardyLittlewoodMaximal n \(f j\) x\)) Tj ET
-BT /F3 4.9 Tf 394.00 420.00 Td (      r\) \(1 / r\)) Tj ET
-BT /F3 4.9 Tf 394.00 413.00 Td (    exists Cn Cp : R>=0inf, Cn < inf /\\ Cp < inf /\\) Tj ET
-BT /F3 4.9 Tf 394.00 406.00 Td (      \(forall f : N -> EuclideanSpace R \(Fin n\) -> C, forall alpha : R, 0 <) Tj ET
-BT /F3 4.9 Tf 394.00 399.00 Td (      alpha ->) Tj ET
-BT /F3 4.9 Tf 394.00 392.00 Td (        volume {x | ENNReal.ofReal alpha < maximalNorm f x} <=) Tj ET
-BT /F3 4.9 Tf 394.00 385.00 Td (          Cn * ENNReal.ofReal \(1 + 1 / \(r - 1\)\) / ENNReal.ofReal alpha *) Tj ET
-BT /F3 4.9 Tf 394.00 378.00 Td (            ENNReal.rpow \(integral^- x, ellNorm f x\) 1\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 371.00 Td (      forall f : N -> EuclideanSpace R \(Fin n\) -> C,) Tj ET
-BT /F3 4.9 Tf 394.00 364.00 Td (        ENNReal.rpow \(integral^- x, ENNReal.rpow \(maximalNorm f x\) p\) \(1 /) Tj ET
-BT /F3 4.9 Tf 394.00 357.00 Td (        p\) <=) Tj ET
-BT /F3 4.9 Tf 394.00 350.00 Td (          Cp * ENNReal.rpow \(integral^- x, ENNReal.rpow \(ellNorm f x\) p\) \(1) Tj ET
-BT /F3 4.9 Tf 394.00 343.00 Td (        / p\) := by) Tj ET
-BT /F3 4.9 Tf 394.00 336.00 Td (  sorry) Tj ET
+20.00 533.00 m 772.00 533.00 l S
+BT /F3 4.9 Tf 394.00 542.00 Td (  sorry) Tj ET
+20.00 533.00 m 20.00 341.00 l S
+310.00 533.00 m 310.00 341.00 l S
+390.00 533.00 m 390.00 341.00 l S
+772.00 533.00 m 772.00 341.00 l S
+20.00 533.00 m 772.00 533.00 l S
+20.00 341.00 m 772.00 341.00 l S
+BT /F1 5.8 Tf 24.00 525.00 Td (Theorem 5.6.6. For 1 < p,r < inf the Hardy-Littlewood maximal) Tj ET
+BT /F1 5.8 Tf 24.00 518.00 Td (function M satisfies the vector-valued inequalities ||\(sum_j) Tj ET
+BT /F1 5.8 Tf 24.00 511.00 Td (|M\(f_j\)|^r\)^{1/r}||_{1,inf} <= C_n\(1+\(r-1\)^{-1}\)||\(sum_j) Tj ET
+BT /F1 5.8 Tf 24.00 504.00 Td (|f_j|^r\)^{1/r}||_1 and ||\(sum_j |M\(f_j\)|^r\)^{1/r}||_p <= C_n) Tj ET
+BT /F1 5.8 Tf 24.00 497.00 Td (c\(p,r\)||\(sum_j |f_j|^r\)^{1/r}||_p.) Tj ET
+BT /F1 5.8 Tf 314.00 525.00 Td (Fourier) Tj ET
+BT /F1 5.8 Tf 314.00 518.00 Td (analysis) Tj ET
+BT /F3 4.9 Tf 394.00 525.00 Td (noncomputable def hardyLittlewoodMaximal \(n : N\)) Tj ET
+BT /F3 4.9 Tf 394.00 518.00 Td (    \(f : EuclideanSpace R \(Fin n\) -> C\) \(x : EuclideanSpace R \(Fin n\)\) :) Tj ET
+BT /F3 4.9 Tf 394.00 511.00 Td (    R>=0inf :=) Tj ET
+BT /F3 4.9 Tf 394.00 504.00 Td (   y : EuclideanSpace R \(Fin n\),  r : {r : R // 0 < r},) Tj ET
+BT /F3 4.9 Tf 394.00 497.00 Td (     \(_ : x in ball y r\),) Tj ET
+BT /F3 4.9 Tf 394.00 490.00 Td (      \(integral^- z in ball y r, ||f z||e\) / volume \(ball y r\)) Tj ET
+BT /F3 4.9 Tf 394.00 483.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 476.00 Td (theorem grafakos_5_6_6_vector_valued_maximal) Tj ET
+BT /F3 4.9 Tf 394.00 469.00 Td (    {n : N} {p r : R} \(hp : 1 < p\) \(hr : 1 < r\) :) Tj ET
+BT /F3 4.9 Tf 394.00 462.00 Td (    let ellNorm := fun \(f : N -> EuclideanSpace R \(Fin n\) -> C\) x =>) Tj ET
+BT /F3 4.9 Tf 394.00 455.00 Td (      ENNReal.rpow \(sum' j, ENNReal.rpow ||f j x||e r\) \(1 / r\)) Tj ET
+BT /F3 4.9 Tf 394.00 448.00 Td (    let maximalNorm := fun \(f : N -> EuclideanSpace R \(Fin n\) -> C\) x =>) Tj ET
+BT /F3 4.9 Tf 394.00 441.00 Td (      ENNReal.rpow \(sum' j, ENNReal.rpow \(hardyLittlewoodMaximal n \(f j\) x\)) Tj ET
+BT /F3 4.9 Tf 394.00 434.00 Td (      r\) \(1 / r\)) Tj ET
+BT /F3 4.9 Tf 394.00 427.00 Td (    exists Cn Cp : R>=0inf, Cn < inf /\\ Cp < inf /\\) Tj ET
+BT /F3 4.9 Tf 394.00 420.00 Td (      \(forall f : N -> EuclideanSpace R \(Fin n\) -> C, forall alpha : R, 0 <) Tj ET
+BT /F3 4.9 Tf 394.00 413.00 Td (      alpha ->) Tj ET
+BT /F3 4.9 Tf 394.00 406.00 Td (        volume {x | ENNReal.ofReal alpha < maximalNorm f x} <=) Tj ET
+BT /F3 4.9 Tf 394.00 399.00 Td (          Cn * ENNReal.ofReal \(1 + 1 / \(r - 1\)\) / ENNReal.ofReal alpha *) Tj ET
+BT /F3 4.9 Tf 394.00 392.00 Td (            ENNReal.rpow \(integral^- x, ellNorm f x\) 1\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 385.00 Td (      forall f : N -> EuclideanSpace R \(Fin n\) -> C,) Tj ET
+BT /F3 4.9 Tf 394.00 378.00 Td (        ENNReal.rpow \(integral^- x, ENNReal.rpow \(maximalNorm f x\) p\) \(1 /) Tj ET
+BT /F3 4.9 Tf 394.00 371.00 Td (        p\) <=) Tj ET
+BT /F3 4.9 Tf 394.00 364.00 Td (          Cp * ENNReal.rpow \(integral^- x, ENNReal.rpow \(ellNorm f x\) p\) \(1) Tj ET
+BT /F3 4.9 Tf 394.00 357.00 Td (        / p\) := by) Tj ET
+BT /F3 4.9 Tf 394.00 350.00 Td (  sorry) Tj ET
 endstream
 endobj
 11 0 obj
@@ -489,17 +487,17 @@ xref
 0000000064 00000 n 
 0000000139 00000 n 
 0000000288 00000 n 
-0000010335 00000 n 
-0000010484 00000 n 
-0000020610 00000 n 
-0000020759 00000 n 
-0000029660 00000 n 
-0000029810 00000 n 
-0000033722 00000 n 
-0000033793 00000 n 
-0000033869 00000 n 
+0000010453 00000 n 
+0000010602 00000 n 
+0000020850 00000 n 
+0000020999 00000 n 
+0000029789 00000 n 
+0000029939 00000 n 
+0000033673 00000 n 
+0000033744 00000 n 
+0000033820 00000 n 
 trailer
 << /Size 14 /Root 1 0 R >>
 startxref
-33938
+33889
 %%EOF

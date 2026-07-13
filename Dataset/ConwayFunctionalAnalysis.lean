@@ -75,6 +75,19 @@ def StronglyContinuousUnitaryGroup {H : Type*} [NormedAddCommGroup H]
     (∀ t : ℝ, IsUnitaryOperator (U t)) ∧
     ∀ x : H, Continuous fun t ↦ U t x
 
+/-- A unitary group is the spectral-calculus exponential of an unbounded operator. -/
+def IsSpectralExponential {H : Type*} [NormedAddCommGroup H] [InnerProductSpace ℂ H]
+    [CompleteSpace H] (A : DenselyDefinedOperator H) (U : ℝ → H →L[ℂ] H) : Prop :=
+  ∃ (E : ProjectionValuedMeasure H) (scalarMeasure : H → H → ComplexMeasure ℂ),
+    E.toFun {z : ℂ | z.im ≠ 0} = 0 ∧
+      (∀ x y : H, ∀ B : Set ℂ, MeasurableSet B →
+        scalarMeasure x y B = inner ℂ (E.toFun B x) y) ∧
+      (∀ x : A.domain, ∀ y : H, inner ℂ (A.op x) y =
+        ∫ᵛ z, z ∂[ContinuousLinearMap.mul ℝ ℂ; scalarMeasure x y]) ∧
+      ∀ t : ℝ, ∀ x y : H, inner ℂ (U t x) y =
+        ∫ᵛ z, Complex.exp (Complex.I * t * z)
+          ∂[ContinuousLinearMap.mul ℝ ℂ; scalarMeasure x y]
+
 /-- Left invertibility modulo compact operators. -/
 def IsLeftSemiFredholm {H K : Type*} [NormedAddCommGroup H] [NormedAddCommGroup K]
     [InnerProductSpace ℂ H] [InnerProductSpace ℂ K] [CompleteSpace H]
@@ -230,8 +243,8 @@ theorem conway_IX_2_2_bounded_normal_spectral_theorem
 theorem conway_X_5_6_stone_theorem
     {H : Type*} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
     (U : ℝ → H →L[ℂ] H) (hU : StronglyContinuousUnitaryGroup U) :
-    ∃! A : DenselyDefinedOperator H, IsSelfAdjointUnbounded A ∧
-      ∀ x : A.domain, HasDerivAt (fun t : ℝ ↦ U t x) (Complex.I • A.op x) 0 := by
+    ∃! A : DenselyDefinedOperator H,
+      IsSelfAdjointUnbounded A ∧ IsSpectralExponential A U := by
   sorry
 
 end ConwayFunctionalAnalysis
