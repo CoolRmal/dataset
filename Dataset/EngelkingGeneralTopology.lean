@@ -1,3 +1,5 @@
+module
+
 import Mathlib.Topology.Compactness.Compact
 import Mathlib.Topology.Compactness.Paracompact
 import Mathlib.Topology.ContinuousMap.Compact
@@ -24,7 +26,7 @@ universe u v w
 /-- A concrete compactification: an embedding with dense image into a compact space. -/
 def IsCompactification {X : Type u} {K : Type v} [TopologicalSpace X]
     [TopologicalSpace K] (e : X → K) : Prop :=
-  IsEmbedding e ∧ DenseRange e ∧ IsCompact (univ : Set K)
+  IsEmbedding e ∧ DenseRange e ∧ IsCompact (univ : Set K) ∧ T2Space K
 
 /-- Two compactifications are equivalent when a homeomorphism commutes with their embeddings. -/
 def EquivalentCompactifications {X : Type u} {K L : Type v} [TopologicalSpace X]
@@ -34,7 +36,7 @@ def EquivalentCompactifications {X : Type u} {K L : Type v} [TopologicalSpace X]
 /-- Engelking's definition of a realcompact space: no proper Tychonoff extension of the
 space permits the extension of every continuous real-valued function. -/
 def IsRealcompact (X : Type u) [tX : TopologicalSpace X] : Prop :=
-  T35Space X ∧ ¬∃ (Y : Type u) (tY : TopologicalSpace Y),
+  T35Space X ∧ ¬∃ (Y : Type (u + 1)) (tY : TopologicalSpace Y),
     @T35Space Y tY ∧ ∃ r : X → Y,
       @IsEmbedding X Y tX tY r ∧ range r ≠ closure (range r) ∧
         closure (range r) = univ ∧
@@ -105,13 +107,14 @@ def CoveringDimensionLE (X : Type u) [TopologicalSpace X] (n : ℕ) : Prop :=
       IsOpenCover V ∧ Refines V U ∧ CoverOrderLE V n
 
 /-- A proximity relation in the sense of Smirnov. -/
-structure Proximity (X : Type u) where
+structure Proximity (X : Type u) [TopologicalSpace X] where
   close : Set X → Set X → Prop
   empty_left : ∀ A, ¬close ∅ A
   intersects : ∀ A B, (A ∩ B).Nonempty → close A B
   symmetric : ∀ A B, close A B ↔ close B A
   union_left : ∀ A B C, close (A ∪ B) C ↔ close A C ∨ close B C
   strong : ∀ A B, ¬close A B → ∃ E : Set X, ¬close A E ∧ ¬close Eᶜ B
+  closure_eq : ∀ A : Set X, closure A = {x | close {x} A}
 
 /-- The proximity induced by taking intersecting closures in a compactification. -/
 def IsAssignedProximity {X : Type u} {K : Type v} [TopologicalSpace X]
@@ -138,7 +141,7 @@ theorem engelking_3_11_16_hewitt_realcompactification
 
 /-- Engelking 5.2.8, normality of a product with the closed unit interval. -/
 theorem engelking_5_2_8_normal_product_interval
-    {X : Type u} [TopologicalSpace X] :
+    {X : Type u} [TopologicalSpace X] [T1Space X] :
     (NormalSpace X ∧ IsCountablyParacompact X) ↔
       NormalSpace (X × Set.Icc (0 : ℝ) 1) := by
   sorry

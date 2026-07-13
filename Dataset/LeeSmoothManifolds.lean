@@ -1,3 +1,5 @@
+module
+
 import Mathlib.Geometry.Manifold.Algebra.LieGroup
 import Mathlib.Geometry.Manifold.ContMDiffMFDeriv
 import Mathlib.Geometry.Manifold.Immersion
@@ -20,7 +22,7 @@ open scoped ContDiff Manifold Topology
 namespace Dataset
 namespace LeeSmoothManifolds
 
-universe u v w
+universe u v
 
 /-- A smooth (Fin diffeomorphism → ℝ) between two subsets. -/
 structure SmoothDiffeomorphismOn {m n : ℕ} (U : Set ((Fin m → ℝ)))
@@ -111,6 +113,7 @@ theorem lee_7_8_rank_theorem
     (hk : k ≤ m ∧ k ≤ n) (hrank : EuclideanConstantRank U F k) :
     ∃ U₀ V₀, (IsOpen U₀ ∧ IsConnected U₀ ∧ p ∈ U₀ ∧ U₀ ⊆ U) ∧
       (IsOpen V₀ ∧ IsConnected V₀ ∧ F p ∈ V₀ ∧ V₀ ⊆ V) ∧
+      MapsTo F U₀ V₀ ∧
       ∃ (sourceTarget : Set (Fin m → ℝ)) (targetTarget : Set (Fin n → ℝ))
         (φ : SmoothDiffeomorphismOn U₀ sourceTarget)
         (ψ : SmoothDiffeomorphismOn V₀ targetTarget),
@@ -171,15 +174,16 @@ theorem lee_9_16_quotient_manifold_theorem
     [TopologicalSpace M] [ChartedSpace ((Fin m → ℝ)) M]
     [IsManifold 𝓘(ℝ, (Fin m → ℝ)) ∞ M]
     {act : G → M → M} (haction : SmoothFreeProperAction (g := g) (m := m) act) :
-    ∃ (Q : Type w) (_ : TopologicalSpace Q) (_ : ChartedSpace (Fin (m - g) → ℝ) Q)
+    ∃ (Q : Type v) (_ : TopologicalSpace Q) (_ : ChartedSpace (Fin (m - g) → ℝ) Q)
       (_ : IsManifold 𝓘(ℝ, (Fin (m - g) → ℝ)) ∞ Q) (π : M → Q),
       Surjective π ∧ (∀ x y, π x = π y ↔ ∃ a, act a x = y) ∧
       Manifold.IsSubmersion 𝓘(ℝ, (Fin m → ℝ)) 𝓘(ℝ, (Fin (m - g) → ℝ)) ∞ π ∧
-      ∀ (Q' : Type w) (_ : TopologicalSpace Q')
+      ∀ (Q' : Type v) (_ : TopologicalSpace Q')
         (_ : ChartedSpace (Fin (m - g) → ℝ) Q')
         (_ : IsManifold 𝓘(ℝ, (Fin (m - g) → ℝ)) ∞ Q') (π' : M → Q'),
         Surjective π' → (∀ x y, π' x = π' y ↔ ∃ a, act a x = y) →
-        Manifold.IsSubmersion 𝓘(ℝ, (Fin m → ℝ)) 𝓘(ℝ, (Fin (m - g) → ℝ)) ∞ π' →
+        Manifold.IsSubmersion 𝓘(ℝ, (Fin m → ℝ)) 𝓘(ℝ, (Fin (m - g) → ℝ)) ∞
+          π' →
         ∃ e : Diffeomorph 𝓘(ℝ, (Fin (m - g) → ℝ)) 𝓘(ℝ, (Fin (m - g) → ℝ))
           Q Q' ∞, e ∘ π = π' := by
   sorry

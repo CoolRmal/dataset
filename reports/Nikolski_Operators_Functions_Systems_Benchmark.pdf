@@ -4,13 +4,13 @@
 << /Type /Catalog /Pages 2 0 R >>
 endobj
 2 0 obj
-<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R] /Count 8 >>
+<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R] /Count 9 >>
 endobj
 3 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 19 0 R /F2 20 0 R /F3 21 0 R >> >> /Contents 4 0 R >>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 21 0 R /F2 22 0 R /F3 23 0 R >> >> /Contents 4 0 R >>
 endobj
 4 0 obj
-<< /Length 7678 >>
+<< /Length 7708 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Nikolski Operators Functions Systems Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 1) Tj ET
@@ -18,12 +18,12 @@ BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
 BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
 BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
 20.00 558.00 m 772.00 558.00 l S
-20.00 550.00 m 20.00 169.00 l S
-310.00 550.00 m 310.00 169.00 l S
-390.00 550.00 m 390.00 169.00 l S
-772.00 550.00 m 772.00 169.00 l S
+20.00 550.00 m 20.00 113.00 l S
+310.00 550.00 m 310.00 113.00 l S
+390.00 550.00 m 390.00 113.00 l S
+772.00 550.00 m 772.00 113.00 l S
 20.00 550.00 m 772.00 550.00 l S
-20.00 169.00 m 772.00 169.00 l S
+20.00 113.00 m 772.00 113.00 l S
 BT /F1 5.8 Tf 24.00 542.00 Td (1.3.2. Theorem \(A. Beurling, H. Helson\). Let E subset L2, zE) Tj ET
 BT /F1 5.8 Tf 24.00 535.00 Td (proper_subset E. Then there exists a measurable function) Tj ET
 BT /F1 5.8 Tf 24.00 528.00 Td (Theta, unique up to a multiplicative constant of modulus 1,) Tj ET
@@ -36,91 +36,91 @@ BT /F3 4.9 Tf 394.00 521.00 Td () Tj ET
 BT /F3 4.9 Tf 394.00 514.00 Td (noncomputable def unitCirclePoint \(t : R\) : {z : C // ||z|| = 1} :=) Tj ET
 BT /F3 4.9 Tf 394.00 507.00 Td (  <Complex.exp \(Complex.I * t\), by rw [Complex.norm_exp]; simp>) Tj ET
 BT /F3 4.9 Tf 394.00 500.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 493.00 Td (def HardyClass \(p : R>=0inf\) \(f : C -> C\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 486.00 Td (  DifferentiableOn C f \(Metric.ball \(0 : C\) 1\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 479.00 Td (    exists C : R>=0inf, C < inf /\\ forall r : R, 0 <= r -> r < 1 ->) Tj ET
-BT /F3 4.9 Tf 394.00 472.00 Td (      eLpNorm \(fun t : R => f \(r  *  \(unitCirclePoint t\).1\)\) p) Tj ET
-BT /F3 4.9 Tf 394.00 465.00 Td (        \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) <= C) Tj ET
-BT /F3 4.9 Tf 394.00 458.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 451.00 Td (def HasTaylorSeries \(f : C -> C\) \(a : N -> C\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 444.00 Td (  forall z in Metric.ball \(0 : C\) 1, HasSum \(fun n : N => a n * z ^ n\) \(f z\)) Tj ET
-BT /F3 4.9 Tf 394.00 437.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 430.00 Td (def HardySquareSummable \(a : N -> C\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 423.00 Td (  Summable fun n : N => ||a n|| ^ 2) Tj ET
-BT /F3 4.9 Tf 394.00 416.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 409.00 Td (noncomputable def CauchyProduct \(a b : N -> C\) : N -> C :=) Tj ET
-BT /F3 4.9 Tf 394.00 402.00 Td (  fun n : N => Finset.sum \(Finset.range \(n + 1\)\) \(fun k => a k * b \(n - k\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 395.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 388.00 Td (def IsComplexLinearSubspace \(M : Set \(N -> C\)\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 381.00 Td (  \(0 : N -> C\) in M /\\) Tj ET
-BT /F3 4.9 Tf 394.00 374.00 Td (    forall a b : C, forall f g : N -> C, f in M -> g in M -> a  *  f + b  *) Tj ET
-BT /F3 4.9 Tf 394.00 367.00 Td (    g in M) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td (def HasRadialBoundaryValues \(f : C -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td (  forall^m t dvolume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\),) Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (    Tendsto \(fun r : R => f \(r  *  \(unitCirclePoint t\).1\)\) \(nhds[<] 1\)) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td (      \(nhds \(boundaryValue f \(unitCirclePoint t\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td (def HardyClass \(p : R>=0inf\) \(f : C -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 451.00 Td (  DifferentiableOn C f \(Metric.ball \(0 : C\) 1\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 444.00 Td (    exists C : R>=0inf, C < inf /\\ forall r : R, 0 <= r -> r < 1 ->) Tj ET
+BT /F3 4.9 Tf 394.00 437.00 Td (      eLpNorm \(fun t : R => f \(r  *  \(unitCirclePoint t\).1\)\) p) Tj ET
+BT /F3 4.9 Tf 394.00 430.00 Td (        \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) <= C) Tj ET
+BT /F3 4.9 Tf 394.00 423.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 416.00 Td (def HasTaylorSeries \(f : C -> C\) \(a : N -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 409.00 Td (  forall z in Metric.ball \(0 : C\) 1, HasSum \(fun n : N => a n * z ^ n\) \(f z\)) Tj ET
+BT /F3 4.9 Tf 394.00 402.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 395.00 Td (def HardySquareSummable \(a : N -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 388.00 Td (  Summable fun n : N => ||a n|| ^ 2) Tj ET
+BT /F3 4.9 Tf 394.00 381.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 374.00 Td (noncomputable def CauchyProduct \(a b : N -> C\) : N -> C :=) Tj ET
+BT /F3 4.9 Tf 394.00 367.00 Td (  fun n : N => Finset.sum \(Finset.range \(n + 1\)\) \(fun k => a k * b \(n - k\)\)) Tj ET
 BT /F3 4.9 Tf 394.00 360.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 353.00 Td (def ShiftInvariant \(M : Set \(N -> C\)\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 346.00 Td (  forall f in M, \(fun n : N => if n = 0 then 0 else f \(n - 1\)\) in M) Tj ET
-BT /F3 4.9 Tf 394.00 339.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 332.00 Td (def InnerFunction \(theta : C -> C\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 325.00 Td (  HardyClass top theta /\\) Tj ET
-BT /F3 4.9 Tf 394.00 318.00 Td (    forall^m t dvolume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\),) Tj ET
-BT /F3 4.9 Tf 394.00 311.00 Td (      ||boundaryValue theta \(unitCirclePoint t\)|| = 1) Tj ET
+BT /F3 4.9 Tf 394.00 353.00 Td (def IsComplexLinearSubspace \(M : Set \(N -> C\)\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 346.00 Td (  \(0 : N -> C\) in M /\\) Tj ET
+BT /F3 4.9 Tf 394.00 339.00 Td (    forall a b : C, forall f g : N -> C, f in M -> g in M -> a  *  f + b  *) Tj ET
+BT /F3 4.9 Tf 394.00 332.00 Td (    g in M) Tj ET
+BT /F3 4.9 Tf 394.00 325.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 318.00 Td (def ShiftInvariant \(M : Set \(N -> C\)\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 311.00 Td (  forall f in M, \(fun n : N => if n = 0 then 0 else f \(n - 1\)\) in M) Tj ET
 BT /F3 4.9 Tf 394.00 304.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 297.00 Td (def InnerGeneratedSubspace \(M : Set \(N -> C\)\) \(htheta : N -> C\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 290.00 Td (  HardySquareSummable htheta /\\) Tj ET
-BT /F3 4.9 Tf 394.00 283.00 Td (    M = {f : N -> C | exists g : N -> C, HardySquareSummable g /\\ f =) Tj ET
-BT /F3 4.9 Tf 394.00 276.00 Td (    CauchyProduct htheta g}) Tj ET
+BT /F3 4.9 Tf 394.00 297.00 Td (def InnerFunction \(theta : C -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 290.00 Td (  HardyClass top theta /\\ HasRadialBoundaryValues theta /\\) Tj ET
+BT /F3 4.9 Tf 394.00 283.00 Td (    forall^m t dvolume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\),) Tj ET
+BT /F3 4.9 Tf 394.00 276.00 Td (      ||boundaryValue theta \(unitCirclePoint t\)|| = 1) Tj ET
 BT /F3 4.9 Tf 394.00 269.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 262.00 Td (theorem nikolski_A_1_3_beurling_invariant_subspaces) Tj ET
-BT /F3 4.9 Tf 394.00 255.00 Td (    {M : Set \(N -> C\)}) Tj ET
-BT /F3 4.9 Tf 394.00 248.00 Td (    \(hlinear : IsComplexLinearSubspace M\) \(hclosed : IsClosed M\)) Tj ET
-BT /F3 4.9 Tf 394.00 241.00 Td (    \(hshift : ShiftInvariant M\) \(hne : exists f in M, f != 0\) :) Tj ET
-BT /F3 4.9 Tf 394.00 234.00 Td (    exists theta : C -> C, exists htheta : N -> C,) Tj ET
-BT /F3 4.9 Tf 394.00 227.00 Td (      InnerFunction theta /\\ HasTaylorSeries theta htheta /\\) Tj ET
-BT /F3 4.9 Tf 394.00 220.00 Td (      InnerGeneratedSubspace M htheta /\\) Tj ET
-BT /F3 4.9 Tf 394.00 213.00 Td (        forall eta : C -> C, forall heta : N -> C,) Tj ET
-BT /F3 4.9 Tf 394.00 206.00 Td (          InnerFunction eta -> HasTaylorSeries eta heta ->) Tj ET
-BT /F3 4.9 Tf 394.00 199.00 Td (        InnerGeneratedSubspace M heta ->) Tj ET
-BT /F3 4.9 Tf 394.00 192.00 Td (            exists c : C, ||c|| = 1 /\\ forall z in Metric.ball \(0 : C\) 1,) Tj ET
-BT /F3 4.9 Tf 394.00 185.00 Td (        eta z = c * theta z := by) Tj ET
-BT /F3 4.9 Tf 394.00 178.00 Td (  sorry) Tj ET
-20.00 169.00 m 20.00 40.00 l S
-310.00 169.00 m 310.00 40.00 l S
-390.00 169.00 m 390.00 40.00 l S
-772.00 169.00 m 772.00 40.00 l S
-20.00 169.00 m 772.00 169.00 l S
+BT /F3 4.9 Tf 394.00 262.00 Td (def InnerGeneratedSubspace \(M : Set \(N -> C\)\) \(htheta : N -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 255.00 Td (  HardySquareSummable htheta /\\) Tj ET
+BT /F3 4.9 Tf 394.00 248.00 Td (    M = {f : N -> C | exists g : N -> C, HardySquareSummable g /\\ f =) Tj ET
+BT /F3 4.9 Tf 394.00 241.00 Td (    CauchyProduct htheta g}) Tj ET
+BT /F3 4.9 Tf 394.00 234.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 227.00 Td (theorem nikolski_A_1_3_beurling_invariant_subspaces) Tj ET
+BT /F3 4.9 Tf 394.00 220.00 Td (    {M : Set \(N -> C\)}) Tj ET
+BT /F3 4.9 Tf 394.00 213.00 Td (    \(hlinear : IsComplexLinearSubspace M\) \(hsquare : forall f in M,) Tj ET
+BT /F3 4.9 Tf 394.00 206.00 Td (    HardySquareSummable f\)) Tj ET
+BT /F3 4.9 Tf 394.00 199.00 Td (    \(hclosed : IsClosed {f : l2\(N, C\) | \(f : N -> C\) in M}\)) Tj ET
+BT /F3 4.9 Tf 394.00 192.00 Td (    \(hshiftProper : {g : N -> C | exists f in M,) Tj ET
+BT /F3 4.9 Tf 394.00 185.00 Td (      g = fun n => if n = 0 then 0 else f \(n - 1\)} subset M\) :) Tj ET
+BT /F3 4.9 Tf 394.00 178.00 Td (    exists theta : C -> C, exists htheta : N -> C,) Tj ET
+BT /F3 4.9 Tf 394.00 171.00 Td (      InnerFunction theta /\\ HasTaylorSeries theta htheta /\\) Tj ET
+BT /F3 4.9 Tf 394.00 164.00 Td (      InnerGeneratedSubspace M htheta /\\) Tj ET
+BT /F3 4.9 Tf 394.00 157.00 Td (        forall eta : C -> C, forall heta : N -> C,) Tj ET
+BT /F3 4.9 Tf 394.00 150.00 Td (          InnerFunction eta -> HasTaylorSeries eta heta ->) Tj ET
+BT /F3 4.9 Tf 394.00 143.00 Td (        InnerGeneratedSubspace M heta ->) Tj ET
+BT /F3 4.9 Tf 394.00 136.00 Td (            exists c : C, ||c|| = 1 /\\ forall z in Metric.ball \(0 : C\) 1,) Tj ET
+BT /F3 4.9 Tf 394.00 129.00 Td (        eta z = c * theta z := by) Tj ET
+BT /F3 4.9 Tf 394.00 122.00 Td (  sorry) Tj ET
+20.00 113.00 m 20.00 40.00 l S
+310.00 113.00 m 310.00 40.00 l S
+390.00 113.00 m 390.00 40.00 l S
+772.00 113.00 m 772.00 40.00 l S
+20.00 113.00 m 772.00 113.00 l S
 20.00 40.00 m 772.00 40.00 l S
-BT /F1 5.8 Tf 24.00 161.00 Td (2.4.1. Theorem \(V. Smirnov, 1928\). Let f in H2, f != 0. Then) Tj ET
-BT /F1 5.8 Tf 24.00 154.00 Td (there exist an inner function finn in H2 and an outer function) Tj ET
-BT /F1 5.8 Tf 24.00 147.00 Td (fout in H2 such that f = finnfout. Moreover, such a) Tj ET
-BT /F1 5.8 Tf 24.00 140.00 Td (factorization is unique up to a constant factor, and E_f =) Tj ET
-BT /F1 5.8 Tf 24.00 133.00 Td (finnH2.) Tj ET
-BT /F1 5.8 Tf 24.00 126.00 Td () Tj ET
-BT /F1 5.8 Tf 24.00 119.00 Td (Recall that a function f in H2 is called inner if |f| = 1 a.e.) Tj ET
-BT /F1 5.8 Tf 24.00 112.00 Td (on T. It is called outer if E_f = H2.) Tj ET
-BT /F1 5.8 Tf 314.00 161.00 Td (Hardy spaces) Tj ET
-BT /F3 4.9 Tf 394.00 161.00 Td (noncomputable def boundaryValue \(f : C -> C\) \(zeta : {z : C // ||z|| = 1}\)) Tj ET
-BT /F3 4.9 Tf 394.00 154.00 Td (: C :=) Tj ET
-BT /F3 4.9 Tf 394.00 147.00 Td (  limUnder \(nhds[<] \(1 : R\)\) fun r => f \(r  *  zeta.1\)) Tj ET
-BT /F3 4.9 Tf 394.00 140.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 133.00 Td (noncomputable def unitCirclePoint \(t : R\) : {z : C // ||z|| = 1} :=) Tj ET
-BT /F3 4.9 Tf 394.00 126.00 Td (  <Complex.exp \(Complex.I * t\), by rw [Complex.norm_exp]; simp>) Tj ET
-BT /F3 4.9 Tf 394.00 119.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 112.00 Td (def HardyClass \(p : R>=0inf\) \(f : C -> C\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 105.00 Td (  DifferentiableOn C f \(Metric.ball \(0 : C\) 1\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 98.00 Td (    exists C : R>=0inf, C < inf /\\ forall r : R, 0 <= r -> r < 1 ->) Tj ET
-BT /F3 4.9 Tf 394.00 91.00 Td (      eLpNorm \(fun t : R => f \(r  *  \(unitCirclePoint t\).1\)\) p) Tj ET
-BT /F3 4.9 Tf 394.00 84.00 Td (        \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) <= C) Tj ET
-BT /F3 4.9 Tf 394.00 77.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 70.00 Td (def InnerFunction \(theta : C -> C\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 63.00 Td (  HardyClass top theta /\\) Tj ET
-BT /F3 4.9 Tf 394.00 56.00 Td (    forall^m t dvolume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\),) Tj ET
-BT /F3 4.9 Tf 394.00 49.00 Td (      ||boundaryValue theta \(unitCirclePoint t\)|| = 1) Tj ET
+BT /F1 5.8 Tf 24.00 105.00 Td (2.4.1. Theorem \(V. Smirnov, 1928\). Let f in H2, f != 0. Then) Tj ET
+BT /F1 5.8 Tf 24.00 98.00 Td (there exist an inner function finn in H2 and an outer function) Tj ET
+BT /F1 5.8 Tf 24.00 91.00 Td (fout in H2 such that f = finnfout. Moreover, such a) Tj ET
+BT /F1 5.8 Tf 24.00 84.00 Td (factorization is unique up to a constant factor, and E_f =) Tj ET
+BT /F1 5.8 Tf 24.00 77.00 Td (finnH2.) Tj ET
+BT /F1 5.8 Tf 24.00 70.00 Td () Tj ET
+BT /F1 5.8 Tf 24.00 63.00 Td (Recall that a function f in H2 is called inner if |f| = 1 a.e.) Tj ET
+BT /F1 5.8 Tf 24.00 56.00 Td (on T. It is called outer if E_f = H2.) Tj ET
+BT /F1 5.8 Tf 314.00 105.00 Td (Hardy spaces) Tj ET
+BT /F3 4.9 Tf 394.00 105.00 Td (noncomputable def boundaryValue \(f : C -> C\) \(zeta : {z : C // ||z|| = 1}\)) Tj ET
+BT /F3 4.9 Tf 394.00 98.00 Td (: C :=) Tj ET
+BT /F3 4.9 Tf 394.00 91.00 Td (  limUnder \(nhds[<] \(1 : R\)\) fun r => f \(r  *  zeta.1\)) Tj ET
+BT /F3 4.9 Tf 394.00 84.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 77.00 Td (noncomputable def unitCirclePoint \(t : R\) : {z : C // ||z|| = 1} :=) Tj ET
+BT /F3 4.9 Tf 394.00 70.00 Td (  <Complex.exp \(Complex.I * t\), by rw [Complex.norm_exp]; simp>) Tj ET
+BT /F3 4.9 Tf 394.00 63.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 56.00 Td (def HasRadialBoundaryValues \(f : C -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 49.00 Td (  forall^m t dvolume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\),) Tj ET
 endstream
 endobj
 5 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 19 0 R /F2 20 0 R /F3 21 0 R >> >> /Contents 6 0 R >>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 21 0 R /F2 22 0 R /F3 23 0 R >> >> /Contents 6 0 R >>
 endobj
 6 0 obj
-<< /Length 9473 >>
+<< /Length 7658 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Nikolski Operators Functions Systems Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 2) Tj ET
@@ -128,135 +128,108 @@ BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
 BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
 BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
 20.00 558.00 m 772.00 558.00 l S
-20.00 550.00 m 20.00 400.00 l S
-310.00 550.00 m 310.00 400.00 l S
-390.00 550.00 m 390.00 400.00 l S
-772.00 550.00 m 772.00 400.00 l S
+20.00 550.00 m 20.00 302.00 l S
+310.00 550.00 m 310.00 302.00 l S
+390.00 550.00 m 390.00 302.00 l S
+772.00 550.00 m 772.00 302.00 l S
 20.00 550.00 m 772.00 550.00 l S
-20.00 400.00 m 772.00 400.00 l S
-BT /F3 4.9 Tf 394.00 542.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 535.00 Td (def OuterFunction \(p : R>=0inf\) \(g : C -> C\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 528.00 Td (  HardyClass p g /\\ exists c : C, ||c|| = 1 /\\ forall z in Metric.ball \(0 :) Tj ET
-BT /F3 4.9 Tf 394.00 521.00 Td (  C\) 1,) Tj ET
-BT /F3 4.9 Tf 394.00 514.00 Td (    g z = c * Complex.exp) Tj ET
-BT /F3 4.9 Tf 394.00 507.00 Td (      \(\(2 * Real.pi : C\)^-1 *) Tj ET
-BT /F3 4.9 Tf 394.00 500.00 Td (        integral t in Set.Ioc 0 \(2 * Real.pi\),) Tj ET
-BT /F3 4.9 Tf 394.00 493.00 Td (          \(\(unitCirclePoint t\).1 + z\) / \(\(unitCirclePoint t\).1 - z\) *) Tj ET
-BT /F3 4.9 Tf 394.00 486.00 Td (            Real.log ||boundaryValue g \(unitCirclePoint t\)||\)) Tj ET
-BT /F3 4.9 Tf 394.00 479.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 472.00 Td (theorem nikolski_A_2_4_inner_outer_factorization) Tj ET
-BT /F3 4.9 Tf 394.00 465.00 Td (    {f : C -> C} \(hf : HardyClass 2 f\) \(hnonzero : exists z, f z != 0\) :) Tj ET
-BT /F3 4.9 Tf 394.00 458.00 Td (    exists theta g : C -> C, InnerFunction theta /\\ OuterFunction 2 g /\\) Tj ET
-BT /F3 4.9 Tf 394.00 451.00 Td (      \(forall z in Metric.ball \(0 : C\) 1, f z = theta z * g z\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 444.00 Td (      forall theta' g' : C -> C, InnerFunction theta' -> OuterFunction 2 g') Tj ET
-BT /F3 4.9 Tf 394.00 437.00 Td (      ->) Tj ET
-BT /F3 4.9 Tf 394.00 430.00 Td (        \(forall z in Metric.ball \(0 : C\) 1, f z = theta' z * g' z\) ->) Tj ET
-BT /F3 4.9 Tf 394.00 423.00 Td (          exists c : C, ||c|| = 1 /\\ forall z in Metric.ball \(0 : C\) 1,) Tj ET
-BT /F3 4.9 Tf 394.00 416.00 Td (            theta' z = c * theta z /\\ g' z = star c * g z := by) Tj ET
-BT /F3 4.9 Tf 394.00 409.00 Td (  sorry) Tj ET
-20.00 400.00 m 20.00 222.00 l S
-310.00 400.00 m 310.00 222.00 l S
-390.00 400.00 m 390.00 222.00 l S
-772.00 400.00 m 772.00 222.00 l S
-20.00 400.00 m 772.00 400.00 l S
-20.00 222.00 m 772.00 222.00 l S
-BT /F1 5.8 Tf 24.00 392.00 Td (3.6.1. Corollary. If g in H1, g != 0, then log |g| in L1\(T\).) Tj ET
-BT /F1 5.8 Tf 24.00 385.00 Td (In particular, if g in H1 and m{t in T : g\(t\) = 0} > 0, then g) Tj ET
-BT /F1 5.8 Tf 24.00 378.00 Td (= 0.) Tj ET
-BT /F1 5.8 Tf 314.00 392.00 Td (Hardy spaces) Tj ET
-BT /F3 4.9 Tf 394.00 392.00 Td (noncomputable def boundaryValue \(f : C -> C\) \(zeta : {z : C // ||z|| = 1}\)) Tj ET
-BT /F3 4.9 Tf 394.00 385.00 Td (: C :=) Tj ET
-BT /F3 4.9 Tf 394.00 378.00 Td (  limUnder \(nhds[<] \(1 : R\)\) fun r => f \(r  *  zeta.1\)) Tj ET
-BT /F3 4.9 Tf 394.00 371.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 364.00 Td (noncomputable def unitCirclePoint \(t : R\) : {z : C // ||z|| = 1} :=) Tj ET
-BT /F3 4.9 Tf 394.00 357.00 Td (  <Complex.exp \(Complex.I * t\), by rw [Complex.norm_exp]; simp>) Tj ET
-BT /F3 4.9 Tf 394.00 350.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 343.00 Td (def HardyClass \(p : R>=0inf\) \(f : C -> C\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 336.00 Td (  DifferentiableOn C f \(Metric.ball \(0 : C\) 1\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 329.00 Td (    exists C : R>=0inf, C < inf /\\ forall r : R, 0 <= r -> r < 1 ->) Tj ET
-BT /F3 4.9 Tf 394.00 322.00 Td (      eLpNorm \(fun t : R => f \(r  *  \(unitCirclePoint t\).1\)\) p) Tj ET
-BT /F3 4.9 Tf 394.00 315.00 Td (        \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) <= C) Tj ET
-BT /F3 4.9 Tf 394.00 308.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 301.00 Td (theorem nikolski_A_3_6_boundary_uniqueness) Tj ET
-BT /F3 4.9 Tf 394.00 294.00 Td (    {p : R>=0inf} {f : C -> C} \(hp : p != 0\) \(hf : HardyClass p f\) :) Tj ET
-BT /F3 4.9 Tf 394.00 287.00 Td (    \(\(exists z in Metric.ball \(0 : C\) 1, f z != 0\) ->) Tj ET
-BT /F3 4.9 Tf 394.00 280.00 Td (      IntegrableOn \(fun t : R =>) Tj ET
-BT /F3 4.9 Tf 394.00 273.00 Td (        Real.log ||boundaryValue f \(unitCirclePoint t\)||\) \(Set.Ioc 0 \(2 *) Tj ET
-BT /F3 4.9 Tf 394.00 266.00 Td (        Real.pi\)\)\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 259.00 Td (    forall E : Set {z : C // ||z|| = 1},) Tj ET
-BT /F3 4.9 Tf 394.00 252.00 Td (      0 < volume {t in Set.Ioc 0 \(2 * Real.pi\) | unitCirclePoint t in E} ->) Tj ET
-BT /F3 4.9 Tf 394.00 245.00 Td (        \(forall zeta in E, boundaryValue f zeta = 0\) -> forall z in) Tj ET
-BT /F3 4.9 Tf 394.00 238.00 Td (        Metric.ball \(0 : C\) 1, f z = 0 := by) Tj ET
-BT /F3 4.9 Tf 394.00 231.00 Td (  sorry) Tj ET
-20.00 222.00 m 20.00 93.00 l S
-310.00 222.00 m 310.00 93.00 l S
-390.00 222.00 m 390.00 93.00 l S
-772.00 222.00 m 772.00 93.00 l S
-20.00 222.00 m 772.00 222.00 l S
-20.00 93.00 m 772.00 93.00 l S
-BT /F1 5.8 Tf 24.00 214.00 Td (3.7.1. Lemma \(Blaschke condition, interior uniqueness) Tj ET
-BT /F1 5.8 Tf 24.00 207.00 Td (theorem\). Suppose f in Hol\(D\), f != 0, and let \(lambdan\)n>=1) Tj ET
-BT /F1 5.8 Tf 24.00 200.00 Td (be the zero sequence of f in D, each zero is repeated) Tj ET
-BT /F1 5.8 Tf 24.00 193.00 Td (according to its multiplicity. Suppose that limr->1 integralT) Tj ET
-BT /F1 5.8 Tf 24.00 186.00 Td (log |fr| dm < inf, then sumn>=1\(1 - |lambdan|\) < inf. In) Tj ET
-BT /F1 5.8 Tf 24.00 179.00 Td (particular, this holds whenever f in Hp\(D\), p > 0.) Tj ET
-BT /F1 5.8 Tf 24.00 172.00 Td () Tj ET
-BT /F1 5.8 Tf 24.00 165.00 Td (3.7.3. Lemma \(Blaschke Product\). If \(lambdan\)n>=1 is a) Tj ET
-BT /F1 5.8 Tf 24.00 158.00 Td (sequence in D satisfying the Blaschke condition sumn>=1\(1 -) Tj ET
-BT /F1 5.8 Tf 24.00 151.00 Td (|lambdan|\) < inf, then the infinite product B = prodn>=1) Tj ET
-BT /F1 5.8 Tf 24.00 144.00 Td (blambdan converges uniformly on compact subsets of D \(and even) Tj ET
-BT /F1 5.8 Tf 24.00 137.00 Td (on compact subsets of C  clos{1/lambdan}n>=1\). Moreover |B| <=) Tj ET
-BT /F1 5.8 Tf 24.00 130.00 Td (1 in D, |B| = 1 a.e. on T, and the zeros of B are exactly) Tj ET
-BT /F1 5.8 Tf 24.00 123.00 Td (\(lambdan\)n>=1 \(counting multiplicities\).) Tj ET
-BT /F1 5.8 Tf 24.00 116.00 Td () Tj ET
-BT /F1 5.8 Tf 24.00 109.00 Td (3.7.2. Remark. The condition sumn>=1\(1 - |lambdan|\) < inf is) Tj ET
-BT /F1 5.8 Tf 24.00 102.00 Td (called the Blaschke condition.) Tj ET
-BT /F1 5.8 Tf 314.00 214.00 Td (Hardy spaces) Tj ET
-BT /F3 4.9 Tf 394.00 214.00 Td (def HardyClass \(p : R>=0inf\) \(f : C -> C\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 207.00 Td (  DifferentiableOn C f \(Metric.ball \(0 : C\) 1\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 200.00 Td (    exists C : R>=0inf, C < inf /\\ forall r : R, 0 <= r -> r < 1 ->) Tj ET
-BT /F3 4.9 Tf 394.00 193.00 Td (      eLpNorm \(fun t : R => f \(r  *  \(unitCirclePoint t\).1\)\) p) Tj ET
-BT /F3 4.9 Tf 394.00 186.00 Td (        \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) <= C) Tj ET
-BT /F3 4.9 Tf 394.00 179.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 172.00 Td (def BlaschkeCondition \(a : N -> C\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 165.00 Td (  \(forall n : N, a n in Metric.ball \(0 : C\) 1\) /\\ Summable \(fun n : N => 1) Tj ET
-BT /F3 4.9 Tf 394.00 158.00 Td (  - ||a n||\)) Tj ET
-BT /F3 4.9 Tf 394.00 151.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 144.00 Td (theorem nikolski_A_3_7_blaschke_zero_sets) Tj ET
-BT /F3 4.9 Tf 394.00 137.00 Td (    {p : R>=0inf} {a : N -> C} :) Tj ET
-BT /F3 4.9 Tf 394.00 130.00 Td (    \(exists f : C -> C, HardyClass p f /\\ \(exists z, f z != 0\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 123.00 Td (      forall z in Metric.ball \(0 : C\) 1, f z = 0 <-> z in range a\) <->) Tj ET
-BT /F3 4.9 Tf 394.00 116.00 Td (      BlaschkeCondition a := by) Tj ET
-BT /F3 4.9 Tf 394.00 109.00 Td (  sorry) Tj ET
-20.00 93.00 m 20.00 34.00 l S
-310.00 93.00 m 310.00 34.00 l S
-390.00 93.00 m 390.00 34.00 l S
-772.00 93.00 m 772.00 34.00 l S
-20.00 93.00 m 772.00 93.00 l S
-20.00 34.00 m 772.00 34.00 l S
-BT /F1 5.8 Tf 24.00 85.00 Td (5.4.1. Theorem. Let mu be a finite Borel measure on T. The) Tj ET
-BT /F1 5.8 Tf 24.00 78.00 Td (following assertions are equivalent. \(1\) The family) Tj ET
-BT /F1 5.8 Tf 24.00 71.00 Td (\(zn\)_{ninZ} is a \(symmetric or non-symmetric\) basis of L2\(mu\).) Tj ET
-BT /F1 5.8 Tf 24.00 64.00 Td (\(2\) The Riesz projection P+ is bounded on L2\(mu\). \(3\)) Tj ET
-BT /F1 5.8 Tf 24.00 57.00 Td (sin\(Pol+, Pol-\) > 0. \(4\) dmu = |h|2 dm where h in H2 is an) Tj ET
-BT /F1 5.8 Tf 24.00 50.00 Td (outer function such that dist\(h/h, Hinf\) < 1. \(5\) dmu = w dm) Tj ET
-BT /F1 5.8 Tf 24.00 43.00 Td (where w = e^{u+v} and u, v are real valued bounded functions) Tj ET
-BT /F1 5.8 Tf 314.00 85.00 Td (Harmonic) Tj ET
-BT /F1 5.8 Tf 314.00 78.00 Td (analysis) Tj ET
-BT /F3 4.9 Tf 394.00 85.00 Td (noncomputable def boundaryValue \(f : C -> C\) \(zeta : {z : C // ||z|| = 1}\)) Tj ET
-BT /F3 4.9 Tf 394.00 78.00 Td (: C :=) Tj ET
-BT /F3 4.9 Tf 394.00 71.00 Td (  limUnder \(nhds[<] \(1 : R\)\) fun r => f \(r  *  zeta.1\)) Tj ET
-BT /F3 4.9 Tf 394.00 64.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 57.00 Td (noncomputable def unitCirclePoint \(t : R\) : {z : C // ||z|| = 1} :=) Tj ET
-BT /F3 4.9 Tf 394.00 50.00 Td (  <Complex.exp \(Complex.I * t\), by rw [Complex.norm_exp]; simp>) Tj ET
-BT /F3 4.9 Tf 394.00 43.00 Td () Tj ET
+20.00 302.00 m 772.00 302.00 l S
+BT /F3 4.9 Tf 394.00 542.00 Td (    Tendsto \(fun r : R => f \(r  *  \(unitCirclePoint t\).1\)\) \(nhds[<] 1\)) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (      \(nhds \(boundaryValue f \(unitCirclePoint t\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (def HardyClass \(p : R>=0inf\) \(f : C -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (  DifferentiableOn C f \(Metric.ball \(0 : C\) 1\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (    exists C : R>=0inf, C < inf /\\ forall r : R, 0 <= r -> r < 1 ->) Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (      eLpNorm \(fun t : R => f \(r  *  \(unitCirclePoint t\).1\)\) p) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td (        \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) <= C) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (def InnerFunction \(theta : C -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td (  HardyClass top theta /\\ HasRadialBoundaryValues theta /\\) Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (    forall^m t dvolume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\),) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td (      ||boundaryValue theta \(unitCirclePoint t\)|| = 1) Tj ET
+BT /F3 4.9 Tf 394.00 451.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 444.00 Td (def OuterFunction \(p : R>=0inf\) \(g : C -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 437.00 Td (  HardyClass p g /\\ HasRadialBoundaryValues g /\\ exists c : C, ||c|| = 1 /\\) Tj ET
+BT /F3 4.9 Tf 394.00 430.00 Td (    forall z in Metric.ball \(0 : C\) 1,) Tj ET
+BT /F3 4.9 Tf 394.00 423.00 Td (    g z = c * Complex.exp) Tj ET
+BT /F3 4.9 Tf 394.00 416.00 Td (      \(\(2 * Real.pi : C\)^-1 *) Tj ET
+BT /F3 4.9 Tf 394.00 409.00 Td (        integral t in Set.Ioc 0 \(2 * Real.pi\),) Tj ET
+BT /F3 4.9 Tf 394.00 402.00 Td (          \(\(unitCirclePoint t\).1 + z\) / \(\(unitCirclePoint t\).1 - z\) *) Tj ET
+BT /F3 4.9 Tf 394.00 395.00 Td (            Real.log ||boundaryValue g \(unitCirclePoint t\)||\)) Tj ET
+BT /F3 4.9 Tf 394.00 388.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 381.00 Td (theorem nikolski_A_2_4_inner_outer_factorization) Tj ET
+BT /F3 4.9 Tf 394.00 374.00 Td (    {f : C -> C} \(hf : HardyClass 2 f\)) Tj ET
+BT /F3 4.9 Tf 394.00 367.00 Td (    \(hnonzero : exists z in Metric.ball \(0 : C\) 1, f z != 0\) :) Tj ET
+BT /F3 4.9 Tf 394.00 360.00 Td (    exists theta g : C -> C, InnerFunction theta /\\ OuterFunction 2 g /\\) Tj ET
+BT /F3 4.9 Tf 394.00 353.00 Td (      \(forall z in Metric.ball \(0 : C\) 1, f z = theta z * g z\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 346.00 Td (      forall theta' g' : C -> C, InnerFunction theta' -> OuterFunction 2 g') Tj ET
+BT /F3 4.9 Tf 394.00 339.00 Td (      ->) Tj ET
+BT /F3 4.9 Tf 394.00 332.00 Td (        \(forall z in Metric.ball \(0 : C\) 1, f z = theta' z * g' z\) ->) Tj ET
+BT /F3 4.9 Tf 394.00 325.00 Td (          exists c : C, ||c|| = 1 /\\ forall z in Metric.ball \(0 : C\) 1,) Tj ET
+BT /F3 4.9 Tf 394.00 318.00 Td (            theta' z = c * theta z /\\ g' z = star c * g z := by) Tj ET
+BT /F3 4.9 Tf 394.00 311.00 Td (  sorry) Tj ET
+20.00 302.00 m 20.00 68.00 l S
+310.00 302.00 m 310.00 68.00 l S
+390.00 302.00 m 390.00 68.00 l S
+772.00 302.00 m 772.00 68.00 l S
+20.00 302.00 m 772.00 302.00 l S
+20.00 68.00 m 772.00 68.00 l S
+BT /F1 5.8 Tf 24.00 294.00 Td (3.6.1. Corollary. If g in H1, g != 0, then log |g| in L1\(T\).) Tj ET
+BT /F1 5.8 Tf 24.00 287.00 Td (In particular, if g in H1 and m{t in T : g\(t\) = 0} > 0, then g) Tj ET
+BT /F1 5.8 Tf 24.00 280.00 Td (= 0.) Tj ET
+BT /F1 5.8 Tf 314.00 294.00 Td (Hardy spaces) Tj ET
+BT /F3 4.9 Tf 394.00 294.00 Td (noncomputable def boundaryValue \(f : C -> C\) \(zeta : {z : C // ||z|| = 1}\)) Tj ET
+BT /F3 4.9 Tf 394.00 287.00 Td (: C :=) Tj ET
+BT /F3 4.9 Tf 394.00 280.00 Td (  limUnder \(nhds[<] \(1 : R\)\) fun r => f \(r  *  zeta.1\)) Tj ET
+BT /F3 4.9 Tf 394.00 273.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 266.00 Td (noncomputable def unitCirclePoint \(t : R\) : {z : C // ||z|| = 1} :=) Tj ET
+BT /F3 4.9 Tf 394.00 259.00 Td (  <Complex.exp \(Complex.I * t\), by rw [Complex.norm_exp]; simp>) Tj ET
+BT /F3 4.9 Tf 394.00 252.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 245.00 Td (def HasRadialBoundaryValues \(f : C -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 238.00 Td (  forall^m t dvolume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\),) Tj ET
+BT /F3 4.9 Tf 394.00 231.00 Td (    Tendsto \(fun r : R => f \(r  *  \(unitCirclePoint t\).1\)\) \(nhds[<] 1\)) Tj ET
+BT /F3 4.9 Tf 394.00 224.00 Td (      \(nhds \(boundaryValue f \(unitCirclePoint t\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 217.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 210.00 Td (def HardyClass \(p : R>=0inf\) \(f : C -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 203.00 Td (  DifferentiableOn C f \(Metric.ball \(0 : C\) 1\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 196.00 Td (    exists C : R>=0inf, C < inf /\\ forall r : R, 0 <= r -> r < 1 ->) Tj ET
+BT /F3 4.9 Tf 394.00 189.00 Td (      eLpNorm \(fun t : R => f \(r  *  \(unitCirclePoint t\).1\)\) p) Tj ET
+BT /F3 4.9 Tf 394.00 182.00 Td (        \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) <= C) Tj ET
+BT /F3 4.9 Tf 394.00 175.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 168.00 Td (theorem nikolski_A_3_6_boundary_uniqueness) Tj ET
+BT /F3 4.9 Tf 394.00 161.00 Td (    {p : R>=0inf} {f : C -> C} \(hp : p != 0\) \(hf : HardyClass p f\) :) Tj ET
+BT /F3 4.9 Tf 394.00 154.00 Td (    HasRadialBoundaryValues f /\\) Tj ET
+BT /F3 4.9 Tf 394.00 147.00 Td (    \(\(exists z in Metric.ball \(0 : C\) 1, f z != 0\) ->) Tj ET
+BT /F3 4.9 Tf 394.00 140.00 Td (      IntegrableOn \(fun t : R =>) Tj ET
+BT /F3 4.9 Tf 394.00 133.00 Td (        Real.log ||boundaryValue f \(unitCirclePoint t\)||\) \(Set.Ioc 0 \(2 *) Tj ET
+BT /F3 4.9 Tf 394.00 126.00 Td (        Real.pi\)\)\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 119.00 Td (    forall E : Set {z : C // ||z|| = 1},) Tj ET
+BT /F3 4.9 Tf 394.00 112.00 Td (      0 < volume {t in Set.Ioc 0 \(2 * Real.pi\) | unitCirclePoint t in E} ->) Tj ET
+BT /F3 4.9 Tf 394.00 105.00 Td (        \(forall^m t dvolume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\),) Tj ET
+BT /F3 4.9 Tf 394.00 98.00 Td (          unitCirclePoint t in E -> boundaryValue f \(unitCirclePoint t\) =) Tj ET
+BT /F3 4.9 Tf 394.00 91.00 Td (        0\) ->) Tj ET
+BT /F3 4.9 Tf 394.00 84.00 Td (        forall z in Metric.ball \(0 : C\) 1, f z = 0 := by) Tj ET
+BT /F3 4.9 Tf 394.00 77.00 Td (  sorry) Tj ET
+20.00 68.00 m 20.00 37.00 l S
+310.00 68.00 m 310.00 37.00 l S
+390.00 68.00 m 390.00 37.00 l S
+772.00 68.00 m 772.00 37.00 l S
+20.00 68.00 m 772.00 68.00 l S
+20.00 37.00 m 772.00 37.00 l S
+BT /F1 5.8 Tf 24.00 60.00 Td (3.7.1. Lemma \(Blaschke condition, interior uniqueness) Tj ET
+BT /F1 5.8 Tf 24.00 53.00 Td (theorem\). Suppose f in Hol\(D\), f != 0, and let \(lambdan\)n>=1) Tj ET
+BT /F1 5.8 Tf 24.00 46.00 Td (be the zero sequence of f in D, each zero is repeated) Tj ET
+BT /F1 5.8 Tf 314.00 60.00 Td (Hardy spaces) Tj ET
+BT /F3 4.9 Tf 394.00 60.00 Td (def HardyClass \(p : R>=0inf\) \(f : C -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 53.00 Td (  DifferentiableOn C f \(Metric.ball \(0 : C\) 1\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 46.00 Td (    exists C : R>=0inf, C < inf /\\ forall r : R, 0 <= r -> r < 1 ->) Tj ET
 endstream
 endobj
 7 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 19 0 R /F2 20 0 R /F3 21 0 R >> >> /Contents 8 0 R >>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 21 0 R /F2 22 0 R /F3 23 0 R >> >> /Contents 8 0 R >>
 endobj
 8 0 obj
-<< /Length 6860 >>
+<< /Length 8613 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Nikolski Operators Functions Systems Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 3) Tj ET
@@ -264,202 +237,122 @@ BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
 BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
 BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
 20.00 558.00 m 772.00 558.00 l S
-20.00 550.00 m 20.00 36.00 l S
-310.00 550.00 m 310.00 36.00 l S
-390.00 550.00 m 390.00 36.00 l S
-772.00 550.00 m 772.00 36.00 l S
+20.00 550.00 m 20.00 386.00 l S
+310.00 550.00 m 310.00 386.00 l S
+390.00 550.00 m 390.00 386.00 l S
+772.00 550.00 m 772.00 386.00 l S
 20.00 550.00 m 772.00 550.00 l S
-20.00 36.00 m 772.00 36.00 l S
-BT /F1 5.8 Tf 24.00 542.00 Td (and ||v||inf < pi/2 \(condition \(HS\)\).) Tj ET
-BT /F3 4.9 Tf 394.00 542.00 Td (def HardyClass \(p : R>=0inf\) \(f : C -> C\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 535.00 Td (  DifferentiableOn C f \(Metric.ball \(0 : C\) 1\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 528.00 Td (    exists C : R>=0inf, C < inf /\\ forall r : R, 0 <= r -> r < 1 ->) Tj ET
-BT /F3 4.9 Tf 394.00 521.00 Td (      eLpNorm \(fun t : R => f \(r  *  \(unitCirclePoint t\).1\)\) p) Tj ET
-BT /F3 4.9 Tf 394.00 514.00 Td (        \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) <= C) Tj ET
-BT /F3 4.9 Tf 394.00 507.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 500.00 Td (def OuterFunction \(p : R>=0inf\) \(g : C -> C\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 493.00 Td (  HardyClass p g /\\ exists c : C, ||c|| = 1 /\\ forall z in Metric.ball \(0 :) Tj ET
-BT /F3 4.9 Tf 394.00 486.00 Td (  C\) 1,) Tj ET
-BT /F3 4.9 Tf 394.00 479.00 Td (    g z = c * Complex.exp) Tj ET
-BT /F3 4.9 Tf 394.00 472.00 Td (      \(\(2 * Real.pi : C\)^-1 *) Tj ET
-BT /F3 4.9 Tf 394.00 465.00 Td (        integral t in Set.Ioc 0 \(2 * Real.pi\),) Tj ET
-BT /F3 4.9 Tf 394.00 458.00 Td (          \(\(unitCirclePoint t\).1 + z\) / \(\(unitCirclePoint t\).1 - z\) *) Tj ET
-BT /F3 4.9 Tf 394.00 451.00 Td (            Real.log ||boundaryValue g \(unitCirclePoint t\)||\)) Tj ET
+20.00 386.00 m 772.00 386.00 l S
+BT /F1 5.8 Tf 24.00 542.00 Td (according to its multiplicity. Suppose that limr->1 integralT) Tj ET
+BT /F1 5.8 Tf 24.00 535.00 Td (log |fr| dm < inf, then sumn>=1\(1 - |lambdan|\) < inf. In) Tj ET
+BT /F1 5.8 Tf 24.00 528.00 Td (particular, this holds whenever f in Hp\(D\), p > 0.) Tj ET
+BT /F1 5.8 Tf 24.00 521.00 Td () Tj ET
+BT /F1 5.8 Tf 24.00 514.00 Td (3.7.3. Lemma \(Blaschke Product\). If \(lambdan\)n>=1 is a) Tj ET
+BT /F1 5.8 Tf 24.00 507.00 Td (sequence in D satisfying the Blaschke condition sumn>=1\(1 -) Tj ET
+BT /F1 5.8 Tf 24.00 500.00 Td (|lambdan|\) < inf, then the infinite product B = prodn>=1) Tj ET
+BT /F1 5.8 Tf 24.00 493.00 Td (blambdan converges uniformly on compact subsets of D \(and even) Tj ET
+BT /F1 5.8 Tf 24.00 486.00 Td (on compact subsets of C  clos{1/lambdan}n>=1\). Moreover |B| <=) Tj ET
+BT /F1 5.8 Tf 24.00 479.00 Td (1 in D, |B| = 1 a.e. on T, and the zeros of B are exactly) Tj ET
+BT /F1 5.8 Tf 24.00 472.00 Td (\(lambdan\)n>=1 \(counting multiplicities\).) Tj ET
+BT /F1 5.8 Tf 24.00 465.00 Td () Tj ET
+BT /F1 5.8 Tf 24.00 458.00 Td (3.7.2. Remark. The condition sumn>=1\(1 - |lambdan|\) < inf is) Tj ET
+BT /F1 5.8 Tf 24.00 451.00 Td (called the Blaschke condition.) Tj ET
+BT /F3 4.9 Tf 394.00 542.00 Td (      eLpNorm \(fun t : R => f \(r  *  \(unitCirclePoint t\).1\)\) p) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (        \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) <= C) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (def HasZeroSequence \(f : C -> C\) \(a : N -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (  \(forall n, a n in Metric.ball \(0 : C\) 1\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (    forall z in Metric.ball \(0 : C\) 1,) Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (      {n : N | a n = z}.Finite /\\) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td (        exists k : N, \(forall j < k, iteratedDeriv j f z = 0\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td (        iteratedDeriv k f z != 0 /\\) Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (          {n : N | a n = z}.ncard = k) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (def BlaschkeCondition \(a : N -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td (  \(forall n : N, a n in Metric.ball \(0 : C\) 1\) /\\ Summable \(fun n : N => 1) Tj ET
+BT /F3 4.9 Tf 394.00 451.00 Td (  - ||a n||\)) Tj ET
 BT /F3 4.9 Tf 394.00 444.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 437.00 Td (noncomputable def trigonometricPolynomial \(c : Z -> C\) \(t : R\) : C :=) Tj ET
-BT /F3 4.9 Tf 394.00 430.00 Td (  sum' k : Z, c k * Complex.exp \(Complex.I * k * t\)) Tj ET
-BT /F3 4.9 Tf 394.00 423.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 416.00 Td (noncomputable def weightedL2NormSq \(w : {z : C // ||z|| = 1} -> R\) \(c : Z) Tj ET
-BT /F3 4.9 Tf 394.00 409.00 Td (-> C\) : R :=) Tj ET
-BT /F3 4.9 Tf 394.00 402.00 Td (  integral t in Set.Ioc 0 \(2 * Real.pi\),) Tj ET
-BT /F3 4.9 Tf 394.00 395.00 Td (    ||trigonometricPolynomial c t|| ^ 2 * w \(unitCirclePoint t\)) Tj ET
-BT /F3 4.9 Tf 394.00 388.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 381.00 Td (def analyticFourierPart \(c : Z -> C\) \(k : Z\) : C :=) Tj ET
-BT /F3 4.9 Tf 394.00 374.00 Td (  if 0 <= k then c k else 0) Tj ET
-BT /F3 4.9 Tf 394.00 367.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 360.00 Td (noncomputable def circleHilbertTransform \(v : {z : C // ||z|| = 1} -> R\) \(t) Tj ET
-BT /F3 4.9 Tf 394.00 353.00 Td (: R\) : R :=) Tj ET
-BT /F3 4.9 Tf 394.00 346.00 Td (  Complex.re <| sum' k : Z,) Tj ET
-BT /F3 4.9 Tf 394.00 339.00 Td (    \(if k = 0 then 0 else if 0 < k then -Complex.I else Complex.I\) *) Tj ET
-BT /F3 4.9 Tf 394.00 332.00 Td (      \(\(2 * Real.pi : C\)^-1 * integral s in Set.Ioc 0 \(2 * Real.pi\),) Tj ET
-BT /F3 4.9 Tf 394.00 325.00 Td (        \(v \(unitCirclePoint s\) : C\) * Complex.exp \(-Complex.I * k * s\)\) *) Tj ET
-BT /F3 4.9 Tf 394.00 318.00 Td (        Complex.exp \(Complex.I * k * t\)) Tj ET
-BT /F3 4.9 Tf 394.00 311.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 304.00 Td (theorem nikolski_A_5_4_helson_szego) Tj ET
-BT /F3 4.9 Tf 394.00 297.00 Td (    {w : {z : C // ||z|| = 1} -> R} :) Tj ET
-BT /F3 4.9 Tf 394.00 290.00 Td (    let basis := exists A B : R, 0 < A /\\ A <= B /\\ forall c : Z -> C,) Tj ET
-BT /F3 4.9 Tf 394.00 283.00 Td (    c.support.Finite ->) Tj ET
-BT /F3 4.9 Tf 394.00 276.00 Td (      A * sum' k : Z, ||c k|| ^ 2 <= weightedL2NormSq w c /\\) Tj ET
-BT /F3 4.9 Tf 394.00 269.00 Td (        weightedL2NormSq w c <= B * sum' k : Z, ||c k|| ^ 2) Tj ET
-BT /F3 4.9 Tf 394.00 262.00 Td (    let boundedProjection := exists C : R, 0 <= C /\\ forall c : Z -> C,) Tj ET
-BT /F3 4.9 Tf 394.00 255.00 Td (    c.support.Finite ->) Tj ET
-BT /F3 4.9 Tf 394.00 248.00 Td (      weightedL2NormSq w \(analyticFourierPart c\) <= C ^ 2 *) Tj ET
-BT /F3 4.9 Tf 394.00 241.00 Td (      weightedL2NormSq w c) Tj ET
-BT /F3 4.9 Tf 394.00 234.00 Td (    let positiveAngle := exists delta : R, 0 < delta /\\ forall plus minus :) Tj ET
-BT /F3 4.9 Tf 394.00 227.00 Td (    Z -> C,) Tj ET
-BT /F3 4.9 Tf 394.00 220.00 Td (      plus.support.Finite -> minus.support.Finite ->) Tj ET
-BT /F3 4.9 Tf 394.00 213.00 Td (        \(forall k, plus k != 0 -> 0 <= k\) -> \(forall k, minus k != 0 -> k <) Tj ET
-BT /F3 4.9 Tf 394.00 206.00 Td (        0\) ->) Tj ET
-BT /F3 4.9 Tf 394.00 199.00 Td (          delta * weightedL2NormSq w plus <=) Tj ET
-BT /F3 4.9 Tf 394.00 192.00 Td (            weightedL2NormSq w \(fun k => plus k + minus k\)) Tj ET
-BT /F3 4.9 Tf 394.00 185.00 Td (    let outerDistance := exists h q : C -> C, OuterFunction 2 h /\\) Tj ET
-BT /F3 4.9 Tf 394.00 178.00 Td (    HardyClass top q /\\) Tj ET
-BT /F3 4.9 Tf 394.00 171.00 Td (      \(forall^m t dvolume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\),) Tj ET
-BT /F3 4.9 Tf 394.00 164.00 Td (        w \(unitCirclePoint t\) = ||boundaryValue h \(unitCirclePoint t\)|| ^) Tj ET
-BT /F3 4.9 Tf 394.00 157.00 Td (        2\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 150.00 Td (      eLpNorm \(fun t : R => star \(boundaryValue h \(unitCirclePoint t\)\) /) Tj ET
-BT /F3 4.9 Tf 394.00 143.00 Td (        boundaryValue h \(unitCirclePoint t\) - boundaryValue q) Tj ET
-BT /F3 4.9 Tf 394.00 136.00 Td (        \(unitCirclePoint t\)\) inf) Tj ET
-BT /F3 4.9 Tf 394.00 129.00 Td (        \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) < 1) Tj ET
-BT /F3 4.9 Tf 394.00 122.00 Td (    let helsonSzego := exists u v : {z : C // ||z|| = 1} -> R,) Tj ET
-BT /F3 4.9 Tf 394.00 115.00 Td (      eLpNorm \(fun t : R => u \(unitCirclePoint t\)\) inf) Tj ET
-BT /F3 4.9 Tf 394.00 108.00 Td (          \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) < inf /\\) Tj ET
-BT /F3 4.9 Tf 394.00 101.00 Td (        eLpNorm \(fun t : R => v \(unitCirclePoint t\)\) inf) Tj ET
-BT /F3 4.9 Tf 394.00 94.00 Td (          \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) < ENNReal.ofReal) Tj ET
-BT /F3 4.9 Tf 394.00 87.00 Td (        \(Real.pi / 2\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 80.00 Td (        forall^m t dvolume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\),) Tj ET
-BT /F3 4.9 Tf 394.00 73.00 Td (          w \(unitCirclePoint t\) =) Tj ET
-BT /F3 4.9 Tf 394.00 66.00 Td (            Real.exp \(u \(unitCirclePoint t\) + circleHilbertTransform v t\)) Tj ET
-BT /F3 4.9 Tf 394.00 59.00 Td (    List.TFAE [basis, boundedProjection, positiveAngle, outerDistance,) Tj ET
-BT /F3 4.9 Tf 394.00 52.00 Td (    helsonSzego] := by) Tj ET
-BT /F3 4.9 Tf 394.00 45.00 Td (  sorry) Tj ET
+BT /F3 4.9 Tf 394.00 437.00 Td (theorem nikolski_A_3_7_blaschke_zero_sets) Tj ET
+BT /F3 4.9 Tf 394.00 430.00 Td (    {p : R>=0inf} {a : N -> C} \(hp : p != 0\) :) Tj ET
+BT /F3 4.9 Tf 394.00 423.00 Td (    \(exists f : C -> C, HardyClass p f /\\) Tj ET
+BT /F3 4.9 Tf 394.00 416.00 Td (      \(exists z in Metric.ball \(0 : C\) 1, f z != 0\) /\\ HasZeroSequence f a\)) Tj ET
+BT /F3 4.9 Tf 394.00 409.00 Td (      <->) Tj ET
+BT /F3 4.9 Tf 394.00 402.00 Td (      BlaschkeCondition a := by) Tj ET
+BT /F3 4.9 Tf 394.00 395.00 Td (  sorry) Tj ET
+20.00 386.00 m 20.00 40.00 l S
+310.00 386.00 m 310.00 40.00 l S
+390.00 386.00 m 390.00 40.00 l S
+772.00 386.00 m 772.00 40.00 l S
+20.00 386.00 m 772.00 386.00 l S
+20.00 40.00 m 772.00 40.00 l S
+BT /F1 5.8 Tf 24.00 378.00 Td (5.4.1. Theorem. Let mu be a finite Borel measure on T. The) Tj ET
+BT /F1 5.8 Tf 24.00 371.00 Td (following assertions are equivalent. \(1\) The family) Tj ET
+BT /F1 5.8 Tf 24.00 364.00 Td (\(zn\)_{ninZ} is a \(symmetric or non-symmetric\) basis of L2\(mu\).) Tj ET
+BT /F1 5.8 Tf 24.00 357.00 Td (\(2\) The Riesz projection P+ is bounded on L2\(mu\). \(3\)) Tj ET
+BT /F1 5.8 Tf 24.00 350.00 Td (sin\(Pol+, Pol-\) > 0. \(4\) dmu = |h|2 dm where h in H2 is an) Tj ET
+BT /F1 5.8 Tf 24.00 343.00 Td (outer function such that dist\(h/h, Hinf\) < 1. \(5\) dmu = w dm) Tj ET
+BT /F1 5.8 Tf 24.00 336.00 Td (where w = e^{u+v} and u, v are real valued bounded functions) Tj ET
+BT /F1 5.8 Tf 24.00 329.00 Td (and ||v||inf < pi/2 \(condition \(HS\)\).) Tj ET
+BT /F1 5.8 Tf 314.00 378.00 Td (Harmonic) Tj ET
+BT /F1 5.8 Tf 314.00 371.00 Td (analysis) Tj ET
+BT /F3 4.9 Tf 394.00 378.00 Td (noncomputable def boundaryValue \(f : C -> C\) \(zeta : {z : C // ||z|| = 1}\)) Tj ET
+BT /F3 4.9 Tf 394.00 371.00 Td (: C :=) Tj ET
+BT /F3 4.9 Tf 394.00 364.00 Td (  limUnder \(nhds[<] \(1 : R\)\) fun r => f \(r  *  zeta.1\)) Tj ET
+BT /F3 4.9 Tf 394.00 357.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 350.00 Td (noncomputable def unitCirclePoint \(t : R\) : {z : C // ||z|| = 1} :=) Tj ET
+BT /F3 4.9 Tf 394.00 343.00 Td (  <Complex.exp \(Complex.I * t\), by rw [Complex.norm_exp]; simp>) Tj ET
+BT /F3 4.9 Tf 394.00 336.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 329.00 Td (def HardyClass \(p : R>=0inf\) \(f : C -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 322.00 Td (  DifferentiableOn C f \(Metric.ball \(0 : C\) 1\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 315.00 Td (    exists C : R>=0inf, C < inf /\\ forall r : R, 0 <= r -> r < 1 ->) Tj ET
+BT /F3 4.9 Tf 394.00 308.00 Td (      eLpNorm \(fun t : R => f \(r  *  \(unitCirclePoint t\).1\)\) p) Tj ET
+BT /F3 4.9 Tf 394.00 301.00 Td (        \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) <= C) Tj ET
+BT /F3 4.9 Tf 394.00 294.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 287.00 Td (def OuterFunction \(p : R>=0inf\) \(g : C -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 280.00 Td (  HardyClass p g /\\ HasRadialBoundaryValues g /\\ exists c : C, ||c|| = 1 /\\) Tj ET
+BT /F3 4.9 Tf 394.00 273.00 Td (    forall z in Metric.ball \(0 : C\) 1,) Tj ET
+BT /F3 4.9 Tf 394.00 266.00 Td (    g z = c * Complex.exp) Tj ET
+BT /F3 4.9 Tf 394.00 259.00 Td (      \(\(2 * Real.pi : C\)^-1 *) Tj ET
+BT /F3 4.9 Tf 394.00 252.00 Td (        integral t in Set.Ioc 0 \(2 * Real.pi\),) Tj ET
+BT /F3 4.9 Tf 394.00 245.00 Td (          \(\(unitCirclePoint t\).1 + z\) / \(\(unitCirclePoint t\).1 - z\) *) Tj ET
+BT /F3 4.9 Tf 394.00 238.00 Td (            Real.log ||boundaryValue g \(unitCirclePoint t\)||\)) Tj ET
+BT /F3 4.9 Tf 394.00 231.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 224.00 Td (noncomputable def trigonometricPolynomial \(c : Z -> C\) \(t : R\) : C :=) Tj ET
+BT /F3 4.9 Tf 394.00 217.00 Td (  sum' k : Z, c k * Complex.exp \(Complex.I * k * t\)) Tj ET
+BT /F3 4.9 Tf 394.00 210.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 203.00 Td (noncomputable def weightedL2NormSq \(w : {z : C // ||z|| = 1} -> R\) \(c : Z) Tj ET
+BT /F3 4.9 Tf 394.00 196.00 Td (-> C\) : R :=) Tj ET
+BT /F3 4.9 Tf 394.00 189.00 Td (  integral t in Set.Ioc 0 \(2 * Real.pi\),) Tj ET
+BT /F3 4.9 Tf 394.00 182.00 Td (    ||trigonometricPolynomial c t|| ^ 2 * w \(unitCirclePoint t\)) Tj ET
+BT /F3 4.9 Tf 394.00 175.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 168.00 Td (def analyticFourierPart \(c : Z -> C\) \(k : Z\) : C :=) Tj ET
+BT /F3 4.9 Tf 394.00 161.00 Td (  if 0 <= k then c k else 0) Tj ET
+BT /F3 4.9 Tf 394.00 154.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 147.00 Td (noncomputable def circleHilbertTransform \(v : {z : C // ||z|| = 1} -> R\) \(t) Tj ET
+BT /F3 4.9 Tf 394.00 140.00 Td (: R\) : R :=) Tj ET
+BT /F3 4.9 Tf 394.00 133.00 Td (  Complex.re <| sum' k : Z,) Tj ET
+BT /F3 4.9 Tf 394.00 126.00 Td (    \(if k = 0 then 0 else if 0 < k then -Complex.I else Complex.I\) *) Tj ET
+BT /F3 4.9 Tf 394.00 119.00 Td (      \(\(2 * Real.pi : C\)^-1 * integral s in Set.Ioc 0 \(2 * Real.pi\),) Tj ET
+BT /F3 4.9 Tf 394.00 112.00 Td (        \(v \(unitCirclePoint s\) : C\) * Complex.exp \(-Complex.I * k * s\)\) *) Tj ET
+BT /F3 4.9 Tf 394.00 105.00 Td (        Complex.exp \(Complex.I * k * t\)) Tj ET
+BT /F3 4.9 Tf 394.00 98.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 91.00 Td (theorem nikolski_A_5_4_helson_szego) Tj ET
+BT /F3 4.9 Tf 394.00 84.00 Td (    {w : {z : C // ||z|| = 1} -> R}) Tj ET
+BT /F3 4.9 Tf 394.00 77.00 Td (    \(hwmeas : AEStronglyMeasurable \(fun t => w \(unitCirclePoint t\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 70.00 Td (      \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 63.00 Td (    \(hwpos : forall^m t dvolume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\), 0 < w) Tj ET
+BT /F3 4.9 Tf 394.00 56.00 Td (    \(unitCirclePoint t\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 49.00 Td (    \(hwint : IntegrableOn \(fun t => w \(unitCirclePoint t\)\) \(Set.Ioc 0 \(2 *) Tj ET
 endstream
 endobj
 9 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 19 0 R /F2 20 0 R /F3 21 0 R >> >> /Contents 10 0 R >>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 21 0 R /F2 22 0 R /F3 23 0 R >> >> /Contents 10 0 R >>
 endobj
 10 0 obj
-<< /Length 7523 >>
+<< /Length 7325 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Nikolski Operators Functions Systems Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 4) Tj ET
-BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
-BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
-BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
-20.00 558.00 m 772.00 558.00 l S
-20.00 550.00 m 20.00 120.00 l S
-310.00 550.00 m 310.00 120.00 l S
-390.00 550.00 m 390.00 120.00 l S
-772.00 550.00 m 772.00 120.00 l S
-20.00 550.00 m 772.00 550.00 l S
-20.00 120.00 m 772.00 120.00 l S
-BT /F1 5.8 Tf 24.00 542.00 Td (1.3.2. Theorem \(Z. Nehari, 1957\). If H : H2 -> H2- is a) Tj ET
-BT /F1 5.8 Tf 24.00 535.00 Td (bounded Hankel operator, then there exists phi in Linf such) Tj ET
-BT /F1 5.8 Tf 24.00 528.00 Td (that H = H_phi and ||H_phi|| = ||phi||inf = dist\(phi, Hinf\).) Tj ET
-BT /F1 5.8 Tf 314.00 542.00 Td (Operator) Tj ET
-BT /F1 5.8 Tf 314.00 535.00 Td (theory) Tj ET
-BT /F3 4.9 Tf 394.00 542.00 Td (noncomputable def boundaryValue \(f : C -> C\) \(zeta : {z : C // ||z|| = 1}\)) Tj ET
-BT /F3 4.9 Tf 394.00 535.00 Td (: C :=) Tj ET
-BT /F3 4.9 Tf 394.00 528.00 Td (  limUnder \(nhds[<] \(1 : R\)\) fun r => f \(r  *  zeta.1\)) Tj ET
-BT /F3 4.9 Tf 394.00 521.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 514.00 Td (noncomputable def unitCirclePoint \(t : R\) : {z : C // ||z|| = 1} :=) Tj ET
-BT /F3 4.9 Tf 394.00 507.00 Td (  <Complex.exp \(Complex.I * t\), by rw [Complex.norm_exp]; simp>) Tj ET
-BT /F3 4.9 Tf 394.00 500.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 493.00 Td (def HardyClass \(p : R>=0inf\) \(f : C -> C\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 486.00 Td (  DifferentiableOn C f \(Metric.ball \(0 : C\) 1\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 479.00 Td (    exists C : R>=0inf, C < inf /\\ forall r : R, 0 <= r -> r < 1 ->) Tj ET
-BT /F3 4.9 Tf 394.00 472.00 Td (      eLpNorm \(fun t : R => f \(r  *  \(unitCirclePoint t\).1\)\) p) Tj ET
-BT /F3 4.9 Tf 394.00 465.00 Td (        \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) <= C) Tj ET
-BT /F3 4.9 Tf 394.00 458.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 451.00 Td (noncomputable def circleFourierCoefficient) Tj ET
-BT /F3 4.9 Tf 394.00 444.00 Td (    \(phi : {z : C // ||z|| = 1} -> C\) \(k : Z\) : C :=) Tj ET
-BT /F3 4.9 Tf 394.00 437.00 Td (  \(2 * Real.pi : C\)^-1 *) Tj ET
-BT /F3 4.9 Tf 394.00 430.00 Td (    integral t in Set.Ioc 0 \(2 * Real.pi\),) Tj ET
-BT /F3 4.9 Tf 394.00 423.00 Td (      phi \(unitCirclePoint t\) * Complex.exp \(-Complex.I * k * t\)) Tj ET
-BT /F3 4.9 Tf 394.00 416.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 409.00 Td (def BoundedHankelForm \(a : N -> C\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 402.00 Td (  exists C : R, 0 <= C /\\ forall N : N, forall x y : N -> C,) Tj ET
-BT /F3 4.9 Tf 394.00 395.00 Td (    ||Finset.sum \(Finset.range N\)) Tj ET
-BT /F3 4.9 Tf 394.00 388.00 Td (      \(fun i => Finset.sum \(Finset.range N\) \(fun j => x i * a \(i + j\) * y) Tj ET
-BT /F3 4.9 Tf 394.00 381.00 Td (      j\)\)|| ^ 2 <=) Tj ET
-BT /F3 4.9 Tf 394.00 374.00 Td (      C ^ 2 * Finset.sum \(Finset.range N\) \(fun i => ||x i|| ^ 2\) *) Tj ET
-BT /F3 4.9 Tf 394.00 367.00 Td (        Finset.sum \(Finset.range N\) \(fun j => ||y j|| ^ 2\)) Tj ET
-BT /F3 4.9 Tf 394.00 360.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 353.00 Td (def HasBoundedHankelSymbol \(a : N -> C\) \(phi : {z : C // ||z|| = 1} -> C\) :) Tj ET
-BT /F3 4.9 Tf 394.00 346.00 Td (Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 339.00 Td (  AEStronglyMeasurable \(fun t : R => phi \(unitCirclePoint t\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 332.00 Td (      \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 325.00 Td (    eLpNorm \(fun t : R => phi \(unitCirclePoint t\)\) inf) Tj ET
-BT /F3 4.9 Tf 394.00 318.00 Td (      \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) < inf /\\) Tj ET
-BT /F3 4.9 Tf 394.00 311.00 Td (    forall n : N, circleFourierCoefficient phi \(-\(\(n : Z\) + 1\)\) = a n) Tj ET
-BT /F3 4.9 Tf 394.00 304.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 297.00 Td (noncomputable def hankelFormNorm \(a : N -> C\) : R>=0inf :=) Tj ET
-BT /F3 4.9 Tf 394.00 290.00 Td (  sInf {C : R>=0inf | C < inf /\\ forall N : N, forall x y : N -> C,) Tj ET
-BT /F3 4.9 Tf 394.00 283.00 Td (    ||Finset.sum \(Finset.range N\)) Tj ET
-BT /F3 4.9 Tf 394.00 276.00 Td (      \(fun i => Finset.sum \(Finset.range N\) \(fun j => x i * a \(i + j\) * y) Tj ET
-BT /F3 4.9 Tf 394.00 269.00 Td (      j\)\)|| <=) Tj ET
-BT /F3 4.9 Tf 394.00 262.00 Td (      C.toReal * \(Finset.sum \(Finset.range N\) \(fun i => ||x i|| ^ 2\)\) ^ \(1) Tj ET
-BT /F3 4.9 Tf 394.00 255.00 Td (      / 2 : R\) *) Tj ET
-BT /F3 4.9 Tf 394.00 248.00 Td (        \(Finset.sum \(Finset.range N\) \(fun j => ||y j|| ^ 2\)\) ^ \(1 / 2 : R\)}) Tj ET
-BT /F3 4.9 Tf 394.00 241.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 234.00 Td (noncomputable def symbolDistanceToHInfinity \(phi : {z : C // ||z|| = 1} ->) Tj ET
-BT /F3 4.9 Tf 394.00 227.00 Td (C\) : R>=0inf :=) Tj ET
-BT /F3 4.9 Tf 394.00 220.00 Td (  sInf {r : R>=0inf | exists h : C -> C, HardyClass top h /\\) Tj ET
-BT /F3 4.9 Tf 394.00 213.00 Td (    eLpNorm \(fun t : R =>) Tj ET
-BT /F3 4.9 Tf 394.00 206.00 Td (      phi \(unitCirclePoint t\) - boundaryValue h \(unitCirclePoint t\)\) inf) Tj ET
-BT /F3 4.9 Tf 394.00 199.00 Td (        \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) <= r}) Tj ET
-BT /F3 4.9 Tf 394.00 192.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 185.00 Td (theorem nikolski_B_1_3_nehari_theorem) Tj ET
-BT /F3 4.9 Tf 394.00 178.00 Td (    {a : N -> C} :) Tj ET
-BT /F3 4.9 Tf 394.00 171.00 Td (    BoundedHankelForm a <-> exists phi : {z : C // ||z|| = 1} -> C,) Tj ET
-BT /F3 4.9 Tf 394.00 164.00 Td (      HasBoundedHankelSymbol a phi /\\) Tj ET
-BT /F3 4.9 Tf 394.00 157.00 Td (        eLpNorm \(fun t : R => phi \(unitCirclePoint t\)\) inf) Tj ET
-BT /F3 4.9 Tf 394.00 150.00 Td (            \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) = hankelFormNorm a) Tj ET
-BT /F3 4.9 Tf 394.00 143.00 Td (        /\\) Tj ET
-BT /F3 4.9 Tf 394.00 136.00 Td (          symbolDistanceToHInfinity phi = hankelFormNorm a := by) Tj ET
-BT /F3 4.9 Tf 394.00 129.00 Td (  sorry) Tj ET
-20.00 120.00 m 20.00 40.00 l S
-310.00 120.00 m 310.00 40.00 l S
-390.00 120.00 m 390.00 40.00 l S
-772.00 120.00 m 772.00 40.00 l S
-20.00 120.00 m 772.00 120.00 l S
-20.00 40.00 m 772.00 40.00 l S
-BT /F1 5.8 Tf 24.00 112.00 Td (2.2.5. Theorem \(P. Hartman, 1958\). Let f in Linf. Then H_f in) Tj ET
-BT /F1 5.8 Tf 24.00 105.00 Td (Sinf if and only if f in Hinf + C. In other words, a Hankel) Tj ET
-BT /F1 5.8 Tf 24.00 98.00 Td (operator H is compact if and only if H = H_g with some g in) Tj ET
-BT /F1 5.8 Tf 24.00 91.00 Td (C\(T\).) Tj ET
-BT /F1 5.8 Tf 314.00 112.00 Td (Operator) Tj ET
-BT /F1 5.8 Tf 314.00 105.00 Td (theory) Tj ET
-BT /F3 4.9 Tf 394.00 112.00 Td (noncomputable def boundaryValue \(f : C -> C\) \(zeta : {z : C // ||z|| = 1}\)) Tj ET
-BT /F3 4.9 Tf 394.00 105.00 Td (: C :=) Tj ET
-BT /F3 4.9 Tf 394.00 98.00 Td (  limUnder \(nhds[<] \(1 : R\)\) fun r => f \(r  *  zeta.1\)) Tj ET
-BT /F3 4.9 Tf 394.00 91.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 84.00 Td (noncomputable def unitCirclePoint \(t : R\) : {z : C // ||z|| = 1} :=) Tj ET
-BT /F3 4.9 Tf 394.00 77.00 Td (  <Complex.exp \(Complex.I * t\), by rw [Complex.norm_exp]; simp>) Tj ET
-BT /F3 4.9 Tf 394.00 70.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 63.00 Td (def HardyClass \(p : R>=0inf\) \(f : C -> C\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 56.00 Td (  DifferentiableOn C f \(Metric.ball \(0 : C\) 1\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 49.00 Td (    exists C : R>=0inf, C < inf /\\ forall r : R, 0 <= r -> r < 1 ->) Tj ET
-endstream
-endobj
-11 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 19 0 R /F2 20 0 R /F3 21 0 R >> >> /Contents 12 0 R >>
-endobj
-12 0 obj
-<< /Length 7226 >>
-stream
-BT /F2 12 Tf 24.00 586.00 Td (Nikolski Operators Functions Systems Benchmark) Tj ET
-BT /F1 7 Tf 740.00 586.00 Td (p. 5) Tj ET
 BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
 BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
 BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
@@ -470,49 +363,49 @@ BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
 772.00 550.00 m 772.00 232.00 l S
 20.00 550.00 m 772.00 550.00 l S
 20.00 232.00 m 772.00 232.00 l S
-BT /F3 4.9 Tf 394.00 542.00 Td (      eLpNorm \(fun t : R => f \(r  *  \(unitCirclePoint t\).1\)\) p) Tj ET
-BT /F3 4.9 Tf 394.00 535.00 Td (        \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) <= C) Tj ET
-BT /F3 4.9 Tf 394.00 528.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 521.00 Td (noncomputable def circleFourierCoefficient) Tj ET
-BT /F3 4.9 Tf 394.00 514.00 Td (    \(phi : {z : C // ||z|| = 1} -> C\) \(k : Z\) : C :=) Tj ET
-BT /F3 4.9 Tf 394.00 507.00 Td (  \(2 * Real.pi : C\)^-1 *) Tj ET
-BT /F3 4.9 Tf 394.00 500.00 Td (    integral t in Set.Ioc 0 \(2 * Real.pi\),) Tj ET
-BT /F3 4.9 Tf 394.00 493.00 Td (      phi \(unitCirclePoint t\) * Complex.exp \(-Complex.I * k * t\)) Tj ET
-BT /F3 4.9 Tf 394.00 486.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 479.00 Td (def BoundedHankelForm \(a : N -> C\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 472.00 Td (  exists C : R, 0 <= C /\\ forall N : N, forall x y : N -> C,) Tj ET
-BT /F3 4.9 Tf 394.00 465.00 Td (    ||Finset.sum \(Finset.range N\)) Tj ET
-BT /F3 4.9 Tf 394.00 458.00 Td (      \(fun i => Finset.sum \(Finset.range N\) \(fun j => x i * a \(i + j\) * y) Tj ET
-BT /F3 4.9 Tf 394.00 451.00 Td (      j\)\)|| ^ 2 <=) Tj ET
-BT /F3 4.9 Tf 394.00 444.00 Td (      C ^ 2 * Finset.sum \(Finset.range N\) \(fun i => ||x i|| ^ 2\) *) Tj ET
-BT /F3 4.9 Tf 394.00 437.00 Td (        Finset.sum \(Finset.range N\) \(fun j => ||y j|| ^ 2\)) Tj ET
-BT /F3 4.9 Tf 394.00 430.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 423.00 Td (def HasBoundedHankelSymbol \(a : N -> C\) \(phi : {z : C // ||z|| = 1} -> C\) :) Tj ET
-BT /F3 4.9 Tf 394.00 416.00 Td (Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 409.00 Td (  AEStronglyMeasurable \(fun t : R => phi \(unitCirclePoint t\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 402.00 Td (      \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 395.00 Td (    eLpNorm \(fun t : R => phi \(unitCirclePoint t\)\) inf) Tj ET
-BT /F3 4.9 Tf 394.00 388.00 Td (      \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) < inf /\\) Tj ET
-BT /F3 4.9 Tf 394.00 381.00 Td (    forall n : N, circleFourierCoefficient phi \(-\(\(n : Z\) + 1\)\) = a n) Tj ET
-BT /F3 4.9 Tf 394.00 374.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 367.00 Td (def CompactHankel \(a : N -> C\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 360.00 Td (  BoundedHankelForm a /\\ forall eps : R, 0 < eps -> exists N : N, forall M) Tj ET
-BT /F3 4.9 Tf 394.00 353.00 Td (  : N, forall x y : N -> C,) Tj ET
-BT /F3 4.9 Tf 394.00 346.00 Td (    ||sum i in Finset.Icc N M,) Tj ET
-BT /F3 4.9 Tf 394.00 339.00 Td (      sum j in Finset.Icc N M, x i * a \(i + j\) * y j|| <=) Tj ET
-BT /F3 4.9 Tf 394.00 332.00 Td (      eps * \(sum i in Finset.Icc N M, ||x i|| ^ 2\) ^ \(1 / 2 : R\) *) Tj ET
-BT /F3 4.9 Tf 394.00 325.00 Td (        \(sum j in Finset.Icc N M, ||y j|| ^ 2\) ^ \(1 / 2 : R\)) Tj ET
-BT /F3 4.9 Tf 394.00 318.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 311.00 Td (def InHInfinityPlusContinuous \(phi : {z : C // ||z|| = 1} -> C\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 304.00 Td (  exists h : C -> C, exists c : {z : C // ||z|| = 1} -> C,) Tj ET
-BT /F3 4.9 Tf 394.00 297.00 Td (    HardyClass top h /\\ Continuous c /\\) Tj ET
-BT /F3 4.9 Tf 394.00 290.00 Td (    forall zeta : {z : C // ||z|| = 1}, phi zeta = boundaryValue h zeta + c) Tj ET
-BT /F3 4.9 Tf 394.00 283.00 Td (    zeta) Tj ET
-BT /F3 4.9 Tf 394.00 276.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 269.00 Td (theorem nikolski_B_2_2_hartman_compact_hankel) Tj ET
-BT /F3 4.9 Tf 394.00 262.00 Td (    {a : N -> C} :) Tj ET
-BT /F3 4.9 Tf 394.00 255.00 Td (    CompactHankel a <-> exists phi : {z : C // ||z|| = 1} -> C,) Tj ET
-BT /F3 4.9 Tf 394.00 248.00 Td (      HasBoundedHankelSymbol a phi /\\ InHInfinityPlusContinuous phi := by) Tj ET
+BT /F3 4.9 Tf 394.00 542.00 Td (    Real.pi\)\)\) :) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (    let weightedMeasure := \(volume.restrict \(Set.Ioc 0 \(2 *) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (    Real.pi\)\)\).withDensity) Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (      fun t => ENNReal.ofReal \(w \(unitCirclePoint t\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (    let complete := forall f : R -> C, MemLp f 2 weightedMeasure ->) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (      \(forall k : Z, integral t, star \(Complex.exp \(Complex.I * k * t\)\) * f) Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (      t dweightedMeasure = 0\) ->) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td (        f =^m[weightedMeasure] 0) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td (    let basis := \(exists A B : R, 0 < A /\\ A <= B /\\ forall c : Z -> C,) Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (    c.support.Finite ->) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td (      A * sum' k : Z, ||c k|| ^ 2 <= weightedL2NormSq w c /\\) Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (        weightedL2NormSq w c <= B * sum' k : Z, ||c k|| ^ 2\) /\\ complete) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td (    let boundedProjection := exists C : R, 0 <= C /\\ forall c : Z -> C,) Tj ET
+BT /F3 4.9 Tf 394.00 451.00 Td (    c.support.Finite ->) Tj ET
+BT /F3 4.9 Tf 394.00 444.00 Td (      weightedL2NormSq w \(analyticFourierPart c\) <= C ^ 2 *) Tj ET
+BT /F3 4.9 Tf 394.00 437.00 Td (      weightedL2NormSq w c) Tj ET
+BT /F3 4.9 Tf 394.00 430.00 Td (    let positiveAngle := exists delta : R, 0 < delta /\\ forall plus minus :) Tj ET
+BT /F3 4.9 Tf 394.00 423.00 Td (    Z -> C,) Tj ET
+BT /F3 4.9 Tf 394.00 416.00 Td (      plus.support.Finite -> minus.support.Finite ->) Tj ET
+BT /F3 4.9 Tf 394.00 409.00 Td (        \(forall k, plus k != 0 -> 0 <= k\) -> \(forall k, minus k != 0 -> k <) Tj ET
+BT /F3 4.9 Tf 394.00 402.00 Td (        0\) ->) Tj ET
+BT /F3 4.9 Tf 394.00 395.00 Td (          delta * weightedL2NormSq w plus <=) Tj ET
+BT /F3 4.9 Tf 394.00 388.00 Td (            weightedL2NormSq w \(fun k => plus k + minus k\)) Tj ET
+BT /F3 4.9 Tf 394.00 381.00 Td (    let outerDistance := exists h q : C -> C, OuterFunction 2 h /\\) Tj ET
+BT /F3 4.9 Tf 394.00 374.00 Td (    HardyClass top q /\\) Tj ET
+BT /F3 4.9 Tf 394.00 367.00 Td (      \(forall^m t dvolume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\),) Tj ET
+BT /F3 4.9 Tf 394.00 360.00 Td (        w \(unitCirclePoint t\) = ||boundaryValue h \(unitCirclePoint t\)|| ^) Tj ET
+BT /F3 4.9 Tf 394.00 353.00 Td (        2\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 346.00 Td (      eLpNorm \(fun t : R => star \(boundaryValue h \(unitCirclePoint t\)\) /) Tj ET
+BT /F3 4.9 Tf 394.00 339.00 Td (        boundaryValue h \(unitCirclePoint t\) - boundaryValue q) Tj ET
+BT /F3 4.9 Tf 394.00 332.00 Td (        \(unitCirclePoint t\)\) inf) Tj ET
+BT /F3 4.9 Tf 394.00 325.00 Td (        \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) < 1) Tj ET
+BT /F3 4.9 Tf 394.00 318.00 Td (    let helsonSzego := exists u v : {z : C // ||z|| = 1} -> R,) Tj ET
+BT /F3 4.9 Tf 394.00 311.00 Td (      eLpNorm \(fun t : R => u \(unitCirclePoint t\)\) inf) Tj ET
+BT /F3 4.9 Tf 394.00 304.00 Td (          \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) < inf /\\) Tj ET
+BT /F3 4.9 Tf 394.00 297.00 Td (        eLpNorm \(fun t : R => v \(unitCirclePoint t\)\) inf) Tj ET
+BT /F3 4.9 Tf 394.00 290.00 Td (          \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) < ENNReal.ofReal) Tj ET
+BT /F3 4.9 Tf 394.00 283.00 Td (        \(Real.pi / 2\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 276.00 Td (        forall^m t dvolume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\),) Tj ET
+BT /F3 4.9 Tf 394.00 269.00 Td (          w \(unitCirclePoint t\) =) Tj ET
+BT /F3 4.9 Tf 394.00 262.00 Td (            Real.exp \(u \(unitCirclePoint t\) + circleHilbertTransform v t\)) Tj ET
+BT /F3 4.9 Tf 394.00 255.00 Td (    List.TFAE [basis, boundedProjection, positiveAngle, outerDistance,) Tj ET
+BT /F3 4.9 Tf 394.00 248.00 Td (    helsonSzego] := by) Tj ET
 BT /F3 4.9 Tf 394.00 241.00 Td (  sorry) Tj ET
 20.00 232.00 m 20.00 40.00 l S
 310.00 232.00 m 310.00 40.00 l S
@@ -520,13 +413,10 @@ BT /F3 4.9 Tf 394.00 241.00 Td (  sorry) Tj ET
 772.00 232.00 m 772.00 40.00 l S
 20.00 232.00 m 772.00 232.00 l S
 20.00 40.00 m 772.00 40.00 l S
-BT /F1 5.8 Tf 24.00 224.00 Td (3.2.4. Corollary \(G. Pick, 1916\). There exists f in Hinf such) Tj ET
-BT /F1 5.8 Tf 24.00 217.00 Td (that f\(lambda_k\) = w_k, k = 1, ..., n, and ||f||inf <= 1 if) Tj ET
-BT /F1 5.8 Tf 24.00 210.00 Td (and only if I - WW* >= 0: sum_{i,j=1}^n a_i a_j \(1 - w_i) Tj ET
-BT /F1 5.8 Tf 24.00 203.00 Td (w_j\)/\(1 - lambda_i lambda_j\) >= 0, a_i in C. Moreover, the) Tj ET
-BT /F1 5.8 Tf 24.00 196.00 Td (solution f is unique if and only if the matrix I - WW* is) Tj ET
-BT /F1 5.8 Tf 24.00 189.00 Td (degenerated, i.e. d = rank\(I - WW*\) < n.) Tj ET
-BT /F1 5.8 Tf 314.00 224.00 Td (Function) Tj ET
+BT /F1 5.8 Tf 24.00 224.00 Td (1.3.2. Theorem \(Z. Nehari, 1957\). If H : H2 -> H2- is a) Tj ET
+BT /F1 5.8 Tf 24.00 217.00 Td (bounded Hankel operator, then there exists phi in Linf such) Tj ET
+BT /F1 5.8 Tf 24.00 210.00 Td (that H = H_phi and ||H_phi|| = ||phi||inf = dist\(phi, Hinf\).) Tj ET
+BT /F1 5.8 Tf 314.00 224.00 Td (Operator) Tj ET
 BT /F1 5.8 Tf 314.00 217.00 Td (theory) Tj ET
 BT /F3 4.9 Tf 394.00 224.00 Td (noncomputable def boundaryValue \(f : C -> C\) \(zeta : {z : C // ||z|| = 1}\)) Tj ET
 BT /F3 4.9 Tf 394.00 217.00 Td (: C :=) Tj ET
@@ -541,26 +431,128 @@ BT /F3 4.9 Tf 394.00 161.00 Td (    exists C : R>=0inf, C < inf /\\ forall r : R
 BT /F3 4.9 Tf 394.00 154.00 Td (      eLpNorm \(fun t : R => f \(r  *  \(unitCirclePoint t\).1\)\) p) Tj ET
 BT /F3 4.9 Tf 394.00 147.00 Td (        \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) <= C) Tj ET
 BT /F3 4.9 Tf 394.00 140.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 133.00 Td (def SchurFunction \(f : C -> C\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 126.00 Td (  HardyClass top f /\\ forall z in Metric.ball \(0 : C\) 1, ||f z|| <= 1) Tj ET
-BT /F3 4.9 Tf 394.00 119.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 112.00 Td (noncomputable def PickMatrix {n : N} \(z w : Fin n -> C\) : Matrix \(Fin n\)) Tj ET
-BT /F3 4.9 Tf 394.00 105.00 Td (\(Fin n\) C :=) Tj ET
-BT /F3 4.9 Tf 394.00 98.00 Td (  fun i j => \(1 - w i * star \(w j\)\) / \(1 - z i * star \(z j\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 91.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 84.00 Td (def PositiveSemidefiniteMatrix {n : N} \(A : Matrix \(Fin n\) \(Fin n\) C\) :) Tj ET
-BT /F3 4.9 Tf 394.00 77.00 Td (Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 70.00 Td (  forall c : Fin n -> C, 0 <= Complex.re \(sum i, sum j, star \(c i\) * A i j) Tj ET
-BT /F3 4.9 Tf 394.00 63.00 Td (  * c j\)) Tj ET
+BT /F3 4.9 Tf 394.00 133.00 Td (noncomputable def circleFourierCoefficient) Tj ET
+BT /F3 4.9 Tf 394.00 126.00 Td (    \(phi : {z : C // ||z|| = 1} -> C\) \(k : Z\) : C :=) Tj ET
+BT /F3 4.9 Tf 394.00 119.00 Td (  \(2 * Real.pi : C\)^-1 *) Tj ET
+BT /F3 4.9 Tf 394.00 112.00 Td (    integral t in Set.Ioc 0 \(2 * Real.pi\),) Tj ET
+BT /F3 4.9 Tf 394.00 105.00 Td (      phi \(unitCirclePoint t\) * Complex.exp \(-Complex.I * k * t\)) Tj ET
+BT /F3 4.9 Tf 394.00 98.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 91.00 Td (def BoundedHankelForm \(a : N -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 84.00 Td (  exists C : R, 0 <= C /\\ forall N : N, forall x y : N -> C,) Tj ET
+BT /F3 4.9 Tf 394.00 77.00 Td (    ||Finset.sum \(Finset.range N\)) Tj ET
+BT /F3 4.9 Tf 394.00 70.00 Td (      \(fun i => Finset.sum \(Finset.range N\) \(fun j => x i * a \(i + j\) * y) Tj ET
+BT /F3 4.9 Tf 394.00 63.00 Td (      j\)\)|| ^ 2 <=) Tj ET
+BT /F3 4.9 Tf 394.00 56.00 Td (      C ^ 2 * Finset.sum \(Finset.range N\) \(fun i => ||x i|| ^ 2\) *) Tj ET
+BT /F3 4.9 Tf 394.00 49.00 Td (        Finset.sum \(Finset.range N\) \(fun j => ||y j|| ^ 2\)) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 21 0 R /F2 22 0 R /F3 23 0 R >> >> /Contents 12 0 R >>
+endobj
+12 0 obj
+<< /Length 7131 >>
+stream
+BT /F2 12 Tf 24.00 586.00 Td (Nikolski Operators Functions Systems Benchmark) Tj ET
+BT /F1 7 Tf 740.00 586.00 Td (p. 5) Tj ET
+BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
+BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
+BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
+20.00 558.00 m 772.00 558.00 l S
+20.00 550.00 m 20.00 302.00 l S
+310.00 550.00 m 310.00 302.00 l S
+390.00 550.00 m 390.00 302.00 l S
+772.00 550.00 m 772.00 302.00 l S
+20.00 550.00 m 772.00 550.00 l S
+20.00 302.00 m 772.00 302.00 l S
+BT /F3 4.9 Tf 394.00 542.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (def HasBoundedHankelSymbol \(a : N -> C\) \(phi : {z : C // ||z|| = 1} -> C\) :) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (  AEStronglyMeasurable \(fun t : R => phi \(unitCirclePoint t\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (      \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (    eLpNorm \(fun t : R => phi \(unitCirclePoint t\)\) inf) Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (      \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) < inf /\\) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td (    forall n : N, circleFourierCoefficient phi \(-\(\(n : Z\) + 1\)\) = a n) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (noncomputable def hankelFormNorm \(a : N -> C\) : R>=0inf :=) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td (  sInf {C : R>=0inf | C < inf /\\ forall N : N, forall x y : N -> C,) Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (    ||Finset.sum \(Finset.range N\)) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td (      \(fun i => Finset.sum \(Finset.range N\) \(fun j => x i * a \(i + j\) * y) Tj ET
+BT /F3 4.9 Tf 394.00 451.00 Td (      j\)\)|| <=) Tj ET
+BT /F3 4.9 Tf 394.00 444.00 Td (      C.toReal * \(Finset.sum \(Finset.range N\) \(fun i => ||x i|| ^ 2\)\) ^ \(1) Tj ET
+BT /F3 4.9 Tf 394.00 437.00 Td (      / 2 : R\) *) Tj ET
+BT /F3 4.9 Tf 394.00 430.00 Td (        \(Finset.sum \(Finset.range N\) \(fun j => ||y j|| ^ 2\)\) ^ \(1 / 2 : R\)}) Tj ET
+BT /F3 4.9 Tf 394.00 423.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 416.00 Td (noncomputable def symbolDistanceToHInfinity \(phi : {z : C // ||z|| = 1} ->) Tj ET
+BT /F3 4.9 Tf 394.00 409.00 Td (C\) : R>=0inf :=) Tj ET
+BT /F3 4.9 Tf 394.00 402.00 Td (  sInf {r : R>=0inf | exists h : C -> C, HardyClass top h /\\) Tj ET
+BT /F3 4.9 Tf 394.00 395.00 Td (    eLpNorm \(fun t : R =>) Tj ET
+BT /F3 4.9 Tf 394.00 388.00 Td (      phi \(unitCirclePoint t\) - boundaryValue h \(unitCirclePoint t\)\) inf) Tj ET
+BT /F3 4.9 Tf 394.00 381.00 Td (        \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) <= r}) Tj ET
+BT /F3 4.9 Tf 394.00 374.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 367.00 Td (theorem nikolski_B_1_3_nehari_theorem) Tj ET
+BT /F3 4.9 Tf 394.00 360.00 Td (    {a : N -> C} :) Tj ET
+BT /F3 4.9 Tf 394.00 353.00 Td (    BoundedHankelForm a <-> exists phi : {z : C // ||z|| = 1} -> C,) Tj ET
+BT /F3 4.9 Tf 394.00 346.00 Td (      HasBoundedHankelSymbol a phi /\\) Tj ET
+BT /F3 4.9 Tf 394.00 339.00 Td (        eLpNorm \(fun t : R => phi \(unitCirclePoint t\)\) inf) Tj ET
+BT /F3 4.9 Tf 394.00 332.00 Td (            \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) = hankelFormNorm a) Tj ET
+BT /F3 4.9 Tf 394.00 325.00 Td (        /\\) Tj ET
+BT /F3 4.9 Tf 394.00 318.00 Td (          symbolDistanceToHInfinity phi = hankelFormNorm a := by) Tj ET
+BT /F3 4.9 Tf 394.00 311.00 Td (  sorry) Tj ET
+20.00 302.00 m 20.00 40.00 l S
+310.00 302.00 m 310.00 40.00 l S
+390.00 302.00 m 390.00 40.00 l S
+772.00 302.00 m 772.00 40.00 l S
+20.00 302.00 m 772.00 302.00 l S
+20.00 40.00 m 772.00 40.00 l S
+BT /F1 5.8 Tf 24.00 294.00 Td (2.2.5. Theorem \(P. Hartman, 1958\). Let f in Linf. Then H_f in) Tj ET
+BT /F1 5.8 Tf 24.00 287.00 Td (Sinf if and only if f in Hinf + C. In other words, a Hankel) Tj ET
+BT /F1 5.8 Tf 24.00 280.00 Td (operator H is compact if and only if H = H_g with some g in) Tj ET
+BT /F1 5.8 Tf 24.00 273.00 Td (C\(T\).) Tj ET
+BT /F1 5.8 Tf 314.00 294.00 Td (Operator) Tj ET
+BT /F1 5.8 Tf 314.00 287.00 Td (theory) Tj ET
+BT /F3 4.9 Tf 394.00 294.00 Td (noncomputable def boundaryValue \(f : C -> C\) \(zeta : {z : C // ||z|| = 1}\)) Tj ET
+BT /F3 4.9 Tf 394.00 287.00 Td (: C :=) Tj ET
+BT /F3 4.9 Tf 394.00 280.00 Td (  limUnder \(nhds[<] \(1 : R\)\) fun r => f \(r  *  zeta.1\)) Tj ET
+BT /F3 4.9 Tf 394.00 273.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 266.00 Td (noncomputable def unitCirclePoint \(t : R\) : {z : C // ||z|| = 1} :=) Tj ET
+BT /F3 4.9 Tf 394.00 259.00 Td (  <Complex.exp \(Complex.I * t\), by rw [Complex.norm_exp]; simp>) Tj ET
+BT /F3 4.9 Tf 394.00 252.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 245.00 Td (def HardyClass \(p : R>=0inf\) \(f : C -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 238.00 Td (  DifferentiableOn C f \(Metric.ball \(0 : C\) 1\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 231.00 Td (    exists C : R>=0inf, C < inf /\\ forall r : R, 0 <= r -> r < 1 ->) Tj ET
+BT /F3 4.9 Tf 394.00 224.00 Td (      eLpNorm \(fun t : R => f \(r  *  \(unitCirclePoint t\).1\)\) p) Tj ET
+BT /F3 4.9 Tf 394.00 217.00 Td (        \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) <= C) Tj ET
+BT /F3 4.9 Tf 394.00 210.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 203.00 Td (noncomputable def circleFourierCoefficient) Tj ET
+BT /F3 4.9 Tf 394.00 196.00 Td (    \(phi : {z : C // ||z|| = 1} -> C\) \(k : Z\) : C :=) Tj ET
+BT /F3 4.9 Tf 394.00 189.00 Td (  \(2 * Real.pi : C\)^-1 *) Tj ET
+BT /F3 4.9 Tf 394.00 182.00 Td (    integral t in Set.Ioc 0 \(2 * Real.pi\),) Tj ET
+BT /F3 4.9 Tf 394.00 175.00 Td (      phi \(unitCirclePoint t\) * Complex.exp \(-Complex.I * k * t\)) Tj ET
+BT /F3 4.9 Tf 394.00 168.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 161.00 Td (def BoundedHankelForm \(a : N -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 154.00 Td (  exists C : R, 0 <= C /\\ forall N : N, forall x y : N -> C,) Tj ET
+BT /F3 4.9 Tf 394.00 147.00 Td (    ||Finset.sum \(Finset.range N\)) Tj ET
+BT /F3 4.9 Tf 394.00 140.00 Td (      \(fun i => Finset.sum \(Finset.range N\) \(fun j => x i * a \(i + j\) * y) Tj ET
+BT /F3 4.9 Tf 394.00 133.00 Td (      j\)\)|| ^ 2 <=) Tj ET
+BT /F3 4.9 Tf 394.00 126.00 Td (      C ^ 2 * Finset.sum \(Finset.range N\) \(fun i => ||x i|| ^ 2\) *) Tj ET
+BT /F3 4.9 Tf 394.00 119.00 Td (        Finset.sum \(Finset.range N\) \(fun j => ||y j|| ^ 2\)) Tj ET
+BT /F3 4.9 Tf 394.00 112.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 105.00 Td (def HasBoundedHankelSymbol \(a : N -> C\) \(phi : {z : C // ||z|| = 1} -> C\) :) Tj ET
+BT /F3 4.9 Tf 394.00 98.00 Td (Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 91.00 Td (  AEStronglyMeasurable \(fun t : R => phi \(unitCirclePoint t\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 84.00 Td (      \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 77.00 Td (    eLpNorm \(fun t : R => phi \(unitCirclePoint t\)\) inf) Tj ET
+BT /F3 4.9 Tf 394.00 70.00 Td (      \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) < inf /\\) Tj ET
+BT /F3 4.9 Tf 394.00 63.00 Td (    forall n : N, circleFourierCoefficient phi \(-\(\(n : Z\) + 1\)\) = a n) Tj ET
 BT /F3 4.9 Tf 394.00 56.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 49.00 Td (theorem nikolski_B_3_2_nevanlinna_pick_interpolation) Tj ET
+BT /F3 4.9 Tf 394.00 49.00 Td (def CompactHankel \(a : N -> C\) : Prop :=) Tj ET
 endstream
 endobj
 13 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 19 0 R /F2 20 0 R /F3 21 0 R >> >> /Contents 14 0 R >>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 21 0 R /F2 22 0 R /F3 23 0 R >> >> /Contents 14 0 R >>
 endobj
 14 0 obj
-<< /Length 7866 >>
+<< /Length 8556 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Nikolski Operators Functions Systems Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 6) Tj ET
@@ -568,109 +560,122 @@ BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
 BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
 BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
 20.00 558.00 m 772.00 558.00 l S
-20.00 550.00 m 20.00 484.00 l S
-310.00 550.00 m 310.00 484.00 l S
-390.00 550.00 m 390.00 484.00 l S
-772.00 550.00 m 772.00 484.00 l S
+20.00 550.00 m 20.00 414.00 l S
+310.00 550.00 m 310.00 414.00 l S
+390.00 550.00 m 390.00 414.00 l S
+772.00 550.00 m 772.00 414.00 l S
 20.00 550.00 m 772.00 550.00 l S
-20.00 484.00 m 772.00 484.00 l S
-BT /F3 4.9 Tf 394.00 542.00 Td (    {n : N} {z w : Fin n -> C} \(hz : forall i : Fin n, z i in Metric.ball) Tj ET
-BT /F3 4.9 Tf 394.00 535.00 Td (    \(0 : C\) 1\) :) Tj ET
-BT /F3 4.9 Tf 394.00 528.00 Td (    let solutions := {f : C -> C | SchurFunction f /\\ forall i : Fin n, f) Tj ET
-BT /F3 4.9 Tf 394.00 521.00 Td (    \(z i\) = w i}) Tj ET
-BT /F3 4.9 Tf 394.00 514.00 Td (    \(solutions.Nonempty <-> PositiveSemidefiniteMatrix \(PickMatrix z w\)\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 507.00 Td (      \(solutions.Nonempty ->) Tj ET
-BT /F3 4.9 Tf 394.00 500.00 Td (        \(solutions.Subsingleton <-> Matrix.det \(PickMatrix z w\) = 0\)\) := by) Tj ET
-BT /F3 4.9 Tf 394.00 493.00 Td (  sorry) Tj ET
-20.00 484.00 m 20.00 40.00 l S
-310.00 484.00 m 310.00 40.00 l S
-390.00 484.00 m 390.00 40.00 l S
-772.00 484.00 m 772.00 40.00 l S
-20.00 484.00 m 772.00 484.00 l S
-20.00 40.00 m 772.00 40.00 l S
-BT /F1 5.8 Tf 24.00 476.00 Td (4.3.3. Lemma. Let u in Linf\(T\) be such that |u| = 1 a.e. on T.) Tj ET
-BT /F1 5.8 Tf 24.00 469.00 Td (The following are equivalent. \(1\) Tu is invertible. \(2\)) Tj ET
-BT /F1 5.8 Tf 24.00 462.00 Td (dist\(u, Hinf\) < 1, dist\(u, Hinf\) < 1. \(3\) There exists an) Tj ET
-BT /F1 5.8 Tf 24.00 455.00 Td (outer function h in Hinf such that ||u - h||inf < 1. \(4\) There) Tj ET
-BT /F1 5.8 Tf 24.00 448.00 Td (exist real valued bounded functions a, b and a constant c in R) Tj ET
-BT /F1 5.8 Tf 24.00 441.00 Td (such that u = e^{i\(c+a+b\)} and ||a||inf < pi/2.) Tj ET
-BT /F1 5.8 Tf 24.00 434.00 Td () Tj ET
-BT /F1 5.8 Tf 24.00 427.00 Td (3.9.7. Definition. Let f in Hp, p > 0. The function [f] is) Tj ET
-BT /F1 5.8 Tf 24.00 420.00 Td (called the outer part of f, and lambdaBS is called the inner) Tj ET
-BT /F1 5.8 Tf 24.00 413.00 Td (part of f. A function f in Hp which is equal to its outer part) Tj ET
-BT /F1 5.8 Tf 24.00 406.00 Td (\(up to a multiplicative constant of modulus 1\), f = lambda[f],) Tj ET
-BT /F1 5.8 Tf 24.00 399.00 Td (will simply be called outer.) Tj ET
-BT /F1 5.8 Tf 314.00 476.00 Td (Operator) Tj ET
-BT /F1 5.8 Tf 314.00 469.00 Td (theory) Tj ET
-BT /F3 4.9 Tf 394.00 476.00 Td (noncomputable def boundaryValue \(f : C -> C\) \(zeta : {z : C // ||z|| = 1}\)) Tj ET
-BT /F3 4.9 Tf 394.00 469.00 Td (: C :=) Tj ET
-BT /F3 4.9 Tf 394.00 462.00 Td (  limUnder \(nhds[<] \(1 : R\)\) fun r => f \(r  *  zeta.1\)) Tj ET
-BT /F3 4.9 Tf 394.00 455.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 448.00 Td (noncomputable def unitCirclePoint \(t : R\) : {z : C // ||z|| = 1} :=) Tj ET
-BT /F3 4.9 Tf 394.00 441.00 Td (  <Complex.exp \(Complex.I * t\), by rw [Complex.norm_exp]; simp>) Tj ET
-BT /F3 4.9 Tf 394.00 434.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 427.00 Td (def HardyClass \(p : R>=0inf\) \(f : C -> C\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 420.00 Td (  DifferentiableOn C f \(Metric.ball \(0 : C\) 1\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 413.00 Td (    exists C : R>=0inf, C < inf /\\ forall r : R, 0 <= r -> r < 1 ->) Tj ET
-BT /F3 4.9 Tf 394.00 406.00 Td (      eLpNorm \(fun t : R => f \(r  *  \(unitCirclePoint t\).1\)\) p) Tj ET
-BT /F3 4.9 Tf 394.00 399.00 Td (        \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) <= C) Tj ET
-BT /F3 4.9 Tf 394.00 392.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 385.00 Td (def OuterFunction \(p : R>=0inf\) \(g : C -> C\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 378.00 Td (  HardyClass p g /\\ exists c : C, ||c|| = 1 /\\ forall z in Metric.ball \(0 :) Tj ET
-BT /F3 4.9 Tf 394.00 371.00 Td (  C\) 1,) Tj ET
-BT /F3 4.9 Tf 394.00 364.00 Td (    g z = c * Complex.exp) Tj ET
-BT /F3 4.9 Tf 394.00 357.00 Td (      \(\(2 * Real.pi : C\)^-1 *) Tj ET
-BT /F3 4.9 Tf 394.00 350.00 Td (        integral t in Set.Ioc 0 \(2 * Real.pi\),) Tj ET
-BT /F3 4.9 Tf 394.00 343.00 Td (          \(\(unitCirclePoint t\).1 + z\) / \(\(unitCirclePoint t\).1 - z\) *) Tj ET
-BT /F3 4.9 Tf 394.00 336.00 Td (            Real.log ||boundaryValue g \(unitCirclePoint t\)||\)) Tj ET
-BT /F3 4.9 Tf 394.00 329.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 322.00 Td (noncomputable def circleHilbertTransform \(v : {z : C // ||z|| = 1} -> R\) \(t) Tj ET
-BT /F3 4.9 Tf 394.00 315.00 Td (: R\) : R :=) Tj ET
-BT /F3 4.9 Tf 394.00 308.00 Td (  Complex.re <| sum' k : Z,) Tj ET
-BT /F3 4.9 Tf 394.00 301.00 Td (    \(if k = 0 then 0 else if 0 < k then -Complex.I else Complex.I\) *) Tj ET
-BT /F3 4.9 Tf 394.00 294.00 Td (      \(\(2 * Real.pi : C\)^-1 * integral s in Set.Ioc 0 \(2 * Real.pi\),) Tj ET
-BT /F3 4.9 Tf 394.00 287.00 Td (        \(v \(unitCirclePoint s\) : C\) * Complex.exp \(-Complex.I * k * s\)\) *) Tj ET
-BT /F3 4.9 Tf 394.00 280.00 Td (        Complex.exp \(Complex.I * k * t\)) Tj ET
+20.00 414.00 m 772.00 414.00 l S
+BT /F3 4.9 Tf 394.00 542.00 Td (  BoundedHankelForm a /\\ forall eps : R, 0 < eps -> exists N : N, forall M) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (  : N, forall x y : N -> C,) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (    ||sum i in Finset.Icc N M,) Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (      sum j in Finset.Icc N M, x i * a \(i + j\) * y j|| <=) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (      eps * \(sum i in Finset.Icc N M, ||x i|| ^ 2\) ^ \(1 / 2 : R\) *) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (        \(sum j in Finset.Icc N M, ||y j|| ^ 2\) ^ \(1 / 2 : R\)) Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td (def InHInfinityPlusContinuous \(phi : {z : C // ||z|| = 1} -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td (  exists h : C -> C, exists c : {z : C // ||z|| = 1} -> C,) Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (    HardyClass top h /\\ Continuous c /\\) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td (    forall zeta : {z : C // ||z|| = 1}, phi zeta = boundaryValue h zeta + c) Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (    zeta) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 451.00 Td (theorem nikolski_B_2_2_hartman_compact_hankel) Tj ET
+BT /F3 4.9 Tf 394.00 444.00 Td (    {a : N -> C} :) Tj ET
+BT /F3 4.9 Tf 394.00 437.00 Td (    CompactHankel a <-> exists phi : {z : C // ||z|| = 1} -> C,) Tj ET
+BT /F3 4.9 Tf 394.00 430.00 Td (      HasBoundedHankelSymbol a phi /\\ InHInfinityPlusContinuous phi := by) Tj ET
+BT /F3 4.9 Tf 394.00 423.00 Td (  sorry) Tj ET
+20.00 414.00 m 20.00 166.00 l S
+310.00 414.00 m 310.00 166.00 l S
+390.00 414.00 m 390.00 166.00 l S
+772.00 414.00 m 772.00 166.00 l S
+20.00 414.00 m 772.00 414.00 l S
+20.00 166.00 m 772.00 166.00 l S
+BT /F1 5.8 Tf 24.00 406.00 Td (3.2.4. Corollary \(G. Pick, 1916\). There exists f in Hinf such) Tj ET
+BT /F1 5.8 Tf 24.00 399.00 Td (that f\(lambda_k\) = w_k, k = 1, ..., n, and ||f||inf <= 1 if) Tj ET
+BT /F1 5.8 Tf 24.00 392.00 Td (and only if I - WW* >= 0: sum_{i,j=1}^n a_i a_j \(1 - w_i) Tj ET
+BT /F1 5.8 Tf 24.00 385.00 Td (w_j\)/\(1 - lambda_i lambda_j\) >= 0, a_i in C. Moreover, the) Tj ET
+BT /F1 5.8 Tf 24.00 378.00 Td (solution f is unique if and only if the matrix I - WW* is) Tj ET
+BT /F1 5.8 Tf 24.00 371.00 Td (degenerated, i.e. d = rank\(I - WW*\) < n.) Tj ET
+BT /F1 5.8 Tf 314.00 406.00 Td (Function) Tj ET
+BT /F1 5.8 Tf 314.00 399.00 Td (theory) Tj ET
+BT /F3 4.9 Tf 394.00 406.00 Td (noncomputable def boundaryValue \(f : C -> C\) \(zeta : {z : C // ||z|| = 1}\)) Tj ET
+BT /F3 4.9 Tf 394.00 399.00 Td (: C :=) Tj ET
+BT /F3 4.9 Tf 394.00 392.00 Td (  limUnder \(nhds[<] \(1 : R\)\) fun r => f \(r  *  zeta.1\)) Tj ET
+BT /F3 4.9 Tf 394.00 385.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 378.00 Td (noncomputable def unitCirclePoint \(t : R\) : {z : C // ||z|| = 1} :=) Tj ET
+BT /F3 4.9 Tf 394.00 371.00 Td (  <Complex.exp \(Complex.I * t\), by rw [Complex.norm_exp]; simp>) Tj ET
+BT /F3 4.9 Tf 394.00 364.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 357.00 Td (def HardyClass \(p : R>=0inf\) \(f : C -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 350.00 Td (  DifferentiableOn C f \(Metric.ball \(0 : C\) 1\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 343.00 Td (    exists C : R>=0inf, C < inf /\\ forall r : R, 0 <= r -> r < 1 ->) Tj ET
+BT /F3 4.9 Tf 394.00 336.00 Td (      eLpNorm \(fun t : R => f \(r  *  \(unitCirclePoint t\).1\)\) p) Tj ET
+BT /F3 4.9 Tf 394.00 329.00 Td (        \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) <= C) Tj ET
+BT /F3 4.9 Tf 394.00 322.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 315.00 Td (def SchurFunction \(f : C -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 308.00 Td (  HardyClass top f /\\ forall z in Metric.ball \(0 : C\) 1, ||f z|| <= 1) Tj ET
+BT /F3 4.9 Tf 394.00 301.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 294.00 Td (noncomputable def PickMatrix {n : N} \(z w : Fin n -> C\) : Matrix \(Fin n\)) Tj ET
+BT /F3 4.9 Tf 394.00 287.00 Td (\(Fin n\) C :=) Tj ET
+BT /F3 4.9 Tf 394.00 280.00 Td (  fun i j => \(1 - w i * star \(w j\)\) / \(1 - z i * star \(z j\)\)) Tj ET
 BT /F3 4.9 Tf 394.00 273.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 266.00 Td (noncomputable def circleFourierCoefficient) Tj ET
-BT /F3 4.9 Tf 394.00 259.00 Td (    \(phi : {z : C // ||z|| = 1} -> C\) \(k : Z\) : C :=) Tj ET
-BT /F3 4.9 Tf 394.00 252.00 Td (  \(2 * Real.pi : C\)^-1 *) Tj ET
-BT /F3 4.9 Tf 394.00 245.00 Td (    integral t in Set.Ioc 0 \(2 * Real.pi\),) Tj ET
-BT /F3 4.9 Tf 394.00 238.00 Td (      phi \(unitCirclePoint t\) * Complex.exp \(-Complex.I * k * t\)) Tj ET
-BT /F3 4.9 Tf 394.00 231.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 224.00 Td (noncomputable def symbolDistanceToHInfinity \(phi : {z : C // ||z|| = 1} ->) Tj ET
-BT /F3 4.9 Tf 394.00 217.00 Td (C\) : R>=0inf :=) Tj ET
-BT /F3 4.9 Tf 394.00 210.00 Td (  sInf {r : R>=0inf | exists h : C -> C, HardyClass top h /\\) Tj ET
-BT /F3 4.9 Tf 394.00 203.00 Td (    eLpNorm \(fun t : R =>) Tj ET
-BT /F3 4.9 Tf 394.00 196.00 Td (      phi \(unitCirclePoint t\) - boundaryValue h \(unitCirclePoint t\)\) inf) Tj ET
-BT /F3 4.9 Tf 394.00 189.00 Td (        \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) <= r}) Tj ET
-BT /F3 4.9 Tf 394.00 182.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 175.00 Td (def RepresentsToeplitzOperator \(phi : {z : C // ||z|| = 1} -> C\)) Tj ET
-BT /F3 4.9 Tf 394.00 168.00 Td (    \(T : l2\(N, C\) -> l2\(N, C\)\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 161.00 Td (  \(forall f g, T \(f + g\) = T f + T g\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 154.00 Td (    \(forall \(c : C\) f, T \(c  *  f\) = c  *  T f\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 147.00 Td (    Continuous T /\\ forall f n,) Tj ET
-BT /F3 4.9 Tf 394.00 140.00 Td (      T f n = sum' j : N, circleFourierCoefficient phi \(\(n : Z\) - j\) * f j) Tj ET
-BT /F3 4.9 Tf 394.00 133.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 126.00 Td (def EssentiallyBoundedCircleSymbol \(u : {z : C // ||z|| = 1} -> C\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 119.00 Td (  AEStronglyMeasurable \(fun t : R => u \(unitCirclePoint t\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 112.00 Td (      \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 105.00 Td (    eLpNorm \(fun t : R => u \(unitCirclePoint t\)\) inf) Tj ET
-BT /F3 4.9 Tf 394.00 98.00 Td (      \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) < inf) Tj ET
-BT /F3 4.9 Tf 394.00 91.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 84.00 Td (def IsUnimodularCircleSymbol \(u : {z : C // ||z|| = 1} -> C\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 77.00 Td (  forall^m t dvolume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\), ||u) Tj ET
-BT /F3 4.9 Tf 394.00 70.00 Td (  \(unitCirclePoint t\)|| = 1) Tj ET
-BT /F3 4.9 Tf 394.00 63.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 56.00 Td (theorem nikolski_B_4_3_3_devinatz_widom) Tj ET
-BT /F3 4.9 Tf 394.00 49.00 Td (    {u : {z : C // ||z|| = 1} -> C}) Tj ET
+BT /F3 4.9 Tf 394.00 266.00 Td (def PositiveSemidefiniteMatrix {n : N} \(A : Matrix \(Fin n\) \(Fin n\) C\) :) Tj ET
+BT /F3 4.9 Tf 394.00 259.00 Td (Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 252.00 Td (  forall c : Fin n -> C, 0 <= Complex.re \(sum i, sum j, star \(c i\) * A i j) Tj ET
+BT /F3 4.9 Tf 394.00 245.00 Td (  * c j\)) Tj ET
+BT /F3 4.9 Tf 394.00 238.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 231.00 Td (theorem nikolski_B_3_2_nevanlinna_pick_interpolation) Tj ET
+BT /F3 4.9 Tf 394.00 224.00 Td (    {n : N} {z w : Fin n -> C} \(hz : forall i : Fin n, z i in Metric.ball) Tj ET
+BT /F3 4.9 Tf 394.00 217.00 Td (    \(0 : C\) 1\) :) Tj ET
+BT /F3 4.9 Tf 394.00 210.00 Td (    let solutions := {f : C -> C | SchurFunction f /\\ forall i : Fin n, f) Tj ET
+BT /F3 4.9 Tf 394.00 203.00 Td (    \(z i\) = w i}) Tj ET
+BT /F3 4.9 Tf 394.00 196.00 Td (    \(solutions.Nonempty <-> PositiveSemidefiniteMatrix \(PickMatrix z w\)\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 189.00 Td (      \(solutions.Nonempty ->) Tj ET
+BT /F3 4.9 Tf 394.00 182.00 Td (        \(solutions.Subsingleton <-> Matrix.det \(PickMatrix z w\) = 0\)\) := by) Tj ET
+BT /F3 4.9 Tf 394.00 175.00 Td (  sorry) Tj ET
+20.00 166.00 m 20.00 37.00 l S
+310.00 166.00 m 310.00 37.00 l S
+390.00 166.00 m 390.00 37.00 l S
+772.00 166.00 m 772.00 37.00 l S
+20.00 166.00 m 772.00 166.00 l S
+20.00 37.00 m 772.00 37.00 l S
+BT /F1 5.8 Tf 24.00 158.00 Td (4.3.3. Lemma. Let u in Linf\(T\) be such that |u| = 1 a.e. on T.) Tj ET
+BT /F1 5.8 Tf 24.00 151.00 Td (The following are equivalent. \(1\) Tu is invertible. \(2\)) Tj ET
+BT /F1 5.8 Tf 24.00 144.00 Td (dist\(u, Hinf\) < 1, dist\(u, Hinf\) < 1. \(3\) There exists an) Tj ET
+BT /F1 5.8 Tf 24.00 137.00 Td (outer function h in Hinf such that ||u - h||inf < 1. \(4\) There) Tj ET
+BT /F1 5.8 Tf 24.00 130.00 Td (exist real valued bounded functions a, b and a constant c in R) Tj ET
+BT /F1 5.8 Tf 24.00 123.00 Td (such that u = e^{i\(c+a+b\)} and ||a||inf < pi/2.) Tj ET
+BT /F1 5.8 Tf 24.00 116.00 Td () Tj ET
+BT /F1 5.8 Tf 24.00 109.00 Td (3.9.7. Definition. Let f in Hp, p > 0. The function [f] is) Tj ET
+BT /F1 5.8 Tf 24.00 102.00 Td (called the outer part of f, and lambdaBS is called the inner) Tj ET
+BT /F1 5.8 Tf 24.00 95.00 Td (part of f. A function f in Hp which is equal to its outer part) Tj ET
+BT /F1 5.8 Tf 24.00 88.00 Td (\(up to a multiplicative constant of modulus 1\), f = lambda[f],) Tj ET
+BT /F1 5.8 Tf 24.00 81.00 Td (will simply be called outer.) Tj ET
+BT /F1 5.8 Tf 314.00 158.00 Td (Operator) Tj ET
+BT /F1 5.8 Tf 314.00 151.00 Td (theory) Tj ET
+BT /F3 4.9 Tf 394.00 158.00 Td (noncomputable def boundaryValue \(f : C -> C\) \(zeta : {z : C // ||z|| = 1}\)) Tj ET
+BT /F3 4.9 Tf 394.00 151.00 Td (: C :=) Tj ET
+BT /F3 4.9 Tf 394.00 144.00 Td (  limUnder \(nhds[<] \(1 : R\)\) fun r => f \(r  *  zeta.1\)) Tj ET
+BT /F3 4.9 Tf 394.00 137.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 130.00 Td (noncomputable def unitCirclePoint \(t : R\) : {z : C // ||z|| = 1} :=) Tj ET
+BT /F3 4.9 Tf 394.00 123.00 Td (  <Complex.exp \(Complex.I * t\), by rw [Complex.norm_exp]; simp>) Tj ET
+BT /F3 4.9 Tf 394.00 116.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 109.00 Td (def HardyClass \(p : R>=0inf\) \(f : C -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 102.00 Td (  DifferentiableOn C f \(Metric.ball \(0 : C\) 1\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 95.00 Td (    exists C : R>=0inf, C < inf /\\ forall r : R, 0 <= r -> r < 1 ->) Tj ET
+BT /F3 4.9 Tf 394.00 88.00 Td (      eLpNorm \(fun t : R => f \(r  *  \(unitCirclePoint t\).1\)\) p) Tj ET
+BT /F3 4.9 Tf 394.00 81.00 Td (        \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) <= C) Tj ET
+BT /F3 4.9 Tf 394.00 74.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 67.00 Td (def OuterFunction \(p : R>=0inf\) \(g : C -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 60.00 Td (  HardyClass p g /\\ HasRadialBoundaryValues g /\\ exists c : C, ||c|| = 1 /\\) Tj ET
+BT /F3 4.9 Tf 394.00 53.00 Td (    forall z in Metric.ball \(0 : C\) 1,) Tj ET
+BT /F3 4.9 Tf 394.00 46.00 Td (    g z = c * Complex.exp) Tj ET
 endstream
 endobj
 15 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 19 0 R /F2 20 0 R /F3 21 0 R >> >> /Contents 16 0 R >>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 21 0 R /F2 22 0 R /F3 23 0 R >> >> /Contents 16 0 R >>
 endobj
 16 0 obj
-<< /Length 8008 >>
+<< /Length 7479 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Nikolski Operators Functions Systems Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 7) Tj ET
@@ -678,110 +683,202 @@ BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
 BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
 BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
 20.00 558.00 m 772.00 558.00 l S
-20.00 550.00 m 20.00 393.00 l S
-310.00 550.00 m 310.00 393.00 l S
-390.00 550.00 m 390.00 393.00 l S
-772.00 550.00 m 772.00 393.00 l S
+20.00 550.00 m 20.00 92.00 l S
+310.00 550.00 m 310.00 92.00 l S
+390.00 550.00 m 390.00 92.00 l S
+772.00 550.00 m 772.00 92.00 l S
 20.00 550.00 m 772.00 550.00 l S
-20.00 393.00 m 772.00 393.00 l S
-BT /F3 4.9 Tf 394.00 542.00 Td (    \(hu : EssentiallyBoundedCircleSymbol u\) \(hmod :) Tj ET
-BT /F3 4.9 Tf 394.00 535.00 Td (    IsUnimodularCircleSymbol u\) :) Tj ET
-BT /F3 4.9 Tf 394.00 528.00 Td (    let a := exists T : l2\(N, C\) -> l2\(N, C\),) Tj ET
-BT /F3 4.9 Tf 394.00 521.00 Td (      RepresentsToeplitzOperator u T /\\ Function.Bijective T) Tj ET
-BT /F3 4.9 Tf 394.00 514.00 Td (    let b := symbolDistanceToHInfinity u < 1 /\\) Tj ET
-BT /F3 4.9 Tf 394.00 507.00 Td (      symbolDistanceToHInfinity \(fun zeta => star \(u zeta\)\) < 1) Tj ET
-BT /F3 4.9 Tf 394.00 500.00 Td (    let c := exists h : C -> C, OuterFunction top h /\\) Tj ET
-BT /F3 4.9 Tf 394.00 493.00 Td (      eLpNorm \(fun t : R => u \(unitCirclePoint t\) - boundaryValue h) Tj ET
-BT /F3 4.9 Tf 394.00 486.00 Td (      \(unitCirclePoint t\)\) inf) Tj ET
-BT /F3 4.9 Tf 394.00 479.00 Td (        \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) < 1) Tj ET
-BT /F3 4.9 Tf 394.00 472.00 Td (    let d := exists v w : {z : C // ||z|| = 1} -> R, exists c : R,) Tj ET
-BT /F3 4.9 Tf 394.00 465.00 Td (      eLpNorm \(fun t : R => v \(unitCirclePoint t\)\) inf) Tj ET
-BT /F3 4.9 Tf 394.00 458.00 Td (          \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) < ENNReal.ofReal) Tj ET
-BT /F3 4.9 Tf 394.00 451.00 Td (        \(Real.pi / 2\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 444.00 Td (        eLpNorm \(fun t : R => w \(unitCirclePoint t\)\) inf) Tj ET
-BT /F3 4.9 Tf 394.00 437.00 Td (          \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) < inf /\\) Tj ET
-BT /F3 4.9 Tf 394.00 430.00 Td (        forall^m t dvolume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\),) Tj ET
-BT /F3 4.9 Tf 394.00 423.00 Td (          u \(unitCirclePoint t\) = Complex.exp \(Complex.I *) Tj ET
-BT /F3 4.9 Tf 394.00 416.00 Td (            \(c + v \(unitCirclePoint t\) + circleHilbertTransform w t\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 409.00 Td (    List.TFAE [a, b, c, d] := by) Tj ET
-BT /F3 4.9 Tf 394.00 402.00 Td (  sorry) Tj ET
-20.00 393.00 m 20.00 40.00 l S
-310.00 393.00 m 310.00 40.00 l S
-390.00 393.00 m 390.00 40.00 l S
-772.00 393.00 m 772.00 40.00 l S
-20.00 393.00 m 772.00 393.00 l S
+20.00 92.00 m 772.00 92.00 l S
+BT /F3 4.9 Tf 394.00 542.00 Td (      \(\(2 * Real.pi : C\)^-1 *) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (        integral t in Set.Ioc 0 \(2 * Real.pi\),) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (          \(\(unitCirclePoint t\).1 + z\) / \(\(unitCirclePoint t\).1 - z\) *) Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (            Real.log ||boundaryValue g \(unitCirclePoint t\)||\)) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (noncomputable def circleHilbertTransform \(v : {z : C // ||z|| = 1} -> R\) \(t) Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (: R\) : R :=) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td (  Complex.re <| sum' k : Z,) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td (    \(if k = 0 then 0 else if 0 < k then -Complex.I else Complex.I\) *) Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (      \(\(2 * Real.pi : C\)^-1 * integral s in Set.Ioc 0 \(2 * Real.pi\),) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td (        \(v \(unitCirclePoint s\) : C\) * Complex.exp \(-Complex.I * k * s\)\) *) Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (        Complex.exp \(Complex.I * k * t\)) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 451.00 Td (noncomputable def circleFourierCoefficient) Tj ET
+BT /F3 4.9 Tf 394.00 444.00 Td (    \(phi : {z : C // ||z|| = 1} -> C\) \(k : Z\) : C :=) Tj ET
+BT /F3 4.9 Tf 394.00 437.00 Td (  \(2 * Real.pi : C\)^-1 *) Tj ET
+BT /F3 4.9 Tf 394.00 430.00 Td (    integral t in Set.Ioc 0 \(2 * Real.pi\),) Tj ET
+BT /F3 4.9 Tf 394.00 423.00 Td (      phi \(unitCirclePoint t\) * Complex.exp \(-Complex.I * k * t\)) Tj ET
+BT /F3 4.9 Tf 394.00 416.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 409.00 Td (noncomputable def symbolDistanceToHInfinity \(phi : {z : C // ||z|| = 1} ->) Tj ET
+BT /F3 4.9 Tf 394.00 402.00 Td (C\) : R>=0inf :=) Tj ET
+BT /F3 4.9 Tf 394.00 395.00 Td (  sInf {r : R>=0inf | exists h : C -> C, HardyClass top h /\\) Tj ET
+BT /F3 4.9 Tf 394.00 388.00 Td (    eLpNorm \(fun t : R =>) Tj ET
+BT /F3 4.9 Tf 394.00 381.00 Td (      phi \(unitCirclePoint t\) - boundaryValue h \(unitCirclePoint t\)\) inf) Tj ET
+BT /F3 4.9 Tf 394.00 374.00 Td (        \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) <= r}) Tj ET
+BT /F3 4.9 Tf 394.00 367.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 360.00 Td (def RepresentsToeplitzOperator \(phi : {z : C // ||z|| = 1} -> C\)) Tj ET
+BT /F3 4.9 Tf 394.00 353.00 Td (    \(T : l2\(N, C\) ->L[C] l2\(N, C\)\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 346.00 Td (  forall f n, T f n = sum' j : N, circleFourierCoefficient phi \(\(n : Z\) -) Tj ET
+BT /F3 4.9 Tf 394.00 339.00 Td (  j\) * f j) Tj ET
+BT /F3 4.9 Tf 394.00 332.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 325.00 Td (def EssentiallyBoundedCircleSymbol \(u : {z : C // ||z|| = 1} -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 318.00 Td (  AEStronglyMeasurable \(fun t : R => u \(unitCirclePoint t\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 311.00 Td (      \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 304.00 Td (    eLpNorm \(fun t : R => u \(unitCirclePoint t\)\) inf) Tj ET
+BT /F3 4.9 Tf 394.00 297.00 Td (      \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) < inf) Tj ET
+BT /F3 4.9 Tf 394.00 290.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 283.00 Td (def IsUnimodularCircleSymbol \(u : {z : C // ||z|| = 1} -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 276.00 Td (  forall^m t dvolume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\), ||u) Tj ET
+BT /F3 4.9 Tf 394.00 269.00 Td (  \(unitCirclePoint t\)|| = 1) Tj ET
+BT /F3 4.9 Tf 394.00 262.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 255.00 Td (theorem nikolski_B_4_3_3_devinatz_widom) Tj ET
+BT /F3 4.9 Tf 394.00 248.00 Td (    {u : {z : C // ||z|| = 1} -> C}) Tj ET
+BT /F3 4.9 Tf 394.00 241.00 Td (    \(hu : EssentiallyBoundedCircleSymbol u\) \(hmod :) Tj ET
+BT /F3 4.9 Tf 394.00 234.00 Td (    IsUnimodularCircleSymbol u\) :) Tj ET
+BT /F3 4.9 Tf 394.00 227.00 Td (    let a := exists T : l2\(N, C\) ->L[C] l2\(N, C\),) Tj ET
+BT /F3 4.9 Tf 394.00 220.00 Td (      RepresentsToeplitzOperator u T /\\ Function.Bijective T) Tj ET
+BT /F3 4.9 Tf 394.00 213.00 Td (    let b := symbolDistanceToHInfinity u < 1 /\\) Tj ET
+BT /F3 4.9 Tf 394.00 206.00 Td (      symbolDistanceToHInfinity \(fun zeta => star \(u zeta\)\) < 1) Tj ET
+BT /F3 4.9 Tf 394.00 199.00 Td (    let c := exists h : C -> C, OuterFunction top h /\\) Tj ET
+BT /F3 4.9 Tf 394.00 192.00 Td (      eLpNorm \(fun t : R => u \(unitCirclePoint t\) - boundaryValue h) Tj ET
+BT /F3 4.9 Tf 394.00 185.00 Td (      \(unitCirclePoint t\)\) inf) Tj ET
+BT /F3 4.9 Tf 394.00 178.00 Td (        \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) < 1) Tj ET
+BT /F3 4.9 Tf 394.00 171.00 Td (    let d := exists v w : {z : C // ||z|| = 1} -> R, exists c : R,) Tj ET
+BT /F3 4.9 Tf 394.00 164.00 Td (      eLpNorm \(fun t : R => v \(unitCirclePoint t\)\) inf) Tj ET
+BT /F3 4.9 Tf 394.00 157.00 Td (          \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) < ENNReal.ofReal) Tj ET
+BT /F3 4.9 Tf 394.00 150.00 Td (        \(Real.pi / 2\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 143.00 Td (        eLpNorm \(fun t : R => w \(unitCirclePoint t\)\) inf) Tj ET
+BT /F3 4.9 Tf 394.00 136.00 Td (          \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) < inf /\\) Tj ET
+BT /F3 4.9 Tf 394.00 129.00 Td (        forall^m t dvolume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\),) Tj ET
+BT /F3 4.9 Tf 394.00 122.00 Td (          u \(unitCirclePoint t\) = Complex.exp \(Complex.I *) Tj ET
+BT /F3 4.9 Tf 394.00 115.00 Td (            \(c + v \(unitCirclePoint t\) + circleHilbertTransform w t\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 108.00 Td (    List.TFAE [a, b, c, d] := by) Tj ET
+BT /F3 4.9 Tf 394.00 101.00 Td (  sorry) Tj ET
+20.00 92.00 m 20.00 40.00 l S
+310.00 92.00 m 310.00 40.00 l S
+390.00 92.00 m 390.00 40.00 l S
+772.00 92.00 m 772.00 40.00 l S
+20.00 92.00 m 772.00 92.00 l S
 20.00 40.00 m 772.00 40.00 l S
-BT /F1 5.8 Tf 24.00 385.00 Td (7.2.1. Theorem \(V. Adamyan, D. Arov, and M. Krein, 1971\). Let) Tj ET
-BT /F1 5.8 Tf 24.00 378.00 Td (Hphi be a Hankel operator and let Rn be the set of rational) Tj ET
-BT /F1 5.8 Tf 24.00 371.00 Td (functions tending to 0 at infinity and having all poles in D) Tj ET
-BT /F1 5.8 Tf 24.00 364.00 Td (such that their total multiplicity is less than or equal to n.) Tj ET
-BT /F1 5.8 Tf 24.00 357.00 Td (Then sn\(Hphi\) = min{||Hphi - Hpsi|| : rank Hpsi <= n} =) Tj ET
-BT /F1 5.8 Tf 24.00 350.00 Td (distlinf\(phi, Rn + Hinf\) = min{||H_{Bphi}|| : B is a Blaschke) Tj ET
-BT /F1 5.8 Tf 24.00 343.00 Td (product of degree <= n}, where the degree deg Theta of an) Tj ET
-BT /F1 5.8 Tf 24.00 336.00 Td (inner function Theta is equal to n if Theta is a finite) Tj ET
-BT /F1 5.8 Tf 24.00 329.00 Td (Blaschke product with n zeros \(counting multiplicities\) and) Tj ET
-BT /F1 5.8 Tf 24.00 322.00 Td (inf otherwise.) Tj ET
-BT /F1 5.8 Tf 314.00 385.00 Td (Operator) Tj ET
-BT /F1 5.8 Tf 314.00 378.00 Td (theory) Tj ET
-BT /F3 4.9 Tf 394.00 385.00 Td (noncomputable def unitCirclePoint \(t : R\) : {z : C // ||z|| = 1} :=) Tj ET
-BT /F3 4.9 Tf 394.00 378.00 Td (  <Complex.exp \(Complex.I * t\), by rw [Complex.norm_exp]; simp>) Tj ET
-BT /F3 4.9 Tf 394.00 371.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 364.00 Td (noncomputable def circleFourierCoefficient) Tj ET
-BT /F3 4.9 Tf 394.00 357.00 Td (    \(phi : {z : C // ||z|| = 1} -> C\) \(k : Z\) : C :=) Tj ET
-BT /F3 4.9 Tf 394.00 350.00 Td (  \(2 * Real.pi : C\)^-1 *) Tj ET
-BT /F3 4.9 Tf 394.00 343.00 Td (    integral t in Set.Ioc 0 \(2 * Real.pi\),) Tj ET
-BT /F3 4.9 Tf 394.00 336.00 Td (      phi \(unitCirclePoint t\) * Complex.exp \(-Complex.I * k * t\)) Tj ET
-BT /F3 4.9 Tf 394.00 329.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 322.00 Td (def BoundedHankelForm \(a : N -> C\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 315.00 Td (  exists C : R, 0 <= C /\\ forall N : N, forall x y : N -> C,) Tj ET
-BT /F3 4.9 Tf 394.00 308.00 Td (    ||Finset.sum \(Finset.range N\)) Tj ET
-BT /F3 4.9 Tf 394.00 301.00 Td (      \(fun i => Finset.sum \(Finset.range N\) \(fun j => x i * a \(i + j\) * y) Tj ET
-BT /F3 4.9 Tf 394.00 294.00 Td (      j\)\)|| ^ 2 <=) Tj ET
-BT /F3 4.9 Tf 394.00 287.00 Td (      C ^ 2 * Finset.sum \(Finset.range N\) \(fun i => ||x i|| ^ 2\) *) Tj ET
-BT /F3 4.9 Tf 394.00 280.00 Td (        Finset.sum \(Finset.range N\) \(fun j => ||y j|| ^ 2\)) Tj ET
-BT /F3 4.9 Tf 394.00 273.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 266.00 Td (def HasBoundedHankelSymbol \(a : N -> C\) \(phi : {z : C // ||z|| = 1} -> C\) :) Tj ET
-BT /F3 4.9 Tf 394.00 259.00 Td (Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 252.00 Td (  AEStronglyMeasurable \(fun t : R => phi \(unitCirclePoint t\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 245.00 Td (      \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 238.00 Td (    eLpNorm \(fun t : R => phi \(unitCirclePoint t\)\) inf) Tj ET
-BT /F3 4.9 Tf 394.00 231.00 Td (      \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) < inf /\\) Tj ET
-BT /F3 4.9 Tf 394.00 224.00 Td (    forall n : N, circleFourierCoefficient phi \(-\(\(n : Z\) + 1\)\) = a n) Tj ET
-BT /F3 4.9 Tf 394.00 217.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 210.00 Td (theorem nikolski_B_7_2_1_adamyan_arov_krein) Tj ET
-BT /F3 4.9 Tf 394.00 203.00 Td (    {a : N -> C} {phi : {z : C // ||z|| = 1} -> C} {n : N} :) Tj ET
-BT /F3 4.9 Tf 394.00 196.00 Td (    HasBoundedHankelSymbol a phi ->) Tj ET
-BT /F3 4.9 Tf 394.00 189.00 Td (      forall r : R,) Tj ET
-BT /F3 4.9 Tf 394.00 182.00 Td (        \(0 <= r /\\ r = sInf {C : R | 0 <= C /\\ exists b : N -> C,) Tj ET
-BT /F3 4.9 Tf 394.00 175.00 Td (        BoundedHankelForm b /\\) Tj ET
-BT /F3 4.9 Tf 394.00 168.00 Td (          exists correction : Fin n -> N -> C, forall N : N, forall x y : N) Tj ET
-BT /F3 4.9 Tf 394.00 161.00 Td (        -> C,) Tj ET
-BT /F3 4.9 Tf 394.00 154.00 Td (            ||sum i in Finset.range N, sum j in Finset.range N,) Tj ET
-BT /F3 4.9 Tf 394.00 147.00 Td (              x i * \(a \(i + j\) - b \(i + j\) - sum q, correction q i *) Tj ET
-BT /F3 4.9 Tf 394.00 140.00 Td (        correction q j\) * y j|| <=) Tj ET
-BT /F3 4.9 Tf 394.00 133.00 Td (              C * \(sum i in Finset.range N, ||x i|| ^ 2\) ^ \(1 / 2 : R\) *) Tj ET
-BT /F3 4.9 Tf 394.00 126.00 Td (                \(sum j in Finset.range N, ||y j|| ^ 2\) ^ \(1 / 2 : R\)}\) <->) Tj ET
-BT /F3 4.9 Tf 394.00 119.00 Td (        \(0 <= r /\\ r = sInf {C : R | 0 <= C /\\) Tj ET
-BT /F3 4.9 Tf 394.00 112.00 Td (          exists psi : {z : C // ||z|| = 1} -> C,) Tj ET
-BT /F3 4.9 Tf 394.00 105.00 Td (            \(exists numerator denominator : Polynomial C,) Tj ET
-BT /F3 4.9 Tf 394.00 98.00 Td (        denominator.natDegree <= n /\\) Tj ET
-BT /F3 4.9 Tf 394.00 91.00 Td (              \(forall zeta : {z : C // ||z|| = 1}, denominator.eval zeta.1) Tj ET
-BT /F3 4.9 Tf 394.00 84.00 Td (        != 0\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 77.00 Td (              forall zeta : {z : C // ||z|| = 1},) Tj ET
-BT /F3 4.9 Tf 394.00 70.00 Td (                psi zeta = numerator.eval zeta.1 / denominator.eval zeta.1\)) Tj ET
-BT /F3 4.9 Tf 394.00 63.00 Td (        /\\) Tj ET
-BT /F3 4.9 Tf 394.00 56.00 Td (            eLpNorm \(fun t : R => phi \(unitCirclePoint t\) - psi) Tj ET
-BT /F3 4.9 Tf 394.00 49.00 Td (        \(unitCirclePoint t\)\) inf) Tj ET
+BT /F1 5.8 Tf 24.00 84.00 Td (7.2.1. Theorem \(V. Adamyan, D. Arov, and M. Krein, 1971\). Let) Tj ET
+BT /F1 5.8 Tf 24.00 77.00 Td (Hphi be a Hankel operator and let Rn be the set of rational) Tj ET
+BT /F1 5.8 Tf 24.00 70.00 Td (functions tending to 0 at infinity and having all poles in D) Tj ET
+BT /F1 5.8 Tf 24.00 63.00 Td (such that their total multiplicity is less than or equal to n.) Tj ET
+BT /F1 5.8 Tf 24.00 56.00 Td (Then sn\(Hphi\) = min{||Hphi - Hpsi|| : rank Hpsi <= n} =) Tj ET
+BT /F1 5.8 Tf 24.00 49.00 Td (distlinf\(phi, Rn + Hinf\) = min{||H_{Bphi}|| : B is a Blaschke) Tj ET
+BT /F1 5.8 Tf 314.00 84.00 Td (Operator) Tj ET
+BT /F1 5.8 Tf 314.00 77.00 Td (theory) Tj ET
+BT /F3 4.9 Tf 394.00 84.00 Td (noncomputable def unitCirclePoint \(t : R\) : {z : C // ||z|| = 1} :=) Tj ET
+BT /F3 4.9 Tf 394.00 77.00 Td (  <Complex.exp \(Complex.I * t\), by rw [Complex.norm_exp]; simp>) Tj ET
+BT /F3 4.9 Tf 394.00 70.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 63.00 Td (noncomputable def circleFourierCoefficient) Tj ET
+BT /F3 4.9 Tf 394.00 56.00 Td (    \(phi : {z : C // ||z|| = 1} -> C\) \(k : Z\) : C :=) Tj ET
+BT /F3 4.9 Tf 394.00 49.00 Td (  \(2 * Real.pi : C\)^-1 *) Tj ET
 endstream
 endobj
 17 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 19 0 R /F2 20 0 R /F3 21 0 R >> >> /Contents 18 0 R >>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 21 0 R /F2 22 0 R /F3 23 0 R >> >> /Contents 18 0 R >>
 endobj
 18 0 obj
-<< /Length 740 >>
+<< /Length 7051 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Nikolski Operators Functions Systems Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 8) Tj ET
+BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
+BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
+BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
+20.00 558.00 m 772.00 558.00 l S
+20.00 550.00 m 20.00 36.00 l S
+310.00 550.00 m 310.00 36.00 l S
+390.00 550.00 m 390.00 36.00 l S
+772.00 550.00 m 772.00 36.00 l S
+20.00 550.00 m 772.00 550.00 l S
+20.00 36.00 m 772.00 36.00 l S
+BT /F1 5.8 Tf 24.00 542.00 Td (product of degree <= n}, where the degree deg Theta of an) Tj ET
+BT /F1 5.8 Tf 24.00 535.00 Td (inner function Theta is equal to n if Theta is a finite) Tj ET
+BT /F1 5.8 Tf 24.00 528.00 Td (Blaschke product with n zeros \(counting multiplicities\) and) Tj ET
+BT /F1 5.8 Tf 24.00 521.00 Td (inf otherwise.) Tj ET
+BT /F3 4.9 Tf 394.00 542.00 Td (    integral t in Set.Ioc 0 \(2 * Real.pi\),) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (      phi \(unitCirclePoint t\) * Complex.exp \(-Complex.I * k * t\)) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (def BoundedHankelForm \(a : N -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (  exists C : R, 0 <= C /\\ forall N : N, forall x y : N -> C,) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (    ||Finset.sum \(Finset.range N\)) Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (      \(fun i => Finset.sum \(Finset.range N\) \(fun j => x i * a \(i + j\) * y) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td (      j\)\)|| ^ 2 <=) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td (      C ^ 2 * Finset.sum \(Finset.range N\) \(fun i => ||x i|| ^ 2\) *) Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (        Finset.sum \(Finset.range N\) \(fun j => ||y j|| ^ 2\)) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (def HasBoundedHankelSymbol \(a : N -> C\) \(phi : {z : C // ||z|| = 1} -> C\) :) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td (Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 451.00 Td (  AEStronglyMeasurable \(fun t : R => phi \(unitCirclePoint t\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 444.00 Td (      \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 437.00 Td (    eLpNorm \(fun t : R => phi \(unitCirclePoint t\)\) inf) Tj ET
+BT /F3 4.9 Tf 394.00 430.00 Td (      \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) < inf /\\) Tj ET
+BT /F3 4.9 Tf 394.00 423.00 Td (    forall n : N, circleFourierCoefficient phi \(-\(\(n : Z\) + 1\)\) = a n) Tj ET
+BT /F3 4.9 Tf 394.00 416.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 409.00 Td (def HankelMatrixRankLE \(n : N\) \(b : N -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 402.00 Td (  exists u v : Fin n -> N -> C,) Tj ET
+BT /F3 4.9 Tf 394.00 395.00 Td (    \(forall q, HardySquareSummable \(u q\) /\\ HardySquareSummable \(v q\)\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 388.00 Td (      forall i j, b \(i + j\) = sum q, u q i * v q j) Tj ET
+BT /F3 4.9 Tf 394.00 381.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 374.00 Td (noncomputable def hankelRankApproximationDistance \(a : N -> C\) \(n : N\) :) Tj ET
+BT /F3 4.9 Tf 394.00 367.00 Td (R>=0inf :=) Tj ET
+BT /F3 4.9 Tf 394.00 360.00 Td (  sInf {C : R>=0inf | C < inf /\\ exists b : N -> C, HankelMatrixRankLE n b) Tj ET
+BT /F3 4.9 Tf 394.00 353.00 Td (  /\\) Tj ET
+BT /F3 4.9 Tf 394.00 346.00 Td (    forall N : N, forall x y : N -> C,) Tj ET
+BT /F3 4.9 Tf 394.00 339.00 Td (      ||sum i in Finset.range N, sum j in Finset.range N,) Tj ET
+BT /F3 4.9 Tf 394.00 332.00 Td (        x i * \(a \(i + j\) - b \(i + j\)\) * y j|| <=) Tj ET
+BT /F3 4.9 Tf 394.00 325.00 Td (      C.toReal * \(sum i in Finset.range N, ||x i|| ^ 2\) ^ \(1 / 2 : R\) *) Tj ET
+BT /F3 4.9 Tf 394.00 318.00 Td (        \(sum j in Finset.range N, ||y j|| ^ 2\) ^ \(1 / 2 : R\)}) Tj ET
+BT /F3 4.9 Tf 394.00 311.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 304.00 Td (def RationalVanishingAtInfinityDegreeLE \(n : N\)) Tj ET
+BT /F3 4.9 Tf 394.00 297.00 Td (    \(psi : {z : C // ||z|| = 1} -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 290.00 Td (  exists numerator denominator : Polynomial C,) Tj ET
+BT /F3 4.9 Tf 394.00 283.00 Td (    numerator.natDegree < denominator.natDegree /\\ denominator.natDegree <=) Tj ET
+BT /F3 4.9 Tf 394.00 276.00 Td (    n /\\) Tj ET
+BT /F3 4.9 Tf 394.00 269.00 Td (      denominator != 0 /\\) Tj ET
+BT /F3 4.9 Tf 394.00 262.00 Td (      \(forall z : C, denominator.IsRoot z -> z in Metric.ball \(0 : C\) 1\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 255.00 Td (      forall zeta, psi zeta = numerator.eval zeta.1 / denominator.eval) Tj ET
+BT /F3 4.9 Tf 394.00 248.00 Td (      zeta.1) Tj ET
+BT /F3 4.9 Tf 394.00 241.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 234.00 Td (noncomputable def rationalPlusHInfinityDistance) Tj ET
+BT /F3 4.9 Tf 394.00 227.00 Td (    \(phi : {z : C // ||z|| = 1} -> C\) \(n : N\) : R>=0inf :=) Tj ET
+BT /F3 4.9 Tf 394.00 220.00 Td (  sInf {C : R>=0inf | exists \(psi : {z : C // ||z|| = 1} -> C\) \(h : C -> C\),) Tj ET
+BT /F3 4.9 Tf 394.00 213.00 Td (    RationalVanishingAtInfinityDegreeLE n psi /\\ HardyClass top h /\\) Tj ET
+BT /F3 4.9 Tf 394.00 206.00 Td (      eLpNorm \(fun t : R => phi \(unitCirclePoint t\) - psi \(unitCirclePoint) Tj ET
+BT /F3 4.9 Tf 394.00 199.00 Td (      t\) -) Tj ET
+BT /F3 4.9 Tf 394.00 192.00 Td (        boundaryValue h \(unitCirclePoint t\)\) inf) Tj ET
+BT /F3 4.9 Tf 394.00 185.00 Td (        \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) <= C}) Tj ET
+BT /F3 4.9 Tf 394.00 178.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 171.00 Td (def FiniteBlaschkeProductDegreeLE \(n : N\) \(B : C -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 164.00 Td (  exists \(m : N\) \(_ : m <= n\) \(a : Fin m -> C\) \(c : C\), ||c|| = 1 /\\) Tj ET
+BT /F3 4.9 Tf 394.00 157.00 Td (    \(forall i, a i in Metric.ball \(0 : C\) 1\) /\\ InnerFunction B /\\) Tj ET
+BT /F3 4.9 Tf 394.00 150.00 Td (      forall z in Metric.ball \(0 : C\) 1,) Tj ET
+BT /F3 4.9 Tf 394.00 143.00 Td (        B z = c * prod i, \(z - a i\) / \(1 - star \(a i\) * z\)) Tj ET
+BT /F3 4.9 Tf 394.00 136.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 129.00 Td (noncomputable def finiteBlaschkeHankelDistance) Tj ET
+BT /F3 4.9 Tf 394.00 122.00 Td (    \(phi : {z : C // ||z|| = 1} -> C\) \(n : N\) : R>=0inf :=) Tj ET
+BT /F3 4.9 Tf 394.00 115.00 Td (  sInf {C : R>=0inf | exists \(B : C -> C\) \(b : N -> C\),) Tj ET
+BT /F3 4.9 Tf 394.00 108.00 Td (    FiniteBlaschkeProductDegreeLE n B /\\) Tj ET
+BT /F3 4.9 Tf 394.00 101.00 Td (      HasBoundedHankelSymbol b \(fun zeta => star \(boundaryValue B zeta\) *) Tj ET
+BT /F3 4.9 Tf 394.00 94.00 Td (      phi zeta\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 87.00 Td (      hankelFormNorm b = C}) Tj ET
+BT /F3 4.9 Tf 394.00 80.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 73.00 Td (theorem nikolski_B_7_2_1_adamyan_arov_krein) Tj ET
+BT /F3 4.9 Tf 394.00 66.00 Td (    {a : N -> C} {phi : {z : C // ||z|| = 1} -> C} {n : N} :) Tj ET
+BT /F3 4.9 Tf 394.00 59.00 Td (    HasBoundedHankelSymbol a phi ->) Tj ET
+BT /F3 4.9 Tf 394.00 52.00 Td (      hankelRankApproximationDistance a n = rationalPlusHInfinityDistance) Tj ET
+BT /F3 4.9 Tf 394.00 45.00 Td (      phi n /\\) Tj ET
+endstream
+endobj
+19 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 21 0 R /F2 22 0 R /F3 23 0 R >> >> /Contents 20 0 R >>
+endobj
+20 0 obj
+<< /Length 734 >>
+stream
+BT /F2 12 Tf 24.00 586.00 Td (Nikolski Operators Functions Systems Benchmark) Tj ET
+BT /F1 7 Tf 740.00 586.00 Td (p. 9) Tj ET
 BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
 BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
 BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
@@ -792,46 +889,48 @@ BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
 772.00 550.00 m 772.00 519.00 l S
 20.00 550.00 m 772.00 550.00 l S
 20.00 519.00 m 772.00 519.00 l S
-BT /F3 4.9 Tf 394.00 542.00 Td (              \(volume.restrict \(Set.Ioc 0 \(2 * Real.pi\)\)\) <= ENNReal.ofReal) Tj ET
-BT /F3 4.9 Tf 394.00 535.00 Td (        C}\) := by) Tj ET
+BT /F3 4.9 Tf 394.00 542.00 Td (        rationalPlusHInfinityDistance phi n = finiteBlaschkeHankelDistance) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (        phi n := by) Tj ET
 BT /F3 4.9 Tf 394.00 528.00 Td (  sorry) Tj ET
 endstream
 endobj
-19 0 obj
+21 0 obj
 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
 endobj
-20 0 obj
+22 0 obj
 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
 endobj
-21 0 obj
+23 0 obj
 << /Type /Font /Subtype /Type1 /BaseFont /Courier >>
 endobj
 xref
-0 22
+0 24
 0000000000 65535 f 
 0000000015 00000 n 
 0000000064 00000 n 
-0000000167 00000 n 
-0000000316 00000 n 
-0000008046 00000 n 
-0000008195 00000 n 
-0000017720 00000 n 
-0000017869 00000 n 
-0000024781 00000 n 
-0000024931 00000 n 
-0000032507 00000 n 
-0000032658 00000 n 
-0000039937 00000 n 
-0000040088 00000 n 
-0000048007 00000 n 
-0000048158 00000 n 
-0000056219 00000 n 
-0000056370 00000 n 
-0000057162 00000 n 
-0000057233 00000 n 
-0000057309 00000 n 
+0000000174 00000 n 
+0000000323 00000 n 
+0000008083 00000 n 
+0000008232 00000 n 
+0000015942 00000 n 
+0000016091 00000 n 
+0000024756 00000 n 
+0000024906 00000 n 
+0000032284 00000 n 
+0000032435 00000 n 
+0000039619 00000 n 
+0000039770 00000 n 
+0000048379 00000 n 
+0000048530 00000 n 
+0000056062 00000 n 
+0000056213 00000 n 
+0000063317 00000 n 
+0000063468 00000 n 
+0000064254 00000 n 
+0000064325 00000 n 
+0000064401 00000 n 
 trailer
-<< /Size 22 /Root 1 0 R >>
+<< /Size 24 /Root 1 0 R >>
 startxref
-57378
+64470
 %%EOF

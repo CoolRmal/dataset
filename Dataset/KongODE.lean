@@ -1,7 +1,10 @@
+module
+
 import Mathlib.Analysis.Calculus.ContDiff.Defs
 import Mathlib.Analysis.ODE.PicardLindelof
 import Mathlib.Analysis.Normed.Algebra.MatrixExponential
 import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
+import Mathlib.LinearAlgebra.Matrix.Charpoly.Basic
 import Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic
 
 /-!
@@ -57,8 +60,7 @@ def PeriodicLinearEquation {n : ℕ} (ω : ℝ) (A : ℝ → Matrix (Fin n) (Fin
 /-- A list containing exactly the characteristic multipliers of a transition matrix. -/
 def CharacteristicMultipliers {n : ℕ} (V : Matrix (Fin n) (Fin n) ℂ)
     (μ : Fin n → ℂ) : Prop :=
-  (∀ i, Matrix.det (μ i • (1 : Matrix (Fin n) (Fin n) ℂ) - V) = 0) ∧
-    ∀ z : ℂ, Matrix.det (z • (1 : Matrix (Fin n) (Fin n) ℂ) - V) = 0 → ∃ i, μ i = z
+  Matrix.charpoly V = ∏ i, (Polynomial.X - Polynomial.C (μ i))
 
 /-- The complexified one-period transition matrix of a periodic linear equation. -/
 def IsPeriodTransitionMatrix {n : ℕ} (ω : ℝ)
@@ -129,6 +131,10 @@ def NoNontrivialOrbitInZeroDerivativeSet {n : ℕ} (l : ℝ)
 def omegaLimitSet {n : ℕ} (x : ℝ → (Fin n → ℝ)) : Set (Fin n → ℝ) :=
   {y | ∃ t : ℕ → ℝ, Tendsto t atTop atTop ∧ Tendsto (fun j ↦ x (t j)) atTop (𝓝 y)}
 
+/-- The alpha-limit set of a negative semi-orbit. -/
+def alphaLimitSet {n : ℕ} (x : ℝ → (Fin n → ℝ)) : Set (Fin n → ℝ) :=
+  {y | ∃ t : ℕ → ℝ, Tendsto t atTop atBot ∧ Tendsto (fun j ↦ x (t j)) atTop (𝓝 y)}
+
 /-- A periodic nonconstant trajectory. -/
 def IsClosedOrbit {n : ℕ} (F : (Fin n → ℝ) → (Fin n → ℝ))
     (x : ℝ → (Fin n → ℝ)) : Prop :=
@@ -141,6 +147,7 @@ def GraphicForPlanarSystem (F : (Fin 2 → ℝ) → (Fin 2 → ℝ))
   IsConnected Γ ∧
     ∃ (m : ℕ) (e : Fin m → (Fin 2 → ℝ)) (x : Fin m → ℝ → (Fin 2 → ℝ)),
     (∀ i, F (e i) = 0) ∧ (∀ i, IsAutonomousTrajectory F (x i)) ∧
+      (∀ i, ∃ j k, Tendsto (x i) atBot (𝓝 (e j)) ∧ Tendsto (x i) atTop (𝓝 (e k))) ∧
       Γ = range e ∪ ⋃ i, range (x i)
 
 /-- The matrix of the linearization at the origin. -/
@@ -195,23 +202,31 @@ theorem kong_1_5_3_differentiable_dependence
     {f : ℝ → (Fin n → ℝ) → (Fin k → ℝ) → (Fin n → ℝ)}
     (hf : ContDiffOn ℝ 1
       (fun p : ℝ × (Fin n → ℝ) × (Fin k → ℝ) ↦ f p.1 p.2.1 p.2.2) D) :
-    ∃ x : ℝ → ℝ → (Fin n → ℝ) → (Fin k → ℝ) → (Fin n → ℝ),
-      ((∀ t₀ x₀ μ, (t₀, x₀, μ) ∈ D →
-        IsTrajectory (fun t y ↦ f t y μ) (fun t ↦ x t t₀ x₀ μ) ∧
-          x t₀ t₀ x₀ μ = x₀) ∧
-        ∀ t₀ x₀ μ y, (t₀, x₀, μ) ∈ D → IsTrajectory (fun t z ↦ f t z μ) y →
-          y t₀ = x₀ → ∀ t, (t, y t, μ) ∈ D → y t = x t t₀ x₀ μ) ∧
-      ContDiff ℝ 1 (fun p : ℝ × ℝ × (Fin n → ℝ) × (Fin k → ℝ) ↦
-        x p.1 p.2.1 p.2.2.1 p.2.2.2) ∧
-      (∀ t₀ x₀ μ, let z := fun t ↦ fderiv ℝ (fun η ↦ x t t₀ x₀ η) μ
-        z t₀ = 0 ∧ ∀ t, HasDerivAt z
+    ∃ (I : ℝ → (Fin n → ℝ) → (Fin k → ℝ) → Set ℝ)
+      (x : ℝ → ℝ → (Fin n → ℝ) → (Fin k → ℝ) → (Fin n → ℝ)),
+      (∀ t₀ x₀ μ, (t₀, x₀, μ) ∈ D → IsOpen (I t₀ x₀ μ) ∧
+        (I t₀ x₀ μ).OrdConnected ∧ t₀ ∈ I t₀ x₀ μ ∧
+        IsTrajectoryOn (I t₀ x₀ μ) (fun t y ↦ f t y μ) (fun t ↦ x t t₀ x₀ μ) ∧
+        x t₀ t₀ x₀ μ = x₀ ∧
+        (∀ t ∈ I t₀ x₀ μ, (t, x t t₀ x₀ μ, μ) ∈ D) ∧
+        ∀ y, IsTrajectoryOn (I t₀ x₀ μ) (fun t z ↦ f t z μ) y → y t₀ = x₀ →
+          (∀ t ∈ I t₀ x₀ μ, (t, y t, μ) ∈ D) →
+          Set.EqOn y (fun t ↦ x t t₀ x₀ μ) (I t₀ x₀ μ)) ∧
+      (let flowDomain := {p : ℝ × ℝ × (Fin n → ℝ) × (Fin k → ℝ) |
+        p.1 ∈ I p.2.1 p.2.2.1 p.2.2.2};
+        ContDiffOn ℝ 1 (fun p ↦ x p.1 p.2.1 p.2.2.1 p.2.2.2) flowDomain) ∧
+      (∀ t₀ x₀ μ, (t₀, x₀, μ) ∈ D →
+        let z := fun t ↦ fderiv ℝ (fun η ↦ x t t₀ x₀ η) μ
+        z t₀ = 0 ∧ ∀ t ∈ I t₀ x₀ μ, HasDerivAt z
           ((fderiv ℝ (fun y ↦ f t y μ) (x t t₀ x₀ μ)).comp (z t) +
             fderiv ℝ (fun η ↦ f t (x t t₀ x₀ μ) η) μ) t) ∧
-      (∀ t₀ x₀ μ, let z := fun t ↦ fderiv ℝ (fun y ↦ x t t₀ y μ) x₀
-        z t₀ = ContinuousLinearMap.id ℝ (Fin n → ℝ) ∧ ∀ t,
+      (∀ t₀ x₀ μ, (t₀, x₀, μ) ∈ D →
+        let z := fun t ↦ fderiv ℝ (fun y ↦ x t t₀ y μ) x₀
+        z t₀ = ContinuousLinearMap.id ℝ (Fin n → ℝ) ∧ ∀ t ∈ I t₀ x₀ μ,
           HasDerivAt z ((fderiv ℝ (fun y ↦ f t y μ) (x t t₀ x₀ μ)).comp (z t)) t) ∧
-      ∀ t₀ x₀ μ, let z := fun t ↦ deriv (fun s ↦ x t s x₀ μ) t₀
-        z t₀ = -f t₀ x₀ μ ∧ ∀ t,
+      ∀ t₀ x₀ μ, (t₀, x₀, μ) ∈ D →
+        let z := fun t ↦ deriv (fun s ↦ x t s x₀ μ) t₀
+        z t₀ = -f t₀ x₀ μ ∧ ∀ t ∈ I t₀ x₀ μ,
           HasDerivAt z ((fderiv ℝ (fun y ↦ f t y μ) (x t t₀ x₀ μ)) (z t)) t := by
   sorry
 
@@ -219,6 +234,7 @@ theorem kong_1_5_3_differentiable_dependence
 theorem kong_2_3_1_variation_of_parameters
     {n : ℕ} {I : Set ℝ} {A : ℝ → Matrix (Fin n) (Fin n) ℝ} {f : ℝ → (Fin n → ℝ)}
     {X : ℝ → Matrix (Fin n) (Fin n) ℝ} {t₀ : ℝ}
+    (hI : I.OrdConnected) (hA : ContinuousOn A I) (hf : ContinuousOn f I)
     (hX : FundamentalMatrixSolution I A X) (ht₀ : t₀ ∈ I) :
     (∀ y : ℝ → (Fin n → ℝ),
       (∀ t ∈ I, HasDerivAt y (A t *ᵥ y t + f t) t) ↔
@@ -280,11 +296,13 @@ theorem kong_3_5_2_lasalle_invariance_stability
 theorem kong_4_5_3_generalized_poincare_bendixson
     {F : (Fin 2 → ℝ) → (Fin 2 → ℝ)} {x : ℝ → (Fin 2 → ℝ)}
     {E : Set (Fin 2 → ℝ)}
-    (hcompact : IsCompact E) (horbit : IsAutonomousTrajectory F x ∧ ∀ t, 0 ≤ t → x t ∈ E)
+    (hcompact : IsCompact E) (horbit : IsAutonomousTrajectory F x)
     (hfinite : {x ∈ E | F x = 0}.Finite) :
-    (∃ e, omegaLimitSet x = {e} ∧ F e = 0) ∨ IsClosedOrbit F x ∨
-      (∃ y, IsClosedOrbit F y ∧ omegaLimitSet x = range y) ∨
-        GraphicForPlanarSystem F (omegaLimitSet x) := by
+    let classify := fun limitSet : Set (Fin 2 → ℝ) ↦
+      (∃ e, limitSet = {e} ∧ F e = 0) ∨ IsClosedOrbit F x ∨
+        (∃ y, IsClosedOrbit F y ∧ limitSet = range y) ∨ GraphicForPlanarSystem F limitSet
+    ((∀ t, 0 ≤ t → x t ∈ E) → classify (omegaLimitSet x)) ∧
+      ((∀ t, t ≤ 0 → x t ∈ E) → classify (alphaLimitSet x)) := by
   sorry
 
 /-- Kong 5.4.2, the Hopf-Friedrich dichotomy. -/
@@ -319,8 +337,11 @@ theorem kong_6_6_4_periodic_sturm_liouville_coupling
     {p q w : ℝ → ℝ} {a b : ℝ} {lam μ ν : ℕ → ℝ}
     (hSL : PeriodicSturmLiouvilleData p q w a b) :
     (∀ n, lam n ≤ lam (n + 1)) ∧ Tendsto lam atTop atTop ∧
-      (∀ n, lam (2 * n + 1) ≤ μ n ∧ μ n ≤ lam (2 * n + 2)) ∧
-      (∀ n, lam (2 * n + 1) ≤ ν n ∧ ν n ≤ lam (2 * n + 2)) ∧
+      ν 0 ≤ lam 0 ∧
+      (∀ n, lam (2 * n) < μ (2 * n) ∧ lam (2 * n) < ν (2 * n + 1) ∧
+        μ (2 * n) < lam (2 * n + 1) ∧ ν (2 * n + 1) < lam (2 * n + 1) ∧
+        lam (2 * n + 1) ≤ μ (2 * n + 1) ∧ lam (2 * n + 1) ≤ ν (2 * n + 2) ∧
+        μ (2 * n + 1) ≤ lam (2 * n + 2) ∧ ν (2 * n + 2) ≤ lam (2 * n + 2)) ∧
       (∀ eigVal, (∃ y, IsSturmLiouvilleEigenfunction p q w a b eigVal
         (periodicBoundary p a b) y) ↔ ∃ n, lam n = eigVal) ∧
       (∀ eigVal, (∃ y, IsSturmLiouvilleEigenfunction p q w a b eigVal
@@ -329,14 +350,21 @@ theorem kong_6_6_4_periodic_sturm_liouville_coupling
         (neumannBoundary a b) y) ↔ ∃ n, ν n = eigVal) ∧
       (∀ y, IsSturmLiouvilleEigenfunction p q w a b (lam 0)
         (periodicBoundary p a b) y → {x ∈ Set.Icc a b | y x = 0} = ∅) ∧
+      (∀ y₁ y₂, IsSturmLiouvilleEigenfunction p q w a b (lam 0)
+        (periodicBoundary p a b) y₁ →
+        IsSturmLiouvilleEigenfunction p q w a b (lam 0)
+          (periodicBoundary p a b) y₂ → ∃ c : ℝ, y₂ = c • y₁) ∧
       (∀ n, (∃ i j, lam n = μ i ∧ lam n = ν j) ↔
         ∃ y₁ y₂, IsSturmLiouvilleEigenfunction p q w a b (lam n)
           (periodicBoundary p a b) y₁ ∧
           IsSturmLiouvilleEigenfunction p q w a b (lam n)
             (periodicBoundary p a b) y₂ ∧ ¬∃ c : ℝ, y₂ = c • y₁) ∧
-      ∀ n y, IsSturmLiouvilleEigenfunction p q w a b (lam (2 * n + 1))
+      ∀ n, (∀ y, IsSturmLiouvilleEigenfunction p q w a b (lam (2 * n + 1))
         (periodicBoundary p a b) y →
-          {x ∈ Set.Ico a b | y x = 0}.ncard = 2 * n + 2 := by
+          {x ∈ Set.Ico a b | y x = 0}.ncard = 2 * n + 2) ∧
+        ∀ y, IsSturmLiouvilleEigenfunction p q w a b (lam (2 * n + 2))
+          (periodicBoundary p a b) y →
+            {x ∈ Set.Ico a b | y x = 0}.ncard = 2 * n + 2 := by
   sorry
 
 end KongODE

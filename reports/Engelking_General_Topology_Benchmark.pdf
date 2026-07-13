@@ -10,7 +10,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 11 0 R /F2 12 0 R /F3 13 0 R >> >> /Contents 4 0 R >>
 endobj
 4 0 obj
-<< /Length 9956 >>
+<< /Length 9976 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Engelking General Topology Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 1) Tj ET
@@ -41,7 +41,7 @@ BT /F1 5.8 Tf 24.00 451.00 Td (f: X -> Y of X to a realcompact space Y there exi
 BT /F1 5.8 Tf 24.00 444.00 Td (continuous mapping f^nu: nuX -> Y such that f^nunu = f.) Tj ET
 BT /F1 5.8 Tf 314.00 542.00 Td (Topology) Tj ET
 BT /F3 4.9 Tf 394.00 542.00 Td (def IsRealcompact \(X : Type u\) [tX : TopologicalSpace X] : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 535.00 Td (  T35Space X /\\ not exists \(Y : Type u\) \(tY : TopologicalSpace Y\),) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (  T35Space X /\\ not exists \(Y : Type \(u + 1\)\) \(tY : TopologicalSpace Y\),) Tj ET
 BT /F3 4.9 Tf 394.00 528.00 Td (    @T35Space Y tY /\\ exists r : X -> Y,) Tj ET
 BT /F3 4.9 Tf 394.00 521.00 Td (      @IsEmbedding X Y tX tY r /\\ range r != closure \(range r\) /\\) Tj ET
 BT /F3 4.9 Tf 394.00 514.00 Td (        closure \(range r\) = univ /\\) Tj ET
@@ -96,7 +96,7 @@ BT /F3 4.9 Tf 394.00 259.00 Td (      exists \(kappa : Type v\) \(V : kappa -> S
 BT /F3 4.9 Tf 394.00 252.00 Td (      Refines V U /\\ LocallyFinite V) Tj ET
 BT /F3 4.9 Tf 394.00 245.00 Td () Tj ET
 BT /F3 4.9 Tf 394.00 238.00 Td (theorem engelking_5_2_8_normal_product_interval) Tj ET
-BT /F3 4.9 Tf 394.00 231.00 Td (    {X : Type u} [TopologicalSpace X] :) Tj ET
+BT /F3 4.9 Tf 394.00 231.00 Td (    {X : Type u} [TopologicalSpace X] [T1Space X] :) Tj ET
 BT /F3 4.9 Tf 394.00 224.00 Td (    \(NormalSpace X /\\ IsCountablyParacompact X\) <->) Tj ET
 BT /F3 4.9 Tf 394.00 217.00 Td (      NormalSpace \(X  x  Set.Icc \(0 : R\) 1\) := by) Tj ET
 BT /F3 4.9 Tf 394.00 210.00 Td (  sorry) Tj ET
@@ -265,7 +265,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 11 0 R /F2 12 0 R /F3 13 0 R >> >> /Contents 8 0 R >>
 endobj
 8 0 obj
-<< /Length 8504 >>
+<< /Length 8518 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Engelking General Topology Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 3) Tj ET
@@ -324,7 +324,7 @@ BT /F1 5.8 Tf 24.00 361.00 Td (compactification cX of X such that X  x  cX is no
 BT /F1 5.8 Tf 314.00 396.00 Td (Topology) Tj ET
 BT /F3 4.9 Tf 394.00 396.00 Td (def IsCompactification {X : Type u} {K : Type v} [TopologicalSpace X]) Tj ET
 BT /F3 4.9 Tf 394.00 389.00 Td (    [TopologicalSpace K] \(e : X -> K\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 382.00 Td (  IsEmbedding e /\\ DenseRange e /\\ IsCompact \(univ : Set K\)) Tj ET
+BT /F3 4.9 Tf 394.00 382.00 Td (  IsEmbedding e /\\ DenseRange e /\\ IsCompact \(univ : Set K\) /\\ T2Space K) Tj ET
 BT /F3 4.9 Tf 394.00 375.00 Td () Tj ET
 BT /F3 4.9 Tf 394.00 368.00 Td (theorem engelking_5_1_38_tamano_theorem) Tj ET
 BT /F3 4.9 Tf 394.00 361.00 Td (    {X : Type u} [tX : TopologicalSpace X] [T35Space X] :) Tj ET
@@ -395,7 +395,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 11 0 R /F2 12 0 R /F3 13 0 R >> >> /Contents 10 0 R >>
 endobj
 10 0 obj
-<< /Length 3776 >>
+<< /Length 3913 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Engelking General Topology Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 4) Tj ET
@@ -403,15 +403,15 @@ BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
 BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
 BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
 20.00 558.00 m 772.00 558.00 l S
-20.00 550.00 m 20.00 288.00 l S
-310.00 550.00 m 310.00 288.00 l S
-390.00 550.00 m 390.00 288.00 l S
-772.00 550.00 m 772.00 288.00 l S
+20.00 550.00 m 20.00 281.00 l S
+310.00 550.00 m 310.00 281.00 l S
+390.00 550.00 m 390.00 281.00 l S
+772.00 550.00 m 772.00 281.00 l S
 20.00 550.00 m 772.00 550.00 l S
-20.00 288.00 m 772.00 288.00 l S
+20.00 281.00 m 772.00 281.00 l S
 BT /F1 5.8 Tf 24.00 542.00 Td (delta\(c\) establishes a one-to-one correspondence between) Tj ET
 BT /F1 5.8 Tf 24.00 535.00 Td (compactifications of X and proximities on X.) Tj ET
-BT /F3 4.9 Tf 394.00 542.00 Td (  IsEmbedding e /\\ DenseRange e /\\ IsCompact \(univ : Set K\)) Tj ET
+BT /F3 4.9 Tf 394.00 542.00 Td (  IsEmbedding e /\\ DenseRange e /\\ IsCompact \(univ : Set K\) /\\ T2Space K) Tj ET
 BT /F3 4.9 Tf 394.00 535.00 Td () Tj ET
 BT /F3 4.9 Tf 394.00 528.00 Td (def EquivalentCompactifications {X : Type u} {K L : Type v}) Tj ET
 BT /F3 4.9 Tf 394.00 521.00 Td ([TopologicalSpace X]) Tj ET
@@ -419,7 +419,7 @@ BT /F3 4.9 Tf 394.00 514.00 Td (    [TopologicalSpace K] [TopologicalSpace L] \(
 BT /F3 4.9 Tf 394.00 507.00 Td (    Prop :=) Tj ET
 BT /F3 4.9 Tf 394.00 500.00 Td (  exists h : K equivt L, h comp e = f) Tj ET
 BT /F3 4.9 Tf 394.00 493.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 486.00 Td (structure Proximity \(X : Type u\) where) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td (structure Proximity \(X : Type u\) [TopologicalSpace X] where) Tj ET
 BT /F3 4.9 Tf 394.00 479.00 Td (  close : Set X -> Set X -> Prop) Tj ET
 BT /F3 4.9 Tf 394.00 472.00 Td (  empty_left : forall A, not close empty A) Tj ET
 BT /F3 4.9 Tf 394.00 465.00 Td (  intersects : forall A B, \(A inter B\).Nonempty -> close A B) Tj ET
@@ -427,26 +427,27 @@ BT /F3 4.9 Tf 394.00 458.00 Td (  symmetric : forall A B, close A B <-> close B 
 BT /F3 4.9 Tf 394.00 451.00 Td (  union_left : forall A B C, close \(A union B\) C <-> close A C \\/ close B C) Tj ET
 BT /F3 4.9 Tf 394.00 444.00 Td (  strong : forall A B, not close A B -> exists E : Set X, not close A E /\\) Tj ET
 BT /F3 4.9 Tf 394.00 437.00 Td (  not close E^c B) Tj ET
-BT /F3 4.9 Tf 394.00 430.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 423.00 Td (def IsAssignedProximity {X : Type u} {K : Type v} [TopologicalSpace X]) Tj ET
-BT /F3 4.9 Tf 394.00 416.00 Td (    [TopologicalSpace K] \(e : X -> K\) \(p : Proximity X\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 409.00 Td (  forall A B : Set X,) Tj ET
-BT /F3 4.9 Tf 394.00 402.00 Td (    p.close A B <-> \(closure \(e '' A\) inter closure \(e '' B\)\).Nonempty) Tj ET
-BT /F3 4.9 Tf 394.00 395.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 388.00 Td (theorem engelking_8_4_13_smirnov_proximity_compactification) Tj ET
-BT /F3 4.9 Tf 394.00 381.00 Td (    {X : Type u} [TopologicalSpace X] [T35Space X] :) Tj ET
-BT /F3 4.9 Tf 394.00 374.00 Td (    \(forall \(K : Type v\) \(tK : TopologicalSpace K\) \(e : X -> K\),) Tj ET
-BT /F3 4.9 Tf 394.00 367.00 Td (      @IsCompactification X K _ tK e ->) Tj ET
-BT /F3 4.9 Tf 394.00 360.00 Td (        exists p : Proximity X, @IsAssignedProximity X K _ tK e p\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 353.00 Td (    \(forall p : Proximity X, exists \(K : Type v\) \(_ : TopologicalSpace K\)) Tj ET
-BT /F3 4.9 Tf 394.00 346.00 Td (    \(e : X -> K\),) Tj ET
-BT /F3 4.9 Tf 394.00 339.00 Td (      IsCompactification e /\\ IsAssignedProximity e p\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 332.00 Td (    forall \(K L : Type v\) \(_ : TopologicalSpace K\) \(_ : TopologicalSpace L\)) Tj ET
-BT /F3 4.9 Tf 394.00 325.00 Td (      \(e : X -> K\) \(f : X -> L\) \(p : Proximity X\),) Tj ET
-BT /F3 4.9 Tf 394.00 318.00 Td (        IsCompactification e -> IsCompactification f ->) Tj ET
-BT /F3 4.9 Tf 394.00 311.00 Td (        IsAssignedProximity e p -> IsAssignedProximity f p ->) Tj ET
-BT /F3 4.9 Tf 394.00 304.00 Td (        EquivalentCompactifications e f := by) Tj ET
-BT /F3 4.9 Tf 394.00 297.00 Td (  sorry) Tj ET
+BT /F3 4.9 Tf 394.00 430.00 Td (  closure_eq : forall A : Set X, closure A = {x | close {x} A}) Tj ET
+BT /F3 4.9 Tf 394.00 423.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 416.00 Td (def IsAssignedProximity {X : Type u} {K : Type v} [TopologicalSpace X]) Tj ET
+BT /F3 4.9 Tf 394.00 409.00 Td (    [TopologicalSpace K] \(e : X -> K\) \(p : Proximity X\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 402.00 Td (  forall A B : Set X,) Tj ET
+BT /F3 4.9 Tf 394.00 395.00 Td (    p.close A B <-> \(closure \(e '' A\) inter closure \(e '' B\)\).Nonempty) Tj ET
+BT /F3 4.9 Tf 394.00 388.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 381.00 Td (theorem engelking_8_4_13_smirnov_proximity_compactification) Tj ET
+BT /F3 4.9 Tf 394.00 374.00 Td (    {X : Type u} [TopologicalSpace X] [T35Space X] :) Tj ET
+BT /F3 4.9 Tf 394.00 367.00 Td (    \(forall \(K : Type v\) \(tK : TopologicalSpace K\) \(e : X -> K\),) Tj ET
+BT /F3 4.9 Tf 394.00 360.00 Td (      @IsCompactification X K _ tK e ->) Tj ET
+BT /F3 4.9 Tf 394.00 353.00 Td (        exists p : Proximity X, @IsAssignedProximity X K _ tK e p\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 346.00 Td (    \(forall p : Proximity X, exists \(K : Type v\) \(_ : TopologicalSpace K\)) Tj ET
+BT /F3 4.9 Tf 394.00 339.00 Td (    \(e : X -> K\),) Tj ET
+BT /F3 4.9 Tf 394.00 332.00 Td (      IsCompactification e /\\ IsAssignedProximity e p\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 325.00 Td (    forall \(K L : Type v\) \(_ : TopologicalSpace K\) \(_ : TopologicalSpace L\)) Tj ET
+BT /F3 4.9 Tf 394.00 318.00 Td (      \(e : X -> K\) \(f : X -> L\) \(p : Proximity X\),) Tj ET
+BT /F3 4.9 Tf 394.00 311.00 Td (        IsCompactification e -> IsCompactification f ->) Tj ET
+BT /F3 4.9 Tf 394.00 304.00 Td (        IsAssignedProximity e p -> IsAssignedProximity f p ->) Tj ET
+BT /F3 4.9 Tf 394.00 297.00 Td (        EquivalentCompactifications e f := by) Tj ET
+BT /F3 4.9 Tf 394.00 290.00 Td (  sorry) Tj ET
 endstream
 endobj
 11 0 obj
@@ -465,17 +466,17 @@ xref
 0000000064 00000 n 
 0000000139 00000 n 
 0000000288 00000 n 
-0000010296 00000 n 
-0000010445 00000 n 
-0000018261 00000 n 
-0000018410 00000 n 
-0000026966 00000 n 
-0000027116 00000 n 
-0000030945 00000 n 
-0000031016 00000 n 
-0000031092 00000 n 
+0000010316 00000 n 
+0000010465 00000 n 
+0000018281 00000 n 
+0000018430 00000 n 
+0000027000 00000 n 
+0000027150 00000 n 
+0000031116 00000 n 
+0000031187 00000 n 
+0000031263 00000 n 
 trailer
 << /Size 14 /Root 1 0 R >>
 startxref
-31161
+31332
 %%EOF

@@ -1,3 +1,5 @@
+module
+
 import Mathlib.Analysis.InnerProductSpace.Projection.Submodule
 import Mathlib.MeasureTheory.Measure.Hausdorff
 import Mathlib.MeasureTheory.Measure.Decomposition.Lebesgue
@@ -110,7 +112,8 @@ theorem mattila_12_14_falconer_distance_set
 
 /-- Mattila 6.2, upper Hausdorff-density estimates. -/
 theorem mattila_6_2_hausdorff_density_estimates
-    {n : ℕ} {s : ℝ} {A : Set (EuclideanSpace ℝ (Fin n))} (hA : μH[s] A < ∞) :
+    {n : ℕ} {s : ℝ} {A : Set (EuclideanSpace ℝ (Fin n))} (hs : 0 < s)
+    (hA : μH[s] A < ∞) :
     (∀ᵐ x ∂μH[s], x ∈ A →
       ENNReal.ofReal (2 ^ (-s)) ≤ upperHausdorffDensity s A x ∧
         upperHausdorffDensity s A x ≤ 1) ∧
@@ -149,13 +152,14 @@ theorem mattila_8_8_frostman_lemma
 /-- Mattila 9.7, the projection-energy theorem. -/
 theorem mattila_9_7_projection_energy
     {n m : ℕ} [MeasurableSpace (Grassmannian n m)]
-    {μ : Measure (EuclideanSpace ℝ (Fin n))} (γ : Measure (Grassmannian n m))
-    (hγ : IsInvariantGrassmannianMeasure γ)
-    (hμ : IsFiniteMeasureOnCompacts μ ∧ Measure.InnerRegular μ ∧ IsCompact μ.support ∧
-      rieszEnergy (m : ℝ) μ < ∞) :
-    (∀ᵐ V ∂γ,
-      Measure.map (fun x ↦ V.1.orthogonalProjectionOnto x) μ ≪ μH[(m : ℝ)]) ∧
-      ∃ (density : ∀ V : Grassmannian n m, V.1 → ℝ≥0∞) (c : ℝ≥0∞), c < ∞ ∧
+    (γ : Measure (Grassmannian n m)) (hγ : IsInvariantGrassmannianMeasure γ) :
+    ∃ c : ℝ≥0∞, c < ∞ ∧
+      ∀ μ : Measure (EuclideanSpace ℝ (Fin n)),
+      IsFiniteMeasureOnCompacts μ → Measure.InnerRegular μ → IsCompact μ.support →
+      rieszEnergy (m : ℝ) μ < ∞ →
+      (∀ᵐ V ∂γ,
+        Measure.map (fun x ↦ V.1.orthogonalProjectionOnto x) μ ≪ μH[(m : ℝ)]) ∧
+      ∃ density : ∀ V : Grassmannian n m, V.1 → ℝ≥0∞,
         (∀ᵐ V ∂γ, Measure.map (fun x ↦ V.1.orthogonalProjectionOnto x) μ =
           μH[(m : ℝ)].withDensity (density V)) ∧
         ∫⁻ V, ∫⁻ x, density V x ^ (2 : ℝ) ∂μH[(m : ℝ)] ∂γ ≤

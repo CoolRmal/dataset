@@ -1,6 +1,10 @@
+module
+
 import Mathlib.Analysis.Calculus.ContDiff.Basic
+import Mathlib.Analysis.Calculus.IteratedDeriv.Defs
 import Mathlib.MeasureTheory.Integral.Bochner.Basic
 import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
+import Mathlib.MeasureTheory.Measure.Hausdorff
 
 /-!
 # Hard PDE and Holder-space statements from Krylov
@@ -53,12 +57,16 @@ def HolderOn {d : ℕ} (r : ℝ) (Ω : Set (Fin d → ℝ))
   ∃ k : ℕ, ∃ δ : ℝ, r = k + δ ∧ 0 ≤ δ ∧ δ < 1 ∧
     ContDiffOn ℝ k u Ω ∧ holderGauge k δ Ω u < ∞
 
+/-- One-dimensional `C^r` Holder regularity on a time set. -/
+def HolderOnReal (r : ℝ) (I : Set ℝ) (u : ℝ → ℝ) : Prop :=
+  ∃ (k : ℕ) (δ : ℝ) (hδ : 0 ≤ δ), r = k + δ ∧ δ < 1 ∧ ContDiffOn ℝ k u I ∧
+    ∃ C : NNReal, HolderOnWith C (⟨δ, hδ⟩ : NNReal) (iteratedDeriv k u) I
+
 /-- An anisotropic parabolic Holder condition with time exponent `r/2`. -/
 def ParabolicHolderOn {d : ℕ} (r : ℝ) (Q : Set (ℝ × (Fin d → ℝ)))
-    (u : (ℝ × (Fin d → ℝ)) → ℝ) : Prop :=
+  (u : (ℝ × (Fin d → ℝ)) → ℝ) : Prop :=
   (∀ t, HolderOn r {x | (t, x) ∈ Q} fun x ↦ u (t, x)) ∧
-    ∃ C : ℝ, 0 ≤ C ∧ ∀ x s t, (s, x) ∈ Q → (t, x) ∈ Q →
-      |u (t, x) - u (s, x)| ≤ C * |t - s| ^ (r / 2)
+    ∀ x, HolderOnReal (r / 2) {t | (t, x) ∈ Q} fun t ↦ u (t, x)
 
 /-- A bounded regular domain admitting barriers at every boundary point. -/
 def RegularBoundedDomain {d : ℕ} (Ω : Set (Fin d → ℝ)) : Prop :=
@@ -67,6 +75,12 @@ def RegularBoundedDomain {d : ℕ} (Ω : Set (Fin d → ℝ)) : Prop :=
       ContinuousOn barrier (closure Ω) ∧
       barrier z = 0 ∧ (∀ x ∈ closure Ω, x ≠ z → 0 < barrier x) ∧
       ∀ x ∈ Ω, laplacian barrier x ≤ 0
+
+/-- A unit normal which points from the domain into its complement. -/
+def IsOutwardUnitNormal {d : ℕ} (Ω : Set (Fin d → ℝ))
+    (normal : (Fin d → ℝ) → (Fin d → ℝ)) : Prop :=
+  ∀ y ∈ frontier Ω, ‖normal y‖ = 1 ∧
+    ∃ ε : ℝ, 0 < ε ∧ y - ε • normal y ∈ Ω ∧ y + ε • normal y ∉ closure Ω
 
 /-- A bounded domain with a smooth defining function and nonvanishing boundary gradient. -/
 def SmoothBoundedDomain {d : ℕ} (Ω : Set (Fin d → ℝ)) : Prop :=
@@ -95,8 +109,8 @@ structure EllipticOperatorData {d : ℕ} (m : ℕ)
   ellipticityConstant_pos : 0 < ellipticityConstant
   principalSymbol : ∀ (x ξ : (Fin d → ℝ)),
     ellipticityConstant * ‖ξ‖ ^ m ≤
-      |∑ α ∈ terms with ∑ i, α i = m,
-        coefficient α x * ∏ i, (ξ i) ^ (α i)|
+      ∑ α ∈ terms with ∑ i, α i = m,
+        coefficient α x * ∏ i, (ξ i) ^ (α i)
 
 /-- A uniformly elliptic operator with constant coefficients. -/
 def ConstantCoefficientEllipticOperator {d : ℕ} (m : ℕ)
@@ -114,6 +128,12 @@ def OperatorCoefficientsHolder {d : ℕ} (m : ℕ) (r : ℝ)
     (L : ((Fin d → ℝ) → ℝ) → (Fin d → ℝ) → ℝ) : Prop :=
   ∃ data : EllipticOperatorData m L,
     ∀ α ∈ data.terms, HolderOn r univ (data.coefficient α)
+
+/-- A quantitative uniform bound for the Holder gauges of all operator coefficients. -/
+def OperatorCoefficientGaugeLE {d : ℕ} (m k : ℕ) (δ : ℝ) (K : ℝ≥0∞)
+    (L : ((Fin d → ℝ) → ℝ) → (Fin d → ℝ) → ℝ) : Prop :=
+  ∃ data : EllipticOperatorData m L,
+    ∀ α ∈ data.terms, holderGauge k δ univ (data.coefficient α) ≤ K
 
 /-- A second-order elliptic operator whose zeroth coefficient is at most `-λ`. -/
 def SecondOrderEllipticOperator {d : ℕ}
@@ -158,6 +178,21 @@ def ParabolicOperator {d : ℕ}
       ∑ i, b p i * fderiv ℝ (fun x ↦ u (p.1, x)) p.2 (Pi.single i 1) +
       c p * u p
 
+/-- The coefficients of a parabolic operator have the stated anisotropic Holder regularity. -/
+def ParabolicOperatorCoefficientsHolder {d : ℕ} (r : ℝ)
+    (Q : Set (ℝ × (Fin d → ℝ)))
+    (L : ((ℝ × (Fin d → ℝ)) → ℝ) → (ℝ × (Fin d → ℝ)) → ℝ) : Prop :=
+  ∃ (a : (ℝ × (Fin d → ℝ)) → Matrix (Fin d) (Fin d) ℝ)
+    (b : (ℝ × (Fin d → ℝ)) → (Fin d → ℝ))
+    (c : (ℝ × (Fin d → ℝ)) → ℝ),
+    (∀ i j, ParabolicHolderOn r Q fun p ↦ a p i j) ∧
+      (∀ i, ParabolicHolderOn r Q fun p ↦ b p i) ∧ ParabolicHolderOn r Q c ∧
+      ∀ u p, L u p =
+        ∑ i, ∑ j, a p i j *
+          directionalDerivativeList [i, j] (fun x ↦ u (p.1, x)) p.2 +
+        ∑ i, b p i * fderiv ℝ (fun x ↦ u (p.1, x)) p.2 (Pi.single i 1) +
+        c p * u p
+
 /-- The incoming parabolic boundary, expressed by approach from earlier times. -/
 def parabolicBoundary {d : ℕ} (Q : Set (ℝ × (Fin d → ℝ))) : Set (ℝ × (Fin d → ℝ)) :=
   {p ∈ frontier Q | ∀ ε : ℝ, 0 < ε →
@@ -174,10 +209,11 @@ def ParabolicDirichletSolution {d : ℕ} (Q : Set (ℝ × (Fin d → ℝ)))
 theorem krylov_2_3_1_green_poisson_representation
     {d : ℕ} {Ω : Set (Fin d → ℝ)}
     {K h G H : (Fin d → ℝ) → (Fin d → ℝ) → ℝ} {f g u : (Fin d → ℝ) → ℝ}
-    (hΩ : RegularBoundedDomain Ω) (boundaryMeasure : Measure (Fin d → ℝ))
-    (hmeasure : boundaryMeasure (frontier Ω)ᶜ = 0)
+    (hd : 0 < d) (hΩ : RegularBoundedDomain Ω)
+    (boundaryMeasure : Measure (Fin d → ℝ))
+    (hmeasure : boundaryMeasure = μH[((d : ℝ) - 1)].restrict (frontier Ω))
     (normal : (Fin d → ℝ) → (Fin d → ℝ))
-    (hnormal : ∀ y ∈ frontier Ω, ‖normal y‖ = 1)
+    (hnormal : IsOutwardUnitNormal Ω normal)
     (hharmonic : ∀ x ∈ Ω, HarmonicIn Ω (h x))
     (hboundary : ∀ x ∈ Ω, ∀ y ∈ frontier Ω, h x y = K x y)
     (hgreen : ∀ x y, G x y = K x y - h x y)
@@ -185,6 +221,8 @@ theorem krylov_2_3_1_green_poisson_representation
     (hgreenBoundary : ∀ x ∈ Ω, ∀ y ∈ frontier Ω, G x y = 0)
     (hpoisson : ∀ x ∈ Ω, ∀ y ∈ frontier Ω,
       H x y = -fderiv ℝ (G x) y (normal y))
+    (hGintegrable : ∀ x ∈ Ω, IntegrableOn (fun y ↦ G x y * f y) Ω)
+    (hHintegrable : ∀ x ∈ Ω, Integrable (fun y ↦ H x y * g y) boundaryMeasure)
     (hu : LaplaceDirichletSolution Ω f g u) :
     ∀ x ∈ Ω, u x = ∫ y in Ω, G x y * f y +
       ∫ y, H x y * g y ∂boundaryMeasure := by
@@ -195,8 +233,8 @@ theorem krylov_2_5_2_harmonic_smooth_interior_estimates
     {d : ℕ} {Ω : Set (Fin d → ℝ)} {u : (Fin d → ℝ) → ℝ}
     (hΩ : IsOpen Ω ∧ IsConnected Ω) (hu : HarmonicIn Ω u) :
     ContDiffOn ℝ ⊤ u Ω ∧
-      ∀ α : (Fin d → ℕ), ∀ x ∈ Ω,
-        ∃ C : ℝ, 0 ≤ C ∧ ∀ R : ℝ, 0 < R → Metric.closedBall x R ⊆ Ω →
+      ∀ α : (Fin d → ℕ), ∃ C : ℝ, 0 ≤ C ∧ ∀ x ∈ Ω,
+        ∀ R : ℝ, 0 < R → Metric.closedBall x R ⊆ Ω →
           |multiDerivative α u x| ≤ C * R ^ (-(∑ i, α i : ℤ)) *
             sSup {|u y| | y ∈ Metric.closedBall x R} := by
   sorry
@@ -227,26 +265,32 @@ theorem krylov_3_7_2_constant_coefficient_holder_solvability
 
 /-- Krylov 4.2.1, improved regularity and the high-parameter Schauder estimate. -/
 theorem krylov_4_2_1_better_regular_data_better_regular_solution
-    {d m k : ℕ} {δ lam lam₀ : ℝ} {L : ((Fin d → ℝ) → ℝ) → (Fin d → ℝ) → ℝ}
-    {u f : (Fin d → ℝ) → ℝ} (hk : 0 < k) (hδ : 0 < δ ∧ δ < 1)
+    {d m k : ℕ} {δ lam₀ K₁ : ℝ} {L : ((Fin d → ℝ) → ℝ) → (Fin d → ℝ) → ℝ}
+    (hm : 0 < m) (hδ : 0 < δ ∧ δ < 1) (hlam₀ : 0 ≤ lam₀) (hK₁ : 1 ≤ K₁)
     (hL : VariableCoefficientEllipticOperator m L)
     (hcoeff : OperatorCoefficientsHolder m (k + δ) L)
-    (hu : HolderOn (m + δ) univ u) (hLu : ShiftedEllipticEquation L lam u f)
-    (hf : HolderOn (k + δ) univ f) :
-    HolderOn (k + m + δ) univ u ∧
-      (lam₀ ≤ |lam| → ∃ C : ℝ≥0∞, C < ∞ ∧
-        holderGauge (k + m) δ univ u ≤
-          C * holderGauge k δ univ (fun x ↦ L u x - lam * u x)) := by
+    (hcoeffBound : OperatorCoefficientGaugeLE m k δ (ENNReal.ofReal K₁) L) :
+    ∃ C : ℝ≥0∞, C < ∞ ∧ ∀ (lam : ℝ) (u f : (Fin d → ℝ) → ℝ),
+      HolderOn (m + δ) univ u → ShiftedEllipticEquation L lam u f →
+      HolderOn (k + δ) univ f → HolderOn (k + m + δ) univ u ∧
+        (lam₀ ≤ |lam| →
+          holderGauge (k + m) δ univ u +
+              ENNReal.rpow (ENNReal.ofReal |lam|) ((((k + m : ℕ) : ℝ) + δ) / m) *
+                functionSupNorm univ u ≤
+            C * (holderGauge k δ univ f +
+              ENNReal.rpow (ENNReal.ofReal |lam|) ((((k : ℕ) : ℝ) + δ) / m) *
+                functionSupNorm univ f)) := by
   sorry
 
 /-- Krylov 4.5.1, global solvability for variable coefficients. -/
 theorem krylov_4_5_1_variable_coefficient_global_solvability
-    {d m k : ℕ} {δ lam lam₀ : ℝ} {L : ((Fin d → ℝ) → ℝ) → (Fin d → ℝ) → ℝ}
-    (hδ : 0 < δ ∧ δ < 1) (hlarge : lam₀ ≤ |lam|)
+    {d m k : ℕ} {δ : ℝ} {L : ((Fin d → ℝ) → ℝ) → (Fin d → ℝ) → ℝ}
+    (hm : 0 < m) (hδ : 0 < δ ∧ δ < 1)
     (hL : VariableCoefficientEllipticOperator m L)
     (hcoeff : OperatorCoefficientsHolder m (k + δ) L) :
-    ∀ f, HolderOn (k + δ) univ f →
-      ∃! u, HolderOn (k + m + δ) univ u ∧ ShiftedEllipticEquation L lam u f := by
+    ∃ lam₀ : ℝ, 0 ≤ lam₀ ∧ ∀ lam : ℝ, lam₀ ≤ |lam| →
+      ∀ f, HolderOn (k + δ) univ f →
+        ∃! u, HolderOn (k + m + δ) univ u ∧ ShiftedEllipticEquation L lam u f := by
   sorry
 
 /-- Krylov 6.5.3, the Holder Dirichlet problem on a smooth domain. -/
@@ -286,7 +330,9 @@ theorem krylov_8_7_3_shifted_heat_holder_solvability
 theorem krylov_10_3_3_parabolic_dirichlet_domain_solvability
     {d : ℕ} {δ : ℝ} {Q : Set (ℝ × (Fin d → ℝ))}
     {L : ((ℝ × (Fin d → ℝ)) → ℝ) → (ℝ × (Fin d → ℝ)) → ℝ}
-    (hδ : 0 < δ ∧ δ < 1) (hL : ParabolicOperator L) :
+    (hδ : 0 < δ ∧ δ < 1)
+    (hQ : IsOpen Q ∧ Bornology.IsBounded Q ∧ Q.Nonempty)
+    (hL : ParabolicOperator L) (hcoeff : ParabolicOperatorCoefficientsHolder δ Q L) :
     ∀ f g, ParabolicHolderOn δ Q f → ParabolicHolderOn (2 + δ) Q g →
       ∃ u, ParabolicHolderOn (2 + δ) Q u ∧
         ParabolicDirichletSolution Q L f g u ∧

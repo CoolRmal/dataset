@@ -10,7 +10,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 11 0 R /F2 12 0 R /F3 13 0 R >> >> /Contents 4 0 R >>
 endobj
 4 0 obj
-<< /Length 10817 >>
+<< /Length 10820 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Conway Functional Analysis Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 1) Tj ET
@@ -157,9 +157,9 @@ BT /F1 5.8 Tf 24.00 65.00 Td (representation \(pi, H\) of A such that pi is an i
 BT /F1 5.8 Tf 24.00 58.00 Td (is separable, then H can be chosen separable.) Tj ET
 BT /F1 5.8 Tf 314.00 72.00 Td (Operator) Tj ET
 BT /F1 5.8 Tf 314.00 65.00 Td (algebras) Tj ET
-BT /F3 4.9 Tf 394.00 72.00 Td (theorem conway_VIII_5_17_gelfand_naimark {A : Type*} [CStarAlgebra A] :) Tj ET
-BT /F3 4.9 Tf 394.00 65.00 Td (    \(exists \(H : Type\) \(_ : NormedAddCommGroup H\) \(_ : InnerProductSpace C) Tj ET
-BT /F3 4.9 Tf 394.00 58.00 Td (    H\)) Tj ET
+BT /F3 4.9 Tf 394.00 72.00 Td (theorem conway_VIII_5_17_gelfand_naimark {A : Type u} [CStarAlgebra A] :) Tj ET
+BT /F3 4.9 Tf 394.00 65.00 Td (    \(exists \(H : Type u\) \(_ : NormedAddCommGroup H\) \(_ : InnerProductSpace) Tj ET
+BT /F3 4.9 Tf 394.00 58.00 Td (    C H\)) Tj ET
 BT /F3 4.9 Tf 394.00 51.00 Td (      \(_ : CompleteSpace H\) \(pi : A ->a[C] \(H ->L[C] H\)\), Isometry pi\) /\\) Tj ET
 BT /F3 4.9 Tf 394.00 44.00 Td (    \(TopologicalSpace.SeparableSpace A ->) Tj ET
 endstream
@@ -168,7 +168,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 11 0 R /F2 12 0 R /F3 13 0 R >> >> /Contents 6 0 R >>
 endobj
 6 0 obj
-<< /Length 9183 >>
+<< /Length 9146 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Conway Functional Analysis Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 2) Tj ET
@@ -182,17 +182,17 @@ BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
 772.00 550.00 m 772.00 505.00 l S
 20.00 550.00 m 772.00 550.00 l S
 20.00 505.00 m 772.00 505.00 l S
-BT /F3 4.9 Tf 394.00 542.00 Td (      exists \(H : Type\) \(_ : NormedAddCommGroup H\) \(_ : InnerProductSpace C) Tj ET
-BT /F3 4.9 Tf 394.00 535.00 Td (      H\)) Tj ET
+BT /F3 4.9 Tf 394.00 542.00 Td (      exists \(H : Type u\) \(_ : NormedAddCommGroup H\) \(_ : InnerProductSpace) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (      C H\)) Tj ET
 BT /F3 4.9 Tf 394.00 528.00 Td (        \(_ : CompleteSpace H\) \(_ : TopologicalSpace.SeparableSpace H\)) Tj ET
 BT /F3 4.9 Tf 394.00 521.00 Td (        \(pi : A ->a[C] \(H ->L[C] H\)\), Isometry pi\) := by) Tj ET
 BT /F3 4.9 Tf 394.00 514.00 Td (  sorry) Tj ET
-20.00 505.00 m 20.00 75.00 l S
-310.00 505.00 m 310.00 75.00 l S
-390.00 505.00 m 390.00 75.00 l S
-772.00 505.00 m 772.00 75.00 l S
+20.00 505.00 m 20.00 68.00 l S
+310.00 505.00 m 310.00 68.00 l S
+390.00 505.00 m 390.00 68.00 l S
+772.00 505.00 m 772.00 68.00 l S
 20.00 505.00 m 772.00 505.00 l S
-20.00 75.00 m 772.00 75.00 l S
+20.00 68.00 m 772.00 68.00 l S
 BT /F1 5.8 Tf 24.00 497.00 Td (Definition. A bounded operator A : H -> H is left semi-) Tj ET
 BT /F1 5.8 Tf 24.00 490.00 Td (Fredholm if it is left invertible modulo the compact) Tj ET
 BT /F1 5.8 Tf 24.00 483.00 Td (operators: there are bounded B : H -> H and compact C : H -> H) Tj ET
@@ -218,82 +218,81 @@ BT /F3 4.9 Tf 394.00 476.00 Td (  empty : toFun empty = 0) Tj ET
 BT /F3 4.9 Tf 394.00 469.00 Td (  univ : toFun univ = ContinuousLinearMap.id C H) Tj ET
 BT /F3 4.9 Tf 394.00 462.00 Td (  projection : forall B : Set C, MeasurableSet B -> IsOrthogonalProjection) Tj ET
 BT /F3 4.9 Tf 394.00 455.00 Td (  \(toFun B\)) Tj ET
-BT /F3 4.9 Tf 394.00 448.00 Td (  orthogonal : forall B C : Set C, MeasurableSet B -> MeasurableSet C ->) Tj ET
-BT /F3 4.9 Tf 394.00 441.00 Td (  Disjoint B C ->) Tj ET
-BT /F3 4.9 Tf 394.00 434.00 Td (    \(toFun B\).comp \(toFun C\) = 0) Tj ET
-BT /F3 4.9 Tf 394.00 427.00 Td (  countablyAdditive : forall \(B : N -> Set C\), \(forall n, MeasurableSet \(B) Tj ET
-BT /F3 4.9 Tf 394.00 420.00 Td (  n\)\) ->) Tj ET
-BT /F3 4.9 Tf 394.00 413.00 Td (    Pairwise \(fun m n => Disjoint \(B m\) \(B n\)\) -> forall x : H,) Tj ET
-BT /F3 4.9 Tf 394.00 406.00 Td (      Tendsto \(fun N => sum n in Finset.range N, toFun \(B n\) x\) atTop) Tj ET
-BT /F3 4.9 Tf 394.00 399.00 Td (        \(nhds \(toFun \(union n, B n\) x\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 392.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 385.00 Td (def IsLeftSemiFredholm {H K : Type*} [NormedAddCommGroup H]) Tj ET
-BT /F3 4.9 Tf 394.00 378.00 Td ([NormedAddCommGroup K]) Tj ET
-BT /F3 4.9 Tf 394.00 371.00 Td (    [InnerProductSpace C H] [InnerProductSpace C K] [CompleteSpace H]) Tj ET
-BT /F3 4.9 Tf 394.00 364.00 Td (    [CompleteSpace K] \(A : H ->L[C] K\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 357.00 Td (  exists B : K ->L[C] H, exists C : H ->L[C] H,) Tj ET
-BT /F3 4.9 Tf 394.00 350.00 Td (    IsCompactOperator C /\\ B.comp A = ContinuousLinearMap.id C H + C) Tj ET
-BT /F3 4.9 Tf 394.00 343.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 336.00 Td (theorem conway_XI_2_3_left_semi_fredholm_characterizations) Tj ET
-BT /F3 4.9 Tf 394.00 329.00 Td (    {H K : Type*} [NormedAddCommGroup H] [NormedAddCommGroup K]) Tj ET
-BT /F3 4.9 Tf 394.00 322.00 Td (    [InnerProductSpace C H] [InnerProductSpace C K] [CompleteSpace H]) Tj ET
-BT /F3 4.9 Tf 394.00 315.00 Td (    [CompleteSpace K] \(A : H ->L[C] K\) :) Tj ET
-BT /F3 4.9 Tf 394.00 308.00 Td (    let a := IsLeftSemiFredholm A) Tj ET
-BT /F3 4.9 Tf 394.00 301.00 Td (    let b := IsClosed \(range A\) /\\ FiniteDimensional C \(LinearMap.ker) Tj ET
-BT /F3 4.9 Tf 394.00 294.00 Td (    A.toLinearMap\)) Tj ET
-BT /F3 4.9 Tf 394.00 287.00 Td (    let c := exists B : K ->L[C] H, exists F : H ->L[C] H,) Tj ET
-BT /F3 4.9 Tf 394.00 280.00 Td (      FiniteDimensional C \(LinearMap.range F.toLinearMap\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 273.00 Td (        B.comp A = ContinuousLinearMap.id C H + F) Tj ET
-BT /F3 4.9 Tf 394.00 266.00 Td (    let d := not exists u : N -> H, \(forall n, ||u n|| = 1\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 259.00 Td (      Tendsto \(fun n => toWeakSpace C H \(u n\)\) atTop \(nhds 0\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 252.00 Td (        Tendsto \(fun n => ||A \(u n\)||\) atTop \(nhds 0\)) Tj ET
-BT /F3 4.9 Tf 394.00 245.00 Td (    let e := not exists u : N -> H,) Tj ET
-BT /F3 4.9 Tf 394.00 238.00 Td (      Orthonormal C u /\\ Tendsto \(fun n => ||A \(u n\)||\) atTop \(nhds 0\)) Tj ET
-BT /F3 4.9 Tf 394.00 231.00 Td (    let f := exists delta : R, 0 < delta /\\ forall M : Submodule C H,) Tj ET
-BT /F3 4.9 Tf 394.00 224.00 Td (      \(forall x : M, ||A x|| <= delta * ||\(x : H\)||\) -> FiniteDimensional C) Tj ET
-BT /F3 4.9 Tf 394.00 217.00 Td (      M) Tj ET
-BT /F3 4.9 Tf 394.00 210.00 Td (    let g := exists modulus : H ->L[C] H,) Tj ET
-BT /F3 4.9 Tf 394.00 203.00 Td (      modulus.comp modulus = A.adjoint.comp A /\\ modulus.adjoint = modulus) Tj ET
-BT /F3 4.9 Tf 394.00 196.00 Td (      /\\) Tj ET
-BT /F3 4.9 Tf 394.00 189.00 Td (        \(forall x : H, 0 <= \(inner C \(modulus x\) x\).re\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 182.00 Td (          exists E : ProjectionValuedMeasure H,) Tj ET
-BT /F3 4.9 Tf 394.00 175.00 Td (            E.toFun \(spectrum C modulus\) = ContinuousLinearMap.id C H /\\) Tj ET
-BT /F3 4.9 Tf 394.00 168.00 Td (            \(exists scalarMeasure : H -> H -> ComplexMeasure C,) Tj ET
-BT /F3 4.9 Tf 394.00 161.00 Td (              \(forall x y : H, forall B : Set C, MeasurableSet B ->) Tj ET
-BT /F3 4.9 Tf 394.00 154.00 Td (                scalarMeasure x y B = inner C \(E.toFun B x\) y\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 147.00 Td (              forall x y : H, inner C \(modulus x\) y =) Tj ET
-BT /F3 4.9 Tf 394.00 140.00 Td (                integralv z, z d[ContinuousLinearMap.mul R C; scalarMeasure) Tj ET
-BT /F3 4.9 Tf 394.00 133.00 Td (        x y]\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 126.00 Td (            exists delta : R, 0 < delta /\\ FiniteDimensional C) Tj ET
-BT /F3 4.9 Tf 394.00 119.00 Td (              \(LinearMap.range \(E.toFun \(Metric.closedBall \(0 : C\)) Tj ET
-BT /F3 4.9 Tf 394.00 112.00 Td (        delta\)\).toLinearMap\)) Tj ET
-BT /F3 4.9 Tf 394.00 105.00 Td (    let h := forall C : H ->L[C] K, IsCompactOperator C ->) Tj ET
-BT /F3 4.9 Tf 394.00 98.00 Td (      FiniteDimensional C \(LinearMap.ker \(A + C\).toLinearMap\)) Tj ET
-BT /F3 4.9 Tf 394.00 91.00 Td (    List.TFAE [a, b, c, d, e, f, g, h] := by) Tj ET
-BT /F3 4.9 Tf 394.00 84.00 Td (  sorry) Tj ET
-20.00 75.00 m 20.00 37.00 l S
-310.00 75.00 m 310.00 37.00 l S
-390.00 75.00 m 390.00 37.00 l S
-772.00 75.00 m 772.00 37.00 l S
-20.00 75.00 m 772.00 75.00 l S
+BT /F3 4.9 Tf 394.00 448.00 Td (  nonmeasurable : forall B : Set C, not MeasurableSet B -> toFun B = 0) Tj ET
+BT /F3 4.9 Tf 394.00 441.00 Td (  orthogonal : forall B C : Set C, MeasurableSet B -> MeasurableSet C ->) Tj ET
+BT /F3 4.9 Tf 394.00 434.00 Td (  Disjoint B C ->) Tj ET
+BT /F3 4.9 Tf 394.00 427.00 Td (    \(toFun B\).comp \(toFun C\) = 0) Tj ET
+BT /F3 4.9 Tf 394.00 420.00 Td (  countablyAdditive : forall \(B : N -> Set C\), \(forall n, MeasurableSet \(B) Tj ET
+BT /F3 4.9 Tf 394.00 413.00 Td (  n\)\) ->) Tj ET
+BT /F3 4.9 Tf 394.00 406.00 Td (    Pairwise \(fun m n => Disjoint \(B m\) \(B n\)\) -> forall x : H,) Tj ET
+BT /F3 4.9 Tf 394.00 399.00 Td (      Tendsto \(fun N => sum n in Finset.range N, toFun \(B n\) x\) atTop) Tj ET
+BT /F3 4.9 Tf 394.00 392.00 Td (        \(nhds \(toFun \(union n, B n\) x\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 385.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 378.00 Td (def IsLeftSemiFredholm {H K : Type*} [NormedAddCommGroup H]) Tj ET
+BT /F3 4.9 Tf 394.00 371.00 Td ([NormedAddCommGroup K]) Tj ET
+BT /F3 4.9 Tf 394.00 364.00 Td (    [InnerProductSpace C H] [InnerProductSpace C K] [CompleteSpace H]) Tj ET
+BT /F3 4.9 Tf 394.00 357.00 Td (    [CompleteSpace K] \(A : H ->L[C] K\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 350.00 Td (  exists B : K ->L[C] H, exists C : H ->L[C] H,) Tj ET
+BT /F3 4.9 Tf 394.00 343.00 Td (    IsCompactOperator C /\\ B.comp A = ContinuousLinearMap.id C H + C) Tj ET
+BT /F3 4.9 Tf 394.00 336.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 329.00 Td (theorem conway_XI_2_3_left_semi_fredholm_characterizations) Tj ET
+BT /F3 4.9 Tf 394.00 322.00 Td (    {H K : Type*} [NormedAddCommGroup H] [NormedAddCommGroup K]) Tj ET
+BT /F3 4.9 Tf 394.00 315.00 Td (    [InnerProductSpace C H] [InnerProductSpace C K] [CompleteSpace H]) Tj ET
+BT /F3 4.9 Tf 394.00 308.00 Td (    [CompleteSpace K] \(A : H ->L[C] K\) :) Tj ET
+BT /F3 4.9 Tf 394.00 301.00 Td (    let a := IsLeftSemiFredholm A) Tj ET
+BT /F3 4.9 Tf 394.00 294.00 Td (    let b := IsClosed \(range A\) /\\ FiniteDimensional C \(LinearMap.ker) Tj ET
+BT /F3 4.9 Tf 394.00 287.00 Td (    A.toLinearMap\)) Tj ET
+BT /F3 4.9 Tf 394.00 280.00 Td (    let c := exists B : K ->L[C] H, exists F : H ->L[C] H,) Tj ET
+BT /F3 4.9 Tf 394.00 273.00 Td (      FiniteDimensional C \(LinearMap.range F.toLinearMap\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 266.00 Td (        B.comp A = ContinuousLinearMap.id C H + F) Tj ET
+BT /F3 4.9 Tf 394.00 259.00 Td (    let d := not exists u : N -> H, \(forall n, ||u n|| = 1\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 252.00 Td (      Tendsto \(fun n => toWeakSpace C H \(u n\)\) atTop \(nhds 0\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 245.00 Td (        Tendsto \(fun n => ||A \(u n\)||\) atTop \(nhds 0\)) Tj ET
+BT /F3 4.9 Tf 394.00 238.00 Td (    let e := not exists u : N -> H,) Tj ET
+BT /F3 4.9 Tf 394.00 231.00 Td (      Orthonormal C u /\\ Tendsto \(fun n => ||A \(u n\)||\) atTop \(nhds 0\)) Tj ET
+BT /F3 4.9 Tf 394.00 224.00 Td (    let f := exists delta : R, 0 < delta /\\ forall M : Submodule C H,) Tj ET
+BT /F3 4.9 Tf 394.00 217.00 Td (      \(forall x : M, ||A x|| <= delta * ||\(x : H\)||\) -> FiniteDimensional C) Tj ET
+BT /F3 4.9 Tf 394.00 210.00 Td (      M) Tj ET
+BT /F3 4.9 Tf 394.00 203.00 Td (    let g := exists modulus : H ->L[C] H,) Tj ET
+BT /F3 4.9 Tf 394.00 196.00 Td (      modulus.comp modulus = A.adjoint.comp A /\\ modulus.adjoint = modulus) Tj ET
+BT /F3 4.9 Tf 394.00 189.00 Td (      /\\) Tj ET
+BT /F3 4.9 Tf 394.00 182.00 Td (        \(forall x : H, 0 <= \(inner C \(modulus x\) x\).re\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 175.00 Td (          exists E : ProjectionValuedMeasure H,) Tj ET
+BT /F3 4.9 Tf 394.00 168.00 Td (            E.toFun \(spectrum C modulus\) = ContinuousLinearMap.id C H /\\) Tj ET
+BT /F3 4.9 Tf 394.00 161.00 Td (            \(exists scalarMeasure : H -> H -> ComplexMeasure C,) Tj ET
+BT /F3 4.9 Tf 394.00 154.00 Td (              \(forall x y : H, forall B : Set C, MeasurableSet B ->) Tj ET
+BT /F3 4.9 Tf 394.00 147.00 Td (                scalarMeasure x y B = inner C \(E.toFun B x\) y\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 140.00 Td (              forall x y : H, inner C \(modulus x\) y =) Tj ET
+BT /F3 4.9 Tf 394.00 133.00 Td (                integralv z, z d[ContinuousLinearMap.mul R C; scalarMeasure) Tj ET
+BT /F3 4.9 Tf 394.00 126.00 Td (        x y]\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 119.00 Td (            exists delta : R, 0 < delta /\\ FiniteDimensional C) Tj ET
+BT /F3 4.9 Tf 394.00 112.00 Td (              \(LinearMap.range \(E.toFun \(Metric.closedBall \(0 : C\)) Tj ET
+BT /F3 4.9 Tf 394.00 105.00 Td (        delta\)\).toLinearMap\)) Tj ET
+BT /F3 4.9 Tf 394.00 98.00 Td (    let h := forall C : H ->L[C] K, IsCompactOperator C ->) Tj ET
+BT /F3 4.9 Tf 394.00 91.00 Td (      FiniteDimensional C \(LinearMap.ker \(A + C\).toLinearMap\)) Tj ET
+BT /F3 4.9 Tf 394.00 84.00 Td (    List.TFAE [a, b, c, d, e, f, g, h] := by) Tj ET
+BT /F3 4.9 Tf 394.00 77.00 Td (  sorry) Tj ET
+20.00 68.00 m 20.00 37.00 l S
+310.00 68.00 m 310.00 37.00 l S
+390.00 68.00 m 390.00 37.00 l S
+772.00 68.00 m 772.00 37.00 l S
+20.00 68.00 m 772.00 68.00 l S
 20.00 37.00 m 772.00 37.00 l S
-BT /F1 5.8 Tf 24.00 67.00 Td (II.7.6. Spectral Theorem for Compact Normal Operators. If T is) Tj ET
-BT /F1 5.8 Tf 24.00 60.00 Td (a compact normal operator on the complex Hilbert space H, then) Tj ET
-BT /F1 5.8 Tf 24.00 53.00 Td (T has only a countable number of distinct eigenvalues. If) Tj ET
-BT /F1 5.8 Tf 24.00 46.00 Td ({lambda1, lambda2, . . .} are the distinct nonzero eigenvalues) Tj ET
-BT /F1 5.8 Tf 314.00 67.00 Td (Operator) Tj ET
-BT /F1 5.8 Tf 314.00 60.00 Td (theory) Tj ET
-BT /F3 4.9 Tf 394.00 67.00 Td (def IsOrthogonalProjection {H : Type*} [NormedAddCommGroup H]) Tj ET
-BT /F3 4.9 Tf 394.00 60.00 Td (    [InnerProductSpace C H] [CompleteSpace H] \(P : H ->L[C] H\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 53.00 Td (  P.comp P = P /\\ P.adjoint = P) Tj ET
-BT /F3 4.9 Tf 394.00 46.00 Td () Tj ET
+BT /F1 5.8 Tf 24.00 60.00 Td (II.7.6. Spectral Theorem for Compact Normal Operators. If T is) Tj ET
+BT /F1 5.8 Tf 24.00 53.00 Td (a compact normal operator on the complex Hilbert space H, then) Tj ET
+BT /F1 5.8 Tf 24.00 46.00 Td (T has only a countable number of distinct eigenvalues. If) Tj ET
+BT /F1 5.8 Tf 314.00 60.00 Td (Operator) Tj ET
+BT /F1 5.8 Tf 314.00 53.00 Td (theory) Tj ET
+BT /F3 4.9 Tf 394.00 60.00 Td (abbrev IsOrthogonalProjection {H : Type*} [NormedAddCommGroup H]) Tj ET
+BT /F3 4.9 Tf 394.00 53.00 Td (    [InnerProductSpace C H] [CompleteSpace H] \(P : H ->L[C] H\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 46.00 Td (  IsStarProjection P) Tj ET
 endstream
 endobj
 7 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 11 0 R /F2 12 0 R /F3 13 0 R >> >> /Contents 8 0 R >>
 endobj
 8 0 obj
-<< /Length 8296 >>
+<< /Length 8365 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Conway Functional Analysis Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 3) Tj ET
@@ -301,117 +300,118 @@ BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
 BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
 BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
 20.00 558.00 m 772.00 558.00 l S
-20.00 550.00 m 20.00 414.00 l S
-310.00 550.00 m 310.00 414.00 l S
-390.00 550.00 m 390.00 414.00 l S
-772.00 550.00 m 772.00 414.00 l S
+20.00 550.00 m 20.00 407.00 l S
+310.00 550.00 m 310.00 407.00 l S
+390.00 550.00 m 390.00 407.00 l S
+772.00 550.00 m 772.00 407.00 l S
 20.00 550.00 m 772.00 550.00 l S
-20.00 414.00 m 772.00 414.00 l S
-BT /F1 5.8 Tf 24.00 542.00 Td (of T, and Pn is the projection of H onto ker\(T - lambdan\),) Tj ET
-BT /F1 5.8 Tf 24.00 535.00 Td (then PnPm = PmPn = 0 if n != m and T = sumn=1inf lambdanPn,) Tj ET
-BT /F1 5.8 Tf 24.00 528.00 Td (where this series converges to T in the metric defined by the) Tj ET
-BT /F1 5.8 Tf 24.00 521.00 Td (norm on B\(H\).) Tj ET
-BT /F3 4.9 Tf 394.00 542.00 Td (theorem conway_II_7_6_compact_normal_spectral_theorem) Tj ET
-BT /F3 4.9 Tf 394.00 535.00 Td (    {H : Type*} [NormedAddCommGroup H] [InnerProductSpace C H]) Tj ET
-BT /F3 4.9 Tf 394.00 528.00 Td (    [CompleteSpace H]) Tj ET
-BT /F3 4.9 Tf 394.00 521.00 Td (    \(T : H ->L[C] H\) \(hnormal : T.adjoint.comp T = T.comp T.adjoint\)) Tj ET
-BT /F3 4.9 Tf 394.00 514.00 Td (    \(hcompact : IsCompactOperator T\) :) Tj ET
-BT /F3 4.9 Tf 394.00 507.00 Td (    exists \(iota : Type\) \(_ : Countable iota\) \(eigenvalue : iota -> C\)) Tj ET
-BT /F3 4.9 Tf 394.00 500.00 Td (      \(projection : iota -> H ->L[C] H\),) Tj ET
-BT /F3 4.9 Tf 394.00 493.00 Td (      \(forall i, eigenvalue i != 0\) /\\ Function.Injective eigenvalue /\\) Tj ET
-BT /F3 4.9 Tf 394.00 486.00 Td (      \(forall i, projection i != 0\) /\\ \(forall i, IsOrthogonalProjection) Tj ET
-BT /F3 4.9 Tf 394.00 479.00 Td (      \(projection i\)\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 472.00 Td (      Pairwise \(fun i j => \(projection i\).comp \(projection j\) = 0\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 465.00 Td (      \(forall i, LinearMap.range \(projection i\).toLinearMap =) Tj ET
-BT /F3 4.9 Tf 394.00 458.00 Td (        LinearMap.ker \(T - eigenvalue i  *  ContinuousLinearMap.id C) Tj ET
-BT /F3 4.9 Tf 394.00 451.00 Td (        H\).toLinearMap\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 444.00 Td (      \(forall eps : R, 0 < eps -> {i : iota | eps <= ||eigenvalue) Tj ET
-BT /F3 4.9 Tf 394.00 437.00 Td (      i||}.Finite\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 430.00 Td (      HasSum \(fun i => eigenvalue i  *  projection i\) T := by) Tj ET
-BT /F3 4.9 Tf 394.00 423.00 Td (  sorry) Tj ET
-20.00 414.00 m 20.00 124.00 l S
-310.00 414.00 m 310.00 124.00 l S
-390.00 414.00 m 390.00 124.00 l S
-772.00 414.00 m 772.00 124.00 l S
-20.00 414.00 m 772.00 414.00 l S
-20.00 124.00 m 772.00 124.00 l S
-BT /F1 5.8 Tf 24.00 406.00 Td (IX.2.2. The Spectral Theorem. If N is a normal operator, there) Tj ET
-BT /F1 5.8 Tf 24.00 399.00 Td (is a unique spectral measure E on the Borel subsets of) Tj ET
-BT /F1 5.8 Tf 24.00 392.00 Td (sigma\(N\) such that: \(a\) N = integral z dE\(z\); \(b\) if G is a) Tj ET
-BT /F1 5.8 Tf 24.00 385.00 Td (nonempty relatively open subset of sigma\(N\), E\(G\) != 0; \(c\) if) Tj ET
-BT /F1 5.8 Tf 24.00 378.00 Td (A in B\(H\), then AN = NA and AN* = N*A if and only if AE\(Delta\)) Tj ET
-BT /F1 5.8 Tf 24.00 371.00 Td (= E\(Delta\)A for every Delta.) Tj ET
-BT /F1 5.8 Tf 314.00 406.00 Td (Operator) Tj ET
-BT /F1 5.8 Tf 314.00 399.00 Td (theory) Tj ET
-BT /F3 4.9 Tf 394.00 406.00 Td (def IsOrthogonalProjection {H : Type*} [NormedAddCommGroup H]) Tj ET
-BT /F3 4.9 Tf 394.00 399.00 Td (    [InnerProductSpace C H] [CompleteSpace H] \(P : H ->L[C] H\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 392.00 Td (  P.comp P = P /\\ P.adjoint = P) Tj ET
-BT /F3 4.9 Tf 394.00 385.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 378.00 Td (structure ProjectionValuedMeasure \(H : Type*\) [NormedAddCommGroup H]) Tj ET
-BT /F3 4.9 Tf 394.00 371.00 Td (    [InnerProductSpace C H] [CompleteSpace H] where) Tj ET
-BT /F3 4.9 Tf 394.00 364.00 Td (  toFun : Set C -> H ->L[C] H) Tj ET
-BT /F3 4.9 Tf 394.00 357.00 Td (  empty : toFun empty = 0) Tj ET
-BT /F3 4.9 Tf 394.00 350.00 Td (  univ : toFun univ = ContinuousLinearMap.id C H) Tj ET
-BT /F3 4.9 Tf 394.00 343.00 Td (  projection : forall B : Set C, MeasurableSet B -> IsOrthogonalProjection) Tj ET
-BT /F3 4.9 Tf 394.00 336.00 Td (  \(toFun B\)) Tj ET
-BT /F3 4.9 Tf 394.00 329.00 Td (  orthogonal : forall B C : Set C, MeasurableSet B -> MeasurableSet C ->) Tj ET
-BT /F3 4.9 Tf 394.00 322.00 Td (  Disjoint B C ->) Tj ET
-BT /F3 4.9 Tf 394.00 315.00 Td (    \(toFun B\).comp \(toFun C\) = 0) Tj ET
-BT /F3 4.9 Tf 394.00 308.00 Td (  countablyAdditive : forall \(B : N -> Set C\), \(forall n, MeasurableSet \(B) Tj ET
-BT /F3 4.9 Tf 394.00 301.00 Td (  n\)\) ->) Tj ET
-BT /F3 4.9 Tf 394.00 294.00 Td (    Pairwise \(fun m n => Disjoint \(B m\) \(B n\)\) -> forall x : H,) Tj ET
-BT /F3 4.9 Tf 394.00 287.00 Td (      Tendsto \(fun N => sum n in Finset.range N, toFun \(B n\) x\) atTop) Tj ET
-BT /F3 4.9 Tf 394.00 280.00 Td (        \(nhds \(toFun \(union n, B n\) x\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 273.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 266.00 Td (theorem conway_IX_2_2_bounded_normal_spectral_theorem) Tj ET
-BT /F3 4.9 Tf 394.00 259.00 Td (    {H : Type*} [NormedAddCommGroup H] [InnerProductSpace C H]) Tj ET
-BT /F3 4.9 Tf 394.00 252.00 Td (    [CompleteSpace H]) Tj ET
-BT /F3 4.9 Tf 394.00 245.00 Td (    \(T : H ->L[C] H\) \(hnormal : T.adjoint.comp T = T.comp T.adjoint\) :) Tj ET
-BT /F3 4.9 Tf 394.00 238.00 Td (    exists! E : ProjectionValuedMeasure H,) Tj ET
-BT /F3 4.9 Tf 394.00 231.00 Td (      E.toFun \(spectrum C T\) = ContinuousLinearMap.id C H /\\) Tj ET
-BT /F3 4.9 Tf 394.00 224.00 Td (      \(exists scalarMeasure : H -> H -> ComplexMeasure C,) Tj ET
-BT /F3 4.9 Tf 394.00 217.00 Td (        \(forall x y : H, forall B : Set C, MeasurableSet B ->) Tj ET
-BT /F3 4.9 Tf 394.00 210.00 Td (          scalarMeasure x y B = inner C \(E.toFun B x\) y\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 203.00 Td (        forall x y : H, inner C \(T x\) y =) Tj ET
-BT /F3 4.9 Tf 394.00 196.00 Td (          integralv z, z d[ContinuousLinearMap.mul R C; scalarMeasure x y]\)) Tj ET
-BT /F3 4.9 Tf 394.00 189.00 Td (        /\\) Tj ET
-BT /F3 4.9 Tf 394.00 182.00 Td (      \(forall G : Set C, G.Nonempty ->) Tj ET
-BT /F3 4.9 Tf 394.00 175.00 Td (        \(exists O : Set C, IsOpen O /\\ G = O inter spectrum C T\) -> E.toFun) Tj ET
-BT /F3 4.9 Tf 394.00 168.00 Td (        G != 0\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 161.00 Td (      forall A : H ->L[C] H,) Tj ET
-BT /F3 4.9 Tf 394.00 154.00 Td (        \(A.comp T = T.comp A /\\ A.comp T.adjoint = T.adjoint.comp A\) <->) Tj ET
-BT /F3 4.9 Tf 394.00 147.00 Td (          forall Delta : Set C, MeasurableSet Delta -> A.comp \(E.toFun) Tj ET
-BT /F3 4.9 Tf 394.00 140.00 Td (        Delta\) = \(E.toFun Delta\).comp A := by) Tj ET
-BT /F3 4.9 Tf 394.00 133.00 Td (  sorry) Tj ET
-20.00 124.00 m 20.00 37.00 l S
-310.00 124.00 m 310.00 37.00 l S
-390.00 124.00 m 390.00 37.00 l S
-772.00 124.00 m 772.00 37.00 l S
-20.00 124.00 m 772.00 124.00 l S
+20.00 407.00 m 772.00 407.00 l S
+BT /F1 5.8 Tf 24.00 542.00 Td ({lambda1, lambda2, . . .} are the distinct nonzero eigenvalues) Tj ET
+BT /F1 5.8 Tf 24.00 535.00 Td (of T, and Pn is the projection of H onto ker\(T - lambdan\),) Tj ET
+BT /F1 5.8 Tf 24.00 528.00 Td (then PnPm = PmPn = 0 if n != m and T = sumn=1inf lambdanPn,) Tj ET
+BT /F1 5.8 Tf 24.00 521.00 Td (where this series converges to T in the metric defined by the) Tj ET
+BT /F1 5.8 Tf 24.00 514.00 Td (norm on B\(H\).) Tj ET
+BT /F3 4.9 Tf 394.00 542.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (theorem conway_II_7_6_compact_normal_spectral_theorem) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (    {H : Type*} [NormedAddCommGroup H] [InnerProductSpace C H]) Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (    [CompleteSpace H]) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (    \(T : H ->L[C] H\) \(hnormal : T.adjoint.comp T = T.comp T.adjoint\)) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (    \(hcompact : IsCompactOperator T\) :) Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (    exists \(iota : Type\) \(_ : Countable iota\) \(eigenvalue : iota -> C\)) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td (      \(projection : iota -> H ->L[C] H\),) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td (      \(forall i, eigenvalue i != 0\) /\\ Function.Injective eigenvalue /\\) Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (      \(forall i, projection i != 0\) /\\ \(forall i, IsOrthogonalProjection) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td (      \(projection i\)\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (      Pairwise \(fun i j => \(projection i\).comp \(projection j\) = 0\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td (      \(forall i, LinearMap.range \(projection i\).toLinearMap =) Tj ET
+BT /F3 4.9 Tf 394.00 451.00 Td (        LinearMap.ker \(T - eigenvalue i  *  ContinuousLinearMap.id C) Tj ET
+BT /F3 4.9 Tf 394.00 444.00 Td (        H\).toLinearMap\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 437.00 Td (      \(forall eps : R, 0 < eps -> {i : iota | eps <= ||eigenvalue) Tj ET
+BT /F3 4.9 Tf 394.00 430.00 Td (      i||}.Finite\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 423.00 Td (      HasSum \(fun i => eigenvalue i  *  projection i\) T := by) Tj ET
+BT /F3 4.9 Tf 394.00 416.00 Td (  sorry) Tj ET
+20.00 407.00 m 20.00 110.00 l S
+310.00 407.00 m 310.00 110.00 l S
+390.00 407.00 m 390.00 110.00 l S
+772.00 407.00 m 772.00 110.00 l S
+20.00 407.00 m 772.00 407.00 l S
+20.00 110.00 m 772.00 110.00 l S
+BT /F1 5.8 Tf 24.00 399.00 Td (IX.2.2. The Spectral Theorem. If N is a normal operator, there) Tj ET
+BT /F1 5.8 Tf 24.00 392.00 Td (is a unique spectral measure E on the Borel subsets of) Tj ET
+BT /F1 5.8 Tf 24.00 385.00 Td (sigma\(N\) such that: \(a\) N = integral z dE\(z\); \(b\) if G is a) Tj ET
+BT /F1 5.8 Tf 24.00 378.00 Td (nonempty relatively open subset of sigma\(N\), E\(G\) != 0; \(c\) if) Tj ET
+BT /F1 5.8 Tf 24.00 371.00 Td (A in B\(H\), then AN = NA and AN* = N*A if and only if AE\(Delta\)) Tj ET
+BT /F1 5.8 Tf 24.00 364.00 Td (= E\(Delta\)A for every Delta.) Tj ET
+BT /F1 5.8 Tf 314.00 399.00 Td (Operator) Tj ET
+BT /F1 5.8 Tf 314.00 392.00 Td (theory) Tj ET
+BT /F3 4.9 Tf 394.00 399.00 Td (abbrev IsOrthogonalProjection {H : Type*} [NormedAddCommGroup H]) Tj ET
+BT /F3 4.9 Tf 394.00 392.00 Td (    [InnerProductSpace C H] [CompleteSpace H] \(P : H ->L[C] H\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 385.00 Td (  IsStarProjection P) Tj ET
+BT /F3 4.9 Tf 394.00 378.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 371.00 Td (structure ProjectionValuedMeasure \(H : Type*\) [NormedAddCommGroup H]) Tj ET
+BT /F3 4.9 Tf 394.00 364.00 Td (    [InnerProductSpace C H] [CompleteSpace H] where) Tj ET
+BT /F3 4.9 Tf 394.00 357.00 Td (  toFun : Set C -> H ->L[C] H) Tj ET
+BT /F3 4.9 Tf 394.00 350.00 Td (  empty : toFun empty = 0) Tj ET
+BT /F3 4.9 Tf 394.00 343.00 Td (  univ : toFun univ = ContinuousLinearMap.id C H) Tj ET
+BT /F3 4.9 Tf 394.00 336.00 Td (  projection : forall B : Set C, MeasurableSet B -> IsOrthogonalProjection) Tj ET
+BT /F3 4.9 Tf 394.00 329.00 Td (  \(toFun B\)) Tj ET
+BT /F3 4.9 Tf 394.00 322.00 Td (  nonmeasurable : forall B : Set C, not MeasurableSet B -> toFun B = 0) Tj ET
+BT /F3 4.9 Tf 394.00 315.00 Td (  orthogonal : forall B C : Set C, MeasurableSet B -> MeasurableSet C ->) Tj ET
+BT /F3 4.9 Tf 394.00 308.00 Td (  Disjoint B C ->) Tj ET
+BT /F3 4.9 Tf 394.00 301.00 Td (    \(toFun B\).comp \(toFun C\) = 0) Tj ET
+BT /F3 4.9 Tf 394.00 294.00 Td (  countablyAdditive : forall \(B : N -> Set C\), \(forall n, MeasurableSet \(B) Tj ET
+BT /F3 4.9 Tf 394.00 287.00 Td (  n\)\) ->) Tj ET
+BT /F3 4.9 Tf 394.00 280.00 Td (    Pairwise \(fun m n => Disjoint \(B m\) \(B n\)\) -> forall x : H,) Tj ET
+BT /F3 4.9 Tf 394.00 273.00 Td (      Tendsto \(fun N => sum n in Finset.range N, toFun \(B n\) x\) atTop) Tj ET
+BT /F3 4.9 Tf 394.00 266.00 Td (        \(nhds \(toFun \(union n, B n\) x\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 259.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 252.00 Td (theorem conway_IX_2_2_bounded_normal_spectral_theorem) Tj ET
+BT /F3 4.9 Tf 394.00 245.00 Td (    {H : Type*} [NormedAddCommGroup H] [InnerProductSpace C H]) Tj ET
+BT /F3 4.9 Tf 394.00 238.00 Td (    [CompleteSpace H]) Tj ET
+BT /F3 4.9 Tf 394.00 231.00 Td (    \(T : H ->L[C] H\) \(hnormal : T.adjoint.comp T = T.comp T.adjoint\) :) Tj ET
+BT /F3 4.9 Tf 394.00 224.00 Td (    exists! E : ProjectionValuedMeasure H,) Tj ET
+BT /F3 4.9 Tf 394.00 217.00 Td (      E.toFun \(spectrum C T\) = ContinuousLinearMap.id C H /\\) Tj ET
+BT /F3 4.9 Tf 394.00 210.00 Td (      \(exists scalarMeasure : H -> H -> ComplexMeasure C,) Tj ET
+BT /F3 4.9 Tf 394.00 203.00 Td (        \(forall x y : H, forall B : Set C, MeasurableSet B ->) Tj ET
+BT /F3 4.9 Tf 394.00 196.00 Td (          scalarMeasure x y B = inner C \(E.toFun B x\) y\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 189.00 Td (        forall x y : H, inner C \(T x\) y =) Tj ET
+BT /F3 4.9 Tf 394.00 182.00 Td (          integralv z, z d[ContinuousLinearMap.mul R C; scalarMeasure x y]\)) Tj ET
+BT /F3 4.9 Tf 394.00 175.00 Td (        /\\) Tj ET
+BT /F3 4.9 Tf 394.00 168.00 Td (      \(forall G : Set C, G.Nonempty ->) Tj ET
+BT /F3 4.9 Tf 394.00 161.00 Td (        \(exists O : Set C, IsOpen O /\\ G = O inter spectrum C T\) -> E.toFun) Tj ET
+BT /F3 4.9 Tf 394.00 154.00 Td (        G != 0\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 147.00 Td (      forall A : H ->L[C] H,) Tj ET
+BT /F3 4.9 Tf 394.00 140.00 Td (        \(A.comp T = T.comp A /\\ A.comp T.adjoint = T.adjoint.comp A\) <->) Tj ET
+BT /F3 4.9 Tf 394.00 133.00 Td (          forall Delta : Set C, MeasurableSet Delta -> A.comp \(E.toFun) Tj ET
+BT /F3 4.9 Tf 394.00 126.00 Td (        Delta\) = \(E.toFun Delta\).comp A := by) Tj ET
+BT /F3 4.9 Tf 394.00 119.00 Td (  sorry) Tj ET
+20.00 110.00 m 20.00 37.00 l S
+310.00 110.00 m 310.00 37.00 l S
+390.00 110.00 m 390.00 37.00 l S
+772.00 110.00 m 772.00 37.00 l S
+20.00 110.00 m 772.00 110.00 l S
 20.00 37.00 m 772.00 37.00 l S
-BT /F1 5.8 Tf 24.00 116.00 Td (X.5.6. Stone's Theorem. If U is a strongly continuous one) Tj ET
-BT /F1 5.8 Tf 24.00 109.00 Td (parameter unitary group, then there is a self-adjoint operator) Tj ET
-BT /F1 5.8 Tf 24.00 102.00 Td (A such that U\(t\) = exp\(itA\).) Tj ET
-BT /F1 5.8 Tf 314.00 116.00 Td (Operator) Tj ET
-BT /F1 5.8 Tf 314.00 109.00 Td (theory) Tj ET
-BT /F3 4.9 Tf 394.00 116.00 Td (structure DenselyDefinedOperator \(H : Type*\) [NormedAddCommGroup H]) Tj ET
-BT /F3 4.9 Tf 394.00 109.00 Td (    [InnerProductSpace C H] where) Tj ET
-BT /F3 4.9 Tf 394.00 102.00 Td (  domain : Submodule C H) Tj ET
-BT /F3 4.9 Tf 394.00 95.00 Td (  op : domain ->l[C] H) Tj ET
-BT /F3 4.9 Tf 394.00 88.00 Td (  dense_domain : Dense \(domain : Set H\)) Tj ET
-BT /F3 4.9 Tf 394.00 81.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 74.00 Td (def IsSelfAdjointUnbounded {H : Type*} [NormedAddCommGroup H]) Tj ET
-BT /F3 4.9 Tf 394.00 67.00 Td (    [InnerProductSpace C H] \(A : DenselyDefinedOperator H\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 60.00 Td (  \(forall y : H, y in A.domain <->) Tj ET
-BT /F3 4.9 Tf 394.00 53.00 Td (    exists z : H, forall x : A.domain, inner C \(A.op x\) y = inner C \(x : H\)) Tj ET
-BT /F3 4.9 Tf 394.00 46.00 Td (    z\) /\\) Tj ET
+BT /F1 5.8 Tf 24.00 102.00 Td (X.5.6. Stone's Theorem. If U is a strongly continuous one) Tj ET
+BT /F1 5.8 Tf 24.00 95.00 Td (parameter unitary group, then there is a self-adjoint operator) Tj ET
+BT /F1 5.8 Tf 24.00 88.00 Td (A such that U\(t\) = exp\(itA\).) Tj ET
+BT /F1 5.8 Tf 314.00 102.00 Td (Operator) Tj ET
+BT /F1 5.8 Tf 314.00 95.00 Td (theory) Tj ET
+BT /F3 4.9 Tf 394.00 102.00 Td (structure DenselyDefinedOperator \(H : Type*\) [NormedAddCommGroup H]) Tj ET
+BT /F3 4.9 Tf 394.00 95.00 Td (    [InnerProductSpace C H] where) Tj ET
+BT /F3 4.9 Tf 394.00 88.00 Td (  domain : Submodule C H) Tj ET
+BT /F3 4.9 Tf 394.00 81.00 Td (  op : domain ->l[C] H) Tj ET
+BT /F3 4.9 Tf 394.00 74.00 Td (  dense_domain : Dense \(domain : Set H\)) Tj ET
+BT /F3 4.9 Tf 394.00 67.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 60.00 Td (def IsSelfAdjointUnbounded {H : Type*} [NormedAddCommGroup H]) Tj ET
+BT /F3 4.9 Tf 394.00 53.00 Td (    [InnerProductSpace C H] \(A : DenselyDefinedOperator H\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 46.00 Td (  \(forall y : H, y in A.domain <->) Tj ET
 endstream
 endobj
 9 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 11 0 R /F2 12 0 R /F3 13 0 R >> >> /Contents 10 0 R >>
 endobj
 10 0 obj
-<< /Length 2566 >>
+<< /Length 2736 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Conway Functional Analysis Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 4) Tj ET
@@ -419,37 +419,39 @@ BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
 BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
 BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
 20.00 558.00 m 772.00 558.00 l S
-20.00 550.00 m 20.00 365.00 l S
-310.00 550.00 m 310.00 365.00 l S
-390.00 550.00 m 390.00 365.00 l S
-772.00 550.00 m 772.00 365.00 l S
+20.00 550.00 m 20.00 351.00 l S
+310.00 550.00 m 310.00 351.00 l S
+390.00 550.00 m 390.00 351.00 l S
+772.00 550.00 m 772.00 351.00 l S
 20.00 550.00 m 772.00 550.00 l S
-20.00 365.00 m 772.00 365.00 l S
-BT /F3 4.9 Tf 394.00 542.00 Td (  forall y : A.domain, forall z : H,) Tj ET
-BT /F3 4.9 Tf 394.00 535.00 Td (    \(forall x : A.domain, inner C \(A.op x\) y = inner C \(x : H\) z\) -> z =) Tj ET
-BT /F3 4.9 Tf 394.00 528.00 Td (    A.op y) Tj ET
-BT /F3 4.9 Tf 394.00 521.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 514.00 Td (def IsUnitaryOperator {H : Type*} [NormedAddCommGroup H]) Tj ET
-BT /F3 4.9 Tf 394.00 507.00 Td (    [InnerProductSpace C H] [CompleteSpace H] \(U : H ->L[C] H\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 500.00 Td (  U.adjoint.comp U = ContinuousLinearMap.id C H /\\) Tj ET
-BT /F3 4.9 Tf 394.00 493.00 Td (    U.comp U.adjoint = ContinuousLinearMap.id C H) Tj ET
-BT /F3 4.9 Tf 394.00 486.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 479.00 Td (def StronglyContinuousUnitaryGroup {H : Type*} [NormedAddCommGroup H]) Tj ET
-BT /F3 4.9 Tf 394.00 472.00 Td (    [InnerProductSpace C H] [CompleteSpace H] \(U : R -> H ->L[C] H\) : Prop) Tj ET
-BT /F3 4.9 Tf 394.00 465.00 Td (    :=) Tj ET
-BT /F3 4.9 Tf 394.00 458.00 Td (  U 0 = ContinuousLinearMap.id C H /\\) Tj ET
-BT /F3 4.9 Tf 394.00 451.00 Td (    \(forall s t : R, U \(s + t\) = \(U s\).comp \(U t\)\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 444.00 Td (    \(forall t : R, IsUnitaryOperator \(U t\)\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 437.00 Td (    forall x : H, Continuous fun t => U t x) Tj ET
-BT /F3 4.9 Tf 394.00 430.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 423.00 Td (theorem conway_X_5_6_stone_theorem) Tj ET
-BT /F3 4.9 Tf 394.00 416.00 Td (    {H : Type*} [NormedAddCommGroup H] [InnerProductSpace C H]) Tj ET
-BT /F3 4.9 Tf 394.00 409.00 Td (    [CompleteSpace H]) Tj ET
-BT /F3 4.9 Tf 394.00 402.00 Td (    \(U : R -> H ->L[C] H\) \(hU : StronglyContinuousUnitaryGroup U\) :) Tj ET
-BT /F3 4.9 Tf 394.00 395.00 Td (    exists! A : DenselyDefinedOperator H, IsSelfAdjointUnbounded A /\\) Tj ET
-BT /F3 4.9 Tf 394.00 388.00 Td (      forall x : A.domain, HasDerivAt \(fun t : R => U t x\) \(Complex.I  * ) Tj ET
-BT /F3 4.9 Tf 394.00 381.00 Td (      A.op x\) 0 := by) Tj ET
-BT /F3 4.9 Tf 394.00 374.00 Td (  sorry) Tj ET
+20.00 351.00 m 772.00 351.00 l S
+BT /F3 4.9 Tf 394.00 542.00 Td (    exists z : H, forall x : A.domain, inner C \(A.op x\) y = inner C \(x : H\)) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (    z\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (  forall y : A.domain, forall z : H,) Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (    \(forall x : A.domain, inner C \(A.op x\) y = inner C \(x : H\) z\) -> z =) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (    A.op y) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (def IsUnitaryOperator {H : Type*} [NormedAddCommGroup H]) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td (    [InnerProductSpace C H] [CompleteSpace H] \(U : H ->L[C] H\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td (  U.adjoint.comp U = ContinuousLinearMap.id C H /\\) Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (    U.comp U.adjoint = ContinuousLinearMap.id C H) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (def StronglyContinuousUnitaryGroup {H : Type*} [NormedAddCommGroup H]) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td (    [InnerProductSpace C H] [CompleteSpace H] \(U : R -> H ->L[C] H\) : Prop) Tj ET
+BT /F3 4.9 Tf 394.00 451.00 Td (    :=) Tj ET
+BT /F3 4.9 Tf 394.00 444.00 Td (  U 0 = ContinuousLinearMap.id C H /\\) Tj ET
+BT /F3 4.9 Tf 394.00 437.00 Td (    \(forall s t : R, U \(s + t\) = \(U s\).comp \(U t\)\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 430.00 Td (    \(forall t : R, IsUnitaryOperator \(U t\)\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 423.00 Td (    forall x : H, Continuous fun t => U t x) Tj ET
+BT /F3 4.9 Tf 394.00 416.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 409.00 Td (theorem conway_X_5_6_stone_theorem) Tj ET
+BT /F3 4.9 Tf 394.00 402.00 Td (    {H : Type*} [NormedAddCommGroup H] [InnerProductSpace C H]) Tj ET
+BT /F3 4.9 Tf 394.00 395.00 Td (    [CompleteSpace H]) Tj ET
+BT /F3 4.9 Tf 394.00 388.00 Td (    \(U : R -> H ->L[C] H\) \(hU : StronglyContinuousUnitaryGroup U\) :) Tj ET
+BT /F3 4.9 Tf 394.00 381.00 Td (    exists! A : DenselyDefinedOperator H, IsSelfAdjointUnbounded A /\\) Tj ET
+BT /F3 4.9 Tf 394.00 374.00 Td (      forall x : A.domain, HasDerivAt \(fun t : R => U t x\) \(Complex.I  * ) Tj ET
+BT /F3 4.9 Tf 394.00 367.00 Td (      A.op x\) 0 := by) Tj ET
+BT /F3 4.9 Tf 394.00 360.00 Td (  sorry) Tj ET
 endstream
 endobj
 11 0 obj
@@ -468,17 +470,17 @@ xref
 0000000064 00000 n 
 0000000139 00000 n 
 0000000288 00000 n 
-0000011158 00000 n 
-0000011307 00000 n 
-0000020542 00000 n 
-0000020691 00000 n 
-0000029039 00000 n 
-0000029189 00000 n 
-0000031808 00000 n 
-0000031879 00000 n 
-0000031955 00000 n 
+0000011161 00000 n 
+0000011310 00000 n 
+0000020508 00000 n 
+0000020657 00000 n 
+0000029074 00000 n 
+0000029224 00000 n 
+0000032013 00000 n 
+0000032084 00000 n 
+0000032160 00000 n 
 trailer
 << /Size 14 /Root 1 0 R >>
 startxref
-32024
+32229
 %%EOF

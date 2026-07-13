@@ -1,3 +1,5 @@
+module
+
 import Mathlib.Analysis.Distribution.SchwartzSpace.Fourier
 import Mathlib.Analysis.Fourier.AddCircle
 import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
@@ -106,6 +108,8 @@ theorem grafakos_1_3_4_riesz_thorin_interpolation
     (μ : Measure X) (ν : Measure Y) (T : (X → ℂ) →ₗ[ℂ] (Y → ℂ))
     {p₀ p₁ q₀ q₁ p q θ : ℝ} {M₀ M₁ : ℝ≥0∞}
     (hθ : 0 < θ ∧ θ < 1)
+    (hexponents : 1 ≤ p₀ ∧ 1 ≤ p₁ ∧ 1 ≤ q₀ ∧ 1 ≤ q₁)
+    (hM₀ : M₀ < ∞) (hM₁ : M₁ < ∞)
     (hp : 1 / p = (1 - θ) / p₀ + θ / p₁)
     (hq : 1 / q = (1 - θ) / q₀ + θ / q₁)
     (h₀ : HasStrongType μ ν T p₀ q₀ M₀)
@@ -133,9 +137,11 @@ theorem grafakos_2_1_6_hardy_littlewood_maximal {n : ℕ} :
 /-- Grafakos 2.2.14, Fourier identities on the Schwartz space. -/
 theorem grafakos_2_2_14_fourier_identities_on_schwartz
     {n : ℕ} (f g h : 𝓢(EuclideanSpace ℝ (Fin n), ℂ)) :
-    𝓕⁻ (𝓕 f) = f ∧ 𝓕 (𝓕⁻ f) = f ∧
+    ((∫ x, f x * 𝓕 g x) = ∫ x, 𝓕 f x * g x) ∧
+      𝓕⁻ (𝓕 f) = f ∧ 𝓕 (𝓕⁻ f) = f ∧
       (∫ x, star (𝓕 f x) * 𝓕 g x) = ∫ x, star (f x) * g x ∧
-      (∫ x, ‖𝓕 f x‖ ^ 2) = ∫ x, ‖f x‖ ^ 2 ∧
+      eLpNorm (fun x ↦ 𝓕 f x) 2 volume = eLpNorm f 2 volume ∧
+      eLpNorm (fun x ↦ 𝓕⁻ f x) 2 volume = eLpNorm f 2 volume ∧
       (∫ x, 𝓕 f x * h x) = ∫ x, f x * 𝓕 h x := by
   sorry
 
@@ -143,9 +149,9 @@ theorem grafakos_2_2_14_fourier_identities_on_schwartz
 theorem grafakos_2_2_16_hausdorff_young
     {n : ℕ} {p : ℝ} {f : EuclideanSpace ℝ (Fin n) → ℂ}
     (hp : 1 ≤ p ∧ p ≤ 2) (hf : MemLp f (ENNReal.ofReal p) volume) :
-    let conjugateExponent := p / (p - 1)
-    MemLp (𝓕 f) (ENNReal.ofReal conjugateExponent) volume ∧
-      eLpNorm (𝓕 f) (ENNReal.ofReal conjugateExponent) volume ≤
+    let conjugateExponent : ℝ≥0∞ := if p = 1 then ∞ else ENNReal.ofReal (p / (p - 1))
+    MemLp (𝓕 f) conjugateExponent volume ∧
+      eLpNorm (𝓕 f) conjugateExponent volume ≤
         eLpNorm f (ENNReal.ofReal p) volume := by
   sorry
 
@@ -166,13 +172,13 @@ theorem grafakos_3_2_8_poisson_summation
 
 /-- Grafakos 4.1.1, uniform boundedness for torus summability. -/
 theorem grafakos_4_1_1_torus_summability_uniform_boundedness
-    {n : ℕ} [MeasurableSpace (Fin n → AddCircle (1 : ℝ))]
-    (μ : Measure (Fin n → AddCircle (1 : ℝ)))
+    {n : ℕ}
     (a : ℝ → (Fin n → ℤ) → ℂ) (aLimit : (Fin n → ℤ) → ℂ)
     (hfinite : ∀ R, 0 < R → (Function.support (a R)).Finite)
     (hbounded : ∃ M : ℝ, 0 ≤ M ∧ ∀ R m, 0 < R → ‖a R m‖ ≤ M)
     (htendsto : ∀ m, Tendsto (fun R ↦ a R m) atTop (𝓝 (aLimit m)))
     {p : ℝ} (hp : 1 ≤ p) :
+    let μ : Measure (Fin n → AddCircle (1 : ℝ)) := volume
     let S := fun R (f : (Fin n → AddCircle (1 : ℝ)) → ℂ)
       (x : Fin n → AddCircle (1 : ℝ)) ↦
         ∑' m, a R m * torusFourierCoefficient μ f m * torusCharacter m x

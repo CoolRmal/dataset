@@ -1,3 +1,5 @@
+module
+
 import Mathlib.Analysis.CStarAlgebra.GelfandNaimarkSegal
 import Mathlib.Analysis.Calculus.Deriv.Basic
 import Mathlib.Analysis.InnerProductSpace.Adjoint
@@ -22,10 +24,12 @@ open scoped BoundedContinuousFunction Topology
 namespace Dataset
 namespace ConwayFunctionalAnalysis
 
+universe u
+
 /-- A bounded operator on a Hilbert space is an orthogonal projection. -/
-def IsOrthogonalProjection {H : Type*} [NormedAddCommGroup H]
+abbrev IsOrthogonalProjection {H : Type*} [NormedAddCommGroup H]
     [InnerProductSpace ℂ H] [CompleteSpace H] (P : H →L[ℂ] H) : Prop :=
-  P.comp P = P ∧ P.adjoint = P
+  IsStarProjection P
 
 /-- A countably additive projection-valued measure, with additivity in the strong topology. -/
 structure ProjectionValuedMeasure (H : Type*) [NormedAddCommGroup H]
@@ -34,6 +38,7 @@ structure ProjectionValuedMeasure (H : Type*) [NormedAddCommGroup H]
   empty : toFun ∅ = 0
   univ : toFun univ = ContinuousLinearMap.id ℂ H
   projection : ∀ B : Set ℂ, MeasurableSet B → IsOrthogonalProjection (toFun B)
+  nonmeasurable : ∀ B : Set ℂ, ¬MeasurableSet B → toFun B = 0
   orthogonal : ∀ B C : Set ℂ, MeasurableSet B → MeasurableSet C → Disjoint B C →
     (toFun B).comp (toFun C) = 0
   countablyAdditive : ∀ (B : ℕ → Set ℂ), (∀ n, MeasurableSet (B n)) →
@@ -144,11 +149,11 @@ theorem conway_VII_7_1_riesz_compact_operator_spectrum
   sorry
 
 /-- Conway VIII.5.17, the Gelfand-Naimark representation theorem. -/
-theorem conway_VIII_5_17_gelfand_naimark {A : Type*} [CStarAlgebra A] :
-    (∃ (H : Type) (_ : NormedAddCommGroup H) (_ : InnerProductSpace ℂ H)
+theorem conway_VIII_5_17_gelfand_naimark {A : Type u} [CStarAlgebra A] :
+    (∃ (H : Type u) (_ : NormedAddCommGroup H) (_ : InnerProductSpace ℂ H)
       (_ : CompleteSpace H) (π : A →⋆ₐ[ℂ] (H →L[ℂ] H)), Isometry π) ∧
     (TopologicalSpace.SeparableSpace A →
-      ∃ (H : Type) (_ : NormedAddCommGroup H) (_ : InnerProductSpace ℂ H)
+      ∃ (H : Type u) (_ : NormedAddCommGroup H) (_ : InnerProductSpace ℂ H)
         (_ : CompleteSpace H) (_ : TopologicalSpace.SeparableSpace H)
         (π : A →⋆ₐ[ℂ] (H →L[ℂ] H)), Isometry π) := by
   sorry

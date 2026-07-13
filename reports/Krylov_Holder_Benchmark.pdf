@@ -4,13 +4,13 @@
 << /Type /Catalog /Pages 2 0 R >>
 endobj
 2 0 obj
-<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R] /Count 9 >>
+<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R 21 0 R] /Count 10 >>
 endobj
 3 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 21 0 R /F2 22 0 R /F3 23 0 R >> >> /Contents 4 0 R >>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 23 0 R /F2 24 0 R /F3 25 0 R >> >> /Contents 4 0 R >>
 endobj
 4 0 obj
-<< /Length 8242 >>
+<< /Length 8290 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Krylov Holder PDE Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 1) Tj ET
@@ -18,12 +18,12 @@ BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
 BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
 BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
 20.00 558.00 m 772.00 558.00 l S
-20.00 550.00 m 20.00 162.00 l S
-310.00 550.00 m 310.00 162.00 l S
-390.00 550.00 m 390.00 162.00 l S
-772.00 550.00 m 772.00 162.00 l S
+20.00 550.00 m 20.00 85.00 l S
+310.00 550.00 m 310.00 85.00 l S
+390.00 550.00 m 390.00 85.00 l S
+772.00 550.00 m 772.00 85.00 l S
 20.00 550.00 m 772.00 550.00 l S
-20.00 162.00 m 772.00 162.00 l S
+20.00 85.00 m 772.00 85.00 l S
 BT /F1 5.8 Tf 24.00 542.00 Td (Theorem 2.3.1. Let Omega be a regular bounded domain. Assume) Tj ET
 BT /F1 5.8 Tf 24.00 535.00 Td (that for any x in Omega there exists a function h\(x, .\) in) Tj ET
 BT /F1 5.8 Tf 24.00 528.00 Td (C2\(Omega\) such that Delta_y h\(x,y\) = 0 in Omega, h\(x,y\) =) Tj ET
@@ -62,69 +62,69 @@ BT /F3 4.9 Tf 394.00 388.00 Td (      barrier z = 0 /\\ \(forall x in closure Om
 BT /F3 4.9 Tf 394.00 381.00 Td (      /\\) Tj ET
 BT /F3 4.9 Tf 394.00 374.00 Td (      forall x in Omega, laplacian barrier x <= 0) Tj ET
 BT /F3 4.9 Tf 394.00 367.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 360.00 Td (def LaplaceDirichletSolution {d : N} \(Omega : Set \(Fin d -> R\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 353.00 Td (    \(f g u : \(Fin d -> R\) -> R\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 346.00 Td (  ContDiffOn R 2 u Omega /\\ ContinuousOn u \(closure Omega\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 339.00 Td (    \(forall x in Omega, laplacian u x = f x\) /\\ forall x in frontier Omega,) Tj ET
-BT /F3 4.9 Tf 394.00 332.00 Td (    u x = g x) Tj ET
+BT /F3 4.9 Tf 394.00 360.00 Td (def IsOutwardUnitNormal {d : N} \(Omega : Set \(Fin d -> R\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 353.00 Td (    \(normal : \(Fin d -> R\) -> \(Fin d -> R\)\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 346.00 Td (  forall y in frontier Omega, ||normal y|| = 1 /\\) Tj ET
+BT /F3 4.9 Tf 394.00 339.00 Td (    exists eps : R, 0 < eps /\\ y - eps  *  normal y in Omega /\\ y + eps  * ) Tj ET
+BT /F3 4.9 Tf 394.00 332.00 Td (    normal y notin closure Omega) Tj ET
 BT /F3 4.9 Tf 394.00 325.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 318.00 Td (theorem krylov_2_3_1_green_poisson_representation) Tj ET
-BT /F3 4.9 Tf 394.00 311.00 Td (    {d : N} {Omega : Set \(Fin d -> R\)}) Tj ET
-BT /F3 4.9 Tf 394.00 304.00 Td (    {K h G H : \(Fin d -> R\) -> \(Fin d -> R\) -> R} {f g u : \(Fin d -> R\) ->) Tj ET
-BT /F3 4.9 Tf 394.00 297.00 Td (    R}) Tj ET
-BT /F3 4.9 Tf 394.00 290.00 Td (    \(hOmega : RegularBoundedDomain Omega\) \(boundaryMeasure : Measure \(Fin d) Tj ET
-BT /F3 4.9 Tf 394.00 283.00 Td (    -> R\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 276.00 Td (    \(hmeasure : boundaryMeasure \(frontier Omega\)^c = 0\)) Tj ET
-BT /F3 4.9 Tf 394.00 269.00 Td (    \(normal : \(Fin d -> R\) -> \(Fin d -> R\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 262.00 Td (    \(hnormal : forall y in frontier Omega, ||normal y|| = 1\)) Tj ET
-BT /F3 4.9 Tf 394.00 255.00 Td (    \(hharmonic : forall x in Omega, HarmonicIn Omega \(h x\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 248.00 Td (    \(hboundary : forall x in Omega, forall y in frontier Omega, h x y = K x) Tj ET
-BT /F3 4.9 Tf 394.00 241.00 Td (    y\)) Tj ET
-BT /F3 4.9 Tf 394.00 234.00 Td (    \(hgreen : forall x y, G x y = K x y - h x y\)) Tj ET
-BT /F3 4.9 Tf 394.00 227.00 Td (    \(hgreenHarmonic : forall x in Omega, HarmonicIn \(Omega \\ {x}\) \(G x\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 220.00 Td (    \(hgreenBoundary : forall x in Omega, forall y in frontier Omega, G x y) Tj ET
-BT /F3 4.9 Tf 394.00 213.00 Td (    = 0\)) Tj ET
-BT /F3 4.9 Tf 394.00 206.00 Td (    \(hpoisson : forall x in Omega, forall y in frontier Omega,) Tj ET
-BT /F3 4.9 Tf 394.00 199.00 Td (      H x y = -fderiv R \(G x\) y \(normal y\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 192.00 Td (    \(hu : LaplaceDirichletSolution Omega f g u\) :) Tj ET
-BT /F3 4.9 Tf 394.00 185.00 Td (    forall x in Omega, u x = integral y in Omega, G x y * f y +) Tj ET
-BT /F3 4.9 Tf 394.00 178.00 Td (      integral y, H x y * g y dboundaryMeasure := by) Tj ET
-BT /F3 4.9 Tf 394.00 171.00 Td (  sorry) Tj ET
-20.00 162.00 m 20.00 40.00 l S
-310.00 162.00 m 310.00 40.00 l S
-390.00 162.00 m 390.00 40.00 l S
-772.00 162.00 m 772.00 40.00 l S
-20.00 162.00 m 772.00 162.00 l S
+BT /F3 4.9 Tf 394.00 318.00 Td (def LaplaceDirichletSolution {d : N} \(Omega : Set \(Fin d -> R\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 311.00 Td (    \(f g u : \(Fin d -> R\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 304.00 Td (  ContDiffOn R 2 u Omega /\\ ContinuousOn u \(closure Omega\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 297.00 Td (    \(forall x in Omega, laplacian u x = f x\) /\\ forall x in frontier Omega,) Tj ET
+BT /F3 4.9 Tf 394.00 290.00 Td (    u x = g x) Tj ET
+BT /F3 4.9 Tf 394.00 283.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 276.00 Td (theorem krylov_2_3_1_green_poisson_representation) Tj ET
+BT /F3 4.9 Tf 394.00 269.00 Td (    {d : N} {Omega : Set \(Fin d -> R\)}) Tj ET
+BT /F3 4.9 Tf 394.00 262.00 Td (    {K h G H : \(Fin d -> R\) -> \(Fin d -> R\) -> R} {f g u : \(Fin d -> R\) ->) Tj ET
+BT /F3 4.9 Tf 394.00 255.00 Td (    R}) Tj ET
+BT /F3 4.9 Tf 394.00 248.00 Td (    \(hd : 0 < d\) \(hOmega : RegularBoundedDomain Omega\)) Tj ET
+BT /F3 4.9 Tf 394.00 241.00 Td (    \(boundaryMeasure : Measure \(Fin d -> R\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 234.00 Td (    \(hmeasure : boundaryMeasure = muH[\(\(d : R\) - 1\)].restrict \(frontier) Tj ET
+BT /F3 4.9 Tf 394.00 227.00 Td (    Omega\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 220.00 Td (    \(normal : \(Fin d -> R\) -> \(Fin d -> R\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 213.00 Td (    \(hnormal : IsOutwardUnitNormal Omega normal\)) Tj ET
+BT /F3 4.9 Tf 394.00 206.00 Td (    \(hharmonic : forall x in Omega, HarmonicIn Omega \(h x\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 199.00 Td (    \(hboundary : forall x in Omega, forall y in frontier Omega, h x y = K x) Tj ET
+BT /F3 4.9 Tf 394.00 192.00 Td (    y\)) Tj ET
+BT /F3 4.9 Tf 394.00 185.00 Td (    \(hgreen : forall x y, G x y = K x y - h x y\)) Tj ET
+BT /F3 4.9 Tf 394.00 178.00 Td (    \(hgreenHarmonic : forall x in Omega, HarmonicIn \(Omega \\ {x}\) \(G x\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 171.00 Td (    \(hgreenBoundary : forall x in Omega, forall y in frontier Omega, G x y) Tj ET
+BT /F3 4.9 Tf 394.00 164.00 Td (    = 0\)) Tj ET
+BT /F3 4.9 Tf 394.00 157.00 Td (    \(hpoisson : forall x in Omega, forall y in frontier Omega,) Tj ET
+BT /F3 4.9 Tf 394.00 150.00 Td (      H x y = -fderiv R \(G x\) y \(normal y\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 143.00 Td (    \(hGintegrable : forall x in Omega, IntegrableOn \(fun y => G x y * f y\)) Tj ET
+BT /F3 4.9 Tf 394.00 136.00 Td (    Omega\)) Tj ET
+BT /F3 4.9 Tf 394.00 129.00 Td (    \(hHintegrable : forall x in Omega, Integrable \(fun y => H x y * g y\)) Tj ET
+BT /F3 4.9 Tf 394.00 122.00 Td (    boundaryMeasure\)) Tj ET
+BT /F3 4.9 Tf 394.00 115.00 Td (    \(hu : LaplaceDirichletSolution Omega f g u\) :) Tj ET
+BT /F3 4.9 Tf 394.00 108.00 Td (    forall x in Omega, u x = integral y in Omega, G x y * f y +) Tj ET
+BT /F3 4.9 Tf 394.00 101.00 Td (      integral y, H x y * g y dboundaryMeasure := by) Tj ET
+BT /F3 4.9 Tf 394.00 94.00 Td (  sorry) Tj ET
+20.00 85.00 m 20.00 40.00 l S
+310.00 85.00 m 310.00 40.00 l S
+390.00 85.00 m 390.00 40.00 l S
+772.00 85.00 m 772.00 40.00 l S
+20.00 85.00 m 772.00 85.00 l S
 20.00 40.00 m 772.00 40.00 l S
-BT /F1 5.8 Tf 24.00 154.00 Td (Theorem 2.5.2. Let Omega be a domain and u in C2_{loc}\(Omega\)) Tj ET
-BT /F1 5.8 Tf 24.00 147.00 Td (inter C\(Omega\) be a harmonic function in Omega. Then u is) Tj ET
-BT /F1 5.8 Tf 24.00 140.00 Td (infinitely differentiable in Omega and for any multi-index) Tj ET
-BT /F1 5.8 Tf 24.00 133.00 Td (alpha and any x in Omega we have |D^alpha u\(x\)| <= N) Tj ET
-BT /F1 5.8 Tf 24.00 126.00 Td (R^{-|alpha|} sup_{B_R\(x\)} |u| whenever B_R\(x\) subset Omega.) Tj ET
-BT /F1 5.8 Tf 314.00 154.00 Td (PDE) Tj ET
-BT /F3 4.9 Tf 394.00 154.00 Td (noncomputable def directionalDerivativeList {d : N} :) Tj ET
-BT /F3 4.9 Tf 394.00 147.00 Td (    List \(Fin d\) -> \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R) Tj ET
-BT /F3 4.9 Tf 394.00 140.00 Td (  | [], u => u) Tj ET
-BT /F3 4.9 Tf 394.00 133.00 Td (  | i :: indices, u => fun x =>) Tj ET
-BT /F3 4.9 Tf 394.00 126.00 Td (      fderiv R \(directionalDerivativeList indices u\) x \(Pi.single i 1\)) Tj ET
-BT /F3 4.9 Tf 394.00 119.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 112.00 Td (noncomputable def multiIndexDirections {d : N} \(alpha : \(Fin d -> N\)\) :) Tj ET
-BT /F3 4.9 Tf 394.00 105.00 Td (List \(Fin d\) :=) Tj ET
-BT /F3 4.9 Tf 394.00 98.00 Td (  Finset.univ.toList.flatMap fun i => List.replicate \(alpha i\) i) Tj ET
-BT /F3 4.9 Tf 394.00 91.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 84.00 Td (noncomputable def multiDerivative {d : N} \(alpha : \(Fin d -> N\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 77.00 Td (    \(u : \(Fin d -> R\) -> R\) : \(Fin d -> R\) -> R :=) Tj ET
-BT /F3 4.9 Tf 394.00 70.00 Td (  directionalDerivativeList \(multiIndexDirections alpha\) u) Tj ET
-BT /F3 4.9 Tf 394.00 63.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 56.00 Td (noncomputable def laplacian {d : N} \(u : \(Fin d -> R\) -> R\) \(x : \(Fin d ->) Tj ET
-BT /F3 4.9 Tf 394.00 49.00 Td (R\)\) : R :=) Tj ET
+BT /F1 5.8 Tf 24.00 77.00 Td (Theorem 2.5.2. Let Omega be a domain and u in C2_{loc}\(Omega\)) Tj ET
+BT /F1 5.8 Tf 24.00 70.00 Td (inter C\(Omega\) be a harmonic function in Omega. Then u is) Tj ET
+BT /F1 5.8 Tf 24.00 63.00 Td (infinitely differentiable in Omega and for any multi-index) Tj ET
+BT /F1 5.8 Tf 24.00 56.00 Td (alpha and any x in Omega we have |D^alpha u\(x\)| <= N) Tj ET
+BT /F1 5.8 Tf 24.00 49.00 Td (R^{-|alpha|} sup_{B_R\(x\)} |u| whenever B_R\(x\) subset Omega.) Tj ET
+BT /F1 5.8 Tf 314.00 77.00 Td (PDE) Tj ET
+BT /F3 4.9 Tf 394.00 77.00 Td (noncomputable def directionalDerivativeList {d : N} :) Tj ET
+BT /F3 4.9 Tf 394.00 70.00 Td (    List \(Fin d\) -> \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R) Tj ET
+BT /F3 4.9 Tf 394.00 63.00 Td (  | [], u => u) Tj ET
+BT /F3 4.9 Tf 394.00 56.00 Td (  | i :: indices, u => fun x =>) Tj ET
+BT /F3 4.9 Tf 394.00 49.00 Td (      fderiv R \(directionalDerivativeList indices u\) x \(Pi.single i 1\)) Tj ET
 endstream
 endobj
 5 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 21 0 R /F2 22 0 R /F3 23 0 R >> >> /Contents 6 0 R >>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 23 0 R /F2 24 0 R /F3 25 0 R >> >> /Contents 6 0 R >>
 endobj
 6 0 obj
-<< /Length 7383 >>
+<< /Length 7229 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Krylov Holder PDE Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 2) Tj ET
@@ -132,103 +132,103 @@ BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
 BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
 BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
 20.00 558.00 m 772.00 558.00 l S
-20.00 550.00 m 20.00 428.00 l S
-310.00 550.00 m 310.00 428.00 l S
-390.00 550.00 m 390.00 428.00 l S
-772.00 550.00 m 772.00 428.00 l S
+20.00 550.00 m 20.00 351.00 l S
+310.00 550.00 m 310.00 351.00 l S
+390.00 550.00 m 390.00 351.00 l S
+772.00 550.00 m 772.00 351.00 l S
 20.00 550.00 m 772.00 550.00 l S
-20.00 428.00 m 772.00 428.00 l S
-BT /F3 4.9 Tf 394.00 542.00 Td (  sum i, directionalDerivativeList [i, i] u x) Tj ET
-BT /F3 4.9 Tf 394.00 535.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 528.00 Td (def HarmonicIn {d : N} \(Omega : Set \(Fin d -> R\)\) \(u : \(Fin d -> R\) -> R\) :) Tj ET
-BT /F3 4.9 Tf 394.00 521.00 Td (Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 514.00 Td (  ContDiffOn R 2 u Omega /\\ forall x in Omega, laplacian u x = 0) Tj ET
-BT /F3 4.9 Tf 394.00 507.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 500.00 Td (theorem krylov_2_5_2_harmonic_smooth_interior_estimates) Tj ET
-BT /F3 4.9 Tf 394.00 493.00 Td (    {d : N} {Omega : Set \(Fin d -> R\)} {u : \(Fin d -> R\) -> R}) Tj ET
-BT /F3 4.9 Tf 394.00 486.00 Td (    \(hOmega : IsOpen Omega /\\ IsConnected Omega\) \(hu : HarmonicIn Omega u\) :) Tj ET
-BT /F3 4.9 Tf 394.00 479.00 Td (    ContDiffOn R top u Omega /\\) Tj ET
-BT /F3 4.9 Tf 394.00 472.00 Td (      forall alpha : \(Fin d -> N\), forall x in Omega,) Tj ET
-BT /F3 4.9 Tf 394.00 465.00 Td (        exists C : R, 0 <= C /\\ forall R : R, 0 < R -> Metric.closedBall x) Tj ET
-BT /F3 4.9 Tf 394.00 458.00 Td (        R subset Omega ->) Tj ET
-BT /F3 4.9 Tf 394.00 451.00 Td (          |multiDerivative alpha u x| <= C * R ^ \(-\(sum i, alpha i : Z\)\) *) Tj ET
-BT /F3 4.9 Tf 394.00 444.00 Td (            sSup {|u y| | y in Metric.closedBall x R} := by) Tj ET
-BT /F3 4.9 Tf 394.00 437.00 Td (  sorry) Tj ET
-20.00 428.00 m 20.00 40.00 l S
-310.00 428.00 m 310.00 40.00 l S
-390.00 428.00 m 390.00 40.00 l S
-772.00 428.00 m 772.00 40.00 l S
-20.00 428.00 m 772.00 428.00 l S
+20.00 351.00 m 772.00 351.00 l S
+BT /F3 4.9 Tf 394.00 542.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (noncomputable def multiIndexDirections {d : N} \(alpha : \(Fin d -> N\)\) :) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (List \(Fin d\) :=) Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (  Finset.univ.toList.flatMap fun i => List.replicate \(alpha i\) i) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (noncomputable def multiDerivative {d : N} \(alpha : \(Fin d -> N\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (    \(u : \(Fin d -> R\) -> R\) : \(Fin d -> R\) -> R :=) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td (  directionalDerivativeList \(multiIndexDirections alpha\) u) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (noncomputable def laplacian {d : N} \(u : \(Fin d -> R\) -> R\) \(x : \(Fin d ->) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td (R\)\) : R :=) Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (  sum i, directionalDerivativeList [i, i] u x) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 451.00 Td (def HarmonicIn {d : N} \(Omega : Set \(Fin d -> R\)\) \(u : \(Fin d -> R\) -> R\) :) Tj ET
+BT /F3 4.9 Tf 394.00 444.00 Td (Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 437.00 Td (  ContDiffOn R 2 u Omega /\\ forall x in Omega, laplacian u x = 0) Tj ET
+BT /F3 4.9 Tf 394.00 430.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 423.00 Td (theorem krylov_2_5_2_harmonic_smooth_interior_estimates) Tj ET
+BT /F3 4.9 Tf 394.00 416.00 Td (    {d : N} {Omega : Set \(Fin d -> R\)} {u : \(Fin d -> R\) -> R}) Tj ET
+BT /F3 4.9 Tf 394.00 409.00 Td (    \(hOmega : IsOpen Omega /\\ IsConnected Omega\) \(hu : HarmonicIn Omega u\) :) Tj ET
+BT /F3 4.9 Tf 394.00 402.00 Td (    ContDiffOn R top u Omega /\\) Tj ET
+BT /F3 4.9 Tf 394.00 395.00 Td (      forall alpha : \(Fin d -> N\), exists C : R, 0 <= C /\\ forall x in) Tj ET
+BT /F3 4.9 Tf 394.00 388.00 Td (      Omega,) Tj ET
+BT /F3 4.9 Tf 394.00 381.00 Td (        forall R : R, 0 < R -> Metric.closedBall x R subset Omega ->) Tj ET
+BT /F3 4.9 Tf 394.00 374.00 Td (          |multiDerivative alpha u x| <= C * R ^ \(-\(sum i, alpha i : Z\)\) *) Tj ET
+BT /F3 4.9 Tf 394.00 367.00 Td (            sSup {|u y| | y in Metric.closedBall x R} := by) Tj ET
+BT /F3 4.9 Tf 394.00 360.00 Td (  sorry) Tj ET
+20.00 351.00 m 20.00 40.00 l S
+310.00 351.00 m 310.00 40.00 l S
+390.00 351.00 m 390.00 40.00 l S
+772.00 351.00 m 772.00 40.00 l S
+20.00 351.00 m 772.00 351.00 l S
 20.00 40.00 m 772.00 40.00 l S
-BT /F1 5.8 Tf 24.00 420.00 Td (Theorem 2.9.2. Let Omega be a domain in R^d and u be a bounded) Tj ET
-BT /F1 5.8 Tf 24.00 413.00 Td (and continuous function on Omega and u = 0 on dOmega if dOmega) Tj ET
-BT /F1 5.8 Tf 24.00 406.00 Td (!= empty \(that is, if Omega != R^d\). Moreover, assume that u) Tj ET
-BT /F1 5.8 Tf 24.00 399.00 Td (in C2_{loc}\(Omega\). Finally, let a\(x\), b\(x\) be bounded and) Tj ET
-BT /F1 5.8 Tf 24.00 392.00 Td (c\(x\) <= -lambda where the constant lambda > 0. Then in Omega,) Tj ET
-BT /F1 5.8 Tf 24.00 385.00 Td (u <= lambda^{-1} sup_Omega \(Lu\)^- and |u| <= lambda^{-1}) Tj ET
-BT /F1 5.8 Tf 24.00 378.00 Td (sup_Omega |Lu|.) Tj ET
-BT /F1 5.8 Tf 314.00 420.00 Td (PDE) Tj ET
-BT /F3 4.9 Tf 394.00 420.00 Td (noncomputable def directionalDerivativeList {d : N} :) Tj ET
-BT /F3 4.9 Tf 394.00 413.00 Td (    List \(Fin d\) -> \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R) Tj ET
-BT /F3 4.9 Tf 394.00 406.00 Td (  | [], u => u) Tj ET
-BT /F3 4.9 Tf 394.00 399.00 Td (  | i :: indices, u => fun x =>) Tj ET
-BT /F3 4.9 Tf 394.00 392.00 Td (      fderiv R \(directionalDerivativeList indices u\) x \(Pi.single i 1\)) Tj ET
-BT /F3 4.9 Tf 394.00 385.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 378.00 Td (noncomputable def multiIndexDirections {d : N} \(alpha : \(Fin d -> N\)\) :) Tj ET
-BT /F3 4.9 Tf 394.00 371.00 Td (List \(Fin d\) :=) Tj ET
-BT /F3 4.9 Tf 394.00 364.00 Td (  Finset.univ.toList.flatMap fun i => List.replicate \(alpha i\) i) Tj ET
-BT /F3 4.9 Tf 394.00 357.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 350.00 Td (noncomputable def multiDerivative {d : N} \(alpha : \(Fin d -> N\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 343.00 Td (    \(u : \(Fin d -> R\) -> R\) : \(Fin d -> R\) -> R :=) Tj ET
-BT /F3 4.9 Tf 394.00 336.00 Td (  directionalDerivativeList \(multiIndexDirections alpha\) u) Tj ET
-BT /F3 4.9 Tf 394.00 329.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 322.00 Td (structure EllipticOperatorData {d : N} \(m : N\)) Tj ET
-BT /F3 4.9 Tf 394.00 315.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) where) Tj ET
-BT /F3 4.9 Tf 394.00 308.00 Td (  terms : Finset \(\(Fin d -> N\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 301.00 Td (  order_le : forall alpha in terms, sum i, alpha i <= m) Tj ET
-BT /F3 4.9 Tf 394.00 294.00 Td (  coefficient : \(Fin d -> N\) -> \(Fin d -> R\) -> R) Tj ET
-BT /F3 4.9 Tf 394.00 287.00 Td (  formula : forall u x, L u x = sum alpha in terms, coefficient alpha x *) Tj ET
-BT /F3 4.9 Tf 394.00 280.00 Td (  multiDerivative alpha u x) Tj ET
-BT /F3 4.9 Tf 394.00 273.00 Td (  ellipticityConstant : R) Tj ET
-BT /F3 4.9 Tf 394.00 266.00 Td (  ellipticityConstant_pos : 0 < ellipticityConstant) Tj ET
-BT /F3 4.9 Tf 394.00 259.00 Td (  principalSymbol : forall \(x xi : \(Fin d -> R\)\),) Tj ET
-BT /F3 4.9 Tf 394.00 252.00 Td (    ellipticityConstant * ||xi|| ^ m <=) Tj ET
-BT /F3 4.9 Tf 394.00 245.00 Td (      |sum alpha in terms with sum i, alpha i = m,) Tj ET
-BT /F3 4.9 Tf 394.00 238.00 Td (        coefficient alpha x * prod i, \(xi i\) ^ \(alpha i\)|) Tj ET
-BT /F3 4.9 Tf 394.00 231.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 224.00 Td (def SecondOrderEllipticOperator {d : N}) Tj ET
-BT /F3 4.9 Tf 394.00 217.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) \(lam : R\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 210.00 Td (  exists data : EllipticOperatorData 2 L, exists zeroIndex in data.terms,) Tj ET
-BT /F3 4.9 Tf 394.00 203.00 Td (    \(forall i, zeroIndex i = 0\) /\\ \(forall x, data.coefficient zeroIndex x) Tj ET
-BT /F3 4.9 Tf 394.00 196.00 Td (    <= -lam\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 189.00 Td (      exists C : R, forall alpha in data.terms, forall x, |data.coefficient) Tj ET
-BT /F3 4.9 Tf 394.00 182.00 Td (      alpha x| <= C) Tj ET
-BT /F3 4.9 Tf 394.00 175.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 168.00 Td (noncomputable def functionSupNorm {X : Type*} \(Omega : Set X\) \(u : X -> R\)) Tj ET
-BT /F3 4.9 Tf 394.00 161.00 Td (: R>=0inf :=) Tj ET
-BT /F3 4.9 Tf 394.00 154.00 Td (   x : Omega, ENNReal.ofReal |u x|) Tj ET
-BT /F3 4.9 Tf 394.00 147.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 140.00 Td (theorem krylov_2_9_2_bounded_maximum_principle_resolvent) Tj ET
-BT /F3 4.9 Tf 394.00 133.00 Td (    {d : N} {Omega : Set \(Fin d -> R\)}) Tj ET
-BT /F3 4.9 Tf 394.00 126.00 Td (    {L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R} {lam : R}) Tj ET
-BT /F3 4.9 Tf 394.00 119.00 Td (    {u : \(Fin d -> R\) -> R}) Tj ET
-BT /F3 4.9 Tf 394.00 112.00 Td (    \(hOmega : IsOpen Omega\) \(huDiff : ContDiffOn R 2 u Omega\)) Tj ET
-BT /F3 4.9 Tf 394.00 105.00 Td (    \(huContinuous : ContinuousOn u \(closure Omega\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 98.00 Td (    \(huBounded : Bornology.IsBounded \(u '' Omega\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 91.00 Td (    \(huBoundary : forall x in frontier Omega, u x = 0\)) Tj ET
-BT /F3 4.9 Tf 394.00 84.00 Td (    \(hlam : 0 < lam\) \(hL : SecondOrderEllipticOperator L lam\) :) Tj ET
-BT /F3 4.9 Tf 394.00 77.00 Td (    functionSupNorm Omega \(fun x => max \(u x\) 0\) <=) Tj ET
-BT /F3 4.9 Tf 394.00 70.00 Td (        \(ENNReal.ofReal lam\)^-1 * functionSupNorm Omega \(fun x => max \(-\(L) Tj ET
-BT /F3 4.9 Tf 394.00 63.00 Td (        u x\)\) 0\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 56.00 Td (      functionSupNorm Omega u <= \(ENNReal.ofReal lam\)^-1 * functionSupNorm) Tj ET
-BT /F3 4.9 Tf 394.00 49.00 Td (      Omega \(L u\) := by) Tj ET
+BT /F1 5.8 Tf 24.00 343.00 Td (Theorem 2.9.2. Let Omega be a domain in R^d and u be a bounded) Tj ET
+BT /F1 5.8 Tf 24.00 336.00 Td (and continuous function on Omega and u = 0 on dOmega if dOmega) Tj ET
+BT /F1 5.8 Tf 24.00 329.00 Td (!= empty \(that is, if Omega != R^d\). Moreover, assume that u) Tj ET
+BT /F1 5.8 Tf 24.00 322.00 Td (in C2_{loc}\(Omega\). Finally, let a\(x\), b\(x\) be bounded and) Tj ET
+BT /F1 5.8 Tf 24.00 315.00 Td (c\(x\) <= -lambda where the constant lambda > 0. Then in Omega,) Tj ET
+BT /F1 5.8 Tf 24.00 308.00 Td (u <= lambda^{-1} sup_Omega \(Lu\)^- and |u| <= lambda^{-1}) Tj ET
+BT /F1 5.8 Tf 24.00 301.00 Td (sup_Omega |Lu|.) Tj ET
+BT /F1 5.8 Tf 314.00 343.00 Td (PDE) Tj ET
+BT /F3 4.9 Tf 394.00 343.00 Td (noncomputable def directionalDerivativeList {d : N} :) Tj ET
+BT /F3 4.9 Tf 394.00 336.00 Td (    List \(Fin d\) -> \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R) Tj ET
+BT /F3 4.9 Tf 394.00 329.00 Td (  | [], u => u) Tj ET
+BT /F3 4.9 Tf 394.00 322.00 Td (  | i :: indices, u => fun x =>) Tj ET
+BT /F3 4.9 Tf 394.00 315.00 Td (      fderiv R \(directionalDerivativeList indices u\) x \(Pi.single i 1\)) Tj ET
+BT /F3 4.9 Tf 394.00 308.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 301.00 Td (noncomputable def multiIndexDirections {d : N} \(alpha : \(Fin d -> N\)\) :) Tj ET
+BT /F3 4.9 Tf 394.00 294.00 Td (List \(Fin d\) :=) Tj ET
+BT /F3 4.9 Tf 394.00 287.00 Td (  Finset.univ.toList.flatMap fun i => List.replicate \(alpha i\) i) Tj ET
+BT /F3 4.9 Tf 394.00 280.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 273.00 Td (noncomputable def multiDerivative {d : N} \(alpha : \(Fin d -> N\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 266.00 Td (    \(u : \(Fin d -> R\) -> R\) : \(Fin d -> R\) -> R :=) Tj ET
+BT /F3 4.9 Tf 394.00 259.00 Td (  directionalDerivativeList \(multiIndexDirections alpha\) u) Tj ET
+BT /F3 4.9 Tf 394.00 252.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 245.00 Td (structure EllipticOperatorData {d : N} \(m : N\)) Tj ET
+BT /F3 4.9 Tf 394.00 238.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) where) Tj ET
+BT /F3 4.9 Tf 394.00 231.00 Td (  terms : Finset \(\(Fin d -> N\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 224.00 Td (  order_le : forall alpha in terms, sum i, alpha i <= m) Tj ET
+BT /F3 4.9 Tf 394.00 217.00 Td (  coefficient : \(Fin d -> N\) -> \(Fin d -> R\) -> R) Tj ET
+BT /F3 4.9 Tf 394.00 210.00 Td (  formula : forall u x, L u x = sum alpha in terms, coefficient alpha x *) Tj ET
+BT /F3 4.9 Tf 394.00 203.00 Td (  multiDerivative alpha u x) Tj ET
+BT /F3 4.9 Tf 394.00 196.00 Td (  ellipticityConstant : R) Tj ET
+BT /F3 4.9 Tf 394.00 189.00 Td (  ellipticityConstant_pos : 0 < ellipticityConstant) Tj ET
+BT /F3 4.9 Tf 394.00 182.00 Td (  principalSymbol : forall \(x xi : \(Fin d -> R\)\),) Tj ET
+BT /F3 4.9 Tf 394.00 175.00 Td (    ellipticityConstant * ||xi|| ^ m <=) Tj ET
+BT /F3 4.9 Tf 394.00 168.00 Td (      sum alpha in terms with sum i, alpha i = m,) Tj ET
+BT /F3 4.9 Tf 394.00 161.00 Td (        coefficient alpha x * prod i, \(xi i\) ^ \(alpha i\)) Tj ET
+BT /F3 4.9 Tf 394.00 154.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 147.00 Td (def SecondOrderEllipticOperator {d : N}) Tj ET
+BT /F3 4.9 Tf 394.00 140.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) \(lam : R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 133.00 Td (  exists data : EllipticOperatorData 2 L, exists zeroIndex in data.terms,) Tj ET
+BT /F3 4.9 Tf 394.00 126.00 Td (    \(forall i, zeroIndex i = 0\) /\\ \(forall x, data.coefficient zeroIndex x) Tj ET
+BT /F3 4.9 Tf 394.00 119.00 Td (    <= -lam\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 112.00 Td (      exists C : R, forall alpha in data.terms, forall x, |data.coefficient) Tj ET
+BT /F3 4.9 Tf 394.00 105.00 Td (      alpha x| <= C) Tj ET
+BT /F3 4.9 Tf 394.00 98.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 91.00 Td (noncomputable def functionSupNorm {X : Type*} \(Omega : Set X\) \(u : X -> R\)) Tj ET
+BT /F3 4.9 Tf 394.00 84.00 Td (: R>=0inf :=) Tj ET
+BT /F3 4.9 Tf 394.00 77.00 Td (   x : Omega, ENNReal.ofReal |u x|) Tj ET
+BT /F3 4.9 Tf 394.00 70.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 63.00 Td (theorem krylov_2_9_2_bounded_maximum_principle_resolvent) Tj ET
+BT /F3 4.9 Tf 394.00 56.00 Td (    {d : N} {Omega : Set \(Fin d -> R\)}) Tj ET
+BT /F3 4.9 Tf 394.00 49.00 Td (    {L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R} {lam : R}) Tj ET
 endstream
 endobj
 7 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 21 0 R /F2 22 0 R /F3 23 0 R >> >> /Contents 8 0 R >>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 23 0 R /F2 24 0 R /F3 25 0 R >> >> /Contents 8 0 R >>
 endobj
 8 0 obj
-<< /Length 7490 >>
+<< /Length 7070 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Krylov Holder PDE Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 3) Tj ET
@@ -236,110 +236,100 @@ BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
 BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
 BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
 20.00 558.00 m 772.00 558.00 l S
-20.00 550.00 m 20.00 533.00 l S
-310.00 550.00 m 310.00 533.00 l S
-390.00 550.00 m 390.00 533.00 l S
-772.00 550.00 m 772.00 533.00 l S
+20.00 550.00 m 20.00 456.00 l S
+310.00 550.00 m 310.00 456.00 l S
+390.00 550.00 m 390.00 456.00 l S
+772.00 550.00 m 772.00 456.00 l S
 20.00 550.00 m 772.00 550.00 l S
-20.00 533.00 m 772.00 533.00 l S
-BT /F3 4.9 Tf 394.00 542.00 Td (  sorry) Tj ET
-20.00 533.00 m 20.00 75.00 l S
-310.00 533.00 m 310.00 75.00 l S
-390.00 533.00 m 390.00 75.00 l S
-772.00 533.00 m 772.00 75.00 l S
-20.00 533.00 m 772.00 533.00 l S
-20.00 75.00 m 772.00 75.00 l S
-BT /F1 5.8 Tf 24.00 525.00 Td (Theorem 3.7.2. Let lambda != 0, k >= 0 be an integer and 0 <) Tj ET
-BT /F1 5.8 Tf 24.00 518.00 Td (delta < 1. Then for any f in C^{k+delta}\(R^d\) there exists a) Tj ET
-BT /F1 5.8 Tf 24.00 511.00 Td (unique solution u in C^{k+m+delta}\(R^d\) of the equation) Tj ET
-BT /F1 5.8 Tf 24.00 504.00 Td (L_lambda u\(x\) = f\(x\), x in R^d.) Tj ET
-BT /F1 5.8 Tf 314.00 525.00 Td (PDE) Tj ET
-BT /F3 4.9 Tf 394.00 525.00 Td (noncomputable def directionalDerivativeList {d : N} :) Tj ET
-BT /F3 4.9 Tf 394.00 518.00 Td (    List \(Fin d\) -> \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R) Tj ET
-BT /F3 4.9 Tf 394.00 511.00 Td (  | [], u => u) Tj ET
-BT /F3 4.9 Tf 394.00 504.00 Td (  | i :: indices, u => fun x =>) Tj ET
-BT /F3 4.9 Tf 394.00 497.00 Td (      fderiv R \(directionalDerivativeList indices u\) x \(Pi.single i 1\)) Tj ET
-BT /F3 4.9 Tf 394.00 490.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 483.00 Td (noncomputable def multiIndexDirections {d : N} \(alpha : \(Fin d -> N\)\) :) Tj ET
-BT /F3 4.9 Tf 394.00 476.00 Td (List \(Fin d\) :=) Tj ET
-BT /F3 4.9 Tf 394.00 469.00 Td (  Finset.univ.toList.flatMap fun i => List.replicate \(alpha i\) i) Tj ET
-BT /F3 4.9 Tf 394.00 462.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 455.00 Td (noncomputable def multiDerivative {d : N} \(alpha : \(Fin d -> N\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 448.00 Td (    \(u : \(Fin d -> R\) -> R\) : \(Fin d -> R\) -> R :=) Tj ET
-BT /F3 4.9 Tf 394.00 441.00 Td (  directionalDerivativeList \(multiIndexDirections alpha\) u) Tj ET
-BT /F3 4.9 Tf 394.00 434.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 427.00 Td (noncomputable def holderGauge {d : N} \(k : N\) \(delta : R\)) Tj ET
-BT /F3 4.9 Tf 394.00 420.00 Td (    \(Omega : Set \(Fin d -> R\)\) \(u : \(Fin d -> R\) -> R\) : R>=0inf :=) Tj ET
-BT /F3 4.9 Tf 394.00 413.00 Td (  \( alpha : {alpha : \(Fin d -> N\) // sum i, alpha i <= k},) Tj ET
-BT /F3 4.9 Tf 394.00 406.00 Td (       x : Omega, ENNReal.ofReal |multiDerivative alpha u x|\) ) Tj ET
-BT /F3 4.9 Tf 394.00 399.00 Td (     alpha : {alpha : \(Fin d -> N\) // sum i, alpha i = k},) Tj ET
-BT /F3 4.9 Tf 394.00 392.00 Td (       x : Omega,  y : Omega,  \(_ : \(x : \(Fin d -> R\)\) != y\),) Tj ET
-BT /F3 4.9 Tf 394.00 385.00 Td (        ENNReal.ofReal) Tj ET
-BT /F3 4.9 Tf 394.00 378.00 Td (          \(|multiDerivative alpha u x - multiDerivative alpha u y| /) Tj ET
-BT /F3 4.9 Tf 394.00 371.00 Td (            ||\(x : \(Fin d -> R\)\) - y|| ^ delta\)) Tj ET
-BT /F3 4.9 Tf 394.00 364.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 357.00 Td (def HolderOn {d : N} \(r : R\) \(Omega : Set \(Fin d -> R\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 350.00 Td (    \(u : \(Fin d -> R\) -> R\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 343.00 Td (  exists k : N, exists delta : R, r = k + delta /\\ 0 <= delta /\\ delta < 1) Tj ET
-BT /F3 4.9 Tf 394.00 336.00 Td (  /\\) Tj ET
-BT /F3 4.9 Tf 394.00 329.00 Td (    ContDiffOn R k u Omega /\\ holderGauge k delta Omega u < inf) Tj ET
-BT /F3 4.9 Tf 394.00 322.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 315.00 Td (structure EllipticOperatorData {d : N} \(m : N\)) Tj ET
-BT /F3 4.9 Tf 394.00 308.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) where) Tj ET
-BT /F3 4.9 Tf 394.00 301.00 Td (  terms : Finset \(\(Fin d -> N\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 294.00 Td (  order_le : forall alpha in terms, sum i, alpha i <= m) Tj ET
-BT /F3 4.9 Tf 394.00 287.00 Td (  coefficient : \(Fin d -> N\) -> \(Fin d -> R\) -> R) Tj ET
-BT /F3 4.9 Tf 394.00 280.00 Td (  formula : forall u x, L u x = sum alpha in terms, coefficient alpha x *) Tj ET
-BT /F3 4.9 Tf 394.00 273.00 Td (  multiDerivative alpha u x) Tj ET
-BT /F3 4.9 Tf 394.00 266.00 Td (  ellipticityConstant : R) Tj ET
-BT /F3 4.9 Tf 394.00 259.00 Td (  ellipticityConstant_pos : 0 < ellipticityConstant) Tj ET
-BT /F3 4.9 Tf 394.00 252.00 Td (  principalSymbol : forall \(x xi : \(Fin d -> R\)\),) Tj ET
-BT /F3 4.9 Tf 394.00 245.00 Td (    ellipticityConstant * ||xi|| ^ m <=) Tj ET
-BT /F3 4.9 Tf 394.00 238.00 Td (      |sum alpha in terms with sum i, alpha i = m,) Tj ET
-BT /F3 4.9 Tf 394.00 231.00 Td (        coefficient alpha x * prod i, \(xi i\) ^ \(alpha i\)|) Tj ET
-BT /F3 4.9 Tf 394.00 224.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 217.00 Td (def ConstantCoefficientEllipticOperator {d : N} \(m : N\)) Tj ET
-BT /F3 4.9 Tf 394.00 210.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 203.00 Td (  exists data : EllipticOperatorData m L,) Tj ET
-BT /F3 4.9 Tf 394.00 196.00 Td (    forall alpha in data.terms, forall x y, data.coefficient alpha x =) Tj ET
-BT /F3 4.9 Tf 394.00 189.00 Td (    data.coefficient alpha y) Tj ET
-BT /F3 4.9 Tf 394.00 182.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 175.00 Td (def ShiftedEllipticEquation {d : N}) Tj ET
-BT /F3 4.9 Tf 394.00 168.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) \(lam : R\)) Tj ET
-BT /F3 4.9 Tf 394.00 161.00 Td (    \(u f : \(Fin d -> R\) -> R\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 154.00 Td (  forall x, L u x - lam * u x = f x) Tj ET
+20.00 456.00 m 772.00 456.00 l S
+BT /F3 4.9 Tf 394.00 542.00 Td (    {u : \(Fin d -> R\) -> R}) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (    \(hOmega : IsOpen Omega\) \(huDiff : ContDiffOn R 2 u Omega\)) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (    \(huContinuous : ContinuousOn u \(closure Omega\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (    \(huBounded : Bornology.IsBounded \(u '' Omega\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (    \(huBoundary : forall x in frontier Omega, u x = 0\)) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (    \(hlam : 0 < lam\) \(hL : SecondOrderEllipticOperator L lam\) :) Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (    functionSupNorm Omega \(fun x => max \(u x\) 0\) <=) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td (        \(ENNReal.ofReal lam\)^-1 * functionSupNorm Omega \(fun x => max \(-\(L) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td (        u x\)\) 0\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (      functionSupNorm Omega u <= \(ENNReal.ofReal lam\)^-1 * functionSupNorm) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td (      Omega \(L u\) := by) Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (  sorry) Tj ET
+20.00 456.00 m 20.00 40.00 l S
+310.00 456.00 m 310.00 40.00 l S
+390.00 456.00 m 390.00 40.00 l S
+772.00 456.00 m 772.00 40.00 l S
+20.00 456.00 m 772.00 456.00 l S
+20.00 40.00 m 772.00 40.00 l S
+BT /F1 5.8 Tf 24.00 448.00 Td (Theorem 3.7.2. Let lambda != 0, k >= 0 be an integer and 0 <) Tj ET
+BT /F1 5.8 Tf 24.00 441.00 Td (delta < 1. Then for any f in C^{k+delta}\(R^d\) there exists a) Tj ET
+BT /F1 5.8 Tf 24.00 434.00 Td (unique solution u in C^{k+m+delta}\(R^d\) of the equation) Tj ET
+BT /F1 5.8 Tf 24.00 427.00 Td (L_lambda u\(x\) = f\(x\), x in R^d.) Tj ET
+BT /F1 5.8 Tf 314.00 448.00 Td (PDE) Tj ET
+BT /F3 4.9 Tf 394.00 448.00 Td (noncomputable def directionalDerivativeList {d : N} :) Tj ET
+BT /F3 4.9 Tf 394.00 441.00 Td (    List \(Fin d\) -> \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R) Tj ET
+BT /F3 4.9 Tf 394.00 434.00 Td (  | [], u => u) Tj ET
+BT /F3 4.9 Tf 394.00 427.00 Td (  | i :: indices, u => fun x =>) Tj ET
+BT /F3 4.9 Tf 394.00 420.00 Td (      fderiv R \(directionalDerivativeList indices u\) x \(Pi.single i 1\)) Tj ET
+BT /F3 4.9 Tf 394.00 413.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 406.00 Td (noncomputable def multiIndexDirections {d : N} \(alpha : \(Fin d -> N\)\) :) Tj ET
+BT /F3 4.9 Tf 394.00 399.00 Td (List \(Fin d\) :=) Tj ET
+BT /F3 4.9 Tf 394.00 392.00 Td (  Finset.univ.toList.flatMap fun i => List.replicate \(alpha i\) i) Tj ET
+BT /F3 4.9 Tf 394.00 385.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 378.00 Td (noncomputable def multiDerivative {d : N} \(alpha : \(Fin d -> N\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 371.00 Td (    \(u : \(Fin d -> R\) -> R\) : \(Fin d -> R\) -> R :=) Tj ET
+BT /F3 4.9 Tf 394.00 364.00 Td (  directionalDerivativeList \(multiIndexDirections alpha\) u) Tj ET
+BT /F3 4.9 Tf 394.00 357.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 350.00 Td (noncomputable def holderGauge {d : N} \(k : N\) \(delta : R\)) Tj ET
+BT /F3 4.9 Tf 394.00 343.00 Td (    \(Omega : Set \(Fin d -> R\)\) \(u : \(Fin d -> R\) -> R\) : R>=0inf :=) Tj ET
+BT /F3 4.9 Tf 394.00 336.00 Td (  \( alpha : {alpha : \(Fin d -> N\) // sum i, alpha i <= k},) Tj ET
+BT /F3 4.9 Tf 394.00 329.00 Td (       x : Omega, ENNReal.ofReal |multiDerivative alpha u x|\) ) Tj ET
+BT /F3 4.9 Tf 394.00 322.00 Td (     alpha : {alpha : \(Fin d -> N\) // sum i, alpha i = k},) Tj ET
+BT /F3 4.9 Tf 394.00 315.00 Td (       x : Omega,  y : Omega,  \(_ : \(x : \(Fin d -> R\)\) != y\),) Tj ET
+BT /F3 4.9 Tf 394.00 308.00 Td (        ENNReal.ofReal) Tj ET
+BT /F3 4.9 Tf 394.00 301.00 Td (          \(|multiDerivative alpha u x - multiDerivative alpha u y| /) Tj ET
+BT /F3 4.9 Tf 394.00 294.00 Td (            ||\(x : \(Fin d -> R\)\) - y|| ^ delta\)) Tj ET
+BT /F3 4.9 Tf 394.00 287.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 280.00 Td (def HolderOn {d : N} \(r : R\) \(Omega : Set \(Fin d -> R\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 273.00 Td (    \(u : \(Fin d -> R\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 266.00 Td (  exists k : N, exists delta : R, r = k + delta /\\ 0 <= delta /\\ delta < 1) Tj ET
+BT /F3 4.9 Tf 394.00 259.00 Td (  /\\) Tj ET
+BT /F3 4.9 Tf 394.00 252.00 Td (    ContDiffOn R k u Omega /\\ holderGauge k delta Omega u < inf) Tj ET
+BT /F3 4.9 Tf 394.00 245.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 238.00 Td (structure EllipticOperatorData {d : N} \(m : N\)) Tj ET
+BT /F3 4.9 Tf 394.00 231.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) where) Tj ET
+BT /F3 4.9 Tf 394.00 224.00 Td (  terms : Finset \(\(Fin d -> N\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 217.00 Td (  order_le : forall alpha in terms, sum i, alpha i <= m) Tj ET
+BT /F3 4.9 Tf 394.00 210.00 Td (  coefficient : \(Fin d -> N\) -> \(Fin d -> R\) -> R) Tj ET
+BT /F3 4.9 Tf 394.00 203.00 Td (  formula : forall u x, L u x = sum alpha in terms, coefficient alpha x *) Tj ET
+BT /F3 4.9 Tf 394.00 196.00 Td (  multiDerivative alpha u x) Tj ET
+BT /F3 4.9 Tf 394.00 189.00 Td (  ellipticityConstant : R) Tj ET
+BT /F3 4.9 Tf 394.00 182.00 Td (  ellipticityConstant_pos : 0 < ellipticityConstant) Tj ET
+BT /F3 4.9 Tf 394.00 175.00 Td (  principalSymbol : forall \(x xi : \(Fin d -> R\)\),) Tj ET
+BT /F3 4.9 Tf 394.00 168.00 Td (    ellipticityConstant * ||xi|| ^ m <=) Tj ET
+BT /F3 4.9 Tf 394.00 161.00 Td (      sum alpha in terms with sum i, alpha i = m,) Tj ET
+BT /F3 4.9 Tf 394.00 154.00 Td (        coefficient alpha x * prod i, \(xi i\) ^ \(alpha i\)) Tj ET
 BT /F3 4.9 Tf 394.00 147.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 140.00 Td (theorem krylov_3_7_2_constant_coefficient_holder_solvability) Tj ET
-BT /F3 4.9 Tf 394.00 133.00 Td (    {d m k : N} {delta lam : R} {L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) ->) Tj ET
-BT /F3 4.9 Tf 394.00 126.00 Td (    R}) Tj ET
-BT /F3 4.9 Tf 394.00 119.00 Td (    \(hm : 0 < m\) \(hdelta : 0 < delta /\\ delta < 1\) \(hlam : lam != 0\)) Tj ET
-BT /F3 4.9 Tf 394.00 112.00 Td (    \(hL : ConstantCoefficientEllipticOperator m L\) :) Tj ET
-BT /F3 4.9 Tf 394.00 105.00 Td (    forall f, HolderOn \(k + delta\) univ f ->) Tj ET
-BT /F3 4.9 Tf 394.00 98.00 Td (      exists! u, HolderOn \(k + m + delta\) univ u /\\ ShiftedEllipticEquation) Tj ET
-BT /F3 4.9 Tf 394.00 91.00 Td (      L lam u f := by) Tj ET
-BT /F3 4.9 Tf 394.00 84.00 Td (  sorry) Tj ET
-20.00 75.00 m 20.00 37.00 l S
-310.00 75.00 m 310.00 37.00 l S
-390.00 75.00 m 390.00 37.00 l S
-772.00 75.00 m 772.00 37.00 l S
-20.00 75.00 m 772.00 75.00 l S
-20.00 37.00 m 772.00 37.00 l S
-BT /F1 5.8 Tf 24.00 67.00 Td (Theorem 4.2.1. Let the assumptions of Theorem 4.1.2 be) Tj ET
-BT /F1 5.8 Tf 24.00 60.00 Td (satisfied, and let k >= 0 be an integer, K1 >= 1 be a) Tj ET
-BT /F1 5.8 Tf 24.00 53.00 Td (constant. Assume that for any alpha we have) Tj ET
-BT /F1 5.8 Tf 24.00 46.00 Td (|a^alpha|_{k+delta} <= K1. Then for any lambda, the inclusions) Tj ET
-BT /F1 5.8 Tf 314.00 67.00 Td (PDE) Tj ET
-BT /F3 4.9 Tf 394.00 67.00 Td (noncomputable def directionalDerivativeList {d : N} :) Tj ET
-BT /F3 4.9 Tf 394.00 60.00 Td (    List \(Fin d\) -> \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R) Tj ET
-BT /F3 4.9 Tf 394.00 53.00 Td (  | [], u => u) Tj ET
-BT /F3 4.9 Tf 394.00 46.00 Td (  | i :: indices, u => fun x =>) Tj ET
+BT /F3 4.9 Tf 394.00 140.00 Td (def ConstantCoefficientEllipticOperator {d : N} \(m : N\)) Tj ET
+BT /F3 4.9 Tf 394.00 133.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 126.00 Td (  exists data : EllipticOperatorData m L,) Tj ET
+BT /F3 4.9 Tf 394.00 119.00 Td (    forall alpha in data.terms, forall x y, data.coefficient alpha x =) Tj ET
+BT /F3 4.9 Tf 394.00 112.00 Td (    data.coefficient alpha y) Tj ET
+BT /F3 4.9 Tf 394.00 105.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 98.00 Td (def ShiftedEllipticEquation {d : N}) Tj ET
+BT /F3 4.9 Tf 394.00 91.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) \(lam : R\)) Tj ET
+BT /F3 4.9 Tf 394.00 84.00 Td (    \(u f : \(Fin d -> R\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 77.00 Td (  forall x, L u x - lam * u x = f x) Tj ET
+BT /F3 4.9 Tf 394.00 70.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 63.00 Td (theorem krylov_3_7_2_constant_coefficient_holder_solvability) Tj ET
+BT /F3 4.9 Tf 394.00 56.00 Td (    {d m k : N} {delta lam : R} {L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) ->) Tj ET
+BT /F3 4.9 Tf 394.00 49.00 Td (    R}) Tj ET
 endstream
 endobj
 9 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 21 0 R /F2 22 0 R /F3 23 0 R >> >> /Contents 10 0 R >>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 23 0 R /F2 24 0 R /F3 25 0 R >> >> /Contents 10 0 R >>
 endobj
 10 0 obj
-<< /Length 7702 >>
+<< /Length 7786 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Krylov Holder PDE Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 4) Tj ET
@@ -347,106 +337,108 @@ BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
 BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
 BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
 20.00 558.00 m 772.00 558.00 l S
-20.00 550.00 m 20.00 64.00 l S
-310.00 550.00 m 310.00 64.00 l S
-390.00 550.00 m 390.00 64.00 l S
-772.00 550.00 m 772.00 64.00 l S
+20.00 550.00 m 20.00 498.00 l S
+310.00 550.00 m 310.00 498.00 l S
+390.00 550.00 m 390.00 498.00 l S
+772.00 550.00 m 772.00 498.00 l S
 20.00 550.00 m 772.00 550.00 l S
-20.00 64.00 m 772.00 64.00 l S
-BT /F1 5.8 Tf 24.00 542.00 Td (u in C^{m+delta}\(R^d\) and L_lambda u in C^{k+delta}\(R^d\) imply) Tj ET
-BT /F1 5.8 Tf 24.00 535.00 Td (that u in C^{k+m+delta}\(R^d\). Moreover, if we take lambda0) Tj ET
-BT /F1 5.8 Tf 24.00 528.00 Td (from Theorem 4.1.2 and take a real lambda so that |lambda| >=) Tj ET
-BT /F1 5.8 Tf 24.00 521.00 Td (lambda0, then there exists a constant N > 0 depending only on) Tj ET
-BT /F1 5.8 Tf 24.00 514.00 Td (kappa, k, m, delta, K1, d, such that for any u in) Tj ET
-BT /F1 5.8 Tf 24.00 507.00 Td (C^{k+m+delta}\(R^d\) we have |u|_{k+m+delta} +) Tj ET
-BT /F1 5.8 Tf 24.00 500.00 Td (|lambda|^{\(k+m+delta\)/m}|u|0 <= N\(|L_lambdau|_{k+delta} +) Tj ET
-BT /F1 5.8 Tf 24.00 493.00 Td (|lambda|^{\(k+delta\)/m}|L_lambdau|0\).) Tj ET
-BT /F3 4.9 Tf 394.00 542.00 Td (      fderiv R \(directionalDerivativeList indices u\) x \(Pi.single i 1\)) Tj ET
-BT /F3 4.9 Tf 394.00 535.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 528.00 Td (noncomputable def multiIndexDirections {d : N} \(alpha : \(Fin d -> N\)\) :) Tj ET
-BT /F3 4.9 Tf 394.00 521.00 Td (List \(Fin d\) :=) Tj ET
-BT /F3 4.9 Tf 394.00 514.00 Td (  Finset.univ.toList.flatMap fun i => List.replicate \(alpha i\) i) Tj ET
-BT /F3 4.9 Tf 394.00 507.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 500.00 Td (noncomputable def multiDerivative {d : N} \(alpha : \(Fin d -> N\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 493.00 Td (    \(u : \(Fin d -> R\) -> R\) : \(Fin d -> R\) -> R :=) Tj ET
-BT /F3 4.9 Tf 394.00 486.00 Td (  directionalDerivativeList \(multiIndexDirections alpha\) u) Tj ET
-BT /F3 4.9 Tf 394.00 479.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 472.00 Td (noncomputable def holderGauge {d : N} \(k : N\) \(delta : R\)) Tj ET
-BT /F3 4.9 Tf 394.00 465.00 Td (    \(Omega : Set \(Fin d -> R\)\) \(u : \(Fin d -> R\) -> R\) : R>=0inf :=) Tj ET
-BT /F3 4.9 Tf 394.00 458.00 Td (  \( alpha : {alpha : \(Fin d -> N\) // sum i, alpha i <= k},) Tj ET
-BT /F3 4.9 Tf 394.00 451.00 Td (       x : Omega, ENNReal.ofReal |multiDerivative alpha u x|\) ) Tj ET
-BT /F3 4.9 Tf 394.00 444.00 Td (     alpha : {alpha : \(Fin d -> N\) // sum i, alpha i = k},) Tj ET
-BT /F3 4.9 Tf 394.00 437.00 Td (       x : Omega,  y : Omega,  \(_ : \(x : \(Fin d -> R\)\) != y\),) Tj ET
-BT /F3 4.9 Tf 394.00 430.00 Td (        ENNReal.ofReal) Tj ET
-BT /F3 4.9 Tf 394.00 423.00 Td (          \(|multiDerivative alpha u x - multiDerivative alpha u y| /) Tj ET
-BT /F3 4.9 Tf 394.00 416.00 Td (            ||\(x : \(Fin d -> R\)\) - y|| ^ delta\)) Tj ET
-BT /F3 4.9 Tf 394.00 409.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 402.00 Td (def HolderOn {d : N} \(r : R\) \(Omega : Set \(Fin d -> R\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 395.00 Td (    \(u : \(Fin d -> R\) -> R\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 388.00 Td (  exists k : N, exists delta : R, r = k + delta /\\ 0 <= delta /\\ delta < 1) Tj ET
-BT /F3 4.9 Tf 394.00 381.00 Td (  /\\) Tj ET
-BT /F3 4.9 Tf 394.00 374.00 Td (    ContDiffOn R k u Omega /\\ holderGauge k delta Omega u < inf) Tj ET
-BT /F3 4.9 Tf 394.00 367.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 360.00 Td (structure EllipticOperatorData {d : N} \(m : N\)) Tj ET
-BT /F3 4.9 Tf 394.00 353.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) where) Tj ET
-BT /F3 4.9 Tf 394.00 346.00 Td (  terms : Finset \(\(Fin d -> N\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 339.00 Td (  order_le : forall alpha in terms, sum i, alpha i <= m) Tj ET
-BT /F3 4.9 Tf 394.00 332.00 Td (  coefficient : \(Fin d -> N\) -> \(Fin d -> R\) -> R) Tj ET
-BT /F3 4.9 Tf 394.00 325.00 Td (  formula : forall u x, L u x = sum alpha in terms, coefficient alpha x *) Tj ET
-BT /F3 4.9 Tf 394.00 318.00 Td (  multiDerivative alpha u x) Tj ET
-BT /F3 4.9 Tf 394.00 311.00 Td (  ellipticityConstant : R) Tj ET
-BT /F3 4.9 Tf 394.00 304.00 Td (  ellipticityConstant_pos : 0 < ellipticityConstant) Tj ET
-BT /F3 4.9 Tf 394.00 297.00 Td (  principalSymbol : forall \(x xi : \(Fin d -> R\)\),) Tj ET
-BT /F3 4.9 Tf 394.00 290.00 Td (    ellipticityConstant * ||xi|| ^ m <=) Tj ET
-BT /F3 4.9 Tf 394.00 283.00 Td (      |sum alpha in terms with sum i, alpha i = m,) Tj ET
-BT /F3 4.9 Tf 394.00 276.00 Td (        coefficient alpha x * prod i, \(xi i\) ^ \(alpha i\)|) Tj ET
-BT /F3 4.9 Tf 394.00 269.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 262.00 Td (def VariableCoefficientEllipticOperator {d : N} \(m : N\)) Tj ET
-BT /F3 4.9 Tf 394.00 255.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 248.00 Td (  Nonempty \(EllipticOperatorData m L\)) Tj ET
-BT /F3 4.9 Tf 394.00 241.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 234.00 Td (def OperatorCoefficientsHolder {d : N} \(m : N\) \(r : R\)) Tj ET
-BT /F3 4.9 Tf 394.00 227.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 220.00 Td (  exists data : EllipticOperatorData m L,) Tj ET
-BT /F3 4.9 Tf 394.00 213.00 Td (    forall alpha in data.terms, HolderOn r univ \(data.coefficient alpha\)) Tj ET
-BT /F3 4.9 Tf 394.00 206.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 199.00 Td (def ShiftedEllipticEquation {d : N}) Tj ET
-BT /F3 4.9 Tf 394.00 192.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) \(lam : R\)) Tj ET
-BT /F3 4.9 Tf 394.00 185.00 Td (    \(u f : \(Fin d -> R\) -> R\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 178.00 Td (  forall x, L u x - lam * u x = f x) Tj ET
-BT /F3 4.9 Tf 394.00 171.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 164.00 Td (theorem krylov_4_2_1_better_regular_data_better_regular_solution) Tj ET
-BT /F3 4.9 Tf 394.00 157.00 Td (    {d m k : N} {delta lam lam0 : R} {L : \(\(Fin d -> R\) -> R\) -> \(Fin d ->) Tj ET
-BT /F3 4.9 Tf 394.00 150.00 Td (    R\) -> R}) Tj ET
-BT /F3 4.9 Tf 394.00 143.00 Td (    {u f : \(Fin d -> R\) -> R} \(hk : 0 < k\) \(hdelta : 0 < delta /\\ delta < 1\)) Tj ET
-BT /F3 4.9 Tf 394.00 136.00 Td (    \(hL : VariableCoefficientEllipticOperator m L\)) Tj ET
-BT /F3 4.9 Tf 394.00 129.00 Td (    \(hcoeff : OperatorCoefficientsHolder m \(k + delta\) L\)) Tj ET
-BT /F3 4.9 Tf 394.00 122.00 Td (    \(hu : HolderOn \(m + delta\) univ u\) \(hLu : ShiftedEllipticEquation L lam) Tj ET
-BT /F3 4.9 Tf 394.00 115.00 Td (    u f\)) Tj ET
-BT /F3 4.9 Tf 394.00 108.00 Td (    \(hf : HolderOn \(k + delta\) univ f\) :) Tj ET
-BT /F3 4.9 Tf 394.00 101.00 Td (    HolderOn \(k + m + delta\) univ u /\\) Tj ET
-BT /F3 4.9 Tf 394.00 94.00 Td (      \(lam0 <= |lam| -> exists C : R>=0inf, C < inf /\\) Tj ET
-BT /F3 4.9 Tf 394.00 87.00 Td (        holderGauge \(k + m\) delta univ u <=) Tj ET
-BT /F3 4.9 Tf 394.00 80.00 Td (          C * holderGauge k delta univ \(fun x => L u x - lam * u x\)\) := by) Tj ET
-BT /F3 4.9 Tf 394.00 73.00 Td (  sorry) Tj ET
-20.00 64.00 m 20.00 40.00 l S
-310.00 64.00 m 310.00 40.00 l S
-390.00 64.00 m 390.00 40.00 l S
-772.00 64.00 m 772.00 40.00 l S
-20.00 64.00 m 772.00 64.00 l S
+20.00 498.00 m 772.00 498.00 l S
+BT /F3 4.9 Tf 394.00 542.00 Td (    \(hm : 0 < m\) \(hdelta : 0 < delta /\\ delta < 1\) \(hlam : lam != 0\)) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (    \(hL : ConstantCoefficientEllipticOperator m L\) :) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (    forall f, HolderOn \(k + delta\) univ f ->) Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (      exists! u, HolderOn \(k + m + delta\) univ u /\\ ShiftedEllipticEquation) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (      L lam u f := by) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (  sorry) Tj ET
+20.00 498.00 m 20.00 40.00 l S
+310.00 498.00 m 310.00 40.00 l S
+390.00 498.00 m 390.00 40.00 l S
+772.00 498.00 m 772.00 40.00 l S
+20.00 498.00 m 772.00 498.00 l S
 20.00 40.00 m 772.00 40.00 l S
-BT /F1 5.8 Tf 24.00 56.00 Td (Theorem 4.5.1. Let L = L\(x\) = sum_{|alpha|<=m}) Tj ET
-BT /F1 5.8 Tf 24.00 49.00 Td (a^alpha\(x\)D^alpha be a uniformly elliptic operator, and k >= 0) Tj ET
-BT /F1 5.8 Tf 314.00 56.00 Td (PDE) Tj ET
-BT /F3 4.9 Tf 394.00 56.00 Td (noncomputable def directionalDerivativeList {d : N} :) Tj ET
-BT /F3 4.9 Tf 394.00 49.00 Td (    List \(Fin d\) -> \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R) Tj ET
+BT /F1 5.8 Tf 24.00 490.00 Td (Theorem 4.2.1. Let the assumptions of Theorem 4.1.2 be) Tj ET
+BT /F1 5.8 Tf 24.00 483.00 Td (satisfied, and let k >= 0 be an integer, K1 >= 1 be a) Tj ET
+BT /F1 5.8 Tf 24.00 476.00 Td (constant. Assume that for any alpha we have) Tj ET
+BT /F1 5.8 Tf 24.00 469.00 Td (|a^alpha|_{k+delta} <= K1. Then for any lambda, the inclusions) Tj ET
+BT /F1 5.8 Tf 24.00 462.00 Td (u in C^{m+delta}\(R^d\) and L_lambda u in C^{k+delta}\(R^d\) imply) Tj ET
+BT /F1 5.8 Tf 24.00 455.00 Td (that u in C^{k+m+delta}\(R^d\). Moreover, if we take lambda0) Tj ET
+BT /F1 5.8 Tf 24.00 448.00 Td (from Theorem 4.1.2 and take a real lambda so that |lambda| >=) Tj ET
+BT /F1 5.8 Tf 24.00 441.00 Td (lambda0, then there exists a constant N > 0 depending only on) Tj ET
+BT /F1 5.8 Tf 24.00 434.00 Td (kappa, k, m, delta, K1, d, such that for any u in) Tj ET
+BT /F1 5.8 Tf 24.00 427.00 Td (C^{k+m+delta}\(R^d\) we have |u|_{k+m+delta} +) Tj ET
+BT /F1 5.8 Tf 24.00 420.00 Td (|lambda|^{\(k+m+delta\)/m}|u|0 <= N\(|L_lambdau|_{k+delta} +) Tj ET
+BT /F1 5.8 Tf 24.00 413.00 Td (|lambda|^{\(k+delta\)/m}|L_lambdau|0\).) Tj ET
+BT /F1 5.8 Tf 314.00 490.00 Td (PDE) Tj ET
+BT /F3 4.9 Tf 394.00 490.00 Td (noncomputable def directionalDerivativeList {d : N} :) Tj ET
+BT /F3 4.9 Tf 394.00 483.00 Td (    List \(Fin d\) -> \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R) Tj ET
+BT /F3 4.9 Tf 394.00 476.00 Td (  | [], u => u) Tj ET
+BT /F3 4.9 Tf 394.00 469.00 Td (  | i :: indices, u => fun x =>) Tj ET
+BT /F3 4.9 Tf 394.00 462.00 Td (      fderiv R \(directionalDerivativeList indices u\) x \(Pi.single i 1\)) Tj ET
+BT /F3 4.9 Tf 394.00 455.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 448.00 Td (noncomputable def multiIndexDirections {d : N} \(alpha : \(Fin d -> N\)\) :) Tj ET
+BT /F3 4.9 Tf 394.00 441.00 Td (List \(Fin d\) :=) Tj ET
+BT /F3 4.9 Tf 394.00 434.00 Td (  Finset.univ.toList.flatMap fun i => List.replicate \(alpha i\) i) Tj ET
+BT /F3 4.9 Tf 394.00 427.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 420.00 Td (noncomputable def multiDerivative {d : N} \(alpha : \(Fin d -> N\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 413.00 Td (    \(u : \(Fin d -> R\) -> R\) : \(Fin d -> R\) -> R :=) Tj ET
+BT /F3 4.9 Tf 394.00 406.00 Td (  directionalDerivativeList \(multiIndexDirections alpha\) u) Tj ET
+BT /F3 4.9 Tf 394.00 399.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 392.00 Td (noncomputable def holderGauge {d : N} \(k : N\) \(delta : R\)) Tj ET
+BT /F3 4.9 Tf 394.00 385.00 Td (    \(Omega : Set \(Fin d -> R\)\) \(u : \(Fin d -> R\) -> R\) : R>=0inf :=) Tj ET
+BT /F3 4.9 Tf 394.00 378.00 Td (  \( alpha : {alpha : \(Fin d -> N\) // sum i, alpha i <= k},) Tj ET
+BT /F3 4.9 Tf 394.00 371.00 Td (       x : Omega, ENNReal.ofReal |multiDerivative alpha u x|\) ) Tj ET
+BT /F3 4.9 Tf 394.00 364.00 Td (     alpha : {alpha : \(Fin d -> N\) // sum i, alpha i = k},) Tj ET
+BT /F3 4.9 Tf 394.00 357.00 Td (       x : Omega,  y : Omega,  \(_ : \(x : \(Fin d -> R\)\) != y\),) Tj ET
+BT /F3 4.9 Tf 394.00 350.00 Td (        ENNReal.ofReal) Tj ET
+BT /F3 4.9 Tf 394.00 343.00 Td (          \(|multiDerivative alpha u x - multiDerivative alpha u y| /) Tj ET
+BT /F3 4.9 Tf 394.00 336.00 Td (            ||\(x : \(Fin d -> R\)\) - y|| ^ delta\)) Tj ET
+BT /F3 4.9 Tf 394.00 329.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 322.00 Td (def HolderOn {d : N} \(r : R\) \(Omega : Set \(Fin d -> R\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 315.00 Td (    \(u : \(Fin d -> R\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 308.00 Td (  exists k : N, exists delta : R, r = k + delta /\\ 0 <= delta /\\ delta < 1) Tj ET
+BT /F3 4.9 Tf 394.00 301.00 Td (  /\\) Tj ET
+BT /F3 4.9 Tf 394.00 294.00 Td (    ContDiffOn R k u Omega /\\ holderGauge k delta Omega u < inf) Tj ET
+BT /F3 4.9 Tf 394.00 287.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 280.00 Td (structure EllipticOperatorData {d : N} \(m : N\)) Tj ET
+BT /F3 4.9 Tf 394.00 273.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) where) Tj ET
+BT /F3 4.9 Tf 394.00 266.00 Td (  terms : Finset \(\(Fin d -> N\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 259.00 Td (  order_le : forall alpha in terms, sum i, alpha i <= m) Tj ET
+BT /F3 4.9 Tf 394.00 252.00 Td (  coefficient : \(Fin d -> N\) -> \(Fin d -> R\) -> R) Tj ET
+BT /F3 4.9 Tf 394.00 245.00 Td (  formula : forall u x, L u x = sum alpha in terms, coefficient alpha x *) Tj ET
+BT /F3 4.9 Tf 394.00 238.00 Td (  multiDerivative alpha u x) Tj ET
+BT /F3 4.9 Tf 394.00 231.00 Td (  ellipticityConstant : R) Tj ET
+BT /F3 4.9 Tf 394.00 224.00 Td (  ellipticityConstant_pos : 0 < ellipticityConstant) Tj ET
+BT /F3 4.9 Tf 394.00 217.00 Td (  principalSymbol : forall \(x xi : \(Fin d -> R\)\),) Tj ET
+BT /F3 4.9 Tf 394.00 210.00 Td (    ellipticityConstant * ||xi|| ^ m <=) Tj ET
+BT /F3 4.9 Tf 394.00 203.00 Td (      sum alpha in terms with sum i, alpha i = m,) Tj ET
+BT /F3 4.9 Tf 394.00 196.00 Td (        coefficient alpha x * prod i, \(xi i\) ^ \(alpha i\)) Tj ET
+BT /F3 4.9 Tf 394.00 189.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 182.00 Td (def VariableCoefficientEllipticOperator {d : N} \(m : N\)) Tj ET
+BT /F3 4.9 Tf 394.00 175.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 168.00 Td (  Nonempty \(EllipticOperatorData m L\)) Tj ET
+BT /F3 4.9 Tf 394.00 161.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 154.00 Td (def OperatorCoefficientsHolder {d : N} \(m : N\) \(r : R\)) Tj ET
+BT /F3 4.9 Tf 394.00 147.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 140.00 Td (  exists data : EllipticOperatorData m L,) Tj ET
+BT /F3 4.9 Tf 394.00 133.00 Td (    forall alpha in data.terms, HolderOn r univ \(data.coefficient alpha\)) Tj ET
+BT /F3 4.9 Tf 394.00 126.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 119.00 Td (def OperatorCoefficientGaugeLE {d : N} \(m k : N\) \(delta : R\) \(K : R>=0inf\)) Tj ET
+BT /F3 4.9 Tf 394.00 112.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 105.00 Td (  exists data : EllipticOperatorData m L,) Tj ET
+BT /F3 4.9 Tf 394.00 98.00 Td (    forall alpha in data.terms, holderGauge k delta univ \(data.coefficient) Tj ET
+BT /F3 4.9 Tf 394.00 91.00 Td (    alpha\) <= K) Tj ET
+BT /F3 4.9 Tf 394.00 84.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 77.00 Td (def ShiftedEllipticEquation {d : N}) Tj ET
+BT /F3 4.9 Tf 394.00 70.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) \(lam : R\)) Tj ET
+BT /F3 4.9 Tf 394.00 63.00 Td (    \(u f : \(Fin d -> R\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 56.00 Td (  forall x, L u x - lam * u x = f x) Tj ET
+BT /F3 4.9 Tf 394.00 49.00 Td () Tj ET
 endstream
 endobj
 11 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 21 0 R /F2 22 0 R /F3 23 0 R >> >> /Contents 12 0 R >>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 23 0 R /F2 24 0 R /F3 25 0 R >> >> /Contents 12 0 R >>
 endobj
 12 0 obj
-<< /Length 7702 >>
+<< /Length 7698 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Krylov Holder PDE Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 5) Tj ET
@@ -454,413 +446,109 @@ BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
 BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
 BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
 20.00 558.00 m 772.00 558.00 l S
-20.00 550.00 m 20.00 78.00 l S
-310.00 550.00 m 310.00 78.00 l S
-390.00 550.00 m 390.00 78.00 l S
-772.00 550.00 m 772.00 78.00 l S
+20.00 550.00 m 20.00 379.00 l S
+310.00 550.00 m 310.00 379.00 l S
+390.00 550.00 m 390.00 379.00 l S
+772.00 550.00 m 772.00 379.00 l S
 20.00 550.00 m 772.00 550.00 l S
-20.00 78.00 m 772.00 78.00 l S
-BT /F1 5.8 Tf 24.00 542.00 Td (be an integer. Assume that a^alpha in C^{k+delta}\(R^d\) for any) Tj ET
-BT /F1 5.8 Tf 24.00 535.00 Td (alpha. Define the constant lambda0 depending only on the) Tj ET
-BT /F1 5.8 Tf 24.00 528.00 Td (ellipticity constant kappa and m, delta, d and maximum of) Tj ET
-BT /F1 5.8 Tf 24.00 521.00 Td (|a^alpha|_delta as in Theorem 4.1.2, and take any real lambda) Tj ET
-BT /F1 5.8 Tf 24.00 514.00 Td (such that |lambda| >= lambda0. Then for any f in) Tj ET
-BT /F1 5.8 Tf 24.00 507.00 Td (C^{k+delta}\(R^d\) there exists a unique solution u in) Tj ET
-BT /F1 5.8 Tf 24.00 500.00 Td (C^{k+m+delta}\(R^d\) of the equation L_lambda u\(x\) = f\(x\), x in) Tj ET
-BT /F1 5.8 Tf 24.00 493.00 Td (R^d.) Tj ET
-BT /F3 4.9 Tf 394.00 542.00 Td (  | [], u => u) Tj ET
-BT /F3 4.9 Tf 394.00 535.00 Td (  | i :: indices, u => fun x =>) Tj ET
-BT /F3 4.9 Tf 394.00 528.00 Td (      fderiv R \(directionalDerivativeList indices u\) x \(Pi.single i 1\)) Tj ET
-BT /F3 4.9 Tf 394.00 521.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 514.00 Td (noncomputable def multiIndexDirections {d : N} \(alpha : \(Fin d -> N\)\) :) Tj ET
-BT /F3 4.9 Tf 394.00 507.00 Td (List \(Fin d\) :=) Tj ET
-BT /F3 4.9 Tf 394.00 500.00 Td (  Finset.univ.toList.flatMap fun i => List.replicate \(alpha i\) i) Tj ET
-BT /F3 4.9 Tf 394.00 493.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 486.00 Td (noncomputable def multiDerivative {d : N} \(alpha : \(Fin d -> N\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 479.00 Td (    \(u : \(Fin d -> R\) -> R\) : \(Fin d -> R\) -> R :=) Tj ET
-BT /F3 4.9 Tf 394.00 472.00 Td (  directionalDerivativeList \(multiIndexDirections alpha\) u) Tj ET
-BT /F3 4.9 Tf 394.00 465.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 458.00 Td (noncomputable def holderGauge {d : N} \(k : N\) \(delta : R\)) Tj ET
-BT /F3 4.9 Tf 394.00 451.00 Td (    \(Omega : Set \(Fin d -> R\)\) \(u : \(Fin d -> R\) -> R\) : R>=0inf :=) Tj ET
-BT /F3 4.9 Tf 394.00 444.00 Td (  \( alpha : {alpha : \(Fin d -> N\) // sum i, alpha i <= k},) Tj ET
-BT /F3 4.9 Tf 394.00 437.00 Td (       x : Omega, ENNReal.ofReal |multiDerivative alpha u x|\) ) Tj ET
-BT /F3 4.9 Tf 394.00 430.00 Td (     alpha : {alpha : \(Fin d -> N\) // sum i, alpha i = k},) Tj ET
-BT /F3 4.9 Tf 394.00 423.00 Td (       x : Omega,  y : Omega,  \(_ : \(x : \(Fin d -> R\)\) != y\),) Tj ET
-BT /F3 4.9 Tf 394.00 416.00 Td (        ENNReal.ofReal) Tj ET
-BT /F3 4.9 Tf 394.00 409.00 Td (          \(|multiDerivative alpha u x - multiDerivative alpha u y| /) Tj ET
-BT /F3 4.9 Tf 394.00 402.00 Td (            ||\(x : \(Fin d -> R\)\) - y|| ^ delta\)) Tj ET
-BT /F3 4.9 Tf 394.00 395.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 388.00 Td (def HolderOn {d : N} \(r : R\) \(Omega : Set \(Fin d -> R\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 381.00 Td (    \(u : \(Fin d -> R\) -> R\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 374.00 Td (  exists k : N, exists delta : R, r = k + delta /\\ 0 <= delta /\\ delta < 1) Tj ET
-BT /F3 4.9 Tf 394.00 367.00 Td (  /\\) Tj ET
-BT /F3 4.9 Tf 394.00 360.00 Td (    ContDiffOn R k u Omega /\\ holderGauge k delta Omega u < inf) Tj ET
-BT /F3 4.9 Tf 394.00 353.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 346.00 Td (structure EllipticOperatorData {d : N} \(m : N\)) Tj ET
-BT /F3 4.9 Tf 394.00 339.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) where) Tj ET
-BT /F3 4.9 Tf 394.00 332.00 Td (  terms : Finset \(\(Fin d -> N\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 325.00 Td (  order_le : forall alpha in terms, sum i, alpha i <= m) Tj ET
-BT /F3 4.9 Tf 394.00 318.00 Td (  coefficient : \(Fin d -> N\) -> \(Fin d -> R\) -> R) Tj ET
-BT /F3 4.9 Tf 394.00 311.00 Td (  formula : forall u x, L u x = sum alpha in terms, coefficient alpha x *) Tj ET
-BT /F3 4.9 Tf 394.00 304.00 Td (  multiDerivative alpha u x) Tj ET
-BT /F3 4.9 Tf 394.00 297.00 Td (  ellipticityConstant : R) Tj ET
-BT /F3 4.9 Tf 394.00 290.00 Td (  ellipticityConstant_pos : 0 < ellipticityConstant) Tj ET
-BT /F3 4.9 Tf 394.00 283.00 Td (  principalSymbol : forall \(x xi : \(Fin d -> R\)\),) Tj ET
-BT /F3 4.9 Tf 394.00 276.00 Td (    ellipticityConstant * ||xi|| ^ m <=) Tj ET
-BT /F3 4.9 Tf 394.00 269.00 Td (      |sum alpha in terms with sum i, alpha i = m,) Tj ET
-BT /F3 4.9 Tf 394.00 262.00 Td (        coefficient alpha x * prod i, \(xi i\) ^ \(alpha i\)|) Tj ET
-BT /F3 4.9 Tf 394.00 255.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 248.00 Td (def VariableCoefficientEllipticOperator {d : N} \(m : N\)) Tj ET
-BT /F3 4.9 Tf 394.00 241.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 234.00 Td (  Nonempty \(EllipticOperatorData m L\)) Tj ET
-BT /F3 4.9 Tf 394.00 227.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 220.00 Td (def OperatorCoefficientsHolder {d : N} \(m : N\) \(r : R\)) Tj ET
-BT /F3 4.9 Tf 394.00 213.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 206.00 Td (  exists data : EllipticOperatorData m L,) Tj ET
-BT /F3 4.9 Tf 394.00 199.00 Td (    forall alpha in data.terms, HolderOn r univ \(data.coefficient alpha\)) Tj ET
-BT /F3 4.9 Tf 394.00 192.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 185.00 Td (def ShiftedEllipticEquation {d : N}) Tj ET
-BT /F3 4.9 Tf 394.00 178.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) \(lam : R\)) Tj ET
-BT /F3 4.9 Tf 394.00 171.00 Td (    \(u f : \(Fin d -> R\) -> R\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 164.00 Td (  forall x, L u x - lam * u x = f x) Tj ET
-BT /F3 4.9 Tf 394.00 157.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 150.00 Td (theorem krylov_4_5_1_variable_coefficient_global_solvability) Tj ET
-BT /F3 4.9 Tf 394.00 143.00 Td (    {d m k : N} {delta lam lam0 : R} {L : \(\(Fin d -> R\) -> R\) -> \(Fin d ->) Tj ET
-BT /F3 4.9 Tf 394.00 136.00 Td (    R\) -> R}) Tj ET
-BT /F3 4.9 Tf 394.00 129.00 Td (    \(hdelta : 0 < delta /\\ delta < 1\) \(hlarge : lam0 <= |lam|\)) Tj ET
-BT /F3 4.9 Tf 394.00 122.00 Td (    \(hL : VariableCoefficientEllipticOperator m L\)) Tj ET
-BT /F3 4.9 Tf 394.00 115.00 Td (    \(hcoeff : OperatorCoefficientsHolder m \(k + delta\) L\) :) Tj ET
-BT /F3 4.9 Tf 394.00 108.00 Td (    forall f, HolderOn \(k + delta\) univ f ->) Tj ET
-BT /F3 4.9 Tf 394.00 101.00 Td (      exists! u, HolderOn \(k + m + delta\) univ u /\\ ShiftedEllipticEquation) Tj ET
-BT /F3 4.9 Tf 394.00 94.00 Td (      L lam u f := by) Tj ET
-BT /F3 4.9 Tf 394.00 87.00 Td (  sorry) Tj ET
-20.00 78.00 m 20.00 40.00 l S
-310.00 78.00 m 310.00 40.00 l S
-390.00 78.00 m 390.00 40.00 l S
-772.00 78.00 m 772.00 40.00 l S
-20.00 78.00 m 772.00 78.00 l S
+20.00 379.00 m 772.00 379.00 l S
+BT /F3 4.9 Tf 394.00 542.00 Td (theorem krylov_4_2_1_better_regular_data_better_regular_solution) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (    {d m k : N} {delta lam0 K1 : R} {L : \(\(Fin d -> R\) -> R\) -> \(Fin d ->) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (    R\) -> R}) Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (    \(hm : 0 < m\) \(hdelta : 0 < delta /\\ delta < 1\) \(hlam0 : 0 <= lam0\) \(hK1) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (    : 1 <= K1\)) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (    \(hL : VariableCoefficientEllipticOperator m L\)) Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (    \(hcoeff : OperatorCoefficientsHolder m \(k + delta\) L\)) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td (    \(hcoeffBound : OperatorCoefficientGaugeLE m k delta \(ENNReal.ofReal K1\)) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td (    L\) :) Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (    exists C : R>=0inf, C < inf /\\ forall \(lam : R\) \(u f : \(Fin d -> R\) ->) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td (    R\),) Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (      HolderOn \(m + delta\) univ u -> ShiftedEllipticEquation L lam u f ->) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td (      HolderOn \(k + delta\) univ f -> HolderOn \(k + m + delta\) univ u /\\) Tj ET
+BT /F3 4.9 Tf 394.00 451.00 Td (        \(lam0 <= |lam| ->) Tj ET
+BT /F3 4.9 Tf 394.00 444.00 Td (          holderGauge \(k + m\) delta univ u +) Tj ET
+BT /F3 4.9 Tf 394.00 437.00 Td (              ENNReal.rpow \(ENNReal.ofReal |lam|\) \(\(\(\(k + m : N\) : R\) +) Tj ET
+BT /F3 4.9 Tf 394.00 430.00 Td (        delta\) / m\) *) Tj ET
+BT /F3 4.9 Tf 394.00 423.00 Td (                functionSupNorm univ u <=) Tj ET
+BT /F3 4.9 Tf 394.00 416.00 Td (            C * \(holderGauge k delta univ f +) Tj ET
+BT /F3 4.9 Tf 394.00 409.00 Td (              ENNReal.rpow \(ENNReal.ofReal |lam|\) \(\(\(\(k : N\) : R\) + delta\)) Tj ET
+BT /F3 4.9 Tf 394.00 402.00 Td (        / m\) *) Tj ET
+BT /F3 4.9 Tf 394.00 395.00 Td (                functionSupNorm univ f\)\) := by) Tj ET
+BT /F3 4.9 Tf 394.00 388.00 Td (  sorry) Tj ET
+20.00 379.00 m 20.00 40.00 l S
+310.00 379.00 m 310.00 40.00 l S
+390.00 379.00 m 390.00 40.00 l S
+772.00 379.00 m 772.00 40.00 l S
+20.00 379.00 m 772.00 379.00 l S
 20.00 40.00 m 772.00 40.00 l S
-BT /F1 5.8 Tf 24.00 70.00 Td (Theorem 6.5.3. For any f in C^{k+delta}\(Omega\) and g in) Tj ET
-BT /F1 5.8 Tf 24.00 63.00 Td (C^{k+2+delta}\(Omega\) there exists a unique function u in) Tj ET
-BT /F1 5.8 Tf 24.00 56.00 Td (C^{k+2+delta}\(Omega\) satisfying the equation Lu = f in Omega) Tj ET
-BT /F1 5.8 Tf 24.00 49.00 Td (and equal to g on dOmega.) Tj ET
-BT /F1 5.8 Tf 314.00 70.00 Td (PDE) Tj ET
-BT /F3 4.9 Tf 394.00 70.00 Td (noncomputable def directionalDerivativeList {d : N} :) Tj ET
-BT /F3 4.9 Tf 394.00 63.00 Td (    List \(Fin d\) -> \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R) Tj ET
-BT /F3 4.9 Tf 394.00 56.00 Td (  | [], u => u) Tj ET
-BT /F3 4.9 Tf 394.00 49.00 Td (  | i :: indices, u => fun x =>) Tj ET
+BT /F1 5.8 Tf 24.00 371.00 Td (Theorem 4.5.1. Let L = L\(x\) = sum_{|alpha|<=m}) Tj ET
+BT /F1 5.8 Tf 24.00 364.00 Td (a^alpha\(x\)D^alpha be a uniformly elliptic operator, and k >= 0) Tj ET
+BT /F1 5.8 Tf 24.00 357.00 Td (be an integer. Assume that a^alpha in C^{k+delta}\(R^d\) for any) Tj ET
+BT /F1 5.8 Tf 24.00 350.00 Td (alpha. Define the constant lambda0 depending only on the) Tj ET
+BT /F1 5.8 Tf 24.00 343.00 Td (ellipticity constant kappa and m, delta, d and maximum of) Tj ET
+BT /F1 5.8 Tf 24.00 336.00 Td (|a^alpha|_delta as in Theorem 4.1.2, and take any real lambda) Tj ET
+BT /F1 5.8 Tf 24.00 329.00 Td (such that |lambda| >= lambda0. Then for any f in) Tj ET
+BT /F1 5.8 Tf 24.00 322.00 Td (C^{k+delta}\(R^d\) there exists a unique solution u in) Tj ET
+BT /F1 5.8 Tf 24.00 315.00 Td (C^{k+m+delta}\(R^d\) of the equation L_lambda u\(x\) = f\(x\), x in) Tj ET
+BT /F1 5.8 Tf 24.00 308.00 Td (R^d.) Tj ET
+BT /F1 5.8 Tf 314.00 371.00 Td (PDE) Tj ET
+BT /F3 4.9 Tf 394.00 371.00 Td (noncomputable def directionalDerivativeList {d : N} :) Tj ET
+BT /F3 4.9 Tf 394.00 364.00 Td (    List \(Fin d\) -> \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R) Tj ET
+BT /F3 4.9 Tf 394.00 357.00 Td (  | [], u => u) Tj ET
+BT /F3 4.9 Tf 394.00 350.00 Td (  | i :: indices, u => fun x =>) Tj ET
+BT /F3 4.9 Tf 394.00 343.00 Td (      fderiv R \(directionalDerivativeList indices u\) x \(Pi.single i 1\)) Tj ET
+BT /F3 4.9 Tf 394.00 336.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 329.00 Td (noncomputable def multiIndexDirections {d : N} \(alpha : \(Fin d -> N\)\) :) Tj ET
+BT /F3 4.9 Tf 394.00 322.00 Td (List \(Fin d\) :=) Tj ET
+BT /F3 4.9 Tf 394.00 315.00 Td (  Finset.univ.toList.flatMap fun i => List.replicate \(alpha i\) i) Tj ET
+BT /F3 4.9 Tf 394.00 308.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 301.00 Td (noncomputable def multiDerivative {d : N} \(alpha : \(Fin d -> N\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 294.00 Td (    \(u : \(Fin d -> R\) -> R\) : \(Fin d -> R\) -> R :=) Tj ET
+BT /F3 4.9 Tf 394.00 287.00 Td (  directionalDerivativeList \(multiIndexDirections alpha\) u) Tj ET
+BT /F3 4.9 Tf 394.00 280.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 273.00 Td (noncomputable def holderGauge {d : N} \(k : N\) \(delta : R\)) Tj ET
+BT /F3 4.9 Tf 394.00 266.00 Td (    \(Omega : Set \(Fin d -> R\)\) \(u : \(Fin d -> R\) -> R\) : R>=0inf :=) Tj ET
+BT /F3 4.9 Tf 394.00 259.00 Td (  \( alpha : {alpha : \(Fin d -> N\) // sum i, alpha i <= k},) Tj ET
+BT /F3 4.9 Tf 394.00 252.00 Td (       x : Omega, ENNReal.ofReal |multiDerivative alpha u x|\) ) Tj ET
+BT /F3 4.9 Tf 394.00 245.00 Td (     alpha : {alpha : \(Fin d -> N\) // sum i, alpha i = k},) Tj ET
+BT /F3 4.9 Tf 394.00 238.00 Td (       x : Omega,  y : Omega,  \(_ : \(x : \(Fin d -> R\)\) != y\),) Tj ET
+BT /F3 4.9 Tf 394.00 231.00 Td (        ENNReal.ofReal) Tj ET
+BT /F3 4.9 Tf 394.00 224.00 Td (          \(|multiDerivative alpha u x - multiDerivative alpha u y| /) Tj ET
+BT /F3 4.9 Tf 394.00 217.00 Td (            ||\(x : \(Fin d -> R\)\) - y|| ^ delta\)) Tj ET
+BT /F3 4.9 Tf 394.00 210.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 203.00 Td (def HolderOn {d : N} \(r : R\) \(Omega : Set \(Fin d -> R\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 196.00 Td (    \(u : \(Fin d -> R\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 189.00 Td (  exists k : N, exists delta : R, r = k + delta /\\ 0 <= delta /\\ delta < 1) Tj ET
+BT /F3 4.9 Tf 394.00 182.00 Td (  /\\) Tj ET
+BT /F3 4.9 Tf 394.00 175.00 Td (    ContDiffOn R k u Omega /\\ holderGauge k delta Omega u < inf) Tj ET
+BT /F3 4.9 Tf 394.00 168.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 161.00 Td (structure EllipticOperatorData {d : N} \(m : N\)) Tj ET
+BT /F3 4.9 Tf 394.00 154.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) where) Tj ET
+BT /F3 4.9 Tf 394.00 147.00 Td (  terms : Finset \(\(Fin d -> N\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 140.00 Td (  order_le : forall alpha in terms, sum i, alpha i <= m) Tj ET
+BT /F3 4.9 Tf 394.00 133.00 Td (  coefficient : \(Fin d -> N\) -> \(Fin d -> R\) -> R) Tj ET
+BT /F3 4.9 Tf 394.00 126.00 Td (  formula : forall u x, L u x = sum alpha in terms, coefficient alpha x *) Tj ET
+BT /F3 4.9 Tf 394.00 119.00 Td (  multiDerivative alpha u x) Tj ET
+BT /F3 4.9 Tf 394.00 112.00 Td (  ellipticityConstant : R) Tj ET
+BT /F3 4.9 Tf 394.00 105.00 Td (  ellipticityConstant_pos : 0 < ellipticityConstant) Tj ET
+BT /F3 4.9 Tf 394.00 98.00 Td (  principalSymbol : forall \(x xi : \(Fin d -> R\)\),) Tj ET
+BT /F3 4.9 Tf 394.00 91.00 Td (    ellipticityConstant * ||xi|| ^ m <=) Tj ET
+BT /F3 4.9 Tf 394.00 84.00 Td (      sum alpha in terms with sum i, alpha i = m,) Tj ET
+BT /F3 4.9 Tf 394.00 77.00 Td (        coefficient alpha x * prod i, \(xi i\) ^ \(alpha i\)) Tj ET
+BT /F3 4.9 Tf 394.00 70.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 63.00 Td (def VariableCoefficientEllipticOperator {d : N} \(m : N\)) Tj ET
+BT /F3 4.9 Tf 394.00 56.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 49.00 Td (  Nonempty \(EllipticOperatorData m L\)) Tj ET
 endstream
 endobj
 13 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 21 0 R /F2 22 0 R /F3 23 0 R >> >> /Contents 14 0 R >>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 23 0 R /F2 24 0 R /F3 25 0 R >> >> /Contents 14 0 R >>
 endobj
 14 0 obj
-<< /Length 7016 >>
+<< /Length 7077 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Krylov Holder PDE Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 6) Tj ET
-BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
-BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
-BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
-20.00 558.00 m 772.00 558.00 l S
-20.00 550.00 m 20.00 64.00 l S
-310.00 550.00 m 310.00 64.00 l S
-390.00 550.00 m 390.00 64.00 l S
-772.00 550.00 m 772.00 64.00 l S
-20.00 550.00 m 772.00 550.00 l S
-20.00 64.00 m 772.00 64.00 l S
-BT /F3 4.9 Tf 394.00 542.00 Td (      fderiv R \(directionalDerivativeList indices u\) x \(Pi.single i 1\)) Tj ET
-BT /F3 4.9 Tf 394.00 535.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 528.00 Td (noncomputable def multiIndexDirections {d : N} \(alpha : \(Fin d -> N\)\) :) Tj ET
-BT /F3 4.9 Tf 394.00 521.00 Td (List \(Fin d\) :=) Tj ET
-BT /F3 4.9 Tf 394.00 514.00 Td (  Finset.univ.toList.flatMap fun i => List.replicate \(alpha i\) i) Tj ET
-BT /F3 4.9 Tf 394.00 507.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 500.00 Td (noncomputable def multiDerivative {d : N} \(alpha : \(Fin d -> N\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 493.00 Td (    \(u : \(Fin d -> R\) -> R\) : \(Fin d -> R\) -> R :=) Tj ET
-BT /F3 4.9 Tf 394.00 486.00 Td (  directionalDerivativeList \(multiIndexDirections alpha\) u) Tj ET
-BT /F3 4.9 Tf 394.00 479.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 472.00 Td (noncomputable def holderGauge {d : N} \(k : N\) \(delta : R\)) Tj ET
-BT /F3 4.9 Tf 394.00 465.00 Td (    \(Omega : Set \(Fin d -> R\)\) \(u : \(Fin d -> R\) -> R\) : R>=0inf :=) Tj ET
-BT /F3 4.9 Tf 394.00 458.00 Td (  \( alpha : {alpha : \(Fin d -> N\) // sum i, alpha i <= k},) Tj ET
-BT /F3 4.9 Tf 394.00 451.00 Td (       x : Omega, ENNReal.ofReal |multiDerivative alpha u x|\) ) Tj ET
-BT /F3 4.9 Tf 394.00 444.00 Td (     alpha : {alpha : \(Fin d -> N\) // sum i, alpha i = k},) Tj ET
-BT /F3 4.9 Tf 394.00 437.00 Td (       x : Omega,  y : Omega,  \(_ : \(x : \(Fin d -> R\)\) != y\),) Tj ET
-BT /F3 4.9 Tf 394.00 430.00 Td (        ENNReal.ofReal) Tj ET
-BT /F3 4.9 Tf 394.00 423.00 Td (          \(|multiDerivative alpha u x - multiDerivative alpha u y| /) Tj ET
-BT /F3 4.9 Tf 394.00 416.00 Td (            ||\(x : \(Fin d -> R\)\) - y|| ^ delta\)) Tj ET
-BT /F3 4.9 Tf 394.00 409.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 402.00 Td (def HolderOn {d : N} \(r : R\) \(Omega : Set \(Fin d -> R\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 395.00 Td (    \(u : \(Fin d -> R\) -> R\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 388.00 Td (  exists k : N, exists delta : R, r = k + delta /\\ 0 <= delta /\\ delta < 1) Tj ET
-BT /F3 4.9 Tf 394.00 381.00 Td (  /\\) Tj ET
-BT /F3 4.9 Tf 394.00 374.00 Td (    ContDiffOn R k u Omega /\\ holderGauge k delta Omega u < inf) Tj ET
-BT /F3 4.9 Tf 394.00 367.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 360.00 Td (def SmoothBoundedDomain {d : N} \(Omega : Set \(Fin d -> R\)\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 353.00 Td (  RegularBoundedDomain Omega /\\ exists rho : \(Fin d -> R\) -> R,) Tj ET
-BT /F3 4.9 Tf 394.00 346.00 Td (    ContDiff R top rho /\\ Omega = {x | rho x < 0} /\\) Tj ET
-BT /F3 4.9 Tf 394.00 339.00 Td (      forall x in frontier Omega, fderiv R rho x != 0) Tj ET
-BT /F3 4.9 Tf 394.00 332.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 325.00 Td (structure EllipticOperatorData {d : N} \(m : N\)) Tj ET
-BT /F3 4.9 Tf 394.00 318.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) where) Tj ET
-BT /F3 4.9 Tf 394.00 311.00 Td (  terms : Finset \(\(Fin d -> N\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 304.00 Td (  order_le : forall alpha in terms, sum i, alpha i <= m) Tj ET
-BT /F3 4.9 Tf 394.00 297.00 Td (  coefficient : \(Fin d -> N\) -> \(Fin d -> R\) -> R) Tj ET
-BT /F3 4.9 Tf 394.00 290.00 Td (  formula : forall u x, L u x = sum alpha in terms, coefficient alpha x *) Tj ET
-BT /F3 4.9 Tf 394.00 283.00 Td (  multiDerivative alpha u x) Tj ET
-BT /F3 4.9 Tf 394.00 276.00 Td (  ellipticityConstant : R) Tj ET
-BT /F3 4.9 Tf 394.00 269.00 Td (  ellipticityConstant_pos : 0 < ellipticityConstant) Tj ET
-BT /F3 4.9 Tf 394.00 262.00 Td (  principalSymbol : forall \(x xi : \(Fin d -> R\)\),) Tj ET
-BT /F3 4.9 Tf 394.00 255.00 Td (    ellipticityConstant * ||xi|| ^ m <=) Tj ET
-BT /F3 4.9 Tf 394.00 248.00 Td (      |sum alpha in terms with sum i, alpha i = m,) Tj ET
-BT /F3 4.9 Tf 394.00 241.00 Td (        coefficient alpha x * prod i, \(xi i\) ^ \(alpha i\)|) Tj ET
-BT /F3 4.9 Tf 394.00 234.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 227.00 Td (def VariableCoefficientEllipticOperator {d : N} \(m : N\)) Tj ET
-BT /F3 4.9 Tf 394.00 220.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 213.00 Td (  Nonempty \(EllipticOperatorData m L\)) Tj ET
-BT /F3 4.9 Tf 394.00 206.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 199.00 Td (def EllipticDirichletSolution {d : N} \(Omega : Set \(Fin d -> R\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 192.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\)) Tj ET
-BT /F3 4.9 Tf 394.00 185.00 Td (    \(f g u : \(Fin d -> R\) -> R\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 178.00 Td (  \(forall x in Omega, L u x = f x\) /\\ forall x in frontier Omega, u x = g x) Tj ET
-BT /F3 4.9 Tf 394.00 171.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 164.00 Td (theorem krylov_6_5_3_smooth_domain_dirichlet_solvability) Tj ET
-BT /F3 4.9 Tf 394.00 157.00 Td (    {d k : N} {delta : R} {Omega : Set \(Fin d -> R\)}) Tj ET
-BT /F3 4.9 Tf 394.00 150.00 Td (    {L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R}) Tj ET
-BT /F3 4.9 Tf 394.00 143.00 Td (    \(hdelta : 0 < delta /\\ delta < 1\) \(hOmega : SmoothBoundedDomain Omega\)) Tj ET
-BT /F3 4.9 Tf 394.00 136.00 Td (    \(hL : VariableCoefficientEllipticOperator 2 L\)) Tj ET
-BT /F3 4.9 Tf 394.00 129.00 Td (    \(hcoeff : OperatorCoefficientsHolder 2 \(k + delta\) L\) :) Tj ET
-BT /F3 4.9 Tf 394.00 122.00 Td (    forall f g, HolderOn \(k + delta\) Omega f -> HolderOn \(k + 2 + delta\)) Tj ET
-BT /F3 4.9 Tf 394.00 115.00 Td (    \(closure Omega\) g ->) Tj ET
-BT /F3 4.9 Tf 394.00 108.00 Td (      exists u, HolderOn \(k + 2 + delta\) Omega u /\\) Tj ET
-BT /F3 4.9 Tf 394.00 101.00 Td (      EllipticDirichletSolution Omega L f g u /\\) Tj ET
-BT /F3 4.9 Tf 394.00 94.00 Td (        forall v, HolderOn \(k + 2 + delta\) Omega v ->) Tj ET
-BT /F3 4.9 Tf 394.00 87.00 Td (        EllipticDirichletSolution Omega L f g v ->) Tj ET
-BT /F3 4.9 Tf 394.00 80.00 Td (          Set.EqOn v u \(closure Omega\) := by) Tj ET
-BT /F3 4.9 Tf 394.00 73.00 Td (  sorry) Tj ET
-20.00 64.00 m 20.00 40.00 l S
-310.00 64.00 m 310.00 40.00 l S
-390.00 64.00 m 390.00 40.00 l S
-772.00 64.00 m 772.00 40.00 l S
-20.00 64.00 m 772.00 64.00 l S
-20.00 40.00 m 772.00 40.00 l S
-BT /F1 5.8 Tf 24.00 56.00 Td (Theorem 7.1.2. Let Omega be a domain in R^d and u in) Tj ET
-BT /F1 5.8 Tf 24.00 49.00 Td (C^{m+delta}\(Omega\). Assume that L_lambdau in) Tj ET
-BT /F1 5.8 Tf 314.00 56.00 Td (PDE) Tj ET
-BT /F3 4.9 Tf 394.00 56.00 Td (noncomputable def directionalDerivativeList {d : N} :) Tj ET
-BT /F3 4.9 Tf 394.00 49.00 Td (    List \(Fin d\) -> \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R) Tj ET
-endstream
-endobj
-15 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 21 0 R /F2 22 0 R /F3 23 0 R >> >> /Contents 16 0 R >>
-endobj
-16 0 obj
-<< /Length 7106 >>
-stream
-BT /F2 12 Tf 24.00 586.00 Td (Krylov Holder PDE Benchmark) Tj ET
-BT /F1 7 Tf 740.00 586.00 Td (p. 7) Tj ET
-BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
-BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
-BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
-20.00 558.00 m 772.00 558.00 l S
-20.00 550.00 m 20.00 134.00 l S
-310.00 550.00 m 310.00 134.00 l S
-390.00 550.00 m 390.00 134.00 l S
-772.00 550.00 m 772.00 134.00 l S
-20.00 550.00 m 772.00 550.00 l S
-20.00 134.00 m 772.00 134.00 l S
-BT /F1 5.8 Tf 24.00 542.00 Td (C^{k+delta}\(Omega\) for some lambda. Then u in) Tj ET
-BT /F1 5.8 Tf 24.00 535.00 Td (C^{k+m+delta}\(Omega\).) Tj ET
-BT /F3 4.9 Tf 394.00 542.00 Td (  | [], u => u) Tj ET
-BT /F3 4.9 Tf 394.00 535.00 Td (  | i :: indices, u => fun x =>) Tj ET
-BT /F3 4.9 Tf 394.00 528.00 Td (      fderiv R \(directionalDerivativeList indices u\) x \(Pi.single i 1\)) Tj ET
-BT /F3 4.9 Tf 394.00 521.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 514.00 Td (noncomputable def multiIndexDirections {d : N} \(alpha : \(Fin d -> N\)\) :) Tj ET
-BT /F3 4.9 Tf 394.00 507.00 Td (List \(Fin d\) :=) Tj ET
-BT /F3 4.9 Tf 394.00 500.00 Td (  Finset.univ.toList.flatMap fun i => List.replicate \(alpha i\) i) Tj ET
-BT /F3 4.9 Tf 394.00 493.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 486.00 Td (noncomputable def multiDerivative {d : N} \(alpha : \(Fin d -> N\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 479.00 Td (    \(u : \(Fin d -> R\) -> R\) : \(Fin d -> R\) -> R :=) Tj ET
-BT /F3 4.9 Tf 394.00 472.00 Td (  directionalDerivativeList \(multiIndexDirections alpha\) u) Tj ET
-BT /F3 4.9 Tf 394.00 465.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 458.00 Td (noncomputable def holderGauge {d : N} \(k : N\) \(delta : R\)) Tj ET
-BT /F3 4.9 Tf 394.00 451.00 Td (    \(Omega : Set \(Fin d -> R\)\) \(u : \(Fin d -> R\) -> R\) : R>=0inf :=) Tj ET
-BT /F3 4.9 Tf 394.00 444.00 Td (  \( alpha : {alpha : \(Fin d -> N\) // sum i, alpha i <= k},) Tj ET
-BT /F3 4.9 Tf 394.00 437.00 Td (       x : Omega, ENNReal.ofReal |multiDerivative alpha u x|\) ) Tj ET
-BT /F3 4.9 Tf 394.00 430.00 Td (     alpha : {alpha : \(Fin d -> N\) // sum i, alpha i = k},) Tj ET
-BT /F3 4.9 Tf 394.00 423.00 Td (       x : Omega,  y : Omega,  \(_ : \(x : \(Fin d -> R\)\) != y\),) Tj ET
-BT /F3 4.9 Tf 394.00 416.00 Td (        ENNReal.ofReal) Tj ET
-BT /F3 4.9 Tf 394.00 409.00 Td (          \(|multiDerivative alpha u x - multiDerivative alpha u y| /) Tj ET
-BT /F3 4.9 Tf 394.00 402.00 Td (            ||\(x : \(Fin d -> R\)\) - y|| ^ delta\)) Tj ET
-BT /F3 4.9 Tf 394.00 395.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 388.00 Td (def HolderOn {d : N} \(r : R\) \(Omega : Set \(Fin d -> R\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 381.00 Td (    \(u : \(Fin d -> R\) -> R\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 374.00 Td (  exists k : N, exists delta : R, r = k + delta /\\ 0 <= delta /\\ delta < 1) Tj ET
-BT /F3 4.9 Tf 394.00 367.00 Td (  /\\) Tj ET
-BT /F3 4.9 Tf 394.00 360.00 Td (    ContDiffOn R k u Omega /\\ holderGauge k delta Omega u < inf) Tj ET
-BT /F3 4.9 Tf 394.00 353.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 346.00 Td (structure EllipticOperatorData {d : N} \(m : N\)) Tj ET
-BT /F3 4.9 Tf 394.00 339.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) where) Tj ET
-BT /F3 4.9 Tf 394.00 332.00 Td (  terms : Finset \(\(Fin d -> N\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 325.00 Td (  order_le : forall alpha in terms, sum i, alpha i <= m) Tj ET
-BT /F3 4.9 Tf 394.00 318.00 Td (  coefficient : \(Fin d -> N\) -> \(Fin d -> R\) -> R) Tj ET
-BT /F3 4.9 Tf 394.00 311.00 Td (  formula : forall u x, L u x = sum alpha in terms, coefficient alpha x *) Tj ET
-BT /F3 4.9 Tf 394.00 304.00 Td (  multiDerivative alpha u x) Tj ET
-BT /F3 4.9 Tf 394.00 297.00 Td (  ellipticityConstant : R) Tj ET
-BT /F3 4.9 Tf 394.00 290.00 Td (  ellipticityConstant_pos : 0 < ellipticityConstant) Tj ET
-BT /F3 4.9 Tf 394.00 283.00 Td (  principalSymbol : forall \(x xi : \(Fin d -> R\)\),) Tj ET
-BT /F3 4.9 Tf 394.00 276.00 Td (    ellipticityConstant * ||xi|| ^ m <=) Tj ET
-BT /F3 4.9 Tf 394.00 269.00 Td (      |sum alpha in terms with sum i, alpha i = m,) Tj ET
-BT /F3 4.9 Tf 394.00 262.00 Td (        coefficient alpha x * prod i, \(xi i\) ^ \(alpha i\)|) Tj ET
-BT /F3 4.9 Tf 394.00 255.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 248.00 Td (def ShiftedEllipticEquation {d : N}) Tj ET
-BT /F3 4.9 Tf 394.00 241.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) \(lam : R\)) Tj ET
-BT /F3 4.9 Tf 394.00 234.00 Td (    \(u f : \(Fin d -> R\) -> R\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 227.00 Td (  forall x, L u x - lam * u x = f x) Tj ET
-BT /F3 4.9 Tf 394.00 220.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 213.00 Td (theorem krylov_7_1_2_interior_holder_regularization) Tj ET
-BT /F3 4.9 Tf 394.00 206.00 Td (    {d m k : N} {delta lam : R} {Omega : Set \(Fin d -> R\)}) Tj ET
-BT /F3 4.9 Tf 394.00 199.00 Td (    {L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R} {u f : \(Fin d -> R\) -> R}) Tj ET
-BT /F3 4.9 Tf 394.00 192.00 Td (    \(hdelta : 0 < delta /\\ delta < 1\) \(hOmega : IsOpen Omega\)) Tj ET
-BT /F3 4.9 Tf 394.00 185.00 Td (    \(hL : VariableCoefficientEllipticOperator m L\)) Tj ET
-BT /F3 4.9 Tf 394.00 178.00 Td (    \(hcoeff : OperatorCoefficientsHolder m \(k + delta\) L\)) Tj ET
-BT /F3 4.9 Tf 394.00 171.00 Td (    \(hu : HolderOn \(m + delta\) Omega u\)) Tj ET
-BT /F3 4.9 Tf 394.00 164.00 Td (    \(hLu : ShiftedEllipticEquation L lam u f\) \(hf : HolderOn \(k + delta\)) Tj ET
-BT /F3 4.9 Tf 394.00 157.00 Td (    Omega f\) :) Tj ET
-BT /F3 4.9 Tf 394.00 150.00 Td (    HolderOn \(k + m + delta\) Omega u := by) Tj ET
-BT /F3 4.9 Tf 394.00 143.00 Td (  sorry) Tj ET
-20.00 134.00 m 20.00 40.00 l S
-310.00 134.00 m 310.00 40.00 l S
-390.00 134.00 m 390.00 40.00 l S
-772.00 134.00 m 772.00 40.00 l S
-20.00 134.00 m 772.00 134.00 l S
-20.00 40.00 m 772.00 40.00 l S
-BT /F1 5.8 Tf 24.00 126.00 Td (Theorem 8.7.3. For any f in C^{delta/2,delta}\(R^{d+1}\) there) Tj ET
-BT /F1 5.8 Tf 24.00 119.00 Td (exists a unique function u in C^{1+delta/2,2+delta}\(R^{d+1}\)) Tj ET
-BT /F1 5.8 Tf 24.00 112.00 Td (satisfying the equation Deltau - u_t - u = f in R^{d+1}.) Tj ET
-BT /F1 5.8 Tf 314.00 126.00 Td (PDE) Tj ET
-BT /F3 4.9 Tf 394.00 126.00 Td (noncomputable def directionalDerivativeList {d : N} :) Tj ET
-BT /F3 4.9 Tf 394.00 119.00 Td (    List \(Fin d\) -> \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R) Tj ET
-BT /F3 4.9 Tf 394.00 112.00 Td (  | [], u => u) Tj ET
-BT /F3 4.9 Tf 394.00 105.00 Td (  | i :: indices, u => fun x =>) Tj ET
-BT /F3 4.9 Tf 394.00 98.00 Td (      fderiv R \(directionalDerivativeList indices u\) x \(Pi.single i 1\)) Tj ET
-BT /F3 4.9 Tf 394.00 91.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 84.00 Td (noncomputable def multiIndexDirections {d : N} \(alpha : \(Fin d -> N\)\) :) Tj ET
-BT /F3 4.9 Tf 394.00 77.00 Td (List \(Fin d\) :=) Tj ET
-BT /F3 4.9 Tf 394.00 70.00 Td (  Finset.univ.toList.flatMap fun i => List.replicate \(alpha i\) i) Tj ET
-BT /F3 4.9 Tf 394.00 63.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 56.00 Td (noncomputable def multiDerivative {d : N} \(alpha : \(Fin d -> N\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 49.00 Td (    \(u : \(Fin d -> R\) -> R\) : \(Fin d -> R\) -> R :=) Tj ET
-endstream
-endobj
-17 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 21 0 R /F2 22 0 R /F3 23 0 R >> >> /Contents 18 0 R >>
-endobj
-18 0 obj
-<< /Length 7162 >>
-stream
-BT /F2 12 Tf 24.00 586.00 Td (Krylov Holder PDE Benchmark) Tj ET
-BT /F1 7 Tf 740.00 586.00 Td (p. 8) Tj ET
-BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
-BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
-BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
-20.00 558.00 m 772.00 558.00 l S
-20.00 550.00 m 20.00 372.00 l S
-310.00 550.00 m 310.00 372.00 l S
-390.00 550.00 m 390.00 372.00 l S
-772.00 550.00 m 772.00 372.00 l S
-20.00 550.00 m 772.00 550.00 l S
-20.00 372.00 m 772.00 372.00 l S
-BT /F3 4.9 Tf 394.00 542.00 Td (  directionalDerivativeList \(multiIndexDirections alpha\) u) Tj ET
-BT /F3 4.9 Tf 394.00 535.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 528.00 Td (noncomputable def laplacian {d : N} \(u : \(Fin d -> R\) -> R\) \(x : \(Fin d ->) Tj ET
-BT /F3 4.9 Tf 394.00 521.00 Td (R\)\) : R :=) Tj ET
-BT /F3 4.9 Tf 394.00 514.00 Td (  sum i, directionalDerivativeList [i, i] u x) Tj ET
-BT /F3 4.9 Tf 394.00 507.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 500.00 Td (def ParabolicHolderOn {d : N} \(r : R\) \(Q : Set \(R  x  \(Fin d -> R\)\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 493.00 Td (    \(u : \(R  x  \(Fin d -> R\)\) -> R\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 486.00 Td (  \(forall t, HolderOn r {x | \(t, x\) in Q} fun x => u \(t, x\)\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 479.00 Td (    exists C : R, 0 <= C /\\ forall x s t, \(s, x\) in Q -> \(t, x\) in Q ->) Tj ET
-BT /F3 4.9 Tf 394.00 472.00 Td (      |u \(t, x\) - u \(s, x\)| <= C * |t - s| ^ \(r / 2\)) Tj ET
-BT /F3 4.9 Tf 394.00 465.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 458.00 Td (def ShiftedHeatEquation {d : N} \(u f : \(R  x  \(Fin d -> R\)\) -> R\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 451.00 Td (  forall t x, laplacian \(fun y => u \(t, y\)\) x - deriv \(fun s => u \(s, x\)\) t) Tj ET
-BT /F3 4.9 Tf 394.00 444.00 Td (  - u \(t, x\) =) Tj ET
-BT /F3 4.9 Tf 394.00 437.00 Td (    f \(t, x\)) Tj ET
-BT /F3 4.9 Tf 394.00 430.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 423.00 Td (theorem krylov_8_7_3_shifted_heat_holder_solvability) Tj ET
-BT /F3 4.9 Tf 394.00 416.00 Td (    {d : N} {delta : R} \(hdelta : 0 < delta /\\ delta < 1\) :) Tj ET
-BT /F3 4.9 Tf 394.00 409.00 Td (    forall f : \(R  x  \(Fin d -> R\)\) -> R, ParabolicHolderOn delta univ f ->) Tj ET
-BT /F3 4.9 Tf 394.00 402.00 Td (      exists! u : \(R  x  \(Fin d -> R\)\) -> R,) Tj ET
-BT /F3 4.9 Tf 394.00 395.00 Td (        ParabolicHolderOn \(2 + delta\) univ u /\\ ShiftedHeatEquation u f :=) Tj ET
-BT /F3 4.9 Tf 394.00 388.00 Td (        by) Tj ET
-BT /F3 4.9 Tf 394.00 381.00 Td (  sorry) Tj ET
-20.00 372.00 m 20.00 40.00 l S
-310.00 372.00 m 310.00 40.00 l S
-390.00 372.00 m 390.00 40.00 l S
-772.00 372.00 m 772.00 40.00 l S
-20.00 372.00 m 772.00 372.00 l S
-20.00 40.00 m 772.00 40.00 l S
-BT /F1 5.8 Tf 24.00 364.00 Td (Theorem 10.3.3. For any f in C^{delta/2,delta}\(Q\) and g in) Tj ET
-BT /F1 5.8 Tf 24.00 357.00 Td (C^{1+delta/2,2+delta}\(Q\) there exists a unique function u in) Tj ET
-BT /F1 5.8 Tf 24.00 350.00 Td (C^{1+delta/2,2+delta}\(Q\) satisfying the equation Lu - u_t = f) Tj ET
-BT /F1 5.8 Tf 24.00 343.00 Td (in Q and equal g on d'Q.) Tj ET
-BT /F1 5.8 Tf 314.00 364.00 Td (PDE) Tj ET
-BT /F3 4.9 Tf 394.00 364.00 Td (noncomputable def directionalDerivativeList {d : N} :) Tj ET
-BT /F3 4.9 Tf 394.00 357.00 Td (    List \(Fin d\) -> \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R) Tj ET
-BT /F3 4.9 Tf 394.00 350.00 Td (  | [], u => u) Tj ET
-BT /F3 4.9 Tf 394.00 343.00 Td (  | i :: indices, u => fun x =>) Tj ET
-BT /F3 4.9 Tf 394.00 336.00 Td (      fderiv R \(directionalDerivativeList indices u\) x \(Pi.single i 1\)) Tj ET
-BT /F3 4.9 Tf 394.00 329.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 322.00 Td (noncomputable def multiIndexDirections {d : N} \(alpha : \(Fin d -> N\)\) :) Tj ET
-BT /F3 4.9 Tf 394.00 315.00 Td (List \(Fin d\) :=) Tj ET
-BT /F3 4.9 Tf 394.00 308.00 Td (  Finset.univ.toList.flatMap fun i => List.replicate \(alpha i\) i) Tj ET
-BT /F3 4.9 Tf 394.00 301.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 294.00 Td (noncomputable def multiDerivative {d : N} \(alpha : \(Fin d -> N\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 287.00 Td (    \(u : \(Fin d -> R\) -> R\) : \(Fin d -> R\) -> R :=) Tj ET
-BT /F3 4.9 Tf 394.00 280.00 Td (  directionalDerivativeList \(multiIndexDirections alpha\) u) Tj ET
-BT /F3 4.9 Tf 394.00 273.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 266.00 Td (noncomputable def holderGauge {d : N} \(k : N\) \(delta : R\)) Tj ET
-BT /F3 4.9 Tf 394.00 259.00 Td (    \(Omega : Set \(Fin d -> R\)\) \(u : \(Fin d -> R\) -> R\) : R>=0inf :=) Tj ET
-BT /F3 4.9 Tf 394.00 252.00 Td (  \( alpha : {alpha : \(Fin d -> N\) // sum i, alpha i <= k},) Tj ET
-BT /F3 4.9 Tf 394.00 245.00 Td (       x : Omega, ENNReal.ofReal |multiDerivative alpha u x|\) ) Tj ET
-BT /F3 4.9 Tf 394.00 238.00 Td (     alpha : {alpha : \(Fin d -> N\) // sum i, alpha i = k},) Tj ET
-BT /F3 4.9 Tf 394.00 231.00 Td (       x : Omega,  y : Omega,  \(_ : \(x : \(Fin d -> R\)\) != y\),) Tj ET
-BT /F3 4.9 Tf 394.00 224.00 Td (        ENNReal.ofReal) Tj ET
-BT /F3 4.9 Tf 394.00 217.00 Td (          \(|multiDerivative alpha u x - multiDerivative alpha u y| /) Tj ET
-BT /F3 4.9 Tf 394.00 210.00 Td (            ||\(x : \(Fin d -> R\)\) - y|| ^ delta\)) Tj ET
-BT /F3 4.9 Tf 394.00 203.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 196.00 Td (def ParabolicHolderOn {d : N} \(r : R\) \(Q : Set \(R  x  \(Fin d -> R\)\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 189.00 Td (    \(u : \(R  x  \(Fin d -> R\)\) -> R\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 182.00 Td (  \(forall t, HolderOn r {x | \(t, x\) in Q} fun x => u \(t, x\)\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 175.00 Td (    exists C : R, 0 <= C /\\ forall x s t, \(s, x\) in Q -> \(t, x\) in Q ->) Tj ET
-BT /F3 4.9 Tf 394.00 168.00 Td (      |u \(t, x\) - u \(s, x\)| <= C * |t - s| ^ \(r / 2\)) Tj ET
-BT /F3 4.9 Tf 394.00 161.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 154.00 Td (def ParabolicOperator {d : N}) Tj ET
-BT /F3 4.9 Tf 394.00 147.00 Td (    \(L : \(\(R  x  \(Fin d -> R\)\) -> R\) -> \(R  x  \(Fin d -> R\)\) -> R\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 140.00 Td (  exists \(a : \(R  x  \(Fin d -> R\)\) -> Matrix \(Fin d\) \(Fin d\) R\)) Tj ET
-BT /F3 4.9 Tf 394.00 133.00 Td (    \(b : \(R  x  \(Fin d -> R\)\) -> \(Fin d -> R\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 126.00 Td (    \(c : \(R  x  \(Fin d -> R\)\) -> R\) \(kappa : R\),) Tj ET
-BT /F3 4.9 Tf 394.00 119.00 Td (    0 < kappa /\\) Tj ET
-BT /F3 4.9 Tf 394.00 112.00 Td (    \(forall \(p : \(R  x  \(Fin d -> R\)\)\) \(xi : \(Fin d -> R\)\),) Tj ET
-BT /F3 4.9 Tf 394.00 105.00 Td (      kappa * ||xi|| ^ 2 <= sum i, sum j, a p i j * xi i * xi j\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 98.00 Td (    forall u p, L u p =) Tj ET
-BT /F3 4.9 Tf 394.00 91.00 Td (      sum i, sum j, a p i j *) Tj ET
-BT /F3 4.9 Tf 394.00 84.00 Td (        directionalDerivativeList [i, j] \(fun x => u \(p.1, x\)\) p.2 +) Tj ET
-BT /F3 4.9 Tf 394.00 77.00 Td (      sum i, b p i * fderiv R \(fun x => u \(p.1, x\)\) p.2 \(Pi.single i 1\) +) Tj ET
-BT /F3 4.9 Tf 394.00 70.00 Td (      c p * u p) Tj ET
-BT /F3 4.9 Tf 394.00 63.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 56.00 Td (def parabolicBoundary {d : N} \(Q : Set \(R  x  \(Fin d -> R\)\)\) : Set \(R  x ) Tj ET
-BT /F3 4.9 Tf 394.00 49.00 Td (\(Fin d -> R\)\) :=) Tj ET
-endstream
-endobj
-19 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 21 0 R /F2 22 0 R /F3 23 0 R >> >> /Contents 20 0 R >>
-endobj
-20 0 obj
-<< /Length 2389 >>
-stream
-BT /F2 12 Tf 24.00 586.00 Td (Krylov Holder PDE Benchmark) Tj ET
-BT /F1 7 Tf 740.00 586.00 Td (p. 9) Tj ET
 BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
 BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
 BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
@@ -871,66 +559,454 @@ BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
 772.00 550.00 m 772.00 393.00 l S
 20.00 550.00 m 772.00 550.00 l S
 20.00 393.00 m 772.00 393.00 l S
-BT /F3 4.9 Tf 394.00 542.00 Td (  {p in frontier Q | forall eps : R, 0 < eps ->) Tj ET
-BT /F3 4.9 Tf 394.00 535.00 Td (    exists q in Q, q.1 <= p.1 /\\ dist q p < eps}) Tj ET
-BT /F3 4.9 Tf 394.00 528.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 521.00 Td (def ParabolicDirichletSolution {d : N} \(Q : Set \(R  x  \(Fin d -> R\)\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 514.00 Td (    \(L : \(\(R  x  \(Fin d -> R\)\) -> R\) -> \(R  x  \(Fin d -> R\)\) -> R\)) Tj ET
-BT /F3 4.9 Tf 394.00 507.00 Td (    \(f g u : \(R  x  \(Fin d -> R\)\) -> R\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 500.00 Td (  \(forall p in Q, L u p - deriv \(fun t => u \(t, p.2\)\) p.1 = f p\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 493.00 Td (    forall p in parabolicBoundary Q, u p = g p) Tj ET
-BT /F3 4.9 Tf 394.00 486.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 479.00 Td (theorem krylov_10_3_3_parabolic_dirichlet_domain_solvability) Tj ET
-BT /F3 4.9 Tf 394.00 472.00 Td (    {d : N} {delta : R} {Q : Set \(R  x  \(Fin d -> R\)\)}) Tj ET
-BT /F3 4.9 Tf 394.00 465.00 Td (    {L : \(\(R  x  \(Fin d -> R\)\) -> R\) -> \(R  x  \(Fin d -> R\)\) -> R}) Tj ET
-BT /F3 4.9 Tf 394.00 458.00 Td (    \(hdelta : 0 < delta /\\ delta < 1\) \(hL : ParabolicOperator L\) :) Tj ET
-BT /F3 4.9 Tf 394.00 451.00 Td (    forall f g, ParabolicHolderOn delta Q f -> ParabolicHolderOn \(2 +) Tj ET
-BT /F3 4.9 Tf 394.00 444.00 Td (    delta\) Q g ->) Tj ET
-BT /F3 4.9 Tf 394.00 437.00 Td (      exists u, ParabolicHolderOn \(2 + delta\) Q u /\\) Tj ET
-BT /F3 4.9 Tf 394.00 430.00 Td (        ParabolicDirichletSolution Q L f g u /\\) Tj ET
-BT /F3 4.9 Tf 394.00 423.00 Td (        forall v, ParabolicHolderOn \(2 + delta\) Q v ->) Tj ET
-BT /F3 4.9 Tf 394.00 416.00 Td (          ParabolicDirichletSolution Q L f g v ->) Tj ET
-BT /F3 4.9 Tf 394.00 409.00 Td (            Set.EqOn v u \(Q union parabolicBoundary Q\) := by) Tj ET
+BT /F3 4.9 Tf 394.00 542.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (def OperatorCoefficientsHolder {d : N} \(m : N\) \(r : R\)) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (  exists data : EllipticOperatorData m L,) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (    forall alpha in data.terms, HolderOn r univ \(data.coefficient alpha\)) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (def ShiftedEllipticEquation {d : N}) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) \(lam : R\)) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td (    \(u f : \(Fin d -> R\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (  forall x, L u x - lam * u x = f x) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (theorem krylov_4_5_1_variable_coefficient_global_solvability) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td (    {d m k : N} {delta : R} {L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R}) Tj ET
+BT /F3 4.9 Tf 394.00 451.00 Td (    \(hm : 0 < m\) \(hdelta : 0 < delta /\\ delta < 1\)) Tj ET
+BT /F3 4.9 Tf 394.00 444.00 Td (    \(hL : VariableCoefficientEllipticOperator m L\)) Tj ET
+BT /F3 4.9 Tf 394.00 437.00 Td (    \(hcoeff : OperatorCoefficientsHolder m \(k + delta\) L\) :) Tj ET
+BT /F3 4.9 Tf 394.00 430.00 Td (    exists lam0 : R, 0 <= lam0 /\\ forall lam : R, lam0 <= |lam| ->) Tj ET
+BT /F3 4.9 Tf 394.00 423.00 Td (      forall f, HolderOn \(k + delta\) univ f ->) Tj ET
+BT /F3 4.9 Tf 394.00 416.00 Td (        exists! u, HolderOn \(k + m + delta\) univ u /\\) Tj ET
+BT /F3 4.9 Tf 394.00 409.00 Td (        ShiftedEllipticEquation L lam u f := by) Tj ET
 BT /F3 4.9 Tf 394.00 402.00 Td (  sorry) Tj ET
+20.00 393.00 m 20.00 40.00 l S
+310.00 393.00 m 310.00 40.00 l S
+390.00 393.00 m 390.00 40.00 l S
+772.00 393.00 m 772.00 40.00 l S
+20.00 393.00 m 772.00 393.00 l S
+20.00 40.00 m 772.00 40.00 l S
+BT /F1 5.8 Tf 24.00 385.00 Td (Theorem 6.5.3. For any f in C^{k+delta}\(Omega\) and g in) Tj ET
+BT /F1 5.8 Tf 24.00 378.00 Td (C^{k+2+delta}\(Omega\) there exists a unique function u in) Tj ET
+BT /F1 5.8 Tf 24.00 371.00 Td (C^{k+2+delta}\(Omega\) satisfying the equation Lu = f in Omega) Tj ET
+BT /F1 5.8 Tf 24.00 364.00 Td (and equal to g on dOmega.) Tj ET
+BT /F1 5.8 Tf 314.00 385.00 Td (PDE) Tj ET
+BT /F3 4.9 Tf 394.00 385.00 Td (noncomputable def directionalDerivativeList {d : N} :) Tj ET
+BT /F3 4.9 Tf 394.00 378.00 Td (    List \(Fin d\) -> \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R) Tj ET
+BT /F3 4.9 Tf 394.00 371.00 Td (  | [], u => u) Tj ET
+BT /F3 4.9 Tf 394.00 364.00 Td (  | i :: indices, u => fun x =>) Tj ET
+BT /F3 4.9 Tf 394.00 357.00 Td (      fderiv R \(directionalDerivativeList indices u\) x \(Pi.single i 1\)) Tj ET
+BT /F3 4.9 Tf 394.00 350.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 343.00 Td (noncomputable def multiIndexDirections {d : N} \(alpha : \(Fin d -> N\)\) :) Tj ET
+BT /F3 4.9 Tf 394.00 336.00 Td (List \(Fin d\) :=) Tj ET
+BT /F3 4.9 Tf 394.00 329.00 Td (  Finset.univ.toList.flatMap fun i => List.replicate \(alpha i\) i) Tj ET
+BT /F3 4.9 Tf 394.00 322.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 315.00 Td (noncomputable def multiDerivative {d : N} \(alpha : \(Fin d -> N\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 308.00 Td (    \(u : \(Fin d -> R\) -> R\) : \(Fin d -> R\) -> R :=) Tj ET
+BT /F3 4.9 Tf 394.00 301.00 Td (  directionalDerivativeList \(multiIndexDirections alpha\) u) Tj ET
+BT /F3 4.9 Tf 394.00 294.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 287.00 Td (noncomputable def holderGauge {d : N} \(k : N\) \(delta : R\)) Tj ET
+BT /F3 4.9 Tf 394.00 280.00 Td (    \(Omega : Set \(Fin d -> R\)\) \(u : \(Fin d -> R\) -> R\) : R>=0inf :=) Tj ET
+BT /F3 4.9 Tf 394.00 273.00 Td (  \( alpha : {alpha : \(Fin d -> N\) // sum i, alpha i <= k},) Tj ET
+BT /F3 4.9 Tf 394.00 266.00 Td (       x : Omega, ENNReal.ofReal |multiDerivative alpha u x|\) ) Tj ET
+BT /F3 4.9 Tf 394.00 259.00 Td (     alpha : {alpha : \(Fin d -> N\) // sum i, alpha i = k},) Tj ET
+BT /F3 4.9 Tf 394.00 252.00 Td (       x : Omega,  y : Omega,  \(_ : \(x : \(Fin d -> R\)\) != y\),) Tj ET
+BT /F3 4.9 Tf 394.00 245.00 Td (        ENNReal.ofReal) Tj ET
+BT /F3 4.9 Tf 394.00 238.00 Td (          \(|multiDerivative alpha u x - multiDerivative alpha u y| /) Tj ET
+BT /F3 4.9 Tf 394.00 231.00 Td (            ||\(x : \(Fin d -> R\)\) - y|| ^ delta\)) Tj ET
+BT /F3 4.9 Tf 394.00 224.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 217.00 Td (def HolderOn {d : N} \(r : R\) \(Omega : Set \(Fin d -> R\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 210.00 Td (    \(u : \(Fin d -> R\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 203.00 Td (  exists k : N, exists delta : R, r = k + delta /\\ 0 <= delta /\\ delta < 1) Tj ET
+BT /F3 4.9 Tf 394.00 196.00 Td (  /\\) Tj ET
+BT /F3 4.9 Tf 394.00 189.00 Td (    ContDiffOn R k u Omega /\\ holderGauge k delta Omega u < inf) Tj ET
+BT /F3 4.9 Tf 394.00 182.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 175.00 Td (def SmoothBoundedDomain {d : N} \(Omega : Set \(Fin d -> R\)\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 168.00 Td (  RegularBoundedDomain Omega /\\ exists rho : \(Fin d -> R\) -> R,) Tj ET
+BT /F3 4.9 Tf 394.00 161.00 Td (    ContDiff R top rho /\\ Omega = {x | rho x < 0} /\\) Tj ET
+BT /F3 4.9 Tf 394.00 154.00 Td (      forall x in frontier Omega, fderiv R rho x != 0) Tj ET
+BT /F3 4.9 Tf 394.00 147.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 140.00 Td (structure EllipticOperatorData {d : N} \(m : N\)) Tj ET
+BT /F3 4.9 Tf 394.00 133.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) where) Tj ET
+BT /F3 4.9 Tf 394.00 126.00 Td (  terms : Finset \(\(Fin d -> N\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 119.00 Td (  order_le : forall alpha in terms, sum i, alpha i <= m) Tj ET
+BT /F3 4.9 Tf 394.00 112.00 Td (  coefficient : \(Fin d -> N\) -> \(Fin d -> R\) -> R) Tj ET
+BT /F3 4.9 Tf 394.00 105.00 Td (  formula : forall u x, L u x = sum alpha in terms, coefficient alpha x *) Tj ET
+BT /F3 4.9 Tf 394.00 98.00 Td (  multiDerivative alpha u x) Tj ET
+BT /F3 4.9 Tf 394.00 91.00 Td (  ellipticityConstant : R) Tj ET
+BT /F3 4.9 Tf 394.00 84.00 Td (  ellipticityConstant_pos : 0 < ellipticityConstant) Tj ET
+BT /F3 4.9 Tf 394.00 77.00 Td (  principalSymbol : forall \(x xi : \(Fin d -> R\)\),) Tj ET
+BT /F3 4.9 Tf 394.00 70.00 Td (    ellipticityConstant * ||xi|| ^ m <=) Tj ET
+BT /F3 4.9 Tf 394.00 63.00 Td (      sum alpha in terms with sum i, alpha i = m,) Tj ET
+BT /F3 4.9 Tf 394.00 56.00 Td (        coefficient alpha x * prod i, \(xi i\) ^ \(alpha i\)) Tj ET
+BT /F3 4.9 Tf 394.00 49.00 Td () Tj ET
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 23 0 R /F2 24 0 R /F3 25 0 R >> >> /Contents 16 0 R >>
+endobj
+16 0 obj
+<< /Length 7123 >>
+stream
+BT /F2 12 Tf 24.00 586.00 Td (Krylov Holder PDE Benchmark) Tj ET
+BT /F1 7 Tf 740.00 586.00 Td (p. 7) Tj ET
+BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
+BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
+BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
+20.00 558.00 m 772.00 558.00 l S
+20.00 550.00 m 20.00 379.00 l S
+310.00 550.00 m 310.00 379.00 l S
+390.00 550.00 m 390.00 379.00 l S
+772.00 550.00 m 772.00 379.00 l S
+20.00 550.00 m 772.00 550.00 l S
+20.00 379.00 m 772.00 379.00 l S
+BT /F3 4.9 Tf 394.00 542.00 Td (def VariableCoefficientEllipticOperator {d : N} \(m : N\)) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (  Nonempty \(EllipticOperatorData m L\)) Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (def EllipticDirichletSolution {d : N} \(Omega : Set \(Fin d -> R\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\)) Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (    \(f g u : \(Fin d -> R\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td (  \(forall x in Omega, L u x = f x\) /\\ forall x in frontier Omega, u x = g x) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (theorem krylov_6_5_3_smooth_domain_dirichlet_solvability) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td (    {d k : N} {delta : R} {Omega : Set \(Fin d -> R\)}) Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (    {L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R}) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td (    \(hdelta : 0 < delta /\\ delta < 1\) \(hOmega : SmoothBoundedDomain Omega\)) Tj ET
+BT /F3 4.9 Tf 394.00 451.00 Td (    \(hL : VariableCoefficientEllipticOperator 2 L\)) Tj ET
+BT /F3 4.9 Tf 394.00 444.00 Td (    \(hcoeff : OperatorCoefficientsHolder 2 \(k + delta\) L\) :) Tj ET
+BT /F3 4.9 Tf 394.00 437.00 Td (    forall f g, HolderOn \(k + delta\) Omega f -> HolderOn \(k + 2 + delta\)) Tj ET
+BT /F3 4.9 Tf 394.00 430.00 Td (    \(closure Omega\) g ->) Tj ET
+BT /F3 4.9 Tf 394.00 423.00 Td (      exists u, HolderOn \(k + 2 + delta\) Omega u /\\) Tj ET
+BT /F3 4.9 Tf 394.00 416.00 Td (      EllipticDirichletSolution Omega L f g u /\\) Tj ET
+BT /F3 4.9 Tf 394.00 409.00 Td (        forall v, HolderOn \(k + 2 + delta\) Omega v ->) Tj ET
+BT /F3 4.9 Tf 394.00 402.00 Td (        EllipticDirichletSolution Omega L f g v ->) Tj ET
+BT /F3 4.9 Tf 394.00 395.00 Td (          Set.EqOn v u \(closure Omega\) := by) Tj ET
+BT /F3 4.9 Tf 394.00 388.00 Td (  sorry) Tj ET
+20.00 379.00 m 20.00 40.00 l S
+310.00 379.00 m 310.00 40.00 l S
+390.00 379.00 m 390.00 40.00 l S
+772.00 379.00 m 772.00 40.00 l S
+20.00 379.00 m 772.00 379.00 l S
+20.00 40.00 m 772.00 40.00 l S
+BT /F1 5.8 Tf 24.00 371.00 Td (Theorem 7.1.2. Let Omega be a domain in R^d and u in) Tj ET
+BT /F1 5.8 Tf 24.00 364.00 Td (C^{m+delta}\(Omega\). Assume that L_lambdau in) Tj ET
+BT /F1 5.8 Tf 24.00 357.00 Td (C^{k+delta}\(Omega\) for some lambda. Then u in) Tj ET
+BT /F1 5.8 Tf 24.00 350.00 Td (C^{k+m+delta}\(Omega\).) Tj ET
+BT /F1 5.8 Tf 314.00 371.00 Td (PDE) Tj ET
+BT /F3 4.9 Tf 394.00 371.00 Td (noncomputable def directionalDerivativeList {d : N} :) Tj ET
+BT /F3 4.9 Tf 394.00 364.00 Td (    List \(Fin d\) -> \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R) Tj ET
+BT /F3 4.9 Tf 394.00 357.00 Td (  | [], u => u) Tj ET
+BT /F3 4.9 Tf 394.00 350.00 Td (  | i :: indices, u => fun x =>) Tj ET
+BT /F3 4.9 Tf 394.00 343.00 Td (      fderiv R \(directionalDerivativeList indices u\) x \(Pi.single i 1\)) Tj ET
+BT /F3 4.9 Tf 394.00 336.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 329.00 Td (noncomputable def multiIndexDirections {d : N} \(alpha : \(Fin d -> N\)\) :) Tj ET
+BT /F3 4.9 Tf 394.00 322.00 Td (List \(Fin d\) :=) Tj ET
+BT /F3 4.9 Tf 394.00 315.00 Td (  Finset.univ.toList.flatMap fun i => List.replicate \(alpha i\) i) Tj ET
+BT /F3 4.9 Tf 394.00 308.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 301.00 Td (noncomputable def multiDerivative {d : N} \(alpha : \(Fin d -> N\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 294.00 Td (    \(u : \(Fin d -> R\) -> R\) : \(Fin d -> R\) -> R :=) Tj ET
+BT /F3 4.9 Tf 394.00 287.00 Td (  directionalDerivativeList \(multiIndexDirections alpha\) u) Tj ET
+BT /F3 4.9 Tf 394.00 280.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 273.00 Td (noncomputable def holderGauge {d : N} \(k : N\) \(delta : R\)) Tj ET
+BT /F3 4.9 Tf 394.00 266.00 Td (    \(Omega : Set \(Fin d -> R\)\) \(u : \(Fin d -> R\) -> R\) : R>=0inf :=) Tj ET
+BT /F3 4.9 Tf 394.00 259.00 Td (  \( alpha : {alpha : \(Fin d -> N\) // sum i, alpha i <= k},) Tj ET
+BT /F3 4.9 Tf 394.00 252.00 Td (       x : Omega, ENNReal.ofReal |multiDerivative alpha u x|\) ) Tj ET
+BT /F3 4.9 Tf 394.00 245.00 Td (     alpha : {alpha : \(Fin d -> N\) // sum i, alpha i = k},) Tj ET
+BT /F3 4.9 Tf 394.00 238.00 Td (       x : Omega,  y : Omega,  \(_ : \(x : \(Fin d -> R\)\) != y\),) Tj ET
+BT /F3 4.9 Tf 394.00 231.00 Td (        ENNReal.ofReal) Tj ET
+BT /F3 4.9 Tf 394.00 224.00 Td (          \(|multiDerivative alpha u x - multiDerivative alpha u y| /) Tj ET
+BT /F3 4.9 Tf 394.00 217.00 Td (            ||\(x : \(Fin d -> R\)\) - y|| ^ delta\)) Tj ET
+BT /F3 4.9 Tf 394.00 210.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 203.00 Td (def HolderOn {d : N} \(r : R\) \(Omega : Set \(Fin d -> R\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 196.00 Td (    \(u : \(Fin d -> R\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 189.00 Td (  exists k : N, exists delta : R, r = k + delta /\\ 0 <= delta /\\ delta < 1) Tj ET
+BT /F3 4.9 Tf 394.00 182.00 Td (  /\\) Tj ET
+BT /F3 4.9 Tf 394.00 175.00 Td (    ContDiffOn R k u Omega /\\ holderGauge k delta Omega u < inf) Tj ET
+BT /F3 4.9 Tf 394.00 168.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 161.00 Td (structure EllipticOperatorData {d : N} \(m : N\)) Tj ET
+BT /F3 4.9 Tf 394.00 154.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) where) Tj ET
+BT /F3 4.9 Tf 394.00 147.00 Td (  terms : Finset \(\(Fin d -> N\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 140.00 Td (  order_le : forall alpha in terms, sum i, alpha i <= m) Tj ET
+BT /F3 4.9 Tf 394.00 133.00 Td (  coefficient : \(Fin d -> N\) -> \(Fin d -> R\) -> R) Tj ET
+BT /F3 4.9 Tf 394.00 126.00 Td (  formula : forall u x, L u x = sum alpha in terms, coefficient alpha x *) Tj ET
+BT /F3 4.9 Tf 394.00 119.00 Td (  multiDerivative alpha u x) Tj ET
+BT /F3 4.9 Tf 394.00 112.00 Td (  ellipticityConstant : R) Tj ET
+BT /F3 4.9 Tf 394.00 105.00 Td (  ellipticityConstant_pos : 0 < ellipticityConstant) Tj ET
+BT /F3 4.9 Tf 394.00 98.00 Td (  principalSymbol : forall \(x xi : \(Fin d -> R\)\),) Tj ET
+BT /F3 4.9 Tf 394.00 91.00 Td (    ellipticityConstant * ||xi|| ^ m <=) Tj ET
+BT /F3 4.9 Tf 394.00 84.00 Td (      sum alpha in terms with sum i, alpha i = m,) Tj ET
+BT /F3 4.9 Tf 394.00 77.00 Td (        coefficient alpha x * prod i, \(xi i\) ^ \(alpha i\)) Tj ET
+BT /F3 4.9 Tf 394.00 70.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 63.00 Td (def ShiftedEllipticEquation {d : N}) Tj ET
+BT /F3 4.9 Tf 394.00 56.00 Td (    \(L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R\) \(lam : R\)) Tj ET
+BT /F3 4.9 Tf 394.00 49.00 Td (    \(u f : \(Fin d -> R\) -> R\) : Prop :=) Tj ET
+endstream
+endobj
+17 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 23 0 R /F2 24 0 R /F3 25 0 R >> >> /Contents 18 0 R >>
+endobj
+18 0 obj
+<< /Length 7417 >>
+stream
+BT /F2 12 Tf 24.00 586.00 Td (Krylov Holder PDE Benchmark) Tj ET
+BT /F1 7 Tf 740.00 586.00 Td (p. 8) Tj ET
+BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
+BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
+BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
+20.00 558.00 m 772.00 558.00 l S
+20.00 550.00 m 20.00 449.00 l S
+310.00 550.00 m 310.00 449.00 l S
+390.00 550.00 m 390.00 449.00 l S
+772.00 550.00 m 772.00 449.00 l S
+20.00 550.00 m 772.00 550.00 l S
+20.00 449.00 m 772.00 449.00 l S
+BT /F3 4.9 Tf 394.00 542.00 Td (  forall x, L u x - lam * u x = f x) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (theorem krylov_7_1_2_interior_holder_regularization) Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (    {d m k : N} {delta lam : R} {Omega : Set \(Fin d -> R\)}) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (    {L : \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R} {u f : \(Fin d -> R\) -> R}) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (    \(hdelta : 0 < delta /\\ delta < 1\) \(hOmega : IsOpen Omega\)) Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (    \(hL : VariableCoefficientEllipticOperator m L\)) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td (    \(hcoeff : OperatorCoefficientsHolder m \(k + delta\) L\)) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td (    \(hu : HolderOn \(m + delta\) Omega u\)) Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (    \(hLu : ShiftedEllipticEquation L lam u f\) \(hf : HolderOn \(k + delta\)) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td (    Omega f\) :) Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (    HolderOn \(k + m + delta\) Omega u := by) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td (  sorry) Tj ET
+20.00 449.00 m 20.00 152.00 l S
+310.00 449.00 m 310.00 152.00 l S
+390.00 449.00 m 390.00 152.00 l S
+772.00 449.00 m 772.00 152.00 l S
+20.00 449.00 m 772.00 449.00 l S
+20.00 152.00 m 772.00 152.00 l S
+BT /F1 5.8 Tf 24.00 441.00 Td (Theorem 8.7.3. For any f in C^{delta/2,delta}\(R^{d+1}\) there) Tj ET
+BT /F1 5.8 Tf 24.00 434.00 Td (exists a unique function u in C^{1+delta/2,2+delta}\(R^{d+1}\)) Tj ET
+BT /F1 5.8 Tf 24.00 427.00 Td (satisfying the equation Deltau - u_t - u = f in R^{d+1}.) Tj ET
+BT /F1 5.8 Tf 314.00 441.00 Td (PDE) Tj ET
+BT /F3 4.9 Tf 394.00 441.00 Td (noncomputable def directionalDerivativeList {d : N} :) Tj ET
+BT /F3 4.9 Tf 394.00 434.00 Td (    List \(Fin d\) -> \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R) Tj ET
+BT /F3 4.9 Tf 394.00 427.00 Td (  | [], u => u) Tj ET
+BT /F3 4.9 Tf 394.00 420.00 Td (  | i :: indices, u => fun x =>) Tj ET
+BT /F3 4.9 Tf 394.00 413.00 Td (      fderiv R \(directionalDerivativeList indices u\) x \(Pi.single i 1\)) Tj ET
+BT /F3 4.9 Tf 394.00 406.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 399.00 Td (noncomputable def multiIndexDirections {d : N} \(alpha : \(Fin d -> N\)\) :) Tj ET
+BT /F3 4.9 Tf 394.00 392.00 Td (List \(Fin d\) :=) Tj ET
+BT /F3 4.9 Tf 394.00 385.00 Td (  Finset.univ.toList.flatMap fun i => List.replicate \(alpha i\) i) Tj ET
+BT /F3 4.9 Tf 394.00 378.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 371.00 Td (noncomputable def multiDerivative {d : N} \(alpha : \(Fin d -> N\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 364.00 Td (    \(u : \(Fin d -> R\) -> R\) : \(Fin d -> R\) -> R :=) Tj ET
+BT /F3 4.9 Tf 394.00 357.00 Td (  directionalDerivativeList \(multiIndexDirections alpha\) u) Tj ET
+BT /F3 4.9 Tf 394.00 350.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 343.00 Td (noncomputable def laplacian {d : N} \(u : \(Fin d -> R\) -> R\) \(x : \(Fin d ->) Tj ET
+BT /F3 4.9 Tf 394.00 336.00 Td (R\)\) : R :=) Tj ET
+BT /F3 4.9 Tf 394.00 329.00 Td (  sum i, directionalDerivativeList [i, i] u x) Tj ET
+BT /F3 4.9 Tf 394.00 322.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 315.00 Td (def HolderOnReal \(r : R\) \(I : Set R\) \(u : R -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 308.00 Td (  exists \(k : N\) \(delta : R\) \(hdelta : 0 <= delta\), r = k + delta /\\ delta) Tj ET
+BT /F3 4.9 Tf 394.00 301.00 Td (  < 1 /\\ ContDiffOn R k u I /\\) Tj ET
+BT /F3 4.9 Tf 394.00 294.00 Td (    exists C : NNReal, HolderOnWith C \(<delta, hdelta> : NNReal\)) Tj ET
+BT /F3 4.9 Tf 394.00 287.00 Td (    \(iteratedDeriv k u\) I) Tj ET
+BT /F3 4.9 Tf 394.00 280.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 273.00 Td (def ParabolicHolderOn {d : N} \(r : R\) \(Q : Set \(R  x  \(Fin d -> R\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 266.00 Td (  \(u : \(R  x  \(Fin d -> R\)\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 259.00 Td (  \(forall t, HolderOn r {x | \(t, x\) in Q} fun x => u \(t, x\)\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 252.00 Td (    forall x, HolderOnReal \(r / 2\) {t | \(t, x\) in Q} fun t => u \(t, x\)) Tj ET
+BT /F3 4.9 Tf 394.00 245.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 238.00 Td (def ShiftedHeatEquation {d : N} \(u f : \(R  x  \(Fin d -> R\)\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 231.00 Td (  forall t x, laplacian \(fun y => u \(t, y\)\) x - deriv \(fun s => u \(s, x\)\) t) Tj ET
+BT /F3 4.9 Tf 394.00 224.00 Td (  - u \(t, x\) =) Tj ET
+BT /F3 4.9 Tf 394.00 217.00 Td (    f \(t, x\)) Tj ET
+BT /F3 4.9 Tf 394.00 210.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 203.00 Td (theorem krylov_8_7_3_shifted_heat_holder_solvability) Tj ET
+BT /F3 4.9 Tf 394.00 196.00 Td (    {d : N} {delta : R} \(hdelta : 0 < delta /\\ delta < 1\) :) Tj ET
+BT /F3 4.9 Tf 394.00 189.00 Td (    forall f : \(R  x  \(Fin d -> R\)\) -> R, ParabolicHolderOn delta univ f ->) Tj ET
+BT /F3 4.9 Tf 394.00 182.00 Td (      exists! u : \(R  x  \(Fin d -> R\)\) -> R,) Tj ET
+BT /F3 4.9 Tf 394.00 175.00 Td (        ParabolicHolderOn \(2 + delta\) univ u /\\ ShiftedHeatEquation u f :=) Tj ET
+BT /F3 4.9 Tf 394.00 168.00 Td (        by) Tj ET
+BT /F3 4.9 Tf 394.00 161.00 Td (  sorry) Tj ET
+20.00 152.00 m 20.00 37.00 l S
+310.00 152.00 m 310.00 37.00 l S
+390.00 152.00 m 390.00 37.00 l S
+772.00 152.00 m 772.00 37.00 l S
+20.00 152.00 m 772.00 152.00 l S
+20.00 37.00 m 772.00 37.00 l S
+BT /F1 5.8 Tf 24.00 144.00 Td (Theorem 10.3.3. For any f in C^{delta/2,delta}\(Q\) and g in) Tj ET
+BT /F1 5.8 Tf 24.00 137.00 Td (C^{1+delta/2,2+delta}\(Q\) there exists a unique function u in) Tj ET
+BT /F1 5.8 Tf 24.00 130.00 Td (C^{1+delta/2,2+delta}\(Q\) satisfying the equation Lu - u_t = f) Tj ET
+BT /F1 5.8 Tf 24.00 123.00 Td (in Q and equal g on d'Q.) Tj ET
+BT /F1 5.8 Tf 314.00 144.00 Td (PDE) Tj ET
+BT /F3 4.9 Tf 394.00 144.00 Td (noncomputable def directionalDerivativeList {d : N} :) Tj ET
+BT /F3 4.9 Tf 394.00 137.00 Td (    List \(Fin d\) -> \(\(Fin d -> R\) -> R\) -> \(Fin d -> R\) -> R) Tj ET
+BT /F3 4.9 Tf 394.00 130.00 Td (  | [], u => u) Tj ET
+BT /F3 4.9 Tf 394.00 123.00 Td (  | i :: indices, u => fun x =>) Tj ET
+BT /F3 4.9 Tf 394.00 116.00 Td (      fderiv R \(directionalDerivativeList indices u\) x \(Pi.single i 1\)) Tj ET
+BT /F3 4.9 Tf 394.00 109.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 102.00 Td (noncomputable def multiIndexDirections {d : N} \(alpha : \(Fin d -> N\)\) :) Tj ET
+BT /F3 4.9 Tf 394.00 95.00 Td (List \(Fin d\) :=) Tj ET
+BT /F3 4.9 Tf 394.00 88.00 Td (  Finset.univ.toList.flatMap fun i => List.replicate \(alpha i\) i) Tj ET
+BT /F3 4.9 Tf 394.00 81.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 74.00 Td (noncomputable def multiDerivative {d : N} \(alpha : \(Fin d -> N\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 67.00 Td (    \(u : \(Fin d -> R\) -> R\) : \(Fin d -> R\) -> R :=) Tj ET
+BT /F3 4.9 Tf 394.00 60.00 Td (  directionalDerivativeList \(multiIndexDirections alpha\) u) Tj ET
+BT /F3 4.9 Tf 394.00 53.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 46.00 Td (noncomputable def holderGauge {d : N} \(k : N\) \(delta : R\)) Tj ET
+endstream
+endobj
+19 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 23 0 R /F2 24 0 R /F3 25 0 R >> >> /Contents 20 0 R >>
+endobj
+20 0 obj
+<< /Length 6945 >>
+stream
+BT /F2 12 Tf 24.00 586.00 Td (Krylov Holder PDE Benchmark) Tj ET
+BT /F1 7 Tf 740.00 586.00 Td (p. 9) Tj ET
+BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
+BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
+BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
+20.00 558.00 m 772.00 558.00 l S
+20.00 550.00 m 20.00 36.00 l S
+310.00 550.00 m 310.00 36.00 l S
+390.00 550.00 m 390.00 36.00 l S
+772.00 550.00 m 772.00 36.00 l S
+20.00 550.00 m 772.00 550.00 l S
+20.00 36.00 m 772.00 36.00 l S
+BT /F3 4.9 Tf 394.00 542.00 Td (    \(Omega : Set \(Fin d -> R\)\) \(u : \(Fin d -> R\) -> R\) : R>=0inf :=) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (  \( alpha : {alpha : \(Fin d -> N\) // sum i, alpha i <= k},) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (       x : Omega, ENNReal.ofReal |multiDerivative alpha u x|\) ) Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (     alpha : {alpha : \(Fin d -> N\) // sum i, alpha i = k},) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (       x : Omega,  y : Omega,  \(_ : \(x : \(Fin d -> R\)\) != y\),) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (        ENNReal.ofReal) Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (          \(|multiDerivative alpha u x - multiDerivative alpha u y| /) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td (            ||\(x : \(Fin d -> R\)\) - y|| ^ delta\)) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (def HolderOnReal \(r : R\) \(I : Set R\) \(u : R -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td (  exists \(k : N\) \(delta : R\) \(hdelta : 0 <= delta\), r = k + delta /\\ delta) Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (  < 1 /\\ ContDiffOn R k u I /\\) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td (    exists C : NNReal, HolderOnWith C \(<delta, hdelta> : NNReal\)) Tj ET
+BT /F3 4.9 Tf 394.00 451.00 Td (    \(iteratedDeriv k u\) I) Tj ET
+BT /F3 4.9 Tf 394.00 444.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 437.00 Td (def ParabolicHolderOn {d : N} \(r : R\) \(Q : Set \(R  x  \(Fin d -> R\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 430.00 Td (  \(u : \(R  x  \(Fin d -> R\)\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 423.00 Td (  \(forall t, HolderOn r {x | \(t, x\) in Q} fun x => u \(t, x\)\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 416.00 Td (    forall x, HolderOnReal \(r / 2\) {t | \(t, x\) in Q} fun t => u \(t, x\)) Tj ET
+BT /F3 4.9 Tf 394.00 409.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 402.00 Td (def ParabolicOperator {d : N}) Tj ET
+BT /F3 4.9 Tf 394.00 395.00 Td (    \(L : \(\(R  x  \(Fin d -> R\)\) -> R\) -> \(R  x  \(Fin d -> R\)\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 388.00 Td (  exists \(a : \(R  x  \(Fin d -> R\)\) -> Matrix \(Fin d\) \(Fin d\) R\)) Tj ET
+BT /F3 4.9 Tf 394.00 381.00 Td (    \(b : \(R  x  \(Fin d -> R\)\) -> \(Fin d -> R\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 374.00 Td (    \(c : \(R  x  \(Fin d -> R\)\) -> R\) \(kappa : R\),) Tj ET
+BT /F3 4.9 Tf 394.00 367.00 Td (    0 < kappa /\\) Tj ET
+BT /F3 4.9 Tf 394.00 360.00 Td (    \(forall \(p : \(R  x  \(Fin d -> R\)\)\) \(xi : \(Fin d -> R\)\),) Tj ET
+BT /F3 4.9 Tf 394.00 353.00 Td (      kappa * ||xi|| ^ 2 <= sum i, sum j, a p i j * xi i * xi j\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 346.00 Td (    forall u p, L u p =) Tj ET
+BT /F3 4.9 Tf 394.00 339.00 Td (      sum i, sum j, a p i j *) Tj ET
+BT /F3 4.9 Tf 394.00 332.00 Td (        directionalDerivativeList [i, j] \(fun x => u \(p.1, x\)\) p.2 +) Tj ET
+BT /F3 4.9 Tf 394.00 325.00 Td (      sum i, b p i * fderiv R \(fun x => u \(p.1, x\)\) p.2 \(Pi.single i 1\) +) Tj ET
+BT /F3 4.9 Tf 394.00 318.00 Td (      c p * u p) Tj ET
+BT /F3 4.9 Tf 394.00 311.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 304.00 Td (def ParabolicOperatorCoefficientsHolder {d : N} \(r : R\)) Tj ET
+BT /F3 4.9 Tf 394.00 297.00 Td (    \(Q : Set \(R  x  \(Fin d -> R\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 290.00 Td (    \(L : \(\(R  x  \(Fin d -> R\)\) -> R\) -> \(R  x  \(Fin d -> R\)\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 283.00 Td (  exists \(a : \(R  x  \(Fin d -> R\)\) -> Matrix \(Fin d\) \(Fin d\) R\)) Tj ET
+BT /F3 4.9 Tf 394.00 276.00 Td (    \(b : \(R  x  \(Fin d -> R\)\) -> \(Fin d -> R\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 269.00 Td (    \(c : \(R  x  \(Fin d -> R\)\) -> R\),) Tj ET
+BT /F3 4.9 Tf 394.00 262.00 Td (    \(forall i j, ParabolicHolderOn r Q fun p => a p i j\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 255.00 Td (      \(forall i, ParabolicHolderOn r Q fun p => b p i\) /\\ ParabolicHolderOn) Tj ET
+BT /F3 4.9 Tf 394.00 248.00 Td (      r Q c /\\) Tj ET
+BT /F3 4.9 Tf 394.00 241.00 Td (      forall u p, L u p =) Tj ET
+BT /F3 4.9 Tf 394.00 234.00 Td (        sum i, sum j, a p i j *) Tj ET
+BT /F3 4.9 Tf 394.00 227.00 Td (          directionalDerivativeList [i, j] \(fun x => u \(p.1, x\)\) p.2 +) Tj ET
+BT /F3 4.9 Tf 394.00 220.00 Td (        sum i, b p i * fderiv R \(fun x => u \(p.1, x\)\) p.2 \(Pi.single i 1\) +) Tj ET
+BT /F3 4.9 Tf 394.00 213.00 Td (        c p * u p) Tj ET
+BT /F3 4.9 Tf 394.00 206.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 199.00 Td (def parabolicBoundary {d : N} \(Q : Set \(R  x  \(Fin d -> R\)\)\) : Set \(R  x ) Tj ET
+BT /F3 4.9 Tf 394.00 192.00 Td (\(Fin d -> R\)\) :=) Tj ET
+BT /F3 4.9 Tf 394.00 185.00 Td (  {p in frontier Q | forall eps : R, 0 < eps ->) Tj ET
+BT /F3 4.9 Tf 394.00 178.00 Td (    exists q in Q, q.1 <= p.1 /\\ dist q p < eps}) Tj ET
+BT /F3 4.9 Tf 394.00 171.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 164.00 Td (def ParabolicDirichletSolution {d : N} \(Q : Set \(R  x  \(Fin d -> R\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 157.00 Td (    \(L : \(\(R  x  \(Fin d -> R\)\) -> R\) -> \(R  x  \(Fin d -> R\)\) -> R\)) Tj ET
+BT /F3 4.9 Tf 394.00 150.00 Td (    \(f g u : \(R  x  \(Fin d -> R\)\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 143.00 Td (  \(forall p in Q, L u p - deriv \(fun t => u \(t, p.2\)\) p.1 = f p\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 136.00 Td (    forall p in parabolicBoundary Q, u p = g p) Tj ET
+BT /F3 4.9 Tf 394.00 129.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 122.00 Td (theorem krylov_10_3_3_parabolic_dirichlet_domain_solvability) Tj ET
+BT /F3 4.9 Tf 394.00 115.00 Td (    {d : N} {delta : R} {Q : Set \(R  x  \(Fin d -> R\)\)}) Tj ET
+BT /F3 4.9 Tf 394.00 108.00 Td (    {L : \(\(R  x  \(Fin d -> R\)\) -> R\) -> \(R  x  \(Fin d -> R\)\) -> R}) Tj ET
+BT /F3 4.9 Tf 394.00 101.00 Td (    \(hdelta : 0 < delta /\\ delta < 1\)) Tj ET
+BT /F3 4.9 Tf 394.00 94.00 Td (    \(hQ : IsOpen Q /\\ Bornology.IsBounded Q /\\ Q.Nonempty\)) Tj ET
+BT /F3 4.9 Tf 394.00 87.00 Td (    \(hL : ParabolicOperator L\) \(hcoeff :) Tj ET
+BT /F3 4.9 Tf 394.00 80.00 Td (    ParabolicOperatorCoefficientsHolder delta Q L\) :) Tj ET
+BT /F3 4.9 Tf 394.00 73.00 Td (    forall f g, ParabolicHolderOn delta Q f -> ParabolicHolderOn \(2 +) Tj ET
+BT /F3 4.9 Tf 394.00 66.00 Td (    delta\) Q g ->) Tj ET
+BT /F3 4.9 Tf 394.00 59.00 Td (      exists u, ParabolicHolderOn \(2 + delta\) Q u /\\) Tj ET
+BT /F3 4.9 Tf 394.00 52.00 Td (        ParabolicDirichletSolution Q L f g u /\\) Tj ET
+BT /F3 4.9 Tf 394.00 45.00 Td (        forall v, ParabolicHolderOn \(2 + delta\) Q v ->) Tj ET
 endstream
 endobj
 21 0 obj
-<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 23 0 R /F2 24 0 R /F3 25 0 R >> >> /Contents 22 0 R >>
 endobj
 22 0 obj
-<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+<< /Length 734 >>
+stream
+BT /F2 12 Tf 24.00 586.00 Td (Krylov Holder PDE Benchmark) Tj ET
+BT /F1 7 Tf 740.00 586.00 Td (p. 10) Tj ET
+BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
+BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
+BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
+20.00 558.00 m 772.00 558.00 l S
+20.00 550.00 m 20.00 519.00 l S
+310.00 550.00 m 310.00 519.00 l S
+390.00 550.00 m 390.00 519.00 l S
+772.00 550.00 m 772.00 519.00 l S
+20.00 550.00 m 772.00 550.00 l S
+20.00 519.00 m 772.00 519.00 l S
+BT /F3 4.9 Tf 394.00 542.00 Td (          ParabolicDirichletSolution Q L f g v ->) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (            Set.EqOn v u \(Q union parabolicBoundary Q\) := by) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (  sorry) Tj ET
+endstream
 endobj
 23 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+24 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+25 0 obj
 << /Type /Font /Subtype /Type1 /BaseFont /Courier >>
 endobj
 xref
-0 24
+0 26
 0000000000 65535 f 
 0000000015 00000 n 
 0000000064 00000 n 
-0000000174 00000 n 
-0000000323 00000 n 
-0000008617 00000 n 
-0000008766 00000 n 
-0000016201 00000 n 
-0000016350 00000 n 
-0000023892 00000 n 
-0000024042 00000 n 
-0000031797 00000 n 
-0000031948 00000 n 
-0000039703 00000 n 
-0000039854 00000 n 
-0000046923 00000 n 
-0000047074 00000 n 
-0000054233 00000 n 
-0000054384 00000 n 
-0000061599 00000 n 
-0000061750 00000 n 
-0000064192 00000 n 
-0000064263 00000 n 
-0000064339 00000 n 
+0000000182 00000 n 
+0000000331 00000 n 
+0000008673 00000 n 
+0000008822 00000 n 
+0000016103 00000 n 
+0000016252 00000 n 
+0000023374 00000 n 
+0000023524 00000 n 
+0000031363 00000 n 
+0000031514 00000 n 
+0000039265 00000 n 
+0000039416 00000 n 
+0000046546 00000 n 
+0000046697 00000 n 
+0000053873 00000 n 
+0000054024 00000 n 
+0000061494 00000 n 
+0000061645 00000 n 
+0000068643 00000 n 
+0000068794 00000 n 
+0000069580 00000 n 
+0000069651 00000 n 
+0000069727 00000 n 
 trailer
-<< /Size 24 /Root 1 0 R >>
+<< /Size 26 /Root 1 0 R >>
 startxref
-64408
+69796
 %%EOF

@@ -1,4 +1,7 @@
+module
+
 import Mathlib.Analysis.Calculus.Deriv.Basic
+import Mathlib.Analysis.Calculus.IteratedDeriv.Defs
 import Mathlib.Analysis.Complex.Basic
 import Mathlib.Analysis.SpecialFunctions.Exp
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
@@ -37,6 +40,12 @@ noncomputable def boundaryValue (f : ℂ → ℂ) (ζ : {z : ℂ // ‖z‖ = 1}
 noncomputable def unitCirclePoint (t : ℝ) : {z : ℂ // ‖z‖ = 1} :=
   ⟨Complex.exp (Complex.I * t), by rw [Complex.norm_exp]; simp⟩
 
+/-- The radial limit defining the boundary value exists almost everywhere. -/
+def HasRadialBoundaryValues (f : ℂ → ℂ) : Prop :=
+  ∀ᵐ t ∂volume.restrict (Set.Ioc 0 (2 * Real.pi)),
+    Tendsto (fun r : ℝ ↦ f (r • (unitCirclePoint t).1)) (𝓝[<] 1)
+      (𝓝 (boundaryValue f (unitCirclePoint t)))
+
 /-- Analytic Hardy-class functions, using uniformly bounded radial `L^p` norms. -/
 def HardyClass (p : ℝ≥0∞) (f : ℂ → ℂ) : Prop :=
   DifferentiableOn ℂ f (Metric.ball (0 : ℂ) 1) ∧
@@ -68,13 +77,14 @@ def ShiftInvariant (M : Set (ℕ → ℂ)) : Prop :=
 /-- Inner functions: bounded analytic functions with unimodular boundary values almost
 everywhere. -/
 def InnerFunction (θ : ℂ → ℂ) : Prop :=
-  HardyClass ⊤ θ ∧
+  HardyClass ⊤ θ ∧ HasRadialBoundaryValues θ ∧
     ∀ᵐ t ∂volume.restrict (Set.Ioc 0 (2 * Real.pi)),
       ‖boundaryValue θ (unitCirclePoint t)‖ = 1
 
 /-- Outer functions, given by the standard exponential Poisson-integral representation. -/
 def OuterFunction (p : ℝ≥0∞) (g : ℂ → ℂ) : Prop :=
-  HardyClass p g ∧ ∃ c : ℂ, ‖c‖ = 1 ∧ ∀ z ∈ Metric.ball (0 : ℂ) 1,
+  HardyClass p g ∧ HasRadialBoundaryValues g ∧ ∃ c : ℂ, ‖c‖ = 1 ∧
+    ∀ z ∈ Metric.ball (0 : ℂ) 1,
     g z = c * Complex.exp
       ((2 * Real.pi : ℂ)⁻¹ *
         ∫ t in Set.Ioc 0 (2 * Real.pi),
@@ -110,6 +120,14 @@ def InnerGeneratedSubspace (M : Set (ℕ → ℂ)) (hθ : ℕ → ℂ) : Prop :=
 /-- Blaschke summability for a sequence in the disk. -/
 def BlaschkeCondition (a : ℕ → ℂ) : Prop :=
   (∀ n : ℕ, a n ∈ Metric.ball (0 : ℂ) 1) ∧ Summable (fun n : ℕ ↦ 1 - ‖a n‖)
+
+/-- A sequence enumerates all zeros of an analytic function with their multiplicities. -/
+def HasZeroSequence (f : ℂ → ℂ) (a : ℕ → ℂ) : Prop :=
+  (∀ n, a n ∈ Metric.ball (0 : ℂ) 1) ∧
+    ∀ z ∈ Metric.ball (0 : ℂ) 1,
+      {n : ℕ | a n = z}.Finite ∧
+        ∃ k : ℕ, (∀ j < k, iteratedDeriv j f z = 0) ∧ iteratedDeriv k f z ≠ 0 ∧
+          {n : ℕ | a n = z}.ncard = k
 
 /-- Schur-class functions on the disk. -/
 def SchurFunction (f : ℂ → ℂ) : Prop :=
@@ -161,6 +179,56 @@ noncomputable def symbolDistanceToHInfinity (φ : {z : ℂ // ‖z‖ = 1} → �
       φ (unitCirclePoint t) - boundaryValue h (unitCirclePoint t)) ∞
         (volume.restrict (Set.Ioc 0 (2 * Real.pi))) ≤ r}
 
+/-- A Hankel matrix has rank at most `n`, exhibited by a factorization through `Fin n`. -/
+def HankelMatrixRankLE (n : ℕ) (b : ℕ → ℂ) : Prop :=
+  ∃ u v : Fin n → ℕ → ℂ,
+    (∀ q, HardySquareSummable (u q) ∧ HardySquareSummable (v q)) ∧
+      ∀ i j, b (i + j) = ∑ q, u q i * v q j
+
+/-- Distance from a Hankel form to Hankel forms of rank at most `n`. -/
+noncomputable def hankelRankApproximationDistance (a : ℕ → ℂ) (n : ℕ) : ℝ≥0∞ :=
+  sInf {C : ℝ≥0∞ | C < ∞ ∧ ∃ b : ℕ → ℂ, HankelMatrixRankLE n b ∧
+    ∀ N : ℕ, ∀ x y : ℕ → ℂ,
+      ‖∑ i ∈ Finset.range N, ∑ j ∈ Finset.range N,
+        x i * (a (i + j) - b (i + j)) * y j‖ ≤
+      C.toReal * (∑ i ∈ Finset.range N, ‖x i‖ ^ 2) ^ (1 / 2 : ℝ) *
+        (∑ j ∈ Finset.range N, ‖y j‖ ^ 2) ^ (1 / 2 : ℝ)}
+
+/-- Boundary values of rational functions vanishing at infinity, with at most `n` poles in the
+unit disk counted with multiplicity. -/
+def RationalVanishingAtInfinityDegreeLE (n : ℕ)
+    (ψ : {z : ℂ // ‖z‖ = 1} → ℂ) : Prop :=
+  ∃ numerator denominator : Polynomial ℂ,
+    numerator.natDegree < denominator.natDegree ∧ denominator.natDegree ≤ n ∧
+      denominator ≠ 0 ∧
+      (∀ z : ℂ, denominator.IsRoot z → z ∈ Metric.ball (0 : ℂ) 1) ∧
+      ∀ ζ, ψ ζ = numerator.eval ζ.1 / denominator.eval ζ.1
+
+/-- Essential-supremum distance from a symbol to `Rₙ + H∞`. -/
+noncomputable def rationalPlusHInfinityDistance
+    (φ : {z : ℂ // ‖z‖ = 1} → ℂ) (n : ℕ) : ℝ≥0∞ :=
+  sInf {C : ℝ≥0∞ | ∃ (ψ : {z : ℂ // ‖z‖ = 1} → ℂ) (h : ℂ → ℂ),
+    RationalVanishingAtInfinityDegreeLE n ψ ∧ HardyClass ⊤ h ∧
+      eLpNorm (fun t : ℝ ↦ φ (unitCirclePoint t) - ψ (unitCirclePoint t) -
+        boundaryValue h (unitCirclePoint t)) ∞
+        (volume.restrict (Set.Ioc 0 (2 * Real.pi))) ≤ C}
+
+/-- A finite Blaschke product of degree at most `n`. -/
+def FiniteBlaschkeProductDegreeLE (n : ℕ) (B : ℂ → ℂ) : Prop :=
+  ∃ (m : ℕ) (_ : m ≤ n) (a : Fin m → ℂ) (c : ℂ), ‖c‖ = 1 ∧
+    (∀ i, a i ∈ Metric.ball (0 : ℂ) 1) ∧ InnerFunction B ∧
+      ∀ z ∈ Metric.ball (0 : ℂ) 1,
+        B z = c * ∏ i, (z - a i) / (1 - star (a i) * z)
+
+/-- Minimum norm of the Hankel operators with symbols `conj(B) * φ`, for finite Blaschke
+products `B` of degree at most `n`. -/
+noncomputable def finiteBlaschkeHankelDistance
+    (φ : {z : ℂ // ‖z‖ = 1} → ℂ) (n : ℕ) : ℝ≥0∞ :=
+  sInf {C : ℝ≥0∞ | ∃ (B : ℂ → ℂ) (b : ℕ → ℂ),
+    FiniteBlaschkeProductDegreeLE n B ∧
+      HasBoundedHankelSymbol b (fun ζ ↦ star (boundaryValue B ζ) * φ ζ) ∧
+      hankelFormNorm b = C}
+
 /-- Compactness of a Hankel form, expressed by small operator-norm tails. -/
 def CompactHankel (a : ℕ → ℂ) : Prop :=
   BoundedHankelForm a ∧ ∀ ε : ℝ, 0 < ε → ∃ N : ℕ, ∀ M : ℕ, ∀ x y : ℕ → ℂ,
@@ -177,11 +245,8 @@ def InHInfinityPlusContinuous (φ : {z : ℂ // ‖z‖ = 1} → ℂ) : Prop :=
 
 /-- The Toeplitz matrix formula for an operator on `H²`. -/
 def RepresentsToeplitzOperator (φ : {z : ℂ // ‖z‖ = 1} → ℂ)
-    (T : ℓ²(ℕ, ℂ) → ℓ²(ℕ, ℂ)) : Prop :=
-  (∀ f g, T (f + g) = T f + T g) ∧
-    (∀ (c : ℂ) f, T (c • f) = c • T f) ∧
-    Continuous T ∧ ∀ f n,
-      T f n = ∑' j : ℕ, circleFourierCoefficient φ ((n : ℤ) - j) * f j
+    (T : ℓ²(ℕ, ℂ) →L[ℂ] ℓ²(ℕ, ℂ)) : Prop :=
+  ∀ f n, T f n = ∑' j : ℕ, circleFourierCoefficient φ ((n : ℤ) - j) * f j
 
 /-- An essentially bounded measurable function on the unit circle. -/
 def EssentiallyBoundedCircleSymbol (u : {z : ℂ // ‖z‖ = 1} → ℂ) : Prop :=
@@ -201,8 +266,10 @@ shift-invariant subspace is generated by an inner function.
 -/
 theorem nikolski_A_1_3_beurling_invariant_subspaces
     {M : Set (ℕ → ℂ)}
-    (hlinear : IsComplexLinearSubspace M) (hclosed : IsClosed M)
-    (hshift : ShiftInvariant M) (hne : ∃ f ∈ M, f ≠ 0) :
+    (hlinear : IsComplexLinearSubspace M) (hsquare : ∀ f ∈ M, HardySquareSummable f)
+    (hclosed : IsClosed {f : ℓ²(ℕ, ℂ) | (f : ℕ → ℂ) ∈ M})
+    (hshiftProper : {g : ℕ → ℂ | ∃ f ∈ M,
+      g = fun n ↦ if n = 0 then 0 else f (n - 1)} ⊂ M) :
     ∃ θ : ℂ → ℂ, ∃ hθ : ℕ → ℂ,
       InnerFunction θ ∧ HasTaylorSeries θ hθ ∧ InnerGeneratedSubspace M hθ ∧
         ∀ η : ℂ → ℂ, ∀ hη : ℕ → ℂ,
@@ -215,7 +282,8 @@ Nikol'ski, *Operators, Functions, and Systems*, Volume 1, Part A, Theorem 2.4.1:
 inner-outer factorization in `H²`.
 -/
 theorem nikolski_A_2_4_inner_outer_factorization
-    {f : ℂ → ℂ} (hf : HardyClass 2 f) (hnonzero : ∃ z, f z ≠ 0) :
+    {f : ℂ → ℂ} (hf : HardyClass 2 f)
+    (hnonzero : ∃ z ∈ Metric.ball (0 : ℂ) 1, f z ≠ 0) :
     ∃ θ g : ℂ → ℂ, InnerFunction θ ∧ OuterFunction 2 g ∧
       (∀ z ∈ Metric.ball (0 : ℂ) 1, f z = θ z * g z) ∧
       ∀ θ' g' : ℂ → ℂ, InnerFunction θ' → OuterFunction 2 g' →
@@ -231,12 +299,15 @@ function vanish on a positive boundary set, then the function is identically zer
 -/
 theorem nikolski_A_3_6_boundary_uniqueness
     {p : ℝ≥0∞} {f : ℂ → ℂ} (hp : p ≠ 0) (hf : HardyClass p f) :
+    HasRadialBoundaryValues f ∧
     ((∃ z ∈ Metric.ball (0 : ℂ) 1, f z ≠ 0) →
       IntegrableOn (fun t : ℝ ↦
         Real.log ‖boundaryValue f (unitCirclePoint t)‖) (Set.Ioc 0 (2 * Real.pi))) ∧
     ∀ E : Set {z : ℂ // ‖z‖ = 1},
       0 < volume {t ∈ Set.Ioc 0 (2 * Real.pi) | unitCirclePoint t ∈ E} →
-        (∀ ζ ∈ E, boundaryValue f ζ = 0) → ∀ z ∈ Metric.ball (0 : ℂ) 1, f z = 0 := by
+        (∀ᵐ t ∂volume.restrict (Set.Ioc 0 (2 * Real.pi)),
+          unitCirclePoint t ∈ E → boundaryValue f (unitCirclePoint t) = 0) →
+        ∀ z ∈ Metric.ball (0 : ℂ) 1, f z = 0 := by
   sorry
 
 /--
@@ -245,9 +316,9 @@ the zero sets of nontrivial Hardy-class functions are precisely Blaschke
 sequences in the disk.
 -/
 theorem nikolski_A_3_7_blaschke_zero_sets
-    {p : ℝ≥0∞} {a : ℕ → ℂ} :
-    (∃ f : ℂ → ℂ, HardyClass p f ∧ (∃ z, f z ≠ 0) ∧
-      ∀ z ∈ Metric.ball (0 : ℂ) 1, f z = 0 ↔ z ∈ range a) ↔
+    {p : ℝ≥0∞} {a : ℕ → ℂ} (hp : p ≠ 0) :
+    (∃ f : ℂ → ℂ, HardyClass p f ∧
+      (∃ z ∈ Metric.ball (0 : ℂ) 1, f z ≠ 0) ∧ HasZeroSequence f a) ↔
       BlaschkeCondition a := by
   sorry
 
@@ -258,10 +329,19 @@ basis in weighted `L²(T, μ)` exactly when the weight admits the Helson-Szego
 factorization.
 -/
 theorem nikolski_A_5_4_helson_szego
-    {w : {z : ℂ // ‖z‖ = 1} → ℝ} :
-    let basis := ∃ A B : ℝ, 0 < A ∧ A ≤ B ∧ ∀ c : ℤ → ℂ, c.support.Finite →
+    {w : {z : ℂ // ‖z‖ = 1} → ℝ}
+    (hwmeas : AEStronglyMeasurable (fun t ↦ w (unitCirclePoint t))
+      (volume.restrict (Set.Ioc 0 (2 * Real.pi))))
+    (hwpos : ∀ᵐ t ∂volume.restrict (Set.Ioc 0 (2 * Real.pi)), 0 < w (unitCirclePoint t))
+    (hwint : IntegrableOn (fun t ↦ w (unitCirclePoint t)) (Set.Ioc 0 (2 * Real.pi))) :
+    let weightedMeasure := (volume.restrict (Set.Ioc 0 (2 * Real.pi))).withDensity
+      fun t ↦ ENNReal.ofReal (w (unitCirclePoint t))
+    let complete := ∀ f : ℝ → ℂ, MemLp f 2 weightedMeasure →
+      (∀ k : ℤ, ∫ t, star (Complex.exp (Complex.I * k * t)) * f t ∂weightedMeasure = 0) →
+        f =ᵐ[weightedMeasure] 0
+    let basis := (∃ A B : ℝ, 0 < A ∧ A ≤ B ∧ ∀ c : ℤ → ℂ, c.support.Finite →
       A * ∑' k : ℤ, ‖c k‖ ^ 2 ≤ weightedL2NormSq w c ∧
-        weightedL2NormSq w c ≤ B * ∑' k : ℤ, ‖c k‖ ^ 2
+        weightedL2NormSq w c ≤ B * ∑' k : ℤ, ‖c k‖ ^ 2) ∧ complete
     let boundedProjection := ∃ C : ℝ, 0 ≤ C ∧ ∀ c : ℤ → ℂ, c.support.Finite →
       weightedL2NormSq w (analyticFourierPart c) ≤ C ^ 2 * weightedL2NormSq w c
     let positiveAngle := ∃ δ : ℝ, 0 < δ ∧ ∀ plus minus : ℤ → ℂ,
@@ -329,7 +409,7 @@ theorem nikolski_B_3_2_nevanlinna_pick_interpolation
 theorem nikolski_B_4_3_3_devinatz_widom
     {u : {z : ℂ // ‖z‖ = 1} → ℂ}
     (hu : EssentiallyBoundedCircleSymbol u) (hmod : IsUnimodularCircleSymbol u) :
-    let a := ∃ T : ℓ²(ℕ, ℂ) → ℓ²(ℕ, ℂ),
+    let a := ∃ T : ℓ²(ℕ, ℂ) →L[ℂ] ℓ²(ℕ, ℂ),
       RepresentsToeplitzOperator u T ∧ Function.Bijective T
     let b := symbolDistanceToHInfinity u < 1 ∧
       symbolDistanceToHInfinity (fun ζ ↦ star (u ζ)) < 1
@@ -351,21 +431,8 @@ theorem nikolski_B_4_3_3_devinatz_widom
 theorem nikolski_B_7_2_1_adamyan_arov_krein
     {a : ℕ → ℂ} {φ : {z : ℂ // ‖z‖ = 1} → ℂ} {n : ℕ} :
     HasBoundedHankelSymbol a φ →
-      ∀ r : ℝ,
-        (0 ≤ r ∧ r = sInf {C : ℝ | 0 ≤ C ∧ ∃ b : ℕ → ℂ, BoundedHankelForm b ∧
-          ∃ correction : Fin n → ℕ → ℂ, ∀ N : ℕ, ∀ x y : ℕ → ℂ,
-            ‖∑ i ∈ Finset.range N, ∑ j ∈ Finset.range N,
-              x i * (a (i + j) - b (i + j) - ∑ q, correction q i * correction q j) * y j‖ ≤
-              C * (∑ i ∈ Finset.range N, ‖x i‖ ^ 2) ^ (1 / 2 : ℝ) *
-                (∑ j ∈ Finset.range N, ‖y j‖ ^ 2) ^ (1 / 2 : ℝ)}) ↔
-        (0 ≤ r ∧ r = sInf {C : ℝ | 0 ≤ C ∧
-          ∃ ψ : {z : ℂ // ‖z‖ = 1} → ℂ,
-            (∃ numerator denominator : Polynomial ℂ, denominator.natDegree ≤ n ∧
-              (∀ ζ : {z : ℂ // ‖z‖ = 1}, denominator.eval ζ.1 ≠ 0) ∧
-              ∀ ζ : {z : ℂ // ‖z‖ = 1},
-                ψ ζ = numerator.eval ζ.1 / denominator.eval ζ.1) ∧
-            eLpNorm (fun t : ℝ ↦ φ (unitCirclePoint t) - ψ (unitCirclePoint t)) ∞
-              (volume.restrict (Set.Ioc 0 (2 * Real.pi))) ≤ ENNReal.ofReal C}) := by
+      hankelRankApproximationDistance a n = rationalPlusHInfinityDistance φ n ∧
+        rationalPlusHInfinityDistance φ n = finiteBlaschkeHankelDistance φ n := by
   sorry
 
 end NikolskiOperators

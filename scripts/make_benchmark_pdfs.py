@@ -916,16 +916,16 @@ CONWAY = [
 
 
 NIKOLSKI = [
-    Entry(1, "1.3.2. Theorem (A. Beurling, H. Helson). Let E ⊂ L², zE ⊊ E. Then there exists a measurable function Θ, unique up to a multiplicative constant of modulus 1, such that |Θ| = 1 a.e. on T and E = ΘH².", "Hardy spaces", "Dataset/NikolskiOperators.lean", "nikolski_A_1_3_beurling_invariant_subspaces", ["boundaryValue", "unitCirclePoint", "HardyClass", "HasTaylorSeries", "HardySquareSummable", "CauchyProduct", "IsComplexLinearSubspace", "ShiftInvariant", "InnerFunction", "InnerGeneratedSubspace"]),
-    Entry(2, "2.4.1. Theorem (V. Smirnov, 1928). Let f ∈ H², f ≠ 0. Then there exist an inner function fᵢₙₙ ∈ H² and an outer function fₒᵤₜ ∈ H² such that f = fᵢₙₙfₒᵤₜ. Moreover, such a factorization is unique up to a constant factor, and E_f = fᵢₙₙH².\n\nRecall that a function f ∈ H² is called inner if |f| = 1 a.e. on T. It is called outer if E_f = H².", "Hardy spaces", "Dataset/NikolskiOperators.lean", "nikolski_A_2_4_inner_outer_factorization", ["boundaryValue", "unitCirclePoint", "HardyClass", "InnerFunction", "OuterFunction"]),
-    Entry(3, "3.6.1. Corollary. If g ∈ H¹, g ≠ 0, then log |g| ∈ L¹(T). In particular, if g ∈ H¹ and m{t ∈ T : g(t) = 0} > 0, then g = 0.", "Hardy spaces", "Dataset/NikolskiOperators.lean", "nikolski_A_3_6_boundary_uniqueness", ["boundaryValue", "unitCirclePoint", "HardyClass"]),
-    Entry(4, "3.7.1. Lemma (Blaschke condition, interior uniqueness theorem). Suppose f ∈ Hol(D), f ≠ 0, and let (λₙ)ₙ≥₁ be the zero sequence of f in D, each zero is repeated according to its multiplicity. Suppose that limᵣ→1 ∫ᵀ log |fᵣ| dm < ∞, then ∑ₙ≥₁(1 − |λₙ|) < ∞. In particular, this holds whenever f ∈ Hᵖ(D), p > 0.\n\n3.7.3. Lemma (Blaschke Product). If (λₙ)ₙ≥₁ is a sequence in D satisfying the Blaschke condition ∑ₙ≥₁(1 − |λₙ|) < ∞, then the infinite product B = ∏ₙ≥₁ bλₙ converges uniformly on compact subsets of D (and even on compact subsets of ℂ ∖ clos{1/λₙ}ₙ≥₁). Moreover |B| ≤ 1 in D, |B| = 1 a.e. on T, and the zeros of B are exactly (λₙ)ₙ≥₁ (counting multiplicities).\n\n3.7.2. Remark. The condition ∑ₙ≥₁(1 − |λₙ|) < ∞ is called the Blaschke condition.", "Hardy spaces", "Dataset/NikolskiOperators.lean", "nikolski_A_3_7_blaschke_zero_sets", ["HardyClass", "BlaschkeCondition"]),
+    Entry(1, "1.3.2. Theorem (A. Beurling, H. Helson). Let E ⊂ L², zE ⊊ E. Then there exists a measurable function Θ, unique up to a multiplicative constant of modulus 1, such that |Θ| = 1 a.e. on T and E = ΘH².", "Hardy spaces", "Dataset/NikolskiOperators.lean", "nikolski_A_1_3_beurling_invariant_subspaces", ["boundaryValue", "unitCirclePoint", "HasRadialBoundaryValues", "HardyClass", "HasTaylorSeries", "HardySquareSummable", "CauchyProduct", "IsComplexLinearSubspace", "ShiftInvariant", "InnerFunction", "InnerGeneratedSubspace"]),
+    Entry(2, "2.4.1. Theorem (V. Smirnov, 1928). Let f ∈ H², f ≠ 0. Then there exist an inner function fᵢₙₙ ∈ H² and an outer function fₒᵤₜ ∈ H² such that f = fᵢₙₙfₒᵤₜ. Moreover, such a factorization is unique up to a constant factor, and E_f = fᵢₙₙH².\n\nRecall that a function f ∈ H² is called inner if |f| = 1 a.e. on T. It is called outer if E_f = H².", "Hardy spaces", "Dataset/NikolskiOperators.lean", "nikolski_A_2_4_inner_outer_factorization", ["boundaryValue", "unitCirclePoint", "HasRadialBoundaryValues", "HardyClass", "InnerFunction", "OuterFunction"]),
+    Entry(3, "3.6.1. Corollary. If g ∈ H¹, g ≠ 0, then log |g| ∈ L¹(T). In particular, if g ∈ H¹ and m{t ∈ T : g(t) = 0} > 0, then g = 0.", "Hardy spaces", "Dataset/NikolskiOperators.lean", "nikolski_A_3_6_boundary_uniqueness", ["boundaryValue", "unitCirclePoint", "HasRadialBoundaryValues", "HardyClass"]),
+    Entry(4, "3.7.1. Lemma (Blaschke condition, interior uniqueness theorem). Suppose f ∈ Hol(D), f ≠ 0, and let (λₙ)ₙ≥₁ be the zero sequence of f in D, each zero is repeated according to its multiplicity. Suppose that limᵣ→1 ∫ᵀ log |fᵣ| dm < ∞, then ∑ₙ≥₁(1 − |λₙ|) < ∞. In particular, this holds whenever f ∈ Hᵖ(D), p > 0.\n\n3.7.3. Lemma (Blaschke Product). If (λₙ)ₙ≥₁ is a sequence in D satisfying the Blaschke condition ∑ₙ≥₁(1 − |λₙ|) < ∞, then the infinite product B = ∏ₙ≥₁ bλₙ converges uniformly on compact subsets of D (and even on compact subsets of ℂ ∖ clos{1/λₙ}ₙ≥₁). Moreover |B| ≤ 1 in D, |B| = 1 a.e. on T, and the zeros of B are exactly (λₙ)ₙ≥₁ (counting multiplicities).\n\n3.7.2. Remark. The condition ∑ₙ≥₁(1 − |λₙ|) < ∞ is called the Blaschke condition.", "Hardy spaces", "Dataset/NikolskiOperators.lean", "nikolski_A_3_7_blaschke_zero_sets", ["HardyClass", "HasZeroSequence", "BlaschkeCondition"]),
     Entry(5, "5.4.1. Theorem. Let μ be a finite Borel measure on T. The following assertions are equivalent. (1) The family (zⁿ)_{n∈Z} is a (symmetric or non-symmetric) basis of L²(μ). (2) The Riesz projection P₊ is bounded on L²(μ). (3) sin(Pol₊, Pol₋) > 0. (4) dμ = |h|² dm where h ∈ H² is an outer function such that dist(h̄/h, H∞) < 1. (5) dμ = w dm where w = e^{u+ṽ} and u, v are real valued bounded functions and ‖v‖∞ < π/2 (condition (HS)).", "Harmonic analysis", "Dataset/NikolskiOperators.lean", "nikolski_A_5_4_helson_szego", ["boundaryValue", "unitCirclePoint", "HardyClass", "OuterFunction", "trigonometricPolynomial", "weightedL2NormSq", "analyticFourierPart", "circleHilbertTransform"]),
     Entry(6, "1.3.2. Theorem (Z. Nehari, 1957). If H : H² → H²₋ is a bounded Hankel operator, then there exists φ ∈ L∞ such that H = H_φ and ‖H_φ‖ = ‖φ‖∞ = dist(φ, H∞).", "Operator theory", "Dataset/NikolskiOperators.lean", "nikolski_B_1_3_nehari_theorem", ["boundaryValue", "unitCirclePoint", "HardyClass", "circleFourierCoefficient", "BoundedHankelForm", "HasBoundedHankelSymbol", "hankelFormNorm", "symbolDistanceToHInfinity"]),
     Entry(7, "2.2.5. Theorem (P. Hartman, 1958). Let f ∈ L∞. Then H_f ∈ S∞ if and only if f ∈ H∞ + C. In other words, a Hankel operator H is compact if and only if H = H_g with some g ∈ C(T).", "Operator theory", "Dataset/NikolskiOperators.lean", "nikolski_B_2_2_hartman_compact_hankel", ["boundaryValue", "unitCirclePoint", "HardyClass", "circleFourierCoefficient", "BoundedHankelForm", "HasBoundedHankelSymbol", "CompactHankel", "InHInfinityPlusContinuous"]),
     Entry(8, "3.2.4. Corollary (G. Pick, 1916). There exists f ∈ H∞ such that f(λ_k) = w_k, k = 1, ..., n, and ‖f‖∞ ≤ 1 if and only if I − WW* ≥ 0: Σ_{i,j=1}^n a_i ā_j (1 − w_i w̄_j)/(1 − λ_i λ̄_j) ≥ 0, a_i ∈ C. Moreover, the solution f is unique if and only if the matrix I − WW* is degenerated, i.e. ∂ = rank(I − WW*) < n.", "Function theory", "Dataset/NikolskiOperators.lean", "nikolski_B_3_2_nevanlinna_pick_interpolation", ["boundaryValue", "unitCirclePoint", "HardyClass", "SchurFunction", "PickMatrix", "PositiveSemidefiniteMatrix"]),
     Entry(9, "4.3.3. Lemma. Let u ∈ L∞(T) be such that |u| = 1 a.e. on T. The following are equivalent. (1) Tᵤ is invertible. (2) dist(u, H∞) < 1, dist(ū, H∞) < 1. (3) There exists an outer function h ∈ H∞ such that ‖u − h‖∞ < 1. (4) There exist real valued bounded functions a, b and a constant c ∈ ℝ such that u = e^{i(c+a+b̃)} and ‖a‖∞ < π/2.\n\n3.9.7. Definition. Let f ∈ Hᵖ, p > 0. The function [f] is called the outer part of f, and λBS is called the inner part of f. A function f ∈ Hᵖ which is equal to its outer part (up to a multiplicative constant of modulus 1), f = λ[f], will simply be called outer.", "Operator theory", "Dataset/NikolskiOperators.lean", "nikolski_B_4_3_3_devinatz_widom", ["boundaryValue", "unitCirclePoint", "HardyClass", "OuterFunction", "circleHilbertTransform", "circleFourierCoefficient", "symbolDistanceToHInfinity", "RepresentsToeplitzOperator", "EssentiallyBoundedCircleSymbol", "IsUnimodularCircleSymbol"]),
-    Entry(10, "7.2.1. Theorem (V. Adamyan, D. Arov, and M. Krein, 1971). Let Hφ be a Hankel operator and let Rₙ be the set of rational functions tending to 0 at infinity and having all poles in D such that their total multiplicity is less than or equal to n. Then sₙ(Hφ) = min{‖Hφ − Hψ‖ : rank Hψ ≤ n} = distₗ∞(φ, Rₙ + H∞) = min{‖H_{̅Bφ}‖ : B is a Blaschke product of degree ≤ n}, where the degree deg Θ of an inner function Θ is equal to n if Θ is a finite Blaschke product with n zeros (counting multiplicities) and ∞ otherwise.", "Operator theory", "Dataset/NikolskiOperators.lean", "nikolski_B_7_2_1_adamyan_arov_krein", ["unitCirclePoint", "circleFourierCoefficient", "BoundedHankelForm", "HasBoundedHankelSymbol"]),
+    Entry(10, "7.2.1. Theorem (V. Adamyan, D. Arov, and M. Krein, 1971). Let Hφ be a Hankel operator and let Rₙ be the set of rational functions tending to 0 at infinity and having all poles in D such that their total multiplicity is less than or equal to n. Then sₙ(Hφ) = min{‖Hφ − Hψ‖ : rank Hψ ≤ n} = distₗ∞(φ, Rₙ + H∞) = min{‖H_{̅Bφ}‖ : B is a Blaschke product of degree ≤ n}, where the degree deg Θ of an inner function Θ is equal to n if Θ is a finite Blaschke product with n zeros (counting multiplicities) and ∞ otherwise.", "Operator theory", "Dataset/NikolskiOperators.lean", "nikolski_B_7_2_1_adamyan_arov_krein", ["unitCirclePoint", "circleFourierCoefficient", "BoundedHankelForm", "HasBoundedHankelSymbol", "HankelMatrixRankLE", "hankelRankApproximationDistance", "RationalVanishingAtInfinityDegreeLE", "rationalPlusHInfinityDistance", "FiniteBlaschkeProductDegreeLE", "finiteBlaschkeHankelDistance"]),
 ]
 
 
@@ -942,6 +942,7 @@ KRYLOV_HOLDER = [
             "multiDerivative",
             "laplacian",
             "RegularBoundedDomain",
+            "IsOutwardUnitNormal",
             "LaplaceDirichletSolution",
         ],
     ),
@@ -993,6 +994,7 @@ KRYLOV_HOLDER = [
             "EllipticOperatorData",
             "VariableCoefficientEllipticOperator",
             "OperatorCoefficientsHolder",
+            "OperatorCoefficientGaugeLE",
             "ShiftedEllipticEquation",
         ],
     ),
@@ -1046,7 +1048,7 @@ KRYLOV_HOLDER = [
         "PDE",
         "Dataset/KrylovHolder.lean",
         "krylov_8_7_3_shifted_heat_holder_solvability",
-        ["directionalDerivativeList", "multiIndexDirections", "multiDerivative", "laplacian", "ParabolicHolderOn", "ShiftedHeatEquation"],
+        ["directionalDerivativeList", "multiIndexDirections", "multiDerivative", "laplacian", "HolderOnReal", "ParabolicHolderOn", "ShiftedHeatEquation"],
     ),
     Entry(
         10,
@@ -1054,7 +1056,7 @@ KRYLOV_HOLDER = [
         "PDE",
         "Dataset/KrylovHolder.lean",
         "krylov_10_3_3_parabolic_dirichlet_domain_solvability",
-        ["directionalDerivativeList", "multiIndexDirections", "multiDerivative", "holderGauge", "ParabolicHolderOn", "ParabolicOperator", "parabolicBoundary", "ParabolicDirichletSolution"],
+        ["directionalDerivativeList", "multiIndexDirections", "multiDerivative", "holderGauge", "HolderOnReal", "ParabolicHolderOn", "ParabolicOperator", "ParabolicOperatorCoefficientsHolder", "parabolicBoundary", "ParabolicDirichletSolution"],
     ),
 ]
 
@@ -1157,6 +1159,7 @@ KONG_ODE = [
         [
             "IsAutonomousTrajectory",
             "omegaLimitSet",
+            "alphaLimitSet",
             "IsClosedOrbit",
             "GraphicForPlanarSystem",
         ],
