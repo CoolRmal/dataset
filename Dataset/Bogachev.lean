@@ -105,7 +105,6 @@ A Souslin space is a Hausdorﬀ space that is an analytic set.
 class SouslinSpace (X : Type*) [TopologicalSpace X] [T2Space X] : Prop where
   analytic : AnalyticSet (univ : Set X)
 
-
 /-- **Definition 3.6.8 (Lusin's property (N)).**
 Let `F : X → Y` be a mapping between measure spaces `(X, 𝒜, μ)` and `(Y, ℬ, ν)`.
 We say that `F` has Lusin's property (N) with respect to `(μ, ν)` if
