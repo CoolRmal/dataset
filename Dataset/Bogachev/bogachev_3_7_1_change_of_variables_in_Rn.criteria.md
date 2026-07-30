@@ -1,0 +1,17 @@
+# Criteria: bogachev_3_7_1_change_of_variables_in_Rn
+
+**Statement:** [bogachev_3_7_1_change_of_variables_in_Rn.md](bogachev_3_7_1_change_of_variables_in_Rn.md) · **Lean:** [bogachev_3_7_1_change_of_variables_in_Rn.lean](bogachev_3_7_1_change_of_variables_in_Rn.lean)
+
+The change-of-variables identity $\int_A g(F(x))\,|J_F(x)|\,dx = \int_{F(A)} g(y)\,dy$ under: $U$ open, $F$ continuously differentiable and injective on $U$, $A \subseteq U$ Lebesgue measurable, $g$ Borel and integrable. The two subtle points are (a) which derivative object is used ($F$ is only differentiable on $U$, so a global `fderiv` is junk-prone), and (b) that all context hypotheses on $F$ and $U$, which the book states in surrounding prose, are made explicit.
+
+Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+
+| # | Category | Criterion / potential error | Assessment of ground truth |
+|---|----------|-----------------------------|----------------------------|
+| 1 | Hypothesis completeness | The implicit context must be recovered and stated: `IsOpen U`, `ContDiffOn ℝ 1 F U`, `InjOn F U`, `A ⊆ U`. Models working only from the theorem sentence often omit openness or continuous differentiability. | ✅ All four present (`hU`, `hF`, `hinj`, `hAU`). |
+| 2 | Junk values | The Jacobian must be the derivative *within* `U`: `(fderivWithin ℝ F U x).det`. Since `U` is open, `fderivWithin` agrees with `fderiv` on `U`, but `fderiv ℝ F x` is junk whenever the total function `F` happens to be non-differentiable at `x` as a global map — `fderivWithin` is the explicitly junk-safe choice. | ✅ Uses `fderivWithin ℝ F U`. ⚠️ Either spelling is mathematically correct here; `fderivWithin` is preferred as it does not rely on the openness side condition for meaningfulness. |
+| 3 | Faithful encoding | “Any measurable set $A \subset U$” is Lebesgue measurability: `NullMeasurableSet A volume`, not Borel `MeasurableSet`. | ✅ `hA : NullMeasurableSet A volume`. |
+| 4 | Hypothesis fidelity | “Borel function $g \in L^1(\mathbb{R}^n)$” is global integrability `Integrable g volume` — not merely `IntegrableOn g (F '' A)`. Both make the equality true, but the ground truth mirrors the book's hypothesis exactly; a candidate assuming only local integrability is a *different* (stronger) theorem, and one assuming continuity of `g` is a weaker one. | ✅ `hg : Integrable g volume`. |
+| 5 | Junk values | With `g` integrable and the theorem's hypotheses, both Bochner integrals are genuinely defined (the equality includes simultaneous integrability in the book's reading), so using `∫` rather than `∫⁻` is faithful; an `∫⁻`-only version of `g ≥ 0` would lose the vector-valued/signed content of $g \in L^1$. | ✅ Bochner `∫ x in A, …` on both sides. |
+| 6 | Semantic closeness | The right-hand side must integrate over the *image* `F '' A` (with `volume.restrict`), not over a preimage or over `U`; absolute value on the Jacobian determinant must not be dropped. | ✅ `∫ y in F '' A, g y` and `|(… ).det|`. ❗ Trap: dropping `abs` (the book's $J_F$ already denotes the determinant, and orientation is not assumed). |
+| 7 | Mathlib conventions | Mirrors Mathlib's own change-of-variables API shape (`MeasureTheory.integral_image_eq_integral_abs_det_fderiv_smul`, which uses `f '' s` and `fderivWithin`), so a candidate can be compared term-by-term against the library convention. `Fin n → ℝ` with `volume` is the standard Euclidean model. | ✅ Follows the Mathlib formulation pattern. |
