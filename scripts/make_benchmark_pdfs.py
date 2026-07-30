@@ -23,7 +23,9 @@ class Entry:
 
 def extract_decl(path: Path, name: str) -> str:
     lines = path.read_text(encoding="utf-8").splitlines()
-    pattern = re.compile(rf"^(?:noncomputable\s+)?(?:def|theorem|structure|abbrev)\s+{re.escape(name)}\b")
+    pattern = re.compile(
+        rf"^(?:noncomputable\s+)?(?:def|theorem|structure|abbrev|class|inductive)\s+{re.escape(name)}\b"
+    )
     start = None
     for i, line in enumerate(lines):
         if pattern.search(line):
@@ -584,10 +586,38 @@ def latex_markup_text(text: str, use_dollars: bool = True) -> str:
     return "".join(out)
 
 
+def decl_search_paths(entry: Entry, name: str) -> list[Path]:
+    """Candidate files for a declaration, per-problem layout first.
+
+    Each book lives in `Dataset/<Book>/` with one `<decl>.lean` per problem and
+    shared custom notions in `Defs.lean`; the legacy monolith path is kept as a
+    fallback so the script also works on pre-split checkouts.
+    """
+    monolith = ROOT / entry.lean_file
+    book_dir = monolith.with_suffix("")
+    paths = [book_dir / f"{name}.lean", book_dir / "Defs.lean", monolith]
+    if book_dir.is_dir():
+        paths.extend(sorted(book_dir.glob("*.lean")))
+    seen: set[Path] = set()
+    out: list[Path] = []
+    for p in paths:
+        if p.exists() and p not in seen:
+            seen.add(p)
+            out.append(p)
+    return out
+
+
+def find_decl(entry: Entry, name: str) -> str:
+    for path in decl_search_paths(entry, name):
+        text = extract_decl(path, name)
+        if not text.startswith("-- declaration"):
+            return text
+    return f"-- declaration {name} not found"
+
+
 def make_formalization(entry: Entry) -> str:
-    path = ROOT / entry.lean_file
-    parts = [extract_decl(path, name) for name in entry.definitions]
-    parts.append(extract_decl(path, entry.decl))
+    parts = [find_decl(entry, name) for name in entry.definitions]
+    parts.append(find_decl(entry, entry.decl))
     return "\n\n".join(parts)
 
 
