@@ -11,7 +11,7 @@ public import Mathlib.Topology.MetricSpace.HausdorffDimension
 public import Mathlib.Tactic.TFAE
 
 /-!
-# `mattila_9_7_projection_energy`
+# `mattila_9_7_projection_energy` — 9.7
 
 Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `mattila_9_7_projection_energy.md`.

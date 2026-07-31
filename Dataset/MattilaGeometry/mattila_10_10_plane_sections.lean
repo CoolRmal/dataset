@@ -11,7 +11,7 @@ public import Mathlib.Topology.MetricSpace.HausdorffDimension
 public import Mathlib.Tactic.TFAE
 
 /-!
-# `mattila_10_10_plane_sections`
+# `mattila_10_10_plane_sections` — 10.10
 
 Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `mattila_10_10_plane_sections.md`.

@@ -11,7 +11,7 @@ public import Mathlib.Topology.MetricSpace.HausdorffDimension
 public import Mathlib.Tactic.TFAE
 
 /-!
-# `mattila_8_8_frostman_lemma`
+# `mattila_8_8_frostman_lemma` — 8.8
 
 Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `mattila_8_8_frostman_lemma.md`.

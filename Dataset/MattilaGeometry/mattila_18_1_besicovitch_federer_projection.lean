@@ -11,7 +11,7 @@ public import Mathlib.Topology.MetricSpace.HausdorffDimension
 public import Mathlib.Tactic.TFAE
 
 /-!
-# `mattila_18_1_besicovitch_federer_projection` — 15.3
+# `mattila_18_1_besicovitch_federer_projection` — 18.1
 
 Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `mattila_18_1_besicovitch_federer_projection.md`.

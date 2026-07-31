@@ -26,6 +26,14 @@ declaration:
 builds every problem file; declaration names are unchanged from the original
 monolithic per-book files.
 
+Applying the rubrics to the dataset's own statements turned up defects in the
+ground truth — statements that are false or unsatisfiable, terms that silently
+evaluate to a junk default, and statements that are true but are not the
+book's theorem. These are collected in [GROUND_TRUTH_ISSUES.md](GROUND_TRUTH_ISSUES.md)
+and in the relevant rubric row. None has been repaired: correcting a statement
+changes what the benchmark measures, so each is left as a decision with its
+evidence recorded.
+
 Included books:
 
 - `Dataset/Bogachev/` — V. I. Bogachev, *Measure Theory*

@@ -11,7 +11,7 @@ public import Mathlib.Topology.MetricSpace.HausdorffDimension
 public import Mathlib.Tactic.TFAE
 
 /-!
-# `mattila_6_2_hausdorff_density_estimates` — 6.1
+# `mattila_6_2_hausdorff_density_estimates` — 6.2
 
 Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `mattila_6_2_hausdorff_density_estimates.md`.

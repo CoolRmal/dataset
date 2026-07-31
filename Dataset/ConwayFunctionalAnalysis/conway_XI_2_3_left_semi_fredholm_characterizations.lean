@@ -12,7 +12,7 @@ public import Mathlib.Topology.ContinuousMap.Bounded.Basic
 public import Mathlib.Tactic.TFAE
 
 /-!
-# `conway_XI_2_3_left_semi_fredholm_characterizations`
+# `conway_XI_2_3_left_semi_fredholm_characterizations` — XI.2.3
 
 Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `conway_XI_2_3_left_semi_fredholm_characterizations.md`.

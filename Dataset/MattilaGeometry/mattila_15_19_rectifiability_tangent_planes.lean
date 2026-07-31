@@ -11,7 +11,7 @@ public import Mathlib.Topology.MetricSpace.HausdorffDimension
 public import Mathlib.Tactic.TFAE
 
 /-!
-# `mattila_15_19_rectifiability_tangent_planes` — 15.3
+# `mattila_15_19_rectifiability_tangent_planes` — 15.19
 
 Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `mattila_15_19_rectifiability_tangent_planes.md`.

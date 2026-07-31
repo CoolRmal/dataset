@@ -12,7 +12,7 @@ public import Mathlib.Topology.Separation.CompletelyRegular
 public import Mathlib.Tactic.TFAE
 
 /-!
-# `engelking_3_11_16_hewitt_realcompactification`
+# `engelking_3_11_16_hewitt_realcompactification` — 3.11.16
 
 Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `engelking_3_11_16_hewitt_realcompactification.md`.

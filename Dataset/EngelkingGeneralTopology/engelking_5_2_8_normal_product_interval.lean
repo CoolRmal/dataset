@@ -12,7 +12,7 @@ public import Mathlib.Topology.Separation.CompletelyRegular
 public import Mathlib.Tactic.TFAE
 
 /-!
-# `engelking_5_2_8_normal_product_interval`
+# `engelking_5_2_8_normal_product_interval` — 5.2.8
 
 Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `engelking_5_2_8_normal_product_interval.md`.

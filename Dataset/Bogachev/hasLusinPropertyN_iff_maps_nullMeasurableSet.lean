@@ -15,7 +15,7 @@ public import Mathlib.MeasureTheory.VectorMeasure.Basic
 public import Mathlib.MeasureTheory.VectorMeasure.Decomposition.Jordan
 
 /-!
-# `hasLusinPropertyN_iff_maps_nullMeasurableSet` — 3.6.8
+# `hasLusinPropertyN_iff_maps_nullMeasurableSet` — 3.6.9
 
 Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `hasLusinPropertyN_iff_maps_nullMeasurableSet.md`.

@@ -12,7 +12,7 @@ public import Mathlib.Topology.Separation.CompletelyRegular
 public import Mathlib.Tactic.TFAE
 
 /-!
-# `engelking_5_3_10_strong_paracompactness`
+# `engelking_5_3_10_strong_paracompactness` — 5.3.10
 
 Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `engelking_5_3_10_strong_paracompactness.md`.
