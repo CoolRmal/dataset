@@ -209,9 +209,19 @@ def split_book(name: str, entries: list[bench.Entry]) -> None:
     print(f"{name}: {len(defs)} defs, {len(thms)} problems")
 
 
+RESULT_KINDS = "Theorem|Corollary|Proposition|Lemma|Exercise"
+
+
 def _title(entry: bench.Entry) -> str:
-    """`decl` plus the textbook's result number, when the statement opens with one."""
-    m = re.match(r"\s*([A-Za-z0-9IVXLC]+(?:\.[A-Za-z0-9]+)+)\.?\s", entry.statement)
+    """`decl` plus the textbook's result number.
+
+    Prefer the number attached to the theorem itself: several statements open
+    with an auxiliary *definition*, whose number is not the result's.
+    """
+    num = r"[A-Za-z0-9IVXLC]+(?:\.[A-Za-z0-9]+)+"
+    m = re.search(rf"({num})\.?\s+(?:{RESULT_KINDS})\b", entry.statement)
+    if not m:
+        m = re.match(rf"\s*({num})\.?\s", entry.statement)
     return f"`{entry.decl}` — {m.group(1)}" if m else f"`{entry.decl}`"
 
 
