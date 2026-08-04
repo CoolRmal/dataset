@@ -1,5 +1,6 @@
 module
 
+public import Dataset.GrafakosFourier.Defs
 public import Mathlib.Analysis.Distribution.SchwartzSpace.Fourier
 public import Mathlib.Analysis.Fourier.AddCircle
 public import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
@@ -28,9 +29,10 @@ theorem grafakos_2_2_16_hausdorff_young
     {n : ℕ} {p : ℝ} {f : EuclideanSpace ℝ (Fin n) → ℂ}
     (hp : 1 ≤ p ∧ p ≤ 2) (hf : MemLp f (ENNReal.ofReal p) volume) :
     let conjugateExponent : ℝ≥0∞ := if p = 1 then ∞ else ENNReal.ofReal (p / (p - 1))
-    MemLp (𝓕 f) conjugateExponent volume ∧
-      eLpNorm (𝓕 f) conjugateExponent volume ≤
-        eLpNorm f (ENNReal.ofReal p) volume := by
+    ∃ F : EuclideanSpace ℝ (Fin n) → ℂ,
+      IsLpFourierTransform (ENNReal.ofReal p) conjugateExponent f F ∧
+      MemLp F conjugateExponent volume ∧
+        eLpNorm F conjugateExponent volume ≤ eLpNorm f (ENNReal.ofReal p) volume := by
   sorry
 
 end GrafakosFourier

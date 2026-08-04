@@ -1,5 +1,7 @@
 # Criteria: krylov_7_1_2_interior_holder_regularization
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [krylov_7_1_2_interior_holder_regularization.md](krylov_7_1_2_interior_holder_regularization.md) · **Lean:** [krylov_7_1_2_interior_holder_regularization.lean](krylov_7_1_2_interior_holder_regularization.lean)
 
 This is a pure regularity implication with no constants and no solvability: $u \in C^{m+\delta}(\Omega)$ together with $L_\lambda u \in C^{k+\delta}(\Omega)$ yields $u \in C^{k+m+\delta}(\Omega)$, for an arbitrary $\lambda$ and an arbitrary domain. The whole difficulty is one word in the title: *interior*. The gain of $k$ derivatives holds on compact subsets of $\Omega$ and degenerates as one approaches $\partial\Omega$, so the target space has to be read locally; encoded with a uniform, up-to-the-boundary gauge over $\Omega$, the statement is no longer Krylov's and is in fact false. Secondary points to check are that the equation is imposed in $\Omega$ (not on all of $\mathbb{R}^d$), that the coefficient regularity is $C^{k+\delta}$ — the same $k$ as the datum — and that the Hölder memberships bundle smoothness rather than relying on a junk-valued gauge.

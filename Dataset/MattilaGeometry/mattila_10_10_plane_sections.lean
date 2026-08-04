@@ -31,7 +31,6 @@ universe u
 /-- Mattila 10.10, the plane-section theorem. -/
 theorem mattila_10_10_plane_sections
     {n m : ℕ} {t : ℝ} {A : Set (EuclideanSpace ℝ (Fin n))}
-    [MeasurableSpace (Grassmannian n (n - m))]
     (γ : Measure (Grassmannian n (n - m)))
     (hγ : IsInvariantGrassmannianMeasure γ)
     (hmt : (m : ℝ) < t ∧ t < n) (hA : MeasurableSet A)

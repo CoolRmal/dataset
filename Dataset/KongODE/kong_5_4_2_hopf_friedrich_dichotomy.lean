@@ -19,7 +19,7 @@ Quality rubric: `kong_5_4_2_hopf_friedrich_dichotomy.criteria.md`.
 @[expose] public section
 
 open Filter Function MeasureTheory Set Topology
-open scoped ENNReal Matrix NNReal Topology
+open scoped ContDiff ENNReal Matrix NNReal Topology
 
 namespace Dataset
 namespace KongODE
@@ -28,7 +28,7 @@ namespace KongODE
 theorem kong_5_4_2_hopf_friedrich_dichotomy
     {F : (Fin 2 → ℝ) → ℝ → (Fin 2 → ℝ)} {β : ℝ}
     (hβ : 0 < β)
-    (hF : ContDiff ℝ ⊤ (fun p : (Fin 2 → ℝ) × ℝ ↦ F p.1 p.2) ∧
+    (hF : ContDiff ℝ ∞ (fun p : (Fin 2 → ℝ) × ℝ ↦ F p.1 p.2) ∧
       (∀ μ, F 0 μ = 0) ∧ Matrix.trace (linearizationMatrix F 0) = 0 ∧
         Matrix.det (linearizationMatrix F 0) = β ^ 2 ∧
           HasDerivAt (fun μ ↦ Matrix.trace (linearizationMatrix F μ)) 0 0) :

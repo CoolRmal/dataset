@@ -1,5 +1,7 @@
 # Criteria: kong_1_3_3_nth_order_scalar_ivp
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [kong_1_3_3_nth_order_scalar_ivp.md](kong_1_3_3_nth_order_scalar_ivp.md) · **Lean:** [kong_1_3_3_nth_order_scalar_ivp.lean](kong_1_3_3_nth_order_scalar_ivp.lean)
 
 A faithful formalization must state two separate theorems about the *$n$-th order scalar* IVP (1.3.10): under joint continuity of $g$ on the open set $D$, existence (Peano) of at least one solution on the symmetric closed interval $\lvert t - t_0\rvert \le \gamma$ for some $\gamma > 0$ depending on the data; and, additionally under local Lipschitz dependence on $(y_1,\dots,y_n)$, existence *and* uniqueness (Picard–Lindelöf). The two places where junk creeps in are the solution concept (`deriv y t = …` is satisfied vacuously wherever $y$ is not differentiable) and the domain guard: $g$ is a total Lean function whose values outside $D$ are completely unconstrained, so both the solution and every competitor in the uniqueness clause must be required to stay in $D$.

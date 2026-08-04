@@ -31,7 +31,7 @@ universe u v
 theorem lee_7_8_rank_theorem
     {m n k : ℕ} {U : Set ((Fin m → ℝ))} {V : Set ((Fin n → ℝ))}
     {F : (Fin m → ℝ) → (Fin n → ℝ)} {p : (Fin m → ℝ)}
-    (hU : IsOpen U) (hV : IsOpen V) (hF : MapsTo F U V ∧ ContDiffOn ℝ ⊤ F U)
+    (hU : IsOpen U) (hV : IsOpen V) (hF : MapsTo F U V ∧ ContDiffOn ℝ ∞ F U)
     (hp : p ∈ U)
     (hk : k ≤ m ∧ k ≤ n) (hrank : EuclideanConstantRank U F k) :
     ∃ U₀ V₀, (IsOpen U₀ ∧ IsConnected U₀ ∧ p ∈ U₀ ∧ U₀ ⊆ U) ∧

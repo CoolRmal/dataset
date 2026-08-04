@@ -1,5 +1,7 @@
 # Criteria: kong_5_4_2_hopf_friedrich_dichotomy
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [kong_5_4_2_hopf_friedrich_dichotomy.md](kong_5_4_2_hopf_friedrich_dichotomy.md) · **Lean:** [kong_5_4_2_hopf_friedrich_dichotomy.lean](kong_5_4_2_hopf_friedrich_dichotomy.lean)
 
 A faithful formalization must encode the standing Hopf hypotheses (the origin is an equilibrium for every parameter value; the linearization at $\mu = 0$ has eigenvalues $\pm i\beta$ with $\beta > 0$; the degeneracy $\alpha'(0) = 0$) and then state a three-way disjunction: the center alternative (all nearby orbits at $\mu = 0$ closed, no nearby closed orbits for $\mu \ne 0$), or the birth of a unique limit cycle for small $\mu > 0$ *only*, or for small $\mu < 0$ *only*, with the cycle shrinking to the origin and its period tending to $2\pi/\beta$. Encoding the spectral hypotheses through the trace and determinant of the linearization is the junk-free move; the residual weaknesses are all in the conclusion — the exclusivity of "only", what "$\Gamma(\mu) \to (0,0)$" measures, which side the limits are taken from, and whether $T(\mu)$ is the *least* period.

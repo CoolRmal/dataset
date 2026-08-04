@@ -37,8 +37,8 @@ theorem lee_10_19_tubular_neighborhood_theorem
         Set.BijOn (fun p : M × (Fin n → ℝ) ↦ (p.1 : (Fin n → ℝ)) + p.2)
           (NormalDiskBundle M radius) U ∧
         ContinuousOn inverse U ∧
-        ContDiffOn ℝ ⊤ (fun z ↦ ((inverse z).1 : (Fin n → ℝ))) U ∧
-        ContDiffOn ℝ ⊤ (fun z ↦ (inverse z).2) U ∧
+        ContDiffOn ℝ ∞ (fun z ↦ ((inverse z).1 : (Fin n → ℝ))) U ∧
+        ContDiffOn ℝ ∞ (fun z ↦ (inverse z).2) U ∧
         ∀ p ∈ NormalDiskBundle M radius, inverse ((p.1 : (Fin n → ℝ)) + p.2) = p := by
   sorry
 

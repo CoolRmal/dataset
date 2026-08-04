@@ -30,7 +30,7 @@ universe u v w
 
 /-- Engelking 5.1.9, paracompactness via partitions of unity. -/
 theorem engelking_5_1_9_paracompact_partition_of_unity
-    {X : Type u} [TopologicalSpace X] [T1Space X] :
+    {X : Type u} [TopologicalSpace X] [T2Space X] :
     let locallyFinitePartition := ∀ (ι : Type v) (U : ι → Set X), IsOpenCover U →
       ∃ ρ : PartitionOfUnity ι X, ρ.IsSubordinate U
     let partition := ∀ (ι : Type v) (U : ι → Set X), IsOpenCover U →

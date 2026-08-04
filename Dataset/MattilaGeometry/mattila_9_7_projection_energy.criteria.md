@@ -1,5 +1,7 @@
 # Criteria: mattila_9_7_projection_energy
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [mattila_9_7_projection_energy.md](mattila_9_7_projection_energy.md) · **Lean:** [mattila_9_7_projection_energy.lean](mattila_9_7_projection_energy.lean)
 
 A faithful formalization must say two things about a compactly supported Radon measure of finite Riesz $m$-energy: that its projection $P_{V\#}\mu$ is absolutely continuous with respect to $\mathcal H^m$ for $\gamma_{n,m}$-a.e. $V \in G(n,m)$, and that the $L^2(\mathcal H^m)$ norms of the resulting densities, averaged over $G(n,m)$, are controlled by $c(n,m)\,I_m(\mu)$. Three modelling decisions carry all the risk: the Riesz kernel $|x-y|^{-s}$ must be $+\infty$ on the diagonal (or measures with atoms slip past the energy hypothesis); the Radon–Nikodym density has to be introduced without breaking on the $\gamma$-null set where absolute continuity may fail; and the measure $\gamma_{n,m}$ has to be genuinely pinned down, which requires fixing the measurable structure on $G(n,m)$ and not merely asserting invariance.

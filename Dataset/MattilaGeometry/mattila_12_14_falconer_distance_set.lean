@@ -29,7 +29,7 @@ universe u
 
 /-- Mattila 12.14, Falconer's lower bounds for distance sets. -/
 theorem mattila_12_14_falconer_distance_set
-    {n : ℕ} {A : Set (EuclideanSpace ℝ (Fin n))} (hA : MeasurableSet A) :
+    {n : ℕ} (hn : 2 ≤ n) {A : Set (EuclideanSpace ℝ (Fin n))} (hA : MeasurableSet A) :
     let D := {r : ℝ | ∃ x ∈ A, ∃ y ∈ A, r = dist x y}
     ((((n : ℝ≥0∞) + 1) / 2 < dimH A → 0 < volume D) ∧
       (((n : ℝ≥0∞) - 1) / 2 < dimH A ∧ dimH A < ((n : ℝ≥0∞) + 1) / 2 →

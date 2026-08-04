@@ -1,5 +1,7 @@
 # Criteria: grafakos_4_1_1_torus_summability_uniform_boundedness
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [grafakos_4_1_1_torus_summability_uniform_boundedness.md](grafakos_4_1_1_torus_summability_uniform_boundedness.md) · **Lean:** [grafakos_4_1_1_torus_summability_uniform_boundedness.lean](grafakos_4_1_1_torus_summability_uniform_boundedness.lean)
 
 This is a uniform-boundedness principle for a family of multiplier operators $S_R$ on $L^p(\mathbb{T}^n)$: $L^p$-convergence of $S_R(f)$ for every $f$ is *equivalent* to a uniform operator-norm bound, and the limit operator $A$ — defined by the textbook only on $C^\infty(\mathbb{T}^n)$, where the series converges absolutely — then extends to $L^p$ with the same bound. The decisive encoding question is therefore the **domain of $A$**: hypothesis (i) makes each $S_R$ a *finite* sum, so `∑'` is honest there, but the series defining $A(h)$ has no such protection, and applying it to an arbitrary $f \in L^p$ (whose Fourier coefficients need not be absolutely summable) makes `tsum` evaluate to the junk value `0`.

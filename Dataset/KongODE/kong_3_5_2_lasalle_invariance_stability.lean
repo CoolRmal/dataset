@@ -27,7 +27,8 @@ namespace KongODE
 /-- Kong 3.5.2, LaSalle's invariance principle. -/
 theorem kong_3_5_2_lasalle_invariance_stability
     {n : ℕ} {l : ℝ} {F : (Fin n → ℝ) → (Fin n → ℝ)} {V : (Fin n → ℝ) → ℝ}
-    (hl : 0 < l) (hV : LyapunovFunctionOnBall l V F)
+    (hl : 0 < l) (hF : ContDiff ℝ 1 F) (hF0 : F 0 = 0)
+    (hV : LyapunovFunctionOnBall l V F)
     (horbit : NoNontrivialOrbitInZeroDerivativeSet l V F) :
     AsymptoticallyStableZeroSolution (fun _ x ↦ F x) := by
   sorry

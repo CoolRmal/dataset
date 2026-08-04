@@ -25,9 +25,9 @@ namespace KrylovHolder
 
 /-- Krylov 2.9.2, the bounded maximum-principle resolvent estimate. -/
 theorem krylov_2_9_2_bounded_maximum_principle_resolvent
-    {d : ℕ} {Ω : Set (Fin d → ℝ)}
-    {L : ((Fin d → ℝ) → ℝ) → (Fin d → ℝ) → ℝ} {lam : ℝ}
-    {u : (Fin d → ℝ) → ℝ}
+    {d : ℕ} {Ω : Set (EuclideanSpace ℝ (Fin d))}
+    {L : (EuclideanSpace ℝ (Fin d) → ℝ) → EuclideanSpace ℝ (Fin d) → ℝ} {lam : ℝ}
+    {u : EuclideanSpace ℝ (Fin d) → ℝ}
     (hΩ : IsOpen Ω) (huDiff : ContDiffOn ℝ 2 u Ω)
     (huContinuous : ContinuousOn u (closure Ω))
     (huBounded : Bornology.IsBounded (u '' Ω))

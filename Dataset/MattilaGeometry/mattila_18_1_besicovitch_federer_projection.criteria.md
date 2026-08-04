@@ -1,5 +1,7 @@
 # Criteria: mattila_18_1_besicovitch_federer_projection
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [mattila_18_1_besicovitch_federer_projection.md](mattila_18_1_besicovitch_federer_projection.md) · **Lean:** [mattila_18_1_besicovitch_federer_projection.lean](mattila_18_1_besicovitch_federer_projection.lean)
 
 A faithful formalization must state **two** biconditionals — rectifiability of $A$ against "every measurable subset of positive measure projects to positive measure for $\gamma_{n,m}$-a.e. $V$", and pure unrectifiability against "$\mathcal H^m(P_V A) = 0$ for $\gamma_{n,m}$-a.e. $V$" — over an $\mathcal H^m$ measurable $A$ of finite measure. The delicate points are the nesting of the "for a.e. $V$" quantifier inside the "whenever $B$" quantifier in part (1) (swapping them gives a strictly stronger, false statement), and whether $\gamma_{n,m}$ is genuinely determined: an "orthogonally invariant probability measure" is unique on $G(n,m)$ only once the measurable structure is fixed.

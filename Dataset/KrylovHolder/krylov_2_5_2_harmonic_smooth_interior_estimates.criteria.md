@@ -1,5 +1,7 @@
 # Criteria: krylov_2_5_2_harmonic_smooth_interior_estimates
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [krylov_2_5_2_harmonic_smooth_interior_estimates.md](krylov_2_5_2_harmonic_smooth_interior_estimates.md) · **Lean:** [krylov_2_5_2_harmonic_smooth_interior_estimates.lean](krylov_2_5_2_harmonic_smooth_interior_estimates.lean)
 
 A faithful formalization must state both halves — infinite differentiability of a harmonic function, and the derivative estimate $|D^\alpha u(x)| \le N R^{-|\alpha|}\sup_{B_R(x)}|u|$ for every ball $B_R(x) \subset \Omega$ — and must place the constant correctly: Krylov's $N$ is $N(d,\alpha)$, so it may depend on the dimension and the multi-index but on *nothing else*, in particular not on $u$, $\Omega$, $x$ or $R$. The two encoding hazards are the supremum, which is a real-valued `sSup` (junk `0` when the set is unbounded above, so the statement is only meaningful because the closed ball is compact and $u$ continuous there), and the hypothesis "harmonic", which must carry a smoothness assumption: `laplacian` is assembled from `fderiv` and therefore vanishes identically on any nowhere-differentiable function.

@@ -31,15 +31,15 @@ theorem kong_2_3_1_variation_of_parameters
     (hI : I.OrdConnected) (hA : ContinuousOn A I) (hf : ContinuousOn f I)
     (hX : FundamentalMatrixSolution I A X) (ht₀ : t₀ ∈ I) :
     (∀ y : ℝ → (Fin n → ℝ),
-      (∀ t ∈ I, HasDerivAt y (A t *ᵥ y t + f t) t) ↔
+      IsTrajectoryOn I (fun t x ↦ A t *ᵥ x + f t) y ↔
         ∃ c : Fin n → ℝ, ∀ t ∈ I,
           y t = X t *ᵥ c + ∫ s in t₀..t, (X t * (X s)⁻¹) *ᵥ f s) ∧
       ∀ x₀, ∃ y : ℝ → (Fin n → ℝ), y t₀ = x₀ ∧
-        (∀ t ∈ I, HasDerivAt y (A t *ᵥ y t + f t) t) ∧
+        IsTrajectoryOn I (fun t x ↦ A t *ᵥ x + f t) y ∧
         (∀ t ∈ I, y t = (X t * (X t₀)⁻¹) *ᵥ x₀ +
           ∫ s in t₀..t, (X t * (X s)⁻¹) *ᵥ f s) ∧
         ∀ z : ℝ → (Fin n → ℝ), z t₀ = x₀ →
-          (∀ t ∈ I, HasDerivAt z (A t *ᵥ z t + f t) t) → Set.EqOn z y I := by
+          IsTrajectoryOn I (fun t x ↦ A t *ᵥ x + f t) z → Set.EqOn z y I := by
   sorry
 
 end KongODE

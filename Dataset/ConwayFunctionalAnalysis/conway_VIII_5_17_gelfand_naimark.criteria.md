@@ -1,5 +1,7 @@
 # Criteria: conway_VIII_5_17_gelfand_naimark
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [conway_VIII_5_17_gelfand_naimark.md](conway_VIII_5_17_gelfand_naimark.md) · **Lean:** [conway_VIII_5_17_gelfand_naimark.lean](conway_VIII_5_17_gelfand_naimark.lean)
 
 A faithful formalization must assert the existence of a Hilbert space $\mathcal{H}$ and an *isometric $*$-homomorphism* $\pi : \mathcal{A} \to \mathcal{B}(\mathcal{H})$ — i.e. every $C^*$-algebra is a concrete algebra of operators — together with the second sentence, that separability of $\mathcal{A}$ can be matched by separability of $\mathcal{H}$. The formalization's difficulty is structural rather than analytic: the Hilbert space is *existentially quantified over types*, so the encoding must pin down what kind of type it is (complete inner-product space over `ℂ`, in a controlled universe), and the second sentence must be a separate existential rather than an extra property of the first $\mathcal{H}$. Mathlib supplies the GNS construction for a single state (`CStarAlgebra.gnsStarAlgHom` and friends) but not the direct-sum assembly, so this is genuinely new content.

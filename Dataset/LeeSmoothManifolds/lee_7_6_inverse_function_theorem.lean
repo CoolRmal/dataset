@@ -31,7 +31,7 @@ universe u v
 theorem lee_7_6_inverse_function_theorem
     {n : ℕ} {U V : Set ((Fin n → ℝ))} {F : (Fin n → ℝ) → (Fin n → ℝ)}
     {p : (Fin n → ℝ)} (hU : IsOpen U) (hV : IsOpen V)
-    (hF : MapsTo F U V ∧ ContDiffOn ℝ ⊤ F U) (hp : p ∈ U)
+    (hF : MapsTo F U V ∧ ContDiffOn ℝ ∞ F U) (hp : p ∈ U)
     (hD : Function.Bijective (fderiv ℝ F p)) :
     ∃ U₀ V₀,
       (IsOpen U₀ ∧ IsConnected U₀ ∧ p ∈ U₀ ∧ U₀ ⊆ U) ∧

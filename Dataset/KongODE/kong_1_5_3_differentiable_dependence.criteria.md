@@ -1,5 +1,7 @@
 # Criteria: kong_1_5_3_differentiable_dependence
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [kong_1_5_3_differentiable_dependence.md](kong_1_5_3_differentiable_dependence.md) · **Lean:** [kong_1_5_3_differentiable_dependence.lean](kong_1_5_3_differentiable_dependence.lean)
 
 A faithful formalization must produce, for every $(t_0,x_0,\mu) \in D$, an interval of existence and a solution $x(t;t_0,x_0,\mu)$ of $(V[t_0,x_0,\mu])$ that is unique there, assert that the flow is $C^1$ in $(t_0,x_0,\mu)$ on its domain, and then state the three variational initial value problems (a), (b), (c) with their distinct initial data $0$, $I$, $-f(t_0,x_0;\mu)$. The specific hazards are that the three partial derivatives are written with `fderiv`/`deriv`, which are junk `0` at points of non-differentiability (so the differentiability content must be supplied by a separate clause), and that the openness of Kong's domain $D$ is load-bearing: without it the whole statement collapses.

@@ -1,5 +1,7 @@
 # Criteria: nikolski_B_3_2_nevanlinna_pick_interpolation
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [nikolski_B_3_2_nevanlinna_pick_interpolation.md](nikolski_B_3_2_nevanlinna_pick_interpolation.md) · **Lean:** [nikolski_B_3_2_nevanlinna_pick_interpolation.lean](nikolski_B_3_2_nevanlinna_pick_interpolation.lean)
 
 A faithful formalization must state both halves of Pick's corollary: solvability of the interpolation problem $f \in H^\infty$, $\lVert f\rVert_\infty \le 1$, $f(\lambda_k) = w_k$ is equivalent to positive semidefiniteness of the Pick matrix $\big[\tfrac{1-w_i\bar w_j}{1-\lambda_i\bar\lambda_j}\big]$, **and** the solution is unique exactly when that matrix is degenerate. The trap is concentrated in the word "unique": the interpolants are analytic functions on $\mathbb{D}$, but in Lean they are *total* functions `ℂ → ℂ` whose values off the disc are unconstrained, so uniqueness can only mean "any two solutions agree on the disc". Additionally, the nodes $\lambda_1,\dots,\lambda_n$ are implicitly distinct in the book, and nothing forces that in Lean.

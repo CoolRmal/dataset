@@ -35,16 +35,16 @@ theorem mattila_8_8_frostman_lemma
       ∀ (s : ℝ) (B : Set (EuclideanSpace ℝ (Fin n))),
         0 < s → MeasurableSet B →
           (0 < μH[s] B ↔ ∃ μ : Measure (EuclideanSpace ℝ (Fin n)),
-            IsFiniteMeasureOnCompacts μ ∧ Measure.InnerRegular μ ∧ μ ≠ 0 ∧
-              μ Bᶜ = 0 ∧
+            IsFiniteMeasure μ ∧ IsFiniteMeasureOnCompacts μ ∧ Measure.InnerRegular μ ∧
+              μ ≠ 0 ∧ IsCompact μ.support ∧ μ.support ⊆ B ∧
               ∀ x : EuclideanSpace ℝ (Fin n), ∀ r : ℝ, 0 < r →
                 μ (closedBall x r) < ENNReal.ofReal (r ^ s)) ∧
-          ∃ μ : Measure (EuclideanSpace ℝ (Fin n)),
-            IsFiniteMeasureOnCompacts μ ∧ Measure.InnerRegular μ ∧ μ ≠ 0 ∧
-              μ Bᶜ = 0 ∧
+          (0 < μH[s] B → ∃ μ : Measure (EuclideanSpace ℝ (Fin n)),
+            IsFiniteMeasure μ ∧ IsFiniteMeasureOnCompacts μ ∧ Measure.InnerRegular μ ∧
+              μ ≠ 0 ∧ IsCompact μ.support ∧ μ.support ⊆ B ∧
               (∀ x : EuclideanSpace ℝ (Fin n), ∀ r : ℝ, 0 < r →
                 μ (closedBall x r) < ENNReal.ofReal (r ^ s)) ∧
-              c * hausdorffContent s B ≤ μ B := by
+              c * hausdorffContent s B < μ B) := by
   sorry
 
 end MattilaGeometry

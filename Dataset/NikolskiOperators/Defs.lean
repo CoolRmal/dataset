@@ -68,6 +68,33 @@ def IsComplexLinearSubspace (M : Set (ℕ → ℂ)) : Prop :=
   (0 : ℕ → ℂ) ∈ M ∧
     ∀ a b : ℂ, ∀ f g : ℕ → ℂ, f ∈ M → g ∈ M → a • f + b • g ∈ M
 
+/-- Lebesgue measure on one angular parametrization of the unit circle. -/
+noncomputable abbrev circleMeasure : Measure ℝ :=
+  volume.restrict (Set.Ioc 0 (2 * Real.pi))
+
+/-- The Fourier coefficient of an angular representative of a circle function. -/
+noncomputable def angularFourierCoefficient (f : ℝ → ℂ) (k : ℤ) : ℂ :=
+  (2 * Real.pi : ℂ)⁻¹ * ∫ t in Set.Ioc 0 (2 * Real.pi),
+    f t * Complex.exp (-Complex.I * k * t)
+
+/-- The boundary-value model of `H²`: square integrable with no negative frequencies. -/
+def HardyBoundaryFunction (f : ℝ → ℂ) : Prop :=
+  MemLp f 2 circleMeasure ∧ ∀ k : ℤ, k < 0 → angularFourierCoefficient f k = 0
+
+/-- A set of angular representatives is an a.e.-saturated complex `L²` subspace. -/
+def IsCircleL2Subspace (E : Set (ℝ → ℂ)) : Prop :=
+  (0 : ℝ → ℂ) ∈ E ∧
+    (∀ a b : ℂ, ∀ f g : ℝ → ℂ, f ∈ E → g ∈ E → a • f + b • g ∈ E) ∧
+    (∀ f ∈ E, MemLp f 2 circleMeasure) ∧
+    ∀ f g : ℝ → ℂ, f ∈ E → f =ᵐ[circleMeasure] g → g ∈ E
+
+/-- A unimodular multiplier generates a circle `L²` subspace from boundary `H²`. -/
+def UnimodularGeneratedSubspace (E : Set (ℝ → ℂ)) (theta : ℝ → ℂ) : Prop :=
+  AEStronglyMeasurable theta circleMeasure ∧
+    (∀ᵐ t ∂circleMeasure, ‖theta t‖ = 1) ∧
+    E = {f : ℝ → ℂ | ∃ h : ℝ → ℂ, HardyBoundaryFunction h ∧
+      f =ᵐ[circleMeasure] fun t ↦ theta t * h t}
+
 /-- Shift-invariance for coefficient subspaces of `H²`. -/
 def ShiftInvariant (M : Set (ℕ → ℂ)) : Prop :=
   ∀ f ∈ M, (fun n : ℕ ↦ if n = 0 then 0 else f (n - 1)) ∈ M
@@ -104,11 +131,12 @@ def analyticFourierPart (c : ℤ → ℂ) (k : ℤ) : ℂ :=
 
 /-- The circle Hilbert transform, encoded by its Fourier multiplier. -/
 noncomputable def circleHilbertTransform (v : {z : ℂ // ‖z‖ = 1} → ℝ) (t : ℝ) : ℝ :=
-  Complex.re <| ∑' k : ℤ,
-    (if k = 0 then 0 else if 0 < k then -Complex.I else Complex.I) *
-      ((2 * Real.pi : ℂ)⁻¹ * ∫ s in Set.Ioc 0 (2 * Real.pi),
-        (v (unitCirclePoint s) : ℂ) * Complex.exp (-Complex.I * k * s)) *
-        Complex.exp (Complex.I * k * t)
+  limUnder atTop fun N : ℕ ↦ Complex.re <|
+    ∑ k ∈ Finset.Icc (-(N : ℤ)) N,
+      (if k = 0 then 0 else if 0 < k then -Complex.I else Complex.I) *
+        ((2 * Real.pi : ℂ)⁻¹ * ∫ s in Set.Ioc 0 (2 * Real.pi),
+          (v (unitCirclePoint s) : ℂ) * Complex.exp (-Complex.I * k * s)) *
+          Complex.exp (Complex.I * k * t)
 
 /-- The coefficient subspace `θ H²`, expressed through Cauchy products. -/
 def InnerGeneratedSubspace (M : Set (ℕ → ℂ)) (hθ : ℕ → ℂ) : Prop :=
@@ -183,6 +211,23 @@ def HankelMatrixRankLE (n : ℕ) (b : ℕ → ℂ) : Prop :=
     (∀ q, HardySquareSummable (u q) ∧ HardySquareSummable (v q)) ∧
       ∀ i j, b (i + j) = ∑ q, u q i * v q j
 
+/-- An arbitrary infinite matrix has rank at most `n`, witnessed by a factorization through
+`Fin n`. -/
+def MatrixRankLE (n : ℕ) (B : ℕ → ℕ → ℂ) : Prop :=
+  ∃ u v : Fin n → ℕ → ℂ,
+    (∀ q, HardySquareSummable (u q) ∧ HardySquareSummable (v q)) ∧
+      ∀ i j, B i j = ∑ q, u q i * v q j
+
+/-- The `n`th approximation number of a Hankel form: distance to arbitrary matrices of rank at
+most `n`. -/
+noncomputable def hankelApproximationNumber (a : ℕ → ℂ) (n : ℕ) : ℝ≥0∞ :=
+  sInf {C : ℝ≥0∞ | C < ∞ ∧ ∃ B : ℕ → ℕ → ℂ, MatrixRankLE n B ∧
+    ∀ N : ℕ, ∀ x y : ℕ → ℂ,
+      ‖∑ i ∈ Finset.range N, ∑ j ∈ Finset.range N,
+        x i * (a (i + j) - B i j) * y j‖ ≤
+      C.toReal * (∑ i ∈ Finset.range N, ‖x i‖ ^ 2) ^ (1 / 2 : ℝ) *
+        (∑ j ∈ Finset.range N, ‖y j‖ ^ 2) ^ (1 / 2 : ℝ)}
+
 /-- Distance from a Hankel form to Hankel forms of rank at most `n`. -/
 noncomputable def hankelRankApproximationDistance (a : ℕ → ℂ) (n : ℕ) : ℝ≥0∞ :=
   sInf {C : ℝ≥0∞ | C < ∞ ∧ ∃ b : ℕ → ℂ, HankelMatrixRankLE n b ∧
@@ -196,11 +241,11 @@ noncomputable def hankelRankApproximationDistance (a : ℕ → ℂ) (n : ℕ) : 
 unit disk counted with multiplicity. -/
 def RationalVanishingAtInfinityDegreeLE (n : ℕ)
     (ψ : {z : ℂ // ‖z‖ = 1} → ℂ) : Prop :=
-  ∃ numerator denominator : Polynomial ℂ,
-    numerator.natDegree < denominator.natDegree ∧ denominator.natDegree ≤ n ∧
-      denominator ≠ 0 ∧
-      (∀ z : ℂ, denominator.IsRoot z → z ∈ Metric.ball (0 : ℂ) 1) ∧
-      ∀ ζ, ψ ζ = numerator.eval ζ.1 / denominator.eval ζ.1
+  ψ = 0 ∨ ∃ numerator denominator : Polynomial ℂ,
+      numerator.natDegree < denominator.natDegree ∧ denominator.natDegree ≤ n ∧
+        denominator ≠ 0 ∧
+        (∀ z : ℂ, denominator.IsRoot z → z ∈ Metric.ball (0 : ℂ) 1) ∧
+        ∀ ζ, ψ ζ = numerator.eval ζ.1 / denominator.eval ζ.1
 
 /-- Essential-supremum distance from a symbol to `Rₙ + H∞`. -/
 noncomputable def rationalPlusHInfinityDistance

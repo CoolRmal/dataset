@@ -32,7 +32,8 @@ theorem grafakos_1_3_2_marcinkiewicz_interpolation
     (hp : 0 < p₀ ∧ p₀ < p ∧ p < p₁)
     (hA₀ : A₀ < ∞) (hA₁ : A₁ < ∞)
     (hT : IsSublinearOperator T) (h₀ : HasWeakType μ ν T p₀ A₀)
-    (h₁ : HasWeakType μ ν T p₁ A₁) :
+    (h₁ : HasWeakType μ ν T p₁ A₁)
+    (hmeas : ∀ f, AEStronglyMeasurable f μ → AEStronglyMeasurable (T f) ν) :
     HasStrongType μ ν T (ENNReal.ofReal p) (ENNReal.ofReal p)
       (2 * ENNReal.rpow
         (ENNReal.ofReal (p / (p - p₀) + p / (p₁ - p))) (1 / p) *

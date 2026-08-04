@@ -1,5 +1,7 @@
 # Criteria: nikolski_B_7_2_1_adamyan_arov_krein
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [nikolski_B_7_2_1_adamyan_arov_krein.md](nikolski_B_7_2_1_adamyan_arov_krein.md) · **Lean:** [nikolski_B_7_2_1_adamyan_arov_krein.lean](nikolski_B_7_2_1_adamyan_arov_krein.lean)
 
 A faithful formalization must state the whole four-term chain: the $n$-th singular value $s_n(H_\varphi)$ equals the best approximation of $H_\varphi$ by Hankel operators of rank $\le n$, equals $\operatorname{dist}_{L^\infty}(\varphi, R_n + H^\infty)$, and equals $\min\{\lVert H_{\bar B\varphi}\rVert : \deg B \le n\}$ over finite Blaschke products. The striking content is precisely that a *singular value* — a priori the distance to arbitrary operators of rank $\le n$ — is attained by a **Hankel** approximant; dropping $s_n$ removes it. Every term is a `min` (attained) over a class defined by multiplicity bookkeeping: total pole multiplicity $\le n$ for $R_n$, matrix rank $\le n$, and zeros counted with multiplicity for $\deg B \le n$; the encoding of $R_n$ is where the ground truth breaks at the edge case $n = 0$.

@@ -45,6 +45,14 @@ def HasStrongType {X : Type u} {Y : Type v} [MeasurableSpace X] [MeasurableSpace
   ∀ f : X → ℂ, MemLp f p μ →
     MemLp (T f) q ν ∧ eLpNorm (T f) q ν ≤ C * eLpNorm f p μ
 
+/-- `F` is the `L^p` Fourier transform of `f`, obtained by completion from Schwartz maps. -/
+def IsLpFourierTransform {n : ℕ} (p q : ℝ≥0∞)
+    (f F : EuclideanSpace ℝ (Fin n) → ℂ) : Prop :=
+  ∃ approximation : ℕ → 𝓢(EuclideanSpace ℝ (Fin n), ℂ),
+    Tendsto (fun j ↦ eLpNorm (fun x ↦ approximation j x - f x) p volume) atTop (𝓝 0) ∧
+      Tendsto (fun j ↦ eLpNorm (fun x ↦ 𝓕 (approximation j) x - F x) q volume)
+        atTop (𝓝 0)
+
 /-- The uncentered Hardy-Littlewood maximal function on Euclidean space. -/
 noncomputable def hardyLittlewoodMaximal (n : ℕ)
     (f : EuclideanSpace ℝ (Fin n) → ℂ) (x : EuclideanSpace ℝ (Fin n)) : ℝ≥0∞ :=

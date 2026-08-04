@@ -1,5 +1,6 @@
 module
 
+public import Dataset.MattilaGeometry.Defs
 public import Mathlib.Analysis.InnerProductSpace.Projection.Submodule
 public import Mathlib.MeasureTheory.Measure.Hausdorff
 public import Mathlib.MeasureTheory.Measure.Decomposition.Lebesgue
@@ -33,7 +34,7 @@ theorem mattila_7_7_lipschitz_level_sets
     ∃ c : ℝ≥0∞, c < ∞ ∧ ∀ (s : ℝ) (A : Set (EuclideanSpace ℝ (Fin n)))
       (f : EuclideanSpace ℝ (Fin n) → EuclideanSpace ℝ (Fin m)) (K : NNReal),
         (m : ℝ) < s ∧ s < n → LipschitzOnWith K f A →
-          (∫⁻ y, μH[s - m] (A ∩ f ⁻¹' {y}) ∂volume) ≤
+          upperIntegral volume (fun y ↦ μH[s - m] (A ∩ f ⁻¹' {y})) ≤
             c * (K : ℝ≥0∞) ^ (m : ℝ) * μH[s] A := by
   sorry
 

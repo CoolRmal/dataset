@@ -26,9 +26,9 @@ namespace KongODE
 
 /-- Kong 6.6.4, coupling of periodic, Dirichlet, and Neumann spectra. -/
 theorem kong_6_6_4_periodic_sturm_liouville_coupling
-    {p q w : ℝ → ℝ} {a b : ℝ} {lam μ ν : ℕ → ℝ}
+    {p q w : ℝ → ℝ} {a b : ℝ}
     (hSL : PeriodicSturmLiouvilleData p q w a b) :
-    (∀ n, lam n ≤ lam (n + 1)) ∧ Tendsto lam atTop atTop ∧
+    ∃ lam μ ν : ℕ → ℝ, (∀ n, lam n ≤ lam (n + 1)) ∧ Tendsto lam atTop atTop ∧
       ν 0 ≤ lam 0 ∧
       (∀ n, lam (2 * n) < μ (2 * n) ∧ lam (2 * n) < ν (2 * n + 1) ∧
         μ (2 * n) < lam (2 * n + 1) ∧ ν (2 * n + 1) < lam (2 * n + 1) ∧
@@ -45,12 +45,14 @@ theorem kong_6_6_4_periodic_sturm_liouville_coupling
       (∀ y₁ y₂, IsSturmLiouvilleEigenfunction p q w a b (lam 0)
         (periodicBoundary p a b) y₁ →
         IsSturmLiouvilleEigenfunction p q w a b (lam 0)
-          (periodicBoundary p a b) y₂ → ∃ c : ℝ, y₂ = c • y₁) ∧
+          (periodicBoundary p a b) y₂ →
+          ∃ c : ℝ, Set.EqOn y₂ (c • y₁) (Set.Icc a b)) ∧
       (∀ n, (∃ i j, lam n = μ i ∧ lam n = ν j) ↔
         ∃ y₁ y₂, IsSturmLiouvilleEigenfunction p q w a b (lam n)
           (periodicBoundary p a b) y₁ ∧
           IsSturmLiouvilleEigenfunction p q w a b (lam n)
-            (periodicBoundary p a b) y₂ ∧ ¬∃ c : ℝ, y₂ = c • y₁) ∧
+            (periodicBoundary p a b) y₂ ∧
+          ¬∃ c : ℝ, Set.EqOn y₂ (c • y₁) (Set.Icc a b)) ∧
       ∀ n, (∀ y, IsSturmLiouvilleEigenfunction p q w a b (lam (2 * n + 1))
         (periodicBoundary p a b) y →
           {x ∈ Set.Ico a b | y x = 0}.ncard = 2 * n + 2) ∧

@@ -1,5 +1,7 @@
 # Criteria: kong_3_5_2_lasalle_invariance_stability
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [kong_3_5_2_lasalle_invariance_stability.md](kong_3_5_2_lasalle_invariance_stability.md) · **Lean:** [kong_3_5_2_lasalle_invariance_stability.lean](kong_3_5_2_lasalle_invariance_stability.lean)
 
 A faithful formalization must combine three hypotheses — $V \in C^1$ and positive definite on the closed ball of radius $l$, the orbital derivative $\dot V = \nabla V \cdot f$ nonpositive there, and the invariance condition that $D_0 = \{x \in D : \dot V(x) = 0\}$ contains no nontrivial orbit — and conclude *both* uniform stability and asymptotic stability of the zero solution of the autonomous system $x' = f(x)$. The orbital derivative is the delicate object: it must be $\nabla V(x)\cdot f(x)$ (not $\frac{d}{dt}V(x(t))$ written with `deriv`), and since $V$ is only assumed $C^1$ *on the closed ball*, the ambient `fderiv` used to express it is junk `0` on the bounding sphere. The invariance hypothesis is also the only thing standing between this statement and a false one — and, as stated, it is not enough, because no regularity whatsoever is assumed of $f$.

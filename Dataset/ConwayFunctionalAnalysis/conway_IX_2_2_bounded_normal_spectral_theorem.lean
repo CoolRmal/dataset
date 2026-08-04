@@ -39,7 +39,7 @@ theorem conway_IX_2_2_bounded_normal_spectral_theorem
         (∀ x y : H, ∀ B : Set ℂ, MeasurableSet B →
           scalarMeasure x y B = inner ℂ (E.toFun B x) y) ∧
         ∀ x y : H, inner ℂ (T x) y =
-          ∫ᵛ z, z ∂[ContinuousLinearMap.mul ℝ ℂ; scalarMeasure x y]) ∧
+          ∫ᵛ z, star z ∂[ContinuousLinearMap.mul ℝ ℂ; scalarMeasure x y]) ∧
       (∀ G : Set ℂ, G.Nonempty →
         (∃ O : Set ℂ, IsOpen O ∧ G = O ∩ spectrum ℂ T) → E.toFun G ≠ 0) ∧
       ∀ A : H →L[ℂ] H,

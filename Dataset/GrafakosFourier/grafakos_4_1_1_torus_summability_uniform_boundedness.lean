@@ -36,16 +36,25 @@ theorem grafakos_4_1_1_torus_summability_uniform_boundedness
     let S := fun R (f : (Fin n → AddCircle (1 : ℝ)) → ℂ)
       (x : Fin n → AddCircle (1 : ℝ)) ↦
         ∑' m, a R m * torusFourierCoefficient μ f m * torusCharacter m x
-    let A := fun (f : (Fin n → AddCircle (1 : ℝ)) → ℂ)
+    let formalLimit := fun (f : (Fin n → AddCircle (1 : ℝ)) → ℂ)
       (x : Fin n → AddCircle (1 : ℝ)) ↦
         ∑' m, aLimit m * torusFourierCoefficient μ f m * torusCharacter m x
     ((∀ f, MemLp f (ENNReal.ofReal p) μ →
-        Tendsto (fun R ↦ eLpNorm (S R f - A f) (ENNReal.ofReal p) μ) atTop (𝓝 0)) ↔
+        ∃ g, MemLp g (ENNReal.ofReal p) μ ∧
+          Tendsto (fun R ↦ eLpNorm (S R f - g) (ENNReal.ofReal p) μ) atTop (𝓝 0)) ↔
       ∃ C : ℝ≥0∞, C < ∞ ∧ ∀ R, 0 < R →
         HasStrongType μ μ (S R) (ENNReal.ofReal p) (ENNReal.ofReal p) C) ∧
     ∀ C : ℝ≥0∞,
       (∀ R, 0 < R → HasStrongType μ μ (S R) (ENNReal.ofReal p) (ENNReal.ofReal p) C) →
-        HasStrongType μ μ A (ENNReal.ofReal p) (ENNReal.ofReal p) C := by
+        ∃ A : ((Fin n → AddCircle (1 : ℝ)) → ℂ) →
+            (Fin n → AddCircle (1 : ℝ)) → ℂ,
+          HasStrongType μ μ A (ENNReal.ofReal p) (ENNReal.ofReal p) C ∧
+          (∀ h, MemLp h (ENNReal.ofReal p) μ →
+            Summable (fun m ↦ fun x ↦
+              aLimit m * torusFourierCoefficient μ h m * torusCharacter m x) →
+              A h = formalLimit h) ∧
+          ∀ f, MemLp f (ENNReal.ofReal p) μ →
+            Tendsto (fun R ↦ eLpNorm (S R f - A f) (ENNReal.ofReal p) μ) atTop (𝓝 0) := by
   sorry
 
 end GrafakosFourier

@@ -1,5 +1,7 @@
 # Criteria: grafakos_2_2_16_hausdorff_young
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [grafakos_2_2_16_hausdorff_young.md](grafakos_2_2_16_hausdorff_young.md) · **Lean:** [grafakos_2_2_16_hausdorff_young.lean](grafakos_2_2_16_hausdorff_young.lean)
 
 A one-line statement whose entire difficulty is hidden in the symbol $\widehat{f}$: for $1 < p \le 2$ and $f \in L^p(\mathbb{R}^n) \setminus L^1(\mathbb{R}^n)$ the defining integral $\int f(x)e^{-2\pi i x\cdot\xi}dx$ **does not converge**, and $\widehat{f}$ means the Riesz–Thorin/Plancherel extension of the transform from $L^1 \cap L^p$. Mathlib's `𝓕` on `V → E` is literally the Bochner integral `∫ v, 𝐞 (-⟪v, w⟫) • f v`, and `MeasureTheory.integral` returns the junk value `0` for non-integrable integrands — and since `‖𝐞 (-⟪v,w⟫) • f v‖ = ‖f v‖`, integrability of the integrand is *equivalent* to integrability of `f`. So the second fidelity question (after the conjugate exponent $p' = p/(p-1)$, junk at $p=1$) is whether the statement still says anything for non-integrable $f$.

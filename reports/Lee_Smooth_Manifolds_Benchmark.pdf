@@ -39,13 +39,13 @@ BT /F3 4.9 Tf 394.00 514.00 Td (  mapsTo : MapsTo toFun U V) Tj ET
 BT /F3 4.9 Tf 394.00 507.00 Td (  invMapsTo : MapsTo invFun V U) Tj ET
 BT /F3 4.9 Tf 394.00 500.00 Td (  leftInvOn : Set.LeftInvOn invFun toFun U) Tj ET
 BT /F3 4.9 Tf 394.00 493.00 Td (  rightInvOn : Set.RightInvOn invFun toFun V) Tj ET
-BT /F3 4.9 Tf 394.00 486.00 Td (  smooth : ContDiffOn R top toFun U) Tj ET
-BT /F3 4.9 Tf 394.00 479.00 Td (  smooth_inv : ContDiffOn R top invFun V) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td (  smooth : ContDiffOn R inf toFun U) Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (  smooth_inv : ContDiffOn R inf invFun V) Tj ET
 BT /F3 4.9 Tf 394.00 472.00 Td () Tj ET
 BT /F3 4.9 Tf 394.00 465.00 Td (theorem lee_7_6_inverse_function_theorem) Tj ET
 BT /F3 4.9 Tf 394.00 458.00 Td (    {n : N} {U V : Set \(\(Fin n -> R\)\)} {F : \(Fin n -> R\) -> \(Fin n -> R\)}) Tj ET
 BT /F3 4.9 Tf 394.00 451.00 Td (    {p : \(Fin n -> R\)} \(hU : IsOpen U\) \(hV : IsOpen V\)) Tj ET
-BT /F3 4.9 Tf 394.00 444.00 Td (    \(hF : MapsTo F U V /\\ ContDiffOn R top F U\) \(hp : p in U\)) Tj ET
+BT /F3 4.9 Tf 394.00 444.00 Td (    \(hF : MapsTo F U V /\\ ContDiffOn R inf F U\) \(hp : p in U\)) Tj ET
 BT /F3 4.9 Tf 394.00 437.00 Td (    \(hD : Function.Bijective \(fderiv R F p\)\) :) Tj ET
 BT /F3 4.9 Tf 394.00 430.00 Td (    exists U0 V0,) Tj ET
 BT /F3 4.9 Tf 394.00 423.00 Td (      \(IsOpen U0 /\\ IsConnected U0 /\\ p in U0 /\\ U0 subset U\) /\\) Tj ET
@@ -74,8 +74,8 @@ BT /F3 4.9 Tf 394.00 357.00 Td (  mapsTo : MapsTo toFun U V) Tj ET
 BT /F3 4.9 Tf 394.00 350.00 Td (  invMapsTo : MapsTo invFun V U) Tj ET
 BT /F3 4.9 Tf 394.00 343.00 Td (  leftInvOn : Set.LeftInvOn invFun toFun U) Tj ET
 BT /F3 4.9 Tf 394.00 336.00 Td (  rightInvOn : Set.RightInvOn invFun toFun V) Tj ET
-BT /F3 4.9 Tf 394.00 329.00 Td (  smooth : ContDiffOn R top toFun U) Tj ET
-BT /F3 4.9 Tf 394.00 322.00 Td (  smooth_inv : ContDiffOn R top invFun V) Tj ET
+BT /F3 4.9 Tf 394.00 329.00 Td (  smooth : ContDiffOn R inf toFun U) Tj ET
+BT /F3 4.9 Tf 394.00 322.00 Td (  smooth_inv : ContDiffOn R inf invFun V) Tj ET
 BT /F3 4.9 Tf 394.00 315.00 Td () Tj ET
 BT /F3 4.9 Tf 394.00 308.00 Td (def EuclideanConstantRank {m n : N} \(U : Set \(\(Fin m -> R\)\)\)) Tj ET
 BT /F3 4.9 Tf 394.00 301.00 Td (    \(F : \(Fin m -> R\) -> \(Fin n -> R\)\) \(k : N\) : Prop :=) Tj ET
@@ -85,7 +85,7 @@ BT /F3 4.9 Tf 394.00 280.00 Td () Tj ET
 BT /F3 4.9 Tf 394.00 273.00 Td (theorem lee_7_8_rank_theorem) Tj ET
 BT /F3 4.9 Tf 394.00 266.00 Td (    {m n k : N} {U : Set \(\(Fin m -> R\)\)} {V : Set \(\(Fin n -> R\)\)}) Tj ET
 BT /F3 4.9 Tf 394.00 259.00 Td (    {F : \(Fin m -> R\) -> \(Fin n -> R\)} {p : \(Fin m -> R\)}) Tj ET
-BT /F3 4.9 Tf 394.00 252.00 Td (    \(hU : IsOpen U\) \(hV : IsOpen V\) \(hF : MapsTo F U V /\\ ContDiffOn R top) Tj ET
+BT /F3 4.9 Tf 394.00 252.00 Td (    \(hU : IsOpen U\) \(hV : IsOpen V\) \(hF : MapsTo F U V /\\ ContDiffOn R inf) Tj ET
 BT /F3 4.9 Tf 394.00 245.00 Td (    F U\)) Tj ET
 BT /F3 4.9 Tf 394.00 238.00 Td (    \(hp : p in U\)) Tj ET
 BT /F3 4.9 Tf 394.00 231.00 Td (    \(hk : k <= m /\\ k <= n\) \(hrank : EuclideanConstantRank U F k\) :) Tj ET
@@ -247,7 +247,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 11 0 R /F2 12 0 R /F3 13 0 R >> >> /Contents 8 0 R >>
 endobj
 8 0 obj
-<< /Length 8347 >>
+<< /Length 8403 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Lee Smooth Manifolds Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 3) Tj ET
@@ -328,9 +328,9 @@ BT /F1 5.8 Tf 314.00 235.00 Td (manifolds) Tj ET
 BT /F3 4.9 Tf 394.00 242.00 Td (theorem lee_10_7_sards_theorem) Tj ET
 BT /F3 4.9 Tf 394.00 235.00 Td (    {m n : N} {M : Type u} {N : Type v}) Tj ET
 BT /F3 4.9 Tf 394.00 228.00 Td (    [TopologicalSpace M] [ChartedSpace \(\(Fin m -> R\)\) M]) Tj ET
-BT /F3 4.9 Tf 394.00 221.00 Td (    [IsManifold I\(R, \(Fin m -> R\)\) inf M]) Tj ET
+BT /F3 4.9 Tf 394.00 221.00 Td (    [IsManifold I\(R, \(Fin m -> R\)\) inf M] [SecondCountableTopology M]) Tj ET
 BT /F3 4.9 Tf 394.00 214.00 Td (    [TopologicalSpace N] [ChartedSpace \(\(Fin n -> R\)\) N]) Tj ET
-BT /F3 4.9 Tf 394.00 207.00 Td (    [IsManifold I\(R, \(Fin n -> R\)\) inf N]) Tj ET
+BT /F3 4.9 Tf 394.00 207.00 Td (    [IsManifold I\(R, \(Fin n -> R\)\) inf N] [SecondCountableTopology N]) Tj ET
 BT /F3 4.9 Tf 394.00 200.00 Td (    {F : M -> N} \(hF : ContMDiff I\(R, \(Fin m -> R\)\) I\(R, \(Fin n -> R\)\) inf) Tj ET
 BT /F3 4.9 Tf 394.00 193.00 Td (    F\) :) Tj ET
 BT /F3 4.9 Tf 394.00 186.00 Td (    let critical := {p : M |) Tj ET
@@ -447,8 +447,8 @@ BT /F3 4.9 Tf 394.00 266.00 Td (      exists inverse : \(Fin n -> R\) -> M  x  \
 BT /F3 4.9 Tf 394.00 259.00 Td (        Set.BijOn \(fun p : M  x  \(Fin n -> R\) => \(p.1 : \(Fin n -> R\)\) + p.2\)) Tj ET
 BT /F3 4.9 Tf 394.00 252.00 Td (          \(NormalDiskBundle M radius\) U /\\) Tj ET
 BT /F3 4.9 Tf 394.00 245.00 Td (        ContinuousOn inverse U /\\) Tj ET
-BT /F3 4.9 Tf 394.00 238.00 Td (        ContDiffOn R top \(fun z => \(\(inverse z\).1 : \(Fin n -> R\)\)\) U /\\) Tj ET
-BT /F3 4.9 Tf 394.00 231.00 Td (        ContDiffOn R top \(fun z => \(inverse z\).2\) U /\\) Tj ET
+BT /F3 4.9 Tf 394.00 238.00 Td (        ContDiffOn R inf \(fun z => \(\(inverse z\).1 : \(Fin n -> R\)\)\) U /\\) Tj ET
+BT /F3 4.9 Tf 394.00 231.00 Td (        ContDiffOn R inf \(fun z => \(inverse z\).2\) U /\\) Tj ET
 BT /F3 4.9 Tf 394.00 224.00 Td (        forall p in NormalDiskBundle M radius, inverse \(\(p.1 : \(Fin n ->) Tj ET
 BT /F3 4.9 Tf 394.00 217.00 Td (        R\)\) + p.2\) = p := by) Tj ET
 BT /F3 4.9 Tf 394.00 210.00 Td (  sorry) Tj ET
@@ -474,13 +474,13 @@ xref
 0000009246 00000 n 
 0000017019 00000 n 
 0000017168 00000 n 
-0000025567 00000 n 
-0000025717 00000 n 
-0000031461 00000 n 
-0000031532 00000 n 
-0000031608 00000 n 
+0000025623 00000 n 
+0000025773 00000 n 
+0000031517 00000 n 
+0000031588 00000 n 
+0000031664 00000 n 
 trailer
 << /Size 14 /Root 1 0 R >>
 startxref
-31677
+31733
 %%EOF

@@ -1,5 +1,7 @@
 # Criteria: mattila_12_14_falconer_distance_set
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [mattila_12_14_falconer_distance_set.md](mattila_12_14_falconer_distance_set.md) · **Lean:** [mattila_12_14_falconer_distance_set.lean](mattila_12_14_falconer_distance_set.lean)
 
 A faithful formalization must carry both of Falconer's conclusions about the distance set $D(A) = \{|x-y| : x,y \in A\}$ — positive Lebesgue measure above the threshold $(n+1)/2$, and the dimension gain $\dim D(A) > \dim A - (n-1)/2$ in the intermediate range — with the correct Euclidean metric on the source and Lebesgue measure on the target line. The specific hazard here is arithmetic: `dimH` is `ℝ≥0∞`-valued, so *every* subtraction in the statement, including `(n : ℝ≥0∞) - 1` and `dimH A - (n-1)/2`, is truncated at `0`, and the statement carries no lower bound on $n$ to keep those expressions meaningful.

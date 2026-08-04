@@ -1,5 +1,7 @@
 # Criteria: nikolski_A_1_3_beurling_invariant_subspaces
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [nikolski_A_1_3_beurling_invariant_subspaces.md](nikolski_A_1_3_beurling_invariant_subspaces.md) · **Lean:** [nikolski_A_1_3_beurling_invariant_subspaces.lean](nikolski_A_1_3_beurling_invariant_subspaces.lean)
 
 A faithful formalization must supply a *closed* subspace $E$ that is shift-invariant with $zE$ a **proper** subset of $E$, and must produce a unimodular multiplier $\Theta$ with $E = \Theta H^2$ *together with* the uniqueness-up-to-a-unimodular-constant clause — the theorem is much weaker without it, since $E = \Theta H^2$ alone is an existence statement any candidate can satisfy vacuously if properness is dropped. The two specific hazards here are: (i) the ambient space — the book's $E$ lives in $L^2(\mathbb{T})$ and $\Theta$ is merely a measurable unimodular function, whereas the ground truth works inside $H^2$ (Taylor-coefficient sequences in $\ell^2(\mathbb{N})$) and gets an *inner* $\Theta$; and (ii) the encoding of $\Theta H^2$, which in the coefficient model is a Cauchy product and must be an exact set equality, not "the closed span of".

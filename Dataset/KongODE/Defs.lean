@@ -32,7 +32,7 @@ def IsTrajectory {n : ℕ} (F : ℝ → (Fin n → ℝ) → (Fin n → ℝ))
 def IsTrajectoryOn {n : ℕ} (I : Set ℝ)
     (F : ℝ → (Fin n → ℝ) → (Fin n → ℝ))
     (x : ℝ → (Fin n → ℝ)) : Prop :=
-  ∀ t ∈ I, HasDerivAt x (F t (x t)) t
+  ∀ t ∈ I, HasDerivWithinAt x (F t (x t)) I t
 
 /-- A trajectory solving an autonomous system. -/
 def IsAutonomousTrajectory {n : ℕ} (F : (Fin n → ℝ) → (Fin n → ℝ))
@@ -82,13 +82,13 @@ def InDiagonalJordanBlock {n : ℕ} (V : Matrix (Fin n) (Fin n) ℂ) (μ : ℂ) 
 def UniformlyStableZeroSolution {n : ℕ}
     (F : ℝ → (Fin n → ℝ) → (Fin n → ℝ)) : Prop :=
   ∀ ε : ℝ, 0 < ε → ∃ δ : ℝ, 0 < δ ∧ ∀ t₀ x,
-    IsTrajectory F x → ‖x t₀‖ < δ → ∀ t, t₀ ≤ t → ‖x t‖ < ε
+    0 ≤ t₀ → IsTrajectory F x → ‖x t₀‖ < δ → ∀ t, t₀ ≤ t → ‖x t‖ < ε
 
 /-- Uniform stability together with convergence of all sufficiently small solutions to zero. -/
 def AsymptoticallyStableZeroSolution {n : ℕ}
     (F : ℝ → (Fin n → ℝ) → (Fin n → ℝ)) : Prop :=
   UniformlyStableZeroSolution F ∧ ∃ δ : ℝ, 0 < δ ∧ ∀ t₀ x,
-    IsTrajectory F x → ‖x t₀‖ < δ → Tendsto x atTop (𝓝 0)
+    0 ≤ t₀ → IsTrajectory F x → ‖x t₀‖ < δ → Tendsto x atTop (𝓝 0)
 
 /-- Instability is the negation of Lyapunov stability. -/
 def UnstableZeroSolution {n : ℕ} (F : ℝ → (Fin n → ℝ) → (Fin n → ℝ)) : Prop :=
@@ -119,14 +119,15 @@ def LyapunovFunctionOnBall {n : ℕ} (l : ℝ) (V : (Fin n → ℝ) → ℝ)
     (F : (Fin n → ℝ) → (Fin n → ℝ)) : Prop :=
   ContDiffOn ℝ 1 V (Metric.closedBall 0 l) ∧ V 0 = 0 ∧
     (∀ x ∈ Metric.closedBall (0 : (Fin n → ℝ)) l, x ≠ 0 → 0 < V x) ∧
-    ∀ x ∈ Metric.closedBall (0 : (Fin n → ℝ)) l, fderiv ℝ V x (F x) ≤ 0
+    ∀ x ∈ Metric.closedBall (0 : (Fin n → ℝ)) l,
+      fderivWithin ℝ V (Metric.closedBall 0 l) x (F x) ≤ 0
 
 /-- No complete nonzero trajectory remains in the zero orbital-derivative set. -/
 def NoNontrivialOrbitInZeroDerivativeSet {n : ℕ} (l : ℝ)
     (V : (Fin n → ℝ) → ℝ) (F : (Fin n → ℝ) → (Fin n → ℝ)) : Prop :=
   ∀ x : ℝ → (Fin n → ℝ), IsAutonomousTrajectory F x →
     (∀ t, x t ∈ Metric.closedBall (0 : (Fin n → ℝ)) l ∧
-      fderiv ℝ V (x t) (F (x t)) = 0) →
+      fderivWithin ℝ V (Metric.closedBall 0 l) (x t) (F (x t)) = 0) →
       x = 0
 
 /-- The omega-limit set of a positive semi-orbit. -/
@@ -159,11 +160,12 @@ noncomputable def linearizationMatrix (F : (Fin 2 → ℝ) → ℝ → (Fin 2 �
 
 /-- A function solves the Sturm-Liouville equation for the given spectral value. -/
 def IsSturmLiouvilleEigenfunction (p q w : ℝ → ℝ) (a b eigVal : ℝ)
-    (boundary : (ℝ → ℝ) → Prop) (y : ℝ → ℝ) : Prop :=
-  y ≠ 0 ∧ boundary y ∧ ∃ y' : ℝ → ℝ,
-    (∀ x ∈ Set.Icc a b, HasDerivAt y (y' x) x) ∧
+    (boundary : (ℝ → ℝ) → (ℝ → ℝ) → Prop) (y : ℝ → ℝ) : Prop :=
+  (∃ x ∈ Set.Icc a b, y x ≠ 0) ∧ ∃ y' : ℝ → ℝ, boundary y y' ∧
+    (∀ x ∈ Set.Icc a b, HasDerivWithinAt y (y' x) (Set.Icc a b) x) ∧
     ∀ x ∈ Set.Icc a b,
-      HasDerivAt (fun t ↦ p t * y' t) ((q x - eigVal * w x) * y x) x
+      HasDerivWithinAt (fun t ↦ p t * y' t) ((q x - eigVal * w x) * y x)
+        (Set.Icc a b) x
 
 /-- Regular periodic Sturm-Liouville coefficient and boundary data. -/
 def PeriodicSturmLiouvilleData (p q w : ℝ → ℝ) (a b : ℝ) : Prop :=
@@ -172,14 +174,14 @@ def PeriodicSturmLiouvilleData (p q w : ℝ → ℝ) (a b : ℝ) : Prop :=
     (∀ x ∈ Set.Icc a b, 0 < p x ∧ 0 < w x)
 
 /-- Periodic, Dirichlet, and Neumann boundary conditions. -/
-def periodicBoundary (p : ℝ → ℝ) (a b : ℝ) (y : ℝ → ℝ) : Prop :=
-  y a = y b ∧ deriv y a * p a = deriv y b * p b
+def periodicBoundary (p : ℝ → ℝ) (a b : ℝ) (y y' : ℝ → ℝ) : Prop :=
+  y a = y b ∧ p a * y' a = p b * y' b
 
 /-- Dirichlet boundary conditions at both endpoints. -/
-def dirichletBoundary (a b : ℝ) (y : ℝ → ℝ) : Prop := y a = 0 ∧ y b = 0
+def dirichletBoundary (a b : ℝ) (y _y' : ℝ → ℝ) : Prop := y a = 0 ∧ y b = 0
 
 /-- Neumann boundary conditions at both endpoints. -/
-def neumannBoundary (a b : ℝ) (y : ℝ → ℝ) : Prop := deriv y a = 0 ∧ deriv y b = 0
+def neumannBoundary (a b : ℝ) (_y y' : ℝ → ℝ) : Prop := y' a = 0 ∧ y' b = 0
 
 end KongODE
 end Dataset

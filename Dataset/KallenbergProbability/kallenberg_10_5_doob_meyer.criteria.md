@@ -1,5 +1,7 @@
 # Criteria: kallenberg_10_5_doob_meyer
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [kallenberg_10_5_doob_meyer.md](kallenberg_10_5_doob_meyer.md) · **Lean:** [kallenberg_10_5_doob_meyer.lean](kallenberg_10_5_doob_meyer.lean)
 
 The Doob–Meyer theorem is an equivalence — local submartingale $\iff$ decomposable as local martingale plus locally integrable increasing predictable process starting at $0$ — together with a.s. uniqueness of the two components. Everything here is *local*: using mathlib's `Submartingale`/`Martingale` in place of the localized notions would state a different (much weaker, classical) theorem. The clause that carries the entire uniqueness content is **predictability** of $A$: with merely adapted $A$ the decomposition exists but is wildly non-unique in continuous time, so a candidate that writes `Adapted ℱ A` has broken the theorem. The remaining fidelity question is the strength of "a.s. unique": for right-continuous processes Kallenberg means indistinguishability, whereas the ground truth states per-time a.e. equality.

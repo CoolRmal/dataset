@@ -1,5 +1,7 @@
 # Criteria: kong_2_3_1_variation_of_parameters
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [kong_2_3_1_variation_of_parameters.md](kong_2_3_1_variation_of_parameters.md) · **Lean:** [kong_2_3_1_variation_of_parameters.lean](kong_2_3_1_variation_of_parameters.lean)
 
 A faithful formalization must say two things: that the formula $x = X(t)c + \int_{t_0}^{t} X(t)X^{-1}(s)f(s)\,ds$ describes the *general* solution of (NH) — i.e. an equivalence, for every function $y$, between solving (NH) on the interval and having that form for some constant $c$ — and that the choice $c = X^{-1}(t_0)x_0$ solves the IVP, uniquely. The delicate points are that `(X s)⁻¹` is `Matrix.inv`, which is junk `0` at singular matrices, and that the interval integral is a Bochner integral, junk `0` for non-integrable integrands: both are only saved by the interval hypotheses (`OrdConnected`, `ContinuousOn`, `IsUnit` at every point of `I`), and the two-sided derivative used on a possibly closed `I` breaks one direction of the equivalence.

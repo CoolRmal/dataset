@@ -39,17 +39,18 @@ theorem kallenberg_10_5_doob_meyer
       ContinuousWithinAt (fun s ↦ X s ω) (Ici t) t) :
     IsLocalSubmartingale X ℱ μ ↔
       ∃ M A : ℝ≥0 → Ω → ℝ,
-        (∀ t, X t =ᵐ[μ] M t + A t) ∧ IsLocalMartingale M ℱ μ ∧
+        (∀ᵐ ω ∂μ, ∀ t, X t ω = M t ω + A t ω) ∧ IsLocalMartingale M ℱ μ ∧
         IsLocallyIntegrableProcess A ℱ μ ∧ IsStronglyPredictable ℱ A ∧
         (∀ᵐ ω ∂μ, Monotone fun t ↦ A t ω) ∧
         (∀ᵐ ω ∂μ, ∀ t, ContinuousWithinAt (fun s ↦ A s ω) (Ici t) t) ∧
         A 0 =ᵐ[μ] 0 ∧
         ∀ M' A' : ℝ≥0 → Ω → ℝ,
-          (∀ t, X t =ᵐ[μ] M' t + A' t) → IsLocalMartingale M' ℱ μ →
+          (∀ᵐ ω ∂μ, ∀ t, X t ω = M' t ω + A' t ω) → IsLocalMartingale M' ℱ μ →
           IsLocallyIntegrableProcess A' ℱ μ → IsStronglyPredictable ℱ A' →
           (∀ᵐ ω ∂μ, Monotone fun t ↦ A' t ω) →
           (∀ᵐ ω ∂μ, ∀ t, ContinuousWithinAt (fun s ↦ A' s ω) (Ici t) t) →
-          A' 0 =ᵐ[μ] 0 → (∀ t, M t =ᵐ[μ] M' t) ∧ ∀ t, A t =ᵐ[μ] A' t := by
+          A' 0 =ᵐ[μ] 0 → (∀ᵐ ω ∂μ, ∀ t, M t ω = M' t ω) ∧
+            ∀ᵐ ω ∂μ, ∀ t, A t ω = A' t ω := by
   sorry
 
 end KallenbergProbability

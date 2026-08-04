@@ -1,5 +1,7 @@
 # Criteria: kong_2_5_3_floquet_theorem
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [kong_2_5_3_floquet_theorem.md](kong_2_5_3_floquet_theorem.md) · **Lean:** [kong_2_5_3_floquet_theorem.lean](kong_2_5_3_floquet_theorem.lean)
 
 A faithful formalization must produce a *complex* constant matrix $R$ and a *complex* matrix function $P$ that is $C^1$, $\omega$-periodic and nonsingular at every $t$, with the real fundamental matrix $X$, complexified, factoring as $X(t) = P(t)e^{Rt}$ — in that order, since matrices do not commute. Everything hinges on the regularity bookkeeping: since $e^{tR}$ is invertible and analytic, $P(t) = X(t)e^{-tR}$ is *forced*, so the claim "$P \in C^1$" is equivalent to "$X \in C^1$", i.e. to continuity of $A = X'X^{-1}$ — which the Lean hypotheses never assume.

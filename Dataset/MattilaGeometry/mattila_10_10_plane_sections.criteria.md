@@ -1,5 +1,7 @@
 # Criteria: mattila_10_10_plane_sections
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [mattila_10_10_plane_sections.md](mattila_10_10_plane_sections.md) · **Lean:** [mattila_10_10_plane_sections.lean](mattila_10_10_plane_sections.lean)
 
 A faithful formalization must carry two clauses with *different* quantifier patterns over the Grassmannian: a finiteness statement holding for **all** $W \in G(n,n-m)$ and $\mathcal H^m$-a.e. translate $a \in W^{\perp}$, and a positivity statement holding for $\gamma_{n,n-m}$-**a.e.** $W$, asserting that a set of translates of *positive* $\mathcal H^m$ measure gives sections of the expected dimension $t-m$. The two hazards are the parametrization of the family of parallel planes $W_a$ (indexed by $a \in W^{\perp}$, with the Hausdorff measure taken inside that $m$-dimensional subspace) and whether the invariant measure $\gamma_{n,n-m}$ is actually determined by the hypotheses imposed on it.

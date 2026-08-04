@@ -1,5 +1,7 @@
 # Criteria: mattila_7_7_lipschitz_level_sets
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [mattila_7_7_lipschitz_level_sets.md](mattila_7_7_lipschitz_level_sets.md) · **Lean:** [mattila_7_7_lipschitz_level_sets.lean](mattila_7_7_lipschitz_level_sets.lean)
 
 A faithful formalization must express an Eilenberg-type inequality: the integral over $y \in \mathbb{R}^m$ of $\mathcal H^{s-m}$ of the level set $A \cap f^{-1}\{y\}$ is dominated by $c(n,m)\,\mathrm{Lip}(f)^m\,\mathcal H^s(A)$, with the constant depending on the dimensions *only* — so its quantifier must precede $s$, $A$ and $f$. The delicate point is the integral itself: Mattila writes $\int^{*}$, the **upper** integral, precisely because $y \mapsto \mathcal H^{s-m}(A \cap f^{-1}\{y\})$ is not known to be measurable, and mathlib's `∫⁻` is the *lower* Lebesgue integral, so the two are not interchangeable when the integrand is non-measurable.

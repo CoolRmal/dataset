@@ -1,5 +1,7 @@
 # Criteria: lee_7_6_inverse_function_theorem
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [lee_7_6_inverse_function_theorem.md](lee_7_6_inverse_function_theorem.md) · **Lean:** [lee_7_6_inverse_function_theorem.lean](lee_7_6_inverse_function_theorem.lean)
 
 A faithful formalization must produce *connected open* neighborhoods $U_0 \ni p$ inside $U$ and $V_0 \ni F(p)$ inside $V$ such that $F$ restricted to $U_0$ is a **diffeomorphism** onto $V_0$ — a bijection $U_0 \leftrightarrow V_0$ whose *inverse is again smooth*, not merely a local homeomorphism or a map with a one-sided inverse. The junk-value risk sits in the nondegeneracy hypothesis: `fderiv ℝ F p` is defined to be the zero map when `F` is not differentiable at `p`, so `Bijective (fderiv ℝ F p)` only says "$DF(p)$ is nonsingular" because `IsOpen U`, `p ∈ U` and the `ContDiffOn` hypothesis together force genuine differentiability at `p`. The second delicate point is the smoothness index: in current Mathlib the `ContDiff`-scoped `⊤ : WithTop ℕ∞` is `ω` (real-analytic), and `C^∞` is written `∞`.
