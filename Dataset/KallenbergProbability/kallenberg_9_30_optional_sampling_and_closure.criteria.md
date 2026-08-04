@@ -1,5 +1,7 @@
 # Criteria: kallenberg_9_30_optional_sampling_and_closure
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [kallenberg_9_30_optional_sampling_and_closure.md](kallenberg_9_30_optional_sampling_and_closure.md) · **Lean:** [kallenberg_9_30_optional_sampling_and_closure.lean](kallenberg_9_30_optional_sampling_and_closure.lean)
 
 A faithful formalization needs three pieces: integrability of $X_\tau$ for a bounded optional time, the optional sampling *inequality* $X_{\sigma\wedge\tau} \le \mathbb{E}(X_\tau \mid \mathcal{F}_\sigma)$ a.s. with $\mathcal{F}_\sigma$ the stopping-time $\sigma$-algebra (not $\mathcal{F}_t$ for a fixed $t$), and the closure clause as a genuine `↔` with uniform integrability of $X^+$. The mathematical hazard sits in the closure clause: an unbounded optional time may take the value $+\infty$, and mathlib's `stoppedValue u τ ω = u (τ ω).untopA ω` uses `WithTop.untopA = untopD (Classical.arbitrary _)`, so on $\{\tau = \infty\}$ the "stopped value" is $X$ evaluated at an *arbitrary fixed time*, not the a.s. limit $X_\infty = \lim_{t\to\infty}X_t$ that Kallenberg's closure statement intends.

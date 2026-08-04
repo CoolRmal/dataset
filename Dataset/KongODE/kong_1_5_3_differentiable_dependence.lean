@@ -28,7 +28,7 @@ namespace KongODE
 theorem kong_1_5_3_differentiable_dependence
     {n k : ℕ} {D : Set (ℝ × (Fin n → ℝ) × (Fin k → ℝ))}
     {f : ℝ → (Fin n → ℝ) → (Fin k → ℝ) → (Fin n → ℝ)}
-    (hf : ContDiffOn ℝ 1
+    (hD : IsOpen D) (hf : ContDiffOn ℝ 1
       (fun p : ℝ × (Fin n → ℝ) × (Fin k → ℝ) ↦ f p.1 p.2.1 p.2.2) D) :
     ∃ (I : ℝ → (Fin n → ℝ) → (Fin k → ℝ) → Set ℝ)
       (x : ℝ → ℝ → (Fin n → ℝ) → (Fin k → ℝ) → (Fin n → ℝ)),

@@ -1,5 +1,7 @@
 # Criteria: grafakos_5_3_1_calderon_zygmund_decomposition
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [grafakos_5_3_1_calderon_zygmund_decomposition.md](grafakos_5_3_1_calderon_zygmund_decomposition.md) · **Lean:** [grafakos_5_3_1_calderon_zygmund_decomposition.lean](grafakos_5_3_1_calderon_zygmund_decomposition.lean)
 
 The value of Theorem 5.3.1 lies in the *whole package*, not in any one estimate: the splitting $f=g+b$, the two bounds on the good part ($L^1$ and $L^\infty$), the decomposition $b=\sum_j b_j$ into pieces supported in **pairwise disjoint dyadic** cubes, the cancellation $\int b_j = 0$, the $L^1$ bound $\|b_j\|_1 \le 2^{n+1}\alpha|Q_j|$, and the packing bound $\sum_j|Q_j| \le \alpha^{-1}\|f\|_1$. A formalization that keeps only some of these is a fragment, not the theorem. The subtle structural point is that the cube family in the text is *countable but possibly finite or empty* (it is empty exactly when $Mf \le \alpha$ everywhere), whereas an `ℕ`-indexed family of pairwise disjoint cubes is necessarily infinite and has strictly positive total volume.

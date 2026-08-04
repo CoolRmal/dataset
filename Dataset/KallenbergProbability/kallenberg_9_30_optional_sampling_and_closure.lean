@@ -1,5 +1,6 @@
 module
 
+public import Dataset.KallenbergProbability.Defs
 public import Mathlib.MeasureTheory.Function.ConvergenceInDistribution
 public import Mathlib.MeasureTheory.Function.UniformIntegrable
 public import Mathlib.MeasureTheory.Measure.Prokhorov
@@ -43,11 +44,13 @@ theorem kallenberg_9_30_optional_sampling_and_closure
       stoppedValue X (fun ω ↦ min (σ ω) (τ ω)) ≤ᵐ[μ]
         μ[stoppedValue X τ | hσ.measurableSpace] ∧
       (UniformIntegrable (fun t ω ↦ max (X t ω) 0) 1 μ ↔
-        ∀ τ' : Ω → WithTop ℝ≥0, IsStoppingTime ℱ τ' →
-          Integrable (stoppedValue X τ') μ ∧
-          ∀ σ' : Ω → WithTop ℝ≥0, ∀ hσ' : IsStoppingTime ℱ σ',
-            stoppedValue X (fun ω ↦ min (σ' ω) (τ' ω)) ≤ᵐ[μ]
-              μ[stoppedValue X τ' | hσ'.measurableSpace]) := by
+        ∃ terminalValue : Ω → ℝ, Integrable terminalValue μ ∧
+          (∀ᵐ ω ∂μ, Tendsto (fun t ↦ X t ω) atTop (𝓝 (terminalValue ω))) ∧
+          ∀ τ' : Ω → WithTop ℝ≥0, IsStoppingTime ℱ τ' →
+            Integrable (stoppedValueWithLimit X terminalValue τ') μ ∧
+            ∀ σ' : Ω → WithTop ℝ≥0, ∀ hσ' : IsStoppingTime ℱ σ',
+              stoppedValueWithLimit X terminalValue (fun ω ↦ min (σ' ω) (τ' ω)) ≤ᵐ[μ]
+                μ[stoppedValueWithLimit X terminalValue τ' | hσ'.measurableSpace]) := by
   sorry
 
 end KallenbergProbability

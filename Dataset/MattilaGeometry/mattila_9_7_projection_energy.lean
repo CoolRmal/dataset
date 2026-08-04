@@ -30,7 +30,7 @@ universe u
 
 /-- Mattila 9.7, the projection-energy theorem. -/
 theorem mattila_9_7_projection_energy
-    {n m : ℕ} [MeasurableSpace (Grassmannian n m)]
+    {n m : ℕ}
     (γ : Measure (Grassmannian n m)) (hγ : IsInvariantGrassmannianMeasure γ) :
     ∃ c : ℝ≥0∞, c < ∞ ∧
       ∀ μ : Measure (EuclideanSpace ℝ (Fin n)),

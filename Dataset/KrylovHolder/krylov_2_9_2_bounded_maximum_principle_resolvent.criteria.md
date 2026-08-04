@@ -1,5 +1,7 @@
 # Criteria: krylov_2_9_2_bounded_maximum_principle_resolvent
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [krylov_2_9_2_bounded_maximum_principle_resolvent.md](krylov_2_9_2_bounded_maximum_principle_resolvent.md) · **Lean:** [krylov_2_9_2_bounded_maximum_principle_resolvent.lean](krylov_2_9_2_bounded_maximum_principle_resolvent.lean)
 
 This is an a priori bound, not a solvability statement: no equation is imposed on $u$, and the content is that the *explicit* constant $\lambda^{-1}$ works, so there is no existential constant to misplace — but every hypothesis is load-bearing. A faithful formalization needs $u$ bounded (the domain may be unbounded, and the estimate fails without it), $u$ twice differentiable inside, continuous up to $\bar\Omega$ and vanishing on $\partial\Omega$ *when $\partial\Omega \ne \emptyset$*, coefficients bounded, and the zeroth-order coefficient satisfying $c \le -\lambda < 0$ — this last condition being what supplies the $\lambda^{-1}$. The encoding hazards are (i) that a "coefficient" of a `EllipticOperatorData` is only meaningful for multi-indices belonging to `terms`, and (ii) the two supremum norms, which must not silently become junk when $\sup_\Omega|Lu| = \infty$ or $\Omega = \emptyset$.

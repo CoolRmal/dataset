@@ -25,12 +25,14 @@ namespace KrylovHolder
 
 /-- Krylov 2.3.1, the Green-Poisson representation formula. -/
 theorem krylov_2_3_1_green_poisson_representation
-    {d : ℕ} {Ω : Set (Fin d → ℝ)}
-    {K h G H : (Fin d → ℝ) → (Fin d → ℝ) → ℝ} {f g u : (Fin d → ℝ) → ℝ}
+    {d : ℕ} {Ω : Set (EuclideanSpace ℝ (Fin d))}
+    {K h G H : EuclideanSpace ℝ (Fin d) → EuclideanSpace ℝ (Fin d) → ℝ}
+    {f g u : EuclideanSpace ℝ (Fin d) → ℝ}
     (hd : 0 < d) (hΩ : RegularBoundedDomain Ω)
-    (boundaryMeasure : Measure (Fin d → ℝ))
+    (hK : IsLaplaceFundamentalSolution K)
+    (boundaryMeasure : Measure (EuclideanSpace ℝ (Fin d)))
     (hmeasure : boundaryMeasure = μH[((d : ℝ) - 1)].restrict (frontier Ω))
-    (normal : (Fin d → ℝ) → (Fin d → ℝ))
+    (normal : EuclideanSpace ℝ (Fin d) → EuclideanSpace ℝ (Fin d))
     (hnormal : IsOutwardUnitNormal Ω normal)
     (hharmonic : ∀ x ∈ Ω, HarmonicIn Ω (h x))
     (hboundary : ∀ x ∈ Ω, ∀ y ∈ frontier Ω, h x y = K x y)
@@ -38,7 +40,7 @@ theorem krylov_2_3_1_green_poisson_representation
     (hgreenHarmonic : ∀ x ∈ Ω, HarmonicIn (Ω \ {x}) (G x))
     (hgreenBoundary : ∀ x ∈ Ω, ∀ y ∈ frontier Ω, G x y = 0)
     (hpoisson : ∀ x ∈ Ω, ∀ y ∈ frontier Ω,
-      H x y = -fderiv ℝ (G x) y (normal y))
+      H x y = -fderivWithin ℝ (G x) (closure Ω) y (normal y))
     (hGintegrable : ∀ x ∈ Ω, IntegrableOn (fun y ↦ G x y * f y) Ω)
     (hHintegrable : ∀ x ∈ Ω, Integrable (fun y ↦ H x y * g y) boundaryMeasure)
     (hu : LaplaceDirichletSolution Ω f g u) :

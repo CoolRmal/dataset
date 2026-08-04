@@ -1,5 +1,7 @@
 # Criteria: nikolski_A_5_4_helson_szego
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [nikolski_A_5_4_helson_szego.md](nikolski_A_5_4_helson_szego.md) · **Lean:** [nikolski_A_5_4_helson_szego.lean](nikolski_A_5_4_helson_szego.lean)
 
 A faithful formalization must be a genuine five-way equivalence starting from an *arbitrary finite Borel measure* $\mu$ on $\mathbb{T}$ — absolute continuity $d\mu = w\,dm$ is part of the conclusion, not a hypothesis — and each of the five items must be encoded at full strength: the basis property of $(z^n)_{n\in\mathbb{Z}}$, boundedness of the Riesz projection $P_+$, a positive angle between $\mathrm{Pol}_+$ and $\mathrm{Pol}_-$, the outer-function condition $\operatorname{dist}(\bar h/h, H^\infty) < 1$ with its **strict** inequality, and the Helson–Szegő representation $w = e^{u+\tilde v}$ with $\lVert v\rVert_\infty < \pi/2$. Dropping any item is a materially weaker theorem. The critical technical object is the conjugate function $\tilde v$: it is a Fourier *multiplier*, not a convergent series, and encoding it as a `tsum` is where this formalization breaks.

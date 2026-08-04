@@ -31,7 +31,7 @@ theorem grafakos_2_2_14_fourier_identities_on_schwartz
       (∫ x, star (𝓕 f x) * 𝓕 g x) = ∫ x, star (f x) * g x ∧
       eLpNorm (fun x ↦ 𝓕 f x) 2 volume = eLpNorm f 2 volume ∧
       eLpNorm (fun x ↦ 𝓕⁻ f x) 2 volume = eLpNorm f 2 volume ∧
-      (∫ x, 𝓕 f x * h x) = ∫ x, f x * 𝓕 h x := by
+      (∫ x, f x * h x) = ∫ x, 𝓕 f x * 𝓕⁻ h x := by
   sorry
 
 end GrafakosFourier

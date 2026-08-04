@@ -1,5 +1,7 @@
 # Criteria: grafakos_1_3_2_marcinkiewicz_interpolation
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [grafakos_1_3_2_marcinkiewicz_interpolation.md](grafakos_1_3_2_marcinkiewicz_interpolation.md) · **Lean:** [grafakos_1_3_2_marcinkiewicz_interpolation.lean](grafakos_1_3_2_marcinkiewicz_interpolation.lean)
 
 A faithful formalization must interpolate between two *weak*-type endpoint estimates for a merely *sublinear* $T$ and produce a *strong* $(p,p)$ bound with Grafakos's explicit constant $A = 2[\tfrac{p}{p-p_0}+\tfrac{p}{p_1-p}]^{1/p}A_0^{\frac{p_0}{p}\frac{p_1-p}{p_1-p_0}}A_1^{\frac{p_1}{p}\frac{p-p_0}{p_1-p_0}}$. The two hard encoding questions are (i) $L^{p,\infty}$: this Mathlib has **no** `wnorm`/`MemWLp`/`HasWeakType` (grep confirms the identifiers are absent), so the weak-type quasinorm must be hand-rolled, and the `sup` over $\alpha$ in $\|F\|_{L^{p,\infty}}=\sup_\alpha \alpha\,d_F(\alpha)^{1/p}$ has to be traded for a universally quantified $\alpha$ with the $p$-th power cleared correctly; and (ii) the domain of $T$: Grafakos's $T$ lives on $L^{p_0}+L^{p_1}$ and lands in *measurable* functions, and dropping that last clause is exactly what makes the `MemLp (T f)` half of the conclusion unreachable.

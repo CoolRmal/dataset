@@ -35,7 +35,8 @@ namespace NikolskiOperators
 theorem nikolski_B_7_2_1_adamyan_arov_krein
     {a : ℕ → ℂ} {φ : {z : ℂ // ‖z‖ = 1} → ℂ} {n : ℕ} :
     HasBoundedHankelSymbol a φ →
-      hankelRankApproximationDistance a n = rationalPlusHInfinityDistance φ n ∧
+      hankelApproximationNumber a n = hankelRankApproximationDistance a n ∧
+        hankelRankApproximationDistance a n = rationalPlusHInfinityDistance φ n ∧
         rationalPlusHInfinityDistance φ n = finiteBlaschkeHankelDistance φ n := by
   sorry
 

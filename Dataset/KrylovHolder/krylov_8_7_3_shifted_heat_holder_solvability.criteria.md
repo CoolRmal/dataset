@@ -1,5 +1,7 @@
 # Criteria: krylov_8_7_3_shifted_heat_holder_solvability
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [krylov_8_7_3_shifted_heat_holder_solvability.md](krylov_8_7_3_shifted_heat_holder_solvability.md) · **Lean:** [krylov_8_7_3_shifted_heat_holder_solvability.lean](krylov_8_7_3_shifted_heat_holder_solvability.lean)
 
 A faithful formalization has to get three things right: the equation ($\Delta u - u_t - u = f$ on all of $\mathbb{R}^{d+1}$, with the zeroth-order shift, which is exactly what makes the whole-space problem uniquely solvable), the existence *and* uniqueness, and — the substantial part — the two anisotropic Hölder spaces $C^{\delta/2,\delta}$ and $C^{1+\delta/2,2+\delta}$, whose parabolic scaling gives the time variable half the weight of a space variable. The risk here is not junk in the usual sense but under-specification of those spaces: a slice-wise reading ("Hölder in $x$ for each fixed $t$, and in $t$ for each fixed $x$") is strictly weaker than Krylov's single finite parabolic norm, and it shifts the balance of the theorem — a weaker space makes existence easier to assert and uniqueness harder to justify.

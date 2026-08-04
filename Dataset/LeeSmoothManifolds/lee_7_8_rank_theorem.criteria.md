@@ -1,5 +1,7 @@
 # Criteria: lee_7_8_rank_theorem
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [lee_7_8_rank_theorem.md](lee_7_8_rank_theorem.md) · **Lean:** [lee_7_8_rank_theorem.lean](lee_7_8_rank_theorem.lean)
 
 A faithful formalization must carry three things: the hypothesis that $DF$ has rank **exactly $k$ at every point of $U$** (not just at $p$), the existence of *coordinate charts* — smooth diffeomorphisms of a neighborhood $U_0 \ni p$ and of a neighborhood $V_0 \ni F(p)$ with $F(U_0) \subset V_0$ — and the exact normal form $\psi \circ F \circ \varphi^{-1}(x) = (x^1,\dots,x^k,0,\dots,0)$. The mathematical work is entirely in the normal form, so the index arithmetic in the Lean equation between elements of `Fin n → ℝ` must be checked coordinate by coordinate. The junk-value risk is `fderiv` in the rank hypothesis, and the smoothness index `⊤` in Mathlib's `ContDiff` scope is `ω`, not `∞`.

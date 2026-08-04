@@ -1,5 +1,7 @@
 # Criteria: mattila_8_8_frostman_lemma
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [mattila_8_8_frostman_lemma.md](mattila_8_8_frostman_lemma.md) · **Lean:** [mattila_8_8_frostman_lemma.lean](mattila_8_8_frostman_lemma.lean)
 
 A faithful formalization must state the equivalence "$\mathcal H^s(B) > 0$ iff $B$ carries a measure $\mu \in \mathcal M(B)$ with the growth bound $\mu(B(x,r)) < r^s$", *and* the quantitative refinement that such a $\mu$ can be found with $\mu(B) > c\,\mathcal H^s_\infty(B)$ — the refinement being a strengthening of the **forward** direction, available only when $\mathcal H^s(B) > 0$. Two things carry all the risk: the placement of that "moreover" clause relative to the biconditional, and the definition of the Hausdorff content $\mathcal H^s_\infty$, whose infimum is over covers with *no diameter restriction* and therefore must handle unbounded covering sets correctly.

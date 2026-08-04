@@ -37,16 +37,32 @@ noncomputable def upperHausdorffDensity {n : ℕ} (s : ℝ)
 noncomputable def hausdorffContent {X : Type u} [PseudoMetricSpace X]
     (s : ℝ) (A : Set X) : ℝ≥0∞ :=
   ⨅ U : ℕ → Set X, ⨅ (_ : A ⊆ ⋃ i, U i),
-    ∑' i, ENNReal.ofReal (diam (U i)) ^ s
+    ∑' i, Metric.ediam (U i) ^ s
 
 /-- The Riesz `s`-energy of a measure. -/
 noncomputable def rieszEnergy {n : ℕ} (s : ℝ)
     (μ : Measure (EuclideanSpace ℝ (Fin n))) : ℝ≥0∞ :=
-  ∫⁻ x, (∫⁻ y, ENNReal.ofReal (dist x y)⁻¹ ^ s ∂μ) ∂μ
+  ∫⁻ x, (∫⁻ y, (ENNReal.ofReal (dist x y))⁻¹ ^ s ∂μ) ∂μ
+
+/-- The upper integral of a nonnegative function, defined through measurable majorants. -/
+noncomputable def upperIntegral {X : Type u} [MeasurableSpace X]
+    (μ : Measure X) (f : X → ℝ≥0∞) : ℝ≥0∞ :=
+  ⨅ g : X → ℝ≥0∞, ⨅ (_ : Measurable g), ⨅ (_ : f ≤ g), ∫⁻ x, g x ∂μ
 
 /-- The Grassmannian of `m`-dimensional linear subspaces. -/
 def Grassmannian (n m : ℕ) :=
   {V : Submodule ℝ (EuclideanSpace ℝ (Fin n)) // Module.finrank ℝ V = m}
+
+/-- The canonical Grassmannian topology, induced by orthogonal projection operators. -/
+noncomputable instance grassmannianTopologicalSpace (n m : ℕ) :
+    TopologicalSpace (Grassmannian n m) :=
+  TopologicalSpace.induced (fun V : Grassmannian n m ↦ V.1.starProjection) inferInstance
+
+/-- The Borel measurable space of the canonical Grassmannian topology. -/
+noncomputable instance grassmannianMeasurableSpace (n m : ℕ) :
+    MeasurableSpace (Grassmannian n m) := borel (Grassmannian n m)
+
+instance grassmannianBorelSpace (n m : ℕ) : BorelSpace (Grassmannian n m) := ⟨rfl⟩
 
 /-- The natural action of a linear automorphism on a Grassmannian. -/
 def grassmannianAction {n m : ℕ}

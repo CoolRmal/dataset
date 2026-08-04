@@ -1,5 +1,7 @@
 # Criteria: lee_10_7_sards_theorem
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [lee_10_7_sards_theorem.md](lee_10_7_sards_theorem.md) · **Lean:** [lee_10_7_sards_theorem.lean](lee_10_7_sards_theorem.lean)
 
 A faithful formalization must say that the set of critical **values** — the *image* $F(\mathrm{Crit}\,F)$, not the critical set itself — is a null set in $N$, where "measure zero in a manifold" can only mean "Lebesgue-null in every smooth chart", since $N$ carries no canonical measure. Three things decide the quality of the encoding: whether the critical set is defined by failure of surjectivity of $dF_p$ without falling into the `mfderiv = 0` junk trap; whether the chart-wise null condition is stated over enough charts and without a spurious measurability side condition; and — the one that actually breaks the theorem — whether $M$ is assumed second countable. Lee builds second countability into "smooth manifold"; Mathlib carries it as a separate typeclass, and Sard's theorem is **false** without it.

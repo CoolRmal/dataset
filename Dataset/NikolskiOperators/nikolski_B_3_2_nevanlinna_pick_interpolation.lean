@@ -37,11 +37,13 @@ Nevanlinna-Pick interpolation: finite disk data admit a Schur-class interpolant
 if and only if the Pick matrix is positive semidefinite.
 -/
 theorem nikolski_B_3_2_nevanlinna_pick_interpolation
-    {n : ℕ} {z w : Fin n → ℂ} (hz : ∀ i : Fin n, z i ∈ Metric.ball (0 : ℂ) 1) :
+    {n : ℕ} {z w : Fin n → ℂ} (hz : ∀ i : Fin n, z i ∈ Metric.ball (0 : ℂ) 1)
+    (hz_injective : Function.Injective z) :
     let solutions := {f : ℂ → ℂ | SchurFunction f ∧ ∀ i : Fin n, f (z i) = w i}
     (solutions.Nonempty ↔ PositiveSemidefiniteMatrix (PickMatrix z w)) ∧
       (solutions.Nonempty →
-        (solutions.Subsingleton ↔ Matrix.det (PickMatrix z w) = 0)) := by
+        ((∀ f ∈ solutions, ∀ g ∈ solutions, Set.EqOn f g (Metric.ball (0 : ℂ) 1)) ↔
+          Matrix.det (PickMatrix z w) = 0)) := by
   sorry
 
 end NikolskiOperators

@@ -25,12 +25,13 @@ namespace KrylovHolder
 
 /-- Krylov 10.3.3, the parabolic Dirichlet problem in a domain. -/
 theorem krylov_10_3_3_parabolic_dirichlet_domain_solvability
-    {d : ℕ} {δ : ℝ} {Q : Set (ℝ × (Fin d → ℝ))}
-    {L : ((ℝ × (Fin d → ℝ)) → ℝ) → (ℝ × (Fin d → ℝ)) → ℝ}
+    {d : ℕ} {δ : ℝ} {Q : Set (ℝ × EuclideanSpace ℝ (Fin d))}
+    {L : ((ℝ × EuclideanSpace ℝ (Fin d)) → ℝ) →
+      (ℝ × EuclideanSpace ℝ (Fin d)) → ℝ}
     (hδ : 0 < δ ∧ δ < 1)
-    (hQ : IsOpen Q ∧ Bornology.IsBounded Q ∧ Q.Nonempty)
-    (hL : ParabolicOperator L) (hcoeff : ParabolicOperatorCoefficientsHolder δ Q L) :
-    ∀ f g, ParabolicHolderOn δ Q f → ParabolicHolderOn (2 + δ) Q g →
+    (hL : ParabolicOperator L) (hQ : RegularParabolicDomain Q L)
+    (hcoeff : ParabolicOperatorCoefficientsHolder δ Q L) :
+    ∀ f g, ParabolicHolderOn δ Q f → ParabolicHolderOn (2 + δ) (closure Q) g →
       ∃ u, ParabolicHolderOn (2 + δ) Q u ∧
         ParabolicDirichletSolution Q L f g u ∧
         ∀ v, ParabolicHolderOn (2 + δ) Q v →

@@ -29,10 +29,10 @@ monolithic per-book files.
 Applying the rubrics to the dataset's own statements turned up defects in the
 ground truth — statements that are false or unsatisfiable, terms that silently
 evaluate to a junk default, and statements that are true but are not the
-book's theorem. These are collected in [GROUND_TRUTH_ISSUES.md](GROUND_TRUTH_ISSUES.md)
-and in the relevant rubric row. None has been repaired: correcting a statement
-changes what the benchmark measures, so each is left as a decision with its
-evidence recorded.
+book's theorem. Those defects have been repaired in the Lean sources and are
+recorded in [GROUND_TRUTH_ISSUES.md](GROUND_TRUTH_ISSUES.md) as a regression
+ledger. Relevant rubrics retain the original failure mode as a model-error
+trap and carry a note that the current ground truth incorporates the repair.
 
 Included books:
 

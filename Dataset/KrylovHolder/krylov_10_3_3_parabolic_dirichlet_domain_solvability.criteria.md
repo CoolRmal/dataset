@@ -1,5 +1,7 @@
 # Criteria: krylov_10_3_3_parabolic_dirichlet_domain_solvability
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [krylov_10_3_3_parabolic_dirichlet_domain_solvability.md](krylov_10_3_3_parabolic_dirichlet_domain_solvability.md) · **Lean:** [krylov_10_3_3_parabolic_dirichlet_domain_solvability.lean](krylov_10_3_3_parabolic_dirichlet_domain_solvability.lean)
 
 The Cauchy–Dirichlet problem $Lu - u_t = f$ in $Q$, $u = g$ on $\partial'Q$, is where every parabolic subtlety of the book comes together: the data are prescribed on the **parabolic** boundary — the initial surface and the lateral surface, *never* the terminal one, since prescribing the top would make the problem a backward one — the solution must attain those data as a limit from inside $Q$, the domain must be regular enough for a $C^{2+\delta}$-up-to-the-boundary solution to exist, and the anisotropic spaces must be the genuine parabolic ones. No sign condition on the zeroth-order coefficient is needed here (unlike the elliptic Theorem 6.5.3): the substitution $v = e^{-Kt}u$ absorbs a bounded $c$. So the audit reduces to three questions — is $\partial'Q$ the right set, is the boundary condition tied to the interior behaviour, and is $Q$ assumed regular?

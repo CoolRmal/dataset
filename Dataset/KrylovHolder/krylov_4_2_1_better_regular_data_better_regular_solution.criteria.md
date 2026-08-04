@@ -1,5 +1,7 @@
 # Criteria: krylov_4_2_1_better_regular_data_better_regular_solution
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [krylov_4_2_1_better_regular_data_better_regular_solution.md](krylov_4_2_1_better_regular_data_better_regular_solution.md) · **Lean:** [krylov_4_2_1_better_regular_data_better_regular_solution.lean](krylov_4_2_1_better_regular_data_better_regular_solution.lean)
 
 Two claims must be kept apart: a regularity implication valid for *every* $\lambda$ ($u \in C^{m+\delta}$ and $L_\lambda u \in C^{k+\delta}$ imply $u \in C^{k+m+\delta}$), and, for $\lvert\lambda\rvert \ge \lambda_0$, the $\lambda$-weighted Schauder estimate with a constant $N = N(\kappa,k,m,\delta,K_1,d)$. The whole value of the second claim lies in the quantifier order and in what $N$ is allowed to depend on: $N$ must be chosen before $u$, before $f$ and before $\lambda$, and must not see the individual operator — only its ellipticity constant and the coefficient bound $K_1$. The second thing to check is $\lambda_0$: in the text it is *produced* by Theorem 4.1.2, so it is existential; if it is instead an arbitrary input, the estimate is asserted down to $\lambda = 0$, where it is false.

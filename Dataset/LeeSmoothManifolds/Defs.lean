@@ -26,7 +26,7 @@ namespace LeeSmoothManifolds
 
 universe u v
 
-/-- A smooth (Fin diffeomorphism → ℝ) between two subsets. -/
+/-- A smooth diffeomorphism between two Euclidean subsets. -/
 structure SmoothDiffeomorphismOn {m n : ℕ} (U : Set ((Fin m → ℝ)))
     (V : Set ((Fin n → ℝ))) where
   toFun : (Fin m → ℝ) → (Fin n → ℝ)
@@ -35,8 +35,8 @@ structure SmoothDiffeomorphismOn {m n : ℕ} (U : Set ((Fin m → ℝ)))
   invMapsTo : MapsTo invFun V U
   leftInvOn : Set.LeftInvOn invFun toFun U
   rightInvOn : Set.RightInvOn invFun toFun V
-  smooth : ContDiffOn ℝ ⊤ toFun U
-  smooth_inv : ContDiffOn ℝ ⊤ invFun V
+  smooth : ContDiffOn ℝ ∞ toFun U
+  smooth_inv : ContDiffOn ℝ ∞ invFun V
 
 /-- The rank of the Frechet derivative is constantly `k` on `U`. -/
 def EuclideanConstantRank {m n : ℕ} (U : Set ((Fin m → ℝ)))

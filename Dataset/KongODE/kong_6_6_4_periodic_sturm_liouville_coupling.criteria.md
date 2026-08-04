@@ -1,5 +1,7 @@
 # Criteria: kong_6_6_4_periodic_sturm_liouville_coupling
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [kong_6_6_4_periodic_sturm_liouville_coupling.md](kong_6_6_4_periodic_sturm_liouville_coupling.md) · **Lean:** [kong_6_6_4_periodic_sturm_liouville_coupling.lean](kong_6_6_4_periodic_sturm_liouville_coupling.lean)
 
 A faithful formalization must *produce* three sequences — the periodic eigenvalues $\lambda_n$, the Dirichlet eigenvalues $\mu_n$, the Neumann eigenvalues $\nu_n$ — show that each enumerates the spectrum of its boundary value problem, and then assert the full interlacing chain with its exact alternation of strict and non-strict inequalities, plus the simplicity/doubleness criterion (a) and the zero counts (b). Two structural mistakes dominate: the three sequences must be existentially quantified (they are the object being constructed), and "eigenfunction" must mean nontrivial *on $[a,b]$* — the Sturm–Liouville conditions only constrain $y$ on $[a,b]$, so a global `y ≠ 0` lets a function vanishing identically on $[a,b]$ pose as an eigenfunction for every $\lambda$.

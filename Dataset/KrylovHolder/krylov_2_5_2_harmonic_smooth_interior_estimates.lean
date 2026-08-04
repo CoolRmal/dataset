@@ -18,17 +18,18 @@ Quality rubric: `krylov_2_5_2_harmonic_smooth_interior_estimates.criteria.md`.
 @[expose] public section
 
 open Filter Function MeasureTheory Set Topology
-open scoped ENNReal Topology
+open scoped ContDiff ENNReal Topology
 
 namespace Dataset
 namespace KrylovHolder
 
 /-- Krylov 2.5.2, smoothness and interior estimates for harmonic functions. -/
 theorem krylov_2_5_2_harmonic_smooth_interior_estimates
-    {d : ℕ} {Ω : Set (Fin d → ℝ)} {u : (Fin d → ℝ) → ℝ}
-    (hΩ : IsOpen Ω ∧ IsConnected Ω) (hu : HarmonicIn Ω u) :
-    ContDiffOn ℝ ⊤ u Ω ∧
-      ∀ α : (Fin d → ℕ), ∃ C : ℝ, 0 ≤ C ∧ ∀ x ∈ Ω,
+    {d : ℕ} :
+    ∀ α : (Fin d → ℕ), ∃ C : ℝ, 0 ≤ C ∧
+      ∀ (Ω : Set (EuclideanSpace ℝ (Fin d))) (u : EuclideanSpace ℝ (Fin d) → ℝ),
+        IsOpen Ω → IsConnected Ω → Ω.Nonempty → HarmonicIn Ω u →
+        ContDiffOn ℝ ∞ u Ω ∧ ∀ x ∈ Ω,
         ∀ R : ℝ, 0 < R → Metric.closedBall x R ⊆ Ω →
           |multiDerivative α u x| ≤ C * R ^ (-(∑ i, α i : ℤ)) *
             sSup {|u y| | y ∈ Metric.closedBall x R} := by

@@ -1,5 +1,7 @@
 # Criteria: grafakos_2_2_14_fourier_identities_on_schwartz
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [grafakos_2_2_14_fourier_identities_on_schwartz.md](grafakos_2_2_14_fourier_identities_on_schwartz.md) · **Lean:** [grafakos_2_2_14_fourier_identities_on_schwartz.lean](grafakos_2_2_14_fourier_identities_on_schwartz.lean)
 
 Five separate identities on $\mathcal{S}(\mathbb{R}^n)$ — the multiplication formula, Fourier inversion in both directions, Parseval's relation, Plancherel's identity for both $\widehat{f}$ and $f^{\vee}$, and the mixed formula $\int f h = \int \widehat{f} h^{\vee}$ — so the dominant risk is simple incompleteness. The mathematical fine print is the **normalization**: Grafakos uses $\widehat{f}(\xi)=\int f(x)e^{-2\pi i x\cdot\xi}dx$, with no $2\pi$ in front, and every one of these identities is constant-free *only* under that convention (with the $e^{-ix\xi}$ convention (3) and (4) acquire factors of $(2\pi)^{n/2}$). Junk values are not a concern here: products of Schwartz functions are Schwartz, hence integrable, so every Bochner integral is honest.

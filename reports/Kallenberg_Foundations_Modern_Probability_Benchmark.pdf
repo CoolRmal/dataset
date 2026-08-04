@@ -4,10 +4,10 @@
 << /Type /Catalog /Pages 2 0 R >>
 endobj
 2 0 obj
-<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R 9 0 R] /Count 4 >>
+<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R 9 0 R 11 0 R] /Count 5 >>
 endobj
 3 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 11 0 R /F2 12 0 R /F3 13 0 R >> >> /Contents 4 0 R >>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 13 0 R /F2 14 0 R /F3 15 0 R >> >> /Contents 4 0 R >>
 endobj
 4 0 obj
 << /Length 11000 >>
@@ -156,7 +156,7 @@ BT /F3 4.9 Tf 394.00 46.00 Td (      mu' \(xi ^-1' G\) <= liminf \(fun n => mu \
 endstream
 endobj
 5 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 11 0 R /F2 12 0 R /F3 13 0 R >> >> /Contents 6 0 R >>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 13 0 R /F2 14 0 R /F3 15 0 R >> >> /Contents 6 0 R >>
 endobj
 6 0 obj
 << /Length 10124 >>
@@ -293,10 +293,10 @@ BT /F3 4.9 Tf 394.00 43.00 Td (      forall f : S -> T -> R>=0inf, Measurable \(
 endstream
 endobj
 7 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 11 0 R /F2 12 0 R /F3 13 0 R >> >> /Contents 8 0 R >>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 13 0 R /F2 14 0 R /F3 15 0 R >> >> /Contents 8 0 R >>
 endobj
 8 0 obj
-<< /Length 9463 >>
+<< /Length 9560 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Kallenberg Foundations of Modern Probability Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 3) Tj ET
@@ -315,12 +315,12 @@ BT /F3 4.9 Tf 394.00 535.00 Td (          integral^- omega in xi ^-1' A, f \(xi 
 BT /F3 4.9 Tf 394.00 528.00 Td (            integral^- omega in xi ^-1' A, integral^- t, f \(xi omega\) t) Tj ET
 BT /F3 4.9 Tf 394.00 521.00 Td (        dkappa \(xi omega\) dmu := by) Tj ET
 BT /F3 4.9 Tf 394.00 514.00 Td (  sorry) Tj ET
-20.00 505.00 m 20.00 334.00 l S
-310.00 505.00 m 310.00 334.00 l S
-390.00 505.00 m 390.00 334.00 l S
-772.00 505.00 m 772.00 334.00 l S
+20.00 505.00 m 20.00 306.00 l S
+310.00 505.00 m 310.00 306.00 l S
+390.00 505.00 m 390.00 306.00 l S
+772.00 505.00 m 772.00 306.00 l S
 20.00 505.00 m 772.00 505.00 l S
-20.00 334.00 m 772.00 334.00 l S
+20.00 306.00 m 772.00 306.00 l S
 BT /F1 5.8 Tf 24.00 497.00 Td (Theorem 9.30 \(optional sampling and closure, Doob\) Let X be an) Tj ET
 BT /F1 5.8 Tf 24.00 490.00 Td (F-submartingale on R+, where X and F are right-continuous, and) Tj ET
 BT /F1 5.8 Tf 24.00 483.00 Td (consider some optional times sigma, tau, where tau is bounded.) Tj ET
@@ -343,90 +343,90 @@ BT /F3 4.9 Tf 394.00 420.00 Td (    Integrable \(stoppedValue X tau\) mu /\\) Tj
 BT /F3 4.9 Tf 394.00 413.00 Td (      stoppedValue X \(fun omega => min \(sigma omega\) \(tau omega\)\) <=^m[mu]) Tj ET
 BT /F3 4.9 Tf 394.00 406.00 Td (        mu[stoppedValue X tau | hsigma.measurableSpace] /\\) Tj ET
 BT /F3 4.9 Tf 394.00 399.00 Td (      \(UniformIntegrable \(fun t omega => max \(X t omega\) 0\) 1 mu <->) Tj ET
-BT /F3 4.9 Tf 394.00 392.00 Td (        forall tau' : Omega -> WithTop R>=0, IsStoppingTime F tau' ->) Tj ET
-BT /F3 4.9 Tf 394.00 385.00 Td (          Integrable \(stoppedValue X tau'\) mu /\\) Tj ET
-BT /F3 4.9 Tf 394.00 378.00 Td (          forall sigma' : Omega -> WithTop R>=0, forall hsigma' :) Tj ET
-BT /F3 4.9 Tf 394.00 371.00 Td (        IsStoppingTime F sigma',) Tj ET
-BT /F3 4.9 Tf 394.00 364.00 Td (            stoppedValue X \(fun omega => min \(sigma' omega\) \(tau' omega\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 357.00 Td (        <=^m[mu]) Tj ET
-BT /F3 4.9 Tf 394.00 350.00 Td (              mu[stoppedValue X tau' | hsigma'.measurableSpace]\) := by) Tj ET
-BT /F3 4.9 Tf 394.00 343.00 Td (  sorry) Tj ET
-20.00 334.00 m 20.00 37.00 l S
-310.00 334.00 m 310.00 37.00 l S
-390.00 334.00 m 390.00 37.00 l S
-772.00 334.00 m 772.00 37.00 l S
-20.00 334.00 m 772.00 334.00 l S
+BT /F3 4.9 Tf 394.00 392.00 Td (        exists terminalValue : Omega -> R, Integrable terminalValue mu /\\) Tj ET
+BT /F3 4.9 Tf 394.00 385.00 Td (          \(forall^m omega dmu, Tendsto \(fun t => X t omega\) atTop \(nhds) Tj ET
+BT /F3 4.9 Tf 394.00 378.00 Td (        \(terminalValue omega\)\)\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 371.00 Td (          forall tau' : Omega -> WithTop R>=0, IsStoppingTime F tau' ->) Tj ET
+BT /F3 4.9 Tf 394.00 364.00 Td (            Integrable \(stoppedValueWithLimit X terminalValue tau'\) mu /\\) Tj ET
+BT /F3 4.9 Tf 394.00 357.00 Td (            forall sigma' : Omega -> WithTop R>=0, forall hsigma' :) Tj ET
+BT /F3 4.9 Tf 394.00 350.00 Td (        IsStoppingTime F sigma',) Tj ET
+BT /F3 4.9 Tf 394.00 343.00 Td (              stoppedValueWithLimit X terminalValue \(fun omega => min) Tj ET
+BT /F3 4.9 Tf 394.00 336.00 Td (        \(sigma' omega\) \(tau' omega\)\) <=^m[mu]) Tj ET
+BT /F3 4.9 Tf 394.00 329.00 Td (                mu[stoppedValueWithLimit X terminalValue tau' |) Tj ET
+BT /F3 4.9 Tf 394.00 322.00 Td (        hsigma'.measurableSpace]\) := by) Tj ET
+BT /F3 4.9 Tf 394.00 315.00 Td (  sorry) Tj ET
+20.00 306.00 m 20.00 37.00 l S
+310.00 306.00 m 310.00 37.00 l S
+390.00 306.00 m 390.00 37.00 l S
+772.00 306.00 m 772.00 37.00 l S
+20.00 306.00 m 772.00 306.00 l S
 20.00 37.00 m 772.00 37.00 l S
-BT /F1 5.8 Tf 24.00 326.00 Td (Theorem 10.5 \(Doob-Meyer decomposition, Meyer, Doleans\) For an) Tj ET
-BT /F1 5.8 Tf 24.00 319.00 Td (adapted process X, these conditions are equivalent:) Tj ET
-BT /F1 5.8 Tf 24.00 312.00 Td (\(i\) X is a local sub-martingale,) Tj ET
-BT /F1 5.8 Tf 24.00 305.00 Td (\(ii\) X = M + A a.s. for a local martingale M and a locally) Tj ET
-BT /F1 5.8 Tf 24.00 298.00 Td (integrable, non-decreasing, predictable process A with A0 = 0.) Tj ET
-BT /F1 5.8 Tf 24.00 291.00 Td (The processes M and A are then a.s. unique.) Tj ET
-BT /F1 5.8 Tf 24.00 284.00 Td () Tj ET
-BT /F1 5.8 Tf 24.00 277.00 Td (By an increasing process we mean a non-decreasing, right-) Tj ET
-BT /F1 5.8 Tf 24.00 270.00 Td (continuous, and adapted process A with A0 = 0. It is said to) Tj ET
-BT /F1 5.8 Tf 24.00 263.00 Td (be integrable if EAinf < inf. Recall that all sub-martingales) Tj ET
-BT /F1 5.8 Tf 24.00 256.00 Td (are taken to be right-continuous. Local sub-martingales and) Tj ET
-BT /F1 5.8 Tf 24.00 249.00 Td (locally integrable processes are defined by localization, in) Tj ET
-BT /F1 5.8 Tf 24.00 242.00 Td (the usual way.) Tj ET
-BT /F1 5.8 Tf 24.00 235.00 Td () Tj ET
-BT /F1 5.8 Tf 24.00 228.00 Td (A process M is said to be a local martingale, if it is adapted) Tj ET
-BT /F1 5.8 Tf 24.00 221.00 Td (to F and such that the stopped and centered processes M^{taun}) Tj ET
-BT /F1 5.8 Tf 24.00 214.00 Td (- M0 are true martingales for some optional times taun coe) Tj ET
-BT /F1 5.8 Tf 24.00 207.00 Td (inf. By a similar localization we may define local) Tj ET
-BT /F1 5.8 Tf 24.00 200.00 Td (L2-martingales, locally bounded martingales, locally) Tj ET
-BT /F1 5.8 Tf 24.00 193.00 Td (integrable processes, etc. The required optional times taun) Tj ET
-BT /F1 5.8 Tf 24.00 186.00 Td (are said to form a localizing sequence.) Tj ET
-BT /F1 5.8 Tf 314.00 326.00 Td (Martingales) Tj ET
-BT /F3 4.9 Tf 394.00 326.00 Td (def LocalizesToInfinity {Omega iota : Type*} [MeasurableSpace Omega]) Tj ET
-BT /F3 4.9 Tf 394.00 319.00 Td ([LinearOrder iota]) Tj ET
-BT /F3 4.9 Tf 394.00 312.00 Td (    [TopologicalSpace iota] [OrderTopology iota] \(tau : N -> Omega ->) Tj ET
-BT /F3 4.9 Tf 394.00 305.00 Td (    WithTop iota\)) Tj ET
-BT /F3 4.9 Tf 394.00 298.00 Td (    \(mu : Measure Omega\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 291.00 Td (  \(forall n, tau n <= tau \(n + 1\)\) /\\ forall^m omega dmu, Tendsto \(fun n =>) Tj ET
-BT /F3 4.9 Tf 394.00 284.00 Td (  tau n omega\) atTop atTop) Tj ET
-BT /F3 4.9 Tf 394.00 277.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 270.00 Td (def IsLocalMartingale {Omega iota : Type*} [MeasurableSpace Omega]) Tj ET
-BT /F3 4.9 Tf 394.00 263.00 Td ([LinearOrder iota] [Nonempty iota]) Tj ET
-BT /F3 4.9 Tf 394.00 256.00 Td (    [OrderBot iota] [TopologicalSpace iota] [OrderTopology iota] \(X : iota) Tj ET
-BT /F3 4.9 Tf 394.00 249.00 Td (    -> Omega -> R\)) Tj ET
-BT /F3 4.9 Tf 394.00 242.00 Td (    \(F : Filtration iota MeasurableSpace Omega\) \(mu : Measure Omega\) : Prop) Tj ET
-BT /F3 4.9 Tf 394.00 235.00 Td (    :=) Tj ET
-BT /F3 4.9 Tf 394.00 228.00 Td (  exists tau : N -> Omega -> WithTop iota,) Tj ET
-BT /F3 4.9 Tf 394.00 221.00 Td (    \(forall n, IsStoppingTime F \(tau n\)\) /\\ LocalizesToInfinity tau mu /\\) Tj ET
-BT /F3 4.9 Tf 394.00 214.00 Td (      forall n, Martingale \(fun t omega => stoppedProcess X \(tau n\) t omega) Tj ET
-BT /F3 4.9 Tf 394.00 207.00 Td (      - X \(bot : iota\) omega\) F mu) Tj ET
-BT /F3 4.9 Tf 394.00 200.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 193.00 Td (def IsLocalSubmartingale {Omega iota : Type*} [MeasurableSpace Omega]) Tj ET
-BT /F3 4.9 Tf 394.00 186.00 Td ([LinearOrder iota] [Nonempty iota]) Tj ET
-BT /F3 4.9 Tf 394.00 179.00 Td (    [OrderBot iota] [TopologicalSpace iota] [OrderTopology iota] \(X : iota) Tj ET
-BT /F3 4.9 Tf 394.00 172.00 Td (    -> Omega -> R\)) Tj ET
-BT /F3 4.9 Tf 394.00 165.00 Td (    \(F : Filtration iota MeasurableSpace Omega\) \(mu : Measure Omega\) : Prop) Tj ET
-BT /F3 4.9 Tf 394.00 158.00 Td (    :=) Tj ET
-BT /F3 4.9 Tf 394.00 151.00 Td (  exists tau : N -> Omega -> WithTop iota,) Tj ET
-BT /F3 4.9 Tf 394.00 144.00 Td (    \(forall n, IsStoppingTime F \(tau n\)\) /\\ LocalizesToInfinity tau mu /\\) Tj ET
-BT /F3 4.9 Tf 394.00 137.00 Td (      forall n, Submartingale) Tj ET
-BT /F3 4.9 Tf 394.00 130.00 Td (        \(fun t omega => stoppedProcess X \(tau n\) t omega - X \(bot : iota\)) Tj ET
-BT /F3 4.9 Tf 394.00 123.00 Td (        omega\) F mu) Tj ET
-BT /F3 4.9 Tf 394.00 116.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 109.00 Td (def IsLocallyIntegrableProcess {Omega iota : Type*} [MeasurableSpace Omega]) Tj ET
-BT /F3 4.9 Tf 394.00 102.00 Td ([LinearOrder iota] [Nonempty iota]) Tj ET
-BT /F3 4.9 Tf 394.00 95.00 Td (    [TopologicalSpace iota] [OrderTopology iota] \(X : iota -> Omega -> R\)) Tj ET
-BT /F3 4.9 Tf 394.00 88.00 Td (    \(F : Filtration iota MeasurableSpace Omega\) \(mu : Measure Omega\) : Prop) Tj ET
-BT /F3 4.9 Tf 394.00 81.00 Td (    :=) Tj ET
-BT /F3 4.9 Tf 394.00 74.00 Td (  exists tau : N -> Omega -> WithTop iota,) Tj ET
-BT /F3 4.9 Tf 394.00 67.00 Td (    \(forall n, IsStoppingTime F \(tau n\)\) /\\ LocalizesToInfinity tau mu /\\) Tj ET
-BT /F3 4.9 Tf 394.00 60.00 Td (      forall n t, Integrable \(stoppedProcess X \(tau n\) t\) mu) Tj ET
-BT /F3 4.9 Tf 394.00 53.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 46.00 Td (theorem kallenberg_10_5_doob_meyer) Tj ET
+BT /F1 5.8 Tf 24.00 298.00 Td (Theorem 10.5 \(Doob-Meyer decomposition, Meyer, Doleans\) For an) Tj ET
+BT /F1 5.8 Tf 24.00 291.00 Td (adapted process X, these conditions are equivalent:) Tj ET
+BT /F1 5.8 Tf 24.00 284.00 Td (\(i\) X is a local sub-martingale,) Tj ET
+BT /F1 5.8 Tf 24.00 277.00 Td (\(ii\) X = M + A a.s. for a local martingale M and a locally) Tj ET
+BT /F1 5.8 Tf 24.00 270.00 Td (integrable, non-decreasing, predictable process A with A0 = 0.) Tj ET
+BT /F1 5.8 Tf 24.00 263.00 Td (The processes M and A are then a.s. unique.) Tj ET
+BT /F1 5.8 Tf 24.00 256.00 Td () Tj ET
+BT /F1 5.8 Tf 24.00 249.00 Td (By an increasing process we mean a non-decreasing, right-) Tj ET
+BT /F1 5.8 Tf 24.00 242.00 Td (continuous, and adapted process A with A0 = 0. It is said to) Tj ET
+BT /F1 5.8 Tf 24.00 235.00 Td (be integrable if EAinf < inf. Recall that all sub-martingales) Tj ET
+BT /F1 5.8 Tf 24.00 228.00 Td (are taken to be right-continuous. Local sub-martingales and) Tj ET
+BT /F1 5.8 Tf 24.00 221.00 Td (locally integrable processes are defined by localization, in) Tj ET
+BT /F1 5.8 Tf 24.00 214.00 Td (the usual way.) Tj ET
+BT /F1 5.8 Tf 24.00 207.00 Td () Tj ET
+BT /F1 5.8 Tf 24.00 200.00 Td (A process M is said to be a local martingale, if it is adapted) Tj ET
+BT /F1 5.8 Tf 24.00 193.00 Td (to F and such that the stopped and centered processes M^{taun}) Tj ET
+BT /F1 5.8 Tf 24.00 186.00 Td (- M0 are true martingales for some optional times taun coe) Tj ET
+BT /F1 5.8 Tf 24.00 179.00 Td (inf. By a similar localization we may define local) Tj ET
+BT /F1 5.8 Tf 24.00 172.00 Td (L2-martingales, locally bounded martingales, locally) Tj ET
+BT /F1 5.8 Tf 24.00 165.00 Td (integrable processes, etc. The required optional times taun) Tj ET
+BT /F1 5.8 Tf 24.00 158.00 Td (are said to form a localizing sequence.) Tj ET
+BT /F1 5.8 Tf 314.00 298.00 Td (Martingales) Tj ET
+BT /F3 4.9 Tf 394.00 298.00 Td (def LocalizesToInfinity {Omega iota : Type*} [MeasurableSpace Omega]) Tj ET
+BT /F3 4.9 Tf 394.00 291.00 Td ([LinearOrder iota]) Tj ET
+BT /F3 4.9 Tf 394.00 284.00 Td (    [TopologicalSpace iota] [OrderTopology iota] \(tau : N -> Omega ->) Tj ET
+BT /F3 4.9 Tf 394.00 277.00 Td (    WithTop iota\)) Tj ET
+BT /F3 4.9 Tf 394.00 270.00 Td (    \(mu : Measure Omega\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 263.00 Td (  \(forall n, tau n <= tau \(n + 1\)\) /\\ forall^m omega dmu, Tendsto \(fun n =>) Tj ET
+BT /F3 4.9 Tf 394.00 256.00 Td (  tau n omega\) atTop atTop) Tj ET
+BT /F3 4.9 Tf 394.00 249.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 242.00 Td (def IsLocalMartingale {Omega iota : Type*} [MeasurableSpace Omega]) Tj ET
+BT /F3 4.9 Tf 394.00 235.00 Td ([LinearOrder iota] [Nonempty iota]) Tj ET
+BT /F3 4.9 Tf 394.00 228.00 Td (    [OrderBot iota] [TopologicalSpace iota] [OrderTopology iota] \(X : iota) Tj ET
+BT /F3 4.9 Tf 394.00 221.00 Td (    -> Omega -> R\)) Tj ET
+BT /F3 4.9 Tf 394.00 214.00 Td (    \(F : Filtration iota MeasurableSpace Omega\) \(mu : Measure Omega\) : Prop) Tj ET
+BT /F3 4.9 Tf 394.00 207.00 Td (    :=) Tj ET
+BT /F3 4.9 Tf 394.00 200.00 Td (  exists tau : N -> Omega -> WithTop iota,) Tj ET
+BT /F3 4.9 Tf 394.00 193.00 Td (    \(forall n, IsStoppingTime F \(tau n\)\) /\\ LocalizesToInfinity tau mu /\\) Tj ET
+BT /F3 4.9 Tf 394.00 186.00 Td (      forall n, Martingale \(fun t omega => stoppedProcess X \(tau n\) t omega) Tj ET
+BT /F3 4.9 Tf 394.00 179.00 Td (      - X \(bot : iota\) omega\) F mu) Tj ET
+BT /F3 4.9 Tf 394.00 172.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 165.00 Td (def IsLocalSubmartingale {Omega iota : Type*} [MeasurableSpace Omega]) Tj ET
+BT /F3 4.9 Tf 394.00 158.00 Td ([LinearOrder iota] [Nonempty iota]) Tj ET
+BT /F3 4.9 Tf 394.00 151.00 Td (    [OrderBot iota] [TopologicalSpace iota] [OrderTopology iota] \(X : iota) Tj ET
+BT /F3 4.9 Tf 394.00 144.00 Td (    -> Omega -> R\)) Tj ET
+BT /F3 4.9 Tf 394.00 137.00 Td (    \(F : Filtration iota MeasurableSpace Omega\) \(mu : Measure Omega\) : Prop) Tj ET
+BT /F3 4.9 Tf 394.00 130.00 Td (    :=) Tj ET
+BT /F3 4.9 Tf 394.00 123.00 Td (  exists tau : N -> Omega -> WithTop iota,) Tj ET
+BT /F3 4.9 Tf 394.00 116.00 Td (    \(forall n, IsStoppingTime F \(tau n\)\) /\\ LocalizesToInfinity tau mu /\\) Tj ET
+BT /F3 4.9 Tf 394.00 109.00 Td (      forall n, Submartingale) Tj ET
+BT /F3 4.9 Tf 394.00 102.00 Td (        \(fun t omega => stoppedProcess X \(tau n\) t omega - X \(bot : iota\)) Tj ET
+BT /F3 4.9 Tf 394.00 95.00 Td (        omega\) F mu) Tj ET
+BT /F3 4.9 Tf 394.00 88.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 81.00 Td (def IsLocallyIntegrableProcess {Omega iota : Type*} [MeasurableSpace Omega]) Tj ET
+BT /F3 4.9 Tf 394.00 74.00 Td ([LinearOrder iota] [Nonempty iota]) Tj ET
+BT /F3 4.9 Tf 394.00 67.00 Td (    [TopologicalSpace iota] [OrderTopology iota] \(X : iota -> Omega -> R\)) Tj ET
+BT /F3 4.9 Tf 394.00 60.00 Td (    \(F : Filtration iota MeasurableSpace Omega\) \(mu : Measure Omega\) : Prop) Tj ET
+BT /F3 4.9 Tf 394.00 53.00 Td (    :=) Tj ET
+BT /F3 4.9 Tf 394.00 46.00 Td (  exists tau : N -> Omega -> WithTop iota,) Tj ET
 endstream
 endobj
 9 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 11 0 R /F2 12 0 R /F3 13 0 R >> >> /Contents 10 0 R >>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 13 0 R /F2 14 0 R /F3 15 0 R >> >> /Contents 10 0 R >>
 endobj
 10 0 obj
-<< /Length 8270 >>
+<< /Length 8769 >>
 stream
 BT /F2 12 Tf 24.00 586.00 Td (Kallenberg Foundations of Modern Probability Benchmark) Tj ET
 BT /F1 7 Tf 740.00 586.00 Td (p. 4) Tj ET
@@ -434,136 +434,164 @@ BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
 BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
 BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
 20.00 558.00 m 772.00 558.00 l S
-20.00 550.00 m 20.00 365.00 l S
-310.00 550.00 m 310.00 365.00 l S
-390.00 550.00 m 390.00 365.00 l S
-772.00 550.00 m 772.00 365.00 l S
+20.00 550.00 m 20.00 323.00 l S
+310.00 550.00 m 310.00 323.00 l S
+390.00 550.00 m 390.00 323.00 l S
+772.00 550.00 m 772.00 323.00 l S
 20.00 550.00 m 772.00 550.00 l S
-20.00 365.00 m 772.00 365.00 l S
-BT /F3 4.9 Tf 394.00 542.00 Td (    {Omega : Type*} [MeasurableSpace Omega] \(mu : Measure Omega\)) Tj ET
-BT /F3 4.9 Tf 394.00 535.00 Td (    [IsProbabilityMeasure mu]) Tj ET
-BT /F3 4.9 Tf 394.00 528.00 Td (    \(F : Filtration R>=0 MeasurableSpace Omega\) [F.IsRightContinuous]) Tj ET
-BT /F3 4.9 Tf 394.00 521.00 Td (    \(X : R>=0 -> Omega -> R\) \(hX : Adapted F X\)) Tj ET
-BT /F3 4.9 Tf 394.00 514.00 Td (    \(hXright : forall^m omega dmu, forall t,) Tj ET
-BT /F3 4.9 Tf 394.00 507.00 Td (      ContinuousWithinAt \(fun s => X s omega\) \(Ici t\) t\) :) Tj ET
-BT /F3 4.9 Tf 394.00 500.00 Td (    IsLocalSubmartingale X F mu <->) Tj ET
-BT /F3 4.9 Tf 394.00 493.00 Td (      exists M A : R>=0 -> Omega -> R,) Tj ET
-BT /F3 4.9 Tf 394.00 486.00 Td (        \(forall t, X t =^m[mu] M t + A t\) /\\ IsLocalMartingale M F mu /\\) Tj ET
-BT /F3 4.9 Tf 394.00 479.00 Td (        IsLocallyIntegrableProcess A F mu /\\ IsStronglyPredictable F A /\\) Tj ET
-BT /F3 4.9 Tf 394.00 472.00 Td (        \(forall^m omega dmu, Monotone fun t => A t omega\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 465.00 Td (        \(forall^m omega dmu, forall t, ContinuousWithinAt \(fun s => A s) Tj ET
-BT /F3 4.9 Tf 394.00 458.00 Td (        omega\) \(Ici t\) t\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 451.00 Td (        A 0 =^m[mu] 0 /\\) Tj ET
-BT /F3 4.9 Tf 394.00 444.00 Td (        forall M' A' : R>=0 -> Omega -> R,) Tj ET
-BT /F3 4.9 Tf 394.00 437.00 Td (          \(forall t, X t =^m[mu] M' t + A' t\) -> IsLocalMartingale M' F mu) Tj ET
-BT /F3 4.9 Tf 394.00 430.00 Td (        ->) Tj ET
-BT /F3 4.9 Tf 394.00 423.00 Td (          IsLocallyIntegrableProcess A' F mu -> IsStronglyPredictable F A') Tj ET
-BT /F3 4.9 Tf 394.00 416.00 Td (        ->) Tj ET
-BT /F3 4.9 Tf 394.00 409.00 Td (          \(forall^m omega dmu, Monotone fun t => A' t omega\) ->) Tj ET
-BT /F3 4.9 Tf 394.00 402.00 Td (          \(forall^m omega dmu, forall t, ContinuousWithinAt \(fun s => A' s) Tj ET
-BT /F3 4.9 Tf 394.00 395.00 Td (        omega\) \(Ici t\) t\) ->) Tj ET
-BT /F3 4.9 Tf 394.00 388.00 Td (          A' 0 =^m[mu] 0 -> \(forall t, M t =^m[mu] M' t\) /\\ forall t, A t) Tj ET
-BT /F3 4.9 Tf 394.00 381.00 Td (        =^m[mu] A' t := by) Tj ET
-BT /F3 4.9 Tf 394.00 374.00 Td (  sorry) Tj ET
-20.00 365.00 m 20.00 285.00 l S
-310.00 365.00 m 310.00 285.00 l S
-390.00 365.00 m 390.00 285.00 l S
-772.00 365.00 m 772.00 285.00 l S
-20.00 365.00 m 772.00 365.00 l S
-20.00 285.00 m 772.00 285.00 l S
-BT /F1 5.8 Tf 24.00 357.00 Td (Theorem 23.2 \(tightness and relative compactness, Prohorov\)) Tj ET
-BT /F1 5.8 Tf 24.00 350.00 Td (For a set Xi of random elements in a metric space S, we have) Tj ET
-BT /F1 5.8 Tf 24.00 343.00 Td (\(i\)  =>  \(ii\) with) Tj ET
-BT /F1 5.8 Tf 24.00 336.00 Td (\(i\) Xi is tight,) Tj ET
-BT /F1 5.8 Tf 24.00 329.00 Td (\(ii\) Xi is relatively compact in distribution,) Tj ET
-BT /F1 5.8 Tf 24.00 322.00 Td (and equivalence holds when S is separable and complete.) Tj ET
-BT /F1 5.8 Tf 314.00 357.00 Td (Probability) Tj ET
-BT /F3 4.9 Tf 394.00 357.00 Td (theorem kallenberg_23_2_tightness_and_relative_compactness) Tj ET
-BT /F3 4.9 Tf 394.00 350.00 Td (    {S : Type*} [MetricSpace S] [MeasurableSpace S] [BorelSpace S]) Tj ET
-BT /F3 4.9 Tf 394.00 343.00 Td (    \(Xi : Set \(ProbabilityMeasure S\)\) :) Tj ET
-BT /F3 4.9 Tf 394.00 336.00 Td (    let tight := IsTightMeasureSet {\(\(nu : ProbabilityMeasure S\) : Measure) Tj ET
-BT /F3 4.9 Tf 394.00 329.00 Td (    S\) | nu in Xi}) Tj ET
-BT /F3 4.9 Tf 394.00 322.00 Td (    let relativelyCompact := IsCompact \(closure Xi\)) Tj ET
-BT /F3 4.9 Tf 394.00 315.00 Td (    \(tight -> relativelyCompact\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 308.00 Td (      \(\(TopologicalSpace.SeparableSpace S /\\ CompleteSpace S\) ->) Tj ET
-BT /F3 4.9 Tf 394.00 301.00 Td (        \(tight <-> relativelyCompact\)\) := by) Tj ET
-BT /F3 4.9 Tf 394.00 294.00 Td (  sorry) Tj ET
-20.00 285.00 m 20.00 72.00 l S
-310.00 285.00 m 310.00 72.00 l S
-390.00 285.00 m 390.00 72.00 l S
-772.00 285.00 m 772.00 72.00 l S
-20.00 285.00 m 772.00 285.00 l S
-20.00 72.00 m 772.00 72.00 l S
-BT /F1 5.8 Tf 24.00 277.00 Td (Theorem 23.6 \(functional central limit theorem, Donsker\) Let) Tj ET
-BT /F1 5.8 Tf 24.00 270.00 Td (xi1, xi2, ... be i.i.d. random vectors in R^d with mean 0 and) Tj ET
-BT /F1 5.8 Tf 24.00 263.00 Td (covariances deltaij, form the continuous processes X_t^n =) Tj ET
-BT /F1 5.8 Tf 24.00 256.00 Td (n^-1/2[sum_{k<=nt} xik + \(nt - [nt]\) xi_[nt]+1], t >= 0, n in) Tj ET
-BT /F1 5.8 Tf 24.00 249.00 Td (N, and let B be a Brownian motion in R^d. Then X^n -> B in) Tj ET
-BT /F1 5.8 Tf 24.00 242.00 Td (distribution in C_{R+,R^d}.) Tj ET
-BT /F1 5.8 Tf 24.00 235.00 Td () Tj ET
-BT /F1 5.8 Tf 24.00 228.00 Td (A d-dimensional Brownian motion is a process B = \(B1, ...,) Tj ET
-BT /F1 5.8 Tf 24.00 221.00 Td (B^d\) in R^d, where B1, ..., B^d are independent, one-) Tj ET
-BT /F1 5.8 Tf 24.00 214.00 Td (dimensional Brownian motions.) Tj ET
-BT /F1 5.8 Tf 314.00 277.00 Td (Stochastic) Tj ET
-BT /F1 5.8 Tf 314.00 270.00 Td (processes) Tj ET
-BT /F3 4.9 Tf 394.00 277.00 Td (def IsBrownianVector {Omega : Type*} [MeasurableSpace Omega] {d : N}) Tj ET
-BT /F3 4.9 Tf 394.00 270.00 Td (    \(B : Omega -> C\(R>=0, Fin d -> R\)\) \(mu : Measure Omega\) : Prop :=) Tj ET
-BT /F3 4.9 Tf 394.00 263.00 Td (  \(forall i, IsBrownianReal \(fun t omega => B omega t i\) mu\) /\\) Tj ET
-BT /F3 4.9 Tf 394.00 256.00 Td (    forall times : Finset R>=0,) Tj ET
-BT /F3 4.9 Tf 394.00 249.00 Td (      iIndepFun \(fun i omega \(t : times\) => B omega t i\) mu) Tj ET
-BT /F3 4.9 Tf 394.00 242.00 Td () Tj ET
-BT /F3 4.9 Tf 394.00 235.00 Td (theorem kallenberg_23_6_functional_central_limit) Tj ET
-BT /F3 4.9 Tf 394.00 228.00 Td (    {Omega Omega' : Type*} [MeasurableSpace Omega] [MeasurableSpace Omega']) Tj ET
-BT /F3 4.9 Tf 394.00 221.00 Td (    {d : N}) Tj ET
-BT /F3 4.9 Tf 394.00 214.00 Td (    [MeasurableSpace C\(R>=0, Fin d -> R\)] [BorelSpace C\(R>=0, Fin d -> R\)]) Tj ET
-BT /F3 4.9 Tf 394.00 207.00 Td (    \(mu : Measure Omega\) \(mu' : Measure Omega'\) [IsProbabilityMeasure mu]) Tj ET
-BT /F3 4.9 Tf 394.00 200.00 Td (    [IsProbabilityMeasure mu'] \(xi : N -> Omega -> \(Fin d -> R\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 193.00 Td (    \(X : N -> Omega -> C\(R>=0, Fin d -> R\)\) \(B : Omega' -> C\(R>=0, Fin d ->) Tj ET
-BT /F3 4.9 Tf 394.00 186.00 Td (    R\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 179.00 Td (    \(hximeas : forall n, AEMeasurable \(xi n\) mu\)) Tj ET
-BT /F3 4.9 Tf 394.00 172.00 Td (    \(hiid : iIndepFun xi mu /\\ forall n, IdentDistrib \(xi n\) \(xi 0\) mu mu\)) Tj ET
-BT /F3 4.9 Tf 394.00 165.00 Td (    \(hsecondMoment : forall i, MemLp \(fun omega => xi 0 omega i\) 2 mu\)) Tj ET
-BT /F3 4.9 Tf 394.00 158.00 Td (    \(hmean : forall i, integral omega, xi 0 omega i dmu = 0\)) Tj ET
-BT /F3 4.9 Tf 394.00 151.00 Td (    \(hcovariance : forall i j, integral omega, xi 0 omega i * xi 0 omega j) Tj ET
-BT /F3 4.9 Tf 394.00 144.00 Td (    dmu = if i = j then 1 else 0\)) Tj ET
-BT /F3 4.9 Tf 394.00 137.00 Td (    \(hX : forall n, 0 < n -> forall omega t i,) Tj ET
-BT /F3 4.9 Tf 394.00 130.00 Td (      X n omega t i = \(Real.sqrt \(n : R\)\)^-1 *) Tj ET
-BT /F3 4.9 Tf 394.00 123.00 Td (        \(\(sum k in Finset.Icc 1 \(n : R\) * \(t : R\)+, xi k omega i\) +) Tj ET
-BT /F3 4.9 Tf 394.00 116.00 Td (          \(\(n : R\) * \(t : R\) - \(n : R\) * \(t : R\)+\) *) Tj ET
-BT /F3 4.9 Tf 394.00 109.00 Td (            xi \(\(n : R\) * \(t : R\)+ + 1\) omega i\)\)) Tj ET
-BT /F3 4.9 Tf 394.00 102.00 Td (    \(hXmeas : forall n, AEMeasurable \(X n\) mu\)) Tj ET
-BT /F3 4.9 Tf 394.00 95.00 Td (    \(hB : IsBrownianVector B mu'\) :) Tj ET
-BT /F3 4.9 Tf 394.00 88.00 Td (    TendstoInDistribution X atTop B \(fun _ => mu\) mu' := by) Tj ET
-BT /F3 4.9 Tf 394.00 81.00 Td (  sorry) Tj ET
+20.00 323.00 m 772.00 323.00 l S
+BT /F3 4.9 Tf 394.00 542.00 Td (    \(forall n, IsStoppingTime F \(tau n\)\) /\\ LocalizesToInfinity tau mu /\\) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (      forall n t, Integrable \(stoppedProcess X \(tau n\) t\) mu) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (theorem kallenberg_10_5_doob_meyer) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (    {Omega : Type*} [MeasurableSpace Omega] \(mu : Measure Omega\)) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (    [IsProbabilityMeasure mu]) Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (    \(F : Filtration R>=0 MeasurableSpace Omega\) [F.IsRightContinuous]) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td (    \(X : R>=0 -> Omega -> R\) \(hX : Adapted F X\)) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td (    \(hXright : forall^m omega dmu, forall t,) Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (      ContinuousWithinAt \(fun s => X s omega\) \(Ici t\) t\) :) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td (    IsLocalSubmartingale X F mu <->) Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (      exists M A : R>=0 -> Omega -> R,) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td (        \(forall^m omega dmu, forall t, X t omega = M t omega + A t omega\)) Tj ET
+BT /F3 4.9 Tf 394.00 451.00 Td (        /\\ IsLocalMartingale M F mu /\\) Tj ET
+BT /F3 4.9 Tf 394.00 444.00 Td (        IsLocallyIntegrableProcess A F mu /\\ IsStronglyPredictable F A /\\) Tj ET
+BT /F3 4.9 Tf 394.00 437.00 Td (        \(forall^m omega dmu, Monotone fun t => A t omega\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 430.00 Td (        \(forall^m omega dmu, forall t, ContinuousWithinAt \(fun s => A s) Tj ET
+BT /F3 4.9 Tf 394.00 423.00 Td (        omega\) \(Ici t\) t\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 416.00 Td (        A 0 =^m[mu] 0 /\\) Tj ET
+BT /F3 4.9 Tf 394.00 409.00 Td (        forall M' A' : R>=0 -> Omega -> R,) Tj ET
+BT /F3 4.9 Tf 394.00 402.00 Td (          \(forall^m omega dmu, forall t, X t omega = M' t omega + A' t) Tj ET
+BT /F3 4.9 Tf 394.00 395.00 Td (        omega\) -> IsLocalMartingale M' F mu ->) Tj ET
+BT /F3 4.9 Tf 394.00 388.00 Td (          IsLocallyIntegrableProcess A' F mu -> IsStronglyPredictable F A') Tj ET
+BT /F3 4.9 Tf 394.00 381.00 Td (        ->) Tj ET
+BT /F3 4.9 Tf 394.00 374.00 Td (          \(forall^m omega dmu, Monotone fun t => A' t omega\) ->) Tj ET
+BT /F3 4.9 Tf 394.00 367.00 Td (          \(forall^m omega dmu, forall t, ContinuousWithinAt \(fun s => A' s) Tj ET
+BT /F3 4.9 Tf 394.00 360.00 Td (        omega\) \(Ici t\) t\) ->) Tj ET
+BT /F3 4.9 Tf 394.00 353.00 Td (          A' 0 =^m[mu] 0 -> \(forall^m omega dmu, forall t, M t omega = M' t) Tj ET
+BT /F3 4.9 Tf 394.00 346.00 Td (        omega\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 339.00 Td (            forall^m omega dmu, forall t, A t omega = A' t omega := by) Tj ET
+BT /F3 4.9 Tf 394.00 332.00 Td (  sorry) Tj ET
+20.00 323.00 m 20.00 243.00 l S
+310.00 323.00 m 310.00 243.00 l S
+390.00 323.00 m 390.00 243.00 l S
+772.00 323.00 m 772.00 243.00 l S
+20.00 323.00 m 772.00 323.00 l S
+20.00 243.00 m 772.00 243.00 l S
+BT /F1 5.8 Tf 24.00 315.00 Td (Theorem 23.2 \(tightness and relative compactness, Prohorov\)) Tj ET
+BT /F1 5.8 Tf 24.00 308.00 Td (For a set Xi of random elements in a metric space S, we have) Tj ET
+BT /F1 5.8 Tf 24.00 301.00 Td (\(i\)  =>  \(ii\) with) Tj ET
+BT /F1 5.8 Tf 24.00 294.00 Td (\(i\) Xi is tight,) Tj ET
+BT /F1 5.8 Tf 24.00 287.00 Td (\(ii\) Xi is relatively compact in distribution,) Tj ET
+BT /F1 5.8 Tf 24.00 280.00 Td (and equivalence holds when S is separable and complete.) Tj ET
+BT /F1 5.8 Tf 314.00 315.00 Td (Probability) Tj ET
+BT /F3 4.9 Tf 394.00 315.00 Td (theorem kallenberg_23_2_tightness_and_relative_compactness) Tj ET
+BT /F3 4.9 Tf 394.00 308.00 Td (    {S : Type*} [MetricSpace S] [MeasurableSpace S] [BorelSpace S]) Tj ET
+BT /F3 4.9 Tf 394.00 301.00 Td (    \(Xi : Set \(ProbabilityMeasure S\)\) :) Tj ET
+BT /F3 4.9 Tf 394.00 294.00 Td (    let tight := IsTightMeasureSet {\(\(nu : ProbabilityMeasure S\) : Measure) Tj ET
+BT /F3 4.9 Tf 394.00 287.00 Td (    S\) | nu in Xi}) Tj ET
+BT /F3 4.9 Tf 394.00 280.00 Td (    let relativelyCompact := IsCompact \(closure Xi\)) Tj ET
+BT /F3 4.9 Tf 394.00 273.00 Td (    \(tight -> relativelyCompact\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 266.00 Td (      \(\(TopologicalSpace.SeparableSpace S /\\ CompleteSpace S\) ->) Tj ET
+BT /F3 4.9 Tf 394.00 259.00 Td (        \(tight <-> relativelyCompact\)\) := by) Tj ET
+BT /F3 4.9 Tf 394.00 252.00 Td (  sorry) Tj ET
+20.00 243.00 m 20.00 37.00 l S
+310.00 243.00 m 310.00 37.00 l S
+390.00 243.00 m 390.00 37.00 l S
+772.00 243.00 m 772.00 37.00 l S
+20.00 243.00 m 772.00 243.00 l S
+20.00 37.00 m 772.00 37.00 l S
+BT /F1 5.8 Tf 24.00 235.00 Td (Theorem 23.6 \(functional central limit theorem, Donsker\) Let) Tj ET
+BT /F1 5.8 Tf 24.00 228.00 Td (xi1, xi2, ... be i.i.d. random vectors in R^d with mean 0 and) Tj ET
+BT /F1 5.8 Tf 24.00 221.00 Td (covariances deltaij, form the continuous processes X_t^n =) Tj ET
+BT /F1 5.8 Tf 24.00 214.00 Td (n^-1/2[sum_{k<=nt} xik + \(nt - [nt]\) xi_[nt]+1], t >= 0, n in) Tj ET
+BT /F1 5.8 Tf 24.00 207.00 Td (N, and let B be a Brownian motion in R^d. Then X^n -> B in) Tj ET
+BT /F1 5.8 Tf 24.00 200.00 Td (distribution in C_{R+,R^d}.) Tj ET
+BT /F1 5.8 Tf 24.00 193.00 Td () Tj ET
+BT /F1 5.8 Tf 24.00 186.00 Td (A d-dimensional Brownian motion is a process B = \(B1, ...,) Tj ET
+BT /F1 5.8 Tf 24.00 179.00 Td (B^d\) in R^d, where B1, ..., B^d are independent, one-) Tj ET
+BT /F1 5.8 Tf 24.00 172.00 Td (dimensional Brownian motions.) Tj ET
+BT /F1 5.8 Tf 314.00 235.00 Td (Stochastic) Tj ET
+BT /F1 5.8 Tf 314.00 228.00 Td (processes) Tj ET
+BT /F3 4.9 Tf 394.00 235.00 Td (def IsBrownianVector {Omega : Type*} [MeasurableSpace Omega] {d : N}) Tj ET
+BT /F3 4.9 Tf 394.00 228.00 Td (    \(B : Omega -> C\(R>=0, Fin d -> R\)\) \(mu : Measure Omega\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 221.00 Td (  \(forall i, IsBrownianReal \(fun t omega => B omega t i\) mu\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 214.00 Td (    forall times : Finset R>=0,) Tj ET
+BT /F3 4.9 Tf 394.00 207.00 Td (      iIndepFun \(fun i omega \(t : times\) => B omega t i\) mu) Tj ET
+BT /F3 4.9 Tf 394.00 200.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 193.00 Td (theorem kallenberg_23_6_functional_central_limit) Tj ET
+BT /F3 4.9 Tf 394.00 186.00 Td (    {Omega Omega' : Type*} [MeasurableSpace Omega] [MeasurableSpace Omega']) Tj ET
+BT /F3 4.9 Tf 394.00 179.00 Td (    {d : N}) Tj ET
+BT /F3 4.9 Tf 394.00 172.00 Td (    [MeasurableSpace C\(R>=0, Fin d -> R\)] [BorelSpace C\(R>=0, Fin d -> R\)]) Tj ET
+BT /F3 4.9 Tf 394.00 165.00 Td (    \(mu : Measure Omega\) \(mu' : Measure Omega'\) [IsProbabilityMeasure mu]) Tj ET
+BT /F3 4.9 Tf 394.00 158.00 Td (    [IsProbabilityMeasure mu'] \(xi : N -> Omega -> \(Fin d -> R\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 151.00 Td (    \(X : N -> Omega -> C\(R>=0, Fin d -> R\)\) \(B : Omega' -> C\(R>=0, Fin d ->) Tj ET
+BT /F3 4.9 Tf 394.00 144.00 Td (    R\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 137.00 Td (    \(hximeas : forall n, AEMeasurable \(xi n\) mu\)) Tj ET
+BT /F3 4.9 Tf 394.00 130.00 Td (    \(hiid : iIndepFun xi mu /\\ forall n, IdentDistrib \(xi n\) \(xi 0\) mu mu\)) Tj ET
+BT /F3 4.9 Tf 394.00 123.00 Td (    \(hsecondMoment : forall i, MemLp \(fun omega => xi 0 omega i\) 2 mu\)) Tj ET
+BT /F3 4.9 Tf 394.00 116.00 Td (    \(hmean : forall i, integral omega, xi 0 omega i dmu = 0\)) Tj ET
+BT /F3 4.9 Tf 394.00 109.00 Td (    \(hcovariance : forall i j, integral omega, xi 0 omega i * xi 0 omega j) Tj ET
+BT /F3 4.9 Tf 394.00 102.00 Td (    dmu = if i = j then 1 else 0\)) Tj ET
+BT /F3 4.9 Tf 394.00 95.00 Td (    \(hX : forall n, 0 < n -> forall omega t i,) Tj ET
+BT /F3 4.9 Tf 394.00 88.00 Td (      X n omega t i = \(Real.sqrt \(n : R\)\)^-1 *) Tj ET
+BT /F3 4.9 Tf 394.00 81.00 Td (        \(\(sum k in Finset.Icc 1 \(n : R\) * \(t : R\)+, xi k omega i\) +) Tj ET
+BT /F3 4.9 Tf 394.00 74.00 Td (          \(\(n : R\) * \(t : R\) - \(n : R\) * \(t : R\)+\) *) Tj ET
+BT /F3 4.9 Tf 394.00 67.00 Td (            xi \(\(n : R\) * \(t : R\)+ + 1\) omega i\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 60.00 Td (    \(hXmeas : forall n, AEMeasurable \(X n\) mu\)) Tj ET
+BT /F3 4.9 Tf 394.00 53.00 Td (    \(hB : IsBrownianVector B mu'\) :) Tj ET
+BT /F3 4.9 Tf 394.00 46.00 Td (    TendstoInDistribution X atTop B \(fun _ => mu\) mu' := by) Tj ET
 endstream
 endobj
 11 0 obj
-<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 13 0 R /F2 14 0 R /F3 15 0 R >> >> /Contents 12 0 R >>
 endobj
 12 0 obj
-<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+<< /Length 569 >>
+stream
+BT /F2 12 Tf 24.00 586.00 Td (Kallenberg Foundations of Modern Probability Benchmark) Tj ET
+BT /F1 7 Tf 740.00 586.00 Td (p. 5) Tj ET
+BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
+BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
+BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
+20.00 558.00 m 772.00 558.00 l S
+20.00 550.00 m 20.00 533.00 l S
+310.00 550.00 m 310.00 533.00 l S
+390.00 550.00 m 390.00 533.00 l S
+772.00 550.00 m 772.00 533.00 l S
+20.00 550.00 m 772.00 550.00 l S
+20.00 533.00 m 772.00 533.00 l S
+BT /F3 4.9 Tf 394.00 542.00 Td (  sorry) Tj ET
+endstream
 endobj
 13 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+14 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+15 0 obj
 << /Type /Font /Subtype /Type1 /BaseFont /Courier >>
 endobj
 xref
-0 14
+0 16
 0000000000 65535 f 
 0000000015 00000 n 
 0000000064 00000 n 
-0000000139 00000 n 
-0000000288 00000 n 
-0000011341 00000 n 
-0000011490 00000 n 
-0000021667 00000 n 
-0000021816 00000 n 
-0000031331 00000 n 
-0000031481 00000 n 
-0000039804 00000 n 
-0000039875 00000 n 
-0000039951 00000 n 
+0000000146 00000 n 
+0000000295 00000 n 
+0000011348 00000 n 
+0000011497 00000 n 
+0000021674 00000 n 
+0000021823 00000 n 
+0000031435 00000 n 
+0000031585 00000 n 
+0000040407 00000 n 
+0000040558 00000 n 
+0000041179 00000 n 
+0000041250 00000 n 
+0000041326 00000 n 
 trailer
-<< /Size 14 /Root 1 0 R >>
+<< /Size 16 /Root 1 0 R >>
 startxref
-40020
+41395
 %%EOF

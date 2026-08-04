@@ -28,7 +28,7 @@ namespace KongODE
 theorem kong_4_5_3_generalized_poincare_bendixson
     {F : (Fin 2 → ℝ) → (Fin 2 → ℝ)} {x : ℝ → (Fin 2 → ℝ)}
     {E : Set (Fin 2 → ℝ)}
-    (hcompact : IsCompact E) (horbit : IsAutonomousTrajectory F x)
+    (hF : ContDiff ℝ 1 F) (hcompact : IsCompact E) (horbit : IsAutonomousTrajectory F x)
     (hfinite : {x ∈ E | F x = 0}.Finite) :
     let classify := fun limitSet : Set (Fin 2 → ℝ) ↦
       (∃ e, limitSet = {e} ∧ F e = 0) ∨ IsClosedOrbit F x ∨

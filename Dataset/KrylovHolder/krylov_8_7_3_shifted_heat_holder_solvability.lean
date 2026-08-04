@@ -26,8 +26,8 @@ namespace KrylovHolder
 /-- Krylov 8.7.3, whole-space solvability for the shifted heat equation. -/
 theorem krylov_8_7_3_shifted_heat_holder_solvability
     {d : ℕ} {δ : ℝ} (hδ : 0 < δ ∧ δ < 1) :
-    ∀ f : (ℝ × (Fin d → ℝ)) → ℝ, ParabolicHolderOn δ univ f →
-      ∃! u : (ℝ × (Fin d → ℝ)) → ℝ,
+    ∀ f : (ℝ × EuclideanSpace ℝ (Fin d)) → ℝ, ParabolicHolderOn δ univ f →
+      ∃! u : (ℝ × EuclideanSpace ℝ (Fin d)) → ℝ,
         ParabolicHolderOn (2 + δ) univ u ∧ ShiftedHeatEquation u f := by
   sorry
 

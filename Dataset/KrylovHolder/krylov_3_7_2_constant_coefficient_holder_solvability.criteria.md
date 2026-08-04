@@ -1,5 +1,7 @@
 # Criteria: krylov_3_7_2_constant_coefficient_holder_solvability
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [krylov_3_7_2_constant_coefficient_holder_solvability.md](krylov_3_7_2_constant_coefficient_holder_solvability.md) · **Lean:** [krylov_3_7_2_constant_coefficient_holder_solvability.lean](krylov_3_7_2_constant_coefficient_holder_solvability.lean)
 
 Everything here rides on the scaffolding: "$f \in C^{k+\delta}(\mathbb{R}^d)$", "$u \in C^{k+m+\delta}(\mathbb{R}^d)$", "$L$ uniformly elliptic of order $m$ with constant coefficients" and "$L_\lambda u = Lu - \lambda u$" are all custom definitions, and the theorem is a bare existence-and-uniqueness claim on top of them. So the audit is really an audit of `HolderOn`/`holderGauge` (do they contain exactly the derivatives Krylov's $|u|_{k+\delta}$ contains? do they bundle smoothness, or would a junk-valued gauge let a non-differentiable function into $C^{k+\delta}$?) and of `EllipticOperatorData.principalSymbol` (is it Krylov's ellipticity, and for which $\lambda$ is the resulting operator $L_\lambda$ actually invertible?). The last question is where this statement breaks: the admissible set of $\lambda$ is a genuine mathematical hypothesis, not a formality.

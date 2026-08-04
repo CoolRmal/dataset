@@ -1,5 +1,7 @@
 # Criteria: kong_3_2_3_characteristic_multiplier_stability
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [kong_3_2_3_characteristic_multiplier_stability.md](kong_3_2_3_characteristic_multiplier_stability.md) · **Lean:** [kong_3_2_3_characteristic_multiplier_stability.lean](kong_3_2_3_characteristic_multiplier_stability.lean)
 
 A faithful formalization must state three equivalences relating the three stability regimes of the $\omega$-periodic linear system to the moduli of the characteristic multipliers, with the borderline case $\lvert\mu_i\rvert = 1$ controlled by the semisimplicity of $\mu_i$ in the transition matrix $V$. Almost all of the content sits in the auxiliary definitions: the multipliers must be the eigenvalues of $V$ *with multiplicity* (not a set), "in the diagonal Jordan block" must be the correct algebraic condition, and the stability notions must have $\delta$ chosen before $t_0$ — the quantifier order is what distinguishes uniform stability from plain Lyapunov stability.

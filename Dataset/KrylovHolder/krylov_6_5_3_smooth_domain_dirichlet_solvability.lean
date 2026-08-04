@@ -25,10 +25,10 @@ namespace KrylovHolder
 
 /-- Krylov 6.5.3, the Holder Dirichlet problem on a smooth domain. -/
 theorem krylov_6_5_3_smooth_domain_dirichlet_solvability
-    {d k : ℕ} {δ : ℝ} {Ω : Set (Fin d → ℝ)}
-    {L : ((Fin d → ℝ) → ℝ) → (Fin d → ℝ) → ℝ}
+    {d k : ℕ} {δ : ℝ} {Ω : Set (EuclideanSpace ℝ (Fin d))}
+    {L : (EuclideanSpace ℝ (Fin d) → ℝ) → EuclideanSpace ℝ (Fin d) → ℝ}
     (hδ : 0 < δ ∧ δ < 1) (hΩ : SmoothBoundedDomain Ω)
-    (hL : VariableCoefficientEllipticOperator 2 L)
+    (hL : SecondOrderEllipticOperator L 0)
     (hcoeff : OperatorCoefficientsHolder 2 (k + δ) L) :
     ∀ f g, HolderOn (k + δ) Ω f → HolderOn (k + 2 + δ) (closure Ω) g →
       ∃ u, HolderOn (k + 2 + δ) Ω u ∧ EllipticDirichletSolution Ω L f g u ∧

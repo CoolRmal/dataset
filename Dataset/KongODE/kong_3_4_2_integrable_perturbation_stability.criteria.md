@@ -1,5 +1,7 @@
 # Criteria: kong_3_4_2_integrable_perturbation_stability
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [kong_3_4_2_integrable_perturbation_stability.md](kong_3_4_2_integrable_perturbation_stability.md) · **Lean:** [kong_3_4_2_integrable_perturbation_stability.lean](kong_3_4_2_integrable_perturbation_stability.lean)
 
 A faithful formalization must carry the perturbation hypothesis in full — $p$ continuous and nonnegative on $[0,\infty)$, *integrable* there, and $\lvert r(t,x)\rvert \le p(t)\lvert x\rvert$ for all $t \ge 0$ and all $x$ in some fixed ball — and then state two separate implications about the zero solution of $x' = A(t)x + r(t,x)$: uniform stability is inherited, and uniform + asymptotic stability is inherited. The pitfalls are the encoding of $\int_0^\infty p < \infty$ (a Bochner integral is junk `0` for non-integrable $p$, which would make the hypothesis vacuous), the order of the quantifiers in "for sufficiently small $\lvert x \rvert$", and, most importantly, the mismatch between the time range on which the perturbation is controlled ($t \ge 0$) and the time range over which the stability predicate quantifies.

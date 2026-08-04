@@ -1,5 +1,7 @@
 # Criteria: krylov_4_5_1_variable_coefficient_global_solvability
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [krylov_4_5_1_variable_coefficient_global_solvability.md](krylov_4_5_1_variable_coefficient_global_solvability.md) · **Lean:** [krylov_4_5_1_variable_coefficient_global_solvability.lean](krylov_4_5_1_variable_coefficient_global_solvability.lean)
 
 The shape of this theorem is "there is a threshold $\lambda_0$, depending only on $\kappa, m, \delta, d$ and $\max_\alpha\lvert a^\alpha\rvert_\delta$, such that for every $\lambda$ beyond it and every datum $f \in C^{k+\delta}$ the equation $L_\lambda u = f$ has exactly one solution $u \in C^{k+m+\delta}$". A faithful formalization must therefore (i) make $\lambda_0$ existential and put it outside both $\lambda$ and $f$, (ii) keep the uniqueness half, (iii) hypothesise uniform ellipticity and $C^{k+\delta}$ coefficients of the operator that actually appears in the equation, and (iv) encode "$u \in C^{k+m+\delta}(\mathbb{R}^d)$" as real membership rather than as finiteness of a possibly junk-valued gauge. The remaining hazard is mathematical rather than syntactic: which $\lambda$ are admissible depends on the sign convention buried in `EllipticOperatorData.principalSymbol`.

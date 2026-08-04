@@ -1,5 +1,7 @@
 # Criteria: kong_4_5_3_generalized_poincare_bendixson
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [kong_4_5_3_generalized_poincare_bendixson.md](kong_4_5_3_generalized_poincare_bendixson.md) · **Lean:** [kong_4_5_3_generalized_poincare_bendixson.lean](kong_4_5_3_generalized_poincare_bendixson.lean)
 
 A faithful formalization must fix a planar autonomous system and one of its solutions, assume the positive semi-orbit is contained in a compact set carrying only finitely many equilibria, and conclude a four-way disjunction in which two clauses are about the $\omega$-limit set and one is about the orbit $\Gamma$ itself — and then repeat the whole thing for the negative semi-orbit and the $\alpha$-limit set. The traps are conflating $\Gamma$ with $\Omega(\Gamma^+)$ in cases (b) and (c), and the encoding of "graphic". The statement also inherits everything from the definition of the limit sets, and — decisively — it assumes no regularity of the vector field, which the Poincaré–Bendixson theory cannot do without.

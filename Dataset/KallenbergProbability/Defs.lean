@@ -76,6 +76,11 @@ def IsLocallyIntegrableProcess {Ω ι : Type*} [MeasurableSpace Ω] [LinearOrder
     (∀ n, IsStoppingTime ℱ (τ n)) ∧ LocalizesToInfinity τ μ ∧
       ∀ n t, Integrable (stoppedProcess X (τ n) t) μ
 
+/-- A stopped value which uses the terminal limit when the stopping time is infinite. -/
+def stoppedValueWithLimit {Ω ι E : Type*}
+    (X : ι → Ω → E) (terminalValue : Ω → E) (τ : Ω → WithTop ι) : Ω → E :=
+  fun ω ↦ (τ ω).recTopCoe (terminalValue ω) fun t ↦ X t ω
+
 /-- A vector Brownian motion has independent one-dimensional Brownian coordinates. -/
 def IsBrownianVector {Ω : Type*} [MeasurableSpace Ω] {d : ℕ}
     (B : Ω → C(ℝ≥0, Fin d → ℝ)) (μ : Measure Ω) : Prop :=

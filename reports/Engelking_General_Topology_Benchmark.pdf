@@ -298,7 +298,7 @@ BT /F3 4.9 Tf 394.00 511.00 Td (    \(U : iota -> Set X\) : Prop :=) Tj ET
 BT /F3 4.9 Tf 394.00 504.00 Td (  \(forall i, IsOpen \(U i\)\) /\\ union i, U i = univ) Tj ET
 BT /F3 4.9 Tf 394.00 497.00 Td () Tj ET
 BT /F3 4.9 Tf 394.00 490.00 Td (theorem engelking_5_1_9_paracompact_partition_of_unity) Tj ET
-BT /F3 4.9 Tf 394.00 483.00 Td (    {X : Type u} [TopologicalSpace X] [T1Space X] :) Tj ET
+BT /F3 4.9 Tf 394.00 483.00 Td (    {X : Type u} [TopologicalSpace X] [T2Space X] :) Tj ET
 BT /F3 4.9 Tf 394.00 476.00 Td (    let locallyFinitePartition := forall \(iota : Type v\) \(U : iota -> Set) Tj ET
 BT /F3 4.9 Tf 394.00 469.00 Td (    X\), IsOpenCover U ->) Tj ET
 BT /F3 4.9 Tf 394.00 462.00 Td (      exists rho : PartitionOfUnity iota X, rho.IsSubordinate U) Tj ET

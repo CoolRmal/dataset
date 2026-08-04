@@ -1,5 +1,7 @@
 # Criteria: lee_10_19_tubular_neighborhood_theorem
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [lee_10_19_tubular_neighborhood_theorem.md](lee_10_19_tubular_neighborhood_theorem.md) · **Lean:** [lee_10_19_tubular_neighborhood_theorem.lean](lee_10_19_tubular_neighborhood_theorem.lean)
 
 The one-line textbook statement hides a definition, and the whole quality of the formalization lies in unpacking it: a *tubular neighborhood* of $M \subset \mathbb{R}^n$ is an open set $U \supseteq M$ which is the **diffeomorphic** image, under $E(x,v) = x + v$, of a variable-radius normal disk bundle $V = \{(x,v) : v \perp T_xM,\ \lvert v\rvert < \delta(x)\}$ for some **positive continuous** $\delta \colon M \to \mathbb{R}$. Mathlib has no normal-bundle API whatsoever, so the tangent/normal condition, the bundle, and the diffeomorphism must all be hand-rolled — and each is a place where a candidate can silently state something weaker or false. The one genuine trap in the ground truth is the smoothness index `⊤`, which in Mathlib's `ContDiff` scope is `ω`, not `∞`.

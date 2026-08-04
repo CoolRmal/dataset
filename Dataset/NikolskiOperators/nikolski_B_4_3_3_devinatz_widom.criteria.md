@@ -1,5 +1,7 @@
 # Criteria: nikolski_B_4_3_3_devinatz_widom
 
+> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+
 **Statement:** [nikolski_B_4_3_3_devinatz_widom.md](nikolski_B_4_3_3_devinatz_widom.md) · **Lean:** [nikolski_B_4_3_3_devinatz_widom.lean](nikolski_B_4_3_3_devinatz_widom.lean)
 
 A faithful formalization must fix a unimodular $u \in L^\infty(\mathbb{T})$ and assert the full four-way equivalence: invertibility of the Toeplitz operator $T_u$; the two **strict** distance conditions $\operatorname{dist}(u,H^\infty) < 1$ and $\operatorname{dist}(\bar u,H^\infty)<1$; the existence of an *outer* $h \in H^\infty$ with $\lVert u - h\rVert_\infty < 1$; and the exponential representation $u = e^{i(c+a+\tilde b)}$ with $\lVert a\rVert_\infty < \pi/2$. Every strictness is essential ($\operatorname{dist} \le 1$ is automatic for unimodular $u$, so a non-strict version is vacuous), the outerness of $h$ in item (3) is essential, and item (4) hinges on the harmonic conjugate $\tilde b$ — a Fourier multiplier that maps $L^\infty$ into BMO, so $\tilde b$ is typically **unbounded**, and any encoding forcing it to be bounded changes the theorem.
