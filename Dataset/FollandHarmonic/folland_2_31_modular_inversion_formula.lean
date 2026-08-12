@@ -2,6 +2,7 @@ module
 
 public import Dataset.FollandHarmonic.Defs
 public import Mathlib.MeasureTheory.Group.ModularCharacter
+public import Mathlib.MeasureTheory.Group.ModularCharacter
 
 /-!
 # `folland_2_31_modular_inversion_formula`
@@ -14,7 +15,7 @@ Quality rubric: `folland_2_31_modular_inversion_formula.criteria.md`.
 @[expose] public section
 
 open Filter MeasureTheory Set Topology
-open scoped ENNReal FourierTransform NNReal Topology
+open scoped ENNReal NNReal Topology
 
 namespace Dataset
 namespace FollandHarmonic

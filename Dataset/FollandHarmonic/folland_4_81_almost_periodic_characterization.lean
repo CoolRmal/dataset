@@ -1,6 +1,7 @@
 module
 
 public import Dataset.FollandHarmonic.Defs
+public import Mathlib.Topology.Algebra.PontryaginDual
 
 
 /-!
@@ -23,9 +24,7 @@ namespace FollandHarmonic
 limit of trigonometric polynomials is the same as being uniformly almost periodic. -/
 theorem folland_4_81_almost_periodic_characterization {G : Type*} [CommGroup G]
     [TopologicalSpace G] [IsTopologicalGroup G]
-    [LocallyCompactSpace G] [MeasurableSpace G] [BorelSpace G]
-    (μ : Measure G) [μ.IsHaarMeasure]
-    (f : G → ℂ) (hf : Continuous f) (hbdd : ∃ C : ℝ, ∀ x, ‖f x‖ ≤ C) :
+    [LocallyCompactSpace G] (f : G → ℂ) (hf : Continuous f) (hbdd : ∃ C : ℝ, ∀ x, ‖f x‖ ≤ C) :
     (∀ ε : ℝ, 0 < ε → ∃ (s : Finset (PontryaginDual G)) (c : PontryaginDual G → ℂ),
         ∀ x, ‖f x - ∑ ξ ∈ s, c ξ * (ξ x : ℂ)‖ < ε) ↔
       IsUniformlyAlmostPeriodic f := by

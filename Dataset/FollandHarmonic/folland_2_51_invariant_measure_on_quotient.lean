@@ -2,6 +2,8 @@ module
 
 public import Dataset.FollandHarmonic.Defs
 public import Mathlib.MeasureTheory.Group.ModularCharacter
+public import Mathlib.Topology.Algebra.Group.Basic
+public import Mathlib.MeasureTheory.Group.ModularCharacter
 
 /-!
 # `folland_2_51_invariant_measure_on_quotient`
@@ -14,7 +16,7 @@ Quality rubric: `folland_2_51_invariant_measure_on_quotient.criteria.md`.
 @[expose] public section
 
 open Filter MeasureTheory Set Topology
-open scoped ENNReal FourierTransform NNReal Topology
+open scoped ENNReal NNReal Topology
 
 namespace Dataset
 namespace FollandHarmonic
