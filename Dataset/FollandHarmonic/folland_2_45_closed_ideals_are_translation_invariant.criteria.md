@@ -1,0 +1,15 @@
+# Criteria: folland_2_45_closed_ideals_are_translation_invariant
+
+**Statement:** [folland_2_45_closed_ideals_are_translation_invariant.md](folland_2_45_closed_ideals_are_translation_invariant.md) · **Lean:** [folland_2_45_closed_ideals_are_translation_invariant.lean](folland_2_45_closed_ideals_are_translation_invariant.lean)
+
+A faithful formalization must carry **both** equivalences (left ideal ⟺ left-translation-invariant, right ideal ⟺ right-translation-invariant) and must keep the two sides genuinely distinct: the left/right asymmetry is the whole point on a non-abelian group. Because mathlib has no ready-made `𝓛¹(G)` Banach algebra for a general locally compact group, the statement works with sets of *functions* together with `Submodule ℂ (G → ℂ)` and `IsLpClosed 1 μ` in place of a closed subspace of the `Lp` quotient. This is faithful — the `Lp` quotient of an `𝓛¹`-closed subspace of functions is a closed subspace and conversely — but a candidate must supply both the linearity and the `𝓛¹`-closedness, since either alone is strictly weaker.
+
+Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+
+| # | Category | Criterion / potential error | Assessment of ground truth |
+|---|----------|-----------------------------|----------------------------|
+| 1 | Conclusion completeness | Both `↔`s are required, and each is an equivalence rather than an implication. The easy direction is ideal ⟹ invariance (via an approximate identity); the converse uses the vector-valued formula `g * f = ∫ g(y) L_y f dy`. | ✅ A conjunction of two `↔`. ❗ Predicted error: keeping only the left-ideal half, or stating an implication. |
+| 2 | Faithful encoding | "Left ideal" means closed under `g ↦ g * f` with `g ∈ 𝓛¹` on the **left**; "closed under left translations" means `L_y f = f (y⁻¹ ·) ∈ I`. Swapping `L_y` for `f (y ·)` inverts the group element and changes the statement on non-abelian `G`. | ✅ `groupConv μ g f` (g on the left) paired with `leftTranslate y f = f (y⁻¹ * x)`, matching Folland's (2.5). ❗ Predicted error: `f (y * x)` for `L_y`. |
+| 3 | Hypothesis completeness | `I` must be a linear subspace **and** closed in `𝓛¹`; closedness is what lets the approximate-identity limit stay in `I`. | ✅ the `Submodule` structure and `hclosed`. ❗ Predicted error: dropping `IsLpClosed`, which makes the ideal ⟹ invariance direction false. |
+| 4 | Junk values | `groupConv μ g f x = ∫ y, g y * f (y⁻¹ * x) ∂μ` is `0` when the integrand is not integrable; the hypotheses `MemLp g 1 μ` and `Integrable f μ` are what make it the genuine convolution a.e. | ⚠️ `hmem : ∀ f ∈ I, MemLp f 1 μ` is carried explicitly so that members of `I` really are `𝓛¹` functions. |
+| 5 | Mathlib conventions | Haar measure must be a **left** Haar measure (`μ.IsHaarMeasure` in mathlib is left-invariant), since the whole statement is stated against left translation. | ✅ `[μ.IsHaarMeasure]` on a locally compact group with the Borel structure. |

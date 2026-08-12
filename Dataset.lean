@@ -1,12 +1,18 @@
 module
 
 import Dataset.Bogachev
+import Dataset.BogachevGaussian
 import Dataset.ConwayFunctionalAnalysis
 import Dataset.EngelkingGeneralTopology
+import Dataset.FollandHarmonic
 import Dataset.GrafakosFourier
+import Dataset.HaymanMeromorphic
 import Dataset.KongODE
 import Dataset.KallenbergProbability
 import Dataset.KrylovHolder
+import Dataset.KrylovSobolev
 import Dataset.LeeSmoothManifolds
 import Dataset.MattilaGeometry
+import Dataset.NivenIrrational
+import Dataset.NivenZuckermanNumberTheory
 import Dataset.NikolskiOperators

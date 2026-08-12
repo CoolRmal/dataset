@@ -5,7 +5,7 @@ mathlib checkout as dependency.
 
 ## Layout
 
-The dataset contains ten textbooks with ten problems each. Every problem has
+The dataset contains sixteen textbooks with ten problems each. Every problem has
 its own set of files under `Dataset/<Book>/`, named after the Lean
 declaration:
 
@@ -37,14 +37,20 @@ trap and carry a note that the current ground truth incorporates the repair.
 Included books:
 
 - `Dataset/Bogachev/` — V. I. Bogachev, *Measure Theory*
+- `Dataset/BogachevGaussian/` — V. I. Bogachev, *Gaussian Measures*
 - `Dataset/ConwayFunctionalAnalysis/` — J. B. Conway, *A Course in Functional Analysis*
 - `Dataset/EngelkingGeneralTopology/` — R. Engelking, *General Topology*
+- `Dataset/FollandHarmonic/` — G. B. Folland, *A Course in Abstract Harmonic Analysis*
 - `Dataset/GrafakosFourier/` — L. Grafakos, *Classical Fourier Analysis*
+- `Dataset/HaymanMeromorphic/` — W. K. Hayman, *Meromorphic Functions*
 - `Dataset/KongODE/` — Q. Kong, *A Short Course in Ordinary Differential Equations*
 - `Dataset/KallenbergProbability/` — O. Kallenberg, *Foundations of Modern Probability*
 - `Dataset/KrylovHolder/` — N. V. Krylov, *Lectures on Elliptic and Parabolic Equations in Hölder Spaces*
+- `Dataset/KrylovSobolev/` — N. V. Krylov, *Lectures on Elliptic and Parabolic Equations in Sobolev Spaces*
 - `Dataset/LeeSmoothManifolds/` — J. M. Lee, *Introduction to Smooth Manifolds*
 - `Dataset/MattilaGeometry/` — P. Mattila, *Geometry of Sets and Measures in Euclidean Spaces*
+- `Dataset/NivenIrrational/` — I. Niven, *Numbers: Rational and Irrational*
+- `Dataset/NivenZuckermanNumberTheory/` — I. Niven and H. S. Zuckerman, *An Introduction to the Theory of Numbers*
 - `Dataset/NikolskiOperators/` — N. K. Nikolski, *Operators, Functions, and Systems*
 
 ## Scripts and generated artifacts

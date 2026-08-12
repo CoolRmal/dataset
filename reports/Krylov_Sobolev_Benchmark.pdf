@@ -1,0 +1,670 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R 9 0 R 11 0 R 13 0 R] /Count 6 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 15 0 R /F2 16 0 R /F3 17 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 8930 >>
+stream
+BT /F2 12 Tf 24.00 586.00 Td (Krylov Sobolev PDE Benchmark) Tj ET
+BT /F1 7 Tf 740.00 586.00 Td (p. 1) Tj ET
+BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
+BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
+BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
+20.00 558.00 m 772.00 558.00 l S
+20.00 550.00 m 20.00 400.00 l S
+310.00 550.00 m 310.00 400.00 l S
+390.00 550.00 m 390.00 400.00 l S
+772.00 550.00 m 772.00 400.00 l S
+20.00 550.00 m 772.00 550.00 l S
+20.00 400.00 m 772.00 400.00 l S
+BT /F1 5.8 Tf 24.00 542.00 Td (Lemma 1.1.1. Let u in C02 be a solution of lambdau - Deltau =) Tj ET
+BT /F1 5.8 Tf 24.00 535.00 Td (f in R^d. Then lambda2||u||2_{L2} + 2lambda sum_{j=1}^d) Tj ET
+BT /F1 5.8 Tf 24.00 528.00 Td (||u_{x^j}||2_{L2} + sum_{j,k=1}^d ||u_{x^jx^k}||2_{L2} =) Tj ET
+BT /F1 5.8 Tf 24.00 521.00 Td (||f||2_{L2}. \(Here lambda > 0 is fixed, C02 is the set of) Tj ET
+BT /F1 5.8 Tf 24.00 514.00 Td (twice continuously differentiable functions on R^d with) Tj ET
+BT /F1 5.8 Tf 24.00 507.00 Td (compact support, and Deltau = u_{x1x1} + ... + u_{x^dx^d}.\)) Tj ET
+BT /F1 5.8 Tf 314.00 542.00 Td (PDE) Tj ET
+BT /F3 4.9 Tf 394.00 542.00 Td (noncomputable def directionalDerivativeList {d : N} :) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (    List \(Fin d\) -> \(EuclideanSpace R \(Fin d\) -> R\) -> EuclideanSpace R) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (    \(Fin d\) -> R) Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (  | [], u => u) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (  | i :: indices, u => fun x =>) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (      fderiv R \(directionalDerivativeList indices u\) x) Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (      \(EuclideanSpace.single i 1\)) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td (theorem krylov_sobolev_1_1_1_energy_identity {d : N} \(lam : R\) \(hlam : 0 <) Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (lam\)) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td (    \(u f : EuclideanSpace R \(Fin d\) -> R\)) Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (    \(hu : ContDiff R 2 u\) \(hsupp : HasCompactSupport u\)) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td (    \(heq : forall x, lam * u x - Delta u x = f x\) :) Tj ET
+BT /F3 4.9 Tf 394.00 451.00 Td (    lam ^ 2 * \(integral x, u x ^ 2\) +) Tj ET
+BT /F3 4.9 Tf 394.00 444.00 Td (          2 * lam * \(sum j, integral x, directionalDerivativeList [j] u x ^) Tj ET
+BT /F3 4.9 Tf 394.00 437.00 Td (        2\) +) Tj ET
+BT /F3 4.9 Tf 394.00 430.00 Td (          \(sum j, sum k, integral x, directionalDerivativeList [j, k] u x ^) Tj ET
+BT /F3 4.9 Tf 394.00 423.00 Td (        2\) =) Tj ET
+BT /F3 4.9 Tf 394.00 416.00 Td (        integral x, f x ^ 2 := by) Tj ET
+BT /F3 4.9 Tf 394.00 409.00 Td (  sorry) Tj ET
+20.00 400.00 m 20.00 327.00 l S
+310.00 400.00 m 310.00 327.00 l S
+390.00 400.00 m 390.00 327.00 l S
+772.00 400.00 m 772.00 327.00 l S
+20.00 400.00 m 772.00 400.00 l S
+20.00 327.00 m 772.00 327.00 l S
+BT /F1 5.8 Tf 24.00 392.00 Td (Exercise 1.1.3. By using the Fourier transform, prove that, if) Tj ET
+BT /F1 5.8 Tf 24.00 385.00 Td (d = 2 and u in C02, then integral_{R^d} det u_{xx} dx = 0.) Tj ET
+BT /F1 5.8 Tf 24.00 378.00 Td (\(Here u_{xx} = \(u_{x^ix^j}\) is the Hessian matrix of u and C02) Tj ET
+BT /F1 5.8 Tf 24.00 371.00 Td (is the set of twice continuously differentiable functions with) Tj ET
+BT /F1 5.8 Tf 24.00 364.00 Td (compact support.\)) Tj ET
+BT /F1 5.8 Tf 314.00 392.00 Td (PDE) Tj ET
+BT /F3 4.9 Tf 394.00 392.00 Td (noncomputable def hessian {d : N} \(u : EuclideanSpace R \(Fin d\) -> R\)) Tj ET
+BT /F3 4.9 Tf 394.00 385.00 Td (    \(x : EuclideanSpace R \(Fin d\)\) : Matrix \(Fin d\) \(Fin d\) R :=) Tj ET
+BT /F3 4.9 Tf 394.00 378.00 Td (  Matrix.of fun i j => directionalDerivativeList [i, j] u x) Tj ET
+BT /F3 4.9 Tf 394.00 371.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 364.00 Td (theorem krylov_sobolev_1_1_3_hessian_determinant_integral) Tj ET
+BT /F3 4.9 Tf 394.00 357.00 Td (    \(u : EuclideanSpace R \(Fin 2\) -> R\) \(hu : ContDiff R 2 u\) \(hsupp :) Tj ET
+BT /F3 4.9 Tf 394.00 350.00 Td (    HasCompactSupport u\) :) Tj ET
+BT /F3 4.9 Tf 394.00 343.00 Td (    integral x, \(hessian u x\).det = 0 := by) Tj ET
+BT /F3 4.9 Tf 394.00 336.00 Td (  sorry) Tj ET
+20.00 327.00 m 20.00 254.00 l S
+310.00 327.00 m 310.00 254.00 l S
+390.00 327.00 m 390.00 254.00 l S
+772.00 327.00 m 772.00 254.00 l S
+20.00 327.00 m 772.00 327.00 l S
+20.00 254.00 m 772.00 254.00 l S
+BT /F1 5.8 Tf 24.00 319.00 Td (Lemma 1.1.7. Let lambda > 0 and let u be a bounded from above) Tj ET
+BT /F1 5.8 Tf 24.00 312.00 Td (twice continuously differentiable function on R^d satisfying) Tj ET
+BT /F1 5.8 Tf 24.00 305.00 Td (Deltau - lambdau >= 0 in R^d. Then u <= 0. In particular, if u) Tj ET
+BT /F1 5.8 Tf 24.00 298.00 Td (is bounded and Deltau - lambdau = 0, then u <= 0, so that u) Tj ET
+BT /F1 5.8 Tf 24.00 291.00 Td (==  0.) Tj ET
+BT /F1 5.8 Tf 314.00 319.00 Td (PDE) Tj ET
+BT /F3 4.9 Tf 394.00 319.00 Td (theorem krylov_sobolev_1_1_7_whole_space_maximum_principle {d : N} \(lam :) Tj ET
+BT /F3 4.9 Tf 394.00 312.00 Td (R\) \(hlam : 0 < lam\) :) Tj ET
+BT /F3 4.9 Tf 394.00 305.00 Td (    \(forall u : EuclideanSpace R \(Fin d\) -> R, ContDiff R 2 u -> BddAbove) Tj ET
+BT /F3 4.9 Tf 394.00 298.00 Td (    \(range u\) ->) Tj ET
+BT /F3 4.9 Tf 394.00 291.00 Td (        \(forall x, 0 <= Delta u x - lam * u x\) -> forall x, u x <= 0\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 284.00 Td (      forall u : EuclideanSpace R \(Fin d\) -> R, ContDiff R 2 u ->) Tj ET
+BT /F3 4.9 Tf 394.00 277.00 Td (      Bornology.IsBounded \(range u\) ->) Tj ET
+BT /F3 4.9 Tf 394.00 270.00 Td (        \(forall x, Delta u x - lam * u x = 0\) -> u = 0 := by) Tj ET
+BT /F3 4.9 Tf 394.00 263.00 Td (  sorry) Tj ET
+20.00 254.00 m 20.00 34.00 l S
+310.00 254.00 m 310.00 34.00 l S
+390.00 254.00 m 390.00 34.00 l S
+772.00 254.00 m 772.00 34.00 l S
+20.00 254.00 m 772.00 254.00 l S
+20.00 34.00 m 772.00 34.00 l S
+BT /F1 5.8 Tf 24.00 246.00 Td (Theorem 1.5.1. Let Omega = R^d or Omega = R^d_+. For any p in) Tj ET
+BT /F1 5.8 Tf 24.00 239.00 Td ([1,inf\) and u in W_p2\(Omega\) we have ||u_x||_{L_p\(Omega\)} <= N) Tj ET
+BT /F1 5.8 Tf 24.00 232.00 Td (||u||^{1/2}_{L_p\(Omega\)} ||u_{xx}||^{1/2}_{L_p\(Omega\)}, where) Tj ET
+BT /F1 5.8 Tf 24.00 225.00 Td (N is independent of u. \(Here u_x = grad u, u_{xx} =) Tj ET
+BT /F1 5.8 Tf 24.00 218.00 Td (\(u_{x^ix^j}\), the derivatives are generalized \(Sobolev\)) Tj ET
+BT /F1 5.8 Tf 24.00 211.00 Td (derivatives, and u in W_p^k\(Omega\) means that u and all) Tj ET
+BT /F1 5.8 Tf 24.00 204.00 Td (D^alpha u with |alpha| <= k belong to L_p\(Omega\).\)) Tj ET
+BT /F1 5.8 Tf 314.00 246.00 Td (PDE) Tj ET
+BT /F3 4.9 Tf 394.00 246.00 Td (def upperHalfSpace \(d : N\) [NeZero d] : Opens \(EuclideanSpace R \(Fin d\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 239.00 Td (where) Tj ET
+BT /F3 4.9 Tf 394.00 232.00 Td (  carrier := {x | 0 < x 0}) Tj ET
+BT /F3 4.9 Tf 394.00 225.00 Td (  is_open' := isOpen_lt continuous_const \(by fun_prop\)) Tj ET
+BT /F3 4.9 Tf 394.00 218.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 211.00 Td (def IsSobolevFamilyOn {d : N} \(k : N\) \(Omega : Opens \(EuclideanSpace R \(Fin) Tj ET
+BT /F3 4.9 Tf 394.00 204.00 Td (d\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 197.00 Td (    \(u : EuclideanSpace R \(Fin d\) -> R\) \(D : \(Fin d -> N\) -> EuclideanSpace) Tj ET
+BT /F3 4.9 Tf 394.00 190.00 Td (    R \(Fin d\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 183.00 Td (  forall alpha in multiIndicesLE d k, IsSobolevDerivOn Omega alpha u \(D) Tj ET
+BT /F3 4.9 Tf 394.00 176.00 Td (  alpha\)) Tj ET
+BT /F3 4.9 Tf 394.00 169.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 162.00 Td (def MemSobolevOn {d : N} \(p : R>=0inf\) \(k : N\) \(Omega : Opens) Tj ET
+BT /F3 4.9 Tf 394.00 155.00 Td (\(EuclideanSpace R \(Fin d\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 148.00 Td (    \(u : EuclideanSpace R \(Fin d\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 141.00 Td (  MemLp u p \(volume.restrict Omega\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 134.00 Td (    exists D, IsSobolevFamilyOn k Omega u D /\\ forall alpha in) Tj ET
+BT /F3 4.9 Tf 394.00 127.00 Td (    multiIndicesLE d k,) Tj ET
+BT /F3 4.9 Tf 394.00 120.00 Td (      MemLp \(D alpha\) p \(volume.restrict Omega\)) Tj ET
+BT /F3 4.9 Tf 394.00 113.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 106.00 Td (noncomputable def gradNorm {d : N} \(D : \(Fin d -> N\) -> EuclideanSpace R) Tj ET
+BT /F3 4.9 Tf 394.00 99.00 Td (\(Fin d\) -> R\)) Tj ET
+BT /F3 4.9 Tf 394.00 92.00 Td (    \(x : EuclideanSpace R \(Fin d\)\) : R :=) Tj ET
+BT /F3 4.9 Tf 394.00 85.00 Td (  \(sum i, D \(Pi.single i 1\) x ^ 2\)) Tj ET
+BT /F3 4.9 Tf 394.00 78.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 71.00 Td (noncomputable def hessNorm {d : N} \(D : \(Fin d -> N\) -> EuclideanSpace R) Tj ET
+BT /F3 4.9 Tf 394.00 64.00 Td (\(Fin d\) -> R\)) Tj ET
+BT /F3 4.9 Tf 394.00 57.00 Td (    \(x : EuclideanSpace R \(Fin d\)\) : R :=) Tj ET
+BT /F3 4.9 Tf 394.00 50.00 Td (  \(sum i, sum j, D \(Pi.single i 1 + Pi.single j 1\) x ^ 2\)) Tj ET
+BT /F3 4.9 Tf 394.00 43.00 Td () Tj ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 15 0 R /F2 16 0 R /F3 17 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 9029 >>
+stream
+BT /F2 12 Tf 24.00 586.00 Td (Krylov Sobolev PDE Benchmark) Tj ET
+BT /F1 7 Tf 740.00 586.00 Td (p. 2) Tj ET
+BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
+BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
+BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
+20.00 558.00 m 772.00 558.00 l S
+20.00 550.00 m 20.00 428.00 l S
+310.00 550.00 m 310.00 428.00 l S
+390.00 550.00 m 390.00 428.00 l S
+772.00 550.00 m 772.00 428.00 l S
+20.00 550.00 m 772.00 550.00 l S
+20.00 428.00 m 772.00 428.00 l S
+BT /F3 4.9 Tf 394.00 542.00 Td (theorem krylov_sobolev_1_5_1_multiplicative_inequality {d : N} [NeZero d]) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (\(p : R\)) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (    \(hp : 1 <= p\) \(Omega : TopologicalSpace.Opens \(EuclideanSpace R \(Fin) Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (    d\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (    \(hOmega : Omega = top \\/ Omega = upperHalfSpace d\) :) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (    exists N : R>=0inf, N != \(inf : R>=0inf\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (      forall \(u : EuclideanSpace R \(Fin d\) -> R\) \(D : \(Fin d -> N\) ->) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td (      EuclideanSpace R \(Fin d\) -> R\),) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td (        MemSobolevOn \(ENNReal.ofReal p\) 2 Omega u -> IsSobolevFamilyOn 2) Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (        Omega u D ->) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td (        eLpNorm \(gradNorm D\) \(ENNReal.ofReal p\) \(volume.restrict Omega\) <=) Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (          N * eLpNorm u \(ENNReal.ofReal p\) \(volume.restrict Omega\) ^ \(2^-1) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td (        : R\) *) Tj ET
+BT /F3 4.9 Tf 394.00 451.00 Td (            eLpNorm \(hessNorm D\) \(ENNReal.ofReal p\) \(volume.restrict Omega\)) Tj ET
+BT /F3 4.9 Tf 394.00 444.00 Td (        ^ \(2^-1 : R\) := by) Tj ET
+BT /F3 4.9 Tf 394.00 437.00 Td (  sorry) Tj ET
+20.00 428.00 m 20.00 124.00 l S
+310.00 428.00 m 310.00 124.00 l S
+390.00 428.00 m 390.00 124.00 l S
+772.00 428.00 m 772.00 124.00 l S
+20.00 428.00 m 772.00 428.00 l S
+20.00 124.00 m 772.00 124.00 l S
+BT /F1 5.8 Tf 24.00 420.00 Td (Theorem 3.2.10 \(Fefferman-Stein\). Let p in \(1,inf\). Then for) Tj ET
+BT /F1 5.8 Tf 24.00 413.00 Td (any f in L_p\(Omega\) we have ||f||_{L_p\(Omega\)} <= N) Tj ET
+BT /F1 5.8 Tf 24.00 406.00 Td (||f^#||_{L_p\(Omega\)}, where N = \(2q\)^p N0^{p-1}, q = p/\(p-1\).) Tj ET
+BT /F1 5.8 Tf 24.00 399.00 Td (\(Here \(Omega,F,mu\) is a complete measure space with a sigma-) Tj ET
+BT /F1 5.8 Tf 24.00 392.00 Td (finite measure mu such that mu\(Omega\) = inf; \(C_n, n in Z\) is) Tj ET
+BT /F1 5.8 Tf 24.00 385.00 Td (a filtration of partitions of Omega with regularity constant) Tj ET
+BT /F1 5.8 Tf 24.00 378.00 Td (N0, f_{|n}\(x\) = _{C_n\(x\)} f dmu is the average of f over the) Tj ET
+BT /F1 5.8 Tf 24.00 371.00 Td (element C_n\(x\) of the n-th partition containing x, and f^#\(x\)) Tj ET
+BT /F1 5.8 Tf 24.00 364.00 Td (= sup_{n<inf} _{C_n\(x\)} |f\(y\) - f_{|n}\(y\)| mu\(dy\).\)) Tj ET
+BT /F1 5.8 Tf 314.00 420.00 Td (Real) Tj ET
+BT /F1 5.8 Tf 314.00 413.00 Td (analysis) Tj ET
+BT /F3 4.9 Tf 394.00 420.00 Td (structure FiltrationOfPartitions \(X : Type*\) [MeasurableSpace X] \(mu :) Tj ET
+BT /F3 4.9 Tf 394.00 413.00 Td (Measure X\) where) Tj ET
+BT /F3 4.9 Tf 394.00 406.00 Td (  /-- `cell n x` is the element `C_n\(x\)` of the `n`-th partition containing) Tj ET
+BT /F3 4.9 Tf 394.00 399.00 Td (  `x`. -/) Tj ET
+BT /F3 4.9 Tf 394.00 392.00 Td (  cell : Z -> X -> Set X) Tj ET
+BT /F3 4.9 Tf 394.00 385.00 Td (  countable_partition : forall n, \(range \(cell n\)\).Countable) Tj ET
+BT /F3 4.9 Tf 394.00 378.00 Td (  measurableSet_cell : forall n x, MeasurableSet \(cell n x\)) Tj ET
+BT /F3 4.9 Tf 394.00 371.00 Td (  measure_cell_ne_top : forall n x, mu \(cell n x\) != \(inf : R>=0inf\)) Tj ET
+BT /F3 4.9 Tf 394.00 364.00 Td (  mem_cell : forall n x, x in cell n x) Tj ET
+BT /F3 4.9 Tf 394.00 357.00 Td (  cell_congr : forall n x y, y in cell n x -> cell n y = cell n x) Tj ET
+BT /F3 4.9 Tf 394.00 350.00 Td (  cell_subset : forall n x, cell n x subset cell \(n - 1\) x) Tj ET
+BT /F3 4.9 Tf 394.00 343.00 Td (  /-- The regularity constant `N0` of condition \(iii\). -/) Tj ET
+BT /F3 4.9 Tf 394.00 336.00 Td (  regularityConstant : R>=0inf) Tj ET
+BT /F3 4.9 Tf 394.00 329.00 Td (  measure_cell_le : forall n x, mu \(cell \(n - 1\) x\) <= regularityConstant *) Tj ET
+BT /F3 4.9 Tf 394.00 322.00 Td (  mu \(cell n x\)) Tj ET
+BT /F3 4.9 Tf 394.00 315.00 Td (  tendsto_measure_atBot : Tendsto \(fun n : Z =>  x, mu \(cell n x\)\) atBot) Tj ET
+BT /F3 4.9 Tf 394.00 308.00 Td (  \(nhds \(inf : R>=0inf\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 301.00 Td (  /-- The dense subset `L subset L1\(Omega\)` of condition \(i\). -/) Tj ET
+BT /F3 4.9 Tf 394.00 294.00 Td (  denseClass : Set \(X -> R\)) Tj ET
+BT /F3 4.9 Tf 394.00 287.00 Td (  denseClass_dense : forall f : X -> R, MemLp f 1 mu -> forall eps :) Tj ET
+BT /F3 4.9 Tf 394.00 280.00 Td (  R>=0inf, 0 < eps ->) Tj ET
+BT /F3 4.9 Tf 394.00 273.00 Td (    exists g in denseClass, MemLp g 1 mu /\\ eLpNorm \(f - g\) 1 mu < eps) Tj ET
+BT /F3 4.9 Tf 394.00 266.00 Td (  denseClass_differentiation : forall g in denseClass, forall^m x dmu,) Tj ET
+BT /F3 4.9 Tf 394.00 259.00 Td (    Tendsto \(fun n : Z =>  y in cell n x, g y dmu\) atTop \(nhds \(g x\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 252.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 245.00 Td (noncomputable def sharpFunction {X : Type*} [MeasurableSpace X] {mu :) Tj ET
+BT /F3 4.9 Tf 394.00 238.00 Td (Measure X}) Tj ET
+BT /F3 4.9 Tf 394.00 231.00 Td (    \(F : FiltrationOfPartitions X mu\) \(f : X -> R\) \(x : X\) : R>=0inf :=) Tj ET
+BT /F3 4.9 Tf 394.00 224.00 Td (   n : Z, ENNReal.ofReal \( y in F.cell n x, |f y -  z in F.cell n y, f z) Tj ET
+BT /F3 4.9 Tf 394.00 217.00 Td (   dmu| dmu\)) Tj ET
+BT /F3 4.9 Tf 394.00 210.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 203.00 Td (theorem krylov_sobolev_3_2_10_fefferman_stein {X : Type*} [MeasurableSpace) Tj ET
+BT /F3 4.9 Tf 394.00 196.00 Td (X]) Tj ET
+BT /F3 4.9 Tf 394.00 189.00 Td (    \(mu : Measure X\) [SigmaFinite mu] [mu.IsComplete] \(hmu : mu univ = \(inf) Tj ET
+BT /F3 4.9 Tf 394.00 182.00 Td (    : R>=0inf\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 175.00 Td (    \(F : FiltrationOfPartitions X mu\) \(p : R\) \(hp : 1 < p\)) Tj ET
+BT /F3 4.9 Tf 394.00 168.00 Td (    \(f : X -> R\) \(hf : MemLp f \(ENNReal.ofReal p\) mu\) :) Tj ET
+BT /F3 4.9 Tf 394.00 161.00 Td (    eLpNorm f \(ENNReal.ofReal p\) mu <=) Tj ET
+BT /F3 4.9 Tf 394.00 154.00 Td (      ENNReal.ofReal \(\(2 * \(p / \(p - 1\)\)\) ^ p\) * F.regularityConstant ^ \(p) Tj ET
+BT /F3 4.9 Tf 394.00 147.00 Td (      - 1\) *) Tj ET
+BT /F3 4.9 Tf 394.00 140.00 Td (        eLpNorm' \(sharpFunction F f\) p mu := by) Tj ET
+BT /F3 4.9 Tf 394.00 133.00 Td (  sorry) Tj ET
+20.00 124.00 m 20.00 37.00 l S
+310.00 124.00 m 310.00 37.00 l S
+390.00 124.00 m 390.00 37.00 l S
+772.00 124.00 m 772.00 37.00 l S
+20.00 124.00 m 772.00 124.00 l S
+20.00 37.00 m 772.00 37.00 l S
+BT /F1 5.8 Tf 24.00 116.00 Td (Theorem 10.2.1 \(Morrey\). Let Omega be a bounded convex domain) Tj ET
+BT /F1 5.8 Tf 24.00 109.00 Td (in R^d satisfying diam Omega <= kappa rho\(Omega\) with a) Tj ET
+BT /F1 5.8 Tf 24.00 102.00 Td (constant kappa < inf, where rho\(Omega\) is the largest diameter) Tj ET
+BT /F1 5.8 Tf 24.00 95.00 Td (of open balls contained in Omega. Let M < inf, alpha in \(0,1]) Tj ET
+BT /F1 5.8 Tf 24.00 88.00 Td (be some constants. Finally, let u, u_x in L1\(Omega\) and assume) Tj ET
+BT /F1 5.8 Tf 24.00 81.00 Td (that for any ball B subset Omega we have _B |u_x| dx <= M) Tj ET
+BT /F1 5.8 Tf 24.00 74.00 Td (r_B^{alpha-1}, where r_B is the radius of B. Then for any x, y) Tj ET
+BT /F1 5.8 Tf 24.00 67.00 Td (in Omega we have |u\(x\) - u\(y\)| <= NM|x-y|^alpha and |u\(x\)| <=) Tj ET
+BT /F1 5.8 Tf 24.00 60.00 Td (NM + sup_{yinOmega} _{OmegainterB1\(y\)} |u\(z\)| dz, where N) Tj ET
+BT /F1 5.8 Tf 24.00 53.00 Td (depends only on d, alpha, and kappa. In particular, if p > d) Tj ET
+BT /F1 5.8 Tf 24.00 46.00 Td (and u, u_x in L_p\(Omega\), then both estimates hold with alpha) Tj ET
+BT /F1 5.8 Tf 314.00 116.00 Td (PDE) Tj ET
+BT /F3 4.9 Tf 394.00 116.00 Td (def IsSobolevFamilyOn {d : N} \(k : N\) \(Omega : Opens \(EuclideanSpace R \(Fin) Tj ET
+BT /F3 4.9 Tf 394.00 109.00 Td (d\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 102.00 Td (    \(u : EuclideanSpace R \(Fin d\) -> R\) \(D : \(Fin d -> N\) -> EuclideanSpace) Tj ET
+BT /F3 4.9 Tf 394.00 95.00 Td (    R \(Fin d\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 88.00 Td (  forall alpha in multiIndicesLE d k, IsSobolevDerivOn Omega alpha u \(D) Tj ET
+BT /F3 4.9 Tf 394.00 81.00 Td (  alpha\)) Tj ET
+BT /F3 4.9 Tf 394.00 74.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 67.00 Td (def MemSobolevOn {d : N} \(p : R>=0inf\) \(k : N\) \(Omega : Opens) Tj ET
+BT /F3 4.9 Tf 394.00 60.00 Td (\(EuclideanSpace R \(Fin d\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 53.00 Td (    \(u : EuclideanSpace R \(Fin d\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 46.00 Td (  MemLp u p \(volume.restrict Omega\) /\\) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 15 0 R /F2 16 0 R /F3 17 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 7882 >>
+stream
+BT /F2 12 Tf 24.00 586.00 Td (Krylov Sobolev PDE Benchmark) Tj ET
+BT /F1 7 Tf 740.00 586.00 Td (p. 3) Tj ET
+BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
+BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
+BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
+20.00 558.00 m 772.00 558.00 l S
+20.00 550.00 m 20.00 113.00 l S
+310.00 550.00 m 310.00 113.00 l S
+390.00 550.00 m 390.00 113.00 l S
+772.00 550.00 m 772.00 113.00 l S
+20.00 550.00 m 772.00 550.00 l S
+20.00 113.00 m 772.00 113.00 l S
+BT /F1 5.8 Tf 24.00 542.00 Td (= 1 - d/p, M = ||u_x||_{L_p\(Omega\)} and N depending only on d,) Tj ET
+BT /F1 5.8 Tf 24.00 535.00 Td (p, and kappa. \(As the proof states, the assertion is that) Tj ET
+BT /F1 5.8 Tf 24.00 528.00 Td (there is a modification of u, i.e. a function equal to u) Tj ET
+BT /F1 5.8 Tf 24.00 521.00 Td (almost everywhere, satisfying the two estimates.\)) Tj ET
+BT /F3 4.9 Tf 394.00 542.00 Td (    exists D, IsSobolevFamilyOn k Omega u D /\\ forall alpha in) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (    multiIndicesLE d k,) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (      MemLp \(D alpha\) p \(volume.restrict Omega\)) Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (noncomputable def gradNorm {d : N} \(D : \(Fin d -> N\) -> EuclideanSpace R) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (\(Fin d\) -> R\)) Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (    \(x : EuclideanSpace R \(Fin d\)\) : R :=) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td (  \(sum i, D \(Pi.single i 1\) x ^ 2\)) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (structure IsConvexDomainWith {d : N} \(kappa : R\) \(Omega : Opens) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td (\(EuclideanSpace R \(Fin d\)\)\) : Prop where) Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (  nonempty : \(Omega : Set \(EuclideanSpace R \(Fin d\)\)\).Nonempty) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td (  convex : Convex R \(Omega : Set \(EuclideanSpace R \(Fin d\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 451.00 Td (  isBounded : Bornology.IsBounded \(Omega : Set \(EuclideanSpace R \(Fin d\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 444.00 Td (  diam_le : Metric.diam \(Omega : Set \(EuclideanSpace R \(Fin d\)\)\) <= kappa *) Tj ET
+BT /F3 4.9 Tf 394.00 437.00 Td (  interiorDiameter Omega) Tj ET
+BT /F3 4.9 Tf 394.00 430.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 423.00 Td (noncomputable def unitBallAverageSup {d : N} \(Omega : Set \(EuclideanSpace R) Tj ET
+BT /F3 4.9 Tf 394.00 416.00 Td (\(Fin d\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 409.00 Td (    \(u : EuclideanSpace R \(Fin d\) -> R\) : R>=0inf :=) Tj ET
+BT /F3 4.9 Tf 394.00 402.00 Td (   y : Omega, ENNReal.ofReal) Tj ET
+BT /F3 4.9 Tf 394.00 395.00 Td (    \( z in Omega inter Metric.ball \(y : EuclideanSpace R \(Fin d\)\) 1, |u z|\)) Tj ET
+BT /F3 4.9 Tf 394.00 388.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 381.00 Td (theorem krylov_sobolev_10_2_1_morrey_embedding {d : N} \(kappa : R\) :) Tj ET
+BT /F3 4.9 Tf 394.00 374.00 Td (    \(forall alpha : R, 0 < alpha -> alpha <= 1 -> exists N : R, 0 <= N /\\) Tj ET
+BT /F3 4.9 Tf 394.00 367.00 Td (        forall \(Omega : TopologicalSpace.Opens \(EuclideanSpace R \(Fin d\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 360.00 Td (        \(u : EuclideanSpace R \(Fin d\) -> R\)) Tj ET
+BT /F3 4.9 Tf 394.00 353.00 Td (          \(D : \(Fin d -> N\) -> EuclideanSpace R \(Fin d\) -> R\) \(M : R\),) Tj ET
+BT /F3 4.9 Tf 394.00 346.00 Td (          IsConvexDomainWith kappa Omega -> 0 <= M -> MemSobolevOn 1 1) Tj ET
+BT /F3 4.9 Tf 394.00 339.00 Td (        Omega u ->) Tj ET
+BT /F3 4.9 Tf 394.00 332.00 Td (          IsSobolevFamilyOn 1 Omega u D ->) Tj ET
+BT /F3 4.9 Tf 394.00 325.00 Td (          \(forall \(z : EuclideanSpace R \(Fin d\)\) \(r : R\), 0 < r ->) Tj ET
+BT /F3 4.9 Tf 394.00 318.00 Td (            Metric.ball z r subset \(Omega : Set \(EuclideanSpace R \(Fin d\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 311.00 Td (        ->) Tj ET
+BT /F3 4.9 Tf 394.00 304.00 Td (             x in Metric.ball z r, gradNorm D x <= M * r ^ \(alpha - 1\)\) ->) Tj ET
+BT /F3 4.9 Tf 394.00 297.00 Td (          exists v : EuclideanSpace R \(Fin d\) -> R, v =^m[volume.restrict) Tj ET
+BT /F3 4.9 Tf 394.00 290.00 Td (        Omega] u /\\) Tj ET
+BT /F3 4.9 Tf 394.00 283.00 Td (            \(forall x in Omega, forall y in Omega, |v x - v y| <= N * M *) Tj ET
+BT /F3 4.9 Tf 394.00 276.00 Td (        ||x - y|| ^ alpha\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 269.00 Td (            forall x in Omega, ENNReal.ofReal |v x| <=) Tj ET
+BT /F3 4.9 Tf 394.00 262.00 Td (              ENNReal.ofReal \(N * M\) + unitBallAverageSup \(Omega : Set) Tj ET
+BT /F3 4.9 Tf 394.00 255.00 Td (        \(EuclideanSpace R \(Fin d\)\)\) u\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 248.00 Td (      forall p : R, 1 <= p -> \(d : R\) < p -> exists N : R, 0 <= N /\\) Tj ET
+BT /F3 4.9 Tf 394.00 241.00 Td (        forall \(Omega : TopologicalSpace.Opens \(EuclideanSpace R \(Fin d\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 234.00 Td (        \(u : EuclideanSpace R \(Fin d\) -> R\)) Tj ET
+BT /F3 4.9 Tf 394.00 227.00 Td (          \(D : \(Fin d -> N\) -> EuclideanSpace R \(Fin d\) -> R\),) Tj ET
+BT /F3 4.9 Tf 394.00 220.00 Td (          IsConvexDomainWith kappa Omega -> MemSobolevOn \(ENNReal.ofReal p\)) Tj ET
+BT /F3 4.9 Tf 394.00 213.00 Td (        1 Omega u ->) Tj ET
+BT /F3 4.9 Tf 394.00 206.00 Td (          IsSobolevFamilyOn 1 Omega u D ->) Tj ET
+BT /F3 4.9 Tf 394.00 199.00 Td (          exists v : EuclideanSpace R \(Fin d\) -> R, v =^m[volume.restrict) Tj ET
+BT /F3 4.9 Tf 394.00 192.00 Td (        Omega] u /\\) Tj ET
+BT /F3 4.9 Tf 394.00 185.00 Td (            \(forall x in Omega, forall y in Omega, |v x - v y| <=) Tj ET
+BT /F3 4.9 Tf 394.00 178.00 Td (              N * \(eLpNorm \(gradNorm D\) \(ENNReal.ofReal p\) \(volume.restrict) Tj ET
+BT /F3 4.9 Tf 394.00 171.00 Td (        Omega\)\).toReal *) Tj ET
+BT /F3 4.9 Tf 394.00 164.00 Td (                ||x - y|| ^ \(1 - d / p\)\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 157.00 Td (            forall x in Omega, ENNReal.ofReal |v x| <=) Tj ET
+BT /F3 4.9 Tf 394.00 150.00 Td (              ENNReal.ofReal \(N * \(eLpNorm \(gradNorm D\) \(ENNReal.ofReal p\)) Tj ET
+BT /F3 4.9 Tf 394.00 143.00 Td (                  \(volume.restrict Omega\)\).toReal\) +) Tj ET
+BT /F3 4.9 Tf 394.00 136.00 Td (                unitBallAverageSup \(Omega : Set \(EuclideanSpace R \(Fin d\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 129.00 Td (        u := by) Tj ET
+BT /F3 4.9 Tf 394.00 122.00 Td (  sorry) Tj ET
+20.00 113.00 m 20.00 40.00 l S
+310.00 113.00 m 310.00 40.00 l S
+390.00 113.00 m 390.00 40.00 l S
+772.00 113.00 m 772.00 40.00 l S
+20.00 113.00 m 772.00 113.00 l S
+20.00 40.00 m 772.00 40.00 l S
+BT /F1 5.8 Tf 24.00 105.00 Td (Theorem 10.3.2 \(Gagliardo-Nirenberg\). Let Omega = R^d or Omega) Tj ET
+BT /F1 5.8 Tf 24.00 98.00 Td (= R^d_+. Let u in W11\(Omega\). Then u in L_{d/\(d-1\)}\(Omega\) and) Tj ET
+BT /F1 5.8 Tf 24.00 91.00 Td (||u||_{L_{d/\(d-1\)}\(Omega\)} <= prod_{j=1}^d ||D_j) Tj ET
+BT /F1 5.8 Tf 24.00 84.00 Td (u||_{L1\(Omega\)}^{1/d}. \(The exponent d/\(d-1\) is read as inf) Tj ET
+BT /F1 5.8 Tf 24.00 77.00 Td (when d = 1, the case with which the proof's induction starts.\)) Tj ET
+BT /F1 5.8 Tf 314.00 105.00 Td (PDE) Tj ET
+BT /F3 4.9 Tf 394.00 105.00 Td (def upperHalfSpace \(d : N\) [NeZero d] : Opens \(EuclideanSpace R \(Fin d\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 98.00 Td (where) Tj ET
+BT /F3 4.9 Tf 394.00 91.00 Td (  carrier := {x | 0 < x 0}) Tj ET
+BT /F3 4.9 Tf 394.00 84.00 Td (  is_open' := isOpen_lt continuous_const \(by fun_prop\)) Tj ET
+BT /F3 4.9 Tf 394.00 77.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 70.00 Td (def IsSobolevFamilyOn {d : N} \(k : N\) \(Omega : Opens \(EuclideanSpace R \(Fin) Tj ET
+BT /F3 4.9 Tf 394.00 63.00 Td (d\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 56.00 Td (    \(u : EuclideanSpace R \(Fin d\) -> R\) \(D : \(Fin d -> N\) -> EuclideanSpace) Tj ET
+BT /F3 4.9 Tf 394.00 49.00 Td (    R \(Fin d\) -> R\) : Prop :=) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 15 0 R /F2 16 0 R /F3 17 0 R >> >> /Contents 10 0 R >>
+endobj
+10 0 obj
+<< /Length 8048 >>
+stream
+BT /F2 12 Tf 24.00 586.00 Td (Krylov Sobolev PDE Benchmark) Tj ET
+BT /F1 7 Tf 740.00 586.00 Td (p. 4) Tj ET
+BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
+BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
+BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
+20.00 558.00 m 772.00 558.00 l S
+20.00 550.00 m 20.00 372.00 l S
+310.00 550.00 m 310.00 372.00 l S
+390.00 550.00 m 390.00 372.00 l S
+772.00 550.00 m 772.00 372.00 l S
+20.00 550.00 m 772.00 550.00 l S
+20.00 372.00 m 772.00 372.00 l S
+BT /F3 4.9 Tf 394.00 542.00 Td (  forall alpha in multiIndicesLE d k, IsSobolevDerivOn Omega alpha u \(D) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (  alpha\)) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (def MemSobolevOn {d : N} \(p : R>=0inf\) \(k : N\) \(Omega : Opens) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (\(EuclideanSpace R \(Fin d\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (    \(u : EuclideanSpace R \(Fin d\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (  MemLp u p \(volume.restrict Omega\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td (    exists D, IsSobolevFamilyOn k Omega u D /\\ forall alpha in) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td (    multiIndicesLE d k,) Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (      MemLp \(D alpha\) p \(volume.restrict Omega\)) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (theorem krylov_sobolev_10_3_2_gagliardo_nirenberg {d : N} [NeZero d]) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td (    \(Omega : TopologicalSpace.Opens \(EuclideanSpace R \(Fin d\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 451.00 Td (    \(hOmega : Omega = top \\/ Omega = upperHalfSpace d\) \(u : EuclideanSpace) Tj ET
+BT /F3 4.9 Tf 394.00 444.00 Td (    R \(Fin d\) -> R\)) Tj ET
+BT /F3 4.9 Tf 394.00 437.00 Td (    \(D : \(Fin d -> N\) -> EuclideanSpace R \(Fin d\) -> R\) \(hu : MemSobolevOn) Tj ET
+BT /F3 4.9 Tf 394.00 430.00 Td (    1 1 Omega u\)) Tj ET
+BT /F3 4.9 Tf 394.00 423.00 Td (    \(hD : IsSobolevFamilyOn 1 Omega u D\) :) Tj ET
+BT /F3 4.9 Tf 394.00 416.00 Td (    MemLp u \(\(d : R>=0inf\) / \(\(d : R>=0inf\) - 1\)\) \(volume.restrict Omega\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 409.00 Td (      eLpNorm u \(\(d : R>=0inf\) / \(\(d : R>=0inf\) - 1\)\) \(volume.restrict) Tj ET
+BT /F3 4.9 Tf 394.00 402.00 Td (      Omega\) <=) Tj ET
+BT /F3 4.9 Tf 394.00 395.00 Td (        prod j, eLpNorm \(D \(Pi.single j 1\)\) 1 \(volume.restrict Omega\) ^ \(\(d) Tj ET
+BT /F3 4.9 Tf 394.00 388.00 Td (        : R\)^-1\) := by) Tj ET
+BT /F3 4.9 Tf 394.00 381.00 Td (  sorry) Tj ET
+20.00 372.00 m 20.00 40.00 l S
+310.00 372.00 m 310.00 40.00 l S
+390.00 372.00 m 390.00 40.00 l S
+772.00 372.00 m 772.00 40.00 l S
+20.00 372.00 m 772.00 372.00 l S
+20.00 40.00 m 772.00 40.00 l S
+BT /F1 5.8 Tf 24.00 364.00 Td (Theorem 10.5.1 \(Kondrashov\). Let p in [1,inf\), k in {1,2,...},) Tj ET
+BT /F1 5.8 Tf 24.00 357.00 Td (m in {0,1,...,k-1}, Omega in C^k, and let U be a bounded) Tj ET
+BT /F1 5.8 Tf 24.00 350.00 Td (subset of W_p^k\(Omega\). Then U is precompact in W_q^m\(Omega\)) Tj ET
+BT /F1 5.8 Tf 24.00 343.00 Td (for any q in [1,inf\) satisfying the strict inequality k - d/p) Tj ET
+BT /F1 5.8 Tf 24.00 336.00 Td (> m - d/q, so that q is just any number in [1,inf\) if p\(k-m\)) Tj ET
+BT /F1 5.8 Tf 24.00 329.00 Td (>= d. \(Omega in C^k is Definition 8.3.1: Omega is a bounded) Tj ET
+BT /F1 5.8 Tf 24.00 322.00 Td (domain and there are K0, rho0 > 0 such that every z in dOmega) Tj ET
+BT /F1 5.8 Tf 24.00 315.00 Td (admits a one-to-one map psi of B_{rho0}\(z\) onto a domain D^z) Tj ET
+BT /F1 5.8 Tf 24.00 308.00 Td (with psi\(B_{rho0}\(z\) inter Omega\) subset R^d_+, psi\(z\) = 0,) Tj ET
+BT /F1 5.8 Tf 24.00 301.00 Td (psi\(B_{rho0}\(z\) inter dOmega\) = D^z inter {y1 = 0}, psi in) Tj ET
+BT /F1 5.8 Tf 24.00 294.00 Td (C^k\(closure B_{rho0}\(z\)\), psi^{-1} in C^k\(closure D^z\) and) Tj ET
+BT /F1 5.8 Tf 24.00 287.00 Td (|psi|_{C^k} + |psi^{-1}|_{C^k} <= K0.\)) Tj ET
+BT /F1 5.8 Tf 314.00 364.00 Td (PDE) Tj ET
+BT /F3 4.9 Tf 394.00 364.00 Td (def multiIndicesLE \(d k : N\) : Finset \(Fin d -> N\) :=) Tj ET
+BT /F3 4.9 Tf 394.00 357.00 Td (  \(Fintype.piFinset fun _ : Fin d => Finset.range \(k + 1\)\).filter fun alpha) Tj ET
+BT /F3 4.9 Tf 394.00 350.00 Td (  => sum i, alpha i <= k) Tj ET
+BT /F3 4.9 Tf 394.00 343.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 336.00 Td (def IsSobolevFamilyOn {d : N} \(k : N\) \(Omega : Opens \(EuclideanSpace R \(Fin) Tj ET
+BT /F3 4.9 Tf 394.00 329.00 Td (d\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 322.00 Td (    \(u : EuclideanSpace R \(Fin d\) -> R\) \(D : \(Fin d -> N\) -> EuclideanSpace) Tj ET
+BT /F3 4.9 Tf 394.00 315.00 Td (    R \(Fin d\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 308.00 Td (  forall alpha in multiIndicesLE d k, IsSobolevDerivOn Omega alpha u \(D) Tj ET
+BT /F3 4.9 Tf 394.00 301.00 Td (  alpha\)) Tj ET
+BT /F3 4.9 Tf 394.00 294.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 287.00 Td (def MemSobolevOn {d : N} \(p : R>=0inf\) \(k : N\) \(Omega : Opens) Tj ET
+BT /F3 4.9 Tf 394.00 280.00 Td (\(EuclideanSpace R \(Fin d\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 273.00 Td (    \(u : EuclideanSpace R \(Fin d\) -> R\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 266.00 Td (  MemLp u p \(volume.restrict Omega\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 259.00 Td (    exists D, IsSobolevFamilyOn k Omega u D /\\ forall alpha in) Tj ET
+BT /F3 4.9 Tf 394.00 252.00 Td (    multiIndicesLE d k,) Tj ET
+BT /F3 4.9 Tf 394.00 245.00 Td (      MemLp \(D alpha\) p \(volume.restrict Omega\)) Tj ET
+BT /F3 4.9 Tf 394.00 238.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 231.00 Td (noncomputable def sobolevNorm {d : N} \(p : R>=0inf\) \(k : N\)) Tj ET
+BT /F3 4.9 Tf 394.00 224.00 Td (    \(Omega : Opens \(EuclideanSpace R \(Fin d\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 217.00 Td (    \(D : \(Fin d -> N\) -> EuclideanSpace R \(Fin d\) -> R\) : R>=0inf :=) Tj ET
+BT /F3 4.9 Tf 394.00 210.00 Td (  sum alpha in multiIndicesLE d k,) Tj ET
+BT /F3 4.9 Tf 394.00 203.00 Td (    eLpNorm \(D alpha\) p \(volume.restrict Omega\)) Tj ET
+BT /F3 4.9 Tf 394.00 196.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 189.00 Td (structure IsCkDomain {d : N} \(k : N\) \(Omega : Opens \(EuclideanSpace R \(Fin) Tj ET
+BT /F3 4.9 Tf 394.00 182.00 Td (d\)\)\) : Prop where) Tj ET
+BT /F3 4.9 Tf 394.00 175.00 Td (  nonempty : \(Omega : Set \(EuclideanSpace R \(Fin d\)\)\).Nonempty) Tj ET
+BT /F3 4.9 Tf 394.00 168.00 Td (  isBounded : Bornology.IsBounded \(Omega : Set \(EuclideanSpace R \(Fin d\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 161.00 Td (  /-- Near every boundary point some `C^k` diffeomorphism flattens the) Tj ET
+BT /F3 4.9 Tf 394.00 154.00 Td (  boundary, with uniform) Tj ET
+BT /F3 4.9 Tf 394.00 147.00 Td (  bounds `K0` on the `C^k` norms and a uniform radius `rho0`. -/) Tj ET
+BT /F3 4.9 Tf 394.00 140.00 Td (  exists_flattening : exists K0 rho0 : R, 0 < K0 /\\ 0 < rho0 /\\) Tj ET
+BT /F3 4.9 Tf 394.00 133.00 Td (    forall z in frontier \(Omega : Set \(EuclideanSpace R \(Fin d\)\)\),) Tj ET
+BT /F3 4.9 Tf 394.00 126.00 Td (      exists \(D : Opens \(EuclideanSpace R \(Fin d\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 119.00 Td (        \(psi psiinv : EuclideanSpace R \(Fin d\) -> EuclideanSpace R \(Fin d\)\),) Tj ET
+BT /F3 4.9 Tf 394.00 112.00 Td (        BijOn psi \(Metric.ball z rho0\) D /\\ InvOn psiinv psi \(Metric.ball z) Tj ET
+BT /F3 4.9 Tf 394.00 105.00 Td (        rho0\) D /\\ psi z = 0 /\\) Tj ET
+BT /F3 4.9 Tf 394.00 98.00 Td (          psi '' \(Metric.ball z rho0 inter \(Omega : Set \(EuclideanSpace R) Tj ET
+BT /F3 4.9 Tf 394.00 91.00 Td (        \(Fin d\)\)\)\) subset) Tj ET
+BT /F3 4.9 Tf 394.00 84.00 Td (            \(upperHalfSpaceSet d\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 77.00 Td (          psi '' \(Metric.ball z rho0 inter frontier \(Omega : Set) Tj ET
+BT /F3 4.9 Tf 394.00 70.00 Td (        \(EuclideanSpace R \(Fin d\)\)\)\) =) Tj ET
+BT /F3 4.9 Tf 394.00 63.00 Td (            \(D : Set \(EuclideanSpace R \(Fin d\)\)\) inter boundaryHyperplane d) Tj ET
+BT /F3 4.9 Tf 394.00 56.00 Td (        /\\) Tj ET
+BT /F3 4.9 Tf 394.00 49.00 Td (          ContDiffOn R k psi \(Metric.closedBall z rho0\) /\\) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 15 0 R /F2 16 0 R /F3 17 0 R >> >> /Contents 12 0 R >>
+endobj
+12 0 obj
+<< /Length 8467 >>
+stream
+BT /F2 12 Tf 24.00 586.00 Td (Krylov Sobolev PDE Benchmark) Tj ET
+BT /F1 7 Tf 740.00 586.00 Td (p. 5) Tj ET
+BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
+BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
+BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
+20.00 558.00 m 772.00 558.00 l S
+20.00 550.00 m 20.00 337.00 l S
+310.00 550.00 m 310.00 337.00 l S
+390.00 550.00 m 390.00 337.00 l S
+772.00 550.00 m 772.00 337.00 l S
+20.00 550.00 m 772.00 550.00 l S
+20.00 337.00 m 772.00 337.00 l S
+BT /F3 4.9 Tf 394.00 542.00 Td (          ContDiffOn R k psiinv \(closure \(D : Set \(EuclideanSpace R \(Fin) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (        d\)\)\)\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (          ckNormMapOn k \(Metric.closedBall z rho0\) psi +) Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (            ckNormMapOn k \(closure \(D : Set \(EuclideanSpace R \(Fin d\)\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (        psiinv <= ENNReal.ofReal K0) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (theorem krylov_sobolev_10_5_1_kondrashov_compactness {d : N} \(p q : R\) \(k m) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td (: N\)) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td (    \(hp : 1 <= p\) \(hq : 1 <= q\) \(hm : m < k\)) Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (    \(Omega : TopologicalSpace.Opens \(EuclideanSpace R \(Fin d\)\)\) \(hOmega :) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td (    IsCkDomain k Omega\)) Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (    \(hkm : \(m : R\) - d / q < \(k : R\) - d / p\)) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td (    \(U : Set \(EuclideanSpace R \(Fin d\) -> R\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 451.00 Td (    \(hU : forall u in U, MemSobolevOn \(ENNReal.ofReal p\) k Omega u\)) Tj ET
+BT /F3 4.9 Tf 394.00 444.00 Td (    \(hbdd : exists M : R>=0inf, M != \(inf : R>=0inf\) /\\ forall u in U,) Tj ET
+BT /F3 4.9 Tf 394.00 437.00 Td (    forall D, IsSobolevFamilyOn k Omega u D ->) Tj ET
+BT /F3 4.9 Tf 394.00 430.00 Td (      sobolevNorm \(ENNReal.ofReal p\) k Omega D <= M\)) Tj ET
+BT /F3 4.9 Tf 394.00 423.00 Td (    \(F : N -> EuclideanSpace R \(Fin d\) -> R\) \(hF : forall n, F n in U\)) Tj ET
+BT /F3 4.9 Tf 394.00 416.00 Td (    \(DF : N -> \(Fin d -> N\) -> EuclideanSpace R \(Fin d\) -> R\)) Tj ET
+BT /F3 4.9 Tf 394.00 409.00 Td (    \(hDF : forall n, IsSobolevFamilyOn m Omega \(F n\) \(DF n\)\) :) Tj ET
+BT /F3 4.9 Tf 394.00 402.00 Td (    exists \(sigma : N -> N\) \(g : EuclideanSpace R \(Fin d\) -> R\)) Tj ET
+BT /F3 4.9 Tf 394.00 395.00 Td (      \(Dg : \(Fin d -> N\) -> EuclideanSpace R \(Fin d\) -> R\), StrictMono) Tj ET
+BT /F3 4.9 Tf 394.00 388.00 Td (      sigma /\\) Tj ET
+BT /F3 4.9 Tf 394.00 381.00 Td (      MemSobolevOn \(ENNReal.ofReal q\) m Omega g /\\ IsSobolevFamilyOn m) Tj ET
+BT /F3 4.9 Tf 394.00 374.00 Td (      Omega g Dg /\\) Tj ET
+BT /F3 4.9 Tf 394.00 367.00 Td (      Tendsto \(fun n => sum alpha in multiIndicesLE d m,) Tj ET
+BT /F3 4.9 Tf 394.00 360.00 Td (          eLpNorm \(DF \(sigma n\) alpha - Dg alpha\) \(ENNReal.ofReal q\)) Tj ET
+BT /F3 4.9 Tf 394.00 353.00 Td (        \(volume.restrict Omega\)\) atTop \(nhds 0\) := by) Tj ET
+BT /F3 4.9 Tf 394.00 346.00 Td (  sorry) Tj ET
+20.00 337.00 m 20.00 61.00 l S
+310.00 337.00 m 310.00 61.00 l S
+390.00 337.00 m 390.00 61.00 l S
+772.00 337.00 m 772.00 61.00 l S
+20.00 337.00 m 772.00 337.00 l S
+20.00 61.00 m 772.00 61.00 l S
+BT /F1 5.8 Tf 24.00 329.00 Td (Theorem 11.1.3 \(Maximum principle\). Let Omega be a bounded) Tj ET
+BT /F1 5.8 Tf 24.00 322.00 Td (domain, c <= 0. If u in C2_{loc}\(Omega\) inter C\(closure Omega\)) Tj ET
+BT /F1 5.8 Tf 24.00 315.00 Td (and Lu >= 0 in Omega, then u <= max_{dOmega} u+ holds in) Tj ET
+BT /F1 5.8 Tf 24.00 308.00 Td (Omega. \(Here L = a^{ij}D_{ij} + b^iD_i + c is a second-order) Tj ET
+BT /F1 5.8 Tf 24.00 301.00 Td (elliptic differential operator in the sense of Definition) Tj ET
+BT /F1 5.8 Tf 24.00 294.00 Td (1.4.1: a^{ij}, b^i, c are real-valued measurable functions) Tj ET
+BT /F1 5.8 Tf 24.00 287.00 Td (with a^{ij} = a^{ji} and there is a constant of ellipticity) Tj ET
+BT /F1 5.8 Tf 24.00 280.00 Td (kappa > 0 with kappa^{-1}|xi|2 >= a^{ij}\(x\)xi^ixi^j >=) Tj ET
+BT /F1 5.8 Tf 24.00 273.00 Td (kappa|xi|2 for all x, xi; by Assumption 1.6.1 the coefficients) Tj ET
+BT /F1 5.8 Tf 24.00 266.00 Td (are bounded. Section 11.1 notes that the uniform continuity of) Tj ET
+BT /F1 5.8 Tf 24.00 259.00 Td (a^{ij} is not used. Also a+ = \(|a| + a\)/2.\)) Tj ET
+BT /F1 5.8 Tf 314.00 329.00 Td (PDE) Tj ET
+BT /F3 4.9 Tf 394.00 329.00 Td (structure EllipticCoefficients \(d : N\) \(kappa K : R\) where) Tj ET
+BT /F3 4.9 Tf 394.00 322.00 Td (  /-- The leading coefficients `a^{ij}`. -/) Tj ET
+BT /F3 4.9 Tf 394.00 315.00 Td (  a : EuclideanSpace R \(Fin d\) -> Matrix \(Fin d\) \(Fin d\) R) Tj ET
+BT /F3 4.9 Tf 394.00 308.00 Td (  /-- The first-order coefficients `b^i`. -/) Tj ET
+BT /F3 4.9 Tf 394.00 301.00 Td (  b : EuclideanSpace R \(Fin d\) -> EuclideanSpace R \(Fin d\)) Tj ET
+BT /F3 4.9 Tf 394.00 294.00 Td (  /-- The zeroth-order coefficient `c`. -/) Tj ET
+BT /F3 4.9 Tf 394.00 287.00 Td (  c : EuclideanSpace R \(Fin d\) -> R) Tj ET
+BT /F3 4.9 Tf 394.00 280.00 Td (  measurable_a : forall i j, Measurable fun x => a x i j) Tj ET
+BT /F3 4.9 Tf 394.00 273.00 Td (  measurable_b : forall i, Measurable fun x => b x i) Tj ET
+BT /F3 4.9 Tf 394.00 266.00 Td (  measurable_c : Measurable c) Tj ET
+BT /F3 4.9 Tf 394.00 259.00 Td (  isSymm : forall x, \(a x\).IsSymm) Tj ET
+BT /F3 4.9 Tf 394.00 252.00 Td (  ellipticityConstant_pos : 0 < kappa) Tj ET
+BT /F3 4.9 Tf 394.00 245.00 Td (  le_quadraticForm : forall \(x xi : EuclideanSpace R \(Fin d\)\),) Tj ET
+BT /F3 4.9 Tf 394.00 238.00 Td (    kappa * ||xi|| ^ 2 <= sum i, sum j, a x i j * xi i * xi j) Tj ET
+BT /F3 4.9 Tf 394.00 231.00 Td (  quadraticForm_le : forall \(x xi : EuclideanSpace R \(Fin d\)\),) Tj ET
+BT /F3 4.9 Tf 394.00 224.00 Td (    sum i, sum j, a x i j * xi i * xi j <= kappa^-1 * ||xi|| ^ 2) Tj ET
+BT /F3 4.9 Tf 394.00 217.00 Td (  abs_a_le : forall x i j, |a x i j| <= K) Tj ET
+BT /F3 4.9 Tf 394.00 210.00 Td (  abs_b_le : forall x i, |b x i| <= K) Tj ET
+BT /F3 4.9 Tf 394.00 203.00 Td (  abs_c_le : forall x, |c x| <= K) Tj ET
+BT /F3 4.9 Tf 394.00 196.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 189.00 Td (noncomputable def EllipticCoefficients.op {d : N} {kappa K : R} \(L :) Tj ET
+BT /F3 4.9 Tf 394.00 182.00 Td (EllipticCoefficients d kappa K\)) Tj ET
+BT /F3 4.9 Tf 394.00 175.00 Td (    \(u : EuclideanSpace R \(Fin d\) -> R\) \(x : EuclideanSpace R \(Fin d\)\) : R) Tj ET
+BT /F3 4.9 Tf 394.00 168.00 Td (    :=) Tj ET
+BT /F3 4.9 Tf 394.00 161.00 Td (  \(sum i, sum j, L.a x i j * directionalDerivativeList [i, j] u x\) +) Tj ET
+BT /F3 4.9 Tf 394.00 154.00 Td (    \(sum i, L.b x i * directionalDerivativeList [i] u x\) + L.c x * u x) Tj ET
+BT /F3 4.9 Tf 394.00 147.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 140.00 Td (theorem krylov_sobolev_11_1_3_maximum_principle {d : N} \(hd : 1 <= d\)) Tj ET
+BT /F3 4.9 Tf 394.00 133.00 Td (    {kappa K : R} \(L : EllipticCoefficients d kappa K\) \(hc : forall x, L.c) Tj ET
+BT /F3 4.9 Tf 394.00 126.00 Td (    x <= 0\)) Tj ET
+BT /F3 4.9 Tf 394.00 119.00 Td (    \(Omega : Set \(EuclideanSpace R \(Fin d\)\)\) \(hOmegaopen : IsOpen Omega\)) Tj ET
+BT /F3 4.9 Tf 394.00 112.00 Td (    \(hOmegabdd : Bornology.IsBounded Omega\)) Tj ET
+BT /F3 4.9 Tf 394.00 105.00 Td (    \(u : EuclideanSpace R \(Fin d\) -> R\)) Tj ET
+BT /F3 4.9 Tf 394.00 98.00 Td (    \(hu : ContDiffOn R 2 u Omega\) \(hucont : ContinuousOn u \(closure Omega\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 91.00 Td (    \(hLu : forall x in Omega, 0 <= L.op u x\) :) Tj ET
+BT /F3 4.9 Tf 394.00 84.00 Td (    forall x in Omega, u x <= sSup \(\(fun y => max \(u y\) 0\) '' frontier) Tj ET
+BT /F3 4.9 Tf 394.00 77.00 Td (    Omega\) := by) Tj ET
+BT /F3 4.9 Tf 394.00 70.00 Td (  sorry) Tj ET
+20.00 61.00 m 20.00 37.00 l S
+310.00 61.00 m 310.00 37.00 l S
+390.00 61.00 m 390.00 37.00 l S
+772.00 61.00 m 772.00 37.00 l S
+20.00 61.00 m 772.00 61.00 l S
+20.00 37.00 m 772.00 37.00 l S
+BT /F1 5.8 Tf 24.00 53.00 Td (Theorem 12.9.12. If  > 0, then for any phi in S we have) Tj ET
+BT /F1 5.8 Tf 24.00 46.00 Td (\(1-Delta\)^{-/2}phi\(x\) = integral_{R^d} G\(x-y\)phi\(y\) dy and G) Tj ET
+BT /F1 5.8 Tf 314.00 53.00 Td (Harmonic) Tj ET
+BT /F1 5.8 Tf 314.00 46.00 Td (analysis) Tj ET
+BT /F3 4.9 Tf 394.00 53.00 Td (def IsBesselPotential {d : N} \( : R\)) Tj ET
+BT /F3 4.9 Tf 394.00 46.00 Td (    \(phi v : EuclideanSpace R \(Fin d\) -> C\) : Prop :=) Tj ET
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 15 0 R /F2 16 0 R /F3 17 0 R >> >> /Contents 14 0 R >>
+endobj
+14 0 obj
+<< /Length 2212 >>
+stream
+BT /F2 12 Tf 24.00 586.00 Td (Krylov Sobolev PDE Benchmark) Tj ET
+BT /F1 7 Tf 740.00 586.00 Td (p. 6) Tj ET
+BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
+BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
+BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
+20.00 558.00 m 772.00 558.00 l S
+20.00 550.00 m 20.00 449.00 l S
+310.00 550.00 m 310.00 449.00 l S
+390.00 550.00 m 390.00 449.00 l S
+772.00 550.00 m 772.00 449.00 l S
+20.00 550.00 m 772.00 550.00 l S
+20.00 449.00 m 772.00 449.00 l S
+BT /F1 5.8 Tf 24.00 542.00 Td (is a function depending only on |x|. Furthermore, G >= 0 and) Tj ET
+BT /F1 5.8 Tf 24.00 535.00 Td (||G||_{L1} = 1. \(Here S is the Schwartz space and, by) Tj ET
+BT /F1 5.8 Tf 24.00 528.00 Td (Definition 12.9.1, \(1-Delta\)^{/2} is the pseudo-differential) Tj ET
+BT /F1 5.8 Tf 24.00 521.00 Td (operator of order  with symbol \(1+|xi|2\)^{/2}, the Fourier) Tj ET
+BT /F1 5.8 Tf 24.00 514.00 Td (transform being normalized as F\(u\)\(xi\) = \(2pi\)^{-d/2} integral) Tj ET
+BT /F1 5.8 Tf 24.00 507.00 Td (e^{-ixi.x} u\(x\) dx.\)) Tj ET
+BT /F3 4.9 Tf 394.00 542.00 Td (  forall xi : EuclideanSpace R \(Fin d\),) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (    F v xi = \(\(1 + 4 * Real.pi ^ 2 * ||xi|| ^ 2\) ^ \(- / 2\) : R\) * F phi xi) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (theorem krylov_sobolev_12_9_12_bessel_kernel {d : N} \( : R\) \(h : 0 < \) :) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (    exists G : EuclideanSpace R \(Fin d\) -> R,) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (      \(forall x y, ||x|| = ||y|| -> G x = G y\) /\\ \(forall x, 0 <= G x\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (        eLpNorm G 1 volume = 1 /\\) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td (        forall \(phi : S\(EuclideanSpace R \(Fin d\), C\)\) \(v : EuclideanSpace R) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td (        \(Fin d\) -> C\),) Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (          Continuous v -> Integrable v -> IsBesselPotential  \(fun x => phi) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td (        x\) v ->) Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (            forall x, v x = integral y, \(G \(x - y\) : C\) * phi y := by) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td (  sorry) Tj ET
+endstream
+endobj
+15 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+16 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+17 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+xref
+0 18
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000153 00000 n 
+0000000302 00000 n 
+0000009284 00000 n 
+0000009433 00000 n 
+0000018514 00000 n 
+0000018663 00000 n 
+0000026597 00000 n 
+0000026747 00000 n 
+0000034848 00000 n 
+0000034999 00000 n 
+0000043519 00000 n 
+0000043670 00000 n 
+0000045935 00000 n 
+0000046006 00000 n 
+0000046082 00000 n 
+trailer
+<< /Size 18 /Root 1 0 R >>
+startxref
+46151
+%%EOF

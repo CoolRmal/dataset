@@ -1,0 +1,407 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R] /Count 3 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 9 0 R /F2 10 0 R /F3 11 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 12463 >>
+stream
+BT /F2 12 Tf 24.00 586.00 Td (Bogachev Gaussian Measures Benchmark) Tj ET
+BT /F1 7 Tf 740.00 586.00 Td (p. 1) Tj ET
+BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
+BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
+BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
+20.00 558.00 m 772.00 558.00 l S
+20.00 550.00 m 20.00 463.00 l S
+310.00 550.00 m 310.00 463.00 l S
+390.00 550.00 m 390.00 463.00 l S
+772.00 550.00 m 772.00 463.00 l S
+20.00 550.00 m 772.00 550.00 l S
+20.00 463.00 m 772.00 463.00 l S
+BT /F1 5.8 Tf 24.00 542.00 Td (Theorem 1.9.2. A random vector xi in R^n is centered Gaussian) Tj ET
+BT /F1 5.8 Tf 24.00 535.00 Td (if and only if for every pair \(xi_1,xi_2\) of independent) Tj ET
+BT /F1 5.8 Tf 24.00 528.00 Td (copies of xi and every real number phi, the random vectors) Tj ET
+BT /F1 5.8 Tf 24.00 521.00 Td (xi_1sinphi + xi_2cosphi, xi_1cosphi - xi_2sinphi are) Tj ET
+BT /F1 5.8 Tf 24.00 514.00 Td (independent copies of xi. Notation: "Independent copies of xi") Tj ET
+BT /F1 5.8 Tf 24.00 507.00 Td (means a pair of independent random vectors each distributed as) Tj ET
+BT /F1 5.8 Tf 24.00 500.00 Td (xi; equivalently, the joint law of the pair is mu tensor mu,) Tj ET
+BT /F1 5.8 Tf 24.00 493.00 Td (where mu is the law of xi. A Borel probability measure on R^n) Tj ET
+BT /F1 5.8 Tf 24.00 486.00 Td (is Gaussian if every continuous linear functional has a) Tj ET
+BT /F1 5.8 Tf 24.00 479.00 Td (\(possibly degenerate\) Gaussian law, and centered if its mean) Tj ET
+BT /F1 5.8 Tf 24.00 472.00 Td (vector is 0.) Tj ET
+BT /F1 5.8 Tf 314.00 542.00 Td (Probability) Tj ET
+BT /F3 4.9 Tf 394.00 542.00 Td (theorem bogachev_gaussian_1_9_2_rotation_characterization {n : N}) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (    \(mu : Measure \(EuclideanSpace R \(Fin n\)\)\) [IsProbabilityMeasure mu] :) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (    \(IsGaussian mu /\\ integral x, x dmu = 0\) <->) Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (      forall phi : R, \(mu.prod mu\).map) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (          \(fun p => \(Real.sin phi  *  p.1 + Real.cos phi  *  p.2,) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (            Real.cos phi  *  p.1 - Real.sin phi  *  p.2\)\) = mu.prod mu := by) Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (  sorry) Tj ET
+20.00 463.00 m 20.00 397.00 l S
+310.00 463.00 m 310.00 397.00 l S
+390.00 463.00 m 390.00 397.00 l S
+772.00 463.00 m 772.00 397.00 l S
+20.00 463.00 m 772.00 463.00 l S
+20.00 397.00 m 772.00 397.00 l S
+BT /F1 5.8 Tf 24.00 455.00 Td (Theorem 1.9.3. Let eta and xi be two independent random) Tj ET
+BT /F1 5.8 Tf 24.00 448.00 Td (variables with a common symmetric distribution such that) Tj ET
+BT /F1 5.8 Tf 24.00 441.00 Td (P\(|{xi+eta}{sqrt{2}}| >= t\) <= P\(|xi| >= t\), forall t >= 0.) Tj ET
+BT /F1 5.8 Tf 24.00 434.00 Td (Then these random variables are Gaussian. Notation: A) Tj ET
+BT /F1 5.8 Tf 24.00 427.00 Td (distribution mu on the real line is *symmetric* if it is) Tj ET
+BT /F1 5.8 Tf 24.00 420.00 Td (invariant under x => -x. A measure on R is Gaussian when it is) Tj ET
+BT /F1 5.8 Tf 24.00 413.00 Td (of the form N\(a,sigma^2\), degenerate values sigma = 0 \(Dirac) Tj ET
+BT /F1 5.8 Tf 24.00 406.00 Td (measures\) included.) Tj ET
+BT /F1 5.8 Tf 314.00 455.00 Td (Probability) Tj ET
+BT /F3 4.9 Tf 394.00 455.00 Td (theorem bogachev_gaussian_1_9_3_symmetric_tail_characterization) Tj ET
+BT /F3 4.9 Tf 394.00 448.00 Td (    \(mu : Measure R\) [IsProbabilityMeasure mu] [mu.IsNegInvariant]) Tj ET
+BT /F3 4.9 Tf 394.00 441.00 Td (    \(htail : forall t : R, 0 <= t ->) Tj ET
+BT /F3 4.9 Tf 394.00 434.00 Td (      \(mu.prod mu\) {p : R  x  R | t <= |\(p.1 + p.2\) / 2|} <= mu {x : R | t) Tj ET
+BT /F3 4.9 Tf 394.00 427.00 Td (      <= |x|}\) :) Tj ET
+BT /F3 4.9 Tf 394.00 420.00 Td (    IsGaussian mu := by) Tj ET
+BT /F3 4.9 Tf 394.00 413.00 Td (  sorry) Tj ET
+20.00 397.00 m 20.00 233.00 l S
+310.00 397.00 m 310.00 233.00 l S
+390.00 397.00 m 390.00 233.00 l S
+772.00 397.00 m 772.00 233.00 l S
+20.00 397.00 m 772.00 397.00 l S
+20.00 233.00 m 772.00 233.00 l S
+BT /F1 5.8 Tf 24.00 389.00 Td (Theorem 2.4.5. Let  be a Gaussian measure on a locally convex) Tj ET
+BT /F1 5.8 Tf 24.00 382.00 Td (space X. \(i\) Let h in X be a vector such that |h|_{H\(\)} =) Tj ET
+BT /F1 5.8 Tf 24.00 375.00 Td (sup{f\(h\) : f in X^, R_\(f\)\(f\) <= 1} = inf; then the measures _h) Tj ET
+BT /F1 5.8 Tf 24.00 368.00 Td (and  are mutually singular; \(ii\) if |h|_{H\(\)} < inf, then the) Tj ET
+BT /F1 5.8 Tf 24.00 361.00 Td (measures  and _h are equivalent. In particular, H\(\) = {h in X) Tj ET
+BT /F1 5.8 Tf 24.00 354.00 Td (: _h ~ } = {h in X : |h|_{H\(\)} < inf} = X inter R_\(X^\).) Tj ET
+BT /F1 5.8 Tf 24.00 347.00 Td (Notation: A Gaussian measure on a locally convex space X is a) Tj ET
+BT /F1 5.8 Tf 24.00 340.00 Td (Borel probability measure  all of whose one-dimensional) Tj ET
+BT /F1 5.8 Tf 24.00 333.00 Td (projections f_{\\#}, f in X^, are Gaussian measures on the real) Tj ET
+BT /F1 5.8 Tf 24.00 326.00 Td (line. Write a_\(f\) = integral_X f d and R_\(f\)\(f\) = integral_X) Tj ET
+BT /F1 5.8 Tf 24.00 319.00 Td (\(f-a_\(f\)\)^2 d. Definition 2.4.1. The *Cameron-Martin space* of) Tj ET
+BT /F1 5.8 Tf 24.00 312.00 Td (is H\(\) = {h in X : |h|_{H\(\)} < inf}, where |h|_{H\(\)} =) Tj ET
+BT /F1 5.8 Tf 24.00 305.00 Td (sup{f\(h\) : f in X^, R_\(f\)\(f\) <= 1}. For h in X we write _h = \() Tj ET
+BT /F1 5.8 Tf 24.00 298.00 Td (. - h\) for the shift of  by h; mu ~ nu means that mu and nu) Tj ET
+BT /F1 5.8 Tf 24.00 291.00 Td (are equivalent \(mutually absolutely continuous\) and mu bot nu) Tj ET
+BT /F1 5.8 Tf 24.00 284.00 Td (that they are mutually singular.) Tj ET
+BT /F1 5.8 Tf 314.00 389.00 Td (Measure) Tj ET
+BT /F1 5.8 Tf 314.00 382.00 Td (theory) Tj ET
+BT /F3 4.9 Tf 394.00 389.00 Td (noncomputable def cameronMartinNorm {E : Type*} [NormedAddCommGroup E]) Tj ET
+BT /F3 4.9 Tf 394.00 382.00 Td ([NormedSpace R E]) Tj ET
+BT /F3 4.9 Tf 394.00 375.00 Td (    [MeasurableSpace E] \( : Measure E\) \(h : E\) : R>=0inf :=) Tj ET
+BT /F3 4.9 Tf 394.00 368.00 Td (   f : {f : StrongDual R E // Var[f; ] <= 1}, ENNReal.ofReal \(\(f :) Tj ET
+BT /F3 4.9 Tf 394.00 361.00 Td (   StrongDual R E\) h\)) Tj ET
+BT /F3 4.9 Tf 394.00 354.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 347.00 Td (def cameronMartinSpace {E : Type*} [NormedAddCommGroup E] [NormedSpace R E]) Tj ET
+BT /F3 4.9 Tf 394.00 340.00 Td (    [MeasurableSpace E] \( : Measure E\) : Set E :=) Tj ET
+BT /F3 4.9 Tf 394.00 333.00 Td (  {h | cameronMartinNorm  h != inf}) Tj ET
+BT /F3 4.9 Tf 394.00 326.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 319.00 Td (def Equivalent {E : Type*} [MeasurableSpace E] \(mu nu : Measure E\) : Prop) Tj ET
+BT /F3 4.9 Tf 394.00 312.00 Td (:= mu  <<  nu /\\ nu  <<  mu) Tj ET
+BT /F3 4.9 Tf 394.00 305.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 298.00 Td (theorem bogachev_gaussian_2_4_5_cameron_martin_dichotomy {E : Type*}) Tj ET
+BT /F3 4.9 Tf 394.00 291.00 Td ([NormedAddCommGroup E]) Tj ET
+BT /F3 4.9 Tf 394.00 284.00 Td (    [NormedSpace R E] [MeasurableSpace E] [BorelSpace E] \( : Measure E\)) Tj ET
+BT /F3 4.9 Tf 394.00 277.00 Td (    [IsGaussian ] :) Tj ET
+BT /F3 4.9 Tf 394.00 270.00 Td (    \(forall h : E, cameronMartinNorm  h = inf -> \(.map \(. + h\)\) perpm \) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 263.00 Td (      \(forall h : E, cameronMartinNorm  h != inf -> Equivalent \(.map \(. +) Tj ET
+BT /F3 4.9 Tf 394.00 256.00 Td (      h\)\) \) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 249.00 Td (      cameronMartinSpace  = {h : E | Equivalent \(.map \(. + h\)\) } := by) Tj ET
+BT /F3 4.9 Tf 394.00 242.00 Td (  sorry) Tj ET
+20.00 233.00 m 20.00 97.00 l S
+310.00 233.00 m 310.00 97.00 l S
+390.00 233.00 m 390.00 97.00 l S
+772.00 233.00 m 772.00 97.00 l S
+20.00 233.00 m 772.00 233.00 l S
+20.00 97.00 m 772.00 97.00 l S
+BT /F1 5.8 Tf 24.00 225.00 Td (Theorem 2.5.2. Let  be a Gaussian measure on a locally convex) Tj ET
+BT /F1 5.8 Tf 24.00 218.00 Td (space X such that R_\(X^\) subset X. Suppose that a set A in) Tj ET
+BT /F1 5.8 Tf 24.00 211.00 Td (E\(X\)_ satisfies the condition \(A + h\) = \(A\), forall h in) Tj ET
+BT /F1 5.8 Tf 24.00 204.00 Td (R_\(X^\). Then either \(A\) = 1 or \(A\) = 0. In addition, if f is a) Tj ET
+BT /F1 5.8 Tf 24.00 197.00 Td (-measurable function such that for every h in R_\(X^\) one has) Tj ET
+BT /F1 5.8 Tf 24.00 190.00 Td (f\(x+h\) = f\(x\) -a.e., then f coincides a.e. with a constant.) Tj ET
+BT /F1 5.8 Tf 24.00 183.00 Td (Notation: A Gaussian measure on a locally convex space X is a) Tj ET
+BT /F1 5.8 Tf 24.00 176.00 Td (Borel probability measure  all of whose one-dimensional) Tj ET
+BT /F1 5.8 Tf 24.00 169.00 Td (projections f_{\\#}, f in X^, are Gaussian measures on the real) Tj ET
+BT /F1 5.8 Tf 24.00 162.00 Td (line. Write a_\(f\) = integral_X f d and R_\(f\)\(f\) = integral_X) Tj ET
+BT /F1 5.8 Tf 24.00 155.00 Td (\(f-a_\(f\)\)^2 d. Definition 2.4.1. The *Cameron-Martin space* of) Tj ET
+BT /F1 5.8 Tf 24.00 148.00 Td (is H\(\) = {h in X : |h|_{H\(\)} < inf}, where |h|_{H\(\)} =) Tj ET
+BT /F1 5.8 Tf 24.00 141.00 Td (sup{f\(h\) : f in X^, R_\(f\)\(f\) <= 1}. For h in X we write _h = \() Tj ET
+BT /F1 5.8 Tf 24.00 134.00 Td (. - h\) for the shift of  by h; mu ~ nu means that mu and nu) Tj ET
+BT /F1 5.8 Tf 24.00 127.00 Td (are equivalent \(mutually absolutely continuous\) and mu bot nu) Tj ET
+BT /F1 5.8 Tf 24.00 120.00 Td (that they are mutually singular. Under the hypothesis R_\(X^\)) Tj ET
+BT /F1 5.8 Tf 24.00 113.00 Td (subset X one has H\(\) = R_\(X^\), so the shifts in the statement) Tj ET
+BT /F1 5.8 Tf 24.00 106.00 Td (are exactly the shifts by Cameron-Martin vectors.) Tj ET
+BT /F1 5.8 Tf 314.00 225.00 Td (Measure) Tj ET
+BT /F1 5.8 Tf 314.00 218.00 Td (theory) Tj ET
+BT /F3 4.9 Tf 394.00 225.00 Td (def cameronMartinSpace {E : Type*} [NormedAddCommGroup E] [NormedSpace R E]) Tj ET
+BT /F3 4.9 Tf 394.00 218.00 Td (    [MeasurableSpace E] \( : Measure E\) : Set E :=) Tj ET
+BT /F3 4.9 Tf 394.00 211.00 Td (  {h | cameronMartinNorm  h != inf}) Tj ET
+BT /F3 4.9 Tf 394.00 204.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 197.00 Td (theorem bogachev_gaussian_2_5_2_zero_one_law {E : Type*}) Tj ET
+BT /F3 4.9 Tf 394.00 190.00 Td ([NormedAddCommGroup E]) Tj ET
+BT /F3 4.9 Tf 394.00 183.00 Td (    [NormedSpace R E] [MeasurableSpace E] [BorelSpace E] \( : Measure E\)) Tj ET
+BT /F3 4.9 Tf 394.00 176.00 Td (    [IsGaussian ] :) Tj ET
+BT /F3 4.9 Tf 394.00 169.00 Td (    \(forall A : Set E, MeasurableSet A -> \(forall h in cameronMartinSpace ,) Tj ET
+BT /F3 4.9 Tf 394.00 162.00 Td (    \(\(fun x => x + h\) '' A\) =  A\) ->) Tj ET
+BT /F3 4.9 Tf 394.00 155.00 Td (         A = 0 \\/  A = 1\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 148.00 Td (      forall f : E -> R, Measurable f ->) Tj ET
+BT /F3 4.9 Tf 394.00 141.00 Td (        \(forall h in cameronMartinSpace , forall^m x d, f \(x + h\) = f x\) ->) Tj ET
+BT /F3 4.9 Tf 394.00 134.00 Td (        exists c : R, forall^m x d, f x = c := by) Tj ET
+BT /F3 4.9 Tf 394.00 127.00 Td (  sorry) Tj ET
+20.00 97.00 m 20.00 38.00 l S
+310.00 97.00 m 310.00 38.00 l S
+390.00 97.00 m 390.00 38.00 l S
+772.00 97.00 m 772.00 38.00 l S
+20.00 97.00 m 772.00 97.00 l S
+20.00 38.00 m 772.00 38.00 l S
+BT /F1 5.8 Tf 24.00 89.00 Td (Theorem 2.7.2. Any two Gaussian measures on one and the same) Tj ET
+BT /F1 5.8 Tf 24.00 82.00 Td (locally convex space are either equivalent or mutually) Tj ET
+BT /F1 5.8 Tf 24.00 75.00 Td (singular. Notation: A Gaussian measure on a locally convex) Tj ET
+BT /F1 5.8 Tf 24.00 68.00 Td (space X is a Borel probability measure  all of whose one-) Tj ET
+BT /F1 5.8 Tf 24.00 61.00 Td (dimensional projections f_{\\#}, f in X^, are Gaussian measures) Tj ET
+BT /F1 5.8 Tf 24.00 54.00 Td (on the real line. Write a_\(f\) = integral_X f d and R_\(f\)\(f\) =) Tj ET
+BT /F1 5.8 Tf 24.00 47.00 Td (integral_X \(f-a_\(f\)\)^2 d. Definition 2.4.1. The *Cameron-) Tj ET
+BT /F1 5.8 Tf 314.00 89.00 Td (Measure) Tj ET
+BT /F1 5.8 Tf 314.00 82.00 Td (theory) Tj ET
+BT /F3 4.9 Tf 394.00 89.00 Td (def Equivalent {E : Type*} [MeasurableSpace E] \(mu nu : Measure E\) : Prop) Tj ET
+BT /F3 4.9 Tf 394.00 82.00 Td (:= mu  <<  nu /\\ nu  <<  mu) Tj ET
+BT /F3 4.9 Tf 394.00 75.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 68.00 Td (theorem bogachev_gaussian_2_7_2_feldman_hajek {E : Type*}) Tj ET
+BT /F3 4.9 Tf 394.00 61.00 Td ([NormedAddCommGroup E]) Tj ET
+BT /F3 4.9 Tf 394.00 54.00 Td (    [NormedSpace R E] [MeasurableSpace E] [BorelSpace E] \(mu nu : Measure E\)) Tj ET
+BT /F3 4.9 Tf 394.00 47.00 Td (    [IsGaussian mu] [IsGaussian nu] : Equivalent mu nu \\/ mu perpm nu := by) Tj ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 9 0 R /F2 10 0 R /F3 11 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 12118 >>
+stream
+BT /F2 12 Tf 24.00 586.00 Td (Bogachev Gaussian Measures Benchmark) Tj ET
+BT /F1 7 Tf 740.00 586.00 Td (p. 2) Tj ET
+BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
+BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
+BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
+20.00 558.00 m 772.00 558.00 l S
+20.00 550.00 m 20.00 505.00 l S
+310.00 550.00 m 310.00 505.00 l S
+390.00 550.00 m 390.00 505.00 l S
+772.00 550.00 m 772.00 505.00 l S
+20.00 550.00 m 772.00 550.00 l S
+20.00 505.00 m 772.00 505.00 l S
+BT /F1 5.8 Tf 24.00 542.00 Td (Martin space* of  is H\(\) = {h in X : |h|_{H\(\)} < inf}, where) Tj ET
+BT /F1 5.8 Tf 24.00 535.00 Td (|h|_{H\(\)} = sup{f\(h\) : f in X^, R_\(f\)\(f\) <= 1}. For h in X we) Tj ET
+BT /F1 5.8 Tf 24.00 528.00 Td (write _h = \( . - h\) for the shift of  by h; mu ~ nu means that) Tj ET
+BT /F1 5.8 Tf 24.00 521.00 Td (mu and nu are equivalent \(mutually absolutely continuous\) and) Tj ET
+BT /F1 5.8 Tf 24.00 514.00 Td (mu bot nu that they are mutually singular.) Tj ET
+BT /F3 4.9 Tf 394.00 542.00 Td (  sorry) Tj ET
+20.00 505.00 m 20.00 376.00 l S
+310.00 505.00 m 310.00 376.00 l S
+390.00 505.00 m 390.00 376.00 l S
+772.00 505.00 m 772.00 376.00 l S
+20.00 505.00 m 772.00 505.00 l S
+20.00 376.00 m 772.00 376.00 l S
+BT /F1 5.8 Tf 24.00 497.00 Td (Theorem 2.8.10. Let  be a centered Gaussian measure on a) Tj ET
+BT /F1 5.8 Tf 24.00 490.00 Td (locally convex space X and let A in E\(X\)_ be an absolutely) Tj ET
+BT /F1 5.8 Tf 24.00 483.00 Td (convex set. Then, for any a in X such that A + a in E\(X\)_, the) Tj ET
+BT /F1 5.8 Tf 24.00 476.00 Td (following inequality holds true: \(A+a\) <= \(A\). More generally,) Tj ET
+BT /F1 5.8 Tf 24.00 469.00 Td (if A + ta in E\(X\)_ for all t in [0,1], then \(A+a\) <= \(A+ta\),) Tj ET
+BT /F1 5.8 Tf 24.00 462.00 Td (forall t in [0,1]. Notation: A Gaussian measure on a locally) Tj ET
+BT /F1 5.8 Tf 24.00 455.00 Td (convex space X is a Borel probability measure  all of whose) Tj ET
+BT /F1 5.8 Tf 24.00 448.00 Td (one-dimensional projections f_{\\#}, f in X^, are Gaussian) Tj ET
+BT /F1 5.8 Tf 24.00 441.00 Td (measures on the real line. Write a_\(f\) = integral_X f d and) Tj ET
+BT /F1 5.8 Tf 24.00 434.00 Td (R_\(f\)\(f\) = integral_X \(f-a_\(f\)\)^2 d. Definition 2.4.1. The) Tj ET
+BT /F1 5.8 Tf 24.00 427.00 Td (*Cameron-Martin space* of  is H\(\) = {h in X : |h|_{H\(\)} <) Tj ET
+BT /F1 5.8 Tf 24.00 420.00 Td (inf}, where |h|_{H\(\)} = sup{f\(h\) : f in X^, R_\(f\)\(f\) <= 1}.) Tj ET
+BT /F1 5.8 Tf 24.00 413.00 Td (For h in X we write _h = \( . - h\) for the shift of  by h; mu ~) Tj ET
+BT /F1 5.8 Tf 24.00 406.00 Td (nu means that mu and nu are equivalent \(mutually absolutely) Tj ET
+BT /F1 5.8 Tf 24.00 399.00 Td (continuous\) and mu bot nu that they are mutually singular. A) Tj ET
+BT /F1 5.8 Tf 24.00 392.00 Td (set A is *absolutely convex* if it is convex and balanced,) Tj ET
+BT /F1 5.8 Tf 24.00 385.00 Td (i.e. alpha A subset A whenever |alpha| <= 1.) Tj ET
+BT /F1 5.8 Tf 314.00 497.00 Td (Measure) Tj ET
+BT /F1 5.8 Tf 314.00 490.00 Td (theory) Tj ET
+BT /F3 4.9 Tf 394.00 497.00 Td (theorem bogachev_gaussian_2_8_10_anderson_inequality {E : Type*}) Tj ET
+BT /F3 4.9 Tf 394.00 490.00 Td ([NormedAddCommGroup E]) Tj ET
+BT /F3 4.9 Tf 394.00 483.00 Td (    [NormedSpace R E] [CompleteSpace E]) Tj ET
+BT /F3 4.9 Tf 394.00 476.00 Td (    [MeasurableSpace E] [BorelSpace E] \( : Measure E\) [IsGaussian ]) Tj ET
+BT /F3 4.9 Tf 394.00 469.00 Td (    \(hcentered : integral x, x d = 0\) \(A : Set E\) \(hA : MeasurableSet A\)) Tj ET
+BT /F3 4.9 Tf 394.00 462.00 Td (    \(hconv : Convex R A\)) Tj ET
+BT /F3 4.9 Tf 394.00 455.00 Td (    \(hbal : Balanced R A\) \(a : E\) :) Tj ET
+BT /F3 4.9 Tf 394.00 448.00 Td (     \(\(fun x => x + a\) '' A\) <=  A /\\) Tj ET
+BT /F3 4.9 Tf 394.00 441.00 Td (      forall t in Icc \(0 : R\) 1,  \(\(fun x => x + a\) '' A\) <=  \(\(fun x => x) Tj ET
+BT /F3 4.9 Tf 394.00 434.00 Td (      + t  *  a\) '' A\) := by) Tj ET
+BT /F3 4.9 Tf 394.00 427.00 Td (  sorry) Tj ET
+20.00 376.00 m 20.00 275.00 l S
+310.00 376.00 m 310.00 275.00 l S
+390.00 376.00 m 390.00 275.00 l S
+772.00 376.00 m 772.00 275.00 l S
+20.00 376.00 m 772.00 376.00 l S
+20.00 275.00 m 772.00 275.00 l S
+BT /F1 5.8 Tf 24.00 368.00 Td (Theorem 4.2.1. Let A and B be two convex sets in R^n. Then one) Tj ET
+BT /F1 5.8 Tf 24.00 361.00 Td (has for all lambda in [0,1]: ^{-1}{_n\(lambda A + \(1-lambda\)B\)}) Tj ET
+BT /F1 5.8 Tf 24.00 354.00 Td (>= lambda^{-1}{_n\(A\)} + \(1-lambda\)^{-1}{_n\(B\)}. Notation: _n) Tj ET
+BT /F1 5.8 Tf 24.00 347.00 Td (is the standard Gaussian measure on R^n,  is the standard) Tj ET
+BT /F1 5.8 Tf 24.00 340.00 Td (normal distribution function \(x\) = _1\(\(-inf,x]\), and ^{-1} is) Tj ET
+BT /F1 5.8 Tf 24.00 333.00 Td (its inverse with the convention ^{-1}\(0\) = -inf and ^{-1}\(1\) =) Tj ET
+BT /F1 5.8 Tf 24.00 326.00 Td (+inf. lambda A + \(1-lambda\)B = {lambda x + \(1-lambda\)y : x in) Tj ET
+BT /F1 5.8 Tf 24.00 319.00 Td (A, y in B} is the Minkowski combination of the two sets.) Tj ET
+BT /F1 5.8 Tf 314.00 368.00 Td (Measure) Tj ET
+BT /F1 5.8 Tf 314.00 361.00 Td (theory) Tj ET
+BT /F3 4.9 Tf 394.00 368.00 Td (noncomputable def quantile \(mu : Measure R\) \(t : R\) : EReal :=) Tj ET
+BT /F3 4.9 Tf 394.00 361.00 Td (  sInf \(\(\(coe\) : R -> EReal\) '' {y | t <= cdf mu y}\)) Tj ET
+BT /F3 4.9 Tf 394.00 354.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 347.00 Td (theorem bogachev_gaussian_4_2_1_ehrhard_inequality {n : N}) Tj ET
+BT /F3 4.9 Tf 394.00 340.00 Td (    \(A B : Set \(EuclideanSpace R \(Fin n\)\)\) \(hA : Convex R A\) \(hA' :) Tj ET
+BT /F3 4.9 Tf 394.00 333.00 Td (    A.Nonempty\)) Tj ET
+BT /F3 4.9 Tf 394.00 326.00 Td (    \(hB : Convex R B\) \(hB' : B.Nonempty\) \(lam : R\) \(hlam : lam in Icc \(0 :) Tj ET
+BT /F3 4.9 Tf 394.00 319.00 Td (    R\) 1\) :) Tj ET
+BT /F3 4.9 Tf 394.00 312.00 Td (    letI  := stdGaussian \(EuclideanSpace R \(Fin n\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 305.00 Td (    letI inv := quantile \(gaussianReal 0 1\)) Tj ET
+BT /F3 4.9 Tf 394.00 298.00 Td (    \(lam : EReal\) * inv \( A\).toReal + \(1 - lam : R\) * inv \( B\).toReal <=) Tj ET
+BT /F3 4.9 Tf 394.00 291.00 Td (      inv \( \(lam  *  A + \(1 - lam\)  *  B\)\).toReal := by) Tj ET
+BT /F3 4.9 Tf 394.00 284.00 Td (  sorry) Tj ET
+20.00 275.00 m 20.00 181.00 l S
+310.00 275.00 m 310.00 181.00 l S
+390.00 275.00 m 390.00 181.00 l S
+772.00 275.00 m 772.00 181.00 l S
+20.00 275.00 m 772.00 275.00 l S
+20.00 181.00 m 772.00 181.00 l S
+BT /F1 5.8 Tf 24.00 267.00 Td (Theorem 4.3.1. Let _n be the standard Gaussian measure on R^n) Tj ET
+BT /F1 5.8 Tf 24.00 260.00 Td (and let U be the closed unit ball in R^n centered at the) Tj ET
+BT /F1 5.8 Tf 24.00 253.00 Td (origin. For every measurable set A subset R^n, the following) Tj ET
+BT /F1 5.8 Tf 24.00 246.00 Td (inequality holds true: ^{-1}\(_n\(A+rU\)\) >= ^{-1}\(_n\(A\)\) + r,) Tj ET
+BT /F1 5.8 Tf 24.00 239.00 Td (forall r > 0. Notation: _n is the standard Gaussian measure on) Tj ET
+BT /F1 5.8 Tf 24.00 232.00 Td (R^n,  is the standard normal distribution function \(x\) =) Tj ET
+BT /F1 5.8 Tf 24.00 225.00 Td (_1\(\(-inf,x]\), and ^{-1} is its inverse with the convention) Tj ET
+BT /F1 5.8 Tf 24.00 218.00 Td (^{-1}\(0\) = -inf and ^{-1}\(1\) = +inf. A + rU = {z : dist\(z,A\)) Tj ET
+BT /F1 5.8 Tf 24.00 211.00 Td (<= r} is the closed r-neighbourhood of A in the Euclidean) Tj ET
+BT /F1 5.8 Tf 24.00 204.00 Td (metric.) Tj ET
+BT /F1 5.8 Tf 314.00 267.00 Td (Measure) Tj ET
+BT /F1 5.8 Tf 314.00 260.00 Td (theory) Tj ET
+BT /F3 4.9 Tf 394.00 267.00 Td (noncomputable def quantile \(mu : Measure R\) \(t : R\) : EReal :=) Tj ET
+BT /F3 4.9 Tf 394.00 260.00 Td (  sInf \(\(\(coe\) : R -> EReal\) '' {y | t <= cdf mu y}\)) Tj ET
+BT /F3 4.9 Tf 394.00 253.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 246.00 Td (theorem bogachev_gaussian_4_3_1_isoperimetric_inequality {n : N}) Tj ET
+BT /F3 4.9 Tf 394.00 239.00 Td (    \(A : Set \(EuclideanSpace R \(Fin n\)\)\) \(hA : MeasurableSet A\) \(r : R\) \(hr) Tj ET
+BT /F3 4.9 Tf 394.00 232.00 Td (    : 0 < r\) :) Tj ET
+BT /F3 4.9 Tf 394.00 225.00 Td (    letI  := stdGaussian \(EuclideanSpace R \(Fin n\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 218.00 Td (    letI inv := quantile \(gaussianReal 0 1\)) Tj ET
+BT /F3 4.9 Tf 394.00 211.00 Td (    inv \( A\).toReal + \(r : EReal\) <=) Tj ET
+BT /F3 4.9 Tf 394.00 204.00 Td (      inv \( \(A + Metric.closedBall \(0 : EuclideanSpace R \(Fin n\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 197.00 Td (      r\)\).toReal := by) Tj ET
+BT /F3 4.9 Tf 394.00 190.00 Td (  sorry) Tj ET
+20.00 181.00 m 20.00 59.00 l S
+310.00 181.00 m 310.00 59.00 l S
+390.00 181.00 m 390.00 59.00 l S
+772.00 181.00 m 772.00 59.00 l S
+20.00 181.00 m 772.00 181.00 l S
+20.00 59.00 m 772.00 59.00 l S
+BT /F1 5.8 Tf 24.00 173.00 Td (Example 4.5.8. Let f be a -measurable seminorm on X. Then it) Tj ET
+BT /F1 5.8 Tf 24.00 166.00 Td (satisfies condition \(4.5.4\). Put \(f\) := sup{f\(h\) : |h|_{H\(\)}) Tj ET
+BT /F1 5.8 Tf 24.00 159.00 Td (<= 1}, Ef := integral f d. Then one has {x : |f\(x\) - Ef| > t}) Tj ET
+BT /F1 5.8 Tf 24.00 152.00 Td (<= 2exp\(-\(2\)/\(pi^2\(f\)^2\)t^2\). Notation: A Gaussian measure on) Tj ET
+BT /F1 5.8 Tf 24.00 145.00 Td (a locally convex space X is a Borel probability measure  all) Tj ET
+BT /F1 5.8 Tf 24.00 138.00 Td (of whose one-dimensional projections f_{\\#}, f in X^, are) Tj ET
+BT /F1 5.8 Tf 24.00 131.00 Td (Gaussian measures on the real line. Write a_\(f\) = integral_X f) Tj ET
+BT /F1 5.8 Tf 24.00 124.00 Td (d and R_\(f\)\(f\) = integral_X \(f-a_\(f\)\)^2 d. Definition 2.4.1.) Tj ET
+BT /F1 5.8 Tf 24.00 117.00 Td (The *Cameron-Martin space* of  is H\(\) = {h in X : |h|_{H\(\)} <) Tj ET
+BT /F1 5.8 Tf 24.00 110.00 Td (inf}, where |h|_{H\(\)} = sup{f\(h\) : f in X^, R_\(f\)\(f\) <= 1}.) Tj ET
+BT /F1 5.8 Tf 24.00 103.00 Td (For h in X we write _h = \( . - h\) for the shift of  by h; mu ~) Tj ET
+BT /F1 5.8 Tf 24.00 96.00 Td (nu means that mu and nu are equivalent \(mutually absolutely) Tj ET
+BT /F1 5.8 Tf 24.00 89.00 Td (continuous\) and mu bot nu that they are mutually singular.) Tj ET
+BT /F1 5.8 Tf 314.00 173.00 Td (Measure) Tj ET
+BT /F1 5.8 Tf 314.00 166.00 Td (theory) Tj ET
+BT /F3 4.9 Tf 394.00 173.00 Td (noncomputable def cameronMartinGauge {E : Type*} [NormedAddCommGroup E]) Tj ET
+BT /F3 4.9 Tf 394.00 166.00 Td ([NormedSpace R E]) Tj ET
+BT /F3 4.9 Tf 394.00 159.00 Td (    [MeasurableSpace E] \( : Measure E\) \(f : E -> R\) : R>=0inf :=) Tj ET
+BT /F3 4.9 Tf 394.00 152.00 Td (   h : {h : E // cameronMartinNorm  h <= 1}, ENNReal.ofReal \(f h\)) Tj ET
+BT /F3 4.9 Tf 394.00 145.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 138.00 Td (theorem bogachev_gaussian_4_5_8_seminorm_concentration {E : Type*}) Tj ET
+BT /F3 4.9 Tf 394.00 131.00 Td ([NormedAddCommGroup E]) Tj ET
+BT /F3 4.9 Tf 394.00 124.00 Td (    [NormedSpace R E] [MeasurableSpace E] [BorelSpace E] \( : Measure E\)) Tj ET
+BT /F3 4.9 Tf 394.00 117.00 Td (    [IsGaussian ]) Tj ET
+BT /F3 4.9 Tf 394.00 110.00 Td (    \(f : Seminorm R E\) \(hf : Measurable f\) \(c : R\) \(hc : 0 < c\)) Tj ET
+BT /F3 4.9 Tf 394.00 103.00 Td (    \(hgauge : cameronMartinGauge  f <= ENNReal.ofReal c\) \(t : R\) \(ht : 0 <=) Tj ET
+BT /F3 4.9 Tf 394.00 96.00 Td (    t\) :) Tj ET
+BT /F3 4.9 Tf 394.00 89.00 Td (     {x | t < |f x - integral y, f y d|} <=) Tj ET
+BT /F3 4.9 Tf 394.00 82.00 Td (      2 * ENNReal.ofReal \(Real.exp \(-\(2 * t ^ 2 / \(Real.pi ^ 2 * c ^ 2\)\)\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 75.00 Td (      := by) Tj ET
+BT /F3 4.9 Tf 394.00 68.00 Td (  sorry) Tj ET
+20.00 59.00 m 20.00 35.00 l S
+310.00 59.00 m 310.00 35.00 l S
+390.00 59.00 m 390.00 35.00 l S
+772.00 59.00 m 772.00 35.00 l S
+20.00 59.00 m 772.00 59.00 l S
+20.00 35.00 m 772.00 35.00 l S
+BT /F1 5.8 Tf 24.00 51.00 Td (Theorem 4.6.1. Let  be a centered Gaussian measure on R^n.) Tj ET
+BT /F1 5.8 Tf 24.00 44.00 Td (Then for every absolutely convex set A and every strip  of the) Tj ET
+BT /F1 5.8 Tf 314.00 51.00 Td (Measure) Tj ET
+BT /F1 5.8 Tf 314.00 44.00 Td (theory) Tj ET
+BT /F3 4.9 Tf 394.00 51.00 Td (theorem bogachev_gaussian_4_6_1_correlation_convex_strip {n : N}) Tj ET
+BT /F3 4.9 Tf 394.00 44.00 Td (    \( : Measure \(EuclideanSpace R \(Fin n\)\)\) [IsGaussian ] \(hcentered :) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 9 0 R /F2 10 0 R /F3 11 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 1485 >>
+stream
+BT /F2 12 Tf 24.00 586.00 Td (Bogachev Gaussian Measures Benchmark) Tj ET
+BT /F1 7 Tf 740.00 586.00 Td (p. 3) Tj ET
+BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
+BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
+BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
+20.00 558.00 m 772.00 558.00 l S
+20.00 550.00 m 20.00 498.00 l S
+310.00 550.00 m 310.00 498.00 l S
+390.00 550.00 m 390.00 498.00 l S
+772.00 550.00 m 772.00 498.00 l S
+20.00 550.00 m 772.00 550.00 l S
+20.00 498.00 m 772.00 498.00 l S
+BT /F1 5.8 Tf 24.00 542.00 Td (form  = {x : |f\(x\)| <= c}, where f is a linear function and c) Tj ET
+BT /F1 5.8 Tf 24.00 535.00 Td (in R^1, one has \(A inter \) >= \(A\)\(\). Notation: A set A is) Tj ET
+BT /F1 5.8 Tf 24.00 528.00 Td (*absolutely convex* if it is convex and balanced. A measure on) Tj ET
+BT /F1 5.8 Tf 24.00 521.00 Td (R^n is centered Gaussian when every linear functional has a) Tj ET
+BT /F1 5.8 Tf 24.00 514.00 Td (centered Gaussian law.) Tj ET
+BT /F3 4.9 Tf 394.00 542.00 Td (    integral x, x d = 0\)) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (    \(A : Set \(EuclideanSpace R \(Fin n\)\)\) \(hA : MeasurableSet A\) \(hconv :) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (    Convex R A\)) Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (    \(hbal : Balanced R A\) \(f : EuclideanSpace R \(Fin n\) ->l[R] R\) \(c : R\) :) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (     A *  {x | |f x| <= c} <=  \(A inter {x | |f x| <= c}\) := by) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (  sorry) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+10 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+11 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+xref
+0 12
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000133 00000 n 
+0000000281 00000 n 
+0000012797 00000 n 
+0000012945 00000 n 
+0000025116 00000 n 
+0000025264 00000 n 
+0000026801 00000 n 
+0000026871 00000 n 
+0000026947 00000 n 
+trailer
+<< /Size 12 /Root 1 0 R >>
+startxref
+27016
+%%EOF

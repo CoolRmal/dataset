@@ -20,14 +20,20 @@ ROOT = bench.ROOT
 
 BOOKS = [
     ("Bogachev Measure Theory", bench.BOGACHEV),
+    ("Bogachev Gaussian Measures", bench.BOGACHEV_GAUSSIAN),
     ("Conway Functional Analysis", bench.CONWAY),
     ("Engelking General Topology", bench.ENGELKING_TOPOLOGY),
+    ("Folland Abstract Harmonic Analysis", bench.FOLLAND_HARMONIC),
     ("Grafakos Classical Fourier Analysis", bench.GRAFAKOS_FOURIER),
+    ("Hayman Meromorphic Functions", bench.HAYMAN_MEROMORPHIC),
     ("Kallenberg Foundations of Modern Probability", bench.KALLENBERG),
     ("Kong ODE", bench.KONG_ODE),
     ("Krylov Holder PDE", bench.KRYLOV_HOLDER),
+    ("Krylov Sobolev PDE", bench.KRYLOV_SOBOLEV),
     ("Lee Smooth Manifolds", bench.LEE_SMOOTH),
     ("Mattila Geometry of Sets and Measures", bench.MATTILA_GEOMETRY),
+    ("Niven Irrational", bench.NIVEN_IRRATIONAL),
+    ("Niven Zuckerman Number Theory", bench.NIVEN_ZUCKERMAN),
     ("Nikolski Operators Functions Systems", bench.NIKOLSKI),
 ]
 

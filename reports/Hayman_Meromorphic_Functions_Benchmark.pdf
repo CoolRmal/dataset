@@ -1,0 +1,453 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R] /Count 3 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 9 0 R /F2 10 0 R /F3 11 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 12231 >>
+stream
+BT /F2 12 Tf 24.00 586.00 Td (Hayman Meromorphic Functions Benchmark) Tj ET
+BT /F1 7 Tf 740.00 586.00 Td (p. 1) Tj ET
+BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
+BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
+BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
+20.00 558.00 m 772.00 558.00 l S
+20.00 550.00 m 20.00 421.00 l S
+310.00 550.00 m 310.00 421.00 l S
+390.00 550.00 m 390.00 421.00 l S
+772.00 550.00 m 772.00 421.00 l S
+20.00 550.00 m 772.00 550.00 l S
+20.00 421.00 m 772.00 421.00 l S
+BT /F1 5.8 Tf 24.00 542.00 Td (2.0. The result [the second fundamental theorem] contains as a) Tj ET
+BT /F1 5.8 Tf 24.00 535.00 Td (special case Picard's theorem that a transcendental) Tj ET
+BT /F1 5.8 Tf 24.00 528.00 Td (meromorphic function assumes infinitely often all values in) Tj ET
+BT /F1 5.8 Tf 24.00 521.00 Td (the plane except at most two. Notation: For a function f) Tj ET
+BT /F1 5.8 Tf 24.00 514.00 Td (meromorphic in |z| < R_0, m\(r,a\), N\(r,a\) and T\(r,f\) =) Tj ET
+BT /F1 5.8 Tf 24.00 507.00 Td (m\(r,inf\)+N\(r,inf\) are Nevanlinna's proximity, counting and) Tj ET
+BT /F1 5.8 Tf 24.00 500.00 Td (characteristic functions; n\(t,a\) counts the roots of f\(z\)=a in) Tj ET
+BT /F1 5.8 Tf 24.00 493.00 Td (|z| <= t with multiplicity and nbar\(t,a\) counts them without.) Tj ET
+BT /F1 5.8 Tf 24.00 486.00 Td (Correspondingly Nbar\(r,a\) = integral_0^r) Tj ET
+BT /F1 5.8 Tf 24.00 479.00 Td (\(nbar\(t,a\)-nbar\(0,a\)\)/\(t\) dt + nbar\(0,a\)log r. Assuming) Tj ET
+BT /F1 5.8 Tf 24.00 472.00 Td (T\(r,f\)->inf as r-> R_0, one sets delta\(a\) = liminf_{r-> R_0}) Tj ET
+BT /F1 5.8 Tf 24.00 465.00 Td (\(m\(r,a\)\)/\(T\(r\)\), Theta\(a\) = 1 - limsup_{r->) Tj ET
+BT /F1 5.8 Tf 24.00 458.00 Td (R_0}\(Nbar\(r,a\)\)/\(T\(r\)\) and theta\(a\) = liminf_{r->) Tj ET
+BT /F1 5.8 Tf 24.00 451.00 Td (R_0}\(N\(r,a\)-Nbar\(r,a\)\)/\(T\(r\)\). f is *admissible* in |z|<R_0) Tj ET
+BT /F1 5.8 Tf 24.00 444.00 Td (when R_0 = +inf and f is not constant, or R_0<+inf and \(2.8\)) Tj ET
+BT /F1 5.8 Tf 24.00 437.00 Td (holds; S\(r,f\) denotes any quantity satisfying the conclusions) Tj ET
+BT /F1 5.8 Tf 24.00 430.00 Td (of Theorem 2.2, so S\(r,f\)=o{T\(r,f\)}.) Tj ET
+BT /F1 5.8 Tf 314.00 542.00 Td (Complex) Tj ET
+BT /F1 5.8 Tf 314.00 535.00 Td (analysis) Tj ET
+BT /F3 4.9 Tf 394.00 542.00 Td (theorem hayman_2_0_picard_theorem \(f : C -> C\) \(hf : Meromorphic f\)) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (    \(htr : not  exists p q : Polynomial C, forall z, q.eval z != 0 -> f z =) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (    p.eval z / q.eval z\) :) Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (    exists a b : C, {c : C | not  {z : C | f z = c}.Infinite} subset {a, b}) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (    := by) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (  sorry) Tj ET
+20.00 421.00 m 20.00 271.00 l S
+310.00 421.00 m 310.00 271.00 l S
+390.00 421.00 m 390.00 271.00 l S
+772.00 421.00 m 772.00 271.00 l S
+20.00 421.00 m 772.00 421.00 l S
+20.00 271.00 m 772.00 271.00 l S
+BT /F1 5.8 Tf 24.00 413.00 Td (Theorem 2.4. Suppose that f\(z\) is admissible in |z| < R_0.) Tj ET
+BT /F1 5.8 Tf 24.00 406.00 Td (Then the set of values a for which Theta\(a\) > 0 is countable,) Tj ET
+BT /F1 5.8 Tf 24.00 399.00 Td (and we have, on summing over all such values a sum_a) Tj ET
+BT /F1 5.8 Tf 24.00 392.00 Td ({delta\(a\)+theta\(a\)} <= sum_a Theta\(a\) <= 2. Notation: For a) Tj ET
+BT /F1 5.8 Tf 24.00 385.00 Td (function f meromorphic in |z| < R_0, m\(r,a\), N\(r,a\) and T\(r,f\)) Tj ET
+BT /F1 5.8 Tf 24.00 378.00 Td (= m\(r,inf\)+N\(r,inf\) are Nevanlinna's proximity, counting and) Tj ET
+BT /F1 5.8 Tf 24.00 371.00 Td (characteristic functions; n\(t,a\) counts the roots of f\(z\)=a in) Tj ET
+BT /F1 5.8 Tf 24.00 364.00 Td (|z| <= t with multiplicity and nbar\(t,a\) counts them without.) Tj ET
+BT /F1 5.8 Tf 24.00 357.00 Td (Correspondingly Nbar\(r,a\) = integral_0^r) Tj ET
+BT /F1 5.8 Tf 24.00 350.00 Td (\(nbar\(t,a\)-nbar\(0,a\)\)/\(t\) dt + nbar\(0,a\)log r. Assuming) Tj ET
+BT /F1 5.8 Tf 24.00 343.00 Td (T\(r,f\)->inf as r-> R_0, one sets delta\(a\) = liminf_{r-> R_0}) Tj ET
+BT /F1 5.8 Tf 24.00 336.00 Td (\(m\(r,a\)\)/\(T\(r\)\), Theta\(a\) = 1 - limsup_{r->) Tj ET
+BT /F1 5.8 Tf 24.00 329.00 Td (R_0}\(Nbar\(r,a\)\)/\(T\(r\)\) and theta\(a\) = liminf_{r->) Tj ET
+BT /F1 5.8 Tf 24.00 322.00 Td (R_0}\(N\(r,a\)-Nbar\(r,a\)\)/\(T\(r\)\). f is *admissible* in |z|<R_0) Tj ET
+BT /F1 5.8 Tf 24.00 315.00 Td (when R_0 = +inf and f is not constant, or R_0<+inf and \(2.8\)) Tj ET
+BT /F1 5.8 Tf 24.00 308.00 Td (holds; S\(r,f\) denotes any quantity satisfying the conclusions) Tj ET
+BT /F1 5.8 Tf 24.00 301.00 Td (of Theorem 2.2, so S\(r,f\)=o{T\(r,f\)}.) Tj ET
+BT /F1 5.8 Tf 314.00 413.00 Td (Complex) Tj ET
+BT /F1 5.8 Tf 314.00 406.00 Td (analysis) Tj ET
+BT /F3 4.9 Tf 394.00 413.00 Td (noncomputable def deficiency \(f : C -> C\) \(a : WithTop C\) : R :=) Tj ET
+BT /F3 4.9 Tf 394.00 406.00 Td (  liminf \(fun r => proximity f a r / characteristic f top r\) atTop) Tj ET
+BT /F3 4.9 Tf 394.00 399.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 392.00 Td (noncomputable def ramificationIndex \(f : C -> C\) \(a : C\) : R :=) Tj ET
+BT /F3 4.9 Tf 394.00 385.00 Td (  liminf \(fun r => \(logCounting f \(a : WithTop C\) r - reducedLogCounting f) Tj ET
+BT /F3 4.9 Tf 394.00 378.00 Td (  a r\) /) Tj ET
+BT /F3 4.9 Tf 394.00 371.00 Td (    characteristic f top r\) atTop) Tj ET
+BT /F3 4.9 Tf 394.00 364.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 357.00 Td (noncomputable def nevanlinnaTheta \(f : C -> C\) \(a : C\) : R :=) Tj ET
+BT /F3 4.9 Tf 394.00 350.00 Td (  1 - limsup \(fun r => reducedLogCounting f a r / characteristic f top r\)) Tj ET
+BT /F3 4.9 Tf 394.00 343.00 Td (  atTop) Tj ET
+BT /F3 4.9 Tf 394.00 336.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 329.00 Td (theorem hayman_2_4_deficiency_relation \(f : C -> C\) \(hf : Meromorphic f\)) Tj ET
+BT /F3 4.9 Tf 394.00 322.00 Td (    \(hadm : Tendsto \(characteristic f top\) atTop atTop\) :) Tj ET
+BT /F3 4.9 Tf 394.00 315.00 Td (    {a : C | 0 < nevanlinnaTheta f a}.Countable /\\) Tj ET
+BT /F3 4.9 Tf 394.00 308.00 Td (      forall s : Finset C, \(sum a in s, \(deficiency f \(a : WithTop C\) +) Tj ET
+BT /F3 4.9 Tf 394.00 301.00 Td (      ramificationIndex f a\)\) <=) Tj ET
+BT /F3 4.9 Tf 394.00 294.00 Td (          sum a in s, nevanlinnaTheta f a /\\) Tj ET
+BT /F3 4.9 Tf 394.00 287.00 Td (        \(sum a in s, nevanlinnaTheta f a\) <= 2 := by) Tj ET
+BT /F3 4.9 Tf 394.00 280.00 Td (  sorry) Tj ET
+20.00 271.00 m 20.00 128.00 l S
+310.00 271.00 m 310.00 128.00 l S
+390.00 271.00 m 390.00 128.00 l S
+772.00 271.00 m 772.00 128.00 l S
+20.00 271.00 m 772.00 271.00 l S
+20.00 128.00 m 772.00 128.00 l S
+BT /F1 5.8 Tf 24.00 263.00 Td (Theorem 2.5. If f\(z\) is meromorphic and admissible in |z| <) Tj ET
+BT /F1 5.8 Tf 24.00 256.00 Td (R_0 and a_1\(z\), a_2\(z\), a_3\(z\) are distinct meromorphic) Tj ET
+BT /F1 5.8 Tf 24.00 249.00 Td (functions satisfying for nu = 1, 2, and 3 T{r, a_nu\(z\)} =) Tj ET
+BT /F1 5.8 Tf 24.00 242.00 Td (o{T\(r,f\)}, as r -> R_0, then {1+o\(1\)}T\(r,f\) <= sum_{nu=1}^{3}) Tj ET
+BT /F1 5.8 Tf 24.00 235.00 Td (Nbar\(r, \(1\)/\(f-a_nu\)\) + S\(r,f\), as r -> R_0, where S\(r,f\)) Tj ET
+BT /F1 5.8 Tf 24.00 228.00 Td (satisfies the conclusions of Theorem 2.2. Notation: For a) Tj ET
+BT /F1 5.8 Tf 24.00 221.00 Td (function f meromorphic in |z| < R_0, m\(r,a\), N\(r,a\) and T\(r,f\)) Tj ET
+BT /F1 5.8 Tf 24.00 214.00 Td (= m\(r,inf\)+N\(r,inf\) are Nevanlinna's proximity, counting and) Tj ET
+BT /F1 5.8 Tf 24.00 207.00 Td (characteristic functions; n\(t,a\) counts the roots of f\(z\)=a in) Tj ET
+BT /F1 5.8 Tf 24.00 200.00 Td (|z| <= t with multiplicity and nbar\(t,a\) counts them without.) Tj ET
+BT /F1 5.8 Tf 24.00 193.00 Td (Correspondingly Nbar\(r,a\) = integral_0^r) Tj ET
+BT /F1 5.8 Tf 24.00 186.00 Td (\(nbar\(t,a\)-nbar\(0,a\)\)/\(t\) dt + nbar\(0,a\)log r. Assuming) Tj ET
+BT /F1 5.8 Tf 24.00 179.00 Td (T\(r,f\)->inf as r-> R_0, one sets delta\(a\) = liminf_{r-> R_0}) Tj ET
+BT /F1 5.8 Tf 24.00 172.00 Td (\(m\(r,a\)\)/\(T\(r\)\), Theta\(a\) = 1 - limsup_{r->) Tj ET
+BT /F1 5.8 Tf 24.00 165.00 Td (R_0}\(Nbar\(r,a\)\)/\(T\(r\)\) and theta\(a\) = liminf_{r->) Tj ET
+BT /F1 5.8 Tf 24.00 158.00 Td (R_0}\(N\(r,a\)-Nbar\(r,a\)\)/\(T\(r\)\). f is *admissible* in |z|<R_0) Tj ET
+BT /F1 5.8 Tf 24.00 151.00 Td (when R_0 = +inf and f is not constant, or R_0<+inf and \(2.8\)) Tj ET
+BT /F1 5.8 Tf 24.00 144.00 Td (holds; S\(r,f\) denotes any quantity satisfying the conclusions) Tj ET
+BT /F1 5.8 Tf 24.00 137.00 Td (of Theorem 2.2, so S\(r,f\)=o{T\(r,f\)}.) Tj ET
+BT /F1 5.8 Tf 314.00 263.00 Td (Complex) Tj ET
+BT /F1 5.8 Tf 314.00 256.00 Td (analysis) Tj ET
+BT /F3 4.9 Tf 394.00 263.00 Td (noncomputable def reducedLogCounting \(f : C -> C\) \(a : C\) \(r : R\) : R :=) Tj ET
+BT /F3 4.9 Tf 394.00 256.00 Td (  \(integral t in Ioc 0 r, \(\(distinctCount f a t : R\) - distinctCount f a 0\)) Tj ET
+BT /F3 4.9 Tf 394.00 249.00 Td (  / t\) +) Tj ET
+BT /F3 4.9 Tf 394.00 242.00 Td (    \(distinctCount f a 0 : R\) * Real.log r) Tj ET
+BT /F3 4.9 Tf 394.00 235.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 228.00 Td (theorem hayman_2_5_deficient_small_functions \(f : C -> C\) \(hf : Meromorphic) Tj ET
+BT /F3 4.9 Tf 394.00 221.00 Td (f\)) Tj ET
+BT /F3 4.9 Tf 394.00 214.00 Td (    \(hadm : Tendsto \(characteristic f top\) atTop atTop\)) Tj ET
+BT /F3 4.9 Tf 394.00 207.00 Td (    \(a : Fin 3 -> C -> C\) \(ha : forall nu, Meromorphic \(a nu\)\)) Tj ET
+BT /F3 4.9 Tf 394.00 200.00 Td (    \(hdistinct : forall nu mu, nu != mu -> a nu != a mu\)) Tj ET
+BT /F3 4.9 Tf 394.00 193.00 Td (    \(hsmall : forall nu, Tendsto \(fun r => characteristic \(a nu\) top r /) Tj ET
+BT /F3 4.9 Tf 394.00 186.00 Td (    characteristic f top r\) atTop \(nhds 0\)\) :) Tj ET
+BT /F3 4.9 Tf 394.00 179.00 Td (    forall eps : R, 0 < eps -> forallf r in atTop,) Tj ET
+BT /F3 4.9 Tf 394.00 172.00 Td (      \(1 - eps\) * characteristic f top r <=) Tj ET
+BT /F3 4.9 Tf 394.00 165.00 Td (        sum nu : Fin 3, reducedLogCounting \(fun z => f z - a nu z\) 0 r +) Tj ET
+BT /F3 4.9 Tf 394.00 158.00 Td (          eps * characteristic f top r := by) Tj ET
+BT /F3 4.9 Tf 394.00 151.00 Td (  sorry) Tj ET
+20.00 128.00 m 20.00 34.00 l S
+310.00 128.00 m 310.00 34.00 l S
+390.00 128.00 m 390.00 34.00 l S
+772.00 128.00 m 772.00 34.00 l S
+20.00 128.00 m 772.00 128.00 l S
+20.00 34.00 m 772.00 34.00 l S
+BT /F1 5.8 Tf 24.00 120.00 Td (Theorem 2.6. Suppose that f_1\(z\), f_2\(z\) are meromorphic in) Tj ET
+BT /F1 5.8 Tf 24.00 113.00 Td (the plane and let E_j\(a\) be the set of points z such that) Tj ET
+BT /F1 5.8 Tf 24.00 106.00 Td (f_j\(z\) = a \(j = 1, 2\). Then if E_1\(a\) = E_2\(a\) for five) Tj ET
+BT /F1 5.8 Tf 24.00 99.00 Td (distinct values of a, f_1\(z\)  ==  f_2\(z\), or f_1, f_2 are both) Tj ET
+BT /F1 5.8 Tf 24.00 92.00 Td (constant. Notation: For a function f meromorphic in |z| < R_0,) Tj ET
+BT /F1 5.8 Tf 24.00 85.00 Td (m\(r,a\), N\(r,a\) and T\(r,f\) = m\(r,inf\)+N\(r,inf\) are Nevanlinna's) Tj ET
+BT /F1 5.8 Tf 24.00 78.00 Td (proximity, counting and characteristic functions; n\(t,a\)) Tj ET
+BT /F1 5.8 Tf 24.00 71.00 Td (counts the roots of f\(z\)=a in |z| <= t with multiplicity and) Tj ET
+BT /F1 5.8 Tf 24.00 64.00 Td (nbar\(t,a\) counts them without. Correspondingly Nbar\(r,a\) =) Tj ET
+BT /F1 5.8 Tf 24.00 57.00 Td (integral_0^r \(nbar\(t,a\)-nbar\(0,a\)\)/\(t\) dt + nbar\(0,a\)log r.) Tj ET
+BT /F1 5.8 Tf 24.00 50.00 Td (Assuming T\(r,f\)->inf as r-> R_0, one sets delta\(a\) =) Tj ET
+BT /F1 5.8 Tf 24.00 43.00 Td (liminf_{r-> R_0} \(m\(r,a\)\)/\(T\(r\)\), Theta\(a\) = 1 - limsup_{r->) Tj ET
+BT /F1 5.8 Tf 314.00 120.00 Td (Complex) Tj ET
+BT /F1 5.8 Tf 314.00 113.00 Td (analysis) Tj ET
+BT /F3 4.9 Tf 394.00 120.00 Td (theorem hayman_2_6_five_value_theorem \(f1 f2 : C -> C\)) Tj ET
+BT /F3 4.9 Tf 394.00 113.00 Td (    \(h1 : Meromorphic f1\) \(h2 : Meromorphic f2\)) Tj ET
+BT /F3 4.9 Tf 394.00 106.00 Td (    \(a : Fin 5 -> C\) \(ha : Function.Injective a\)) Tj ET
+BT /F3 4.9 Tf 394.00 99.00 Td (    \(hE : forall nu, {z : C | f1 z = a nu} = {z : C | f2 z = a nu}\) :) Tj ET
+BT /F3 4.9 Tf 394.00 92.00 Td (    f1 = f2 \\/ \(\(exists c1 : C, forall z, f1 z = c1\) /\\ exists c2 : C,) Tj ET
+BT /F3 4.9 Tf 394.00 85.00 Td (    forall z, f2 z = c2\) := by) Tj ET
+BT /F3 4.9 Tf 394.00 78.00 Td (  sorry) Tj ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 9 0 R /F2 10 0 R /F3 11 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 11053 >>
+stream
+BT /F2 12 Tf 24.00 586.00 Td (Hayman Meromorphic Functions Benchmark) Tj ET
+BT /F1 7 Tf 740.00 586.00 Td (p. 2) Tj ET
+BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
+BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
+BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
+20.00 558.00 m 772.00 558.00 l S
+20.00 550.00 m 20.00 505.00 l S
+310.00 550.00 m 310.00 505.00 l S
+390.00 550.00 m 390.00 505.00 l S
+772.00 550.00 m 772.00 505.00 l S
+20.00 550.00 m 772.00 550.00 l S
+20.00 505.00 m 772.00 505.00 l S
+BT /F1 5.8 Tf 24.00 542.00 Td (R_0}\(Nbar\(r,a\)\)/\(T\(r\)\) and theta\(a\) = liminf_{r->) Tj ET
+BT /F1 5.8 Tf 24.00 535.00 Td (R_0}\(N\(r,a\)-Nbar\(r,a\)\)/\(T\(r\)\). f is *admissible* in |z|<R_0) Tj ET
+BT /F1 5.8 Tf 24.00 528.00 Td (when R_0 = +inf and f is not constant, or R_0<+inf and \(2.8\)) Tj ET
+BT /F1 5.8 Tf 24.00 521.00 Td (holds; S\(r,f\) denotes any quantity satisfying the conclusions) Tj ET
+BT /F1 5.8 Tf 24.00 514.00 Td (of Theorem 2.2, so S\(r,f\)=o{T\(r,f\)}.) Tj ET
+20.00 505.00 m 20.00 411.00 l S
+310.00 505.00 m 310.00 411.00 l S
+390.00 505.00 m 390.00 411.00 l S
+772.00 505.00 m 772.00 411.00 l S
+20.00 505.00 m 772.00 505.00 l S
+20.00 411.00 m 772.00 411.00 l S
+BT /F1 5.8 Tf 24.00 497.00 Td (Theorem 2.7. If f\(z\) is a transcendental integral function) Tj ET
+BT /F1 5.8 Tf 24.00 490.00 Td (then f\(z\) possesses infinitely many fix-points of exact order) Tj ET
+BT /F1 5.8 Tf 24.00 483.00 Td (n, except for at most one value of n. Notation: Let f\(z\) be an) Tj ET
+BT /F1 5.8 Tf 24.00 476.00 Td (integral function. Set f_1\(z\) = f\(z\) and inductively) Tj ET
+BT /F1 5.8 Tf 24.00 469.00 Td (f_{nu+1}\(z\) = f{f_nu\(z\)} for nu >= 1. The solutions of the) Tj ET
+BT /F1 5.8 Tf 24.00 462.00 Td (equation f_nu\(z\) = z are called *fix-points of f\(z\) of order) Tj ET
+BT /F1 5.8 Tf 24.00 455.00 Td (nu*. If zeta is a fix-point of f\(z\) of order nu, but of no) Tj ET
+BT /F1 5.8 Tf 24.00 448.00 Td (lower order, then zeta is called a fix-point of *exact order*) Tj ET
+BT /F1 5.8 Tf 24.00 441.00 Td (nu. An *integral function* is an entire function, and it is) Tj ET
+BT /F1 5.8 Tf 24.00 434.00 Td (*transcendental* when it is not a polynomial.) Tj ET
+BT /F1 5.8 Tf 314.00 497.00 Td (Complex) Tj ET
+BT /F1 5.8 Tf 314.00 490.00 Td (analysis) Tj ET
+BT /F3 4.9 Tf 394.00 497.00 Td (def IsTranscendentalEntire \(f : C -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 490.00 Td (  Differentiable C f /\\ not  exists p : Polynomial C, forall z, f z =) Tj ET
+BT /F3 4.9 Tf 394.00 483.00 Td (  p.eval z) Tj ET
+BT /F3 4.9 Tf 394.00 476.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 469.00 Td (theorem hayman_2_7_fixpoints_of_entire_functions \(f : C -> C\)) Tj ET
+BT /F3 4.9 Tf 394.00 462.00 Td (    \(hf : IsTranscendentalEntire f\) \(iter : N -> C -> C\)) Tj ET
+BT /F3 4.9 Tf 394.00 455.00 Td (    \(h1 : forall z, iter 1 z = f z\) \(hstep : forall n z, iter \(n + 1\) z = f) Tj ET
+BT /F3 4.9 Tf 394.00 448.00 Td (    \(iter n z\)\) :) Tj ET
+BT /F3 4.9 Tf 394.00 441.00 Td (    {n : N | 1 <= n /\\) Tj ET
+BT /F3 4.9 Tf 394.00 434.00 Td (      not  {z : C | iter n z = z /\\ forall m, 1 <= m -> m < n -> iter m z) Tj ET
+BT /F3 4.9 Tf 394.00 427.00 Td (      != z}.Infinite}.Subsingleton := by) Tj ET
+BT /F3 4.9 Tf 394.00 420.00 Td (  sorry) Tj ET
+20.00 411.00 m 20.00 303.00 l S
+310.00 411.00 m 310.00 303.00 l S
+390.00 411.00 m 390.00 303.00 l S
+772.00 411.00 m 772.00 303.00 l S
+20.00 411.00 m 772.00 411.00 l S
+20.00 303.00 m 772.00 303.00 l S
+BT /F1 5.8 Tf 24.00 403.00 Td (Theorem 2.9. Suppose that f\(z\), g\(z\) are integral functions) Tj ET
+BT /F1 5.8 Tf 24.00 396.00 Td (and that phi\(z\) = g{f\(z\)} has finite order. Then either f\(z\)) Tj ET
+BT /F1 5.8 Tf 24.00 389.00 Td (is a polynomial or g\(z\) has zero order. Notation: An *integral) Tj ET
+BT /F1 5.8 Tf 24.00 382.00 Td (function* is an entire function. Writing M\(r,f\) =) Tj ET
+BT /F1 5.8 Tf 24.00 375.00 Td (max_{|z|=r}|f\(z\)|, the function f has *finite order* when log) Tj ET
+BT /F1 5.8 Tf 24.00 368.00 Td (M\(r,f\) = O\(r^k\) for some k, and *zero order* when log M\(r,f\) =) Tj ET
+BT /F1 5.8 Tf 24.00 361.00 Td (O\(r^eps\) for every eps > 0.) Tj ET
+BT /F1 5.8 Tf 314.00 403.00 Td (Complex) Tj ET
+BT /F1 5.8 Tf 314.00 396.00 Td (analysis) Tj ET
+BT /F3 4.9 Tf 394.00 403.00 Td (def HasFiniteOrder \(f : C -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 396.00 Td (  exists k : R, forallf r in atTop, forall z : C, ||z|| <= r -> ||f z|| <=) Tj ET
+BT /F3 4.9 Tf 394.00 389.00 Td (  Real.exp \(r ^ k\)) Tj ET
+BT /F3 4.9 Tf 394.00 382.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 375.00 Td (def HasZeroOrder \(f : C -> C\) : Prop :=) Tj ET
+BT /F3 4.9 Tf 394.00 368.00 Td (  forall eps : R, 0 < eps -> forallf r in atTop, forall z : C, ||z|| <= r) Tj ET
+BT /F3 4.9 Tf 394.00 361.00 Td (  -> ||f z|| <= Real.exp \(r ^ eps\)) Tj ET
+BT /F3 4.9 Tf 394.00 354.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 347.00 Td (theorem hayman_2_9_polya_composition_order \(f g : C -> C\)) Tj ET
+BT /F3 4.9 Tf 394.00 340.00 Td (    \(hf : Differentiable C f\) \(hg : Differentiable C g\)) Tj ET
+BT /F3 4.9 Tf 394.00 333.00 Td (    \(hcomp : HasFiniteOrder \(g comp f\)\) :) Tj ET
+BT /F3 4.9 Tf 394.00 326.00 Td (    \(exists p : Polynomial C, forall z, f z = p.eval z\) \\/ HasZeroOrder g) Tj ET
+BT /F3 4.9 Tf 394.00 319.00 Td (    := by) Tj ET
+BT /F3 4.9 Tf 394.00 312.00 Td (  sorry) Tj ET
+20.00 303.00 m 20.00 167.00 l S
+310.00 303.00 m 310.00 167.00 l S
+390.00 303.00 m 390.00 167.00 l S
+772.00 303.00 m 772.00 167.00 l S
+20.00 303.00 m 772.00 303.00 l S
+20.00 167.00 m 772.00 167.00 l S
+BT /F1 5.8 Tf 24.00 295.00 Td (Theorem 3.4. Suppose that f\(z\) is a transcendental meromorphic) Tj ET
+BT /F1 5.8 Tf 24.00 288.00 Td (function in the plane and psi\(z\) = f^{\(l\)}\(z\). Then in the) Tj ET
+BT /F1 5.8 Tf 24.00 281.00 Td (notation of Theorem 2.4 we have sum_{a != inf} Theta\(a,psi\) <=) Tj ET
+BT /F1 5.8 Tf 24.00 274.00 Td (1 + \(1\)/\(l+1\). In particular psi\(z\) assumes every finite value) Tj ET
+BT /F1 5.8 Tf 24.00 267.00 Td (with at most one exception infinitely often. Notation: For a) Tj ET
+BT /F1 5.8 Tf 24.00 260.00 Td (function f meromorphic in |z| < R_0, m\(r,a\), N\(r,a\) and T\(r,f\)) Tj ET
+BT /F1 5.8 Tf 24.00 253.00 Td (= m\(r,inf\)+N\(r,inf\) are Nevanlinna's proximity, counting and) Tj ET
+BT /F1 5.8 Tf 24.00 246.00 Td (characteristic functions; n\(t,a\) counts the roots of f\(z\)=a in) Tj ET
+BT /F1 5.8 Tf 24.00 239.00 Td (|z| <= t with multiplicity and nbar\(t,a\) counts them without.) Tj ET
+BT /F1 5.8 Tf 24.00 232.00 Td (Correspondingly Nbar\(r,a\) = integral_0^r) Tj ET
+BT /F1 5.8 Tf 24.00 225.00 Td (\(nbar\(t,a\)-nbar\(0,a\)\)/\(t\) dt + nbar\(0,a\)log r. Assuming) Tj ET
+BT /F1 5.8 Tf 24.00 218.00 Td (T\(r,f\)->inf as r-> R_0, one sets delta\(a\) = liminf_{r-> R_0}) Tj ET
+BT /F1 5.8 Tf 24.00 211.00 Td (\(m\(r,a\)\)/\(T\(r\)\), Theta\(a\) = 1 - limsup_{r->) Tj ET
+BT /F1 5.8 Tf 24.00 204.00 Td (R_0}\(Nbar\(r,a\)\)/\(T\(r\)\) and theta\(a\) = liminf_{r->) Tj ET
+BT /F1 5.8 Tf 24.00 197.00 Td (R_0}\(N\(r,a\)-Nbar\(r,a\)\)/\(T\(r\)\). f is *admissible* in |z|<R_0) Tj ET
+BT /F1 5.8 Tf 24.00 190.00 Td (when R_0 = +inf and f is not constant, or R_0<+inf and \(2.8\)) Tj ET
+BT /F1 5.8 Tf 24.00 183.00 Td (holds; S\(r,f\) denotes any quantity satisfying the conclusions) Tj ET
+BT /F1 5.8 Tf 24.00 176.00 Td (of Theorem 2.2, so S\(r,f\)=o{T\(r,f\)}.) Tj ET
+BT /F1 5.8 Tf 314.00 295.00 Td (Complex) Tj ET
+BT /F1 5.8 Tf 314.00 288.00 Td (analysis) Tj ET
+BT /F3 4.9 Tf 394.00 295.00 Td (noncomputable def nevanlinnaTheta \(f : C -> C\) \(a : C\) : R :=) Tj ET
+BT /F3 4.9 Tf 394.00 288.00 Td (  1 - limsup \(fun r => reducedLogCounting f a r / characteristic f top r\)) Tj ET
+BT /F3 4.9 Tf 394.00 281.00 Td (  atTop) Tj ET
+BT /F3 4.9 Tf 394.00 274.00 Td () Tj ET
+BT /F3 4.9 Tf 394.00 267.00 Td (theorem hayman_3_4_derivative_deficiency_bound \(f : C -> C\) \(hf :) Tj ET
+BT /F3 4.9 Tf 394.00 260.00 Td (Meromorphic f\)) Tj ET
+BT /F3 4.9 Tf 394.00 253.00 Td (    \(htr : not  exists p q : Polynomial C, forall z, q.eval z != 0 -> f z =) Tj ET
+BT /F3 4.9 Tf 394.00 246.00 Td (    p.eval z / q.eval z\)) Tj ET
+BT /F3 4.9 Tf 394.00 239.00 Td (    \(l : N\) \(hl : 1 <= l\) \(psi : C -> C\) \(hpsi : psi = iteratedDeriv l f\) :) Tj ET
+BT /F3 4.9 Tf 394.00 232.00 Td (    \(forall s : Finset C, \(sum a in s, nevanlinnaTheta psi a\) <= 1 + 1 / \(l) Tj ET
+BT /F3 4.9 Tf 394.00 225.00 Td (    + 1 : R\)\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 218.00 Td (      {a : C | not  {z : C | psi z = a}.Infinite}.Subsingleton := by) Tj ET
+BT /F3 4.9 Tf 394.00 211.00 Td (  sorry) Tj ET
+20.00 167.00 m 20.00 45.00 l S
+310.00 167.00 m 310.00 45.00 l S
+390.00 167.00 m 390.00 45.00 l S
+772.00 167.00 m 772.00 45.00 l S
+20.00 167.00 m 772.00 167.00 l S
+20.00 45.00 m 772.00 45.00 l S
+BT /F1 5.8 Tf 24.00 159.00 Td (Corollary. For all sufficiently large l, f^{\(l\)}\(z\) has zeros) Tj ET
+BT /F1 5.8 Tf 24.00 152.00 Td (in every disk in which f\(z\) is meromorphic and has at least) Tj ET
+BT /F1 5.8 Tf 24.00 145.00 Td (two distinct poles. Notation: For a function f meromorphic in) Tj ET
+BT /F1 5.8 Tf 24.00 138.00 Td (|z| < R_0, m\(r,a\), N\(r,a\) and T\(r,f\) = m\(r,inf\)+N\(r,inf\) are) Tj ET
+BT /F1 5.8 Tf 24.00 131.00 Td (Nevanlinna's proximity, counting and characteristic functions;) Tj ET
+BT /F1 5.8 Tf 24.00 124.00 Td (n\(t,a\) counts the roots of f\(z\)=a in |z| <= t with) Tj ET
+BT /F1 5.8 Tf 24.00 117.00 Td (multiplicity and nbar\(t,a\) counts them without.) Tj ET
+BT /F1 5.8 Tf 24.00 110.00 Td (Correspondingly Nbar\(r,a\) = integral_0^r) Tj ET
+BT /F1 5.8 Tf 24.00 103.00 Td (\(nbar\(t,a\)-nbar\(0,a\)\)/\(t\) dt + nbar\(0,a\)log r. Assuming) Tj ET
+BT /F1 5.8 Tf 24.00 96.00 Td (T\(r,f\)->inf as r-> R_0, one sets delta\(a\) = liminf_{r-> R_0}) Tj ET
+BT /F1 5.8 Tf 24.00 89.00 Td (\(m\(r,a\)\)/\(T\(r\)\), Theta\(a\) = 1 - limsup_{r->) Tj ET
+BT /F1 5.8 Tf 24.00 82.00 Td (R_0}\(Nbar\(r,a\)\)/\(T\(r\)\) and theta\(a\) = liminf_{r->) Tj ET
+BT /F1 5.8 Tf 24.00 75.00 Td (R_0}\(N\(r,a\)-Nbar\(r,a\)\)/\(T\(r\)\). f is *admissible* in |z|<R_0) Tj ET
+BT /F1 5.8 Tf 24.00 68.00 Td (when R_0 = +inf and f is not constant, or R_0<+inf and \(2.8\)) Tj ET
+BT /F1 5.8 Tf 24.00 61.00 Td (holds; S\(r,f\) denotes any quantity satisfying the conclusions) Tj ET
+BT /F1 5.8 Tf 24.00 54.00 Td (of Theorem 2.2, so S\(r,f\)=o{T\(r,f\)}.) Tj ET
+BT /F1 5.8 Tf 314.00 159.00 Td (Complex) Tj ET
+BT /F1 5.8 Tf 314.00 152.00 Td (analysis) Tj ET
+BT /F3 4.9 Tf 394.00 159.00 Td (theorem hayman_3_6_corollary_derivative_zeros_in_disk :) Tj ET
+BT /F3 4.9 Tf 394.00 152.00 Td (    forallf l in atTop, forall \(f : C -> C\) \(z0 : C\) \(R : R\), 0 < R ->) Tj ET
+BT /F3 4.9 Tf 394.00 145.00 Td (      \(forall z in Metric.ball z0 R, MeromorphicAt f z\) ->) Tj ET
+BT /F3 4.9 Tf 394.00 138.00 Td (      \(exists p in Metric.ball z0 R, exists q in Metric.ball z0 R, p != q /\\) Tj ET
+BT /F3 4.9 Tf 394.00 131.00 Td (        not  AnalyticAt C f p /\\ not  AnalyticAt C f q\) ->) Tj ET
+BT /F3 4.9 Tf 394.00 124.00 Td (      exists z in Metric.ball z0 R, iteratedDeriv l f z = 0 := by) Tj ET
+BT /F3 4.9 Tf 394.00 117.00 Td (  sorry) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /Font << /F1 9 0 R /F2 10 0 R /F3 11 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 7832 >>
+stream
+BT /F2 12 Tf 24.00 586.00 Td (Hayman Meromorphic Functions Benchmark) Tj ET
+BT /F1 7 Tf 740.00 586.00 Td (p. 3) Tj ET
+BT /F2 7 Tf 24.00 565.00 Td (Natural language statement) Tj ET
+BT /F2 7 Tf 314.00 565.00 Td (Domain) Tj ET
+BT /F2 7 Tf 394.00 565.00 Td (GroundTruth) Tj ET
+20.00 558.00 m 772.00 558.00 l S
+20.00 550.00 m 20.00 379.00 l S
+310.00 550.00 m 310.00 379.00 l S
+390.00 550.00 m 390.00 379.00 l S
+772.00 550.00 m 772.00 379.00 l S
+20.00 550.00 m 772.00 550.00 l S
+20.00 379.00 m 772.00 379.00 l S
+BT /F1 5.8 Tf 24.00 542.00 Td (Theorem 3.6. Suppose that f\(z\) is meromorphic in |z-z_0| < R,) Tj ET
+BT /F1 5.8 Tf 24.00 535.00 Td (where 0 < R <= inf, and has at least two distinct poles there.) Tj ET
+BT /F1 5.8 Tf 24.00 528.00 Td (Let r be the radius of the largest circle with centre z_0) Tj ET
+BT /F1 5.8 Tf 24.00 521.00 Td (containing no pole of f\(z\) in its interior. Then \(i\) if the) Tj ET
+BT /F1 5.8 Tf 24.00 514.00 Td (circle |z-z_0| = r contains at least two distinct poles of) Tj ET
+BT /F1 5.8 Tf 24.00 507.00 Td (f\(z\), then for every positive delta, the equation f^{\(l\)}\(z\) =) Tj ET
+BT /F1 5.8 Tf 24.00 500.00 Td (0 has roots in |z-z_0| < delta, when l is sufficiently large;) Tj ET
+BT /F1 5.8 Tf 24.00 493.00 Td (\(ii\) if the circle |z-z_0| = r contains only one pole of f\(z\),) Tj ET
+BT /F1 5.8 Tf 24.00 486.00 Td (then if delta is sufficiently small, f^{\(l\)}\(z\) -> inf as l ->) Tj ET
+BT /F1 5.8 Tf 24.00 479.00 Td (inf uniformly in |z-z_0| <= delta. Notation: For a function f) Tj ET
+BT /F1 5.8 Tf 24.00 472.00 Td (meromorphic in |z| < R_0, m\(r,a\), N\(r,a\) and T\(r,f\) =) Tj ET
+BT /F1 5.8 Tf 24.00 465.00 Td (m\(r,inf\)+N\(r,inf\) are Nevanlinna's proximity, counting and) Tj ET
+BT /F1 5.8 Tf 24.00 458.00 Td (characteristic functions; n\(t,a\) counts the roots of f\(z\)=a in) Tj ET
+BT /F1 5.8 Tf 24.00 451.00 Td (|z| <= t with multiplicity and nbar\(t,a\) counts them without.) Tj ET
+BT /F1 5.8 Tf 24.00 444.00 Td (Correspondingly Nbar\(r,a\) = integral_0^r) Tj ET
+BT /F1 5.8 Tf 24.00 437.00 Td (\(nbar\(t,a\)-nbar\(0,a\)\)/\(t\) dt + nbar\(0,a\)log r. Assuming) Tj ET
+BT /F1 5.8 Tf 24.00 430.00 Td (T\(r,f\)->inf as r-> R_0, one sets delta\(a\) = liminf_{r-> R_0}) Tj ET
+BT /F1 5.8 Tf 24.00 423.00 Td (\(m\(r,a\)\)/\(T\(r\)\), Theta\(a\) = 1 - limsup_{r->) Tj ET
+BT /F1 5.8 Tf 24.00 416.00 Td (R_0}\(Nbar\(r,a\)\)/\(T\(r\)\) and theta\(a\) = liminf_{r->) Tj ET
+BT /F1 5.8 Tf 24.00 409.00 Td (R_0}\(N\(r,a\)-Nbar\(r,a\)\)/\(T\(r\)\). f is *admissible* in |z|<R_0) Tj ET
+BT /F1 5.8 Tf 24.00 402.00 Td (when R_0 = +inf and f is not constant, or R_0<+inf and \(2.8\)) Tj ET
+BT /F1 5.8 Tf 24.00 395.00 Td (holds; S\(r,f\) denotes any quantity satisfying the conclusions) Tj ET
+BT /F1 5.8 Tf 24.00 388.00 Td (of Theorem 2.2, so S\(r,f\)=o{T\(r,f\)}.) Tj ET
+BT /F1 5.8 Tf 314.00 542.00 Td (Complex) Tj ET
+BT /F1 5.8 Tf 314.00 535.00 Td (analysis) Tj ET
+BT /F3 4.9 Tf 394.00 542.00 Td (theorem hayman_3_6_derivative_zeros_near_poles \(f : C -> C\) \(z0 : C\) \(R :) Tj ET
+BT /F3 4.9 Tf 394.00 535.00 Td (R\) \(hR : 0 < R\)) Tj ET
+BT /F3 4.9 Tf 394.00 528.00 Td (    \(hf : forall z in Metric.ball z0 R, MeromorphicAt f z\)) Tj ET
+BT /F3 4.9 Tf 394.00 521.00 Td (    \(P : Set C\) \(hP : P = {z in Metric.ball z0 R | not  AnalyticAt C f z}\)) Tj ET
+BT /F3 4.9 Tf 394.00 514.00 Td (    \(htwo : exists p in P, exists q in P, p != q\) \(r : R\) \(hr : 0 < r\)) Tj ET
+BT /F3 4.9 Tf 394.00 507.00 Td (    \(hrmax : IsGreatest {t : R | 0 < t /\\ forall z in P, not  ||z - z0|| <) Tj ET
+BT /F3 4.9 Tf 394.00 500.00 Td (    t} r\) :) Tj ET
+BT /F3 4.9 Tf 394.00 493.00 Td (    \(\(exists p in P, exists q in P, p != q /\\ ||p - z0|| = r /\\ ||q - z0||) Tj ET
+BT /F3 4.9 Tf 394.00 486.00 Td (    = r\) ->) Tj ET
+BT /F3 4.9 Tf 394.00 479.00 Td (        forall delta : R, 0 < delta -> forallf l in atTop,) Tj ET
+BT /F3 4.9 Tf 394.00 472.00 Td (          exists z in Metric.ball z0 delta, iteratedDeriv l f z = 0\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 465.00 Td (      \(\(exists! p, p in P /\\ ||p - z0|| = r\) -> forallf delta in nhds[>] \(0) Tj ET
+BT /F3 4.9 Tf 394.00 458.00 Td (      : R\),) Tj ET
+BT /F3 4.9 Tf 394.00 451.00 Td (        Tendsto \(fun l =>  z : Metric.closedBall z0 delta, ||iteratedDeriv) Tj ET
+BT /F3 4.9 Tf 394.00 444.00 Td (        l f z||\) atTop atTop\) := by) Tj ET
+BT /F3 4.9 Tf 394.00 437.00 Td (  sorry) Tj ET
+20.00 379.00 m 20.00 236.00 l S
+310.00 379.00 m 310.00 236.00 l S
+390.00 379.00 m 390.00 236.00 l S
+772.00 379.00 m 772.00 236.00 l S
+20.00 379.00 m 772.00 379.00 l S
+20.00 236.00 m 772.00 236.00 l S
+BT /F1 5.8 Tf 24.00 371.00 Td (Theorem 3.8. Suppose that f\(z\) is meromorphic and has only a) Tj ET
+BT /F1 5.8 Tf 24.00 364.00 Td (finite number of poles in the plane, and that f\(z\), f^{\(l\)}\(z\)) Tj ET
+BT /F1 5.8 Tf 24.00 357.00 Td (have only a finite number of zeros for some l >= 2. Then f\(z\)) Tj ET
+BT /F1 5.8 Tf 24.00 350.00 Td (= \(P_1\(z\)\)/\(P_2\(z\)\)e^{P_3\(z\)}, where P_1, P_2, P_3 are) Tj ET
+BT /F1 5.8 Tf 24.00 343.00 Td (polynomials. If, further, f\(z\) and f^{\(l\)}\(z\) have no zeros,) Tj ET
+BT /F1 5.8 Tf 24.00 336.00 Td (then f\(z\) = e^{Az+B} or f\(z\) = \(Az+B\)^{-n}. Notation: For a) Tj ET
+BT /F1 5.8 Tf 24.00 329.00 Td (function f meromorphic in |z| < R_0, m\(r,a\), N\(r,a\) and T\(r,f\)) Tj ET
+BT /F1 5.8 Tf 24.00 322.00 Td (= m\(r,inf\)+N\(r,inf\) are Nevanlinna's proximity, counting and) Tj ET
+BT /F1 5.8 Tf 24.00 315.00 Td (characteristic functions; n\(t,a\) counts the roots of f\(z\)=a in) Tj ET
+BT /F1 5.8 Tf 24.00 308.00 Td (|z| <= t with multiplicity and nbar\(t,a\) counts them without.) Tj ET
+BT /F1 5.8 Tf 24.00 301.00 Td (Correspondingly Nbar\(r,a\) = integral_0^r) Tj ET
+BT /F1 5.8 Tf 24.00 294.00 Td (\(nbar\(t,a\)-nbar\(0,a\)\)/\(t\) dt + nbar\(0,a\)log r. Assuming) Tj ET
+BT /F1 5.8 Tf 24.00 287.00 Td (T\(r,f\)->inf as r-> R_0, one sets delta\(a\) = liminf_{r-> R_0}) Tj ET
+BT /F1 5.8 Tf 24.00 280.00 Td (\(m\(r,a\)\)/\(T\(r\)\), Theta\(a\) = 1 - limsup_{r->) Tj ET
+BT /F1 5.8 Tf 24.00 273.00 Td (R_0}\(Nbar\(r,a\)\)/\(T\(r\)\) and theta\(a\) = liminf_{r->) Tj ET
+BT /F1 5.8 Tf 24.00 266.00 Td (R_0}\(N\(r,a\)-Nbar\(r,a\)\)/\(T\(r\)\). f is *admissible* in |z|<R_0) Tj ET
+BT /F1 5.8 Tf 24.00 259.00 Td (when R_0 = +inf and f is not constant, or R_0<+inf and \(2.8\)) Tj ET
+BT /F1 5.8 Tf 24.00 252.00 Td (holds; S\(r,f\) denotes any quantity satisfying the conclusions) Tj ET
+BT /F1 5.8 Tf 24.00 245.00 Td (of Theorem 2.2, so S\(r,f\)=o{T\(r,f\)}.) Tj ET
+BT /F1 5.8 Tf 314.00 371.00 Td (Complex) Tj ET
+BT /F1 5.8 Tf 314.00 364.00 Td (analysis) Tj ET
+BT /F3 4.9 Tf 394.00 371.00 Td (theorem hayman_3_8_tumura_clunie_form \(f : C -> C\) \(hf : Meromorphic f\) \(l) Tj ET
+BT /F3 4.9 Tf 394.00 364.00 Td (: N\) \(hl : 2 <= l\)) Tj ET
+BT /F3 4.9 Tf 394.00 357.00 Td (    \(hpoles : {z : C | not  AnalyticAt C f z}.Finite\)) Tj ET
+BT /F3 4.9 Tf 394.00 350.00 Td (    \(hzeros : {z : C | f z = 0}.Finite\)) Tj ET
+BT /F3 4.9 Tf 394.00 343.00 Td (    \(hlzeros : {z : C | iteratedDeriv l f z = 0}.Finite\) :) Tj ET
+BT /F3 4.9 Tf 394.00 336.00 Td (    \(exists P1 P2 P3 : Polynomial C, P2 != 0 /\\) Tj ET
+BT /F3 4.9 Tf 394.00 329.00 Td (        forall z, P2.eval z != 0 -> f z = P1.eval z / P2.eval z *) Tj ET
+BT /F3 4.9 Tf 394.00 322.00 Td (        Complex.exp \(P3.eval z\)\) /\\) Tj ET
+BT /F3 4.9 Tf 394.00 315.00 Td (      \(\({z : C | f z = 0} = empty /\\ {z : C | iteratedDeriv l f z = 0} =) Tj ET
+BT /F3 4.9 Tf 394.00 308.00 Td (      empty\) ->) Tj ET
+BT /F3 4.9 Tf 394.00 301.00 Td (        \(exists A B : C, forall z, f z = Complex.exp \(A * z + B\)\) \\/) Tj ET
+BT /F3 4.9 Tf 394.00 294.00 Td (          exists \(A B : C\) \(n : N\), 1 <= n /\\ forall z, A * z + B != 0 -> f) Tj ET
+BT /F3 4.9 Tf 394.00 287.00 Td (        z = \(A * z + B\) ^ \(-\(n : Z\)\)\) := by) Tj ET
+BT /F3 4.9 Tf 394.00 280.00 Td (  sorry) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+10 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+11 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+xref
+0 12
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000133 00000 n 
+0000000281 00000 n 
+0000012565 00000 n 
+0000012713 00000 n 
+0000023819 00000 n 
+0000023967 00000 n 
+0000031851 00000 n 
+0000031921 00000 n 
+0000031997 00000 n 
+trailer
+<< /Size 12 /Root 1 0 R >>
+startxref
+32066
+%%EOF

@@ -1,0 +1,14 @@
+# I. Niven and H. S. Zuckerman, *An Introduction to the Theory of Numbers*, Third Edition, Theorem 11.5 (density of the square-free integers)
+
+- **Source:** I. Niven and H. S. Zuckerman, *An Introduction to the Theory of Numbers*, Third Edition
+- **Domain:** Number theory
+- **Lean declaration:** `Dataset.NivenZuckermanNumberTheory.niven_zuckerman_11_5_squarefree_density` ([niven_zuckerman_11_5_squarefree_density.lean](niven_zuckerman_11_5_squarefree_density.lean))
+- **Criteria:** [niven_zuckerman_11_5_squarefree_density.criteria.md](niven_zuckerman_11_5_squarefree_density.criteria.md)
+
+## Statement
+
+An integer is square-free if it is divisible by no perfect square $a^2 > 1$.
+
+**Theorem 11.5.** The set of square-free integers has natural density $6/\pi^2$.
+
+**Notation.** **Definition 11.1.** If $A$ is a set of positive integers and $A(n)$ denotes the number of elements of $A$ not exceeding $n$, the *asymptotic* (or natural) density of $A$ is $\delta(A) = \lim_{n\to\infty} A(n)/n$ when the limit exists. **Definition 11.2.** The *Schnirelmann density* $d(A)$ of a set $A$ of non-negative integers is $d(A) = \inf_{n\ge1} A(n)/n$. **Definition 11.3.** Assume $0 \in A$ and $0 \in B$. The sum $A + B$ is the collection of all integers of the form $a + b$ where $a \in A$ and $b \in B$.

@@ -1,0 +1,16 @@
+# Criteria: bogachev_gaussian_2_4_5_cameron_martin_dichotomy
+
+**Statement:** [bogachev_gaussian_2_4_5_cameron_martin_dichotomy.md](bogachev_gaussian_2_4_5_cameron_martin_dichotomy.md) · **Lean:** [bogachev_gaussian_2_4_5_cameron_martin_dichotomy.lean](bogachev_gaussian_2_4_5_cameron_martin_dichotomy.lean)
+
+A faithful formalization must carry all three assertions: singularity when $|h|_{H(\gamma)} = \infty$, equivalence when $|h|_{H(\gamma)} < \infty$, and the resulting identification of $H(\gamma)$ with the set of admissible shifts. The decisive encoding question is $|h|_{H(\gamma)}$ itself: it is a supremum over the unit ball of $X^*$ *for the covariance form*, i.e. over $\{f : \operatorname{Var}[f;\gamma] \le 1\}$, and it must be allowed the value $+\infty$ — a real-valued `sSup` would return the junk value `0` exactly on the vectors the theorem is about.
+
+Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+
+| # | Category | Criterion / potential error | Assessment of ground truth |
+|---|----------|-----------------------------|----------------------------|
+| 1 | Junk values | $\lvert h\rvert _{H(\gamma)} = \infty$ is not an edge case but half of the theorem. A real `sSup` over an unbounded set evaluates to `0`, which would turn case (i) into a statement about vectors of *zero* Cameron–Martin norm. | ✅ `cameronMartinNorm` is `ℝ≥0∞`-valued (`⨆ … ENNReal.ofReal (f h)`), so `∞` is a genuine value. ❗ This is the highest-value trap here. |
+| 2 | Faithful encoding | The supremum is over $f \in X^*$ with $R_\gamma(f)(f) = \int (f - \int f\,d\gamma)^2 d\gamma \le 1$, i.e. `Var[f; γ] ≤ 1` — the *variance*, not $\int f^2\,d\gamma$, which differs for non-centered $\gamma$. | ✅ Indexed by `{f : StrongDual ℝ E // Var[f; γ] ≤ 1}`. ❗ Predicted error: `∫ f² dγ ≤ 1` or `‖f‖ ≤ 1`. |
+| 3 | Faithful encoding | $\gamma_h = \gamma(\cdot - h)$ is the *push-forward* of $\gamma$ under translation by $h$, so $\gamma_h(A) = \gamma(A - h)$. | ✅ `γ.map (· + h)`, whose value on `A` is `γ ((· + h) ⁻¹' A) = γ (A - h)`. ❗ Predicted error: `γ.map (· - h)`, the shift in the opposite direction (harmless by symmetry only for centered $\gamma$). |
+| 4 | Conclusion completeness | All of (i), (ii) and (2.4.3) must appear. (2.4.3) is not a formal consequence of (i)+(ii) in Lean without unfolding `cameronMartinSpace`. | ✅ A conjunction of the three. ⚠️ The last clause $X \cap R_\gamma(X^*)$ is omitted, since $R_\gamma$ is not introduced; the retained equalities are the ones the rest of the book uses. |
+| 5 | Mathlib conventions | "Equivalent" is mutual absolute continuity and "mutually singular" is `⟂ₘ`; both must be the two-sided notions. | ✅ `Equivalent μ ν = μ ≪ ν ∧ ν ≪ μ` and `⟂ₘ`. ❗ Predicted error: stating only `γ_h ≪ γ`. |
+| 6 | Hypothesis completeness | $\gamma$ is an arbitrary Gaussian measure; no centering, nondegeneracy or separability may be assumed. | ✅ `[IsGaussian γ]` alone (plus the Borel structure needed to speak of push-forwards). ⚠️ Bogachev works on a locally convex space; the Lean statement is on a normed space, which is where mathlib's `IsGaussian` lives — a restriction of scope, not a change of content. |

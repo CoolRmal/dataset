@@ -1,0 +1,16 @@
+# Criteria: bogachev_gaussian_4_2_1_ehrhard_inequality
+
+**Statement:** [bogachev_gaussian_4_2_1_ehrhard_inequality.md](bogachev_gaussian_4_2_1_ehrhard_inequality.md) · **Lean:** [bogachev_gaussian_4_2_1_ehrhard_inequality.lean](bogachev_gaussian_4_2_1_ehrhard_inequality.lean)
+
+A faithful formalization must state concavity of $\Phi^{-1}\circ\gamma_n$ along Minkowski combinations of **convex** sets, with $\Phi^{-1}$ taking values in $[-\infty,+\infty]$. Two encoding decisions carry the whole risk: $\lambda A + (1-\lambda)B$ is the Minkowski combination $\{\lambda x+(1-\lambda)y\}$ and not the union or the intersection; and $\Phi^{-1}$ must be extended by $\mp\infty$ at $0$ and $1$, since sets of measure $0$ or $1$ are exactly where a real-valued inverse would silently return a junk value.
+
+Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+
+| # | Category | Criterion / potential error | Assessment of ground truth |
+|---|----------|-----------------------------|----------------------------|
+| 1 | Junk values | $\Phi^{-1}(0) = -\infty$ and $\Phi^{-1}(1) = +\infty$ are stipulated by Bogachev. A real-valued quantile would map both to a finite junk number and could turn the inequality into a false claim. | ✅ `quantile (gaussianReal 0 1) : ℝ → EReal`, defined as an `sInf` over `{y \| t ≤ cdf (gaussianReal 0 1) y}` coerced into `EReal`, which yields `⊥` at `t ≤ 0` and `⊤` at `t ≥ 1` automatically. ❗ Highest-value trap here. |
+| 2 | Faithful encoding | $\lambda A + (1-\lambda)B$ is the set of $\lambda x + (1-\lambda)y$ with $x \in A$, $y \in B$. | ✅ `{z \| ∃ x ∈ A, ∃ y ∈ B, z = lam • x + (1 - lam) • y}`. ❗ Predicted error: `lam • A ∪ (1-lam) • B` or a pointwise-scaled intersection. |
+| 3 | Hypothesis completeness | Both $A$ and $B$ must be convex, and $\lambda \in [0,1]$. Bogachev notes that convexity of only one of them suffices, and that the general measurable case is open — so a candidate dropping convexity states an *unproved conjecture*. | ✅ `hA`, `hB`, `hlam : lam ∈ Icc (0:ℝ) 1`. ❗ Predicted error: stating it for arbitrary measurable sets. |
+| 4 | Semantic closeness | The inequality direction is `≥` in the book; in mathlib orientation the smaller side goes left, which is the convex combination of the quantiles. | ✅ `λ Φ⁻¹(γA) + (1-λ) Φ⁻¹(γB) ≤ Φ⁻¹(γ(λA+(1-λ)B))`. |
+| 5 | Junk values / `EReal` arithmetic | The empty set is convex, and `EReal` has `0 * ⊥ = 0`. With $A = \emptyset$ and $\lambda = 0$ the Minkowski combination is empty, so the right side is $\Phi^{-1}(0) = \bot$ while the left side is $0 + \Phi^{-1}(\gamma_n(B))$ — a **false** inequality. Nonemptiness of both sets is therefore a genuine hypothesis. | ✅ `hA' : A.Nonempty` and `hB' : B.Nonempty` (added after review; the first version omitted them and was false). ❗ Highest-value trap: relying on `Convex ℝ A` alone. |
+| 6 | Mathlib conventions | $\gamma_n$ must be the standard Gaussian on `EuclideanSpace ℝ (Fin n)`; on `Fin n → ℝ` the ball and the Minkowski sums would still be right but the space carries the sup norm, which matters for the companion isoperimetric statement. | ✅ `stdGaussian n` on `EuclideanSpace ℝ (Fin n)`, built as the `n`-fold product of `gaussianReal 0 1`. |
