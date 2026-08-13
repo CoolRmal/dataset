@@ -1,20 +1,72 @@
 # Criteria: nikolski_B_4_3_3_devinatz_widom
 
-> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
-
 **Statement:** [nikolski_B_4_3_3_devinatz_widom.md](nikolski_B_4_3_3_devinatz_widom.md) · **Lean:** [nikolski_B_4_3_3_devinatz_widom.lean](nikolski_B_4_3_3_devinatz_widom.lean)
 
-A faithful formalization must fix a unimodular $u \in L^\infty(\mathbb{T})$ and assert the full four-way equivalence: invertibility of the Toeplitz operator $T_u$; the two **strict** distance conditions $\operatorname{dist}(u,H^\infty) < 1$ and $\operatorname{dist}(\bar u,H^\infty)<1$; the existence of an *outer* $h \in H^\infty$ with $\lVert u - h\rVert_\infty < 1$; and the exponential representation $u = e^{i(c+a+\tilde b)}$ with $\lVert a\rVert_\infty < \pi/2$. Every strictness is essential ($\operatorname{dist} \le 1$ is automatic for unimodular $u$, so a non-strict version is vacuous), the outerness of $h$ in item (3) is essential, and item (4) hinges on the harmonic conjugate $\tilde b$ — a Fourier multiplier that maps $L^\infty$ into BMO, so $\tilde b$ is typically **unbounded**, and any encoding forcing it to be bounded changes the theorem.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Let $u$ be an essentially bounded measurable function on the unit circle with $\lvert u\rvert = 1$
+almost everywhere. The Devinatz–Widom criterion gives four equivalent descriptions of when the
+Toeplitz operator $T_u$ is invertible: both $u$ and $\bar u$ are at distance less than $1$ from the
+bounded analytic functions; there is an *outer* bounded analytic $h$ with
+$\lVert u - h\rVert_\infty < 1$; and $u$ can be written as $e^{i(c + a + \tilde b)}$ with $a$ and
+$b$ real and bounded, $c$ a real constant and $\lVert a\rVert_\infty < \pi/2$. Here $\tilde b$ is
+the harmonic conjugate of $b$.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Junk values / **falsity** | $\tilde b$ must be the conjugate function of a bounded $b$, which need not be bounded or even locally integrable-by-series. `circleHilbertTransform w t` is `Complex.re (∑' k : ℤ, (∓i)\hat w(k) e^{ikt})`; summability in `ℂ` is absolute summability, so this `tsum` is mathlib's junk `0` unless $\hat w \in \ell^1$ — and when $\hat w \in \ell^1$ the sum is continuous. Either way item (d) forces $\arg u$ to differ from a *continuous* function by something of essential sup $< \pi/2$. | ❗ **This makes the ground-truth TFAE false.** Take $b$ real bounded with $\tilde b$ unbounded (e.g. $b = \operatorname{sgn}$ on $(-\pi,\pi)$) and $u = e^{i\tilde b}$. Items (a)–(c) hold by the true theorem (item (4) with $a = 0$, $c = 0$), but $u$ winds infinitely often near $\zeta = 1$, so no continuous $g$ has $\operatorname{Re}(u\bar g) > 0$ a.e., and (d) fails. A faithful encoding defines $\tilde b$ by its multiplier/a.e.-limit-of-conjugate-Poisson-integrals property, not by a `tsum`. |
-| 2 | Conclusion completeness | All four items, in a real `TFAE` (or a full cycle of implications). Each dropped item is a materially weaker theorem — in particular (3) and (4) are the constructive halves that make the criterion usable. | ✅ `List.TFAE [a, b, c, d]` with four `let`-bound propositions matching (1)–(4) in order. ❗ Trap: formalizing only (1) ⟺ (2), the most quotable pair. |
-| 3 | Faithful encoding (item 1) | "$T_u$ is invertible" needs the Toeplitz operator on $H^2 \cong \ell^2(\mathbb{N})$ with matrix $\hat u(n-j)$, and invertibility of a bounded operator, i.e. bijectivity (the inverse is then bounded by the open mapping theorem). | ✅ `∃ T : ℓ²(ℕ, ℂ) →L[ℂ] ℓ²(ℕ, ℂ), RepresentsToeplitzOperator u T ∧ Function.Bijective T`, where `RepresentsToeplitzOperator u T = ∀ f n, T f n = ∑' j, circleFourierCoefficient u (n - j) * f j`. The `tsum` here genuinely converges: $\hat u \in \ell^2$ (as $u \in L^\infty \subset L^2$) and $f \in \ell^2$, so the family is absolutely summable by Cauchy–Schwarz. ⚠️ Existence of the representing `T` is bundled into the same existential as invertibility, so item (a) also silently asserts that $T_u$ is bounded — true for $u \in L^\infty$, hence harmless. |
-| 4 | Strict vs non-strict inequalities | $\operatorname{dist}(u,H^\infty) < 1$, $\operatorname{dist}(\bar u,H^\infty)<1$, $\lVert u - h\rVert_\infty < 1$ and $\lVert a\rVert_\infty < \pi/2$ are all strict. Since $\lvert u \rvert = 1$ a.e. gives $\operatorname{dist}(u,H^\infty) \le 1$ always, replacing `<` by `≤` in item (2) makes it trivially true and destroys the equivalence. | ✅ All four inequalities are strict: `symbolDistanceToHInfinity u < 1`, `symbolDistanceToHInfinity (fun ζ ↦ star (u ζ)) < 1`, `eLpNorm (u − boundaryValue h) ∞ … < 1`, `eLpNorm v ∞ … < ENNReal.ofReal (π / 2)`. ❗ Trap: `≤`, or `dist` of only $u$ and not $\bar u$ (a strictly weaker condition, equivalent to left invertibility only). |
-| 5 | Junk values (`sInf`) | `symbolDistanceToHInfinity` is an `sInf` in `ℝ≥0∞` over `{r \| ∃ h ∈ H^∞, ‖u − bv h‖_∞ ≤ r}`; if that set could be empty the value would be `⊤` and `< 1` would fail spuriously. | ✅ The set is never empty (`r = ⊤` always qualifies, `h = 0` gives `‖u‖∞`), and `sInf` in `ℝ≥0∞` avoids the `sInf ∅ = 0` disaster of `ℝ`, so `< 1` is a genuine strict-distance statement. The junk of `boundaryValue h` on a null set is invisible to `eLpNorm … ∞`. |
-| 6 | Faithful encoding (item 3, outerness) | The interpolating $h$ in (3) must be **outer** and in $H^\infty$ — without outerness the condition is strictly weaker and the equivalence fails (e.g. inner $h$ close to $u$). The book's definition of outer (3.9.7) is "$f = \lambda[f]$", i.e. $f$ equals its own outer part. | ✅ `∃ h, OuterFunction ⊤ h ∧ …` — outerness *and* the exponent `⊤` for $H^\infty$ are both present. ⚠️ `OuterFunction` is encoded by the canonical exponential representation $h = c\exp\big(\tfrac{1}{2\pi}\int\tfrac{\zeta+z}{\zeta-z}\log\lvert h\rvert\big)$ rather than by 3.9.7's "equal to its outer part" or by $E_h = H^2$; these agree for $h \in H^p$ but the encoding is a substitution the criteria should note. |
-| 7 | Hypothesis completeness | Both standing hypotheses are needed: $u \in L^\infty(\mathbb{T})$ (measurable with finite essential sup) and $\lvert u\rvert = 1$ **a.e.** on $\mathbb{T}$ — not everywhere, and with respect to Lebesgue/Haar measure on the circle. Without unimodularity the equivalence is false. | ✅ `hu : EssentiallyBoundedCircleSymbol u` (`AEStronglyMeasurable` + `eLpNorm … ∞ < ∞`) and `hmod : IsUnimodularCircleSymbol u` (`∀ᵐ t ∂volume.restrict (Ioc 0 (2π)), ‖u (unitCirclePoint t)‖ = 1`). ⚠️ `hu` is implied by `hmod` except for the measurability half; keeping both is harmless. ❗ Trap: `∀ ζ, ‖u ζ‖ = 1` (everywhere), which excludes legitimate $L^\infty$ representatives. |
-| 8 | Semantic closeness / readability | The four items are `let`-bound as `a`, `b`, `c`, `d`, while item `d` internally binds `∃ c : ℝ` for the constant $c$ of the text — shadowing the name of item (3). | ⚠️ Legal but confusing: inside `d`, `c` refers to the real constant, not to the proposition `c`. Renaming (e.g. `itemA`…`itemD`, or `κ` for the constant) would remove the ambiguity. Note also that item `d` names its bounded functions `v` and `w` where the text uses $a$ and $b$, with `‖v‖∞ < π/2` correctly attached to the *un*-conjugated function. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | $u$ is in $L^\infty(\mathbb{T})$: almost-everywhere measurable with finite essential supremum. | ✅ `hu : EssentiallyBoundedCircleSymbol u`. |
+| 2 | $\lvert u\rvert = 1$ almost everywhere, not everywhere. | ✅ `hmod : IsUnimodularCircleSymbol u`, i.e. `∀ᵐ t ∂volume.restrict (Ioc 0 (2π)), ‖u (unitCirclePoint t)‖ = 1`. |
+| 3 | Item (1): there is a bounded operator on $\ell^2(\mathbb{N})$ with the Toeplitz matrix $\hat u(n-j)$, and it is invertible. | ✅ `∃ T : ℓ²(ℕ, ℂ) →L[ℂ] ℓ²(ℕ, ℂ), RepresentsToeplitzOperator u T ∧ Function.Bijective T`. |
+| 4 | Item (2): both $\operatorname{dist}(u, H^\infty) < 1$ **and** $\operatorname{dist}(\bar u, H^\infty) < 1$. | ✅ `symbolDistanceToHInfinity u < 1 ∧ symbolDistanceToHInfinity (fun ζ ↦ star (u ζ)) < 1`. |
+| 5 | Item (3): an **outer** function in $H^\infty$ with $\lVert u - h\rVert_\infty < 1$. | ✅ `∃ h, OuterFunction ⊤ h ∧ eLpNorm (fun t ↦ u (unitCirclePoint t) - boundaryValue h (unitCirclePoint t)) ∞ … < 1`. |
+| 6 | Item (4): real bounded functions and a real constant with $u = e^{i(c + a + \tilde b)}$ almost everywhere. | ✅ `∃ v w : … → ℝ, ∃ c : ℝ, … ∧ ∀ᵐ t, u (unitCirclePoint t) = Complex.exp (Complex.I * (c + v (unitCirclePoint t) + circleHilbertTransform w t))`. |
+| 7 | In item (4) the bound $\pi/2$ is attached to the **un**-conjugated function. | ✅ `eLpNorm (fun t ↦ v (unitCirclePoint t)) ∞ … < ENNReal.ofReal (Real.pi / 2)`, while `w` (whose conjugate is used) is only required essentially bounded. |
+| 8 | All four items appear in one genuine equivalence. | ✅ `List.TFAE [a, b, c, d]`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Writing $\le$ instead of $<$ in any of the four inequalities. | For a unimodular $u$ the distance to the bounded analytic functions is always at most $1$ (take $h = 0$), so item (2) with $\le$ is true for every $u$ and the equivalence collapses. The same strictness is what gives items (3) and (4) their force. |
+| 2 | Requiring only $\operatorname{dist}(u, H^\infty) < 1$ and not the same for $\bar u$. | That single condition corresponds to one-sided invertibility, which is strictly weaker than invertibility. |
+| 3 | Dropping the outerness of $h$ in item (3). | With an arbitrary bounded analytic $h$ the condition is weaker and no longer equivalent to invertibility. |
+| 4 | Defining the harmonic conjugate $\tilde b$ as a `tsum` over $k \in \mathbb{Z}$. | Infinite sums of complex numbers in Lean require absolute convergence, so the value is the junk $0$ unless $\hat b$ is absolutely summable, and when it is, the sum is a *continuous* function. Item (4) would then force $\arg u$ to stay within $\pi/2$ of a continuous function. Counterexample: take $b$ the sign function on $(-\pi,\pi)$ and $u = e^{i\tilde b}$. Items (1)–(3) hold by the true theorem, but $u$ winds infinitely often near $\zeta = 1$, so the `tsum` version of item (4) fails and the equivalence is false. |
+| 5 | Taking the distance to the bounded analytic functions as an infimum over reals. | The infimum of an empty set of reals is $0$ in Lean, which would make "distance $< 1$" true for free. In $[0,\infty]$ the empty infimum is $\infty$, which is the right degenerate value. |
+| 6 | Assuming $\lVert u(\zeta)\rVert = 1$ at every point. | An $L^\infty$ function is only determined almost everywhere; the everywhere version excludes legitimate representatives. |
+| 7 | Attaching the $\pi/2$ bound to $\tilde b$ rather than to $a$. | The harmonic conjugate of a bounded function is typically unbounded, so bounding it changes the theorem entirely. |
+| 8 | Formalizing only the pair (1) $\Leftrightarrow$ (2). | Two of the four items would be missing, and they are the constructive ones that make the criterion usable. |
+
+## Notes on the ground truth
+
+- `circleHilbertTransform w t` is the limit of the symmetric partial sums
+  $\sum_{\lvert k\rvert \le N}(-i\,\mathrm{sgn}\,k)\hat w(k)e^{ikt}$. For $w \in L^\infty$, hence in
+  $L^2$, these converge almost everywhere, so the definition gives the honest conjugate function
+  off a null set. An earlier version of this file used a `tsum`, which made the equivalence false;
+  Mistake 4 records that defect.
+- `symbolDistanceToHInfinity` is an infimum in $[0,\infty]$ over a set that always contains
+  $\infty$, and $h = 0$ contributes $\lVert u\rVert_\infty$, so the set is never empty. The junk
+  value of `boundaryValue h` on a null set is invisible to an essential supremum.
+- Existence of the representing operator is bundled into the same existential as invertibility, so
+  item (1) also silently asserts that $T_u$ is bounded. That is true for $u \in L^\infty$, so it is
+  harmless. The infinite sum inside `RepresentsToeplitzOperator` converges absolutely, since
+  $\hat u$ and $f$ are both square summable.
+- Invertibility is rendered as bijectivity of a continuous linear map; the inverse is then
+  automatically bounded by the open mapping theorem.
+- `OuterFunction` is encoded by the exponential Poisson representation rather than by the book's
+  definition 3.9.7 ("$f$ equals its own outer part up to a unimodular constant"). The two agree for
+  functions in a Hardy class, but it is a substitution worth flagging.
+- The four items are named `a`, `b`, `c`, `d`, and inside item `d` the binder `∃ c : ℝ` shadows the
+  proposition named `c`. Legal but confusing; renaming would remove the ambiguity. Item `d` also
+  names its bounded functions `v` and `w` where the text uses $a$ and $b$.
+- `hu` is implied by `hmod` except for its measurability half; keeping both is harmless.
+- The functions `v` and `w` in item (4) carry no measurability hypothesis. `eLpNorm … ∞` still
+  makes sense without it, but `AEStronglyMeasurable` would match the intent of "real valued bounded
+  functions on $\mathbb{T}$".

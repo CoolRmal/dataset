@@ -1,20 +1,62 @@
 # Criteria: nikolski_A_1_3_beurling_invariant_subspaces
 
-> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
-
 **Statement:** [nikolski_A_1_3_beurling_invariant_subspaces.md](nikolski_A_1_3_beurling_invariant_subspaces.md) · **Lean:** [nikolski_A_1_3_beurling_invariant_subspaces.lean](nikolski_A_1_3_beurling_invariant_subspaces.lean)
 
-A faithful formalization must supply a *closed* subspace $E$ that is shift-invariant with $zE$ a **proper** subset of $E$, and must produce a unimodular multiplier $\Theta$ with $E = \Theta H^2$ *together with* the uniqueness-up-to-a-unimodular-constant clause — the theorem is much weaker without it, since $E = \Theta H^2$ alone is an existence statement any candidate can satisfy vacuously if properness is dropped. The two specific hazards here are: (i) the ambient space — the book's $E$ lives in $L^2(\mathbb{T})$ and $\Theta$ is merely a measurable unimodular function, whereas the ground truth works inside $H^2$ (Taylor-coefficient sequences in $\ell^2(\mathbb{N})$) and gets an *inner* $\Theta$; and (ii) the encoding of $\Theta H^2$, which in the coefficient model is a Cauchy product and must be an exact set equality, not "the closed span of".
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Work with square-integrable functions on the unit circle. Take a closed linear subspace $E$ that is
+carried into itself by multiplication by $z$, and suppose the image $zE$ is *strictly* smaller than
+$E$. Beurling and Helson prove that $E$ is then exactly the set of products $\Theta h$, where
+$\Theta$ is one fixed measurable function of modulus $1$ and $h$ ranges over the Hardy space $H^2$
+(the square-integrable functions on the circle whose negative Fourier coefficients all vanish).
+The multiplier $\Theta$ is unique up to multiplication by a constant of modulus $1$.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Faithful encoding / scope | The book's $E$ is a subspace of $L^2(\mathbb{T})$ (two-sided Fourier support) and $\Theta$ is only asserted measurable with $\lvert\Theta\rvert = 1$ a.e.; the ground truth models $E$ as a set of *one-sided* coefficient sequences `M : Set (ℕ → ℂ)` inside $\ell^2(\mathbb{N})$, i.e. it formalizes Beurling's $H^2$ theorem rather than Beurling–Helson in $L^2$. | ⚠️ True and standard, but materially narrower than the transcribed statement. A faithful $L^2$ version would index coefficients by `ℤ` and conclude only `IsUnimodularCircleSymbol Θ`; the ground truth's stronger conclusion (`InnerFunction θ`) is only available because it restricted the hypothesis. |
-| 2 | Hypothesis completeness | All four hypotheses are needed: `M` a complex linear subspace, `M ⊆ ℓ²`, `M` **closed** in `ℓ²`, and $zM \subsetneq M$. Dropping closedness makes the conclusion false (dense non-closed invariant subspaces are not of the form $\theta H^2$); dropping properness admits $M = \{0\}$ and (in the $L^2$ model) the doubly-invariant subspaces $\chi_\sigma L^2$, for which no such $\Theta$ exists. | ✅ `hlinear`, `hsquare`, `hclosed : IsClosed {f : ℓ²(ℕ, ℂ) \| (f : ℕ → ℂ) ∈ M}`, and `hshiftProper` using `⊂` (`Set.ssubset`), which unfolds to `zM ⊆ M ∧ zM ≠ M` — exactly $zE \subsetneq E$, and it also rules out `M = {0}` for free. ❗ Trap: writing `⊆` (or `ShiftInvariant M`) instead of `⊂`, which silently admits $M = \{0\}$ and makes the theorem false. |
-| 3 | Conclusion completeness (uniqueness) | "Unique up to a multiplicative constant of modulus $1$" must be stated. It cannot be an `∃!` over functions (any two generators differ by a unimodular constant, so `∃!` is false); it must be an explicit clause: any other inner generator $\eta$ of the same $M$ satisfies $\eta = c\theta$ with $\lvert c\rvert = 1$. | ✅ The trailing `∀ η hη, InnerFunction η → HasTaylorSeries η hη → InnerGeneratedSubspace M hη → ∃ c, ‖c‖ = 1 ∧ ∀ z ∈ ball 0 1, η z = c * θ z`. ❗ Trap: omitting the clause entirely, or stating `∃! θ`. |
-| 4 | Faithful encoding (`InnerFunction`) | "$\lvert\Theta\rvert = 1$ a.e. on $\mathbb{T}$" must be a statement about *boundary* values, a.e. with respect to Lebesgue measure on the circle. `InnerFunction θ` = `HardyClass ⊤ θ` (analytic on `ball 0 1` with uniformly bounded radial `eLpNorm ⊤`, i.e. $H^\infty$) ∧ `HasRadialBoundaryValues θ` ∧ a.e. `‖boundaryValue θ ζ‖ = 1`. | ✅ Correct, and the `HasRadialBoundaryValues` conjunct is what protects `boundaryValue` (a `limUnder`, hence `Classical.epsilon` junk where the radial limit fails) from being asserted about junk on a non-null set. ⚠️ Radial rather than nontangential limits: weaker than Fatou's theorem gives, but the standard minimal reading. |
-| 5 | Faithful encoding ($E = \Theta H^2$) | $\Theta H^2$ in the coefficient model is $\{\,\hat\theta \ast g : g \in \ell^2\,\}$, and the conclusion must be an **equality of sets**, not an inclusion or a closure. | ✅ `InnerGeneratedSubspace M hθ` is `HardySquareSummable hθ ∧ M = {f \| ∃ g, HardySquareSummable g ∧ f = CauchyProduct hθ g}`, with `CauchyProduct` the honest convolution $\sum_{k \le n} \hat\theta_k g_{n-k}$ (finite sums, no summability junk). ❗ Trap: `M = closure (θ • H²)` or `⊆`. |
-| 6 | Semantic closeness | The generator is produced twice — as a function `θ : ℂ → ℂ` and as its coefficient sequence `hθ : ℕ → ℂ` — linked by `HasTaylorSeries θ hθ`. This is needed because `InnerFunction` is a statement about the analytic function while `InnerGeneratedSubspace` is about coefficients. | ✅ Both are existentially bound in one `∃`, with the linking hypothesis, so no mismatch is possible. ⚠️ A single Hardy-space type carrying both views would be cleaner; the two-object encoding is verbose but sound. |
-| 7 | Measure conventions | The circle is modelled by the parameter interval `Ioc 0 (2 * π)` with unnormalized `volume`, not by normalized Haar measure $m$ on $\mathbb{T}$. For "$\lvert\Theta\rvert = 1$ a.e." only the null sets matter, so nothing is lost. | ✅ Harmless here. ⚠️ Mathlib does provide `Circle` (`Analysis/Complex/Circle.lean`) and `AddCircle.haarAddCircle` (normalized to total mass 1); using the subtype `{z : ℂ // ‖z‖ = 1}` with an ad-hoc parametrization is a hand-rolled substitute. |
-| 8 | Mathlib conventions | Subspace-hood should ideally be `Submodule ℂ` (or a closed submodule of `ℓ²(ℕ, ℂ)`) rather than the hand-rolled `IsComplexLinearSubspace` predicate on `Set (ℕ → ℂ)`, which duplicates `zero_mem`/`add_mem`/`smul_mem`. The shift should be the `ℓ²` shift operator. | ⚠️ Hand-rolled but faithful: `IsComplexLinearSubspace M` is `0 ∈ M ∧ ∀ a b f g, f ∈ M → g ∈ M → a • f + b • g ∈ M`, which is exactly a linear subspace. Note `ShiftInvariant` is defined in `Defs.lean` but not used by this theorem — properness subsumes it. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | $E$ is a complex linear subspace: it contains $0$ and is closed under linear combinations. | ✅ First two conjuncts of `IsCircleL2Subspace E`. |
+| 2 | Every member of $E$ is square integrable, and membership depends only on the almost-everywhere class of a function. | ✅ Last two conjuncts of `IsCircleL2Subspace E`: `∀ f ∈ E, MemLp f 2 circleMeasure` and the a.e.-saturation clause. |
+| 3 | $E$ is closed in the $L^2$ norm. | ✅ `hclosed`: any $L^2$ function that is an $L^2$-limit of a sequence drawn from `E` already lies in `E`. |
+| 4 | Multiplication by $z$ maps $E$ into $E$, and the image is a *proper* subset. | ✅ `hshiftProper` uses `⊂` (strict inclusion), which says both "contained in" and "not equal". |
+| 5 | Multiplication by $z$ is multiplication by $e^{it}$ on the angular parameter. | ✅ `fun t ↦ Complex.exp (Complex.I * t) * f t`. |
+| 6 | The conclusion produces a measurable $\Theta$ with $\lvert\Theta\rvert = 1$ almost everywhere. | ✅ First two conjuncts of `UnimodularGeneratedSubspace E theta`: `AEStronglyMeasurable theta circleMeasure` and `∀ᵐ t, ‖theta t‖ = 1`. |
+| 7 | $E$ equals $\Theta H^2$ — an exact equality of sets, not an inclusion and not a closure. | ✅ `E = {f \| ∃ h, HardyBoundaryFunction h ∧ f =ᵐ[circleMeasure] fun t ↦ theta t * h t}`. |
+| 8 | $H^2$ is the boundary model: square integrable with all negative Fourier coefficients zero. | ✅ `HardyBoundaryFunction h` is `MemLp h 2 circleMeasure ∧ ∀ k < 0, angularFourierCoefficient h k = 0`. |
+| 9 | The uniqueness clause: any other unimodular generator $\eta$ of the same $E$ equals $c\Theta$ for one constant $c$ with $\lvert c\rvert = 1$. | ✅ The trailing `∀ eta, UnimodularGeneratedSubspace E eta → ∃ c, ‖c‖ = 1 ∧ eta =ᵐ[circleMeasure] fun t ↦ c * theta t`. |
+| 10 | The identifications are stated up to almost-everywhere equality, since $L^2$ members are only pinned down off null sets. | ✅ `=ᵐ[circleMeasure]` in both the generation clause and the uniqueness clause. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Writing $zE \subseteq E$ (or just a `ShiftInvariant`-style predicate) instead of the strict $zE \subsetneq E$. | Plain invariance admits $E = \{0\}$, and it also admits the doubly invariant subspaces $\chi_\sigma L^2$. Neither is of the form $\Theta H^2$, so the theorem becomes false. |
+| 2 | Dropping the closedness hypothesis. | Shift-invariant subspaces that are not closed exist (for instance the polynomial multiples of a $\Theta$) and are not equal to $\Theta H^2$. |
+| 3 | Omitting the uniqueness clause, or replacing it with `∃!`. | Uniqueness is half the theorem. `∃!` is outright false: if $\Theta$ works then so does $c\Theta$ for every $\lvert c\rvert = 1$. |
+| 4 | Formalizing the $H^2$ version instead — coefficient sequences in $\ell^2(\mathbb{N})$ with an *inner* $\Theta$. | That is Beurling's theorem, which is narrower than the printed statement. Here $E$ lives in $L^2$ with two-sided frequencies and $\Theta$ is only asserted measurable and unimodular, not analytic. |
+| 5 | Writing $E = \overline{\Theta H^2}$ or $\Theta H^2 \subseteq E$. | The theorem asserts equality; $\Theta H^2$ is already closed, so a closure or an inclusion states strictly less. |
+| 6 | Demanding $f = \Theta h$ at every point rather than almost everywhere. | Members of $L^2$ are only determined off null sets, and the subspace is explicitly a.e.-saturated, so the everywhere version is not the intended claim and would fail for legitimate representatives. |
+| 7 | Letting $\Theta$ be any measurable function without the constraint $\lvert\Theta\rvert = 1$ a.e. | Without unimodularity the conclusion is nearly empty: multiplication by an arbitrary measurable function does not preserve $L^2$, and the uniqueness statement collapses. |
+
+## Notes on the ground truth
+
+- The circle is modelled by the parameter interval $(0, 2\pi]$ with unnormalized Lebesgue measure
+  (`circleMeasure`), not by normalized Haar measure $m$ on $\mathbb{T}$. Only null sets and Fourier
+  coefficients matter here, and the $1/(2\pi)$ normalization sits inside
+  `angularFourierCoefficient`, so nothing is lost. Mathlib's `Circle` with
+  `AddCircle.haarAddCircle` would match the book's $m$ literally.
+- Subspace-hood is hand-rolled as `IsCircleL2Subspace` on `Set (ℝ → ℂ)` rather than being a
+  `Submodule ℂ` of an $L^2$ space. This is faithful but verbose, and it forces the closedness
+  hypothesis to be phrased with approximating sequences rather than with `IsClosed`.
+- `ShiftInvariant` is defined in `Defs.lean` but is not used here: properness (`⊂`) already
+  contains invariance.
+- An earlier version of this file used the coefficient model (`M : Set (ℕ → ℂ)`, Cauchy products,
+  an inner generator). That statement was true but formalized Beurling's $H^2$ theorem rather than
+  the printed Beurling–Helson theorem in $L^2$; the current file uses the $L^2$ model. Mistake 4
+  records the defect.

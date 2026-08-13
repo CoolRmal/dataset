@@ -1,20 +1,51 @@
 # Criteria: kong_3_4_2_integrable_perturbation_stability
 
-> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
-
 **Statement:** [kong_3_4_2_integrable_perturbation_stability.md](kong_3_4_2_integrable_perturbation_stability.md) · **Lean:** [kong_3_4_2_integrable_perturbation_stability.lean](kong_3_4_2_integrable_perturbation_stability.lean)
 
-A faithful formalization must carry the perturbation hypothesis in full — $p$ continuous and nonnegative on $[0,\infty)$, *integrable* there, and $\lvert r(t,x)\rvert \le p(t)\lvert x\rvert$ for all $t \ge 0$ and all $x$ in some fixed ball — and then state two separate implications about the zero solution of $x' = A(t)x + r(t,x)$: uniform stability is inherited, and uniform + asymptotic stability is inherited. The pitfalls are the encoding of $\int_0^\infty p < \infty$ (a Bochner integral is junk `0` for non-integrable $p$, which would make the hypothesis vacuous), the order of the quantifiers in "for sufficiently small $\lvert x \rvert$", and, most importantly, the mismatch between the time range on which the perturbation is controlled ($t \ge 0$) and the time range over which the stability predicate quantifies.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Start with the linear system $x' = A(t)x$ and perturb it to $x' = A(t)x + r(t,x)$. Suppose the
+perturbation is small near the origin in a controlled way: there is a continuous nonnegative
+function $p$ on $[0,\infty)$ with finite total integral such that
+$\lvert r(t,x)\rvert \le p(t)\lvert x\rvert$ for all $t \ge 0$ and all sufficiently small $x$. Then
+stability of the linear system passes to the perturbed one: if the linear system is uniformly
+stable, so is the zero solution of the perturbed system; and if the linear system is also
+asymptotically stable, so is the perturbed one.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Semantic closeness | Kong's stability notions in Chapter 3 are relative to initial times $t_0 \in [0,\infty)$, matching the half-line on which $r$ is controlled. `UniformlyStableZeroSolution` quantifies `∀ t₀ x` over **all** of `ℝ`, so it also constrains solutions started at negative times, where `IntegrableSmallPerturbation` says nothing at all about `r`. | ❗ **The conclusion is false as stated.** Take `n = 1`, `A ≡ 0`, `p ≡ 0` (so `hr` holds with `ρ = 1`, since `r t x = 0` for `t ≥ 0`) and `r t x := max (-t) 0 • Pi.single 0 1`. Then `UniformlyStableLinearEquation A` holds, but for `ε = 1` and any `δ > 0` the trajectory `x t = ψ t • Pi.single 0 1` with `ψ t = (T² - t²)/2` for `t ≤ 0`, `ψ t = T²/2` for `t ≥ 0` satisfies `‖x (-T)‖ = 0 < δ` and `‖x 0‖ = T²/2 ≥ 1`. Part (b) fails the same way with `A ≡ -1`. A faithful version restricts `t₀` (and `t`) to `[0, ∞)`. |
-| 2 | Hypothesis completeness | The four clauses on $p$ must all be present: continuity on $[0,\infty)$, nonnegativity, integrability on $[0,\infty)$, and the bound $\lVert r(t,x)\rVert \le p(t)\lVert x\rVert$ on a ball. | ✅ `IntegrableSmallPerturbation p r := ContinuousOn p (Ici 0) ∧ (∀ t, 0 ≤ p t) ∧ IntegrableOn p (Ici 0) ∧ ∃ ρ > 0, ∀ t, 0 ≤ t → ∀ x, ‖x‖ < ρ → ‖r t x‖ ≤ p t * ‖x‖`. ⚠️ `∀ t, 0 ≤ p t` is asserted on all of `ℝ` where the text says $[0,\infty)$ — a harmless strengthening of a hypothesis about a function that is only used on the half-line. |
-| 3 | Junk values | $\int_0^\infty p(t)\,dt < \infty$ must not be written as `∫ t in Ici 0, p t < ⊤` with a Bochner integral, which is `0` (hence "finite") precisely for the non-integrable $p$ the hypothesis means to exclude. | ✅ `IntegrableOn p (Set.Ici 0)` states integrability directly, which for continuous $p \ge 0$ is exactly Kong's condition. ❗ Trap: `∫ t in Set.Ici 0, p t ≠ ⊤` or a `Tendsto` formulation of the improper integral. |
-| 4 | Semantic closeness | "for sufficiently small $\lvert x\rvert$ and all $t \in [0,\infty)$" means one radius $\rho$ uniform in $t$: $\exists \rho > 0\ \forall t \ge 0\ \forall \lVert x\rVert < \rho$. Swapping to $\forall t\ \exists \rho$ would make the hypothesis useless. | ✅ `∃ ρ, 0 < ρ ∧ ∀ t, 0 ≤ t → ∀ x, ‖x‖ < ρ → …` with `ρ` bound first. ❗ Trap: dropping the ball entirely and demanding the bound for all `x` (a globally Lipschitz-in-$x$ perturbation — a strictly stronger hypothesis and a different theorem). |
-| 5 | Conclusion completeness | Two implications: (a) uniform stability of (H) $\Rightarrow$ uniform stability of (3.4.6); (b) uniform *and* asymptotic stability of (H) $\Rightarrow$ uniform *and* asymptotic stability of (3.4.6). Both hypotheses in (b) must appear. | ✅ `(UniformlyStableLinearEquation A → UniformlyStableZeroSolution (fun t x ↦ A t *ᵥ x + r t x)) ∧ (UniformlyStableLinearEquation A → AsymptoticallyStableLinearEquation A → AsymptoticallyStableZeroSolution …)`, and `AsymptoticallyStableZeroSolution` bundles uniform stability as its first conjunct, matching "uniformly stable and asymptotically stable". |
-| 6 | Faithful encoding | The perturbed equation is $x' = A(t)x + r(t,x)$ and the conclusion is about *its* zero solution, i.e. the nonautonomous stability predicate applied to that field. | ✅ `fun t x ↦ A t *ᵥ x + r t x`. ✅ Solutions are `IsTrajectory`, i.e. `HasDerivAt`, never `deriv`. |
-| 7 | Hypothesis completeness | Kong's standing assumptions for (H) and (3.4.6) include continuity of $A$ and of $r$ (with $r(t,0) = 0$, so that $x \equiv 0$ really is a solution); the Lean assumes neither. | ⚠️ Without them the perturbed system may have no solutions through a given point, in which case the conclusion is satisfied vacuously rather than meaningfully; and `r(t,0) = 0` — needed for "the zero solution" to exist — is not stated (it does follow from the bound with $x = 0$: `‖r t 0‖ ≤ p t * 0 = 0` for `t ≥ 0`). |
-| 8 | Semantic closeness | Kong's solutions of the perturbed nonlinear system need only exist on their maximal interval; `IsTrajectory` demands existence on all of `ℝ`, including backward in time. | ⚠️ This restricts the class of solutions the conclusion speaks about, weakening it relative to the text — and it is the same design decision that produces the counterexample in row 1. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | $p$ is continuous on $[0,\infty)$. | ✅ First conjunct of `IntegrableSmallPerturbation p r`: `ContinuousOn p (Set.Ici 0)`. |
+| 2 | $p$ is nonnegative. | ⚠️ `∀ t, 0 ≤ p t` asks this on all of $\mathbb{R}$, where the text asks it only on $[0,\infty)$. A harmless strengthening, since $p$ is used nowhere else. |
+| 3 | $\int_0^\infty p < \infty$, stated as integrability rather than as a numerical bound on the integral. | ✅ `IntegrableOn p (Set.Ici 0)`. For continuous $p \ge 0$ this is exactly Kong's condition. |
+| 4 | One radius $\rho$, fixed before $t$, within which the bound $\lVert r(t,x)\rVert \le p(t)\lVert x\rVert$ holds for every $t \ge 0$. | ✅ `∃ ρ, 0 < ρ ∧ ∀ t, 0 ≤ t → ∀ x, ‖x‖ < ρ → ‖r t x‖ ≤ p t * ‖x‖`. |
+| 5 | The perturbed system is $x' = A(t)x + r(t,x)$, and the conclusions are about **its** zero solution. | ✅ `fun t x ↦ A t *ᵥ x + r t x`. |
+| 6 | Part (a): uniform stability of the linear system implies uniform stability of the perturbed one. | ✅ First conjunct of the conclusion. |
+| 7 | Part (b): uniform **and** asymptotic stability of the linear system implies uniform and asymptotic stability of the perturbed one; both hypotheses appear. | ✅ `UniformlyStableLinearEquation A → AsymptoticallyStableLinearEquation A → AsymptoticallyStableZeroSolution …`, and `AsymptoticallyStableZeroSolution` has uniform stability as its first conjunct. |
+| 8 | The stability notions range over initial times $t_0 \ge 0$, matching the half-line on which the perturbation is controlled. | ✅ `UniformlyStableZeroSolution` and `AsymptoticallyStableZeroSolution` both carry the hypothesis `0 ≤ t₀`. |
+| 9 | The attraction radius and the stability radius are single numbers, independent of $t_0$. | ✅ `∃ δ, 0 < δ ∧ ∀ t₀ x, …` in both definitions, with `δ` bound before `t₀`. |
+| 10 | Solutions are genuine solutions on the whole line. | ✅ `IsTrajectory F x := ∀ t, HasDerivAt x (F t (x t)) t`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Letting the stability notions quantify over **all** real initial times, including negative ones. | The conclusion becomes false, because nothing is assumed about $r$ for $t < 0$. Take $n = 1$, $A \equiv 0$, $p \equiv 0$ (the hypothesis holds with $\rho = 1$, since $r(t,x) = 0$ for $t \ge 0$) and $r(t,x) := \max(-t, 0)$. The linear system is uniformly stable. But for $\varepsilon = 1$ and any $\delta > 0$, the solution $\psi(t) = (T^2 - t^2)/2$ for $t \le 0$, $\psi(t) = T^2/2$ for $t \ge 0$ has $\lvert\psi(-T)\rvert = 0 < \delta$ and $\lvert\psi(0)\rvert = T^2/2 \ge 1$. Part (b) fails the same way with $A \equiv -1$. |
+| 2 | Writing $\int_0^\infty p < \infty$ as `∫ t in Set.Ici 0, p t ≠ ⊤` with a Bochner integral. | Lean gives a non-integrable function integral `0`, so the condition would be satisfied precisely by the functions the hypothesis is meant to exclude. Stating integrability directly avoids this. |
+| 3 | Swapping the quantifiers to "for each $t$ there is a radius $\rho_t$". | Then the bound gives no uniform control near the origin and the hypothesis is useless — the perturbation could be large at every fixed small $x$. |
+| 4 | Dropping the ball and requiring $\lVert r(t,x)\rVert \le p(t)\lVert x\rVert$ for all $x$. | That is a globally linear bound on the perturbation, a strictly stronger hypothesis and a different theorem. Kong only controls $r$ near the origin. |
+| 5 | Concluding only asymptotic attraction in part (b), dropping the uniform-stability half. | The text says "uniformly stable and asymptotically stable"; both conclusions are asserted. |
+| 6 | Passing the hypothesis of part (a) but not that of part (b), or stating part (b) with the asymptotic hypothesis alone. | Kong's part (b) assumes both. |
+| 7 | Describing solutions with `deriv`. | `deriv` is `0` where the function is not differentiable, so non-solutions would be admitted wherever the field vanishes. |
+
+## Notes on the ground truth
+
+- Kong's standing assumptions for the two systems include continuity of $A$ and of $r$, and $r(t,0) = 0$ so that $x \equiv 0$ really is a solution. We assume none of these. Without them the perturbed system may simply have no solutions through a given point, in which case the conclusion holds because there is nothing to check rather than for a mathematical reason. The condition $r(t,0) = 0$ does follow for $t \ge 0$ from the bound at $x = 0$: $\lVert r(t,0)\rVert \le p(t)\cdot 0 = 0$.
+- `IsTrajectory` asks for a solution defined on all of $\mathbb{R}$, including backwards in time, whereas Kong's solutions only need to exist on their maximal interval. This narrows the class of solutions the conclusion speaks about, so our version is weaker than the printed one. It is also the design choice that made the counterexample in mistake 1 possible before the initial time was restricted to $t_0 \ge 0$.

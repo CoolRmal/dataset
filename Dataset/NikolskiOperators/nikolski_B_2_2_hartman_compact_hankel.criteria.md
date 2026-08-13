@@ -2,17 +2,65 @@
 
 **Statement:** [nikolski_B_2_2_hartman_compact_hankel.md](nikolski_B_2_2_hartman_compact_hankel.md) · **Lean:** [nikolski_B_2_2_hartman_compact_hankel.lean](nikolski_B_2_2_hartman_compact_hankel.lean)
 
-A faithful formalization must state a two-way equivalence between *compactness* of the Hankel operator and membership of its symbol in $H^\infty + C$ — where the symbol is not unique, so the correct reading is "$H$ is compact iff **some** symbol of $H$ lies in $H^\infty + C$", and $H^\infty + C$ must be a genuine algebraic sum $h + c$ with $h \in H^\infty$ and $c$ continuous on $\mathbb{T}$. The difficulty is that compactness is a statement about an operator, while the ground truth never builds one: it encodes compactness by the vanishing of the tail-block norms of the matrix, which must be checked to be equivalent to compactness rather than to something weaker.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Hartman's theorem describes which Hankel operators are compact. A Hankel operator is compact
+exactly when it has a symbol lying in $H^\infty + C$: a function on the circle that is the sum of
+the boundary values of a bounded analytic function and a continuous function. Since a Hankel
+operator has many symbols, differing by bounded analytic functions, the right reading is that
+*some* symbol lies in that class. The book adds the equivalent phrasing that the symbol may then
+even be taken continuous.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Faithful encoding (compactness) | Compactness must not be weakened to, say, "the matrix entries tend to $0$" (false: that is much weaker) or "the form is bounded". The tail-block criterion $\lVert Q_N T Q_N\rVert \to 0$ (with $Q_N$ the projection onto coordinates $\ge N$) *is* equivalent to compactness for any bounded $T$, since $T - Q_N T Q_N = P_N T + Q_N T P_N$ has rank $\le 2N$, and conversely $\lVert TQ_N\rVert \to 0$ for compact $T$. | ✅ `CompactHankel a` is `BoundedHankelForm a ∧ ∀ ε > 0, ∃ N, ∀ M x y, ‖∑_{i,j ∈ Icc N M} x_i a_{i+j} y_j‖ ≤ ε (∑‖x_i‖²)^{1/2}(∑‖y_j‖²)^{1/2}` — exactly $\sup_M$ of the finite sections of $Q_N \Gamma Q_N$, so the encoding is correct. ❗ Trap: `Tendsto a atTop (𝓝 0)`, or compactness of the *symbol's* range. |
-| 2 | Mathlib conventions | Mathlib has `IsCompactOperator` (`Analysis/Normed/Operator/Compact/Basic.lean`) and `ℓ²(ℕ, ℂ) →L[ℂ] ℓ²(ℕ, ℂ)`; the sibling file `nikolski_B_4_3_3_devinatz_widom` already builds a Toeplitz operator as a `ContinuousLinearMap`. Using the same route here would let the statement say literally "$H_\varphi$ is compact". | ⚠️ The hand-rolled `CompactHankel` is faithful but bypasses the available mathlib notion; a candidate that constructs the operator and asserts `IsCompactOperator` should be rated at least as highly. |
-| 3 | Conclusion completeness (both directions) | The theorem is an `↔` and both directions carry content: compact $\Rightarrow$ the symbol can be *chosen* in $H^\infty + C$ (an existence claim about symbols, since symbols differ by $H^\infty$), and conversely. | ✅ `CompactHankel a ↔ ∃ φ, HasBoundedHankelSymbol a φ ∧ InHInfinityPlusContinuous φ`, with the existential correctly placed on the right of the `↔`. ❗ Trap: fixing $\varphi$ as a hypothesis and asserting `Compact ↔ InHInfinityPlusContinuous φ` — that version is still true (all symbols differ by $H^\infty$), but only if the fixed $\varphi$ is genuinely a symbol of the operator. |
-| 4 | a.e. vs everywhere | `InHInfinityPlusContinuous φ` demands `∀ ζ : {z : ℂ // ‖z‖ = 1}, φ ζ = boundaryValue h ζ + c ζ` — an **everywhere** identity involving `boundaryValue h`, which is `Classical.epsilon` junk on the null set where the radial limit of $h \in H^\infty$ fails to exist. | ⚠️ Harmless in this position only because $\varphi$ is existentially quantified and all its other constraints (measurability, `eLpNorm ∞`, Fourier coefficients) are a.e./integral notions, so $\varphi := \mathrm{bv}\,h + c$ can be taken literally. Still, `∀ᵐ t ∂volume.restrict (Ioc 0 (2π)), φ (unitCirclePoint t) = …` is the correct form; the everywhere version would be a real error if $\varphi$ were universally quantified. |
-| 5 | Faithful encoding ($H^\infty + C$) | $H^\infty + C$ is the sum of the boundary values of bounded analytic functions and the continuous functions on $\mathbb{T}$ (a closed subalgebra of $L^\infty$). Continuity must be continuity on the circle, not on $\mathbb{R}$ or on the parameter interval. | ✅ `∃ h c, HardyClass ⊤ h ∧ Continuous c ∧ …` with `c : {z : ℂ // ‖z‖ = 1} → ℂ`, i.e. continuity in the subspace topology of the circle. ❗ Trap: continuity of `fun t : ℝ ↦ c (unitCirclePoint t)`, which does *not* imply continuity on $\mathbb{T}$ (it permits a jump at $t = 0 \sim 2\pi$) and would make the class strictly larger. |
-| 6 | Conclusion completeness (second formulation) | The text gives a second, equivalent phrasing: "a Hankel operator $H$ is compact iff $H = H_g$ with some $g \in C(\mathbb{T})$" — i.e. the symbol may be taken *continuous*, not merely in $H^\infty + C$. | ⚠️ Not stated. It is an "in other words" rephrasing (the $H^\infty$ part of the symbol does not change the Hankel operator), so its absence is a minor omission, but a formalization including both clauses is strictly better. |
-| 7 | Semantic closeness / redundancy | The $\varepsilon$-tail clause already implies boundedness of the form (the finite corner is a finite matrix), so the `BoundedHankelForm a` conjunct in `CompactHankel` is redundant. | ⚠️ Harmless and arguably clarifying, but a reader may mistake it for extra content. Note also the tail clause uses `Finset.Icc N M`, so `M < N` gives empty sums and the `∀ M` is genuinely a supremum over the tail. |
-| 8 | Hypothesis completeness | The book's hypothesis is $f \in L^\infty$; on the ground truth's left-hand side there is no symbol at all, only the matrix data `a`, and $L^\infty$-ness of the symbol appears on the right through `HasBoundedHankelSymbol`. | ✅ Correct placement: assuming an $L^\infty$ symbol on the left would trivialize half of the theorem, since the existence of a bounded symbol is itself Nehari's theorem (`nikolski_B_1_3_nehari_theorem`). |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The operator side is a statement about the matrix data $a$ alone, with no symbol assumed. | ✅ The left-hand side of the `↔` is `CompactHankel a`, which mentions only `a`. |
+| 2 | Compactness is encoded by the tail blocks having small norm: for every $\varepsilon > 0$ there is an index $N$ beyond which the whole corner has norm at most $\varepsilon$. | ✅ `CompactHankel a` contains `∀ ε > 0, ∃ N, ∀ M x y, ‖∑ i ∈ Icc N M, ∑ j ∈ Icc N M, x i * a (i + j) * y j‖ ≤ ε * (∑ ‖x i‖²)^{1/2} * (∑ ‖y j‖²)^{1/2}`. |
+| 3 | The tail bound holds for every window `Icc N M` and every pair of coefficient vectors, so it really is a supremum over the tail. | ✅ `∀ M : ℕ, ∀ x y : ℕ → ℂ`. |
+| 4 | The symbol is existentially quantified on the other side of the equivalence. | ✅ `∃ φ, HasBoundedHankelSymbol a φ ∧ InHInfinityPlusContinuous φ`. |
+| 5 | That $\varphi$ is a genuine symbol for $a$: essentially bounded, measurable, with $\hat\varphi(-n-1) = a_n$. | ✅ `HasBoundedHankelSymbol a φ`. |
+| 6 | $H^\infty + C$ is an algebraic sum: $\varphi = $ boundary values of some bounded analytic $h$, plus a continuous $c$. | ✅ `InHInfinityPlusContinuous φ` = `∃ h c, HardyClass ⊤ h ∧ Continuous c ∧ ∀ ζ, φ ζ = boundaryValue h ζ + c ζ`. |
+| 7 | The continuous summand is continuous on the circle. | ✅ `c : {z : ℂ // ‖z‖ = 1} → ℂ` with `Continuous c`, i.e. continuity in the subspace topology of the circle. |
+| 8 | Both directions are asserted. | ✅ A single `↔`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Replacing compactness by "the matrix entries tend to $0$". | Far weaker. The Hilbert matrix $a_n = 1/(n+1)$ has entries tending to $0$ and is bounded, but the corresponding Hankel operator is not compact. |
+| 2 | Replacing compactness by boundedness of the form. | Then the equivalence would say that every bounded Hankel operator has a symbol in $H^\infty + C$, which is false — Nehari gives an $L^\infty$ symbol, not one in $H^\infty + C$. |
+| 3 | Requiring only that `fun t : ℝ ↦ c (unitCirclePoint t)` is continuous. | That permits a jump between $t = 0$ and $t = 2\pi$, so the class of admissible $c$ is strictly larger than $C(\mathbb{T})$ and the equivalence fails. |
+| 4 | Assuming an $L^\infty$ symbol as a hypothesis of the whole theorem. | The existence of a bounded symbol for a bounded Hankel operator is itself Nehari's theorem, so assuming it gives away half the content. |
+| 5 | Fixing $\varphi$ outside the equivalence and writing "compact $\leftrightarrow$ $\varphi \in H^\infty + C$" without saying $\varphi$ is a symbol of $a$. | The two sides would then be about unrelated objects and the statement would be false. |
+| 6 | Stating only one direction. | Both directions carry content: compactness produces a symbol in the class, and a symbol in the class forces compactness. |
+
+## Notes on the ground truth
+
+- Compactness is encoded by the tail-block criterion instead of building an operator. This is
+  equivalent for a bounded form: if $P_N$ is the projection onto the first $N$ coordinates and
+  $Q_N$ the complementary one, then $\Gamma - Q_N\Gamma Q_N = P_N\Gamma + Q_N\Gamma P_N$ has rank
+  at most $2N$, and conversely $\lVert \Gamma Q_N\rVert \to 0$ for a compact $\Gamma$. Mathlib does
+  have `IsCompactOperator` and `ℓ²(ℕ, ℂ) →L[ℂ] ℓ²(ℕ, ℂ)` — the sibling Devinatz–Widom file builds a
+  Toeplitz operator that way — so a candidate that constructs the operator and asserts compactness
+  literally should be scored at least as highly.
+- The `BoundedHankelForm a` conjunct inside `CompactHankel` is redundant: the $\varepsilon$-tail
+  clause together with the finite corner already gives boundedness. It is harmless, arguably
+  clarifying, but a reader may mistake it for extra content.
+- `Finset.Icc N M` is empty when $M < N$, so the `∀ M` quantifier genuinely sweeps the tail.
+- `InHInfinityPlusContinuous φ` demands the identity $\varphi(\zeta) = \mathrm{bv}\,h(\zeta) +
+  c(\zeta)$ at *every* $\zeta$, and `boundaryValue` returns an arbitrary value on the null set
+  where the radial limit fails. This is harmless in this position only because $\varphi$ is
+  existentially quantified and all its other constraints are almost-everywhere or integral notions,
+  so $\varphi$ can be taken to be that sum literally. An almost-everywhere version would be the
+  correct general form, and would matter if $\varphi$ were universally quantified.
+- The book's second phrasing — a Hankel operator is compact if and only if it equals $H_g$ for some
+  continuous $g$ — is not stated. It is an "in other words" (adding a bounded analytic part does
+  not change the Hankel operator), so the omission is minor, but a formalization carrying both
+  clauses is strictly better.

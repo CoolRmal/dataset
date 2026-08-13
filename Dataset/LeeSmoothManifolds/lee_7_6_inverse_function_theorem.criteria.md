@@ -1,19 +1,58 @@
 # Criteria: lee_7_6_inverse_function_theorem
 
-> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
-
 **Statement:** [lee_7_6_inverse_function_theorem.md](lee_7_6_inverse_function_theorem.md) · **Lean:** [lee_7_6_inverse_function_theorem.lean](lee_7_6_inverse_function_theorem.lean)
 
-A faithful formalization must produce *connected open* neighborhoods $U_0 \ni p$ inside $U$ and $V_0 \ni F(p)$ inside $V$ such that $F$ restricted to $U_0$ is a **diffeomorphism** onto $V_0$ — a bijection $U_0 \leftrightarrow V_0$ whose *inverse is again smooth*, not merely a local homeomorphism or a map with a one-sided inverse. The junk-value risk sits in the nondegeneracy hypothesis: `fderiv ℝ F p` is defined to be the zero map when `F` is not differentiable at `p`, so `Bijective (fderiv ℝ F p)` only says "$DF(p)$ is nonsingular" because `IsOpen U`, `p ∈ U` and the `ContDiffOn` hypothesis together force genuine differentiability at `p`. The second delicate point is the smoothness index: in current Mathlib the `ContDiff`-scoped `⊤ : WithTop ℕ∞` is `ω` (real-analytic), and `C^∞` is written `∞`.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Take two open sets $U$ and $V$ in $\mathbb{R}^n$ and a smooth map $F$ from $U$ into $V$. Suppose the
+derivative $DF(p)$ at one point $p$ of $U$ is an invertible linear map. Then $F$ is invertible near
+$p$: there are connected open neighbourhoods $U_0$ of $p$ inside $U$ and $V_0$ of $F(p)$ inside $V$
+such that $F$ carries $U_0$ onto $V_0$ one-to-one, and the inverse map is smooth too. This is a
+purely local statement — $F$ itself need not be injective anywhere else.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Junk values | `hD : Function.Bijective (fderiv ℝ F p)` encodes "$DF(p)$ nonsingular" only if `F` is actually differentiable at `p`; `fderiv` of a nowhere-differentiable map is `0`. What rules the junk out is the triple `hU : IsOpen U`, `hp : p ∈ U`, `hF.2 : ContDiffOn ℝ ⊤ F U` (on an open set `fderivWithin` agrees with `fderiv`). | ✅ All three present. ❗ Predicted error: candidates that drop `IsOpen U`, or that state smoothness only via `ContDiffWithinAt`/`ContDiffOn` on a non-open set, turn `hD` into a claim about the junk zero map — which for `n = 0` is even bijective, so the hypothesis becomes vacuously satisfiable. |
-| 2 | Smoothness class | Lee's $F$ is $C^\infty$. `ContDiffOn ℝ ⊤ F U` with `open scoped ContDiff` elaborates to `ContDiffOn ℝ ω F U`, i.e. **real-analytic**; `∞` is the notation for $C^\infty$ (and is what the manifold-side files of this book use, e.g. `ContMDiff … ∞`). The same `⊤` reappears in the conclusion through `SmoothDiffeomorphismOn.smooth`/`.smooth_inv`. | ⚠️ The resulting statement is a true theorem (the analytic inverse function theorem, with an analytic hypothesis *and* an analytic conclusion) but it is not Lee 7.6. Replacing both occurrences of `⊤` by `∞` would be faithful. |
-| 3 | Conclusion completeness | "the restriction of $F$ to $U_0$ is a diffeomorphism onto $V_0$" needs: `MapsTo` both ways, a two-sided inverse *on those sets*, and smoothness of **both** directions. `SmoothDiffeomorphismOn U₀ V₀` bundles `mapsTo`, `invMapsTo`, `leftInvOn`, `rightInvOn` (hence a bijection `U₀ ↔ V₀`) plus `smooth`/`smooth_inv`. | ✅ Present, and `e.toFun = F` pins the diffeomorphism down to be $F$ itself rather than some unrelated map. ❗ Predicted error: asserting only `IsLocalHomeomorph F`, or `∃ G, ∀ x ∈ U₀, G (F x) = x` (a left inverse with no smoothness), which throws away the entire content. |
-| 4 | Hypothesis / conclusion completeness | Lee asks for **connected** neighborhoods, and for the containments $U_0 \subset U$, $V_0 \subset V$, $p \in U_0$, $F(p) \in V_0$. | ✅ `(IsOpen U₀ ∧ IsConnected U₀ ∧ p ∈ U₀ ∧ U₀ ⊆ U)` and the mirror clause for `V₀`. `IsConnected` (nonempty + preconnected) is the right reading; `IsPreconnected` alone would be weaker but is implied nonvacuous by `p ∈ U₀`. |
-| 5 | Hypothesis completeness | "$F \colon U \to V$" carries two pieces of data: `IsOpen V` and `MapsTo F U V`. Dropping `MapsTo` makes `V₀ ⊆ V` unobtainable; dropping `IsOpen V` changes the ambient setting. | ✅ `hV` and `hF.1` present. |
-| 6 | Semantic closeness | "$DF(p)$ nonsingular" for a map $\mathbb{R}^n \to \mathbb{R}^n$: `Function.Bijective (fderiv ℝ F p)` (bijectivity of the continuous linear map viewed as a function) is the faithful rendering. Since source and target are the same finite-dimensional space, `Injective`, `Surjective` and `Bijective` all agree — acceptable variants; a determinant formulation would require passing through a matrix representation. | ✅ Bijectivity is the safest of the equivalent forms and is the one that survives a candidate's generalization to $m \ne n$. |
-| 7 | Mathlib conventions | Mathlib has `ContDiffAt.toOpenPartialHomeomorph` (`Mathlib/Analysis/Calculus/InverseFunctionTheorem/ContDiff.lean`), which packages exactly this local inverse. The hand-rolled `SmoothDiffeomorphismOn` duplicates `OpenPartialHomeomorph` plus smoothness of both directions, and — unlike an `OpenPartialHomeomorph` — does **not** require `U₀`/`V₀` to be `e.source`/`e.target` or to be open (openness is recovered here only from the separate `IsOpen U₀`/`IsOpen V₀` conjuncts). | ⚠️ Defensible, because Lee's statement is about restricting a *given* total function rather than about an abstract diffeomorphism of types; but `∃ e : OpenPartialHomeomorph (Fin n → ℝ) (Fin n → ℝ), e.source = U₀ ∧ e.target = V₀ ∧ EqOn e F U₀ ∧ ContDiffOn ℝ ∞ e U₀ ∧ ContDiffOn ℝ ∞ e.symm V₀` would reuse Mathlib bookkeeping and be harder to satisfy degenerately. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The source and target live in the same dimension $n$, and both $U$ and $V$ are open. | ✅ `U V : Set (Fin n → ℝ)` with `hU : IsOpen U` and `hV : IsOpen V`. |
+| 2 | $F$ maps $U$ into $V$. Without this, "$V_0 \subseteq V$" could never be delivered. | ✅ `hF.1 : MapsTo F U V`. |
+| 3 | $F$ is $C^\infty$ on $U$. | ✅ `hF.2 : ContDiffOn ℝ ∞ F U`, with `∞` (not `⊤`) so the class really is $C^\infty$. |
+| 4 | The base point lies in $U$. | ✅ `hp : p ∈ U`. |
+| 5 | The derivative at $p$ is invertible. | ✅ `hD : Function.Bijective (fderiv ℝ F p)`. Since source and target have the same finite dimension, injective, surjective and bijective all agree; bijective is the form that still says the right thing if a candidate generalises to $m \ne n$. |
+| 6 | The hypotheses must force $F$ to really be differentiable at $p$, so that `fderiv` is the actual derivative. | ✅ `hU`, `hp` and `hF.2` together do this: on an open set `fderivWithin` agrees with `fderiv`. |
+| 7 | The conclusion produces an open, connected $U_0$ with $p \in U_0$ and $U_0 \subseteq U$. | ✅ `IsOpen U₀ ∧ IsConnected U₀ ∧ p ∈ U₀ ∧ U₀ ⊆ U`. `IsConnected` means nonempty and preconnected, which is the right reading of "connected neighbourhood". |
+| 8 | The conclusion produces an open, connected $V_0$ with $F(p) \in V_0$ and $V_0 \subseteq V$. | ✅ The mirror clause `IsOpen V₀ ∧ IsConnected V₀ ∧ F p ∈ V₀ ∧ V₀ ⊆ V`. |
+| 9 | The restriction of $F$ to $U_0$ is a diffeomorphism onto $V_0$: it maps $U_0$ into $V_0$, has a two-sided inverse on those sets, and both directions are smooth. | ✅ `∃ e : SmoothDiffeomorphismOn U₀ V₀`, which bundles `mapsTo`, `invMapsTo`, `leftInvOn`, `rightInvOn`, `smooth` and `smooth_inv`. |
+| 10 | The diffeomorphism has to be $F$ itself, not some other map between the same two sets. | ✅ `e.toFun = F`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Stating `Bijective (fderiv ℝ F p)` but dropping `IsOpen U`, or giving smoothness only as `ContDiffWithinAt` on a set that is not open. | Lean defines `fderiv ℝ F p` to be the zero map when $F$ is not differentiable at $p$. Without the openness and smoothness hypotheses the assumption is a claim about that junk zero map, and for $n = 0$ the zero map is bijective, so the hypothesis can be met by a map with no derivative at all. |
+| 2 | Concluding only `IsLocalHomeomorph F`, or "there is a $G$ with $G(F(x)) = x$ for $x \in U_0$". | A local homeomorphism says nothing about smoothness of the inverse, and a one-sided inverse is not a bijection. Both throw away the whole content of the theorem. |
+| 3 | Dropping smoothness of the inverse and keeping only smoothness of $F$. | Then $x \mapsto x^3$ on $\mathbb{R}$ would qualify at $p = 0$, and its inverse is not differentiable there. The inverse being smooth is the point of the theorem. |
+| 4 | Writing the smoothness class as `⊤` under `open scoped ContDiff`. | In current Mathlib that scoped `⊤ : WithTop ℕ∞` is `ω`, real-analytic. The result is a true but different theorem: an analytic hypothesis producing an analytic conclusion, not Lee 7.6. Our file previously had this and it was repaired to `∞`. |
+| 5 | Omitting `MapsTo F U V` or `IsOpen V`. | Without `MapsTo` there is no reason $F(U_0)$ should sit inside $V$, so the conclusion `V₀ ⊆ V` is not obtainable. Without `IsOpen V` the ambient setting is not the one in the book. |
+| 6 | Producing $U_0$ and $V_0$ without connectedness, or without the containments $U_0 \subseteq U$, $V_0 \subseteq V$. | Lee explicitly asks for connected neighbourhoods sitting inside the given sets; a weaker conclusion is not the printed theorem. |
+
+## Notes on the ground truth
+
+- `SmoothDiffeomorphismOn U₀ V₀` is our own structure in `Defs.lean`. It does not require $U_0$ or
+  $V_0$ to be open — openness is supplied separately by the `IsOpen U₀` and `IsOpen V₀` conjuncts.
+- Mathlib already has `ContDiffAt.toOpenPartialHomeomorph`, which packages a local smooth inverse.
+  Our hand-rolled structure duplicates `OpenPartialHomeomorph` plus two-sided smoothness. Using
+  Mathlib's bundle instead — `∃ e : OpenPartialHomeomorph …, e.source = U₀ ∧ e.target = V₀ ∧
+  EqOn e F U₀ ∧ ContDiffOn ℝ ∞ e U₀ ∧ ContDiffOn ℝ ∞ e.symm V₀` — would reuse existing API and be
+  harder to satisfy in a degenerate way. Our version is defensible because Lee restricts a *given*
+  total function rather than producing an abstract diffeomorphism.
+- The model space is `Fin n → ℝ` (sup norm) rather than `EuclideanSpace ℝ (Fin n)`. Nothing in this
+  statement mentions distances, so the two are interchangeable here.
+- The smoothness class was originally written `⊤` and has been repaired to `∞`; mistake row 4 is
+  kept as a regression check.

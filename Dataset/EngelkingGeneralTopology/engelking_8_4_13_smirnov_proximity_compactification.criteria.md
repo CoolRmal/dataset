@@ -2,17 +2,67 @@
 
 **Statement:** [engelking_8_4_13_smirnov_proximity_compactification.md](engelking_8_4_13_smirnov_proximity_compactification.md) · **Lean:** [engelking_8_4_13_smirnov_proximity_compactification.lean](engelking_8_4_13_smirnov_proximity_compactification.lean)
 
-"Establishes a one-to-one correspondence" is not a formal statement, so the entire difficulty is choosing the right unfolding: the assignment $cX \mapsto \delta(c)$, where $A \mathbin{\delta(c)} B \iff \overline{A} \cap \overline{B} \neq \emptyset$ in $cX$, must be shown to be defined on every compactification, to hit every proximity on $X$, and to be injective **modulo equivalence of compactifications** (two compactifications with the same proximity are equivalent via a homeomorphism commuting with the embeddings). Since mathlib has no proximity spaces, the `Proximity` structure must transcribe all of Engelking's axioms — in particular the strong (Efremovič) axiom and the compatibility of $\delta$ with the *given* topology of $X$, without which the correspondence is simply false.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+A *proximity* on a space is a relation "$A$ is close to $B$" between subsets, obeying a short list of
+axioms, and compatible with the topology in the sense that the closure of $A$ is the set of points
+close to $A$. Every compactification $cX$ of a Tychonoff space $X$ produces one: declare $A$ close to
+$B$ when the closures of their images in $cX$ meet. Smirnov's theorem says this assignment is a
+one-to-one correspondence — every proximity on $X$ arises this way, and two compactifications giving
+the same proximity are equivalent, meaning there is a homeomorphism between them matching up the two
+copies of $X$.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Conclusion completeness (what "bijection" unfolds to) | Three clauses are needed: (a) every compactification is assigned a proximity, (b) every proximity is assigned to some compactification (surjectivity), (c) two compactifications with the same assigned proximity are equivalent (injectivity modulo equivalence). Stating only (b) — "every proximity comes from a compactification" — is the usual truncation and loses the theorem. | ✅ All three appear as conjuncts. Uniqueness of the proximity in (a) needs no separate clause: `IsAssignedProximity e p` pins down `p.close` completely, and two `Proximity` values with equal `close` fields are equal. |
-| 2 | Faithful encoding (proximity axioms) | The `Proximity` structure must carry Engelking's axioms: $\emptyset$ is close to nothing; $A \cap B \neq \emptyset \Rightarrow A \delta B$; symmetry; $(A \cup B) \delta C \iff A \delta C \lor B \delta C$; and the **strong axiom** $\lnot(A \delta B) \Rightarrow \exists E,\ \lnot(A \delta E) \land \lnot(E^{c} \delta B)$. Omitting the strong axiom is the classic error: without it the structures are mere "basic proximities", which do **not** correspond to compactifications, so clause (b) becomes false. | ✅ `empty_left`, `intersects`, `symmetric`, `union_left`, `strong` are all present; `union_left` is stated on the left only, which suffices given `symmetric`. ❗ Predicted error: dropping `strong`. |
-| 3 | Faithful encoding (compatibility with the topology) | A proximity "on $X$" must induce the given topology: $\overline{A} = \{x : \{x\} \delta A\}$. Without this axiom the correspondence is with proximities on the underlying *set*, and the theorem is false (the same set carries proximities inducing different topologies). | ✅ `closure_eq : ∀ A : Set X, closure A = {x \| close {x} A}`, using the ambient `closure`. ❗ Predicted error: omitting this field, or stating it only for singletons/closed sets. |
-| 4 | Faithful encoding (the assigned proximity) | $\delta(c)$ is: $A \mathbin{\delta} B$ iff the closures **in $cX$** of the images $e(A)$, $e(B)$ meet. Taking closures in $X$, or comparing $e(A) \cap e(B)$ without closures, gives a different (and non-proximity) relation. It must be an `iff`, since it defines the assignment. | ✅ `IsAssignedProximity e p := ∀ A B, p.close A B ↔ (closure (e '' A) ∩ closure (e '' B)).Nonempty`, closures taken in `K`. |
-| 5 | Separation axioms (the Engelking convention) | Engelking's "compactification": a **compact Hausdorff** space containing $X$ as a dense subspace. Both the compactness and the Hausdorff conjunct are needed — mathlib's `CompactSpace` does not include `T2Space`, and the Smirnov correspondence is with compact **Hausdorff** compactifications only. The ambient space must be Tychonoff (`T35Space`, mathlib's exact analogue of Engelking's Tychonoff). | ✅ `IsCompactification e := IsEmbedding e ∧ DenseRange e ∧ IsCompact (univ : Set K) ∧ T2Space K`, with `[T35Space X]` on `X`. ❗ Predicted error: `CompactSpace K` without `T2Space K`. |
-| 6 | Semantic closeness (equivalence of compactifications) | Injectivity is only up to *equivalence*: a homeomorphism $h \colon K \to L$ **with $h \circ e = f$**. Replacing this by `Nonempty (K ≃ₜ L)` is strictly weaker and wrong as a characterization — inequivalent compactifications of the same space can be homeomorphic as spaces. | ✅ `EquivalentCompactifications e f := ∃ h : K ≃ₜ L, h ∘ e = f`. ❗ Predicted error: bare homeomorphy. |
-| 7 | Conclusion completeness (well-definedness on classes) | For the assignment to be a correspondence between *equivalence classes* of compactifications and proximities, the converse of clause (c) is also part of the content: equivalent compactifications are assigned the same proximity. | ⚠️ Not asserted. It is the easy direction (transport the closures along `h`), but adding `IsCompactification e → IsCompactification f → EquivalentCompactifications e f → IsAssignedProximity e p → IsAssignedProximity f p` would make the ground truth a complete rendering of "one-to-one correspondence". A candidate that includes it is more faithful. |
-| 8 | Mathlib conventions / universes | Mathlib has no proximity spaces and no Smirnov theorem (checked), so the custom `Proximity` structure and the compactification predicates are justified; `Homeomorph`, `IsEmbedding`, `DenseRange`, `closure`, `Set.Nonempty` are the correct mathlib primitives. Compactifications are quantified over `K L : Type v` with `v` free, whereas the compactification constructed in clause (b) naturally lives in `Type u` (a quotient of a space built from `Set (Set X)`). | ✅ / ⚠️ Conventions right; at `v` below `u` clause (b) may be unsatisfiable for cardinality reasons, so `Type u` (or `Type (max u v)`) would be the safe choice. `T2Space K` and `IsCompact univ` as `Prop`-conjuncts rather than instances is forced by `tK` being a bound variable and is acceptable. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | $X$ is Tychonoff. | ✅ `[T35Space X]`, mathlib's exact analogue of Engelking's Tychonoff. |
+| 2 | "Compactification" is a dense embedding into a compact **Hausdorff** space. | ✅ `IsCompactification e := IsEmbedding e ∧ DenseRange e ∧ IsCompact (univ : Set K) ∧ T2Space K`. |
+| 3 | The proximity axioms: $\emptyset$ is close to nothing; overlapping sets are close; the relation is symmetric; $A \cup B$ is close to $C$ exactly when $A$ or $B$ is. | ✅ The fields `empty_left`, `intersects`, `symmetric`, `union_left` of the `Proximity` structure. |
+| 4 | The strong (Efremovič) axiom: if $A$ is not close to $B$, there is a set $E$ with $A$ not close to $E$ and $E^{c}$ not close to $B$. | ✅ `strong : ∀ A B, ¬close A B → ∃ E, ¬close A E ∧ ¬close Eᶜ B`. |
+| 5 | The proximity is compatible with the **given** topology of $X$: $\overline{A}$ is the set of points close to $A$. | ✅ `closure_eq : ∀ A : Set X, closure A = {x \| close {x} A}`, using the ambient `closure`. |
+| 6 | The assigned proximity is defined by an "if and only if": $A$ is close to $B$ exactly when the closures **in $cX$** of $e(A)$ and $e(B)$ meet. | ✅ `IsAssignedProximity e p := ∀ A B, p.close A B ↔ (closure (e '' A) ∩ closure (e '' B)).Nonempty`, with closures taken in `K`. |
+| 7 | Clause (a): every compactification is assigned a proximity. | ✅ `∀ K tK e, IsCompactification e → ∃ p : Proximity X, IsAssignedProximity e p`. |
+| 8 | Clause (b), surjectivity: every proximity on $X$ comes from some compactification. | ✅ `∀ p : Proximity X, ∃ K _ e, IsCompactification e ∧ IsAssignedProximity e p`. |
+| 9 | Clause (c), injectivity up to equivalence: two compactifications assigned the same proximity are equivalent. | ✅ The third conjunct, concluding `EquivalentCompactifications e f`. |
+| 10 | "Equivalent" means a homeomorphism that matches the embeddings, not merely a homeomorphism. | ✅ `EquivalentCompactifications e f := ∃ h : K ≃ₜ L, h ∘ e = f`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Stating only clause (b), "every proximity comes from a compactification". | The usual truncation. Without injectivity there is no correspondence, only a surjection, and the theorem's content is lost. |
+| 2 | Dropping the strong axiom from the `Proximity` structure. | Without it the structures are mere "basic proximities", which do not correspond to compactifications. Clause (b) then becomes false. |
+| 3 | Omitting the compatibility field `closure_eq`, or stating it only for singletons or closed sets. | The correspondence would then be with proximities on the underlying *set*. The same set carries proximities inducing different topologies, so the theorem is false without this axiom. |
+| 4 | Taking closures in $X$ rather than in $cX$, or comparing $e(A) \cap e(B)$ with no closures at all. | Gives a different relation, which is not even a proximity — the whole point is that the compactification is where the extra "closeness" appears. |
+| 5 | Stating the assigned proximity as a one-way implication rather than an `iff`. | It is a definition of the assignment; one direction alone does not determine the relation. |
+| 6 | Replacing equivalence of compactifications by `Nonempty (K ≃ₜ L)`. | Strictly weaker and wrong as a characterization: inequivalent compactifications of the same space can be homeomorphic as bare spaces. |
+| 7 | Using `CompactSpace K` without `T2Space K`. | Engelking's "compact" includes Hausdorff, and the Smirnov correspondence is with compact Hausdorff compactifications only. |
+
+## Notes on the ground truth
+
+- "Establishes a one-to-one correspondence" is not itself a formal statement, so the whole modelling
+  decision is how to unfold it. The ground truth unfolds it as the three conjuncts (a), (b), (c).
+- Uniqueness of the proximity in clause (a) needs no separate conjunct: `IsAssignedProximity e p`
+  determines `p.close` completely, and two `Proximity` values with equal `close` fields are equal.
+- ⚠️ The converse of clause (c) — equivalent compactifications get the same proximity — is not
+  asserted. It is the easy direction (transport the closures along $h$), but adding
+  `IsCompactification e → IsCompactification f → EquivalentCompactifications e f → IsAssignedProximity e p → IsAssignedProximity f p`
+  would make the statement a complete rendering of "one-to-one correspondence between classes". A
+  candidate that includes it is more faithful, not less.
+- Mathlib has no proximity spaces and no Smirnov theorem, so the `Proximity` structure and the
+  compactification predicates are hand-rolled; `Homeomorph`, `IsEmbedding`, `DenseRange`, `closure`
+  and `Set.Nonempty` are the correct mathlib primitives. `union_left` is stated on the left only,
+  which suffices given `symmetric`.
+- ⚠️ `T2Space K` and `IsCompact univ` appear as `Prop`-conjuncts rather than instances. This is
+  forced by `tK` being a bound variable and is acceptable.
+- ⚠️ Compactifications are quantified over `K L : Type v` with `v` free, whereas the compactification
+  constructed in clause (b) naturally lives in `Type u` (a quotient of a space built from
+  `Set (Set X)`). For `v` below `u`, clause (b) may be unsatisfiable for size reasons, so `Type u`
+  (or `Type (max u v)`) would be the safe choice.

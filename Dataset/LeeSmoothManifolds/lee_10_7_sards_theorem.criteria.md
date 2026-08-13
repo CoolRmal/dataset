@@ -1,20 +1,62 @@
 # Criteria: lee_10_7_sards_theorem
 
-> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
-
 **Statement:** [lee_10_7_sards_theorem.md](lee_10_7_sards_theorem.md) · **Lean:** [lee_10_7_sards_theorem.lean](lee_10_7_sards_theorem.lean)
 
-A faithful formalization must say that the set of critical **values** — the *image* $F(\mathrm{Crit}\,F)$, not the critical set itself — is a null set in $N$, where "measure zero in a manifold" can only mean "Lebesgue-null in every smooth chart", since $N$ carries no canonical measure. Three things decide the quality of the encoding: whether the critical set is defined by failure of surjectivity of $dF_p$ without falling into the `mfderiv = 0` junk trap; whether the chart-wise null condition is stated over enough charts and without a spurious measurability side condition; and — the one that actually breaks the theorem — whether $M$ is assumed second countable. Lee builds second countability into "smooth manifold"; Mathlib carries it as a separate typeclass, and Sard's theorem is **false** without it.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Let $F : M \to N$ be a smooth map between smooth manifolds. Call a point $p$ of $M$ *critical* if
+the differential $dF_p$ fails to be surjective, and call the images of critical points *critical
+values*. Sard's theorem says the set of critical values is a null set in $N$ — it takes up no
+volume. Since $N$ carries no preferred measure, "null set in $N$" has to be read as: in every smooth
+chart of $N$, the picture of the critical-value set has Lebesgue measure zero.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Hypothesis completeness | Lee's "smooth manifold" is second countable, and Sard's theorem needs it: the proof covers $M$ by *countably many* charts and uses countable subadditivity of Lebesgue measure. In Mathlib this must appear as `[SecondCountableTopology M]` (or `[SigmaCompactSpace M]`, or Lindelöfness) — `ChartedSpace` + `IsManifold` do not supply it. | ⚠️ **Genuine defect, not merely an improvement: the ground-truth statement is false as written.** Take `M = ℝ × D` with `D` an uncountable discrete space (a legitimate `ChartedSpace (Fin 1 → ℝ)` with `IsManifold 𝓘(ℝ, Fin 1 → ℝ) ∞`, and even `T2Space`), `N = ℝ`, and `F (t, d) = ι d` for an injection `ι : D ↪ [0,1]`. Then `F` is `ContMDiff … ∞` (locally constant), every point is critical, and the set of critical values is `[0,1]`, of measure 1. Adding `[SecondCountableTopology M]` repairs the statement. |
-| 2 | Faithful encoding | "Measure zero in $N$" has no meaning without charts. The right encoding is: for every smooth chart of `N`, the chart image of the critical-value set is Lebesgue-null. Lean: `∀ ψ ∈ IsManifold.maximalAtlas 𝓘(ℝ, Fin n → ℝ) ∞ N, volume (ψ '' (F '' critical ∩ ψ.source)) = 0`, with `volume` the Lebesgue/pi measure on `Fin n → ℝ`. | ✅ Quantifying over the whole maximal atlas is the safe choice (equivalent to quantifying over any one atlas, since transition maps are diffeomorphisms and hence preserve null sets). ❗ Predicted error: `volume (F '' critical) = 0` with an invented measure on `N`, or `μ (F '' critical) = 0` for an unspecified `μ`, or restricting to `chartAt` only. |
-| 3 | Junk values | `ψ '' (F '' critical ∩ ψ.source)` need not be measurable, and "measure zero" must not be predicated on measurability. Mathlib's `MeasureTheory.Measure` applied to an arbitrary set is the induced outer measure, so `volume S = 0` says exactly "$S$ is a null set". | ✅ No measurability side condition is imposed, which is both correct and stronger than a version restricted to measurable sets. ❗ Predicted error: adding `MeasurableSet (F '' critical)` as a hypothesis, or as a second conjunct of the conclusion — the first weakens the theorem, the second asserts something false in general. |
-| 4 | Faithful encoding | Lee's critical point of $F$ = point where $dF_p$ is **not surjective**. The ground truth uses `critical := {p : M \| ¬ Manifold.IsSubmersionAt 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin n → ℝ) ∞ F p}`. | ✅ / ⚠️ This avoids the `mfderiv`-junk trap (`mfderiv` is `0` off the differentiability locus, so `¬ Surjective (mfderiv …)` would wrongly count non-differentiability points — harmless here, but only by accident). Since Mathlib has not yet proven `mfderiv` surjective ⟺ `IsSubmersionAt` in finite dimensions (it is a TODO in `Submersion.lean`), `¬ IsSubmersionAt` is *a priori* a possibly larger set, i.e. the Lean conclusion is at least as strong as Lee's — the safe direction. |
-| 5 | Semantic closeness | Critical **values**, not critical points: the conclusion must be about `F '' critical`. Asserting that `critical` itself is null in `M` is false (for a constant map every point is critical). | ✅ `F '' critical` is used. ❗ Predicted error: stating the measure-zero conclusion for the critical set in `M`. |
-| 6 | Hypothesis completeness | Smoothness class. Lee 10.7 is stated for $C^\infty$ maps; the $C^k$ version requires $k > \max(m-n, 0)$, so a candidate stating it for `ContMDiff … n F` with a finite `n` is asserting something false unless that bound is added. | ✅ `hF : ContMDiff 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin n → ℝ) ∞ F` uses `∞` = $C^\infty$ (not `ω`; contrast the Euclidean files in this book, which use `⊤` = `ω`). |
-| 7 | Statement shape | The set of critical points is introduced by a `let critical := …` inside the theorem statement, before the `∀ ψ`. | ⚠️ Works, but a `let` in a benchmark statement is awkward (it must be `intro`d or unfolded before use, and it makes the statement's logical form less obvious). Inlining the set comprehension, or naming it as a top-level definition next to `RegularValue` in `Defs.lean`, would read better. |
-| 8 | Mathlib conventions / typeclass stack | Hausdorffness: neither `[T2Space M]` nor `[T2Space N]` is assumed, although Lee's manifolds are Hausdorff. | ⚠️ Unlike second countability (row 1), these are genuinely not needed for the truth of the statement, so their absence only generalizes it; a candidate that includes them is equally acceptable. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | $M$ is a smooth manifold of dimension $m$ without boundary, and $N$ one of dimension $n$. | ✅ `[ChartedSpace (Fin m → ℝ) M]` with `[IsManifold 𝓘(ℝ, Fin m → ℝ) ∞ M]`, and the same for `N` with `n`. |
+| 2 | $M$ is second countable. Lee builds this into "smooth manifold"; Mathlib does not, and the theorem is false without it. | ✅ `[SecondCountableTopology M]`. `[SigmaCompactSpace M]` or Lindelöfness would do as well. |
+| 3 | $F$ is $C^\infty$. | ✅ `hF : ContMDiff 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin n → ℝ) ∞ F`, with `∞` meaning $C^\infty$ (not `ω`). |
+| 4 | The critical set is the set of points where the differential is *not* surjective. | ✅ `critical := {p : M \| ¬ Manifold.IsSubmersionAt 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin n → ℝ) ∞ F p}`. |
+| 5 | The conclusion is about the **image** $F(\text{critical})$, the critical values, not the critical set itself. | ✅ `F '' critical` appears inside the measure. |
+| 6 | "Null in $N$" is stated chart by chart, for charts belonging to the smooth structure of $N$. | ✅ `∀ ψ : OpenPartialHomeomorph N (Fin n → ℝ), ψ ∈ IsManifold.maximalAtlas 𝓘(ℝ, Fin n → ℝ) ∞ N → …`. |
+| 7 | Inside a chart, only the part of the set lying in the chart's domain can be pushed forward, and its image must have Lebesgue measure zero. | ✅ `volume (ψ '' (F '' critical ∩ ψ.source)) = 0`, with `volume` the Lebesgue product measure on `Fin n → ℝ`. |
+| 8 | No measurability side condition anywhere. | ✅ None is imposed. A Mathlib measure applied to an arbitrary set is the induced outer measure, so `volume S = 0` already says exactly "$S$ is a null set". |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Omitting second countability (or $\sigma$-compactness) of $M$. | The statement is then **false**. Take $M = \mathbb{R} \times D$ with $D$ an uncountable discrete space — a legitimate `ChartedSpace (Fin 1 → ℝ)` with `IsManifold … ∞`, even Hausdorff — let $N = \mathbb{R}$ and $F(t,d) = \iota(d)$ for an injection $\iota : D \hookrightarrow [0,1]$. Then $F$ is smooth (locally constant), every point is critical, and the critical values fill $[0,1]$, of measure 1. Our file once lacked this hypothesis and it was repaired. |
+| 2 | Asserting `volume (F '' critical) = 0` with an invented measure on $N$, or `μ (F '' critical) = 0` for an unspecified `μ`. | A manifold has no preferred measure. Either the measure is not defined, or the statement quietly depends on which measure was picked. |
+| 3 | Stating the chart condition only for `chartAt` rather than for charts of the maximal smooth atlas. | Restricting to one preselected chart per point is a weaker claim; quantifying over the whole maximal atlas is the safe reading, and equivalent to quantifying over any single atlas since transition maps are diffeomorphisms and preserve null sets. |
+| 4 | Concluding that the critical **set** in $M$ is null. | False. For a constant map every point of $M$ is critical, so the critical set is all of $M$. Sard's theorem is about the image. |
+| 5 | Adding `MeasurableSet (F '' critical)` as a hypothesis, or as a second conjunct of the conclusion. | As a hypothesis it weakens the theorem to a special case; as a conclusion it asserts something that is not true in general. |
+| 6 | Stating it for `ContMDiff … k F` with a finite `k` and no side condition. | The $C^k$ version of Sard's theorem needs $k > \max(m - n, 0)$. Without that bound the statement is false; Lee 10.7 is the $C^\infty$ statement. |
+| 7 | Forgetting to intersect with `ψ.source` before applying the chart. | An `OpenPartialHomeomorph` returns junk values outside its domain, so the image would include meaningless points and the claim would be about the wrong set. |
+
+## Notes on the ground truth
+
+- Lee's critical point is one where $dF_p$ is not surjective. We write this as
+  `¬ Manifold.IsSubmersionAt …` instead of `¬ Surjective (mfderiv …)`. This avoids a junk-value
+  issue — `mfderiv` is the zero map off the differentiability locus, so the `mfderiv` version would
+  wrongly count non-differentiability points, harmless here only by accident. Mathlib has not yet
+  proved "`mfderiv` surjective ⟺ `IsSubmersionAt`" in finite dimensions (it is a TODO in
+  `Submersion.lean`), so `¬ IsSubmersionAt` is possibly a *larger* set than Lee's critical set, which
+  makes our conclusion at least as strong as his — the safe direction.
+- ⚠️ The critical set is introduced with a `let critical := …` inside the statement. It works, but a
+  `let` in a benchmark statement is awkward: it has to be introduced or unfolded before use, and it
+  obscures the logical shape. Inlining the set, or naming it as a top-level definition in
+  `Defs.lean` alongside `RegularValue`, would read better.
+- ⚠️ Neither `[T2Space M]` nor `[T2Space N]` is assumed, although Lee's manifolds are Hausdorff.
+  Unlike second countability, Hausdorffness is not needed for the truth of this statement, so its
+  absence only generalizes the result; a candidate that includes it is equally acceptable.
+- `[SecondCountableTopology N]` is also assumed. It is not needed for the truth of the statement,
+  but it is part of Lee's definition of a smooth manifold, so keeping it is faithful.
+- This file does not import `Defs.lean`; it uses only Mathlib notions.

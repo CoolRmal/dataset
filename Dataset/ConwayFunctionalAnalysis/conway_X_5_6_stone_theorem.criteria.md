@@ -2,18 +2,65 @@
 
 **Statement:** [conway_X_5_6_stone_theorem.md](conway_X_5_6_stone_theorem.md) · **Lean:** [conway_X_5_6_stone_theorem.lean](conway_X_5_6_stone_theorem.lean)
 
-A faithful formalization must say that every strongly continuous one-parameter unitary group has an *unbounded, densely defined, self-adjoint* generator $A$ with $U(t) = \exp(itA)$. Both halves are traps. The generator must not be a bounded operator — if it were, the theorem would be false for standard examples such as translation on $L^2(\mathbb{R})$ — and it must be self-adjoint, not merely symmetric, which forces the formalization to carry a domain and the adjoint-domain equality. And $\exp(itA)$ for unbounded $A$ has no direct meaning: it can only be expressed through the spectral resolution of $A$, which here means hand-rolling a projection-valued measure (`Defs.lean`), reading the exponential weakly against scalar measures $\langle E(\cdot)x,y\rangle$, and keeping the resulting `∫ᵛ` integrands integrable so that Mathlib's junk value `∫ᵛ = 0` for non-integrable integrands cannot be exploited.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+A one-parameter unitary group is a family $U(t)$ of unitary operators, indexed by the reals, with
+$U(0) = 1$ and $U(s+t) = U(s)U(t)$; it is strongly continuous when $t \mapsto U(t)x$ is continuous
+for each vector $x$. Stone's theorem says every such family has a generator: a self-adjoint
+operator $A$, generally unbounded and defined only on a dense subspace, with
+$U(t) = \exp(itA)$ for all $t$. Since $A$ is unbounded, $\exp(itA)$ has to be read through the
+spectral resolution of $A$.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Hypothesis completeness | "Strongly continuous one parameter unitary group" is four conditions, all present in `StronglyContinuousUnitaryGroup U`: `U 0 = id`, `∀ s t, U (s + t) = (U s).comp (U t)`, `∀ t, IsUnitaryOperator (U t)`, and `∀ x : H, Continuous fun t ↦ U t x`. | ✅ All four. ❗ Predicted error: replacing strong continuity by norm continuity (`Continuous U` into the operator-norm topology), which by a classical theorem forces a *bounded* generator and makes the theorem a triviality about a different class of groups. |
-| 2 | Faithful encoding | The generator must be unbounded: `DenselyDefinedOperator H` bundles `domain : Submodule ℂ H`, `op : domain →ₗ[ℂ] H` and `dense_domain : Dense (domain : Set H)`. Density is not optional — without it the adjoint is not well defined and `IsSelfAdjointUnbounded` is meaningless. | ✅ Density is a structure field. ❗ Predicted error: typing $A$ as `H →L[ℂ] H`, which makes the theorem false in general. |
-| 3 | Faithful encoding | Self-adjointness, not symmetry. `IsSelfAdjointUnbounded A` states (i) $\operatorname{dom}(A^*) = \operatorname{dom}(A)$, as `∀ y : H, y ∈ A.domain ↔ ∃ z, ∀ x : A.domain, inner ℂ (A.op x) y = inner ℂ (x : H) z`, and (ii) $A^*y = Ay$ on that domain. Item (i) is exactly the clause a candidate is likely to drop, leaving only the symmetry identity `∀ x y ∈ dom A, ⟪Ax,y⟫ = ⟪x,Ay⟫` — strictly weaker, and false as a version of Stone's theorem (symmetric non-self-adjoint generators do not exponentiate to unitary groups). | ✅ Both clauses present. ❗ High-probability error. |
-| 4 | Mathlib conventions | Mathlib already has unbounded operators: `H →ₗ.[ℂ] H` (`LinearPMap`), `LinearPMap.adjoint` (postfix `†`), and `LinearPMap.isSelfAdjoint_def : IsSelfAdjoint A ↔ A† = A`, plus `IsSelfAdjoint.dense_domain`. | ⚠️ The ground truth hand-rolls `DenselyDefinedOperator` and `IsSelfAdjointUnbounded` instead of reusing this API; the custom definitions are correct but a `LinearPMap`-based statement would be materially more idiomatic and would connect to existing lemmas. |
-| 5 | Faithful encoding | $\exp(itA)$ is expressed via `IsSpectralExponential A U`: a `ProjectionValuedMeasure H` with `E.toFun {z : ℂ \| z.im ≠ 0} = 0` (support in $\mathbb{R}$, as befits a self-adjoint operator), scalar measures pinned by `scalarMeasure x y B = inner ℂ (E.toFun B x) y` on every measurable `B`, the weak identity for $A$ on its domain, and `∀ t x y, inner ℂ (U t x) y = ∫ᵛ z, Complex.exp (Complex.I * t * z) ∂[…]`. This is the only honest reading of $\exp(itA)$ for unbounded $A$. | ✅ Complete and correctly assembled; the real-support condition is what makes the exponential integrand bounded. ❗ Predicted error: writing `U t = NormedSpace.exp ℂ (Complex.I * t • A)`, which only typechecks for bounded `A`. |
-| 6 | Junk values | `VectorMeasure.integral` (`∫ᵛ`) is `0` on non-integrable integrands (`VectorMeasure.integral_undef`). The identity `inner ℂ (A.op x) y = ∫ᵛ z, z ∂[…]` is correctly restricted to `∀ x : A.domain` — for general `x : H` the integrand `z` need not be $\lvert E_{x,y} \rvert$-integrable and the identity would hold vacuously by junk. The exponential identity is safe for all `x y : H` because `E.toFun {z \| z.im ≠ 0} = 0` forces the scalar measures onto `ℝ`, where `‖exp (I * t * z)‖ = 1`. | ✅ The domain restriction is exactly where it must be. ❗ Predicted error: quantifying the first identity over all `x : H`, which opens the junk hole. |
-| 7 | Semantic closeness | Inner-product sign convention: Mathlib's `inner` is conjugate-linear in the **first** argument, so `inner ℂ (U t x) y = ∫ᵛ z, exp (I t z) ∂[…]` literally encodes $U(t) = \int e^{-itz}\,dE(z) = \exp(-itA)$ (while `inner ℂ (A.op x) y = ∫ᵛ z, z ∂[…]` correctly gives $A = \int z\,dE$, since $E$ lives on $\mathbb{R}$). The `∃!` statement remains **true** — replace $A$ by $-A$ — but the generator it produces is the negative of the textbook one. | ⚠️ Sign-convention artifact rather than a falsehood; inserting `starRingEnd ℂ` in the integrand (or swapping the inner-product arguments) would match $U(t) = \exp(itA)$ literally. |
-| 8 | Conclusion strength | The transcribed X.5.6 asserts only existence ("there is a self-adjoint operator $A$"); the Lean asserts `∃!`. Uniqueness of the generator is a true part of Stone's theorem, and `∃!` over the structure `DenselyDefinedOperator H` correctly means equality of both the domain and the map. | ⚠️ Stronger than the transcribed sentence; a candidate stating plain `∃` matches the text exactly and should not be marked unfaithful. |
-| 9 | Mathlib conventions | `IsUnitaryOperator U` is spelled out as `U.adjoint.comp U = id ∧ U.comp U.adjoint = id`. | ⚠️ Correct, but Mathlib's `U ∈ unitary (H →L[ℂ] H)` (with `unitary.mem_iff`) is the same pair of conditions and is the idiomatic spelling. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The space is a complex Hilbert space. | ✅ `[NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]`. |
+| 2 | The hypothesis is all four parts of "strongly continuous one-parameter unitary group": $U(0) = 1$, $U(s+t) = U(s)U(t)$, each $U(t)$ unitary, and $t \mapsto U(t)x$ continuous for each $x$. | ✅ `StronglyContinuousUnitaryGroup U` in `Defs.lean` lists exactly those four conditions. |
+| 3 | Unitarity means both $U^*U = 1$ and $UU^* = 1$. | ✅ `IsUnitaryOperator` in `Defs.lean`: `U.adjoint.comp U = id ∧ U.comp U.adjoint = id`. |
+| 4 | The generator is an unbounded operator: it carries its own domain, a subspace of $\mathcal{H}$, and is linear on that domain. | ✅ `DenselyDefinedOperator H` bundles `domain : Submodule ℂ H` and `op : domain →ₗ[ℂ] H`. |
+| 5 | That domain is dense. | ✅ `dense_domain : Dense (domain : Set H)` is a field of the structure, so it cannot be forgotten. |
+| 6 | The generator is *self-adjoint*, which for an unbounded operator is two conditions: the domain of $A^*$ equals the domain of $A$, and $A^*y = Ay$ there. | ✅ `IsSelfAdjointUnbounded A`: the first clause is `∀ y : H, y ∈ A.domain ↔ ∃ z : H, ∀ x : A.domain, inner ℂ (A.op x) y = inner ℂ (x : H) z`, the second is the identification of that $z$ with `A.op y`. |
+| 7 | $\exp(itA)$ is given a meaning through a spectral measure for $A$, which must be supported on the reals. | ✅ `IsSpectralExponential A U` supplies `E : ProjectionValuedMeasure H` with `E.toFun {z : ℂ \| z.im ≠ 0} = 0`. |
+| 8 | Within that, the scalar measures $\langle E(\cdot)x,y\rangle$ are pinned on **every** measurable set, $A$ is recovered by integrating $z$, and $U(t)$ by integrating $e^{itz}$. | ✅ `scalarMeasure x y B = inner ℂ (E.toFun B x) y` for all measurable `B`; `∀ x : A.domain, ∀ y : H, inner ℂ (A.op x) y = ∫ᵛ z, z ∂[…]`; `∀ t : ℝ, ∀ x y : H, inner ℂ (U t x) y = ∫ᵛ z, Complex.exp (Complex.I * t * z) ∂[…]`. |
+| 9 | The identity defining $A$ is asserted only for $x$ in the domain of $A$. | ✅ `∀ x : A.domain`. Outside the domain the integrand need not be integrable, and Lean's `∫ᵛ` would then return $0$, making the identity hold for a bad reason. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Typing the generator as a bounded operator `H →L[ℂ] H`. | Then the theorem is false: translation on $L^2(\mathbb{R})$ is a strongly continuous unitary group whose generator $-i\,d/dx$ is unbounded. |
+| 2 | Replacing strong continuity by norm continuity (`Continuous U` into the operator-norm topology). | Norm continuity forces the generator to be bounded, by a classical theorem. The statement would then be a triviality about a much smaller class of groups. |
+| 3 | Asserting only symmetry, `∀ x y ∈ dom A, ⟪Ax, y⟫ = ⟪x, Ay⟫`, in place of self-adjointness. | Symmetry is strictly weaker: symmetric operators that are not self-adjoint exist and do not exponentiate to unitary groups. The clause about the domain of $A^*$ is the one candidates drop. |
+| 4 | Omitting density of the domain. | Without a dense domain the adjoint is not well defined, so "self-adjoint" has no meaning and the statement says nothing. |
+| 5 | Writing `U t = NormedSpace.exp ℂ (Complex.I * t • A)`. | This only typechecks for a bounded `A`, so it silently smuggles in Mistake 1. For unbounded $A$ the exponential exists only through the spectral measure. |
+| 6 | Dropping the support condition `E.toFun {z \| z.im ≠ 0} = 0`. | The spectral measure of a self-adjoint operator lives on the reals, and that is what keeps $\lVert e^{itz}\rVert = 1$ so the exponential integrand is integrable. Without it the second identity could be satisfied by the junk value $0$ of `∫ᵛ`. |
+| 7 | Quantifying the identity `inner ℂ (A.op x) y = ∫ᵛ z, z ∂[…]` over all `x : H` rather than over the domain. | For $x$ outside the domain the integrand $z$ need not be integrable against $E_{x,y}$, and `∫ᵛ` returns $0$ there, so part of the identity would be satisfied for free. |
+
+## Notes on the ground truth
+
+- ⚠️ Mathlib already has unbounded operators — `H →ₗ.[ℂ] H` (`LinearPMap`), `LinearPMap.adjoint`
+  (postfix `†`), `LinearPMap.isSelfAdjoint_def : IsSelfAdjoint A ↔ A† = A`, and
+  `IsSelfAdjoint.dense_domain`. The ground truth hand-rolls `DenselyDefinedOperator` and
+  `IsSelfAdjointUnbounded` instead. The custom definitions are correct, but a `LinearPMap`-based
+  statement would be materially more idiomatic and would connect to the existing lemmas.
+- ⚠️ Mathlib's inner product is conjugate-linear in its **first** argument, so
+  `inner ℂ (U t x) y = ∫ᵛ z, exp (I * t * z) ∂[…]` literally encodes
+  $U(t) = \int e^{-itz}\,dE(z) = \exp(-itA)$, while `inner ℂ (A.op x) y = ∫ᵛ z, z ∂[…]` does give
+  $A = \int z\,dE$ correctly, because $E$ lives on the reals. The statement is still **true** —
+  replace $A$ by $-A$ — but the generator it produces is the negative of the textbook one. Inserting
+  `starRingEnd ℂ` in the exponential integrand, or swapping the inner-product arguments, would match
+  $U(t) = \exp(itA)$ literally.
+- ⚠️ The transcribed X.5.6 asserts only existence ("there is a self-adjoint operator $A$"); the Lean
+  asserts `∃!`. Uniqueness of the generator is a true part of Stone's theorem, and `∃!` over
+  `DenselyDefinedOperator H` correctly means equality of both the domain and the map. A candidate
+  stating plain `∃` matches the text exactly and should not be marked unfaithful.
+- ⚠️ `IsUnitaryOperator` is spelled out as a pair of adjoint identities. Mathlib's
+  `U ∈ unitary (H →L[ℂ] H)` (with `unitary.mem_iff`) is the same pair and is the idiomatic spelling.
+- The projection-valued measure is hand-rolled in `Defs.lean` because Mathlib has none.

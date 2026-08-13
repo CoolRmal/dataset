@@ -2,17 +2,57 @@
 
 **Statement:** [kallenberg_23_2_tightness_and_relative_compactness.md](kallenberg_23_2_tightness_and_relative_compactness.md) · **Lean:** [kallenberg_23_2_tightness_and_relative_compactness.lean](kallenberg_23_2_tightness_and_relative_compactness.lean)
 
-The whole point of Prohorov's theorem as Kallenberg states it is the *asymmetry*: tightness implies relative compactness in distribution in any metric space, whereas the converse needs $S$ separable and complete. A formalization that installs separability and completeness as global instances collapses the two halves and throws away the more general (and harder to state) direction. "Relatively compact in distribution" must be compactness of the closure in the space of laws under the topology of weak convergence — mathlib's `ProbabilityMeasure S` — and tightness must be applied to the underlying measures, since `IsTightMeasureSet` is stated for `Set (Measure S)`.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Let $S$ be a metric space and let $\Xi$ be a family of random elements of $S$. Call $\Xi$ *tight* if
+for every $\varepsilon > 0$ there is a compact set that all of them miss with probability at most
+$\varepsilon$. Call $\Xi$ *relatively compact in distribution* if the closure of the set of their
+laws is compact for weak convergence. Prohorov's theorem says that tightness always implies relative
+compactness, in any metric space, and that the two are equivalent when $S$ is separable and
+complete. The asymmetry is the point: the first half needs no assumption on $S$, the converse does.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Semantic closeness | The separability/completeness assumption must be a hypothesis of the *second* conjunct only, so that the first implication is asserted for an arbitrary metric space. | ✅ `(tight → relativelyCompact) ∧ ((TopologicalSpace.SeparableSpace S ∧ CompleteSpace S) → (tight ↔ relativelyCompact))`. ❗ Trap: declaring `[TopologicalSpace.SeparableSpace S] [CompleteSpace S]` (or `[PolishSpace S]`) in the binders, which silently discards the general half — the most likely model error here. |
-| 2 | Faithful encoding | "Relatively compact in distribution" is compactness of the closure of the set of *laws* in the weak topology: `IsCompact (closure Ξ)` with `Ξ : Set (ProbabilityMeasure S)`, whose topology is weak convergence. | ✅ `Ξ : Set (ProbabilityMeasure S)` and `IsCompact (closure Ξ)`. ❗ Trap: taking the closure inside `Measure S` or `FiniteMeasure S`, whose topologies differ from the weak topology on probability measures; or using sequential compactness, which is equivalent only under second countability. |
-| 3 | Faithful encoding | Tightness must be asserted of the coerced measures, matching mathlib's `IsTightMeasureSet : Set (Measure 𝓧) → Prop` (`Tendsto (⨆ μ ∈ S, μ) (cocompact 𝓧).smallSets (𝓝 0)`, equivalently: for each `ε > 0` a compact `K` with `μ Kᶜ ≤ ε` for all `μ ∈ S`). | ✅ `IsTightMeasureSet {((ν : ProbabilityMeasure S) : Measure S) \| ν ∈ Ξ}` — the exact set-builder coercion used in mathlib's own `isCompact_closure_of_isTightMeasureSet` and `isTightMeasureSet_of_isCompact_closure`. ❗ Trap: hand-rolling tightness as `∀ ε > 0, ∃ K, IsCompact K ∧ ∀ ν ∈ Ξ, ν Kᶜ < ε` with a strict inequality or a missing `IsCompact`. |
-| 4 | Faithful encoding | Modelling "a set of random elements" by a set of their laws is legitimate because both tightness and relative compactness in distribution depend only on the laws; the alternative (a family of maps `ι → Ω i → S`) adds bookkeeping without content. | ✅ `Ξ : Set (ProbabilityMeasure S)`. ⚠️ Slightly further from the text's "set of random elements"; a candidate that indexes actual random variables and then tightens/compactifies the image set of laws is equally acceptable. |
-| 5 | Conclusion completeness | Both halves must be present: the unconditional implication *and* the conditional equivalence. Stating only the equivalence under Polishness loses the generality of (i) ⇒ (ii). | ✅ Both conjuncts. ❗ Trap: formalizing only `tight ↔ relativelyCompact` under a Polish assumption. |
-| 6 | Hypothesis completeness | `S` must carry a metric (Kallenberg's setting), and the measurable structure must be the Borel one, otherwise "law" and "compact set" are unrelated. | ✅ `[MetricSpace S] [MeasurableSpace S] [BorelSpace S]`. Note that in a metric space `SeparableSpace` is equivalent to `SecondCountableTopology`, which is the form mathlib's converse (`isTightMeasureSet_of_isCompact_closure`) is stated in. |
-| 7 | Mathlib conventions | `TopologicalSpace.SeparableSpace S ∧ CompleteSpace S` appears as a `Prop`-valued hypothesis rather than as instances, which is unusual for typeclasses but is forced by the need to keep the first conjunct instance-free. | ⚠️ Acceptable; splitting into two theorems (one general, one with `[SeparableSpace S] [CompleteSpace S]` or `[PolishSpace S]` as instances) would be more idiomatic mathlib packaging while preserving the mathematical content. |
-| 8 | Semantic closeness | The `let tight := …` / `let relativelyCompact := …` abbreviations must denote exactly conditions (i) and (ii) and be used in both conjuncts consistently. | ✅ The two `let`s are shared by both conjuncts, so the equivalence in the second half is literally between the same two propositions as the implication in the first. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | $S$ carries a metric, and its measurable structure is the Borel one for that metric. | ✅ `[MetricSpace S] [MeasurableSpace S] [BorelSpace S]`. |
+| 2 | The object under study is a family of probability laws on $S$, and the topology on that family is weak convergence. | ✅ `Ξ : Set (ProbabilityMeasure S)`; Mathlib gives `ProbabilityMeasure S` the topology of weak convergence. |
+| 3 | Condition (i) is tightness of that family. | ✅ `IsTightMeasureSet {((ν : ProbabilityMeasure S) : Measure S) \| ν ∈ Ξ}`, i.e. for every $\varepsilon > 0$ there is a compact $K$ with $\nu(K^c) \le \varepsilon$ for all $\nu$ in the family. |
+| 4 | Condition (ii) is compactness of the closure of the family inside the space of laws. | ✅ `IsCompact (closure Ξ)`, with the closure taken in `ProbabilityMeasure S`. |
+| 5 | The unconditional half: tightness implies relative compactness, with no extra assumption on $S$. | ✅ First conjunct `tight → relativelyCompact`, stated with only `[MetricSpace S]` in scope. |
+| 6 | The conditional half: when $S$ is separable and complete, the two conditions are equivalent. | ✅ Second conjunct `(TopologicalSpace.SeparableSpace S ∧ CompleteSpace S) → (tight ↔ relativelyCompact)`. |
+| 7 | Separability and completeness must be assumptions of the second half only, not of the whole theorem. | ✅ They appear as an ordinary hypothesis inside the second conjunct, not as instance binders on the theorem. |
+| 8 | The two halves must talk about the same two conditions. | ✅ `let tight := …` and `let relativelyCompact := …` are introduced once and used in both conjuncts. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Declaring `[TopologicalSpace.SeparableSpace S] [CompleteSpace S]` (or `[PolishSpace S]`) as instance binders. | This is the most likely error. It silently discards the general half of the theorem: the implication (i) ⇒ (ii) is then only asserted for Polish $S$, which is far less than Kallenberg states. |
+| 2 | Stating only the equivalence `tight ↔ relativelyCompact` under a Polish assumption. | Same loss as above, made explicit: half the theorem is gone. |
+| 3 | Taking the closure inside `Measure S` or `FiniteMeasure S`. | Those carry different topologies from the weak topology on probability measures, so the compactness claimed is not the one in the theorem. |
+| 4 | Using sequential compactness of $\Xi$ instead of compactness of `closure Ξ`. | The two agree only when the space of laws is metrizable, which needs $S$ second countable — exactly the assumption the first half is supposed to avoid. |
+| 5 | Hand-rolling tightness as `∀ ε > 0, ∃ K, ∀ ν ∈ Ξ, ν Kᶜ < ε` while forgetting `IsCompact K`. | Without compactness of $K$ the condition is trivially satisfiable (take $K = S$) and the theorem becomes false. |
+| 6 | Dropping `[BorelSpace S]`. | Then the measurable structure is unrelated to the metric, and "compact set" carries no measure-theoretic information, so tightness says nothing. |
+
+## Notes on the ground truth
+
+- Kallenberg speaks of a set of random elements; the ground truth works with the set of their laws.
+  This is legitimate, because both tightness and relative compactness in distribution depend only on
+  the laws. ⚠️ It is one step away from the printed wording; a candidate that indexes actual random
+  variables and then applies both conditions to the resulting set of laws is equally acceptable.
+- `IsTightMeasureSet` in Mathlib is stated for `Set (Measure S)`, so the ground truth coerces:
+  `{((ν : ProbabilityMeasure S) : Measure S) \| ν ∈ Ξ}`. This is the same set-builder coercion used
+  in Mathlib's `isCompact_closure_of_isTightMeasureSet` and `isTightMeasureSet_of_isCompact_closure`.
+- ⚠️ Separability and completeness appear as a `Prop`-valued hypothesis rather than as typeclass
+  instances, which is unusual style. It is forced here: making them instances would contaminate the
+  first conjunct. Splitting into two theorems — one general, one with `[SeparableSpace S]
+  [CompleteSpace S]` as instances — would be more idiomatic and would preserve the content.
+- In a metric space, separability is equivalent to second countability, which is the form Mathlib's
+  converse direction is stated in.

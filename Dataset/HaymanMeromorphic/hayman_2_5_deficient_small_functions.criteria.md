@@ -2,14 +2,59 @@
 
 **Statement:** [hayman_2_5_deficient_small_functions.md](hayman_2_5_deficient_small_functions.md) · **Lean:** [hayman_2_5_deficient_small_functions.lean](hayman_2_5_deficient_small_functions.lean)
 
-Three *functions* — not constants — that grow more slowly than $f$ cannot all be deficient. The hypotheses are that the $a_\nu$ are distinct meromorphic functions with $T(r,a_\nu) = o(T(r,f))$, and the conclusion bounds $\{1+o(1)\}T(r,f)$ by the reduced counting functions of $f - a_\nu$ plus $S(r,f)$. Replacing the $a_\nu$ by constants gives the much easier three-constant case of the second fundamental theorem.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+The second fundamental theorem is usually stated for three fixed values $a_1,a_2,a_3$. This version
+replaces the three constants by three *functions* $a_1(z),a_2(z),a_3(z)$, provided they grow much
+more slowly than $f$, in the sense that $T(r,a_\nu)/T(r,f)\to 0$. The conclusion is
+$\{1+o(1)\}\,T(r,f) \le \sum_{\nu=1}^3 \bar N\!\left(r,\frac{1}{f-a_\nu}\right) + S(r,f)$: the places
+where $f$ meets the three slow functions, counted once each regardless of multiplicity, already
+account for essentially the whole characteristic of $f$. In particular no three such functions can
+all be deficient.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Semantic closeness / scope | The $a_\nu$ must be allowed to be non-constant meromorphic functions; that is the whole point of §2.6. | ✅ `a : Fin 3 → ℂ → ℂ` with `ha : ∀ ν, Meromorphic (a ν)`. ❗ Predicted error: `a : Fin 3 → ℂ`. |
-| 2 | Hypothesis completeness | Distinctness of the three functions, admissibility of $f$, and the smallness condition (2.10) are all required. | ✅ `hdistinct`, `hadm`, `hsmall`. ❗ Predicted error: dropping (2.10), which makes the conclusion false (take $a_\nu = f + \nu$). |
-| 3 | Faithful encoding | $\bar N(r, 1/(f-a_\nu))$ is the reduced counting function of the **zeros** of $f - a_\nu$. | ✅ `reducedLogCounting (fun z ↦ f z - a ν z) 0`. ❗ Predicted error: counting the $a_\nu$-points of $f$ with multiplicity, i.e. `logCounting` rather than the reduced version. |
-| 4 | Faithful encoding / the error term | The book's `{1+o(1)}T(r,f) ≤ ∑ N̄ + S(r,f)` is rendered by absorbing both `o(1)` and `S(r,f)` into an arbitrary `ε`: for every `ε > 0`, eventually `(1-ε)T ≤ ∑ N̄ + εT`. | ⚠️ Faithful only because admissibility forces `S(r,f) = o(T(r,f))` (Theorem 2.2); a candidate that quantifies `S` explicitly is closer to the text. |
-| 5 | Junk values | `reducedLogCounting` is an integral of a `Set.ncard`; both degenerate silently on infinite root sets. | ⚠️ Controlled by the meromorphy hypotheses. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | $f$ is meromorphic on the plane. | ✅ `hf : Meromorphic f`. |
+| 2 | $f$ is admissible, i.e. $T(r,f) \to \infty$. | ✅ `hadm : Tendsto (characteristic f ⊤) atTop atTop`. |
+| 3 | There are exactly three comparison objects, and they are meromorphic *functions*, not constants. | ✅ `a : Fin 3 → ℂ → ℂ` with `ha : ∀ ν, Meromorphic (a ν)`. |
+| 4 | The three functions are pairwise distinct. | ✅ `hdistinct : ∀ ν μ, ν ≠ μ → a ν ≠ a μ`, distinctness as functions. |
+| 5 | Each $a_\nu$ is small compared with $f$: condition (2.10), $T(r,a_\nu) = o(T(r,f))$. | ✅ `hsmall`, stated as `characteristic (a ν) ⊤ r / characteristic f ⊤ r → 0`. |
+| 6 | The right-hand side uses the *reduced* counting function of the zeros of $f - a_\nu$, i.e. $\bar N(r, 1/(f-a_\nu))$. | ✅ `reducedLogCounting (fun z ↦ f z - a ν z) 0 r`, the reduced counting function at the value $0$ of $f - a_\nu$. |
+| 7 | The sum has all three terms. | ✅ `∑ ν : Fin 3, …`. |
+| 8 | The left-hand coefficient is $1 + o(1)$ and the right-hand side carries an error term $S(r,f)$ that is $o(T(r,f))$. | ✅ Both are absorbed into a single $\varepsilon$: for each `ε > 0`, eventually `(1 - ε) * T r ≤ ∑ N̄ + ε * T r`. |
+| 9 | The inequality is asymptotic — it holds for all large $r$, not for every $r$. | ✅ `∀ᶠ r in atTop`, sitting inside `∀ ε, 0 < ε → …`, so the threshold on $r$ may depend on $\varepsilon$. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Taking the $a_\nu$ to be constants, `a : Fin 3 → ℂ`. | That is the classical three-value second fundamental theorem, a much easier result. Allowing slowly growing functions is the entire content of Theorem 2.5. |
+| 2 | Dropping the smallness condition (2.10). | The statement then fails: take $a_\nu = f + \nu$, so $f - a_\nu$ is a nonzero constant, every reduced counting function is $0$, and the inequality would force $T(r,f) \le 0$. |
+| 3 | Dropping distinctness of the three functions. | With $a_1 = a_2 = a_3$ the three terms coincide and the bound is the one-function estimate, which is false in general. |
+| 4 | Using `logCounting` (multiplicities counted) instead of the reduced version. | That makes the right-hand side larger, so the inequality asserted is weaker than the printed one. The strength of the theorem is that multiple intersections are counted once. |
+| 5 | Counting the $a_\nu$-points of $f$ as $\bar N(r, a_\nu)$ for a fixed value $a_\nu$. | Only correct when $a_\nu$ is constant. For a moving target the object is the zero set of $f - a_\nu$. |
+| 6 | Asserting the inequality for every $r > 0$ rather than for all large $r$. | The $o(1)$ and $S(r,f)$ terms are only controlled asymptotically; a claim at every radius is false. |
+| 7 | Quantifying $\varepsilon$ inside the "eventually", as `∀ᶠ r, ∀ ε > 0, …`. | That would demand one radius threshold serving all $\varepsilon$ at once, which is strictly stronger and not what $o(1)$ means. |
+
+## Notes on the ground truth
+
+- The book's `{1+o(1)}T(r,f) ≤ ∑ N̄ + S(r,f)` is rendered by folding both the $o(1)$ and the
+  $S(r,f)$ into one arbitrary $\varepsilon$. This is faithful only because admissibility forces
+  $S(r,f) = o(T(r,f))$ by Theorem 2.2. A candidate that introduces $S$ explicitly, with its own
+  $o(T)$ hypothesis, is closer to the printed text and is equally acceptable.
+- `reducedLogCounting` is an integral of a `Set.ncard`. Lean gives a set with infinitely many
+  elements the count $0$, and gives a non-integrable integrand the integral $0$, so both could
+  quietly return $0$. Here they cannot: $f - a_\nu$ is meromorphic and not identically zero, so its
+  zeros are isolated. A candidate should not depend on this silently.
+- `hsmall` is a statement about the ratio of characteristics; because $T(r,f)\to\infty$, division by
+  zero never occurs for large $r$, so the ratio form is safe.
+- The reduced counting function is applied to `fun z ↦ f z - a ν z`. Mathlib's meromorphic functions
+  are ordinary functions, so this subtraction is literal pointwise subtraction, including at poles.

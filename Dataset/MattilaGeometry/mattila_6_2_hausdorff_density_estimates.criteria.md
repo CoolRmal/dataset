@@ -2,17 +2,59 @@
 
 **Statement:** [mattila_6_2_hausdorff_density_estimates.md](mattila_6_2_hausdorff_density_estimates.md) · **Lean:** [mattila_6_2_hausdorff_density_estimates.lean](mattila_6_2_hausdorff_density_estimates.lean)
 
-A faithful formalization must pin down the *upper* density $\Theta^{*s}(A,x) = \limsup_{r \downarrow 0} (2r)^{-s}\mathcal H^s(A \cap B(x,r))$ and then assert two separate almost-everywhere statements: the two-sided bound $2^{-s} \le \Theta^{*s} \le 1$ on $A$, and vanishing off $A$ *under the extra assumption that $A$ is measurable*. The numerical constants $2^{-s}$ and $1$ are convention-sensitive: they are correct only for the unnormalized Hausdorff measure $\mathcal H^s = \inf\sum d(E_i)^s$ paired with the *diameter* normalization $(2r)^{-s}$, so any change of either convention silently falsifies the statement. The second junk risk is that $A$ is not assumed measurable in part (1), which rules out `Measure.restrict` as the encoding of "for $\mathcal H^s$ almost all $x \in A$".
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Take a set $A$ in $\mathbb{R}^n$ whose $s$-dimensional Hausdorff measure is finite. Look at small
+balls around a point $x$ and compare the amount of $A$ inside the ball with the size $(2r)^s$ that a
+truly $s$-dimensional set would have; the $\limsup$ of that ratio as $r \downarrow 0$ is the upper
+$s$-density $\Theta^{*s}(A,x)$. The theorem says two things. At almost every point of $A$ the upper
+density sits between $2^{-s}$ and $1$ — so $A$ is neither much thinner nor much thicker than
+$s$-dimensional at almost all of its own points. And if $A$ is measurable, then at almost every point
+outside $A$ the upper density is $0$.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Mathlib conventions / normalization | The constants only hold for mathlib's `μH[s] = mkMetric (fun r ↦ r ^ s)`, which is exactly Mattila's unnormalized $\mathcal H^s$ (no $\alpha(s)/2^s$ Federer factor), together with a density normalized by $(2r)^s$ rather than $r^s$. Dividing by `r ^ s` instead would turn the assertion into $1 \le \Theta \le 2^s$. | ✅ `upperHausdorffDensity` divides by `ENNReal.ofReal ((2 * r) ^ s)` and the Lean bounds are `ENNReal.ofReal (2 ^ (-s)) ≤ … ≤ 1`. ❗ Predicted error: a radius-normalized density, or a normalized Hausdorff measure, keeping Mattila's constants. |
-| 2 | Junk values / limsup encoding | The density is a `limsup` in `ℝ≥0∞` along `𝓝[>] 0`, which always exists in that complete lattice — so there is no "the limit may not exist" hole. For `r > 0`, `ENNReal.ofReal ((2*r)^s)` is positive and finite, so the quotient never degenerates to `0/0` or `∞/∞`; values at `r ≤ 0` are invisible to `𝓝[>] 0`. | ✅ `limsup (fun r : ℝ ↦ μH[s] (A ∩ closedBall x r) / ENNReal.ofReal ((2 * r) ^ s)) (𝓝[>] 0)`. ❗ Predicted error: encoding "upper density" with `Tendsto`/`liminf`, or via a real-valued `limsup` that is junk when the quotient is unbounded. |
-| 3 | Faithful encoding / a.e. quantifier | "For $\mathcal H^s$ almost all $x \in A$" must mean $\mathcal H^s(\{x \in A : \neg P(x)\}) = 0$. Since $A$ is **not** assumed measurable in part (1), `μH[s].restrict A` is the wrong tool (`Measure.restrict_apply'` needs `MeasurableSet A` to give `(μ.restrict A) S = μ (S ∩ A)`); the guarded form is required. | ✅ `∀ᵐ x ∂μH[s], x ∈ A → …`, which unfolds to `μH[s] {x \| x ∈ A ∧ ¬ P x} = 0` for the outer measure. ❗ Predicted error: `∀ᵐ x ∂(μH[s].restrict A)` without a measurability hypothesis. |
-| 4 | Hypothesis structure | Measurability is a hypothesis of part (2) **only**; part (1) holds for arbitrary $A$. It must therefore appear as an implication inside the second conjunct, not as a global hypothesis of the theorem. | ✅ `(MeasurableSet A → ∀ᵐ x ∂μH[s], x ∉ A → …)` as the second conjunct. ❗ Predicted error: hoisting measurability of `A` into the binder list, weakening part (1). |
-| 5 | Semantic closeness | "$A$ is $\mathcal H^s$ measurable" is Carathéodory measurability for the outer measure $\mathcal H^s$; in mathlib that is `NullMeasurableSet A μH[s]` (Borel modulo an $\mathcal H^s$-null set), which is strictly weaker than Borel `MeasurableSet A`. | ⚠️ Ground truth uses `MeasurableSet A`, so part (2) is somewhat weaker than the book's; `NullMeasurableSet A μH[s]` would be the literal rendering. |
-| 6 | Conclusion completeness | All three assertions must survive: the lower bound $2^{-s} \le \Theta^{*s}$, the upper bound $\Theta^{*s} \le 1$, and part (2). The `x ∉ A` guard in (2) is essential — the density is emphatically *not* $0$ almost everywhere on $A$, so dropping the guard contradicts part (1). | ✅ Two-sided bound as a conjunction inside the first `∀ᵐ`, plus the guarded part (2). ❗ Predicted error: keeping only `Θ ≤ 1` (the "easy" half), or losing the `x ∉ A` guard. |
-| 7 | Hypothesis completeness | `μH[s] A < ∞` is indispensable: both bounds in (1) and the whole of (2) fail for sets of infinite $\mathcal H^s$ measure. `hs : 0 < s` is added by the ground truth and is not in the text. | ✅ `hA : μH[s] A < ∞` present. ⚠️ `hs : 0 < s` is a harmless narrowing (at $s = 0$ the constants read $1 \le \Theta \le 1$ for counting measure) but is not in the source. |
-| 8 | Semantic closeness | `2 ^ (-s)` elaborates as `Real.rpow` and is transported into `ℝ≥0∞` by `ENNReal.ofReal`, the correct coercion of a positive real; and `closedBall` matches Mattila's convention that $B(x,r)$ is the *closed* ball. | ✅ Both. Using `Metric.ball` would not change the value of the `limsup` (the closed and open ball densities agree), but it is a needless departure from the text. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | $A$ is an arbitrary subset of $\mathbb{R}^n$; part (1) assumes nothing about its measurability. | ✅ `{A : Set (EuclideanSpace ℝ (Fin n))}` with no measurability binder. |
+| 2 | The hypothesis $\mathcal{H}^s(A) < \infty$. | ✅ `hA : μH[s] A < ∞`. |
+| 3 | The upper density is the $\limsup$ as $r \downarrow 0$ of $\mathcal{H}^s(A \cap \bar B(x,r))$ divided by $(2r)^s$. | ✅ `upperHausdorffDensity` in `Defs.lean`: `limsup (fun r ↦ μH[s] (A ∩ closedBall x r) / ENNReal.ofReal ((2 * r) ^ s)) (𝓝[>] 0)`. |
+| 4 | Part (1) asserts the lower bound $2^{-s} \le \Theta^{*s}(A,x)$. | ✅ `ENNReal.ofReal (2 ^ (-s)) ≤ upperHausdorffDensity s A x`. |
+| 5 | Part (1) asserts the upper bound $\Theta^{*s}(A,x) \le 1$. | ✅ `upperHausdorffDensity s A x ≤ 1`, in the same conjunction. |
+| 6 | "For $\mathcal{H}^s$ almost all $x \in A$" must mean that the bad points inside $A$ form an $\mathcal{H}^s$-null set, without assuming $A$ measurable. | ✅ `∀ᵐ x ∂μH[s], x ∈ A → …`, which unfolds to `μH[s] {x \| x ∈ A ∧ ¬ P x} = 0`. |
+| 7 | Measurability of $A$ is a hypothesis of part (2) only, so it must appear as an implication inside the second conjunct, not in the binder list. | ✅ `(MeasurableSet A → ∀ᵐ x ∂μH[s], …)`. ⚠️ The book means Carathéodory $\mathcal{H}^s$-measurable, which is `NullMeasurableSet A μH[s]`; Borel `MeasurableSet A` is stronger, so part (2) is a bit weaker than printed. |
+| 8 | Part (2) says the density vanishes at almost every point **outside** $A$, and both parts are asserted together. | ✅ `∀ᵐ x ∂μH[s], x ∉ A → upperHausdorffDensity s A x = 0`, joined to part (1) by `∧`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Dividing by $r^s$ instead of $(2r)^s$ while keeping the constants $2^{-s}$ and $1$. | That rescales the density by $2^s$, so the true bounds become $1 \le \Theta \le 2^s$. The stated inequality would then be false. |
+| 2 | Using a normalized Hausdorff measure (one carrying Federer's $\alpha(s)/2^s$ factor). | The constants $2^{-s}$ and $1$ belong to the unnormalized $\mathcal{H}^s = \inf \sum d(E_i)^s$, which is what `μH[s]` is. Any other normalization changes both bounds. |
+| 3 | Writing "almost all $x \in A$" as `∀ᵐ x ∂(μH[s].restrict A)` without assuming $A$ measurable. | `Measure.restrict` only computes as `μ (S ∩ A)` when `A` is measurable; without that hypothesis the restricted measure is not the intended one. |
+| 4 | Moving `MeasurableSet A` into the theorem's binder list. | Part (1) is stated for arbitrary $A$. Assuming measurability everywhere weakens it. |
+| 5 | Defining the upper density with `Tendsto` or with a `liminf`. | The limit need not exist, so `Tendsto` asserts something extra; `liminf` is the *lower* density, and the bound $2^{-s} \le \Theta_*^s$ is false in general. |
+| 6 | Making the density a real number, e.g. via `ENNReal.toReal`. | The ratio can be $\infty$, and `toReal` sends $\infty$ to $0$, which would make the lower bound fail for a spurious reason. |
+| 7 | Keeping only $\Theta^{*s}(A,x) \le 1$ and dropping the lower bound, or dropping part (2). | Each is a separate assertion of the theorem; the lower bound is the harder half. |
+| 8 | Dropping the `x ∉ A` guard in part (2). | Then it would say the density is $0$ almost everywhere, which directly contradicts part (1). |
+
+## Notes on the ground truth
+
+- The `limsup` is taken in `ℝ≥0∞`, where it always exists, so there is no "the limit may fail to
+  exist" gap. For `r > 0` the denominator `ENNReal.ofReal ((2 * r) ^ s)` is positive and finite, so
+  the ratio is never `0/0` or `∞/∞`. The filter `𝓝[>] 0` never sees `r ≤ 0`, where `(2*r)^s` is a
+  junk value of `Real.rpow`.
+- `closedBall` matches Mattila's convention that $B(x,r)$ is closed. Using `Metric.ball` would give
+  the same `limsup` value, but it is a needless departure from the text.
+- `2 ^ (-s)` is `Real.rpow`, moved into `ℝ≥0∞` by `ENNReal.ofReal`, the correct coercion of a
+  positive real.
+- ⚠️ `hs : 0 < s` is our addition; the text does not state it. It is a harmless narrowing (at
+  $s = 0$ the bounds read $1 \le \Theta \le 1$ for counting measure), but it is not in the source.
+- ⚠️ Part (2) uses Borel `MeasurableSet A` rather than $\mathcal{H}^s$-measurability; see
+  Requirement 7.

@@ -1,20 +1,52 @@
 # Criteria: krylov_4_5_1_variable_coefficient_global_solvability
 
-> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
-
 **Statement:** [krylov_4_5_1_variable_coefficient_global_solvability.md](krylov_4_5_1_variable_coefficient_global_solvability.md) · **Lean:** [krylov_4_5_1_variable_coefficient_global_solvability.lean](krylov_4_5_1_variable_coefficient_global_solvability.lean)
 
-The shape of this theorem is "there is a threshold $\lambda_0$, depending only on $\kappa, m, \delta, d$ and $\max_\alpha\lvert a^\alpha\rvert_\delta$, such that for every $\lambda$ beyond it and every datum $f \in C^{k+\delta}$ the equation $L_\lambda u = f$ has exactly one solution $u \in C^{k+m+\delta}$". A faithful formalization must therefore (i) make $\lambda_0$ existential and put it outside both $\lambda$ and $f$, (ii) keep the uniqueness half, (iii) hypothesise uniform ellipticity and $C^{k+\delta}$ coefficients of the operator that actually appears in the equation, and (iv) encode "$u \in C^{k+m+\delta}(\mathbb{R}^d)$" as real membership rather than as finiteness of a possibly junk-valued gauge. The remaining hazard is mathematical rather than syntactic: which $\lambda$ are admissible depends on the sign convention buried in `EllipticOperatorData.principalSymbol`.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Let $L$ be a uniformly elliptic operator of order $m$ on $\mathbb{R}^d$ whose coefficients are
+Hölder of order $k+\delta$. The theorem produces a threshold $\lambda_0$ such that, once the shift
+parameter is past that threshold, the equation $Lu - \lambda u = f$ is uniquely solvable in Hölder
+scale: for every $f$ in $C^{k+\delta}$ there is exactly one $u$ in $C^{k+m+\delta}$ solving it. The
+threshold is a fixed number, chosen once and for all before $\lambda$ and before the datum.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Quantifier order | $\lambda_0$ is existential and must be chosen before $\lambda$ and before $f$; `∀ f, ∃ lam₀` would be a different (and useless) statement. | ✅ `∃ lam₀ : ℝ, 0 ≤ lam₀ ∧ ∀ lam : ℝ, lam₀ ≤ \|lam\| → ∀ f, HolderOn (k+δ) univ f → ∃! u, …`. Contrast the sibling file `krylov_4_2_1_better_regular_data_better_regular_solution`, where $\lambda_0$ is an *input*, which is what makes that statement false. |
-| 2 | Hypothesis completeness / solution concept | The set $\{\lambda : \lvert\lambda\rvert \ge \lambda_0\}$ of admissible parameters must be compatible with the ellipticity convention. Under `principalSymbol` ($\kappa\|\xi\|^m \le \sum_{\lvert\alpha\rvert=m}a^\alpha\xi^\alpha$) the Laplacian is admissible, and $\Delta - \lambda$ fails to be injective on $C^{k+2+\delta}$ for every $\lambda < 0$. | ❗ **Genuine defect: the ground truth is false as stated.** Whatever `lam₀ ≥ 0` a proof might supply, take $d = 1$, $m = 2$, $L u = u''$ and $\lambda = -(\lambda_0+1)$, so `lam₀ ≤ \|lam\|`. With $f = 0$ both $u \equiv 0$ and $u(x) = \sin(\sqrt{\lambda_0+1}\,x)$ satisfy `HolderOn (k+2+δ) univ u ∧ ShiftedEllipticEquation L lam u 0`, contradicting `∃!`. Only one sign of $\lambda$ is admissible; a faithful statement restricts $\lambda$ to a half-line (or to a sector, for complex $\lambda$). |
-| 3 | Constant dependence | $\lambda_0$ depends only on $\kappa$, $m$, $\delta$, $d$ and $\max_\alpha \lvert a^\alpha\rvert_\delta$ — not on the individual operator, and certainly not on $f$. | ⚠️ `L` is an implicit variable of the theorem, so `lam₀` is chosen after `L` and may depend on all of it; moreover `VariableCoefficientEllipticOperator m L = Nonempty (EllipticOperatorData m L)` hides $\kappa$ inside an existential, so the intended dependence cannot even be expressed. A faithful version would take $\kappa$ and a coefficient bound as explicit parameters and quantify `∃ lam₀, ∀ L, …`. It is at least placed correctly relative to `f` (row 1). |
-| 4 | Conclusion completeness | Existence *and* uniqueness, with uniqueness relative to the same class $C^{k+m+\delta}$. | ✅ `∃! u, HolderOn (k + m + δ) univ u ∧ ShiftedEllipticEquation L lam u f`. Since the domain is $\mathbb{R}^d$, `∃!` on global functions is the right notion here. ❗ Predicted error: `∃ u` only; or uniqueness stated for $v$ without re-imposing `HolderOn (k+m+δ) univ v`, which is false (the equation has other, less regular, bounded-below-regularity solutions). |
-| 5 | Hypothesis completeness | "$a^\alpha \in C^{k+\delta}(\mathbb{R}^d)$ for any $\alpha$" — global Hölder regularity of the coefficients, which in particular makes them bounded (this is what feeds $\max_\alpha\lvert a^\alpha\rvert_\delta$ into $\lambda_0$). | ✅ `hcoeff : OperatorCoefficientsHolder m (k + δ) L`, i.e. `∃ data, ∀ α ∈ data.terms, HolderOn (k+δ) univ (data.coefficient α)`; the set is `univ`, matching $\mathbb{R}^d$, and `HolderOn` bundles `ContDiffOn ℝ k`, so the coefficients are genuinely $C^{k+\delta}$ and bounded. |
-| 6 | Hypothesis structure | Ellipticity and coefficient regularity should be about the same representation of $L$. | ⚠️ `hL` and `hcoeff` each introduce their own `EllipticOperatorData m L`. Benign — `formula` is quantified over all input functions, so testing on monomials shows the coefficients are determined by `L` — but a single bundled `data` would be cleaner and would let $\kappa$ be named (row 3). |
-| 7 | Space membership vs finite norm / derivative junk | $u \in C^{k+m+\delta}$ and $f \in C^{k+\delta}$ must be genuine membership; `multiDerivative` is `fderiv`-based and returns `0` off the differentiability locus, so a gauge-only encoding would admit nowhere-differentiable functions. | ✅ `HolderOn r univ u` = `∃ k' δ', r = k' + δ' ∧ 0 ≤ δ' ∧ δ' < 1 ∧ ContDiffOn ℝ k' u univ ∧ holderGauge k' δ' univ u < ∞`; the decomposition is uniquely determined by $r$, and the `ContDiffOn` conjunct rules out derivative junk. ❗ Predicted error: `holderGauge … < ∞` without `ContDiffOn`. |
-| 8 | Faithful encoding | Uniform ellipticity, the order-$m$ structure and the shift $L_\lambda = L - \lambda$. | ✅ `EllipticOperatorData` carries `order_le` ($\lvert\alpha\rvert \le m$ on `terms`), `formula` ($Lu = \sum_\alpha a^\alpha D^\alpha u$ pointwise) and `principalSymbol` with `ellipticityConstant_pos`; `ShiftedEllipticEquation L lam u f : ∀ x, L u x - lam * u x = f x` is the classical pointwise equation with the text's sign. ⚠️ `‖ξ‖` is the sup norm of `Fin d → ℝ`, so $\kappa$ is a sup-norm ellipticity constant; the class of operators is the same, but `EuclideanSpace ℝ (Fin d)` would render $\|\xi\|$ literally. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | $m \ge 1$, $k \ge 0$ an integer, $0 < \delta < 1$. | ✅ `hm : 0 < m`, `k : ℕ` unconstrained, `hδ : 0 < δ ∧ δ < 1`. |
+| 2 | $L$ is a sum $\sum_{\lvert\alpha\rvert \le m} a^\alpha(x) D^\alpha$, applied pointwise, with the multi-indices of order at most $m$. | ✅ `EllipticOperatorData m L` carries `order_le` and `formula`. |
+| 3 | $L$ is uniformly elliptic: $\sum_{\lvert\alpha\rvert = m}a^\alpha(x)\xi^\alpha \ge \kappa\lVert\xi\rVert^m$ for all $x$ and $\xi$, with $\kappa > 0$. | ✅ `principalSymbol` plus `ellipticityConstant_pos`, inside `hL : VariableCoefficientEllipticOperator m L`. |
+| 4 | The coefficients are $C^{k+\delta}$ on all of $\mathbb{R}^d$ — which in particular makes them bounded. | ✅ `hcoeff : OperatorCoefficientsHolder m (k + δ) L`, i.e. `HolderOn (k + δ) univ` for each coefficient used by `formula`. |
+| 5 | The threshold $\lambda_0$ is produced by the theorem, not supplied to it, and is fixed before both $\lambda$ and $f$. | ✅ `∃ lam₀ : ℝ, 0 < lam₀ ∧ ∀ lam : ℝ, lam₀ ≤ lam → ∀ f, …`. |
+| 6 | $\lambda$ is restricted to the half-line on which $L_\lambda$ is actually invertible. | ⚠️ `lam₀ ≤ lam` with `0 < lam₀` is the right one-sided restriction for $m = 2$. The text writes the two-sided $\lvert\lambda\rvert \ge \lambda_0$, which is false under the ellipticity convention printed alongside it; the ground truth deliberately departs from the text here. See the notes for the remaining gap at $m$ a multiple of $4$. |
+| 7 | "$f \in C^{k+\delta}$" and "$u \in C^{k+m+\delta}$" are genuine membership: $\lfloor r\rfloor$ continuous derivatives plus a finite Hölder gauge. | ✅ `HolderOn r univ ·` is `ContDiffOn ℝ k' · univ ∧ holderGauge k' δ' univ · < ⊤`, and the decomposition $r = k' + \delta'$ is unique. |
+| 8 | The conclusion asserts existence **and** uniqueness, with uniqueness relative to the same class $C^{k+m+\delta}$. | ✅ `∃! u, HolderOn (k + m + δ) univ u ∧ ShiftedEllipticEquation L lam u f`. |
+| 9 | The equation is the classical pointwise one on all of $\mathbb{R}^d$, with the shift subtracted. | ✅ `ShiftedEllipticEquation L lam u f : ∀ x, L u x - lam * u x = f x`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Writing `∀ f, ∃ lam₀, …`. | A threshold chosen after the datum is useless: the theorem says one threshold works for all data at once. |
+| 2 | Guarding by $\lambda_0 \le \lvert\lambda\rvert$ instead of $\lambda_0 \le \lambda$. | Large negative $\lambda$ would be admitted and uniqueness fails there. Take $d = 1$, $m = 2$, $Lu = u''$, $\lambda = -(\lambda_0+1)$ and $f = 0$: both $u \equiv 0$ and $u(x) = \sin(\sqrt{\lambda_0+1}\,x)$ lie in $C^{k+2+\delta}$ and solve the equation. |
+| 3 | Taking $\lambda_0$ as an input of the theorem. | Then the claim would include arbitrarily small thresholds, in particular $\lambda$ near $0$, where the equation is not uniquely solvable. |
+| 4 | Asserting existence only. | Uniqueness is half the theorem and is exactly what the threshold buys. |
+| 5 | Stating uniqueness for a competitor $v$ without re-imposing $v \in C^{k+m+\delta}$. | Uniqueness fails in a larger class; the regularity has to be part of the uniqueness clause. |
+| 6 | Encoding the Hölder memberships as gauge finiteness alone. | `multiDerivative` is `fderiv`-based, returning $0$ off the differentiability locus, so a bounded nowhere-differentiable function would have a finite gauge and count as a solution. |
+| 7 | Assuming the coefficients merely bounded or continuous. | Hölder continuity of the coefficients is what the Schauder theory needs; with only continuity the solvability statement is false in general. |
+| 8 | Writing $Lu + \lambda u = f$ for the shifted equation. | The opposite sign convention. It is invertible for the opposite sign of $\lambda$, so the threshold condition would be pointing the wrong way. |
+
+## Notes on the ground truth
+
+- Krylov's $\lambda_0$ depends only on $\kappa$, $m$, $\delta$, $d$ and $\max_\alpha\lvert a^\alpha\rvert_\delta$. Here `L` is an implicit variable of the theorem, so `lam₀` is chosen after `L` and may depend on all of it. Worse, `VariableCoefficientEllipticOperator m L = Nonempty (EllipticOperatorData m L)` hides $\kappa$ inside an existential, so the intended dependence cannot even be written down. A faithful version would take $\kappa$ and a coefficient bound as explicit parameters and quantify `∃ lam₀, ∀ L, …`. The placement relative to `f` is at least correct.
+- With the ellipticity written as $\sum_{\lvert\alpha\rvert=m}a^\alpha\xi^\alpha \ge \kappa\lVert\xi\rVert^m$, the sign of the principal Fourier multiplier is $i^m$, so the admissible half-line flips when $m$ is a multiple of $4$. For $d = 1$, $m = 4$, $Lu = u''''$ and $\lambda = n^4 \ge \lambda_0$, both $u \equiv 0$ and $u = \cos(nx)$ solve $L_\lambda u = 0$ in $C^{k+4+\delta}$, so uniqueness still fails at those orders. `0 < lam₀` repairs the second-order case only.
+- `hL` and `hcoeff` each introduce their own `EllipticOperatorData m L`. Benign, since `formula` is quantified over all input functions and therefore determines the coefficients from `L`, but a single bundled `data` would be cleaner and would let $\kappa$ be named.
+- Because the domain is all of $\mathbb{R}^d$, `∃!` on global functions is the right notion of uniqueness. In the domain problems of this book it must instead be `Set.EqOn` on the closure.
+- `holderGauge` uses a maximum where Krylov's norm uses a sum; the two are equivalent up to a factor depending on $d$ and $k$, invisible in a statement that asserts no constants.

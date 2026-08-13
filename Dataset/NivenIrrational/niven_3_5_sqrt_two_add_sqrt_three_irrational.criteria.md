@@ -2,13 +2,43 @@
 
 **Statement:** [niven_3_5_sqrt_two_add_sqrt_three_irrational.md](niven_3_5_sqrt_two_add_sqrt_three_irrational.md) · **Lean:** [niven_3_5_sqrt_two_add_sqrt_three_irrational.lean](niven_3_5_sqrt_two_add_sqrt_three_irrational.lean)
 
-A single clean irrationality claim. What makes it more than a warm-up is that neither summand's irrationality implies the sum's — the standard proof squares twice and uses the rational root theorem — so a candidate that reduces it to `Irrational (√2)` plus a closure lemma has not proved the theorem.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+The single number $\sqrt2+\sqrt3$ is irrational: it is not equal to any fraction. This does not
+follow from the irrationality of $\sqrt2$ and $\sqrt3$ separately — a sum of two irrational numbers
+can easily be rational, as $\sqrt2 + (-\sqrt2) = 0$ shows. Niven's proof squares twice: if
+$\sqrt2+\sqrt3 = r$ were rational then $5 + 2\sqrt6 = r^2$, so $\sqrt6$ would be rational, which it
+is not.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Semantic closeness | The sum of two irrationals need not be irrational (`√2 + (-√2)`), so this cannot follow from irrationality of the summands alone. | ✅ Stated directly about the sum. ❗ Predicted error: assuming an `Irrational.add` lemma that does not exist. |
-| 2 | Mathlib conventions | `Irrational` is mathlib's predicate `x ∉ Set.range ((↑) : ℚ → ℝ)`. | ✅ Reused rather than re-defined. |
-| 3 | Faithful encoding | `Real.sqrt 2 + Real.sqrt 3`, with mathlib's `Real.sqrt`, which is junk-free for non-negative arguments. | ✅ As written. |
-| 4 | Conclusion completeness | The claim is irrationality, not algebraicity or degree. | ✅ Exactly `Irrational`. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The claim is about the one number $\sqrt2+\sqrt3$, not about its two summands. | ✅ `Irrational (Real.sqrt 2 + Real.sqrt 3)` — the whole sum sits inside `Irrational`. |
+| 2 | "Irrational" means: equal to no rational number. | ✅ Mathlib's `Irrational x`, which unfolds to `x ∉ Set.range ((↑) : ℚ → ℝ)`. |
+| 3 | Both square roots are real square roots of the positive integers $2$ and $3$. | ✅ `Real.sqrt 2` and `Real.sqrt 3`. |
+| 4 | The statement is unconditional — no hypotheses. | ✅ The theorem takes no arguments. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Stating `Irrational (Real.sqrt 2) ∧ Irrational (Real.sqrt 3)`. | A weaker and different claim. It does not give the sum: irrationality is not preserved by addition, since $\sqrt2 + (-\sqrt2) = 0$. |
+| 2 | Assuming a lemma of the form "irrational plus irrational is irrational". | No such lemma exists, and it is false. Mathlib's `Irrational.add_rat` needs one side rational. |
+| 3 | Writing $\sqrt{2+3} = \sqrt5$. | A different number. Also irrational, but not the exercise. |
+| 4 | Using `Nat.sqrt` or integer square root. | `Nat.sqrt 2 = 1` and `Nat.sqrt 3 = 1`, so the claim becomes `Irrational 2`, which is false and would not even be provable. |
+| 5 | Claiming `Transcendental ℚ (Real.sqrt 2 + Real.sqrt 3)`. | False. The number is a root of $x^4 - 10x^2 + 1$, so it is algebraic of degree $4$. |
+| 6 | Stating that $\sqrt2+\sqrt3 \ne q$ for one particular rational $q$. | Irrationality quantifies over all rationals; a single instance says almost nothing. |
+
+## Notes on the ground truth
+
+- `Real.sqrt` is total in Mathlib and returns $0$ for negative inputs. Here both arguments are
+  positive, so no default value is in play.
+- The statement is deliberately bare: no minimal polynomial, no degree, no mention of $\sqrt6$. Those
+  belong to the proof, not to what §3.5 asserts.

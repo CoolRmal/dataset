@@ -2,16 +2,62 @@
 
 **Statement:** [nikolski_A_3_6_boundary_uniqueness.md](nikolski_A_3_6_boundary_uniqueness.md) · **Lean:** [nikolski_A_3_6_boundary_uniqueness.lean](nikolski_A_3_6_boundary_uniqueness.lean)
 
-A faithful formalization must say two things about a nonzero Hardy function: that $\log\lvert g\rvert$ is *integrable* on the circle, and that consequently the boundary values cannot vanish on a set of positive measure without $g$ vanishing identically. Both statements are about boundary values, so the formalization must first assert that the boundary values exist a.e. (otherwise `boundaryValue` is the junk value of a nonconvergent `limUnder`); and both are sensitive to two mathlib conventions that silently truncate infinities — `Real.log 0 = 0` and the fact that a Bochner/`IntegrableOn` claim is an *assertion* of finiteness rather than a computation.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Let $g$ be a function in the Hardy class $H^1$ on the unit disc (the same works for $H^p$ with any
+$p > 0$). Its radial boundary values exist at almost every point of the circle. If $g$ is not the
+zero function, then $\log\lvert g\rvert$ is integrable on the circle. In particular, the boundary
+values of a Hardy function cannot vanish on a set of positive measure unless $g$ is identically
+zero on the disc.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Junk values / faithful encoding | `boundaryValue f ζ = limUnder (𝓝[<] 1) (fun r ↦ f (r • ζ))` is `Filter.lim`, i.e. a `Classical.epsilon` choice: at every $\zeta$ where the radial limit fails it is an arbitrary complex number. Any statement about boundary values is therefore vacuous or wrong unless a.e. existence is asserted. | ✅ The first conjunct of the conclusion is exactly `HasRadialBoundaryValues f` (Fatou's theorem), so the remaining clauses speak about honest limits off a null set. ❗ Trap: candidates that use `boundaryValue`/`Filter.lim` without ever asserting existence. |
-| 2 | Hypothesis completeness | The book states the corollary for $g \in H^1$. Generalizing to $H^p$ requires $p \ne 0$: mathlib's `eLpNorm f 0 μ = 0` by convention, so `HardyClass 0 f` would degenerate to "analytic on the disc", for which every conclusion here is false (e.g. $\exp\big(\tfrac{z+1}{z-1}\big)$-type constructions and functions with no radial limits). | ✅ `hp : p ≠ 0` is present and is doing real work. ⚠️ The `p ≠ 0` reading admits $p = \top$ and all $0 < p < 1$; the statement is true throughout that range (all $H^p \subset$ Smirnov class), so the generalization beyond the book's $H^1$ is sound. |
-| 3 | Conclusion completeness | Both assertions of 3.6.1 must appear: $\log\lvert g\rvert \in L^1$ *and* the "in particular" boundary uniqueness. Only the second is usually remembered, but the first is the actual content (the second is a two-line consequence). | ✅ Second conjunct is `IntegrableOn (fun t ↦ Real.log ‖boundaryValue f (unitCirclePoint t)‖) (Ioc 0 (2π))`, guarded by nonvanishing; third conjunct is the uniqueness statement. ❗ Trap: dropping the $L^1$ claim, or stating it without the $g \ne 0$ guard (false for $g = 0$: `Real.log 0 = 0` makes it accidentally true, but only by junk). |
-| 4 | Junk values (`Real.log`) | mathlib sets `Real.log 0 = 0`, so `IntegrableOn (Real.log ‖·‖)` does **not** by itself exclude $\lvert g\rvert = 0$ on a positive-measure set — the integrand would read `0` there rather than $-\infty$. The statement is only meaningful because the nonvanishing hypothesis excludes that case. | ✅ Sound as written: under `∃ z ∈ ball, f z ≠ 0` the boundary values are nonzero a.e., so no `log 0` is ever taken on a non-null set. ⚠️ A formulation via `∫⁻ … ‖Real.log ‖·‖‖ₑ < ∞`, or an explicit `∀ᵐ t, boundaryValue f (unitCirclePoint t) ≠ 0` conjunct, would make this immune to misreading. |
-| 5 | Semantic closeness (the "positive measure" clause) | "$m\{t : g(t) = 0\} > 0$" should be positivity of the measure of the boundary zero set. The ground truth instead universally quantifies over an arbitrary set $E \subseteq \mathbb{T}$ of positive measure on which the boundary values vanish a.e. | ✅ Logically equivalent (instantiate $E$ = the zero set) and slightly stronger-looking; `E` is not required measurable, and `volume {t ∈ Ioc 0 (2π) \| unitCirclePoint t ∈ E}` is the outer measure of its parameter preimage, which is the junk-free reading. ⚠️ The direct form `0 < volume {t ∈ Ioc 0 (2π) \| boundaryValue f (unitCirclePoint t) = 0} → ∀ z ∈ ball, f z = 0` is simpler and closer to the text. |
-| 6 | a.e. vs everywhere | The vanishing hypothesis on $E$ must be a.e. (boundary values are only defined a.e.), and the conclusion $g = 0$ must be everywhere on the *disc* — not merely a.e. on the circle. | ✅ Hypothesis is `∀ᵐ t ∂volume.restrict (Ioc 0 (2π)), unitCirclePoint t ∈ E → boundaryValue f (unitCirclePoint t) = 0`; conclusion is `∀ z ∈ Metric.ball 0 1, f z = 0`. ❗ Trap: concluding only that the boundary function vanishes a.e., which is a strictly weaker (and much less useful) statement. |
-| 7 | Measure conventions | Everything is indexed by the parameter $t \in (0, 2\pi]$ with unnormalized `volume`, whereas the text uses normalized Haar measure $m$ on $\mathbb{T}$. Positivity of measure, a.e. statements and integrability are all invariant under the constant factor $2\pi$. | ✅ Harmless. ⚠️ Mathlib's `Circle` type with `AddCircle.haarAddCircle` (a probability measure) would match $m$ literally; the parametrized encoding is a hand-rolled substitute shared by the whole book. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The exponent is not $0$. | ✅ `hp : p ≠ 0`. |
+| 2 | The function belongs to a Hardy class: analytic on the open disc with bounded radial $L^p$ means. | ✅ `hf : HardyClass p f`. |
+| 3 | The radial boundary values exist at almost every point. | ✅ First conjunct of the conclusion, `HasRadialBoundaryValues f` — this is Fatou's theorem and is what makes every later mention of `boundaryValue` meaningful. |
+| 4 | If the function is not identically zero on the disc, then $\log$ of the modulus of its boundary values is integrable over the circle. | ✅ `(∃ z ∈ Metric.ball (0 : ℂ) 1, f z ≠ 0) → IntegrableOn (fun t ↦ Real.log ‖boundaryValue f (unitCirclePoint t)‖) (Set.Ioc 0 (2 * Real.pi))`. |
+| 5 | The uniqueness half starts from a boundary set of *positive measure*. | ✅ `0 < volume {t ∈ Set.Ioc 0 (2 * Real.pi) \| unitCirclePoint t ∈ E}`. |
+| 6 | The vanishing on that set is asserted almost everywhere, not everywhere. | ✅ `∀ᵐ t ∂volume.restrict (Set.Ioc 0 (2 * Real.pi)), unitCirclePoint t ∈ E → boundaryValue f (unitCirclePoint t) = 0`. |
+| 7 | The conclusion is that the function vanishes at every point of the disc. | ✅ `∀ z ∈ Metric.ball (0 : ℂ) 1, f z = 0`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Talking about boundary values without ever asserting that they exist. | `boundaryValue f ζ` is a `limUnder`, which Lean fills in with an arbitrary chosen value wherever the radial limit fails. Statements about it are then statements about junk. |
+| 2 | Keeping only the "in particular" clause and dropping the claim that $\log\lvert g\rvert$ is integrable. | The integrability claim is the actual content of the corollary; the vanishing statement is a two-line consequence of it. |
+| 3 | Stating the integrability of $\log\lvert g\rvert$ without the hypothesis that $g$ is nonzero. | Lean sets $\log 0 = 0$, so for $g = 0$ the integrand is the constant $0$ and the claim would come out true for the wrong reason, hiding a genuinely false assertion. |
+| 4 | Omitting $p \ne 0$. | Lean's `eLpNorm f 0 μ` is $0$ by convention, so `HardyClass 0 f` says only "analytic on the disc". Every conclusion here then fails: an arbitrary analytic function need not have boundary values at all. |
+| 5 | Concluding only that the boundary function vanishes almost everywhere. | Strictly weaker, and it misses the point: the theorem propagates the vanishing from the circle into the whole disc. |
+| 6 | Reading "$g \ne 0$" as `f ≠ 0` for total functions `ℂ → ℂ`. | The values off the disc are unconstrained, so that hypothesis can hold while $f$ vanishes on the entire disc. |
+| 7 | Requiring the boundary values to vanish at *every* point of the set. | Boundary values are only defined almost everywhere, so an everywhere-hypothesis is not satisfiable in the intended way and weakens the theorem. |
+
+## Notes on the ground truth
+
+- Instead of naming the boundary zero set, the statement quantifies over an arbitrary set $E$ of
+  circle points that has positive measure and on which the boundary values vanish. This is
+  equivalent (take $E$ to be the zero set) and is slightly more general-looking. $E$ is not
+  required to be measurable; `volume` applied to the parameter preimage is then the outer measure,
+  which is the reading that avoids any junk. The direct form — positive measure of the zero set
+  itself — would be simpler and closer to the printed line.
+- Lean's `Real.log 0 = 0` means the integrability claim does not by itself rule out that
+  $\lvert g\rvert$ vanishes on a set of positive measure. It is the nonvanishing guard that makes
+  the claim mean what it should. An explicit conjunct
+  `∀ᵐ t, boundaryValue f (unitCirclePoint t) ≠ 0`, or a formulation with a lower Lebesgue integral,
+  would be immune to misreading.
+- Generalizing from the book's $H^1$ to "any $p \ne 0$" also admits $p = \infty$ and $0 < p < 1$.
+  The statement is true throughout that range, since all these Hardy classes sit inside the
+  Smirnov class, so the generalization is sound.
+- Boundary values are radial limits, not nontangential limits. That is weaker than Fatou's theorem
+  gives, but it is the standard minimal reading.
+- The circle is modelled by the parameter interval $(0,2\pi]$ with unnormalized Lebesgue measure
+  rather than by the normalized measure $m$ of the text. Positivity of measure,
+  almost-everywhere statements and integrability are all unaffected by the constant factor $2\pi$.

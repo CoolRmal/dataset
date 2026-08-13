@@ -1,20 +1,59 @@
 # Criteria: grafakos_5_3_1_calderon_zygmund_decomposition
 
-> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
-
 **Statement:** [grafakos_5_3_1_calderon_zygmund_decomposition.md](grafakos_5_3_1_calderon_zygmund_decomposition.md) · **Lean:** [grafakos_5_3_1_calderon_zygmund_decomposition.lean](grafakos_5_3_1_calderon_zygmund_decomposition.lean)
 
-The value of Theorem 5.3.1 lies in the *whole package*, not in any one estimate: the splitting $f=g+b$, the two bounds on the good part ($L^1$ and $L^\infty$), the decomposition $b=\sum_j b_j$ into pieces supported in **pairwise disjoint dyadic** cubes, the cancellation $\int b_j = 0$, the $L^1$ bound $\|b_j\|_1 \le 2^{n+1}\alpha|Q_j|$, and the packing bound $\sum_j|Q_j| \le \alpha^{-1}\|f\|_1$. A formalization that keeps only some of these is a fragment, not the theorem. The subtle structural point is that the cube family in the text is *countable but possibly finite or empty* (it is empty exactly when $Mf \le \alpha$ everywhere), whereas an `ℕ`-indexed family of pairwise disjoint cubes is necessarily infinite and has strictly positive total volume.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Given an integrable function $f$ on $\mathbb{R}^n$ and a height $\alpha > 0$, one can split
+$f = g + b$ into a "good" part and a "bad" part. The good part is no larger than $f$ in $L^1$ and is
+bounded by $2^n\alpha$ everywhere. The bad part breaks into pieces $b_j$, each living inside its own
+dyadic cube $Q_j$, the cubes pairwise disjoint. Each piece has integral zero, has $L^1$ norm at most
+$2^{n+1}\alpha\lvert Q_j\rvert$, and the cubes together occupy total volume at most
+$\alpha^{-1}\|f\|_1$. The value of the theorem is the whole package: a formalization keeping only
+some of these claims is a fragment, not the theorem.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Conclusion completeness | All seven assertions must be present: $f=g+b$; $\|g\|_1\le\|f\|_1$; $\|g\|_\infty\le2^n\alpha$; $b=\sum_j b_j$; $\operatorname{supp} b_j\subseteq Q_j$ with the $Q_j$ pairwise disjoint dyadic cubes; $\int b_j=0$; $\|b_j\|_1\le2^{n+1}\alpha\lvert Q_j\rvert$; $\sum_j\lvert Q_j\rvert\le\alpha^{-1}\|f\|_1$. | ✅ Every one appears as a conjunct of a single `∃ g b, ∃ Q bad, …`, with the correct constants `ENNReal.ofReal (2 ^ n * α)`, `ENNReal.ofReal (2 ^ (n + 1) * α) * volume (Q j).carrier` and `eLpNorm f 1 volume / ENNReal.ofReal α`. ❗ Trap: producing only $f=g+b$ with the two $g$-bounds (the "good part" fragment), or omitting the cancellation $\int b_j=0$, which is the only reason the decomposition is useful for singular integrals. |
-| 2 | Junk values / faithful encoding (**false in the degenerate case**) | The cube family in the text is countable and may be finite or empty; a total `Q : ℕ → DyadicCube n` with `Pairwise (Disjoint on carriers)` forces infinitely many *distinct* cubes, and every dyadic carrier has volume $2^{n\cdot\text{scale}}>0$, so `∑' j, volume (Q j).carrier > 0` always. | ❗ Hence the conjunct `∑' j, volume (Q j).carrier ≤ eLpNorm f 1 volume / ENNReal.ofReal α` is unsatisfiable when `eLpNorm f 1 volume = 0`, i.e. for $f=0$ a.e. — the ground-truth statement is false for that $f$ (and, for the same reason, for `n = 0`, where every `DyadicCube 0` carrier is the whole one-point space). Faithful repairs: index by `Q : ℕ → Option (DyadicCube n)`, or existentially quantify a countable `S : Set (DyadicCube n)`, or index by an arbitrary countable type `ι`. |
-| 3 | Faithful encoding (dyadic cubes) | "Dyadic cube" means $\prod_i [k_i2^{s},(k_i+1)2^{s})$ — *half-open*, so that distinct cubes of a common generation are genuinely disjoint and the cubes form a nested family. Arbitrary cubes or balls would be a different (weaker) statement. | ✅ `DyadicCube n` carries `scale : ℤ` and `corner : Fin n → ℤ`, with `carrier = {x \| ∀ i, (corner i : ℝ) * 2 ^ scale ≤ x i ∧ x i < (corner i + 1 : ℤ) * 2 ^ scale}` — the half-open convention, with `2 ^ (scale : ℤ)` a `zpow` so arbitrarily fine and arbitrarily coarse generations are available. ❗ Trap: closed cubes (`Icc`), which cannot be pairwise disjoint at shared faces, or `Metric.ball`. |
-| 4 | Faithful encoding (the sum $b=\sum_j b_j$) | In what sense does $\sum_j b_j$ converge? The textbook means $L^1$ (and a.e.); with pairwise disjoint supports pointwise unconditional convergence is equivalent, since at each $x$ at most one summand is nonzero. | ⚠️ `HasSum bad b` is `HasSum` in the Pi type `EuclideanSpace ℝ (Fin n) → ℂ`, i.e. *pointwise* unconditional summation. Sound here because of the disjoint supports, but `Tendsto (fun s ↦ eLpNorm (b - ∑ j ∈ s, bad j) 1 volume) atTop (𝓝 0)` would state the $L^1$ convergence the text has in mind. |
-| 5 | Junk values (the cancellation condition) | `∫ x, bad j x = 0` is a Bochner integral, which is `0` by convention for non-integrable — in particular non-a.e.-measurable — integrands, so the cancellation conjunct carries no information unless `bad j` is known integrable. | ⚠️ The statement bounds `eLpNorm (bad j) 1 volume` but never asserts `MemLp (bad j) 1 volume`, and `eLpNorm` alone does not entail `AEStronglyMeasurable`. Since this is all inside an `∃`, the ground truth is still provable (the genuine CZ pieces are integrable), but adding `MemLp (bad j) 1 volume` (and `MemLp g 1`, `MemLp b 1`) would make the produced decomposition meaningful rather than merely formal. |
-| 6 | Faithful encoding (support and the cancellation domain) | "$b_j$ supported in $Q_j$" and "$\int_{Q_j} b_j = 0$": given the support condition, integrating over $Q_j$ and over $\mathbb{R}^n$ agree, so the unrestricted integral is the right reading. | ✅ `Function.support (bad j) ⊆ (Q j).carrier` together with `∫ x, bad j x = 0`. ❗ Trap: `tsupport`/closure of the support (false for the half-open dyadic cubes), or stating `∫ x in (Q j).carrier, bad j x = 0` *without* the support condition, which is strictly weaker. |
-| 7 | Hypothesis completeness | Exactly $f\in L^1(\mathbb{R}^n)$ and $\alpha>0$; no smoothness, no positivity, no compact support. | ✅ `hf : MemLp f 1 volume`, `hα : 0 < α`, `f : EuclideanSpace ℝ (Fin n) → ℂ` complex-valued as in the text. ❗ Trap: assuming $f \ge 0$ (which trivializes $\lvert f\rvert$ bookkeeping) or $f \in L^1 \cap L^\infty$. |
-| 8 | Semantic closeness | The decomposition is a single existential producing $g$, $b$, the cubes and the pieces *simultaneously*, with the equality $f = g + b$ holding everywhere (not merely a.e.). | ✅ One `∃ g b, ∃ (Q : ℕ → DyadicCube n) (bad : ℕ → EuclideanSpace ℝ (Fin n) → ℂ), …` with `f = g + b` as function equality — the strongest reading, and correct for the standard construction. ❗ Trap: splitting the conclusion into several independent existentials, which loses the coupling between $b$, the $b_j$ and the $Q_j$. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The hypotheses are exactly $f \in L^1(\mathbb{R}^n)$, complex-valued, and $\alpha > 0$. | ✅ `hf : MemLp f 1 volume`, `hα : 0 < α`, `f : EuclideanSpace ℝ (Fin n) → ℂ`. |
+| 2 | The splitting $f = g + b$. | ✅ `f = g + b` as an equality of functions, holding at every point, not merely almost everywhere. |
+| 3 | Both bounds on the good part: $\|g\|_1 \le \|f\|_1$ and $\|g\|_\infty \le 2^n\alpha$. | ✅ `eLpNorm g 1 volume ≤ eLpNorm f 1 volume` and `eLpNorm g ∞ volume ≤ ENNReal.ofReal (2 ^ n * α)`. |
+| 4 | The bad part is the sum of the pieces, $b = \sum_j b_j$. | ⚠️ `HasSum bad b`, which is unconditional summation in the function space, i.e. pointwise. This is sound here because the supports are disjoint, so at each point at most one summand is nonzero, but the text means convergence in $L^1$; `Tendsto (fun s ↦ eLpNorm (b - ∑ j ∈ s, bad j) 1 volume) atTop (𝓝 0)` would say that directly. |
+| 5 | Each piece is supported in its own dyadic cube, and the cubes are pairwise disjoint. | ✅ `∀ j, Function.support (bad j) ⊆ (Q j).carrier` together with `Pairwise fun i j ↦ Disjoint (Q i).carrier (Q j).carrier`, where `DyadicCube n` has a `scale : ℤ` and an integer `corner`, and `carrier = {x \| ∀ i, (corner i : ℝ) * 2 ^ scale ≤ x i ∧ x i < (corner i + 1 : ℤ) * 2 ^ scale}` — the half-open convention, at every scale. |
+| 6 | Each piece has integral zero. | ✅ `∀ j, ∫ x, bad j x = 0`. Because the support sits inside $Q_j$, integrating over $\mathbb{R}^n$ and over $Q_j$ give the same number. |
+| 7 | Each piece obeys $\|b_j\|_1 \le 2^{n+1}\alpha\lvert Q_j\rvert$. | ✅ `eLpNorm (bad j) 1 volume ≤ ENNReal.ofReal (2 ^ (n + 1) * α) * volume (Q j).carrier`. |
+| 8 | The cubes pack: $\sum_j \lvert Q_j\rvert \le \alpha^{-1}\|f\|_1$. | ✅ `∑' j : J, volume (Q j).carrier ≤ eLpNorm f 1 volume / ENNReal.ofReal α`. |
+| 9 | The family of cubes is countable but allowed to be finite or even empty. | ✅ The index is `J : Set ℕ` with `Q : J → DyadicCube n`, so `J` may be empty — which is what happens when $f = 0$ almost everywhere. |
+| 10 | The pieces are genuinely integrable, so that "$\int b_j = 0$" carries information. | ⚠️ The statement bounds `eLpNorm (bad j) 1 volume` but never asserts `MemLp (bad j) 1 volume`, and `eLpNorm` alone does not give measurability. Since everything sits inside an `∃`, the ground truth is still provable — the real Calderón–Zygmund pieces are integrable — but adding `MemLp (bad j) 1 volume` (and likewise for `g` and `b`) would make the produced decomposition meaningful rather than merely formal. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Indexing the cubes by all of `ℕ` with a total `Q : ℕ → DyadicCube n` plus pairwise disjointness. | Pairwise disjointness over `ℕ` forces infinitely many *distinct* cubes, and every dyadic carrier has volume $2^{n\cdot\text{scale}} > 0$, so the total volume is strictly positive. The packing bound then cannot hold when $\|f\|_1 = 0$, i.e. for $f = 0$ almost everywhere, and the statement is false for that $f$. The same failure occurs at $n = 0$, where every dyadic carrier is the whole one-point space. An earlier version of this ground truth had exactly this defect. |
+| 2 | Using closed cubes, e.g. products of `Set.Icc`, or balls. | Closed cubes of a common generation share faces and so cannot be pairwise disjoint; the half-open convention is what makes dyadic cubes tile and nest. Balls are a different family altogether. |
+| 3 | Producing only $f = g + b$ with the two bounds on $g$. | The "good part" fragment. Everything that makes the decomposition useful for singular integrals lives in the description of $b$. |
+| 4 | Omitting the cancellation $\int b_j = 0$. | Without it the decomposition is just a truncation. The vanishing mean is exactly what lets a Calderón–Zygmund kernel gain decay off the cube. |
+| 5 | Requiring the *closed* support (`tsupport`) to lie in $Q_j$. | The closure of the support of a function living on a half-open cube generally meets the boundary and so is not contained in the half-open cube. The condition would be unsatisfiable for the standard construction. |
+| 6 | Writing `∫ x in (Q j).carrier, bad j x = 0` without also requiring the support condition. | Strictly weaker: it says nothing about $b_j$ outside its cube, so the pieces need not be localized at all. |
+| 7 | Adding hypotheses such as $f \ge 0$, or $f \in L^1 \cap L^\infty$. | Not in the text, and $f \ge 0$ removes the bookkeeping with $\lvert f\rvert$ that the complex-valued case needs. |
+| 8 | Splitting the conclusion into several independent existentials, one for $g$ and $b$, another for the cubes, another for the pieces. | Loses the coupling: the cubes, the pieces and the splitting are produced together by one construction, and the estimates relate them to each other. |
+
+## Notes on the ground truth
+
+- Everything is packaged into a single existential `∃ g b, ∃ (J : Set ℕ) (Q : J → DyadicCube n)
+  (bad : J → …), …`, which is the right shape.
+- `DyadicCube` is a small structure in `Defs.lean` carrying `scale : ℤ` and `corner : Fin n → ℤ`. The
+  `2 ^ scale` is an integer power, so arbitrarily fine and arbitrarily coarse generations are
+  available. Mathlib has no dyadic-cube type here, so this is not a redundant wrapper.
+- `f = g + b` is stated as equality of functions everywhere. That is the strongest reading and is
+  correct for the standard construction; an almost-everywhere version would also be acceptable.
+- The index set was changed from `ℕ` to a subset `J : Set ℕ` to repair the degenerate case described
+  in mistake 1.

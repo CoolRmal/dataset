@@ -1,19 +1,60 @@
 # Criteria: mattila_12_14_falconer_distance_set
 
-> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
-
 **Statement:** [mattila_12_14_falconer_distance_set.md](mattila_12_14_falconer_distance_set.md) · **Lean:** [mattila_12_14_falconer_distance_set.lean](mattila_12_14_falconer_distance_set.lean)
 
-A faithful formalization must carry both of Falconer's conclusions about the distance set $D(A) = \{|x-y| : x,y \in A\}$ — positive Lebesgue measure above the threshold $(n+1)/2$, and the dimension gain $\dim D(A) > \dim A - (n-1)/2$ in the intermediate range — with the correct Euclidean metric on the source and Lebesgue measure on the target line. The specific hazard here is arithmetic: `dimH` is `ℝ≥0∞`-valued, so *every* subtraction in the statement, including `(n : ℝ≥0∞) - 1` and `dimH A - (n-1)/2`, is truncated at `0`, and the statement carries no lower bound on $n$ to keep those expressions meaningful.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+For a Borel set $A \subset \mathbb{R}^n$, its distance set $D(A)$ is the set of all distances
+$\lvert x-y\rvert$ realized by pairs of points of $A$; it is a subset of the real line. Falconer's
+theorem gives two lower bounds on how large $D(A)$ is, in terms of the Hausdorff dimension of $A$. If
+$\dim A$ exceeds $(n+1)/2$, then $D(A)$ has positive Lebesgue measure on the line. If $\dim A$ lies
+in the intermediate range between $(n-1)/2$ and $(n+1)/2$, then $D(A)$ still has dimension strictly
+bigger than $\dim A - (n-1)/2$.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Junk values / ℝ≥0∞ arithmetic | `dimH : Set X → ℝ≥0∞`, so `-` is `ENNReal` truncated subtraction. In part (2) the hypothesis `((n : ℝ≥0∞) - 1) / 2 < dimH A` makes the outer subtraction `dimH A - ((n:ℝ≥0∞) - 1)/2` genuine, so the conclusion is not silently `0 < dimH D`. But the *inner* `(n : ℝ≥0∞) - 1` truncates to `0` at `n = 0`. | ⚠️ Correct in every non-degenerate case, but the encoding depends on the reader checking the truncation; casting through `ℝ` (or requiring `1 ≤ n`) would be safer. ❗ Predicted error: writing `dimH A - (n-1)/2 < dimH D` without ensuring the hypothesis rules out truncation, which makes the conclusion vacuously `0 < dimH D`. |
-| 2 | Hypothesis completeness | Neither the transcribed statement nor the Lean statement restricts $n$. At `n = 1` part (2) reads `0 < dimH A ∧ dimH A < 1 → dimH A < dimH D`, a strict dimension gain for the distance set of a subset of the line — not part of Falconer's theorem, and contradicted by the known constructions of compact $A \subset \mathbb{R}$ with $\dim(A - A) = \dim A$. | ❗ The Lean statement inherits this from the transcription rather than introducing it, but a `2 ≤ n` hypothesis is what makes the theorem safe; flag rather than assume it is intended. |
-| 3 | Faithful encoding | $D(A)$ must be the set of *distances*, `{r : ℝ \| ∃ x ∈ A, ∃ y ∈ A, r = dist x y}` — a subset of `ℝ` (containing `0` when `A ≠ ∅`, as in the text), not the difference set `A - A` and not a set of vectors. The ambient metric must be the Euclidean one. | ✅ Exactly this set, over `EuclideanSpace ℝ (Fin n)` whose `dist` is the $\ell^2$ distance. ❗ Predicted error: using `Fin n → ℝ` or `PiLp ∞`, whose `dist` is the sup metric — a different theorem. |
-| 4 | Junk values / measurability | $D(A)$ is a continuous image of $A \times A$ and need not be Borel; `volume : Measure ℝ` is an outer measure on all sets, so `0 < volume D` is the correct junk-free reading of $\mathcal{L}^1(D(A)) > 0$. | ✅ `volume D` applied directly. ❗ Predicted error: adding `MeasurableSet D` as a hypothesis or as part of the conclusion, or passing to `toMeasurable`. |
-| 5 | Conclusion completeness | Both parts must be present, and part (2)'s hypothesis is two-sided: `(n-1)/2 < dimH A` **and** `dimH A < (n+1)/2`. Dropping the upper bound in (2) asserts the dimension gain in a range where (1) already gives the stronger measure conclusion, and is not what the text says. | ✅ A conjunction of two implications sharing `hA`, with the two-sided range in (2). ❗ Predicted error: formalizing only part (1). |
-| 6 | Semantic closeness | Every inequality in the text is strict (`>` in both hypotheses and both conclusions); `dimH` must be mathlib's `dimH` (`⨆ (d : ℝ≥0) (_ : μH[d] s = ∞), d`, valued in `ℝ≥0∞`), not a real-valued reformulation that would need `dimH A ≠ ∞`. | ✅ All strict, `dimH` used for both `A` and `D`. |
-| 7 | Hypothesis completeness / conventions | "Borel set in $\mathbb{R}^n$" is `MeasurableSet A` on `EuclideanSpace ℝ (Fin n)`, whose `MeasurableSpace` instance *is* the Borel σ-algebra. This hypothesis is essential (Frostman measures are extracted from `A`) and must not be weakened to `NullMeasurableSet` or dropped. | ✅ `hA : MeasurableSet A`. ⚠️ The `let D := …` in the statement elaborates to a `have`-binder in the theorem's type; harmless, but naming `D` via a top-level abbreviation or inlining it would be tidier. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The distance set is the set of *distances*, a subset of $\mathbb{R}$. | ✅ `D := {r : ℝ \| ∃ x ∈ A, ∃ y ∈ A, r = dist x y}`. |
+| 2 | The ambient metric is the Euclidean one. | ✅ `EuclideanSpace ℝ (Fin n)`, whose `dist` is the $\ell^2$ distance. |
+| 3 | $A$ is a Borel set. | ✅ `hA : MeasurableSet A`; the `MeasurableSpace` instance on `EuclideanSpace ℝ (Fin n)` is the Borel $\sigma$-algebra. |
+| 4 | Part (1): if $\dim A > (n+1)/2$ then $D(A)$ has positive Lebesgue measure. | ✅ `((n : ℝ≥0∞) + 1) / 2 < dimH A → 0 < volume D`, with `volume : Measure ℝ`. |
+| 5 | Part (2) has a **two-sided** hypothesis on $\dim A$. | ✅ `((n : ℝ≥0∞) - 1) / 2 < dimH A ∧ dimH A < ((n : ℝ≥0∞) + 1) / 2`. |
+| 6 | Part (2)'s conclusion is the strict dimension gain $\dim D(A) > \dim A - (n-1)/2$. | ✅ `dimH A - ((n : ℝ≥0∞) - 1) / 2 < dimH D`. |
+| 7 | Both parts are asserted, and every inequality in the theorem is strict. | ✅ A conjunction of two implications sharing the hypotheses on `A`; all comparisons use `<`. |
+| 8 | The dimension is at least $2$, so that the theorem is about genuine Euclidean space. | ✅ `hn : 2 ≤ n`. This is not in the transcribed statement, but without it part (2) is false (see Mistake 1). |
+| 9 | No measurability may be required of $D(A)$. | ✅ `volume D` is applied directly; `volume` is an outer measure defined on every subset of $\mathbb{R}$. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Stating the theorem for every $n$, with no lower bound on the dimension. | At $n = 1$ part (2) reads: $0 < \dim A < 1$ implies $\dim D(A) > \dim A$. That is false — there are compact $A \subset \mathbb{R}$ with $\dim(A - A) = \dim A$. The `2 ≤ n` hypothesis is what makes the statement safe. |
+| 2 | Working in `Fin n → ℝ` or `PiLp ∞ …` instead of `EuclideanSpace`. | Those carry the sup metric, so `dist` is not $\lvert x-y\rvert$ and the distance set is a different object. The theorem's thresholds are specific to the Euclidean metric. |
+| 3 | Using the difference set $A - A$, or a set of vectors, in place of the set of distances. | $D(A) \subset \mathbb{R}$ is one-dimensional data; the difference set lives in $\mathbb{R}^n$ and satisfies different bounds. |
+| 4 | Assuming `MeasurableSet D`, or replacing `D` by `toMeasurable volume D`. | $D(A)$ is a continuous image of $A \times A$ and need not be Borel. Since `volume` is defined on all sets, `0 < volume D` is already the right statement, and adding measurability assumes something unproved. |
+| 5 | Dropping the upper bound $\dim A < (n+1)/2$ from part (2). | In that larger range part (1) already gives the stronger conclusion; asserting the dimension gain there is not what the text says. |
+| 6 | Formalizing only part (1). | Both conclusions are part of the theorem. |
+| 7 | Writing the conclusion of part (2) so that truncated `ℝ≥0∞` subtraction can bite — for example dropping the hypothesis that keeps $\dim A - (n-1)/2$ genuine. | Subtraction in `ℝ≥0∞` is truncated at `0`, so the conclusion would silently degrade to `0 < dimH D`, which is far weaker than the printed gain. |
+| 8 | Replacing the strict inequalities by `≤` anywhere. | Every inequality in 12.14, in hypotheses and conclusions alike, is strict. |
+
+## Notes on the ground truth
+
+- `hn : 2 ≤ n` was added as a repair; the transcribed statement does not carry it, and without it the
+  theorem is false at $n = 1$ (Mistake 1).
+- `dimH` is mathlib's Hausdorff dimension, valued in `ℝ≥0∞`, so **every** subtraction in the
+  statement is truncated at `0`. Two places matter: `(n : ℝ≥0∞) - 1` is genuine because
+  `2 ≤ n`, and `dimH A - ((n : ℝ≥0∞) - 1)/2` is genuine because part (2)'s hypothesis puts
+  `dimH A` above that value. Casting through `ℝ` would make this visible without the reader having
+  to check.
+- $D(A)$ contains $0$ whenever $A$ is nonempty, matching the text's definition.
+- ⚠️ The `let D := …` inside the statement elaborates to a binder in the theorem's type. Harmless,
+  but inlining `D` or introducing it as a top-level abbreviation would be tidier.
+- `MeasurableSet A` is essential and must not be weakened to `NullMeasurableSet` or dropped: the
+  proof extracts Frostman measures from $A$.

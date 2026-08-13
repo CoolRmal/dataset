@@ -2,15 +2,52 @@
 
 **Statement:** [bogachev_gaussian_4_5_8_seminorm_concentration.md](bogachev_gaussian_4_5_8_seminorm_concentration.md) · **Lean:** [bogachev_gaussian_4_5_8_seminorm_concentration.lean](bogachev_gaussian_4_5_8_seminorm_concentration.lean)
 
-A faithful formalization must give the two-sided deviation bound for a **measurable seminorm** around its mean, with the exponential rate $2t^2/(\pi^2\chi(f)^2)$ governed by the gauge $\chi(f) = \sup\{f(h) : |h|_{H(\gamma)} \le 1\}$ of $f$ on the Cameron–Martin unit ball. Two things go wrong easily: the division by $\pi^2\chi(f)^2$ belongs **inside** the exponential, and $\chi(f)$ can be $+\infty$, in which case the bound is vacuous and must not be turned into a finite claim by a `toReal`.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Let $\gamma$ be a Gaussian measure and let $f$ be a measurable seminorm on the space. Measure how
+big $f$ can get on the Cameron–Martin unit ball: $\chi(f) = \sup\{f(h) : \lvert h\rvert_{H(\gamma)}
+\le 1\}$. Then $f$ concentrates around its mean $\mathbb{E}f = \int f\,d\gamma$ at a Gaussian rate
+controlled by $\chi(f)$ alone: for every $t \ge 0$,
+$$\gamma\{x : \lvert f(x) - \mathbb{E}f\rvert > t\} \le 2\exp\!\left(-\tfrac{2}{\pi^2\chi(f)^2}t^2\right).$$
+The dimension of the space plays no role — only $\chi(f)$ does.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Conclusion completeness / algebra | The bound is $2\exp(-2t^2/(\pi^2\chi(f)^2))$. Moving the denominator outside the exponential gives a completely different — and false — inequality. | ✅ `2 * ENNReal.ofReal (Real.exp (-(2 * t ^ 2 / (Real.pi ^ 2 * c ^ 2))))`. ❗ This is the easiest silent slip in this problem. |
-| 2 | Junk values | $\chi(f)$ is an `ℝ≥0∞`-valued supremum and is genuinely $+\infty$ for seminorms unbounded on the Cameron–Martin ball; `ENNReal.toReal` would send that to `0` and produce a division by zero inside the exponential. | ✅ The statement quantifies over a **real** bound `c > 0` with `cameronMartinGauge γ f ≤ ENNReal.ofReal c`, which is equivalent by monotonicity and avoids `toReal` entirely. ⚠️ Slightly less literal than the book's $\chi(f)$; documented. |
-| 3 | Hypothesis completeness | $f$ must be a seminorm (subadditive and absolutely homogeneous) and $\gamma$-measurable. Measurability is not automatic in infinite dimensions. | ✅ `f : Seminorm ℝ E` together with `hf : Measurable f`, using mathlib's bundled `Seminorm`. ❗ Predicted error: an arbitrary measurable convex function, for which the constant $\pi^2/2$ is wrong. |
-| 4 | Faithful encoding | The deviation is from the **mean** $\mathbb{E}f = \int f\,d\gamma$, not from the median, and the event is the strict inequality $\lvert f - \mathbb{E}f\rvert > t$. | ✅ `γ {x \| t < \|f x - ∫ y, f y ∂γ\|}`. ❗ Predicted error: the median form, which has a different (better) constant. |
-| 5 | Faithful encoding | $\chi(f)$ is the supremum over the **Cameron–Martin** unit ball $\{\lvert h\rvert _{H(\gamma)} \le 1\}$, not over the unit ball of the ambient norm. | ✅ `cameronMartinGauge γ f = ⨆ h : {h // cameronMartinNorm γ h ≤ 1}, ENNReal.ofReal (f h)`. ❗ Predicted error: `‖f‖` as an operator norm. |
-| 6 | Hypothesis completeness | The deviation $t$ must be **nonnegative**. Quantified over all reals the statement is *false*: for $t<0$ the event $\{t < \lvert f - \mathbb{E}f\rvert\}$ is all of $E$, so the left side is $1$, while $2\exp(-2t^2/(\pi^2c^2)) \to 0$ as $t \to -\infty$. | ✅ `ht : 0 ≤ t` (added after review; the first version omitted it and was false). ❗ Predicted error: dropping the sign condition. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | $\gamma$ is a Gaussian measure on the ambient space. | ✅ `(γ : Measure E) [IsGaussian γ]` with a normed and Borel structure on `E`. |
+| 2 | $f$ is a seminorm: subadditive and absolutely homogeneous. | ✅ `f : Seminorm ℝ E`, Mathlib's bundled structure. |
+| 3 | $f$ is measurable. In infinite dimensions this is not automatic. | ✅ `hf : Measurable f`. |
+| 4 | $\chi(f)$ is the supremum of $f$ over the *Cameron–Martin* unit ball $\{h : \lvert h\rvert_{H(\gamma)} \le 1\}$. | ✅ `cameronMartinGauge γ f = ⨆ h : {h // cameronMartinNorm γ h ≤ 1}, ENNReal.ofReal (f h)`. |
+| 5 | The bound must not silently assume $\chi(f)$ is finite by converting it to a real number. | ⚠️ The statement uses a real bound `c` with `hc : 0 < c` and `hgauge : cameronMartinGauge γ f ≤ ENNReal.ofReal c`, which is equivalent by monotonicity and avoids any `toReal`. It is acceptable but less literal than writing $\chi(f)$ itself in the exponent. |
+| 6 | The deviation is measured from the **mean** $\int f\,d\gamma$. | ✅ `∫ y, f y ∂γ` inside the absolute value. |
+| 7 | The event is the strict inequality $\lvert f(x) - \mathbb{E}f\rvert > t$. | ✅ `{x \| t < \|f x - ∫ y, f y ∂γ\|}`. |
+| 8 | The bound is $2\exp(-2t^2/(\pi^2\chi(f)^2))$ — factor $2$ in front, and the whole ratio inside the exponential. | ✅ `2 * ENNReal.ofReal (Real.exp (-(2 * t ^ 2 / (Real.pi ^ 2 * c ^ 2))))`. |
+| 9 | $t$ is nonnegative. | ✅ `ht : 0 ≤ t`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Putting the division outside the exponential, e.g. $2\exp(-2t^2)/(\pi^2\chi(f)^2)$. | A completely different and false inequality. This is the easiest silent slip in this problem: the whole ratio $2t^2/(\pi^2\chi(f)^2)$ is the exponent. |
+| 2 | Converting $\chi(f)$ to a real with `ENNReal.toReal` and dividing by it. | $\chi(f)$ really can be $+\infty$ — a seminorm need not be bounded on the Cameron–Martin ball. `toReal` sends $\infty$ to $0$, and then the exponent divides by zero, which Lean evaluates to $0$, so $\exp(0) = 1$ and the bound reads $\gamma(\dots) \le 2$: true for free, and not the theorem. |
+| 3 | Dropping the requirement $t \ge 0$. | The statement becomes false. For $t < 0$ the event $\{t < \lvert f - \mathbb{E}f\rvert\}$ is the whole space, so the left side is $1$, while $2\exp(-2t^2/(\pi^2c^2)) \to 0$ as $t \to -\infty$. |
+| 4 | Measuring deviation from the median instead of the mean. | A different theorem with a different (better) constant. Bogachev's $\pi^2/2$ goes with the mean. |
+| 5 | Taking the supremum defining $\chi(f)$ over the unit ball of the ambient norm, or using an operator norm $\lVert f\rVert$. | The ambient unit ball is much bigger than the Cameron–Martin ball in infinite dimensions, so the constant is wrong (usually infinite) and the inequality asserted is not the printed one. |
+| 6 | Replacing the seminorm by an arbitrary measurable convex function, or by an arbitrary Lipschitz function. | The constant $2/\pi^2$ is tied to seminorms. Dropping homogeneity or subadditivity makes the printed constant wrong. |
+| 7 | Omitting the measurability hypothesis on $f$. | In infinite dimensions a seminorm need not be measurable, and then $\{x : \lvert f(x) - \mathbb{E}f\rvert > t\}$ and $\int f\,d\gamma$ are not the intended objects. |
+| 8 | Dropping the factor $2$ in front of the exponential. | Halves the bound. The two-sided deviation costs a factor $2$; the one-sided bound is a different statement. |
+
+## Notes on the ground truth
+
+- Instead of writing $\chi(f)$ directly in the exponent, we quantify over a real number $c > 0$ with $\chi(f) \le c$ and put $c$ in the exponent. Because $x \mapsto 2\exp(-2t^2/(\pi^2 x^2))$ is increasing in $x$, this is equivalent to the printed bound, and it avoids any conversion from `ℝ≥0∞` to `ℝ`. It is slightly less literal than the book, which is why it is recorded here.
+- `hgauge` together with `hc : 0 < c` implicitly rules out $\chi(f) = \infty$. That is the only case the printed inequality does not cover in a meaningful way, so nothing is lost.
+- `∫ y, f y ∂γ` would be Lean's default value $0$ if $f$ were not integrable. That does not create a loophole: a seminorm with $\chi(f) < \infty$ is $\gamma$-integrable by Fernique's theorem, so the hypothesis `hgauge` already guarantees the mean is the real one. Bogachev makes the same point when he says $f$ satisfies condition (4.5.4).
+- Bogachev's "$\gamma$-measurable seminorm" is only required to be defined almost everywhere. We use a genuine everywhere-defined `Seminorm ℝ E` together with a measurability hypothesis, which is a mild strengthening of the setup.
+- The right-hand side is written in `ℝ≥0∞` via `ENNReal.ofReal`, matching the left-hand side's measure value, so no finiteness is presupposed anywhere.

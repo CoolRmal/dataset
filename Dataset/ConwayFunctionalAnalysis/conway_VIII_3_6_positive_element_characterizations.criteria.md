@@ -2,17 +2,55 @@
 
 **Statement:** [conway_VIII_3_6_positive_element_characterizations.md](conway_VIII_3_6_positive_element_characterizations.md) · **Lean:** [conway_VIII_3_6_positive_element_characterizations.lean](conway_VIII_3_6_positive_element_characterizations.lean)
 
-A faithful formalization must state all five characterizations of positivity as one equivalence, in a *unital* $C^*$-algebra (items (d) and (e) subtract a scalar from $a$ and therefore presuppose a unit). The delicate point is what "$a \ge 0$" is taken to *mean*: Conway defines it spectrally ($a = a^*$ and $\sigma(a) \subseteq [0,\infty)$), so the formalization must not adopt a definition of positivity that already builds in one of the other four items — in particular, defining $0 \le a$ as "$a = x^*x$ for some $x$" would make (a) ⟺ (c) a tautology and gut the theorem (the hardest implication in Conway's proof).
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Let $\mathcal{A}$ be a $C^*$-algebra and $a$ an element of it. Five conditions on $a$ are all
+equivalent: $a$ is positive; $a$ is the square of a self-adjoint element; $a$ has the form $x^*x$;
+$a$ is self-adjoint and $\lVert t - a\rVert \le t$ for every real $t \ge \lVert a\rVert$; and $a$ is
+self-adjoint and $\lVert t - a\rVert \le t$ for at least one such $t$. The last two are the sharp
+pair: "for all $t$" and "for some $t$" turn out to say the same thing.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Mathlib conventions / faithful encoding | "$a \ge 0$" is stated as `0 ≤ a` with respect to `[PartialOrder A] [StarOrderedRing A]` — Mathlib's standard interface for the $C^*$-order (the order is not an instance on `CStarAlgebra` to avoid diamonds; `CStarAlgebra.spectralOrder`/`spectralOrderedRing` construct it). `StarOrderedRing.nonneg_iff_spectrum_nonneg` shows this order agrees with Conway's spectral definition, so nothing is lost. | ✅ Correct idiom, and the abstract order keeps the theorem non-trivial: `StarOrderedRing`'s axiom only gives `0 ≤ a ↔ a ∈ AddSubmonoid.closure (Set.range fun s ↦ star s * s)`, i.e. a finite *sum* of terms `star s * s`, so (a) ⟺ (c) (a *single* such term) is still genuine content. |
-| 2 | Faithful encoding | ❗ Predicted error: a candidate that avoids `StarOrderedRing` by *defining* the first item as `∃ x, a = star x * x` (identical to (c)) or as `∀ z ∈ spectrum ℂ a, 0 ≤ z.re` without the self-adjointness clause. The former makes the TFAE trivially true for two entries; the latter is not equivalent to positivity. | ✅ Avoided. A spectral spelling `IsSelfAdjoint a ∧ ∀ z ∈ spectrum ℝ a, 0 ≤ z` would be equally faithful to Conway and is an acceptable alternative. |
-| 3 | Hypothesis completeness | Unitality is required by (d)/(e). Mathlib's `CStarAlgebra` is the *unital* class (`NonUnitalCStarAlgebra` is the other one), and the scalar $t$ enters as `algebraMap ℂ A (t : ℂ)`. | ✅ `[CStarAlgebra A]` plus `algebraMap`. ❗ Predicted error: a `NonUnitalCStarAlgebra` setting where `t - a` cannot be formed, or a bogus coercion `(t : A)`. |
-| 4 | Conclusion completeness | All five items, in one `List.TFAE` of length 5. The (d)/(e) pair — "for **all** $t \ge \|a\|$" versus "for **some** $t \ge \|a\|$" — is the sharpest part of the theorem; collapsing them into one item, or keeping only (d), removes the strongest implication. | ✅ `List.TFAE [0 ≤ a, hermitianSquare, starSquare, normBoundForAll, normBoundForSome]`, with `normBoundForAll` using `∀ t : ℝ, ‖a‖ ≤ t → …` and `normBoundForSome` using `∃ t : ℝ, ‖a‖ ≤ t ∧ …`. |
-| 5 | Hypothesis completeness (within items) | Items (d) and (e) each begin with "$a = a^*$". Without it they are false characterizations (a suitable non-self-adjoint $a$ can satisfy the norm inequality). | ✅ Both `let`s open with `IsSelfAdjoint a ∧ …`. ❗ Predicted error: keeping `a = a*` in (d) but dropping it from (e). |
-| 6 | Faithful encoding | Item (b) is "$a = b^2$ for some $b$ in $\operatorname{Re}\mathcal{A}$" — $\operatorname{Re}\mathcal{A}$ is the *self-adjoint* part, so both `IsSelfAdjoint b` and `a = b ^ 2` are needed. Writing `∃ b, a = b * b` without self-adjointness is a different (false) item; writing `∃ b, a = star b * b` duplicates (c). | ✅ `∃ b : A, IsSelfAdjoint b ∧ a = b ^ 2`. ❗ Both degenerate readings are plausible model outputs. |
-| 7 | Semantic closeness | The scalar arithmetic in (d)/(e): `‖algebraMap ℂ A (t : ℂ) - a‖ ≤ t` compares a real norm with the real scalar `t`, and the guard `‖a‖ ≤ t` already forces `0 ≤ t`. An equivalent spelling is `‖(t : ℝ) • (1 : A) - a‖ ≤ t`. | ✅ Correct and unambiguous. ⚠️ The `algebraMap ℂ A (t : ℂ)` round-trip through `ℂ` is slightly indirect; `(t : ℝ) • (1 : A)` reads closer to "$t - a$". |
-| 8 | Mathlib conventions | `IsSelfAdjoint a` (= `star a = a`) is the right spelling of "$a = a^*$"; the items are introduced as `let`-bound `Prop`s and combined with `List.TFAE`, matching the multi-part-equivalence idiom used elsewhere in this book's files. | ✅ Followed. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The algebra is a *unital* $C^*$-algebra. Items (d) and (e) subtract a scalar from $a$, so a unit must exist. | ✅ `[CStarAlgebra A]`, which is Mathlib's unital class (`NonUnitalCStarAlgebra` is the other one), and the scalar enters as `algebraMap ℂ A (t : ℂ)`. |
+| 2 | Item (a) is positivity in the $C^*$-order, which Conway defines spectrally: $a = a^*$ and $\sigma(a) \subseteq [0,\infty)$. | ✅ `0 ≤ a` with respect to `[PartialOrder A] [StarOrderedRing A]`, Mathlib's interface for that order (it is not an instance on `CStarAlgebra`, to avoid diamonds; `CStarAlgebra.spectralOrder`/`spectralOrderedRing` build it). `StarOrderedRing.nonneg_iff_spectrum_nonneg` shows it agrees with Conway's definition. |
+| 3 | Item (b): $a = b^2$ for some $b$ in the self-adjoint part $\operatorname{Re}\mathcal{A}$ — both the self-adjointness of $b$ and the equation are needed. | ✅ `∃ b : A, IsSelfAdjoint b ∧ a = b ^ 2`. |
+| 4 | Item (c): $a = x^*x$ for some $x$, with no condition on $x$. | ✅ `∃ x : A, a = star x * x`. |
+| 5 | Item (d): $a$ self-adjoint **and** $\lVert t - a\rVert \le t$ for **all** real $t \ge \lVert a\rVert$. | ✅ `IsSelfAdjoint a ∧ ∀ t : ℝ, ‖a‖ ≤ t → ‖algebraMap ℂ A (t : ℂ) - a‖ ≤ t`. |
+| 6 | Item (e): $a$ self-adjoint **and** $\lVert t - a\rVert \le t$ for **some** real $t \ge \lVert a\rVert$. | ✅ `IsSelfAdjoint a ∧ ∃ t : ℝ, ‖a‖ ≤ t ∧ ‖algebraMap ℂ A (t : ℂ) - a‖ ≤ t`. |
+| 7 | The self-adjointness clause appears in **both** (d) and (e), not just in (d). | ✅ Both `let`s open with `IsSelfAdjoint a ∧ …`. |
+| 8 | All five items form one equivalence, with (d) and (e) kept apart. | ✅ `List.TFAE [0 ≤ a, hermitianSquare, starSquare, normBoundForAll, normBoundForSome]` — a list of length 5. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Avoiding `StarOrderedRing` by *defining* item (a) as `∃ x, a = star x * x`. | Items (a) and (c) become the same proposition, so their equivalence is a tautology — and (a) ⟹ (c) is the hardest implication in Conway's proof. The theorem is gutted. |
+| 2 | Defining item (a) as `∀ z ∈ spectrum ℂ a, 0 ≤ z.re`, with no self-adjointness clause. | Spectrum in the right half-plane does not imply positivity; the self-adjointness is part of the definition. |
+| 3 | Writing item (b) as `∃ b, a = b * b` without `IsSelfAdjoint b`. | A different and false characterization: a non-self-adjoint $b$ can have $b^2$ non-positive, even non-self-adjoint. Conway writes $b \in \operatorname{Re}\mathcal{A}$ deliberately. |
+| 4 | Writing item (b) as `∃ b, a = star b * b`. | That is item (c) again, so (b) and (c) collapse into one and the equivalence loses content. |
+| 5 | Merging (d) and (e) into one item, or keeping only (d). | The implication (e) ⟹ (a) is the strongest one in the theorem; a single all-quantified item removes it. |
+| 6 | Keeping `a = a*` in (d) but dropping it from (e). | Without self-adjointness (e) is not a characterization of positivity — a suitable non-self-adjoint $a$ satisfies the norm inequality. |
+| 7 | Working in a non-unital $C^*$-algebra, or writing the scalar as a bare coercion `(t : A)`. | In the non-unital setting $t - a$ cannot be formed, so items (d) and (e) do not even typecheck; and there is no coercion `ℝ → A` to make `(t : A)` mean $t\cdot 1$. |
+
+## Notes on the ground truth
+
+- Using the abstract `StarOrderedRing` order keeps the theorem non-trivial. That class's axiom only
+  gives `0 ≤ a ↔ a ∈ AddSubmonoid.closure (Set.range fun s ↦ star s * s)`, i.e. $a$ is a finite
+  *sum* of terms $s^*s$. Item (c) asks for a *single* such term, so (a) ⟺ (c) still has real
+  content.
+- A spectral spelling of item (a) — `IsSelfAdjoint a ∧ ∀ z ∈ spectrum ℝ a, 0 ≤ z` — is equally
+  faithful to Conway and should be accepted in a candidate.
+- ⚠️ The scalar in (d) and (e) is written `algebraMap ℂ A (t : ℂ)` with `t : ℝ`, a slightly indirect
+  round trip through $\mathbb{C}$. `(t : ℝ) • (1 : A)` reads closer to the book's "$t - a$". The
+  meaning is the same, and the guard $\lVert a\rVert \le t$ already forces $t \ge 0$.
+- The items are `let`-bound propositions combined with `List.TFAE`, matching how the other
+  multi-part equivalences in this book's files are written.

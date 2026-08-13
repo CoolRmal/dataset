@@ -2,14 +2,52 @@
 
 **Statement:** [hayman_3_6_corollary_derivative_zeros_in_disk.md](hayman_3_6_corollary_derivative_zeros_in_disk.md) · **Lean:** [hayman_3_6_corollary_derivative_zeros_in_disk.lean](hayman_3_6_corollary_derivative_zeros_in_disk.lean)
 
-The corollary's force is the **uniformity** of $l$: one threshold works for every disk and every $f$ simultaneously. Moving the `∀ f` inside the `∀ᶠ l` — i.e. letting the threshold depend on the function — gives a much weaker statement that follows immediately from Theorem 3.6.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+This corollary to Theorem 3.6 says: once $l$ is large enough, the $l$-th derivative $f^{(l)}$ has a
+zero inside *every* disk on which $f$ is meromorphic and has at least two different poles. The force
+of the statement is that a single threshold on $l$ works for all disks and all functions at once —
+the threshold is an absolute number, not something depending on $f$ or on the disk.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Quantifier order | `∀ᶠ l in atTop, ∀ f z₀ R, …` — the threshold on `l` is chosen **before** the function and the disk. | ✅ As written. ❗ Highest-value trap: `∀ f z₀ R, …, ∀ᶠ l in atTop, …`. |
-| 2 | Hypothesis completeness | `f` meromorphic on the disk with at least two distinct poles *in that disk*. | ✅ Both hypotheses inside the universally quantified body. |
-| 3 | Conclusion completeness | The conclusion is existence of a zero of `f^{(l)}` inside the disk. | ✅ `∃ z ∈ ball z₀ R, iteratedDeriv l f z = 0`. |
-| 4 | Semantic closeness | This is a genuinely separate assertion from Theorem 3.6, not a restatement: 3.6 localises near $z_0$, the corollary covers the whole disk. | ✅ Kept as its own declaration. |
-| 5 | Junk values | No integrals, suprema or coercions occur. | ✅ Junk-free. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The threshold on $l$ is chosen first, before the function and the disk. | ✅ `∀ᶠ l in atTop, ∀ (f : ℂ → ℂ) (z₀ : ℂ) (R : ℝ), …` — the `∀ᶠ l` is the outermost quantifier. |
+| 2 | "For all sufficiently large $l$" is the correct reading of the threshold. | ✅ `∀ᶠ l in atTop`, i.e. the property holds for every $l$ beyond some bound. |
+| 3 | The disk is arbitrary: any centre $z_0$ and any positive radius $R$. | ✅ `∀ (z₀ : ℂ) (R : ℝ), 0 < R → …`. |
+| 4 | $f$ is meromorphic at every point of the disk. | ✅ `∀ z ∈ Metric.ball z₀ R, MeromorphicAt f z`. |
+| 5 | $f$ has at least two *distinct* poles, and both lie inside that same disk. | ✅ `∃ p ∈ Metric.ball z₀ R, ∃ q ∈ Metric.ball z₀ R, p ≠ q ∧ ¬ AnalyticAt ℂ f p ∧ ¬ AnalyticAt ℂ f q`. |
+| 6 | The conclusion is the existence of a zero of $f^{(l)}$ inside the disk. | ✅ `∃ z ∈ Metric.ball z₀ R, iteratedDeriv l f z = 0`. |
+| 7 | The zero is located in the disk itself, not merely somewhere in the plane. | ✅ The witness is bound by `∈ Metric.ball z₀ R`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Moving the quantifier over $f$ and the disk outside, as `∀ f z₀ R, …, ∀ᶠ l in atTop, …`. | This is the highest-value trap. It lets the threshold depend on the function and the disk, which is a much weaker statement and follows immediately from Theorem 3.6. The corollary's content is the uniformity. |
+| 2 | Fixing a specific $l$, or asserting the conclusion for every $l$. | False for small $l$: with $f(z) = 1/(z(z-1))$ and the disk of radius $2$ about $\tfrac12$, the two poles $0$ and $1$ lie inside, but $f$ itself never vanishes anywhere, so the $l = 0$ case fails. The corollary is only about large $l$. |
+| 3 | Requiring two poles counted with multiplicity, e.g. a single double pole. | Then the theorem fails: for $f(z) = 1/z^{2}$ every derivative is a nonzero constant times $z^{-(l+2)}$ and never vanishes. Distinctness of the two poles is essential. |
+| 4 | Requiring the two poles only to exist somewhere in the plane rather than inside the given disk. | The conclusion is local to the disk; poles outside it give no information about $f^{(l)}$ inside. |
+| 5 | Concluding that $f^{(l)}$ has a zero somewhere, without saying it is in the disk. | Far too weak — the whole point of the corollary is where the zero is. |
+| 6 | Dropping the hypothesis that $f$ is meromorphic on the disk. | For an arbitrary function `f : ℂ → ℂ` the iterated derivative is a default value and the statement means nothing. |
+
+## Notes on the ground truth
+
+- A "pole" is encoded as a point of the disk at which $f$ is meromorphic but not analytic. This
+  admits, in principle, a point where $f$ has a removable singularity but carries a different value.
+  Such a point makes $f$ discontinuous there, and Lean's `deriv` returns $0$ at a point of
+  non-differentiability, so the conclusion still happens to hold. Identifying poles by negative
+  `MeromorphicAt.order` would be the cleaner encoding, and is what the companion statement
+  `hayman_3_6_derivative_zeros_near_poles` really needs.
+- This is a separate assertion from Theorem 3.6, not a restatement: Theorem 3.6 describes behaviour
+  arbitrarily close to the centre $z_0$, whereas the corollary covers the whole disk and, crucially,
+  makes the threshold on $l$ uniform. Keeping it as its own declaration is deliberate.
+- No integrals, suprema or coercions appear, so there is no default-value hazard beyond the pole
+  convention and the `deriv` convention mentioned above.

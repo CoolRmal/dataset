@@ -2,17 +2,59 @@
 
 **Statement:** [kallenberg_8_5_conditional_distributions.md](kallenberg_8_5_conditional_distributions.md) · **Lean:** [kallenberg_8_5_conditional_distributions.lean](kallenberg_8_5_conditional_distributions.lean)
 
-Theorem 8.5 packages three things: the *existence* of a probability kernel $\mu$ disintegrating the joint law, its *uniqueness a.e. with respect to $\mathcal{L}(\xi)$* (not a.e. $P$, and not everywhere), and the *change-of-variables formula* $\mathbb{E}(f(\xi,\eta)\mid\xi) = \int \mu(\xi,dt) f(\xi,t)$ for nonnegative $f$ of **both** arguments. The standard-Borel hypothesis belongs to the second component $T$ alone; $S$ stays an arbitrary measurable space. The main formalization risks are (a) encoding the conditional expectation with `condExp`, which is a Bochner-based real-valued object with junk `0` for non-integrable inputs, when the text explicitly restricts to $f \ge 0$ and $\mathbb{R}_{\ge 0}^\infty$-valued integrals are junk-free; and (b) phrasing the conclusion through mathlib's `ProbabilityTheory.condDistrib`, which would turn an existence theorem into a near-definitional identity.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Let $\xi$ and $\eta$ be random elements of measurable spaces $S$ and $T$, where $T$ is standard
+Borel. The theorem says the joint law of the pair factors as the law of $\xi$ combined with a
+probability kernel $\mu$ from $S$ to $T$; that this kernel is unique up to a set of $\xi$-values that
+the law of $\xi$ ignores; and that it computes conditional expectations, in the sense that for any
+non-negative measurable $f$ of both variables, $\mathbb{E}(f(\xi, \eta) \mid \xi)$ equals
+$\int f(\xi, t)\,\mu(\xi, dt)$. The kernel is the conditional distribution of $\eta$ given $\xi$.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Hypothesis completeness | "Where $T$ is Borel" is a standard-Borel assumption on the *second* space only; `S` must remain a bare `MeasurableSpace`, since the theorem's strength is that no structure is needed on the conditioning space. | ✅ `[MeasurableSpace S]`, `[MeasurableSpace T] [StandardBorelSpace T]`. ❗ Trap: adding `[StandardBorelSpace S]` (or Polish/countably-generated assumptions on `S`), which weakens the theorem. |
-| 2 | Faithful encoding | $\mathcal{L}(\xi,\eta) = \mathcal{L}(\xi)\otimes\mu$ must be the pushforward of the *pair* against the composition-product of the law of $\xi$ with the kernel: `μ.map (fun ω ↦ (ξ ω, η ω)) = μ.map ξ ⊗ₘ κ`, with `IsMarkovKernel κ` ("probability kernel"). | ✅ Present. `IsMarkovKernel κ` also supplies the s-finiteness that keeps `⊗ₘ` from collapsing to the junk value `0`. ❗ Trap: `IsFiniteKernel` instead of `IsMarkovKernel`, or `Measure.prod` instead of `⊗ₘ` (which would assert independence). |
-| 3 | Conclusion completeness | Uniqueness must be stated, and it is uniqueness *a.e. with respect to $\mathcal{L}(\xi)$*, among Markov kernels satisfying the same identity. | ✅ `∀ κ' : Kernel S T, IsMarkovKernel κ' → μ.map (fun ω ↦ (ξ ω, η ω)) = μ.map ξ ⊗ₘ κ' → κ =ᵐ[μ.map ξ] κ'` (a.e. equality of the `FunLike` coercions). ❗ Trap: `κ = κ'` (everywhere — false), `κ =ᵐ[μ] κ'` (wrong measure and wrong space), or omitting uniqueness altogether. |
-| 4 | Junk values / faithful encoding | Item (ii) is stated for $f \ge 0$, so the natural encoding is `f : S → T → ℝ≥0∞` with `∫⁻`, which is total. Encoding it with `condExp` would require integrability side conditions and would return `0` as junk whenever they fail. | ✅ `∀ f : S → T → ℝ≥0∞, Measurable (Function.uncurry f) → …` with lower Lebesgue integrals throughout. |
-| 5 | Faithful encoding | The a.s. identity $\mathbb{E}(f(\xi,\eta)\mid\xi) = \int \mu(\xi,dt)f(\xi,t)$ is encoded through its defining property on the generating sets $\{\xi \in A\}$: `∀ A, MeasurableSet A → ∫⁻ ω in ξ ⁻¹' A, f (ξ ω) (η ω) ∂μ = ∫⁻ ω in ξ ⁻¹' A, ∫⁻ t, f (ξ ω) t ∂κ (ξ ω) ∂μ`. Both sides must be integrated over the same set, and the kernel must be evaluated at `ξ ω`. | ✅ Exactly this; the inner integral is `∫⁻ t, f (ξ ω) t ∂κ (ξ ω)`. ❗ Trap: writing `∂κ s` for a free `s`, or testing only against `A = univ` (which gives the marginal identity and loses the conditioning). |
-| 6 | Conclusion completeness | Item (i), $\mathcal{L}(\eta\mid\xi) = \mu(\xi,\cdot)$ a.s., is the case $f = \mathbf{1}_{S\times B}$ of item (ii), so no mathematical content is missing, but it is not stated as its own clause. | ⚠️ Acceptable — (i) follows immediately by instantiating `f := fun _ t ↦ Set.indicator B 1 t` — but an explicit clause `∀ B, MeasurableSet B → ∀ A, MeasurableSet A → μ (ξ ⁻¹' A ∩ η ⁻¹' B) = ∫⁻ ω in ξ ⁻¹' A, κ (ξ ω) B ∂μ` would make the "$\mathcal{L}(\eta \mid \xi)$" reading visible. |
-| 7 | Hypothesis completeness | `ξ` and `η` must be measurable (they are "random elements"): `μ.map ξ` is the junk value `0` for a non-a.e.-measurable map, and `ξ ⁻¹' A` must be measurable for the set-restricted integrals to be meaningful. | ✅ `hξ : Measurable ξ`, `hη : Measurable η`, `[IsProbabilityMeasure μ]`. |
-| 8 | Mathlib conventions | Mathlib already contains `ProbabilityTheory.condDistrib` together with its disintegration lemmas; the benchmark statement must remain an *existence* claim over an abstract `κ : Kernel S T`. | ✅ `∃ κ : Kernel S T, IsMarkovKernel κ ∧ …`. ❗ Trap: a candidate that writes the conclusion in terms of `condDistrib η ξ μ` states a much weaker, essentially definitional, fact and should not be accepted as a formalization of 8.5. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The standard Borel assumption is on $T$ only; $S$ carries nothing but a measurable structure. | ✅ `[MeasurableSpace S]`, `[MeasurableSpace T] [StandardBorelSpace T]`. |
+| 2 | $\xi$ and $\eta$ are measurable maps and the underlying measure is a probability measure. | ✅ `hξ : Measurable ξ`, `hη : Measurable η`, `[IsProbabilityMeasure μ]`. |
+| 3 | The conclusion asserts the *existence* of a kernel, as an abstract object. | ✅ `∃ κ : Kernel S T, …`. |
+| 4 | The kernel is a probability kernel: every fibre has total mass $1$. | ✅ `IsMarkovKernel κ`. |
+| 5 | The joint law of the pair factors as the law of $\xi$ composed with the kernel. | ✅ `μ.map (fun ω ↦ (ξ ω, η ω)) = μ.map ξ ⊗ₘ κ`. |
+| 6 | Uniqueness holds among probability kernels satisfying the same identity, and it is uniqueness almost everywhere with respect to the law of $\xi$. | ✅ `∀ κ' : Kernel S T, IsMarkovKernel κ' → μ.map (fun ω ↦ (ξ ω, η ω)) = μ.map ξ ⊗ₘ κ' → κ =ᵐ[μ.map ξ] κ'`. |
+| 7 | The integration formula holds for every non-negative measurable $f$ of *both* arguments. | ✅ `∀ f : S → T → ℝ≥0∞, Measurable (Function.uncurry f) → …`, with the values in `ℝ≥0∞` capturing "$f \ge 0$". |
+| 8 | The conditional-expectation identity is stated by testing against every event determined by $\xi$, with the kernel evaluated at $\xi(\omega)$ inside the integral. | ✅ `∀ A : Set S, MeasurableSet A → ∫⁻ ω in ξ ⁻¹' A, f (ξ ω) (η ω) ∂μ = ∫⁻ ω in ξ ⁻¹' A, ∫⁻ t, f (ξ ω) t ∂κ (ξ ω) ∂μ`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Adding `[StandardBorelSpace S]`, or Polish / countably-generated assumptions on $S$. | The strength of the theorem is that the conditioning space needs no structure at all; adding some narrows the result. |
+| 2 | Writing the conclusion in terms of Mathlib's `condDistrib η ξ μ`. | That turns an existence theorem into an almost definitional identity about an object Mathlib has already built, so nothing of Theorem 8.5 is being formalized. |
+| 3 | Using `Measure.prod` instead of the composition-product `⊗ₘ`. | The product measure asserts that $\xi$ and $\eta$ are independent, which is a completely different — and false — claim. |
+| 4 | Asking only for `IsFiniteKernel κ`. | The theorem produces a *probability* kernel; finite fibres of arbitrary mass do not give a conditional distribution. |
+| 5 | Stating uniqueness as `κ = κ'` everywhere, or as `κ =ᵐ[μ] κ'`. | Everywhere equality is false — the kernel may be changed arbitrarily on $\xi$-null sets. And `μ` lives on $\Omega$, not on $S$, so the second is not even the right space. |
+| 6 | Omitting uniqueness altogether. | The text asserts it explicitly, and it is what makes "the" conditional distribution well defined. |
+| 7 | Encoding the integration formula with `condExp`. | `condExp` is a real-valued Bochner object that needs integrability side conditions and returns $0$ when they fail. The text restricts to $f \ge 0$ precisely so no such condition is needed. |
+| 8 | Testing the identity only at $A$ equal to the whole space. | That gives the marginal identity $\mathbb{E}f(\xi,\eta) = \mathbb{E}\int f(\xi,t)\mu(\xi,dt)$ and loses the conditioning entirely. |
+| 9 | Writing the inner integral against `κ s` for a free variable $s$ rather than against `κ (ξ ω)`. | The conditional distribution must be evaluated at the observed value of $\xi$; anything else is a different statement. |
+
+## Notes on the ground truth
+
+- Item (i) of the text, $\mathcal{L}(\eta \mid \xi) = \mu(\xi, \cdot)$ almost surely, is not stated
+  as its own clause. ⚠️ No content is lost, because it is the case
+  `f := fun _ t ↦ Set.indicator B 1 t` of the integration formula, but an explicit clause such as
+  `∀ B, MeasurableSet B → ∀ A, MeasurableSet A → μ (ξ ⁻¹' A ∩ η ⁻¹' B) = ∫⁻ ω in ξ ⁻¹' A, κ (ξ ω) B ∂μ`
+  would make the conditional-distribution reading visible on the page.
+- `IsMarkovKernel κ` also supplies the s-finiteness that keeps `⊗ₘ` from collapsing. Mathlib defines
+  the composition-product to be the zero measure when the kernel is not s-finite, so without some
+  finiteness assumption the factorization identity would not mean what it appears to.
+- All integrals are lower Lebesgue integrals valued in `ℝ≥0∞`, so they are defined for every
+  measurable non-negative integrand and no default value can arise.
+- Measurability of `ξ` matters twice: `μ.map ξ` is the zero measure for a non-measurable map, and
+  `ξ ⁻¹' A` has to be measurable for the restricted integrals to mean anything.

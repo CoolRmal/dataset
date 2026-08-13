@@ -2,14 +2,54 @@
 
 **Statement:** [folland_2_42_translation_continuity_lp.md](folland_2_42_translation_continuity_lp.md) · **Lean:** [folland_2_42_translation_continuity_lp.lean](folland_2_42_translation_continuity_lp.lean)
 
-A limit statement at the group identity, for **both** translations, and only for $p < \infty$ — the proposition is false for $p = \infty$ (translation is not continuous on $L^\infty$).
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+On a locally compact group $G$ with a left Haar measure, translating a function moves it only a
+little in $L^p$ provided the translation is by an element close to the identity. Precisely: fix
+$1 \le p < \infty$ and $f \in L^p(G)$. Write $L_yf(x) = f(y^{-1}x)$ and $R_yf(x) = f(xy)$. Then both
+$\lVert L_yf - f\rVert_p$ and $\lVert R_yf - f\rVert_p$ tend to $0$ as $y$ tends to the group identity.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Hypothesis completeness | `p ≠ ∞` is essential: on `L^∞` the translates of a characteristic function stay at distance `1`. | ✅ `hp' : p ≠ ∞`. ❗ Highest-value trap. |
-| 2 | Conclusion completeness | Both `L_y f → f` and `R_y f → f` are asserted. | ✅ A conjunction. ❗ Predicted error: only the left translate. |
-| 3 | Faithful encoding | "as `y → 1`" is the neighbourhood filter of the group identity, `𝓝 (1 : G)`, not `atTop` or a sequential limit. | ✅ `Tendsto … (𝓝 1) (𝓝 0)`. |
-| 4 | Faithful encoding | The quantity tending to `0` is the `𝓛ᵖ` seminorm of the difference, an `ℝ≥0∞`-valued function. | ✅ `eLpNorm (leftTranslate y f - f) p μ`; the target `𝓝 (0 : ℝ≥0∞)` is the correct ambient. |
-| 5 | Definition necessity | `leftTranslate`/`rightTranslate` are one-line notational definitions shared across four problems in this book; mathlib has no `L_y`/`R_y` for a general group acting on scalar functions. | ✅ Warranted, and used elsewhere in the book. |
+The restriction $p < \infty$ is essential. On $L^\infty$ the statement fails: the indicator of an
+interval stays at distance $1$ from all of its nontrivial translates.
+
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | $G$ is a locally compact topological group with its Borel structure, and $\mu$ is a left Haar measure. | ✅ `[IsTopologicalGroup G] [LocallyCompactSpace G] [BorelSpace G]`, `(μ : Measure G) [μ.IsHaarMeasure]`. |
+| 2 | The exponent satisfies $1 \le p$. | ✅ `hp : 1 ≤ p`. |
+| 3 | The exponent is finite. | ✅ `hp' : p ≠ ∞`. |
+| 4 | $f$ lies in $L^p$. | ✅ `hf : MemLp f p μ`. |
+| 5 | The left translate is $L_yf(x) = f(y^{-1}x)$. | ✅ `leftTranslate y f`, defined in `Defs.lean` as `fun x ↦ f (y⁻¹ * x)`. |
+| 6 | The right translate is $R_yf(x) = f(xy)$. | ✅ `rightTranslate y f`, defined as `fun x ↦ f (x * y)`. |
+| 7 | Both limits are asserted. | ✅ A conjunction of two `Tendsto` statements. |
+| 8 | The limit is taken as $y$ approaches the group identity, along the whole neighbourhood filter. | ✅ `Tendsto … (𝓝 (1 : G)) …`. |
+| 9 | The quantity going to zero is the $L^p$ seminorm of the difference, and its limit is $0$. | ✅ `fun y ↦ eLpNorm (leftTranslate y f - f) p μ` tending to `𝓝 0`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Allowing $p = \infty$. | The proposition is false there. On $\mathbb{R}$ with $f$ the indicator of $[0,1]$, $\lVert L_yf - f\rVert_\infty = 1$ for every $y \ne 0$, however small. This is the highest-value trap. |
+| 2 | Asserting only the left-translation limit. | Half the proposition. The right-translate case is not a formal consequence, because the Haar measure is only left invariant and the modular function enters the proof. |
+| 3 | Taking the limit along a sequence $y_n \to 1$, or along `atTop`, instead of the neighbourhood filter of $1$. | On a general topological group the filter $\mathcal{N}(1)$ need not be countably generated, so a sequential limit is a strictly weaker statement. |
+| 4 | Restricting $f$ to be continuous with compact support. | That is the easy case and is the first step of the actual proof. The proposition is about all of $L^p$. |
+| 5 | Concluding pointwise or almost-everywhere convergence $L_yf \to f$ instead of convergence in the $L^p$ norm. | A different, and generally false, statement: an $L^p$ function has no pointwise regularity at all. |
+| 6 | Using an arbitrary measure instead of a Haar measure. | Without invariance, translating can change the norm by an arbitrary amount and the limit need not exist. |
+| 7 | Stating that the limit exists, or that $y \mapsto \lVert L_yf - f\rVert_p$ is continuous, without saying the limit is $0$. | The value of the limit is the whole content. |
+
+## Notes on the ground truth
+
+- `leftTranslate` and `rightTranslate` are one-line definitions in `Defs.lean`, shared by four
+  problems in this book. Mathlib has no $L_y$/$R_y$ for scalar functions on a general group, so
+  defining them is warranted rather than a pointless wrapper.
+- `eLpNorm` is `ℝ≥0∞`-valued, so the target of the limit is `𝓝 (0 : ℝ≥0∞)`. Nothing in the statement
+  presupposes that the seminorm is finite, although `hf` makes it so.
+- `leftTranslate y f - f` is pointwise subtraction of functions `G → ℂ`, which is what the book's
+  $L_yf - f$ means.

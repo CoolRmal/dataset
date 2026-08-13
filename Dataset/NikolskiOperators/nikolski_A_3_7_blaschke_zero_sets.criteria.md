@@ -2,17 +2,71 @@
 
 **Statement:** [nikolski_A_3_7_blaschke_zero_sets.md](nikolski_A_3_7_blaschke_zero_sets.md) · **Lean:** [nikolski_A_3_7_blaschke_zero_sets.lean](nikolski_A_3_7_blaschke_zero_sets.lean)
 
-A faithful formalization must capture both halves of the transcribed material: 3.7.1, that the zero sequence of a nonzero function with bounded logarithmic means (in particular of a nonzero $f \in H^p$) satisfies $\sum_{n\ge1}(1-\lvert\lambda_n\rvert) < \infty$, and 3.7.3, that conversely a Blaschke sequence is realized — by an explicit convergent product $B = \prod b_{\lambda_n}$ with $\lvert B\rvert \le 1$ on $\mathbb{D}$ and $\lvert B\rvert = 1$ a.e. on $\mathbb{T}$ — whose zeros are exactly $(\lambda_n)$ *counting multiplicities*. The entire difficulty is multiplicity bookkeeping: "each zero repeated according to its multiplicity" must be an actual equality between the number of indices hitting a point and the order of vanishing there, and the sequence type `ℕ → ℂ` silently forces the zero set to be infinite.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Let $(\lambda_n)$ be a sequence of points of the open unit disc. If some function that is analytic
+on the disc, is not identically zero, and has bounded logarithmic means — in particular any nonzero
+function in a Hardy class $H^p$ — has exactly these points as its zeros, each repeated as often as
+its multiplicity, then $\sum_n (1 - \lvert\lambda_n\rvert)$ converges. This is the Blaschke
+condition. Conversely, any sequence satisfying it is realized: the Blaschke product
+$B = \prod_n b_{\lambda_n}$ converges locally uniformly on the disc, satisfies
+$\lvert B\rvert \le 1$ there and $\lvert B\rvert = 1$ almost everywhere on the circle, and has
+exactly those zeros with those multiplicities.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Faithful encoding (multiplicity) | "Each zero is repeated according to its multiplicity" must be encoded, not merely "each $\lambda_n$ is a zero". The honest form: for every $z$ in the disc, $\#\{n : \lambda_n = z\}$ equals the order of vanishing of $f$ at $z$. | ✅ `HasZeroSequence f a` requires `{n \| a n = z}.Finite` and `∃ k, (∀ j < k, iteratedDeriv j f z = 0) ∧ iteratedDeriv k f z ≠ 0 ∧ {n \| a n = z}.ncard = k` for **every** `z ∈ ball 0 1` — which simultaneously encodes multiplicity and the "these are *all* the zeros" clause (for a non-zero $z$, $k = 0$ forces the fibre to be empty). The `Finite` conjunct is essential since `Set.ncard` of an infinite set is `0`. ❗ Trap: `∀ n, f (a n) = 0` with no multiplicity or exhaustiveness. |
-| 2 | Faithful encoding (order of vanishing) | `iteratedDeriv` is built from the *global* `deriv`, which is junk `0` wherever `f` is not differentiable. Using it is only legitimate because `Metric.ball 0 1` is open, so `DifferentiableOn ℂ f (ball 0 1)` upgrades to `DifferentiableAt` at each interior point and all iterates agree with the analytic derivatives there. | ✅ Sound as written. ⚠️ `AnalyticAt.order` (mathlib's `ℕ∞`-valued order of vanishing) would state "multiplicity" directly and avoid relying on the openness argument. |
-| 3 | Scope / hidden restriction | `a : ℕ → ℂ` with all values in the disc cannot enumerate a *finite* zero multiset: $\mathbb{N} = \bigcup_{z} \{n : a_n = z\}$ would then be a finite union of finite sets. So `HasZeroSequence f a` is unsatisfiable whenever $f$ has finitely many zeros (in particular for zero-free $f$), and `BlaschkeCondition a` likewise forces $\lvert a_n\rvert \to 1$. | ⚠️ Both sides of the `↔` therefore silently exclude the finitely-many-zeros case, so the theorem is true but covers only infinite zero sequences — whereas 3.7.1/3.7.3 apply to any zero sequence. A faithful version would index by an arbitrary countable type, or use a multiset/`ℕ → ℂ` with a "no more zeros" sentinel. |
-| 4 | Conclusion completeness | The transcribed material asserts far more in the converse direction than "some function has these zeros": the product $\prod_{n\ge1} b_{\lambda_n}$ converges locally uniformly on $\mathbb{D}$ (and off $\operatorname{clos}\{1/\lambda_n\}$), $\lvert B\rvert \le 1$ on $\mathbb{D}$, $\lvert B\rvert = 1$ a.e. on $\mathbb{T}$ (i.e. $B$ is inner), and its zeros are exactly $(\lambda_n)$. | ❗ The ground truth's right-to-left direction produces only `∃ f, HardyClass p f ∧ (∃ z ∈ ball, f z ≠ 0) ∧ HasZeroSequence f a`. The explicit Blaschke product, its local uniform convergence, the bound $\lvert B\rvert \le 1$ and innerness are all dropped. `FiniteBlaschkeProductDegreeLE` and `InnerFunction` exist in `Defs.lean`, so an infinite-product version was expressible. |
-| 5 | Hypothesis completeness | 3.7.1's hypothesis is the weak one — $f \in \operatorname{Hol}(\mathbb{D})$, $f \ne 0$, with $\lim_{r\to1}\int_{\mathbb{T}}\log\lvert f_r\rvert\,dm < \infty$ — and membership in $H^p$ is only the "in particular". A formalization stating just the $H^p$ case proves the corollary, not the lemma. | ⚠️ The ground truth uses `HardyClass p f`, i.e. only the "in particular" case. Acceptable (it is what makes the converse an `↔`), but weaker than 3.7.1. |
-| 6 | Hypothesis completeness ($p \ne 0$) | Without `p ≠ 0` the left side collapses: mathlib's `eLpNorm f 0 μ = 0`, so `HardyClass 0 f` is just "analytic on the disc", and the forward implication becomes false (a nonzero holomorphic function on $\mathbb{D}$ may have a non-Blaschke zero sequence). | ✅ `hp : p ≠ 0` present. ❗ Trap: omitting it, which makes the `↔` false. |
-| 7 | Conclusion completeness (both directions) | The material is genuinely two-directional (3.7.1 gives ⟹, 3.7.3 gives ⟸) and both must be present; a one-directional statement is materially weaker. | ✅ Stated as a single `↔` between "`a` is the zero sequence of some nonzero $H^p$ function" and `BlaschkeCondition a`. |
-| 8 | Faithful encoding (Blaschke condition) | $\sum_{n\ge1}(1-\lvert\lambda_n\rvert) < \infty$ together with $\lambda_n \in \mathbb{D}$; note the summands are automatically positive, so `Summable` (unconditional in `ℝ`) is exactly the book's condition. | ✅ `BlaschkeCondition a` is `(∀ n, a n ∈ Metric.ball 0 1) ∧ Summable (fun n ↦ 1 - ‖a n‖)`. ❗ Trap: `∑' n, (1 - ‖a n‖) < ∞` written with `tsum`, which is junk-`0` for non-summable families and would be trivially satisfied. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The exponent is not $0$. | ✅ `hp : p ≠ 0`. |
+| 2 | The points $\lambda_n$ lie in the open unit disc. | ✅ First conjunct of `BlaschkeCondition a`, and again inside `HasZeroSequence f a`. |
+| 3 | The Blaschke condition is the convergence of $\sum_n (1 - \lvert\lambda_n\rvert)$. | ✅ `Summable (fun n : ℕ ↦ 1 - ‖a n‖)`. |
+| 4 | The function is in a Hardy class. | ✅ `HardyClass p f`. |
+| 5 | The function is not identically zero on the disc. | ✅ `∃ z ∈ Metric.ball (0 : ℂ) 1, f z ≠ 0`. |
+| 6 | Zeros are counted with multiplicity: for each point $z$ of the disc, the number of indices $n$ with $\lambda_n = z$ equals the order of vanishing of $f$ at $z$. | ✅ `HasZeroSequence f a` asks for `∃ k, (∀ j < k, iteratedDeriv j f z = 0) ∧ iteratedDeriv k f z ≠ 0 ∧ {n \| a n = z}.ncard = k`. |
+| 7 | Each such fibre is finite, so that counting is meaningful. | ✅ `{n \| a n = z}.Finite`, a separate conjunct of `HasZeroSequence`. |
+| 8 | The sequence lists *all* the zeros, not merely some of them. | ✅ The multiplicity clause is quantified over **every** `z ∈ Metric.ball (0 : ℂ) 1`; at a point where $f$ does not vanish, $k = 0$ forces the fibre to be empty. |
+| 9 | Both directions are asserted. | ✅ A single `↔` between "some nonzero $H^p$ function has `a` as its zero sequence" and `BlaschkeCondition a`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Encoding "zero sequence" as `∀ n, f (a n) = 0`. | That says only that each listed point is a zero. It records no multiplicity and does not say the list is complete, so a function with extra zeros or with a higher-order zero would qualify and the forward implication would be about the wrong object. |
+| 2 | Using `Set.ncard` for the multiplicity without also asserting the fibre is finite. | `Set.ncard` of an infinite set is $0$ in Lean, so an infinitely repeated point would report multiplicity $0$ and pass the check. |
+| 3 | Writing the Blaschke condition as `∑' n, (1 - ‖a n‖) < ∞` with `tsum`. | Lean gives a non-summable family the sum $0$, so this inequality would hold for free and the condition would be no condition at all. |
+| 4 | Omitting $p \ne 0$. | `eLpNorm f 0 μ = 0` in Lean, so `HardyClass 0 f` reduces to "analytic on the disc". A nonzero analytic function on the disc can have a zero sequence that is not Blaschke, so the forward direction becomes false. |
+| 5 | Dropping the hypothesis that the function is not identically zero. | The zero function vanishes at every point to infinite order, so any sequence at all would be its zero sequence and the forward direction fails. |
+| 6 | Stating only one implication. | The material is genuinely two-directional: 3.7.1 gives one way, 3.7.3 the other, and each is a separate theorem. |
+| 7 | Allowing $\lvert\lambda_n\rvert = 1$ (points on the circle). | The Blaschke sum is then meaningless as a condition on interior zeros, and the zeros of an analytic function on the open disc are interior points. |
+
+## Notes on the ground truth
+
+- `iteratedDeriv` is built from Lean's global `deriv`, which returns $0$ wherever the function is
+  not differentiable. Using it for the order of vanishing is legitimate here only because
+  `Metric.ball 0 1` is open, so `DifferentiableOn ℂ f (ball 0 1)` gives differentiability at every
+  interior point and the iterated derivatives agree with the analytic ones. Mathlib's
+  `AnalyticAt.order` would state "multiplicity" directly and avoid relying on that argument.
+- Honest limitation: a sequence of type `ℕ → ℂ` cannot enumerate a *finite* zero multiset, because
+  $\mathbb{N}$ would then be a finite union of finite fibres. So `HasZeroSequence f a` is
+  unsatisfiable when $f$ has finitely many zeros, and `BlaschkeCondition a` forces
+  $\lvert a_n\rvert \to 1$. The theorem as stated is true, but it silently covers only infinite
+  zero sequences, whereas the book covers any zero sequence. Indexing by an arbitrary countable
+  type, or allowing a sentinel for "no further zeros", would fix this.
+- The reverse direction only produces *some* nonzero $H^p$ function with those zeros. The extra
+  content of 3.7.3 — the explicit product $B = \prod_n b_{\lambda_n}$, its uniform convergence on
+  compact subsets of the disc and of $\mathbb{C}\setminus\operatorname{clos}\{1/\lambda_n\}$, the
+  bound $\lvert B\rvert \le 1$ on the disc, and $\lvert B\rvert = 1$ almost everywhere on the
+  circle — is not stated. `FiniteBlaschkeProductDegreeLE` and `InnerFunction` in `Defs.lean` show
+  an infinite-product version was within reach.
+- The hypothesis of 3.7.1 is weaker than membership in $H^p$: it asks only that
+  $\lim_{r\to1}\int_{\mathbb{T}}\log\lvert f_r\rvert\,dm$ be finite, with $H^p$ appearing as the
+  "in particular". The ground truth uses `HardyClass p f`, i.e. the special case, which is what
+  makes the two directions combine into a single `↔`.
+- The summands $1 - \lvert\lambda_n\rvert$ are nonnegative, so `Summable` (which is unconditional
+  convergence) is exactly the printed condition.

@@ -2,16 +2,52 @@
 
 **Statement:** [lee_10_11_whitney_embedding_theorem.md](lee_10_11_whitney_embedding_theorem.md) · **Lean:** [lee_10_11_whitney_embedding_theorem.lean](lee_10_11_whitney_embedding_theorem.lean)
 
-A faithful formalization must produce a **single** map $F \colon M \to \mathbb{R}^{2m+1}$ that is at once smooth, an immersion, a topological embedding, and proper — with the target dimension *fixed* at $2m+1$, since an existentially quantified dimension is a strictly weaker statement (and is already in Mathlib for compact $M$). It must also pin down "smooth manifold" in Lee's sense: Hausdorff **and** second countable. Both are load-bearing here in a way they are not for the local theorems of this book — the line with two origins is a `ChartedSpace ℝ` with a smooth atlas and embeds in no Hausdorff space at all, and an uncountable discrete union of lines is Hausdorff but embeds in no $\mathbb{R}^N$. The subtle gap to watch is that Mathlib's `IsEmbedding` is purely topological, so "smooth embedding" needs the immersion clause added by hand.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Every smooth manifold of dimension $m$ sits inside $\mathbb{R}^{2m+1}$ as a smoothly embedded copy
+of itself, and can be placed there properly — meaning the preimage of every compact set is compact,
+so the copy does not run off to infinity inside a bounded region. "Smooth embedding" means the map
+is smooth, is an immersion (its differential is injective at every point), and is a homeomorphism
+onto its image. The target dimension $2m+1$ is part of the statement.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Conclusion completeness | Lee's "smooth embedding" = smooth **immersion** that is also a topological embedding. `IsEmbedding F ∧ ContMDiff … ∞ F` does not imply immersion: $t \mapsto t^3$ is a smooth homeomorphism $\mathbb{R} \to \mathbb{R}$ whose differential vanishes at $0$. | ⚠️ Genuine gap: `Manifold.IsImmersion 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin (2 * m + 1) → ℝ) ∞ F` is missing, so the stated conclusion is strictly weaker than the theorem. `Mathlib.Geometry.Manifold.Immersion` is already imported by the file, so adding the conjunct costs nothing. A candidate that includes it is *better* than the ground truth. |
-| 2 | Conclusion completeness | "**proper** smooth embedding": `IsProperMap F`. Without it the theorem is the weaker "every smooth $n$-manifold embeds in $\mathbb{R}^{2n+1}$". | ✅ `IsProperMap F` is the first conjunct. Mathlib's `IsProperMap` is universal closedness, which for these spaces coincides with "preimages of compacts are compact". |
-| 3 | Conclusion completeness | The target dimension must be exactly $2m+1$ where $m = \dim M$. | ✅ `F : M → (Fin (2 * m + 1) → ℝ)`. ❗ Predicted error: `∃ N, ∃ F : M → (Fin N → ℝ), …`. That is Mathlib's `exists_embedding_euclidean_of_compact` — a strictly weaker statement that discards the entire quantitative content of Whitney's theorem. |
-| 4 | Hypothesis completeness | Lee's smooth manifold is Hausdorff and second countable. Mathlib carries these separately, and both are essential: without `[T2Space M]` the doubled line is a counterexample; without a countability assumption an uncountable discrete union of copies of $\mathbb{R}^m$ is. | ✅ `[T2Space M]` and `[SigmaCompactSpace M]`. For a locally Euclidean Hausdorff space σ-compactness and second countability are equivalent, so this is a faithful rendering. ❗ Predicted error: dropping either typeclass, which makes the statement false. |
-| 5 | Quantifier structure | One $F$ carrying all the properties, not several separate existence claims. | ✅ A single `∃ F : M → (Fin (2 * m + 1) → ℝ)` with a conjunction of the properties. |
-| 6 | Faithful encoding | The typeclass stack must say "smooth $m$-manifold without boundary": `[ChartedSpace (Fin m → ℝ) M]` + `[IsManifold 𝓘(ℝ, Fin m → ℝ) ∞ M]` gives model dimension $m$, boundaryless model (`𝓘(ℝ, ·)` rather than `modelWithCornersEuclideanHalfSpace`) and $C^\infty$ transitions. Whitney's theorem in this form is for manifolds without boundary. | ✅ ⚠️ `Fin m → ℝ` rather than the usual `EuclideanSpace ℝ (Fin m)` is off-convention but immaterial for an embedding statement (the two are linearly homeomorphic, hence diffeomorphic). |
-| 7 | Mathlib conventions | Names: `Topology.IsEmbedding` (available unqualified via `open Topology`) is the current spelling of a topological embedding; `ContMDiff I I' ∞` with the `Manifold`/`ContDiff` scoped `∞` is $C^\infty$ (not `ω`), which is the right smoothness class here. | ✅ Both used correctly; note the contrast with the Euclidean files of this book, where `⊤` is used and elaborates to `ω`. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | $M$ is a smooth manifold of dimension exactly $m$, without boundary. | ✅ `[ChartedSpace (Fin m → ℝ) M]` and `[IsManifold 𝓘(ℝ, Fin m → ℝ) ∞ M]`. The model `𝓘(ℝ, ·)` is boundaryless (as opposed to `modelWithCornersEuclideanHalfSpace`) and `∞` gives $C^\infty$ transitions. |
+| 2 | $M$ is Hausdorff. | ✅ `[T2Space M]`. |
+| 3 | $M$ satisfies Lee's countability requirement. | ✅ `[SigmaCompactSpace M]`. For a locally Euclidean Hausdorff space, $\sigma$-compactness and second countability are equivalent, so this is a faithful rendering. |
+| 4 | The conclusion produces a single map $F$ carrying all the required properties at once, not several unrelated existence claims. | ✅ One `∃ F : M → (Fin (2 * m + 1) → ℝ)` followed by a conjunction. |
+| 5 | The target dimension is exactly $2m+1$. | ✅ `F : M → (Fin (2 * m + 1) → ℝ)`, with the dimension written out rather than existentially quantified. |
+| 6 | $F$ is smooth. | ✅ `ContMDiff 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin (2 * m + 1) → ℝ) ∞ F`. |
+| 7 | $F$ is a topological embedding: injective, and a homeomorphism onto its image. | ✅ `IsEmbedding F` (the `Topology.IsEmbedding` spelling, available via `open Topology`). |
+| 8 | $F$ is proper. | ✅ `IsProperMap F`. Mathlib's `IsProperMap` is universal closedness, which for these spaces is the same as "preimages of compact sets are compact". |
+| 9 | $F$ is an **immersion**: its differential is injective at every point. | ⚠️ Missing. `IsEmbedding F ∧ ContMDiff … ∞ F` does not imply it. `Manifold.IsImmersion 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin (2 * m + 1) → ℝ) ∞ F` should be a fourth conjunct; the file already imports `Mathlib.Geometry.Manifold.Immersion`, so adding it costs nothing. A candidate that includes it is *better* than our statement. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Treating "smooth embedding" as "smooth + topological embedding" and stopping there. | That is not an embedding of smooth manifolds. The map $t \mapsto t^3$ is a smooth homeomorphism $\mathbb{R} \to \mathbb{R}$ whose derivative vanishes at $0$, so its image is not smoothly parametrised. The immersion clause is what rules this out. |
+| 2 | Existentially quantifying the target dimension: `∃ N, ∃ F : M → (Fin N → ℝ), …`. | Strictly weaker, and it throws away all the quantitative content. Mathlib already has that weaker form for compact $M$ (`exists_embedding_euclidean_of_compact`). |
+| 3 | Dropping `IsProperMap F`. | Leaves the weaker claim "every smooth $m$-manifold embeds in $\mathbb{R}^{2m+1}$". Lee's theorem asserts a *proper* embedding, which is what makes the image closed. |
+| 4 | Dropping `[T2Space M]`. | The statement becomes false: the line with two origins is a `ChartedSpace (Fin 1 → ℝ)` with a smooth atlas, and it embeds into no Hausdorff space at all. |
+| 5 | Dropping the countability assumption. | Also false: an uncountable disjoint union of copies of $\mathbb{R}^m$ is Hausdorff, locally Euclidean and smooth, but $\mathbb{R}^{2m+1}$ is second countable so no injection of it can be an embedding. |
+| 6 | Using a model with corners for a manifold with boundary. | Whitney's theorem in this form is stated for manifolds without boundary; changing the model changes the theorem. |
+
+## Notes on the ground truth
+
+- ⚠️ The immersion conjunct is genuinely absent (requirement row 9), so our conclusion is weaker than
+  the printed theorem. This is the one substantive gap in this file.
+- The model space is `Fin m → ℝ` (sup norm) rather than Mathlib's usual `EuclideanSpace ℝ (Fin m)`.
+  The two are linearly homeomorphic, hence diffeomorphic, so nothing in an embedding statement
+  changes; it is off-convention only.
+- `ContMDiff I I' ∞` with the scoped `∞` really is $C^\infty$. Contrast the Euclidean files of this
+  book, where `⊤` under `open scoped ContDiff` would elaborate to `ω`, real-analytic.
+- This file does not import `Defs.lean`; everything it needs is in Mathlib.

@@ -1,20 +1,63 @@
 # Criteria: mattila_18_1_besicovitch_federer_projection
 
-> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
-
 **Statement:** [mattila_18_1_besicovitch_federer_projection.md](mattila_18_1_besicovitch_federer_projection.md) · **Lean:** [mattila_18_1_besicovitch_federer_projection.lean](mattila_18_1_besicovitch_federer_projection.lean)
 
-A faithful formalization must state **two** biconditionals — rectifiability of $A$ against "every measurable subset of positive measure projects to positive measure for $\gamma_{n,m}$-a.e. $V$", and pure unrectifiability against "$\mathcal H^m(P_V A) = 0$ for $\gamma_{n,m}$-a.e. $V$" — over an $\mathcal H^m$ measurable $A$ of finite measure. The delicate points are the nesting of the "for a.e. $V$" quantifier inside the "whenever $B$" quantifier in part (1) (swapping them gives a strictly stronger, false statement), and whether $\gamma_{n,m}$ is genuinely determined: an "orthogonally invariant probability measure" is unique on $G(n,m)$ only once the measurable structure is fixed.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Let $A \subset \mathbb{R}^n$ be measurable with $\mathcal{H}^m(A) < \infty$. The Besicovitch–Federer
+theorem characterizes rectifiability by how $A$ looks after projection onto $m$-dimensional
+subspaces, averaged over the Grassmannian $G(n,m)$ with its rotation-invariant probability measure
+$\gamma_{n,m}$. Part (1): $A$ is $m$-rectifiable — covered up to a null set by countably many
+Lipschitz images of $\mathbb{R}^m$ — exactly when every measurable subset of $A$ of positive measure
+projects onto a set of positive $\mathcal{H}^m$ measure for almost every subspace. Part (2): $A$ is
+purely $m$-unrectifiable — it meets every rectifiable set in a null set — exactly when $A$ itself
+projects onto a null set for almost every subspace. So rectifiable sets cast big shadows in almost
+all directions, and purely unrectifiable ones cast invisible shadows in almost all directions.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Semantic closeness / a.e. quantifier | `IsInvariantGrassmannianMeasure γ` (a probability measure invariant under all linear isometries of $\mathbb{R}^n$) does characterize $\gamma_{n,m}$ — but only relative to the Borel σ-algebra of the natural compact topology on $G(n,m)$. | ❗ `[MeasurableSpace (Grassmannian n m)]` is an unconstrained instance argument, so the theorem is asserted for every measurable structure. With `⊥`, `Measure.dirac V₀` satisfies `IsInvariantGrassmannianMeasure` and `∀ᵐ V ∂γ` collapses to `∀ V` (both verified in Lean); part (1)'s ⟹ direction then already fails for $A$ a segment in $\mathbb{R}^2$ projected onto the orthogonal line. Genuine defect of the scaffolding, not of the statement's shape. |
-| 2 | Semantic closeness / quantifier order | In part (1) the a.e.-$V$ quantifier is **inside** the "whenever $B \subseteq A$" quantifier: `∀ B, MeasurableSet B → B ⊆ A → 0 < μH[m] B → ∀ᵐ V ∂γ, 0 < μH[m] (P_V '' B)`. Pulling `∀ᵐ V` outside would demand a single full-measure set of directions working for all $B$ simultaneously — strictly stronger and false. | ✅ Correct nesting. ❗ Predicted error: `∀ᵐ V ∂γ, ∀ B, …`. |
-| 3 | Faithful encoding | $P_V$ is the orthogonal projection onto $V$; the image $P_V B$ is a subset of $V$ and $\mathcal H^m$ is its $m$-dimensional Hausdorff measure. `Submodule.orthogonalProjectionOnto : E →L[ℝ] ↥V.1` lands in the subtype, so `μH[(m:ℝ)]` is computed *inside* $V$ — which agrees with the ambient value because $V \hookrightarrow \mathbb{R}^n$ is isometric. Images of measurable sets under projections need not be Borel, and `μH[·]` is an outer measure on all sets, so no measurability side condition is needed. | ✅ `μH[(m:ℝ)] ((fun x ↦ V.1.orthogonalProjectionOnto x) '' B)`. ❗ Predicted error: wrapping the image in `toMeasurable` or asserting `MeasurableSet (P_V '' B)`. |
-| 4 | Faithful encoding | The two custom notions must match Definition 15.3 exactly: `RectifiableSet n m E := ∃ f : ℕ → ℝᵐ → ℝⁿ, (∀ j, ∃ K, LipschitzWith K (f j)) ∧ μH[(m:ℝ)] (E \ ⋃ j, range (f j)) = 0`, and `PurelyUnrectifiableSet n m A := ∀ E, RectifiableSet n m E → μH[(m:ℝ)] (A ∩ E) = 0`. Note each $f_i$ carries its own Lipschitz constant, and the covering is by the *ranges* $f_i(\mathbb{R}^m)$, not by images of bounded pieces. | ✅ Both definitions match clause by clause. ❗ Predicted error: requiring a *single* Lipschitz constant for the whole family, or requiring $E \subseteq \bigcup_i f_i(\mathbb{R}^m)$ exactly rather than up to an $\mathcal H^m$-null set. |
-| 5 | Semantic closeness | "$\mathcal H^m$ measurable" — for both `A` and the subsets `B` — is Carathéodory measurability for the outer measure $\mathcal H^m$, i.e. `NullMeasurableSet · μH[(m:ℝ)]`. Borel `MeasurableSet` is strictly stronger: on `A` it weakens the theorem, and on `B` it restricts the family of test sets in part (1), weakening ⟹ and strengthening ⟸. | ⚠️ Ground truth uses `MeasurableSet` throughout; `NullMeasurableSet · μH[(m:ℝ)]` would be the literal rendering. |
-| 6 | Conclusion completeness | Both biconditionals must be present, with both directions each. The pair is not redundant: (2) is not the formal negation of (1). | ✅ A conjunction of two `↔`s. ❗ Predicted error: keeping only the "rectifiable ⟹ projections have positive measure" half, or collapsing (1) and (2) into a single dichotomy (which additionally needs the decomposition theorem). |
-| 7 | Hypothesis completeness | `μH[(m:ℝ)] A < ∞` is essential to both parts. The ground truth also adds `0 < m` and `m < n`, which the text does not state. | ✅ `hAfin` present. ⚠️ `hm : 0 < m` and `hmn : m < n` exclude the degenerate cases $m = 0$ and $m = n$ that the text nominally covers (at $m = n$, $G(n,n)$ is a point and $P_V = \mathrm{id}$); harmless but a narrowing. |
-| 8 | Junk values / conventions | The Hausdorff exponent must be the real cast `(m : ℝ)` of the natural number `m`; the comparisons `0 < μH[(m:ℝ)] B` and `μH[(m:ℝ)] (…) = 0` are in `ℝ≥0∞`, where they are equivalent to `≠ 0` and are the right junk-free formulations for a possibly infinite measure. | ✅ Consistent `(m : ℝ)` casts and `ℝ≥0∞` comparisons throughout. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The Grassmannian must carry a fixed measurable structure, so that "for $\gamma_{n,m}$ almost all $V$" is determined. | ✅ `Defs.lean` gives `Grassmannian n m` the topology induced by the projection operators, then its Borel $\sigma$-algebra and a `BorelSpace` instance. |
+| 2 | $\gamma_{n,m}$ is a probability measure invariant under every linear isometry of $\mathbb{R}^n$. | ✅ `γ : Measure (Grassmannian n m)` with `hγ : IsInvariantGrassmannianMeasure γ`. |
+| 3 | $A$ is $\mathcal{H}^m$ measurable with $\mathcal{H}^m(A) < \infty$. | ✅ `hA : MeasurableSet A`, `hAfin : μH[(m : ℝ)] A < ∞`. ⚠️ The book's "$\mathcal{H}^m$ measurable" is Carathéodory measurability, `NullMeasurableSet A μH[(m:ℝ)]`; Borel `MeasurableSet` is stronger and so gives a slightly weaker theorem. |
+| 4 | Part (1) is a biconditional between rectifiability of $A$ and the projection condition, with the "for almost every $V$" quantifier **inside** the "for every subset $B$" quantifier. | ✅ `RectifiableSet n m A ↔ ∀ B, MeasurableSet B → B ⊆ A → 0 < μH[(m:ℝ)] B → ∀ᵐ V ∂γ, 0 < μH[(m:ℝ)] (P_V '' B)`. |
+| 5 | The test sets $B$ in part (1) are the measurable subsets of $A$ with positive $\mathcal{H}^m$ measure. | ✅ All three conditions appear as hypotheses of the inner implication. |
+| 6 | Part (2) is a biconditional between pure unrectifiability of $A$ and $\mathcal{H}^m(P_V A) = 0$ for almost every $V$. | ✅ `PurelyUnrectifiableSet n m A ↔ ∀ᵐ V ∂γ, μH[(m:ℝ)] (P_V '' A) = 0`. |
+| 7 | Rectifiability (15.3): countably many Lipschitz maps $\mathbb{R}^m \to \mathbb{R}^n$, each with its own constant, covering the set up to an $\mathcal{H}^m$-null set. | ✅ `RectifiableSet n m E = ∃ f : ℕ → …, (∀ j, ∃ K : ℝ≥0, LipschitzWith K (f j)) ∧ μH[(m:ℝ)] (E \ ⋃ j, range (f j)) = 0`. |
+| 8 | Pure unrectifiability: the set meets **every** $m$-rectifiable set in an $\mathcal{H}^m$-null set. | ✅ `PurelyUnrectifiableSet n m A = ∀ E, RectifiableSet n m E → μH[(m:ℝ)] (A ∩ E) = 0`. |
+| 9 | $P_V$ is the orthogonal projection onto $V$, and $\mathcal{H}^m$ of the image is measured inside $V$. | ✅ `(fun x ↦ V.1.orthogonalProjectionOnto x) '' B`, where `Submodule.orthogonalProjectionOnto : E →L[ℝ] ↥V.1` lands in the subtype; the value agrees with the ambient one because the inclusion of $V$ is an isometry. |
+| 10 | Both biconditionals, in both directions, are asserted. | ✅ A conjunction of two `↔`s. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Leaving the $\sigma$-algebra on $G(n,m)$ as an unconstrained instance argument. | Invariance plus total mass $1$ characterizes $\gamma_{n,m}$ only relative to the Borel structure of its natural topology. With the trivial $\sigma$-algebra a Dirac measure qualifies, "for a.e. $V$" collapses to "for all $V$", and part (1)'s forward direction already fails for a line segment in $\mathbb{R}^2$ projected onto the orthogonal line. |
+| 2 | Writing `∀ᵐ V ∂γ, ∀ B, …` in part (1). | That demands one full-measure set of directions that works for all subsets $B$ simultaneously — strictly stronger than the theorem, and false. |
+| 3 | Asserting `MeasurableSet (P_V '' B)`, or wrapping the image in `toMeasurable`. | Projections of measurable sets need not be Borel. `μH[·]` is an outer measure defined on all sets, so no measurability of the image is needed, and assuming it is unjustified. |
+| 4 | Requiring one Lipschitz constant for the whole family in the definition of rectifiability, or requiring exact containment $E \subseteq \bigcup_i f_i(\mathbb{R}^m)$. | Definition 15.3 gives each map its own constant and only asks for containment up to an $\mathcal{H}^m$-null set. Either change alters which sets count as rectifiable. |
+| 5 | Keeping only "rectifiable $\Rightarrow$ projections have positive measure". | Both directions of both biconditionals are part of 18.1, and the reverse implications are the hard ones. |
+| 6 | Collapsing parts (1) and (2) into a single dichotomy. | Part (2) is not the formal negation of part (1); the dichotomy additionally needs the decomposition theorem, which is a separate result. |
+| 7 | Dropping $\mathcal{H}^m(A) < \infty$. | Both parts need it; the projection characterization fails for sets of infinite measure. |
+
+## Notes on the ground truth
+
+- An earlier version left the measurable structure on the Grassmannian as an unconstrained instance
+  argument; that defect has been repaired in `Defs.lean` and survives above as Mistake 1.
+- ⚠️ `MeasurableSet` is used both for $A$ and for the test sets $B$, where the book means
+  $\mathcal{H}^m$ measurability. On $A$ this weakens the theorem; on $B$ it shrinks the family of
+  test sets, which weakens the forward direction of part (1) and strengthens the reverse one.
+  `NullMeasurableSet · μH[(m:ℝ)]` would be the literal rendering.
+- ⚠️ `hm : 0 < m` and `hmn : m < n` are our additions. They exclude the degenerate cases the text
+  nominally covers: at $m = n$ the Grassmannian is a single point and $P_V$ is the identity. Harmless
+  but a narrowing.
+- The Hausdorff exponent is the real cast `(m : ℝ)` of the natural number `m` throughout, and the
+  comparisons `0 < μH[(m:ℝ)] B` and `μH[(m:ℝ)] (…) = 0` are made in `ℝ≥0∞`, where they are the right
+  junk-free readings for a possibly infinite measure.

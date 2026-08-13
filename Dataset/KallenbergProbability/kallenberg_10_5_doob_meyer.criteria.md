@@ -1,20 +1,70 @@
 # Criteria: kallenberg_10_5_doob_meyer
 
-> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
-
 **Statement:** [kallenberg_10_5_doob_meyer.md](kallenberg_10_5_doob_meyer.md) · **Lean:** [kallenberg_10_5_doob_meyer.lean](kallenberg_10_5_doob_meyer.lean)
 
-The Doob–Meyer theorem is an equivalence — local submartingale $\iff$ decomposable as local martingale plus locally integrable increasing predictable process starting at $0$ — together with a.s. uniqueness of the two components. Everything here is *local*: using mathlib's `Submartingale`/`Martingale` in place of the localized notions would state a different (much weaker, classical) theorem. The clause that carries the entire uniqueness content is **predictability** of $A$: with merely adapted $A$ the decomposition exists but is wildly non-unique in continuous time, so a candidate that writes `Adapted ℱ A` has broken the theorem. The remaining fidelity question is the strength of "a.s. unique": for right-continuous processes Kallenberg means indistinguishability, whereas the ground truth states per-time a.e. equality.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Take a process $X$ on $\mathbb{R}_+$ that is adapted to a filtration and has right-continuous paths.
+The Doob–Meyer theorem says that $X$ is a local submartingale exactly when it can be written as
+$X = M + A$, where $M$ is a local martingale and $A$ is a process that starts at $0$, never
+decreases, is right-continuous, is predictable, and is locally integrable. It also says that the
+pair $M, A$ is unique up to a null set. Everything here is *local*: the martingale and integrability
+properties are only required after stopping the process along a sequence of stopping times that
+increases to infinity.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Faithful encoding | All three process notions must be the *localized* ones, defined exactly as in the text ("$M^{\tau_n} - M_0$ are true martingales for some optional times $\tau_n \uparrow \infty$"). `IsLocalMartingale X ℱ μ` unfolds to `∃ τ : ℕ → Ω → WithTop ι, (∀ n, IsStoppingTime ℱ (τ n)) ∧ LocalizesToInfinity τ μ ∧ ∀ n, Martingale (fun t ω ↦ stoppedProcess X (τ n) t ω - X ⊥ ω) ℱ μ`, with `LocalizesToInfinity` supplying both monotonicity of the `τ n` and `∀ᵐ ω, Tendsto (fun n ↦ τ n ω) atTop atTop`. | ✅ `IsLocalSubmartingale`, `IsLocalMartingale`, `IsLocallyIntegrableProcess` all follow that pattern, and the centering `- X ⊥ ω` (i.e. $-M_0$) is present. ❗ Trap: substituting mathlib's `Martingale`/`Submartingale`, which yields the classical Doob–Meyer for class-(D) submartingales, not Theorem 10.5. |
-| 2 | Hypothesis completeness | Predictability of `A` is what makes the decomposition unique. It must be measurability with respect to the predictable $\sigma$-algebra. | ✅ `IsStronglyPredictable ℱ A` (= `StronglyMeasurable[ℱ.predictable] (Function.uncurry A)`), imposed on both `A` and the competitor `A'`. ❗ Trap: `Adapted ℱ A`, which makes the uniqueness half of the statement false. |
-| 3 | Conclusion completeness | Every property of `A` from the text and from the "increasing process" definition must appear: locally integrable, non-decreasing, predictable, right-continuous, and $A_0 = 0$. | ✅ `IsLocallyIntegrableProcess A ℱ μ`, `∀ᵐ ω ∂μ, Monotone fun t ↦ A t ω`, `IsStronglyPredictable ℱ A`, `∀ᵐ ω ∂μ, ∀ t, ContinuousWithinAt (fun s ↦ A s ω) (Ici t) t`, `A 0 =ᵐ[μ] 0`. ❗ Trap: dropping `A 0 = 0` (without it uniqueness fails by an additive constant) or dropping local integrability. |
-| 4 | Conclusion completeness | Both directions of the equivalence and the uniqueness assertion must be present, and uniqueness must be quantified over *all* pairs satisfying the full list of properties (not just over pairs with `M' + A' = X`). | ✅ The `↔` is stated, and the uniqueness clause re-imposes every hypothesis on `(M', A')` before concluding `(∀ t, M t =ᵐ[μ] M' t) ∧ ∀ t, A t =ᵐ[μ] A' t`. ❗ Trap: stating only (ii) ⇒ (i), or omitting uniqueness. |
-| 5 | Semantic closeness | "$X = M + A$ a.s." and "$M$ and $A$ are a.s. unique" mean indistinguishability of right-continuous processes: `∀ᵐ ω ∂μ, ∀ t, X t ω = M t ω + A t ω`, and likewise for uniqueness. | ⚠️ The ground truth uses the per-time form `∀ t, X t =ᵐ[μ] M t + A t` and `∀ t, M t =ᵐ[μ] M' t` (a modification). Since all processes involved are a.s. right-continuous the two are equivalent, but the `∀ᵐ ω, ∀ t` form is what the text asserts and is strictly stronger as written. |
-| 6 | Semantic closeness | The uniqueness clause is placed *inside* the existential, so the statement reads "there exist $M, A$ with the listed properties such that any other such pair agrees with them". | ✅ Logically equivalent to "a decomposition exists and is unique", and avoids repeating the property list at top level. ⚠️ A separate uniqueness theorem would be more idiomatic mathlib packaging. |
-| 7 | Hypothesis completeness | The standing assumptions of Kallenberg's Chapter 10 must be present: `X` adapted, `X` right-continuous ("all sub-martingales are taken to be right-continuous"), filtration right-continuous, probability measure, continuous time index. | ✅ `hX : Adapted ℱ X`, `hXright`, `[ℱ.IsRightContinuous]`, `[IsProbabilityMeasure μ]`, `ℱ : Filtration ℝ≥0 ‹MeasurableSpace Ω›`. |
-| 8 | Junk values | `stoppedProcess X (τ n) t ω = X (min ↑t (τ n ω)).untopA ω`; because the minimum is taken against a *finite* `t`, the `WithTop` argument is never `⊤` and no `untopA` junk value ever enters the localized definitions. | ✅ No junk here (in contrast with a bare `stoppedValue X τ`, which does hit `Classical.arbitrary` when `τ = ⊤`). |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The time index is continuous, $\mathbb{R}_+$, and the underlying measure is a probability measure. | ✅ `ℱ : Filtration ℝ≥0 ‹MeasurableSpace Ω›`, `X : ℝ≥0 → Ω → ℝ`, `[IsProbabilityMeasure μ]`. |
+| 2 | The filtration is right-continuous, and $X$ is adapted with a.e. right-continuous paths — Kallenberg's standing assumptions for this chapter. | ✅ `[ℱ.IsRightContinuous]`, `hX : Adapted ℱ X`, and `hXright : ∀ᵐ ω ∂μ, ∀ t, ContinuousWithinAt (fun s ↦ X s ω) (Ici t) t`. |
+| 3 | Side (i) is that $X$ is a *local* submartingale in the text's sense: there are stopping times $\tau_n$ increasing to infinity such that each stopped and centred process $X^{\tau_n} - X_0$ is a genuine submartingale. | ✅ `IsLocalSubmartingale X ℱ μ`, which unfolds to `∃ τ, (∀ n, IsStoppingTime ℱ (τ n)) ∧ LocalizesToInfinity τ μ ∧ ∀ n, Submartingale (fun t ω ↦ stoppedProcess X (τ n) t ω - X ⊥ ω) ℱ μ`. |
+| 4 | Side (ii) contains a *local* martingale $M$, defined by the same stopping construction. | ✅ `IsLocalMartingale M ℱ μ`, with the same centring `- X ⊥ ω` and the same `LocalizesToInfinity` requirement on the stopping times. |
+| 5 | The two sides are joined by an "if and only if", so both directions are asserted. | ✅ The whole statement is `IsLocalSubmartingale X ℱ μ ↔ ∃ M A, …`. |
+| 6 | The decomposition is $X = M + A$ off a null set, for all times at once. | ✅ `∀ᵐ ω ∂μ, ∀ t, X t ω = M t ω + A t ω` — one null set, then every time. |
+| 7 | $A$ is locally integrable, again by stopping along a sequence of stopping times that increases to infinity. | ✅ `IsLocallyIntegrableProcess A ℱ μ`. |
+| 8 | $A$ is predictable, i.e. measurable for the predictable $\sigma$-algebra of the filtration. This is the clause that makes the decomposition unique. | ✅ `IsStronglyPredictable ℱ A`, which is `StronglyMeasurable[ℱ.predictable] (Function.uncurry A)`. |
+| 9 | $A$ is non-decreasing in $t$, has right-continuous paths, and starts at $0$. | ✅ `∀ᵐ ω ∂μ, Monotone fun t ↦ A t ω`, `∀ᵐ ω ∂μ, ∀ t, ContinuousWithinAt (fun s ↦ A s ω) (Ici t) t`, and `A 0 =ᵐ[μ] 0`. |
+| 10 | Uniqueness: any second pair $(M', A')$ with all the same properties agrees with $(M, A)$ off a null set. | ✅ The last clause re-imposes every listed property on `M'` and `A'` and then concludes `(∀ᵐ ω ∂μ, ∀ t, M t ω = M' t ω) ∧ ∀ᵐ ω ∂μ, ∀ t, A t ω = A' t ω`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Using Mathlib's `Submartingale` and `Martingale` directly in place of the localized notions. | That states the classical Doob–Meyer theorem for class-(D) submartingales, a different and much weaker result than Theorem 10.5. |
+| 2 | Requiring only `Adapted ℱ A` instead of predictability. | With merely adapted $A$ the decomposition still exists but is wildly non-unique in continuous time, so the uniqueness half of the theorem becomes false. |
+| 3 | Dropping $A_0 = 0$. | Without it, $(M - c, A + c)$ is another decomposition for any constant $c$, so uniqueness fails. |
+| 4 | Dropping local integrability of $A$, or dropping monotonicity or right-continuity of $A$. | Each is part of Kallenberg's definition of an increasing process; without them the class of admissible $A$ is larger and uniqueness fails. |
+| 5 | Stating only "(ii) implies (i)", or stating the decomposition without any uniqueness claim. | The theorem is an equivalence plus uniqueness; either omission loses content. |
+| 6 | Quantifying uniqueness only over pairs with $M' + A' = X$, without re-imposing the other properties on $(M', A')$. | Then the claim is false: $X = (M + f) + (A - f)$ for any process $f$, so agreement cannot follow. |
+| 7 | Writing the decomposition as a per-time statement, `∀ t, X t =ᵐ[μ] M t + A t`. | That allows a different null set for each $t$, i.e. only a modification. For right-continuous processes it happens to be equivalent, but as written it is strictly weaker than what the text asserts. The same applies to the uniqueness conclusions. |
+| 8 | Dropping right-continuity of $X$ or of the filtration. | Both are standing assumptions in this chapter, and the continuous-time decomposition is not available without them. |
+
+## Notes on the ground truth
+
+- `stoppedProcess X (τ n) t ω` is `X (min ↑t (τ n ω)).untopA ω`. Because the minimum is taken against
+  a finite time `t`, the `WithTop` argument is never `⊤`, so no arbitrary default value ever leaks
+  into the localized definitions. A bare `stoppedValue X τ` would hit `Classical.arbitrary` when
+  `τ = ⊤`; nothing here does.
+- The uniqueness clause is placed *inside* the existential, so the statement reads "there exist $M$
+  and $A$ with the listed properties such that any other such pair agrees with them". That is
+  logically the same as "a decomposition exists and is unique", and avoids repeating the property
+  list. A separate uniqueness theorem would be more idiomatic Mathlib packaging.
+- An earlier version of this file stated the decomposition and the uniqueness conclusions only
+  per-time (`∀ t, X t =ᵐ[μ] M t + A t`). It now uses the `∀ᵐ ω, ∀ t` form, which is the reading the
+  text intends. Mistake row 7 keeps the weaker form on record.
+- ⚠️ `LocalizesToInfinity τ μ` asks for `∀ᵐ ω ∂μ, Tendsto (fun n ↦ τ n ω) atTop atTop` where the
+  stopping times take values in `WithTop ℝ≥0`. Because `WithTop ℝ≥0` has a largest element, the
+  target `atTop` filter is the principal filter at `⊤`, so this demands that $\tau_n(\omega)$ be
+  *equal to* $+\infty$ for all large $n$, rather than merely growing without bound. The intended
+  reading, "$\tau_n \uparrow \infty$", is `Tendsto (fun n ↦ τ n ω) atTop (𝓝 ⊤)`. A candidate that
+  writes the neighbourhood-of-$\top$ form is closer to the text than the ground truth is here.
+- ⚠️ `IsLocallyIntegrableProcess A ℱ μ` asks that `stoppedProcess A (τ n) t` be integrable for every
+  finite `t`. Kallenberg's local integrability is $\mathbb{E}\,A_{\tau_n} < \infty$, which is the
+  supremum over `t` of those quantities and is therefore slightly stronger.

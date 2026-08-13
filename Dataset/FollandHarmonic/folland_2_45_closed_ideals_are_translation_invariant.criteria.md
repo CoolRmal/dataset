@@ -2,14 +2,62 @@
 
 **Statement:** [folland_2_45_closed_ideals_are_translation_invariant.md](folland_2_45_closed_ideals_are_translation_invariant.md) · **Lean:** [folland_2_45_closed_ideals_are_translation_invariant.lean](folland_2_45_closed_ideals_are_translation_invariant.lean)
 
-A faithful formalization must carry **both** equivalences (left ideal ⟺ left-translation-invariant, right ideal ⟺ right-translation-invariant) and must keep the two sides genuinely distinct: the left/right asymmetry is the whole point on a non-abelian group. Because mathlib has no ready-made `𝓛¹(G)` Banach algebra for a general locally compact group, the statement works with sets of *functions* together with `Submodule ℂ (G → ℂ)` and `IsLpClosed 1 μ` in place of a closed subspace of the `Lp` quotient. This is faithful — the `Lp` quotient of an `𝓛¹`-closed subspace of functions is a closed subspace and conversely — but a candidate must supply both the linearity and the `𝓛¹`-closedness, since either alone is strictly weaker.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+$L^1(G)$ is an algebra under convolution. Let $I$ be a closed linear subspace of it. The theorem
+identifies the ideals of this algebra in purely geometric terms: $I$ is a left ideal — closed under
+$f \mapsto g * f$ for every $g \in L^1$ — exactly when it is closed under the left translations
+$L_yf(x) = f(y^{-1}x)$. And $I$ is a right ideal — closed under $f \mapsto f * g$ — exactly when it
+is closed under the right translations $R_yf(x) = f(xy)$.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Conclusion completeness | Both `↔`s are required, and each is an equivalence rather than an implication. The easy direction is ideal ⟹ invariance (via an approximate identity); the converse uses the vector-valued formula `g * f = ∫ g(y) L_y f dy`. | ✅ A conjunction of two `↔`. ❗ Predicted error: keeping only the left-ideal half, or stating an implication. |
-| 2 | Faithful encoding | "Left ideal" means closed under `g ↦ g * f` with `g ∈ 𝓛¹` on the **left**; "closed under left translations" means `L_y f = f (y⁻¹ ·) ∈ I`. Swapping `L_y` for `f (y ·)` inverts the group element and changes the statement on non-abelian `G`. | ✅ `groupConv μ g f` (g on the left) paired with `leftTranslate y f = f (y⁻¹ * x)`, matching Folland's (2.5). ❗ Predicted error: `f (y * x)` for `L_y`. |
-| 3 | Hypothesis completeness | `I` must be a linear subspace **and** closed in `𝓛¹`; closedness is what lets the approximate-identity limit stay in `I`. | ✅ the `Submodule` structure and `hclosed`. ❗ Predicted error: dropping `IsLpClosed`, which makes the ideal ⟹ invariance direction false. |
-| 4 | Junk values | `groupConv μ g f x = ∫ y, g y * f (y⁻¹ * x) ∂μ` is `0` when the integrand is not integrable; the hypotheses `MemLp g 1 μ` and `Integrable f μ` are what make it the genuine convolution a.e. | ⚠️ `hmem : ∀ f ∈ I, MemLp f 1 μ` is carried explicitly so that members of `I` really are `𝓛¹` functions. |
-| 5 | Mathlib conventions | Haar measure must be a **left** Haar measure (`μ.IsHaarMeasure` in mathlib is left-invariant), since the whole statement is stated against left translation. | ✅ `[μ.IsHaarMeasure]` on a locally compact group with the Borel structure. |
+One direction comes from approximating $L_yf$ by $\psi * f$ for bumps $\psi$ concentrated near $y$;
+the other from writing $g * f = \int g(y)\,L_yf\,dy$ as a limit of linear combinations of translates.
+Both directions use that $I$ is a linear subspace and that it is closed.
+
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | $G$ is a locally compact topological group with its Borel structure, and $\mu$ is a **left** Haar measure. | ✅ `[IsTopologicalGroup G] [LocallyCompactSpace G] [BorelSpace G]`, `(μ : Measure G) [μ.IsHaarMeasure]`. |
+| 2 | $I$ is a linear subspace over $\mathbb{C}$. | ✅ `I : Submodule ℂ (G → ℂ)`. |
+| 3 | $I$ is closed for the $L^1$ distance: any $L^1$ function that can be approximated to within every $\varepsilon$ by members of $I$ is itself in $I$. | ✅ `hclosed : IsLpClosed 1 μ (I : Set (G → ℂ))`, with `IsLpClosed` spelled out in `Defs.lean`. |
+| 4 | Every member of $I$ is an integrable function. | ✅ `hmem : ∀ f ∈ I, Integrable f μ`. |
+| 5 | Both equivalences are asserted, and each is a genuine `↔`. | ✅ A conjunction of two `↔`. |
+| 6 | "Left ideal" means closed under $g * f$ for arbitrary integrable $g$, with $g$ on the **left**. | ✅ `∀ g : G → ℂ, Integrable g μ → ∀ f ∈ I, groupConv μ g f ∈ I`. |
+| 7 | "Closed under left translations" means $L_yf(x) = f(y^{-1}x)$ lands in $I$, for every $y$ and every $f \in I$. | ✅ `∀ (y : G), ∀ f ∈ I, leftTranslate y f ∈ I`. |
+| 8 | "Right ideal" means closed under $f * g$, with the member of $I$ on the **left**. | ✅ `∀ g : G → ℂ, Integrable g μ → ∀ f ∈ I, groupConv μ f g ∈ I`. |
+| 9 | "Closed under right translations" means $R_yf(x) = f(xy)$ lands in $I$. | ✅ `∀ (y : G), ∀ f ∈ I, rightTranslate y f ∈ I`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Keeping only the left-ideal equivalence. | The left/right asymmetry is the point of the theorem on a non-abelian group. Half the statement is missing. |
+| 2 | Stating an implication instead of an equivalence. | Both directions are theorems and neither is formal. Either implication alone is strictly weaker. |
+| 3 | Dropping the $L^1$-closedness hypothesis. | Both directions break. The passage from an ideal to translation invariance realises $L_yf$ as a limit of elements $\psi * f$ of $I$; the passage back realises $g*f$ as a limit of linear combinations of translates. Without closedness neither limit is in $I$. |
+| 4 | Taking $I$ to be just a set rather than a linear subspace. | The converse direction needs to add up finitely many translates before taking the limit. A translation-invariant set that is not a subspace need not be an ideal. |
+| 5 | Pairing "left ideal" with $f * g$ instead of $g * f$. | On a non-abelian group these are different conditions, and the theorem then matches the wrong translation side. |
+| 6 | Writing the left translate as `fun x ↦ f (y * x)`. | Folland's $L_y$ inverts the group element. Writing $f(yx)$ gives the translation by $y^{-1}$; the family of all such maps is the same family, but any statement that fixes $y$ or relates $L_y$ to convolution by a bump near $y$ becomes wrong. |
+| 7 | Omitting the hypothesis that members of $I$ are integrable. | `groupConv μ g f x` is the value `0` wherever its defining integral diverges. Without integrability the "ideal" conditions are conditions about a function that has been silently zeroed out. |
+
+## Notes on the ground truth
+
+- Mathlib has no $L^1(G)$ Banach algebra for a general locally compact group. The statement
+  therefore works with honest functions: `Submodule ℂ (G → ℂ)` for the linear structure, and
+  `IsLpClosed 1 μ` for closedness. This is faithful — the image in the $L^1$ quotient of an
+  $L^1$-closed subspace of functions is a closed subspace, and conversely — but a candidate must
+  supply *both* the linearity and the closedness, since either alone is strictly weaker.
+- `IsLpClosed p μ I` is defined in `Defs.lean` as: every $f \in L^p$ that is within $\varepsilon$ of
+  some member of $I$ for every $\varepsilon > 0$ belongs to $I$. Taking $\varepsilon$ small forces
+  $I$ to contain every function almost everywhere equal to one of its members, which is exactly
+  what a subspace of functions representing a closed subspace of $L^1$ should do.
+- Mathlib's `Measure.IsHaarMeasure` is the left-invariant notion, which is what the whole statement
+  is set against.
+- Inside `IsLpClosed` the clause `MemLp g p μ` is redundant here given `hmem`; it is part of the
+  general definition and costs nothing.

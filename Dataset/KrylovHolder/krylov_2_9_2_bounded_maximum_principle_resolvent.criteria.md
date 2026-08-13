@@ -1,20 +1,52 @@
 # Criteria: krylov_2_9_2_bounded_maximum_principle_resolvent
 
-> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
-
 **Statement:** [krylov_2_9_2_bounded_maximum_principle_resolvent.md](krylov_2_9_2_bounded_maximum_principle_resolvent.md) · **Lean:** [krylov_2_9_2_bounded_maximum_principle_resolvent.lean](krylov_2_9_2_bounded_maximum_principle_resolvent.lean)
 
-This is an a priori bound, not a solvability statement: no equation is imposed on $u$, and the content is that the *explicit* constant $\lambda^{-1}$ works, so there is no existential constant to misplace — but every hypothesis is load-bearing. A faithful formalization needs $u$ bounded (the domain may be unbounded, and the estimate fails without it), $u$ twice differentiable inside, continuous up to $\bar\Omega$ and vanishing on $\partial\Omega$ *when $\partial\Omega \ne \emptyset$*, coefficients bounded, and the zeroth-order coefficient satisfying $c \le -\lambda < 0$ — this last condition being what supplies the $\lambda^{-1}$. The encoding hazards are (i) that a "coefficient" of a `EllipticOperatorData` is only meaningful for multi-indices belonging to `terms`, and (ii) the two supremum norms, which must not silently become junk when $\sup_\Omega|Lu| = \infty$ or $\Omega = \emptyset$.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Let $L$ be a second-order operator $a^{ij}D_{ij} + b^iD_i + c$ whose coefficients are bounded and
+whose zeroth-order coefficient satisfies $c \le -\lambda$ for some $\lambda > 0$. If $u$ is bounded
+and continuous on $\bar\Omega$, twice differentiable inside $\Omega$, and vanishes on the boundary
+(when there is one), then $u$ is controlled by $Lu$ with the explicit constant $\lambda^{-1}$:
+$\sup u^+ \le \lambda^{-1}\sup (Lu)^-$ and $\sup\lvert u\rvert \le \lambda^{-1}\sup\lvert Lu\rvert$.
+No equation is imposed on $u$; this is an a priori bound.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Hypothesis completeness | Boundedness of $u$ is essential, not decorative: $\Omega$ is an arbitrary domain, possibly $\mathbb{R}^d$ (the text says so explicitly). | ✅ `huBounded : Bornology.IsBounded (u '' Ω)`. ❗ Dropping it makes the statement false: on $\Omega = \mathbb{R}$ with $Lu = u'' - u$ (which satisfies `SecondOrderEllipticOperator L 1`) and $u(x) = e^x$ one has $Lu \equiv 0$, so the claim would read $\sup\lvert u\rvert = \infty \le 1^{-1}\cdot 0$. |
-| 2 | Faithful encoding | $c(x) \le -\lambda$ is a condition on the zeroth-order coefficient *of $L$*. In `EllipticOperatorData` the field `coefficient` is a total function on multi-indices but only its restriction to `terms` enters `formula`, so a bound on `coefficient 0` says nothing about `L` unless the zero multi-index is required to lie in `terms`. | ✅ `SecondOrderEllipticOperator L lam` demands `∃ zeroIndex ∈ data.terms, (∀ i, zeroIndex i = 0) ∧ ∀ x, data.coefficient zeroIndex x ≤ -lam`, i.e. membership in `terms` *and* the bound. ❗ Predicted error: `∀ x, data.coefficient 0 x ≤ -lam` without `0 ∈ data.terms` — vacuous — or dropping the sign condition altogether, which destroys the estimate ($\lambda \le 0$ gives no bound at all). |
-| 3 | Hypothesis completeness | "$a(x)$, $b(x)$ bounded": the estimate needs the coefficients to be finite, uniformly in $x$. | ✅ `∃ C : ℝ, ∀ α ∈ data.terms, ∀ x, \|data.coefficient α x\| ≤ C` bounds all coefficients uniformly (including $c$, which is harmless since $c \le -\lambda$ is a one-sided bound). |
-| 4 | Hypothesis strength | Krylov's maximum principle needs only *degenerate* ellipticity, $a(x) \ge 0$ as a quadratic form; nothing in the proof uses a positive ellipticity constant. | ⚠️ `SecondOrderEllipticOperator` is defined through `EllipticOperatorData 2 L`, whose `ellipticityConstant_pos` and `principalSymbol` impose $\kappa\|\xi\|^2 \le \sum_{\lvert\alpha\rvert=2} a^\alpha(x)\xi^\alpha$ with $\kappa > 0$ — strictly *uniform* ellipticity. This only restricts the theorem, so it stays true, but it is a hypothesis Krylov does not make. |
-| 5 | Conclusion completeness / faithful encoding | Both inequalities must appear, with the correct one-sided quantities: $\sup_\Omega u^+ \le \lambda^{-1}\sup_\Omega (Lu)^-$ and $\sup_\Omega\lvert u\rvert \le \lambda^{-1}\sup_\Omega\lvert Lu\rvert$, where $t^- = \max(-t,0)$. | ✅ The conjunction of `functionSupNorm Ω (fun x ↦ max (u x) 0) ≤ (ENNReal.ofReal lam)⁻¹ * functionSupNorm Ω (fun x ↦ max (-(L u x)) 0)` and `functionSupNorm Ω u ≤ (ENNReal.ofReal lam)⁻¹ * functionSupNorm Ω (L u)`. Since `functionSupNorm Ω v = ⨆ x : Ω, ENNReal.ofReal \|v x\|` and $\max(u,0) \ge 0$, the first left-hand side really is $\sup_\Omega u^+$. ❗ Predicted error: replacing $(Lu)^-$ by $\lvert Lu\rvert$ in the first estimate (true but weaker), or by $(Lu)^+$ (false). |
-| 6 | Junk values | Suprema of possibly unbounded families: a real-valued `sSup` would return `0` when $\sup_\Omega\lvert Lu\rvert = \infty$ and would turn the second estimate into a false claim; an empty $\Omega$ must not break anything either. | ✅ `functionSupNorm` lands in `ℝ≥0∞` via `⨆ x : Ω, ENNReal.ofReal \|u x\|`, so an unbounded family gives `∞` (inequality trivially true) and `Ω = ∅` gives `0 ≤ 0`. `(ENNReal.ofReal lam)⁻¹` is finite and nonzero because `hlam : 0 < lam`. ❗ Predicted error: a real-valued formulation `sSup {\|u x\| \| x ∈ Ω} ≤ lam⁻¹ * sSup {\|L u x\| \| x ∈ Ω}` — junk on both sides. |
-| 7 | Domains / boundary | "$u = 0$ on $\partial\Omega$ if $\partial\Omega \ne \emptyset$" must be encoded so that the case $\Omega = \mathbb{R}^d$ is covered by a vacuous condition rather than excluded. | ✅ `huBoundary : ∀ x ∈ frontier Ω, u x = 0` is exactly this: for $\Omega = \mathbb{R}^d$, `frontier Ω = ∅` and the hypothesis is vacuous. For open `Ω`, `frontier Ω = closure Ω \ Ω` is Krylov's $\partial\Omega$. |
-| 8 | Solution concept / semantic closeness | $u \in C^2_{\mathrm{loc}}(\Omega) \cap C(\bar\Omega)$, bounded — no equation is assumed, and $Lu$ is evaluated pointwise in $\Omega$. | ✅ `huDiff : ContDiffOn ℝ 2 u Ω` (with `hΩ : IsOpen Ω`, giving genuine second derivatives, so `multiDerivative` is not junk), `huContinuous : ContinuousOn u (closure Ω)`. ⚠️ `hΩ : IsOpen Ω` drops the connectedness in "domain"; this only strengthens the theorem. Note that `EllipticOperatorData.formula` is quantified over *all* functions `u`, including nowhere-differentiable ones where `multiDerivative` is `0`; this pins `L` down as literally the junk-extended differential expression rather than merely agreeing with it on $C^2$ functions. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | $\Omega$ is open. | ✅ `hΩ : IsOpen Ω`. Krylov says "domain"; connectedness is dropped, which only makes the theorem stronger. |
+| 2 | $u$ is twice continuously differentiable inside $\Omega$ and continuous up to $\bar\Omega$. | ✅ `huDiff : ContDiffOn ℝ 2 u Ω` and `huContinuous : ContinuousOn u (closure Ω)`. Since $\Omega$ is open, this makes the second derivatives inside `multiDerivative` genuine. |
+| 3 | $u$ is bounded on $\Omega$. | ✅ `huBounded : Bornology.IsBounded (u '' Ω)`. |
+| 4 | $u = 0$ on $\partial\Omega$, stated so that the case $\Omega = \mathbb{R}^d$ (no boundary) is allowed rather than excluded. | ✅ `huBoundary : ∀ x ∈ frontier Ω, u x = 0`; when $\Omega = \mathbb{R}^d$ the frontier is empty and the hypothesis is simply not used. |
+| 5 | $\lambda > 0$. | ✅ `hlam : 0 < lam`. |
+| 6 | $L$ is a second-order differential operator given by coefficients, and the zero multi-index really appears among its terms. | ✅ `SecondOrderEllipticOperator L lam` supplies `data : EllipticOperatorData 2 L` together with `∃ zeroIndex ∈ data.terms, ∀ i, zeroIndex i = 0`. |
+| 7 | The zeroth-order coefficient obeys $c(x) \le -\lambda$ at every point. | ✅ `∀ x, data.coefficient zeroIndex x ≤ -lam` inside `SecondOrderEllipticOperator`. |
+| 8 | All coefficients are bounded uniformly in $x$. | ✅ `∃ C : ℝ, ∀ α ∈ data.terms, ∀ x, \|data.coefficient α x\| ≤ C`. |
+| 9 | Both inequalities appear, with the correct one-sided quantities: the negative part $(Lu)^-$ on the right of the first, the absolute values in the second, and $\lambda^{-1}$ as an explicit constant in both. | ✅ `functionSupNorm Ω (fun x ↦ max (u x) 0) ≤ (ENNReal.ofReal lam)⁻¹ * functionSupNorm Ω (fun x ↦ max (-(L u x)) 0)` and `functionSupNorm Ω u ≤ (ENNReal.ofReal lam)⁻¹ * functionSupNorm Ω (L u)`. |
+| 10 | The suprema are taken over $\Omega$ and must stay meaningful when the family is unbounded. | ✅ `functionSupNorm Ω v = ⨆ x : Ω, ENNReal.ofReal \|v x\|` lands in `ℝ≥0∞`, so an unbounded family gives `∞` and an empty $\Omega$ gives `0 ≤ 0`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Dropping the boundedness of $u$. | The statement becomes false. On $\Omega = \mathbb{R}$ take $Lu = u'' - u$ (which fits with $\lambda = 1$) and $u(x) = e^x$. Then $Lu \equiv 0$, and the claim would read $\sup\lvert u\rvert = \infty \le 1^{-1}\cdot 0$. |
+| 2 | Bounding the coefficient at the zero multi-index without requiring that multi-index to belong to the operator's term set. | The coefficient function is total, but only its values on `terms` enter the formula for $L$. A bound off `terms` says nothing at all about $L$, so the hypothesis would be empty. |
+| 3 | Dropping $c \le -\lambda$, or allowing $\lambda \le 0$. | The factor $\lambda^{-1}$ is exactly what the sign condition buys. With $c$ of arbitrary sign there is no bound: $u = \sin x$ on $\mathbb{R}$ with $Lu = u'' + u = 0$ has $\sup\lvert u\rvert = 1$ and $\sup\lvert Lu\rvert = 0$. |
+| 4 | Putting $(Lu)^+$ on the right of the first estimate instead of $(Lu)^-$. | The first estimate bounds where $u$ is large and positive, which is driven by where $Lu$ is negative. With $(Lu)^+$ the inequality is false. Using $\lvert Lu\rvert$ there is true but strictly weaker than the printed statement. |
+| 5 | Writing the estimates with real-valued `sSup`. | A real `sSup` over an unbounded set returns $0$. If $\sup_\Omega\lvert Lu\rvert = \infty$ the right side collapses to $0$ and the second estimate becomes a false claim rather than a trivial one. |
+| 6 | Adding "$\partial\Omega \ne \emptyset$" as a hypothesis, or excluding $\Omega = \mathbb{R}^d$. | Krylov explicitly allows the boundaryless case; excluding it drops part of the theorem. |
+| 7 | Assuming an equation such as $Lu = f$. | No equation is assumed. The theorem is an a priori bound valid for every admissible $u$, and imposing an equation makes it a different, weaker statement. |
+
+## Notes on the ground truth
+
+- `SecondOrderEllipticOperator` is built on `EllipticOperatorData 2 L`, which carries a positive ellipticity constant and the bound $\kappa\lVert\xi\rVert^2 \le \sum_{\lvert\alpha\rvert = 2} a^\alpha(x)\xi^\alpha$. Krylov's maximum principle needs only degenerate ellipticity ($a \ge 0$ as a quadratic form). Assuming full uniform ellipticity only restricts the theorem, so it stays true, but it is more than the text asks for.
+- The uniform coefficient bound also covers $c$. That is harmless, because $c \le -\lambda$ is only a one-sided condition.
+- `EllipticOperatorData.formula` is quantified over *all* input functions, including nowhere-differentiable ones where `multiDerivative` returns $0$. So $L$ is pinned down as literally the junk-extended differential expression, rather than as an operator that merely agrees with it on $C^2$ functions.
+- `functionSupNorm Ω (fun x ↦ max (u x) 0)` really is $\sup_\Omega u^+$, since the inner absolute value is applied to a quantity that is already nonnegative.

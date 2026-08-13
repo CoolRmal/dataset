@@ -1,20 +1,66 @@
 # Criteria: grafakos_4_1_1_torus_summability_uniform_boundedness
 
-> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
-
 **Statement:** [grafakos_4_1_1_torus_summability_uniform_boundedness.md](grafakos_4_1_1_torus_summability_uniform_boundedness.md) · **Lean:** [grafakos_4_1_1_torus_summability_uniform_boundedness.lean](grafakos_4_1_1_torus_summability_uniform_boundedness.lean)
 
-This is a uniform-boundedness principle for a family of multiplier operators $S_R$ on $L^p(\mathbb{T}^n)$: $L^p$-convergence of $S_R(f)$ for every $f$ is *equivalent* to a uniform operator-norm bound, and the limit operator $A$ — defined by the textbook only on $C^\infty(\mathbb{T}^n)$, where the series converges absolutely — then extends to $L^p$ with the same bound. The decisive encoding question is therefore the **domain of $A$**: hypothesis (i) makes each $S_R$ a *finite* sum, so `∑'` is honest there, but the series defining $A(h)$ has no such protection, and applying it to an arbitrary $f \in L^p$ (whose Fourier coefficients need not be absolutely summable) makes `tsum` evaluate to the junk value `0`.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Fix a family of complex multipliers $a(m,R)$, indexed by lattice points $m$ and a parameter $R > 0$,
+such that for each $R$ only finitely many $m$ give a nonzero value, the whole family is uniformly
+bounded, and $a(m,R)$ tends to a limit $a_m$ as $R \to \infty$. These define operators $S_R$ on
+$L^p(\mathbb{T}^n)$ by multiplying the Fourier coefficients of $f$ by $a(m,R)$ — a finite sum, so no
+convergence question arises. The theorem says: $S_R f$ converges in $L^p$ for every $f \in L^p$ if
+and only if the operators $S_R$ are bounded on $L^p$ by one constant $K$ that does not depend on
+$R$. When that happens, the limit multiplier operator $A$ obeys the same bound $K$, extends to all of
+$L^p$, and $S_R f$ converges to it in $L^p$ for every $f$.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Junk values (**the statement as written is false**) | $A$ must be applied only where $\sum_m a_m\widehat h(m)e^{2\pi i m\cdot x}$ converges (Grafakos: $h \in C^\infty(\mathbb{T}^n)$). For $f \in L^p$ with $\widehat f \notin \ell^1$ the family is not `Summable` in `ℂ`, so `A f x = 0` for every `x`. | ❗ The `let A := fun f x ↦ ∑' m, aLimit m * torusFourierCoefficient μ f m * torusCharacter m x` is used inside `∀ f, MemLp f p μ → Tendsto (fun R ↦ eLpNorm (S R f - A f) …) atTop (𝓝 0)`, i.e. on all of $L^p$. Counterexample to the whole `↔`: take $n=1$, $p=2$, $a(m,R)=\mathbf{1}_{\lvert m\rvert\le R}$ (so `aLimit = 1`); the right-hand side holds with `C = 1` (Dirichlet projections are $L^2$-contractions), but for $f$ with $\widehat f \in \ell^2\setminus\ell^1$ one has `A f = 0` and `eLpNorm (S R f) 2 μ → ‖f‖₂ ≠ 0`, so the left-hand side fails. The fix is to restrict `A` to smooth `h` (or to assert `Summable` as a side condition) and to state the limit as *some* $L^p$ limit. |
-| 2 | Semantic closeness (what the `↔` says) | The text's left-hand side is "$S_R(f)$ **converges in $L^p$**" — convergence to an unnamed limit; that the limit is the extension $\widetilde A(f)$ is the *later*, separate "moreover" clause. | ❗ The ground truth fuses the two by naming the limit `A f` inside the `↔`. Even after repairing the junk issue this changes the logical content: the faithful left-hand side is `∀ f, MemLp f p μ → ∃ g, MemLp g p μ ∧ Tendsto (fun R ↦ eLpNorm (S R f - g) (ENNReal.ofReal p) μ) atTop (𝓝 0)`. |
-| 3 | Conclusion completeness | Three conclusions are in the text: the `↔`; "for the same constant $K$", $\sup_{h\in C^\infty}\|A h\|_p/\|h\|_p \le K$; and "then $A$ extends to a bounded operator $\widetilde A$ on $L^p$, and $S_R(f)\to\widetilde A(f)$ in $L^p$ for every $f\in L^p$". | ⚠️ The first two are present (the second as `∀ C, (∀ R, 0 < R → HasStrongType μ μ (S R) … C) → HasStrongType μ μ A … C`, a clean rendering of "for the same constant"). The existence and uniqueness of the bounded extension $\widetilde A$, and the convergence $S_R(f)\to\widetilde A(f)$, are not stated separately — they are only implicit in the (broken) left-hand side of the `↔`. |
-| 4 | Hypothesis completeness | All three conditions on $a(m,R)$: finite support in $m$ for each $R$, a uniform bound $M_0$, and pointwise convergence $a(m,R)\to a_m$ as $R\to\infty$. Dropping (i) makes $S_R$ itself ill-defined; dropping (ii) or (iii) breaks the limit operator. | ✅ `hfinite : ∀ R, 0 < R → (Function.support (a R)).Finite` (equivalent to "$a(m,R)=0$ for $\lvert m\rvert>q_R$"), `hbounded : ∃ M : ℝ, 0 ≤ M ∧ ∀ R m, 0 < R → ‖a R m‖ ≤ M`, `htendsto : ∀ m, Tendsto (fun R ↦ a R m) atTop (𝓝 (aLimit m))` with `R : ℝ` and `atTop` = $R\to\infty$. ⚠️ `hbounded` is never used to restrict `aLimit` explicitly, but it follows. |
-| 5 | Faithful encoding (torus and Fourier coefficients) | $\mathbb{T}^n = \mathbb{R}^n/\mathbb{Z}^n$ with **normalized** Lebesgue measure, $\widehat f(m)=\int_{\mathbb{T}^n} f(x)e^{-2\pi i m\cdot x}dx$, and characters $e^{2\pi i m\cdot x}$. Any other normalization of the measure inserts $(2\pi)^n$-type constants into $S_R$. | ✅ `Fin n → AddCircle (1 : ℝ)` with `volume`: `AddCircle.measure_univ` gives mass `ENNReal.ofReal 1 = 1` per factor, so the product measure is a probability measure — Grafakos's normalization. `torusCharacter m x = ∏ i, fourier (m i) (x i)` is $e^{2\pi i m\cdot x}$ and `torusFourierCoefficient μ f m = ∫ x, star (torusCharacter m x) * f x ∂μ` supplies the conjugate character. ❗ Trap: `AddCircle (2 * π)` or unnormalized Haar measure. |
-| 6 | Junk values (the $S_R$ side) | The Fourier coefficients and the sum defining $S_R$ must be honest: on a probability space $L^p\subseteq L^1$ for $p\ge1$, so the Bochner integral in `torusFourierCoefficient` is a genuine integral, and `hfinite` makes the family `m ↦ a R m * …` finitely supported, hence `Summable`. | ✅ No junk on this side — this is exactly what hypothesis (i) buys, and the ground truth's `hp : 1 ≤ p` is what makes the coefficient integral converge. ❗ Trap: allowing `0 < p < 1`, where $L^p\not\subseteq L^1$ and $\widehat f$ is junk. |
-| 7 | Semantic closeness (uniform bound) | "$\sup_{R>0}\|S_R\|_{L^p\to L^p} \le K$ for some $K<\infty$" is one constant valid for all $R$ — the `∃ C` must be *outside* the `∀ R`. | ✅ `∃ C : ℝ≥0∞, C < ∞ ∧ ∀ R, 0 < R → HasStrongType μ μ (S R) (ENNReal.ofReal p) (ENNReal.ofReal p) C`. ❗ Trap: `∀ R, ∃ C, …`, which is automatic and states nothing. |
-| 8 | Mathlib conventions | `Filter.Tendsto … atTop (𝓝 0)` for $L^p$ convergence via `eLpNorm (S R f - A f) p μ`, `HasStrongType` (hand-rolled, since this Mathlib has no operator-norm-on-$L^p$ notion for non-`Lp`-typed operators), exponent lifted by `ENNReal.ofReal p` with `1 ≤ p`. | ✅ Reasonable choices. ⚠️ Stating $L^p$ convergence through `eLpNorm (… - …)` (rather than in the `Lp` type) is the right call here because `S R` is defined on raw functions, not on `Lp` equivalence classes. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | Condition (i): for each $R > 0$, $a(m,R)$ vanishes for all but finitely many $m$. | ✅ `hfinite : ∀ R, 0 < R → (Function.support (a R)).Finite`, which is the same as "$a(m,R) = 0$ once $\lvert m\rvert > q_R$". |
+| 2 | Condition (ii): one bound $M_0$ works for all $m$ and all $R > 0$. | ✅ `hbounded : ∃ M : ℝ, 0 ≤ M ∧ ∀ R m, 0 < R → ‖a R m‖ ≤ M`. |
+| 3 | Condition (iii): for each fixed $m$, $a(m,R)$ tends to $a_m$ as $R \to \infty$. | ✅ `htendsto : ∀ m, Tendsto (fun R ↦ a R m) atTop (𝓝 (aLimit m))`, with `R : ℝ` and `atTop` meaning $R \to \infty$. |
+| 4 | The torus is $\mathbb{R}^n/\mathbb{Z}^n$ with normalized measure, the characters are $e^{2\pi i m\cdot x}$, and the Fourier coefficient integrates against the conjugate character. | ✅ `Fin n → AddCircle (1 : ℝ)` with `volume`, which has total mass $1$ on each factor, so the product is a probability measure. `torusCharacter m x = ∏ i, fourier (m i) (x i)` is $e^{2\pi i m\cdot x}$, and `torusFourierCoefficient μ f m = ∫ x, star (torusCharacter m x) * f x ∂μ`. |
+| 5 | The exponent range $1 \le p < \infty$. | ✅ `{p : ℝ} (hp : 1 ≤ p)`; being a real number, `p` is automatically finite. |
+| 6 | $S_R f$ is the multiplier series $\sum_m a(m,R)\widehat f(m)e^{2\pi i m\cdot x}$. | ✅ `let S := fun R f x ↦ ∑' m, a R m * torusFourierCoefficient μ f m * torusCharacter m x`; condition (i) makes the family finitely supported, so this `tsum` is a finite sum. |
+| 7 | The left half of the biconditional is "$S_R f$ converges in $L^p$" — to *some* limit, not to a named operator. | ✅ `∀ f, MemLp f (ENNReal.ofReal p) μ → ∃ g, MemLp g (ENNReal.ofReal p) μ ∧ Tendsto (fun R ↦ eLpNorm (S R f - g) (ENNReal.ofReal p) μ) atTop (𝓝 0)`. |
+| 8 | The right half is one finite constant valid for all $R$ — the existential must sit outside the quantifier over $R$. | ✅ `∃ C : ℝ≥0∞, C < ∞ ∧ ∀ R, 0 < R → HasStrongType μ μ (S R) (ENNReal.ofReal p) (ENNReal.ofReal p) C`. |
+| 9 | The "furthermore" clause, for the *same* constant: a limit operator $A$ bounded on $L^p$ by that constant, agreeing with the limit multiplier series where that series converges, and reached by $S_R f$ in $L^p$ for every $f \in L^p$. | ⚠️ `∀ C, (∀ R, 0 < R → HasStrongType μ μ (S R) … C) → ∃ A, HasStrongType μ μ A … C ∧ (∀ h, MemLp h … → Summable (fun m ↦ fun x ↦ aLimit m * torusFourierCoefficient μ h m * torusCharacter m x) → A h = formalLimit h) ∧ ∀ f, MemLp f … → Tendsto (fun R ↦ eLpNorm (S R f - A f) … ) atTop (𝓝 0)`. The text ties $A$ to $C^\infty(\mathbb{T}^n)$, where the series always converges; the Lean version ties it instead to those $h$ whose series is summable. Weaker, but sound. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Defining $A$ by the formula `fun f x ↦ ∑' m, aLimit m * f̂ m * e(m·x)` and then using it on all of $L^p$ — in particular naming it as the limit inside the biconditional. | For $f \in L^p$ whose Fourier coefficients are not absolutely summable, the family is not summable, so Lean's `tsum` gives `A f x = 0` at every $x$. Concrete failure: $n=1$, $p=2$, $a(m,R) = \mathbf{1}_{\lvert m\rvert\le R}$, so $a_m = 1$. The uniform-bound side holds with $C = 1$, because the Dirichlet projections are $L^2$ contractions; but for $f$ with coefficients in $\ell^2\setminus\ell^1$ one gets $A f = 0$ while $\|S_R f\|_2 \to \|f\|_2 \ne 0$, so the convergence side fails and the biconditional is false. An earlier version of the ground truth had exactly this defect. |
+| 2 | Naming the limit as $A f$ inside the biconditional even after $A$ is repaired. | The text's left-hand side is bare convergence, to an unnamed limit. Identifying the limit with $\widetilde A f$ is the *later*, separate "moreover" clause. Fusing them changes what the biconditional asserts. |
+| 3 | Writing `∀ R, ∃ C, HasStrongType … C` instead of `∃ C, ∀ R, …`. | Each $S_R$ is a finite-rank operator, so a bound for each fixed $R$ exists automatically. With the quantifiers in that order the right-hand side of the biconditional is a triviality and the theorem says nothing. |
+| 4 | Omitting the finite-support condition (i). | Then the series defining $S_R f$ itself may diverge, and `tsum` silently returns `0`. Condition (i) is exactly what the text flags as making $S_R$ well defined. |
+| 5 | Using unnormalized Haar measure, or `AddCircle (2 * π)` as the circle. | Any other normalization inserts powers of $2\pi$ into the Fourier coefficients and hence into $S_R$, so the multiplier picture no longer matches. |
+| 6 | Allowing $0 < p < 1$. | On a probability space $L^p \subseteq L^1$ only for $p \ge 1$. Below $1$ the coefficient integral need not converge and the Fourier coefficients become default values. |
+| 7 | Expressing convergence pointwise or almost everywhere instead of in $L^p$. | The theorem is about norm convergence; almost-everywhere convergence is a different and much harder statement (see 4.3.15). |
+| 8 | Dropping "for the same constant $K$" and asserting only that $A$ is bounded by some constant. | The sharpness — that the limit operator inherits the *same* uniform bound — is part of the printed conclusion. |
+
+## Notes on the ground truth
+
+- $A$ is existentially quantified and pinned down only on those $h$ whose limit series is summable.
+  This is how the statement avoids applying an unconditionally divergent series to a general
+  $L^p$ function while still saying that $A$ is the limit operator. The text instead pins $A$ on
+  $C^\infty(\mathbb{T}^n)$, where absolute convergence is automatic.
+- `Summable (fun m ↦ fun x ↦ …)` is summability in the space of functions, that is, summability at
+  each point $x$ simultaneously.
+- Uniqueness of the bounded extension $\widetilde A$ is not asserted. A candidate adding it is more
+  faithful to "extends to a bounded operator".
+- $L^p$ convergence is expressed as `Tendsto (fun R ↦ eLpNorm (S R f - g) (ENNReal.ofReal p) μ)
+  atTop (𝓝 0)` on raw functions rather than inside the `Lp` type. That is the right call, because
+  `S R` acts on raw functions, not on equivalence classes.
+- `HasStrongType` is hand-rolled in `Defs.lean`, since this Mathlib has no operator-norm notion for
+  operators that are not typed as maps between `Lp` spaces.
+- `hbounded` is never used to bound `aLimit` directly, but the bound for the limit follows from it.
+- The left half of the biconditional was repaired: it previously named the limit as the formal
+  series and was therefore false.

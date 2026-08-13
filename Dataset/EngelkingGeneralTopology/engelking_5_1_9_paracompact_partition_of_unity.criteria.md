@@ -1,20 +1,67 @@
 # Criteria: engelking_5_1_9_paracompact_partition_of_unity
 
-> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
-
 **Statement:** [engelking_5_1_9_paracompact_partition_of_unity.md](engelking_5_1_9_paracompact_partition_of_unity.md) · **Lean:** [engelking_5_1_9_paracompact_partition_of_unity.lean](engelking_5_1_9_paracompact_partition_of_unity.lean)
 
-A faithful formalization must state a three-way equivalence in which items (ii) and (iii) differ **only** by local finiteness of the partition of unity: (ii) is the locally finite version, (iii) the general one, and the fact that the apparently weaker (iii) already implies paracompactness is the point of the theorem. Two things carry all the risk. First, the separation convention: Engelking's "paracompact" includes Hausdorff, mathlib's `ParacompactSpace` does not, and here the omission is not a matter of degree — it makes the equivalence false (row 1). Second, the two partition-of-unity notions must be genuinely different objects in Lean: mathlib's `PartitionOfUnity` bundles local finiteness of the supports, so item (iii) has to be unfolded by hand, and the unordered sum $\sum_{s} f_s(x) = 1$ of a possibly non-locally-finite family must be expressed with `HasSum`, not with a finite/`finsum` sum.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+A *partition of unity* subordinated to an open cover is a family of continuous functions
+$\rho_i \colon X \to [0,1]$ that sum to $1$ at every point, with each $\rho_i$ supported inside the
+$i$-th member of the cover. The theorem says three conditions on a space are equivalent: it is
+paracompact; every open cover admits a subordinated partition of unity whose supports form a locally
+finite family; and every open cover admits a subordinated partition of unity with no local finiteness
+required at all. The last item is the surprise — the apparently weaker condition already forces
+paracompactness.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Separation axioms (the Engelking convention) | Engelking's item (i), "$X$ is paracompact", means **Hausdorff** plus the locally finite open refinement property; mathlib's `ParacompactSpace` is only the refinement property, and $T_1$ does not repair the gap. This omission makes the stated `List.TFAE` **false**: let $X = \mathbb{N}$ with the cofinite topology. It is $T_1$ and compact, hence `ParacompactSpace` by mathlib's `paracompact_of_compact` (which assumes no separation), but every continuous $f \colon X \to \mathbb{R}$ is constant (two nonempty cofinite sets always meet), so for the open cover $U_n = \mathbb{N} \setminus \{n\}$ any subordinate family has some $\rho_i \neq 0$ with $\operatorname{supp} \rho_i = X \not\subseteq U_i$ — under either subordination convention. Thus (i) holds while (ii) and (iii) fail. | ❗ **Former ground truth was unfaithful here; repaired**: item (i) should be `T2Space X ∧ ParacompactSpace X`, or `[T2Space X]` should be assumed alongside `[T1Space X]`. Note the mathlib route to (i) $\Rightarrow$ (ii) is `PartitionOfUnity.exists_isSubordinate`, which requires `[NormalSpace X]`, obtained from `T4Space.of_paracompactSpace_t2Space` — precisely the missing Hausdorff hypothesis. The repaired ground truth adds `[T2Space X]`; candidates must preserve it. |
-| 2 | Mathlib conventions (item (ii)) | The locally finite partition of unity should reuse `PartitionOfUnity ι X`, which bundles exactly Engelking's data: continuous `toFun : ι → C(X, ℝ)`, `LocallyFinite fun i ↦ support (toFun i)`, `0 ≤ toFun`, and $\sum^{\mathrm{f}} \rho_i(x) = 1$. Hand-rolling this as four separate conjuncts is acceptable but is exactly where local finiteness gets dropped. | ✅ `∃ ρ : PartitionOfUnity ι X, ρ.IsSubordinate U`. |
-| 3 | Conclusion completeness (items (ii) vs (iii)) | Item (iii) must **not** be `PartitionOfUnity` again: that structure carries `locallyFinite'`, so items (ii) and (iii) would become literally the same statement and the theorem would degenerate to a two-way equivalence. Item (iii) must therefore be spelled out without any local finiteness requirement. | ✅ Item (iii) is unfolded as `∃ ρ : ι → C(X, ℝ), 0 ≤ ρ ∧ (∀ x, HasSum (fun i ↦ ρ i x) 1) ∧ ∀ i, tsupport (ρ i) ⊆ U i` — same data minus local finiteness. ❗ Predicted error: `PartitionOfUnity` used for both items. |
-| 4 | Junk values / faithful encoding (the sum) | For a partition of unity that is *not* locally finite, $\sum_{s \in S} f_s(x) = 1$ is an unordered sum over a possibly infinite index set: `HasSum (fun i ↦ ρ i x) 1` is the correct encoding. Writing `∑ᶠ i, ρ i x = 1` (finsum) would be wrong — `finsum` is defined to be `0` unless the support is finite, so item (iii) would silently demand that only finitely many $\rho_i$ are nonzero, collapsing it into a much stronger statement. A `tsum` (`∑' i, ρ i x = 1`) is also junk-prone since `tsum` returns `0` for non-summable families. | ✅ `HasSum` in item (iii); `finsum` is used only inside mathlib's `PartitionOfUnity` for item (ii), where local finiteness makes it correct. ❗ Predicted errors: `∑ᶠ` or `∑'` in item (iii). |
-| 5 | Semantic closeness (subordination) | Engelking calls a partition of unity subordinated to a cover when the cozero sets $\{f_s^{-1}((0,1])\}$ form a refinement of it — an arbitrary-index refinement condition. Mathlib's `PartitionOfUnity.IsSubordinate U` is the *precise, closed* variant `∀ i, tsupport (ρ i) ⊆ U i`: same index type, and closure of the support rather than the cozero set. | ⚠️ Acceptable and standard (for paracompact spaces the precise closed version is obtainable, and it implies Engelking's), but it makes items (ii)/(iii) formally stronger than the text. Graders must accept the literal reading `∀ i, ∃ j, {x \| ρ i x ≠ 0} ⊆ U j` as equally faithful. |
-| 6 | Hypothesis completeness (the functions) | Engelking's partition of unity consists of continuous functions into $I = [0,1]$; nonnegativity plus $\sum_i \rho_i(x) = 1$ forces $\rho_i \le 1$, so `0 ≤ ρ` suffices and no upper bound need be stated. Dropping nonnegativity, however, changes the notion (signed families summing to 1 exist on any space). | ✅ `0 ≤ ρ` (pointwise order on `ι → C(X, ℝ)`) in item (iii); `nonneg'` inside `PartitionOfUnity` for item (ii). |
-| 7 | Conclusion completeness (shape) | All three items in Engelking's order, packaged as an equivalence; the cover in (ii)/(iii) must be an arbitrary open cover of $X$ (`IsOpenCover U`, i.e. all members open and $\bigcup_i U_i = X$), universally quantified. | ✅ `List.TFAE [ParacompactSpace X, locallyFinitePartition, partition]` with `∀ (ι) (U : ι → Set X), IsOpenCover U → …` in both `let`s. |
-| 8 | Universe hygiene | Items (ii)/(iii) quantify covers over `ι : Type v` with `v` free, while mathlib's `ParacompactSpace X` quantifies only over index types in `X`'s own universe. | ⚠️ Harmless: any cover indexed in `Type v` can be re-indexed by its range inside `Set X`, so the properties agree; but taking `ι : Type u` throughout would make the three items literally comparable. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The three items appear in Engelking's order as a single equivalence. | ✅ `List.TFAE [ParacompactSpace X, locallyFinitePartition, partition]`. |
+| 2 | Hausdorffness is present, because Engelking's "paracompact" includes it and mathlib's `ParacompactSpace` does not. | ✅ `[T2Space X]` as an instance hypothesis, so item (i) `ParacompactSpace X` is Engelking's notion. |
+| 3 | Items (ii) and (iii) quantify over **all** open covers of $X$, with an arbitrary index type. | ✅ `∀ (ι : Type v) (U : ι → Set X), IsOpenCover U → …` in both. |
+| 4 | "Open cover" is: every member open, and the members' union is everything. | ✅ `IsOpenCover U := (∀ i, IsOpen (U i)) ∧ ⋃ i, U i = univ`. |
+| 5 | Item (ii)'s partition of unity is locally finite: the supports form a locally finite family. | ✅ `PartitionOfUnity ι X`, which bundles `LocallyFinite fun i ↦ support (toFun i)` together with continuity, nonnegativity and the sum condition. |
+| 6 | Item (iii) has the same data **minus** local finiteness, so it must be written out by hand. | ✅ `∃ ρ : ι → C(X, ℝ), 0 ≤ ρ ∧ (∀ x, HasSum (fun i ↦ ρ i x) 1) ∧ ∀ i, tsupport (ρ i) ⊆ U i`. |
+| 7 | The functions are continuous and nonnegative. | ✅ `C(X, ℝ)` for continuity and `0 ≤ ρ` for nonnegativity in item (iii); `nonneg'` inside `PartitionOfUnity` for item (ii). |
+| 8 | The functions sum to $1$ at every point, as an unordered sum over a possibly infinite index set. | ✅ `∀ x, HasSum (fun i ↦ ρ i x) 1` in item (iii). |
+| 9 | Each function is supported inside the corresponding member of the cover. | ✅ `∀ i, tsupport (ρ i) ⊆ U i` in item (iii); `ρ.IsSubordinate U` in item (ii). |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Assuming only `[T1Space X]` (or nothing) and taking item (i) to be bare `ParacompactSpace X`. | The equivalence becomes false. Take $X = \mathbb{N}$ with the cofinite topology: it is $T_1$ and compact, hence `ParacompactSpace` by mathlib's `paracompact_of_compact` (which assumes no separation). But two nonempty cofinite sets always meet, so every continuous $f \colon X \to \mathbb{R}$ is constant. For the cover $U_n = \mathbb{N} \setminus \{n\}$, any subordinated family has some $\rho_i \neq 0$ with $\operatorname{supp}\rho_i = X \not\subseteq U_i$, under either subordination convention. So (i) holds and (ii), (iii) fail. |
+| 2 | Using mathlib's `PartitionOfUnity` for item (iii) as well as item (ii). | `PartitionOfUnity` carries the field `locallyFinite'`, so the two items would be literally the same statement and the theorem would degenerate into a two-way equivalence. |
+| 3 | Writing the sum in item (iii) as `∑ᶠ i, ρ i x = 1` (finsum). | Lean defines `finsum` to be `0` unless the support is finite. So item (iii) would secretly demand that only finitely many $\rho_i$ are nonzero at each point — a much stronger condition. |
+| 4 | Writing the sum in item (iii) as `∑' i, ρ i x = 1` (tsum). | `tsum` returns `0` for families that are not summable, so a non-summable family could accidentally satisfy or fail the equation for the wrong reason. `HasSum` states summability and the value together. |
+| 5 | Dropping nonnegativity of the $\rho_i$. | Signed families summing to $1$ exist on any space, so the condition would stop characterizing anything. |
+| 6 | Requiring $\rho_i \le 1$ as an extra hypothesis and treating it as essential. | Not an error of substance, but redundant: nonnegativity plus $\sum_i \rho_i(x) = 1$ already forces $\rho_i \le 1$. |
+| 7 | Hand-rolling item (ii) as separate conjuncts and forgetting local finiteness. | Item (ii) then becomes item (iii) and the equivalence is again only two-way. |
+
+## Notes on the ground truth
+
+- **Repaired ground truth.** An earlier version of this statement assumed only `[T1Space X]` and was
+  false for the reason in mistake row 1. The current file assumes `[T2Space X]`; candidates must keep
+  Hausdorffness, whether as an instance or as an explicit conjunct `T2Space X ∧ ParacompactSpace X`
+  in item (i). Note that the mathlib route to (i) $\Rightarrow$ (ii) is
+  `PartitionOfUnity.exists_isSubordinate`, which needs `[NormalSpace X]`, supplied by
+  `T4Space.of_paracompactSpace_t2Space` — precisely the missing Hausdorff hypothesis.
+- The printed statement says "$T_1$-space"; the Lean file says `T2Space`. This is a deliberate
+  departure, since Engelking's paracompactness silently includes Hausdorff and item (i) would
+  otherwise not mean what he means.
+- ⚠️ Subordination. Engelking calls a partition of unity subordinated to a cover when the sets
+  $\{x \mid \rho_i(x) \neq 0\}$ refine it — an arbitrary-index refinement condition. The ground truth
+  uses mathlib's precise closed variant `∀ i, tsupport (ρ i) ⊆ U i`: same index type, and the closure
+  of the support rather than the set where $\rho_i \neq 0$. This is standard and implies Engelking's
+  version, but it makes items (ii) and (iii) formally stronger than the text. Graders must also
+  accept the literal reading `∀ i, ∃ j, {x | ρ i x ≠ 0} ⊆ U j`.
+- ⚠️ Items (ii) and (iii) quantify covers over `ι : Type v` with `v` free, while mathlib's
+  `ParacompactSpace X` quantifies only over index types in `X`'s own universe. Harmless — any cover
+  can be re-indexed by its range inside `Set X` — but taking `ι : Type u` throughout would make the
+  three items literally comparable.

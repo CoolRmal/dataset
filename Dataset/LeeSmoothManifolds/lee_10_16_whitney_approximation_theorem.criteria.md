@@ -2,16 +2,70 @@
 
 **Statement:** [lee_10_16_whitney_approximation_theorem.md](lee_10_16_whitney_approximation_theorem.md) · **Lean:** [lee_10_16_whitney_approximation_theorem.lean](lee_10_16_whitney_approximation_theorem.lean)
 
-A faithful formalization must deliver **one** smooth $F'$ that is simultaneously $\delta$-close to $F$ everywhere and equal to $F$ on $A$ — Lee's "can be chosen to be equal to $F$ on $A$" is a strengthening of the same existential, not a second theorem. The two encoding decisions that carry mathematical content are what "$F$ is smooth on the closed subset $A$" means (Lee's definition for arbitrary subsets is via local smooth *extensions*, which is weaker than smoothness of $F$ itself near $A$) and what "$\delta$-close" means metrically. Mathlib already contains this result as `Continuous.exists_contMDiff_approx_and_eqOn` in `Mathlib/Geometry/Manifold/SmoothApprox.lean`, and the ground truth mirrors its shape, so the reference point for judging candidates is well defined.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Let $M$ be a smooth manifold and $F : M \to \mathbb{R}^k$ a continuous map. Pick any tolerance
+function $\delta$ on $M$ that is continuous and strictly positive — the tolerance is allowed to
+shrink as you move around $M$, which matters when $M$ is not compact. Then there is a smooth map
+$F'$ with $\lvert F'(x) - F(x)\rvert < \delta(x)$ for every $x$. Moreover, if $F$ is already smooth
+on a closed set $A$, the same $F'$ can be taken to agree with $F$ exactly on $A$.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Conclusion completeness | A single `∃ Fsmooth` carrying all three properties: `ContMDiff 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin k → ℝ) ∞ Fsmooth`, `∀ x, dist (Fsmooth x) (F x) < δ x`, and `EqOn Fsmooth F A`. | ✅ All three under one existential, which is exactly "$F'$ **can be chosen** to be equal to $F$ on $A$". ❗ Predicted error: dropping the `EqOn` clause (it is the last sentence of the statement and easy to lose), or splitting into two independent existentials, which does not say that one map does both. |
-| 2 | Hypothesis completeness / faithful encoding | "$F$ is smooth on a closed subset $A \subset M$". The ground truth uses `hA : IsClosed A` and `hFsmoothOnA : ∃ U ∈ 𝓝ˢ A, ContMDiffOn 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin k → ℝ) ∞ F U`, i.e. `F` itself is smooth on a whole neighborhood of `A`. Lee's definition of smoothness on an arbitrary subset is weaker: each $p \in A$ has a neighborhood $W$ and a smooth $\tilde F$ on $W$ with $\tilde F = F$ on $W \cap A$ — so $F$ itself need not be smooth near $A$ (take $M = \mathbb{R}$, $A = \{0\}$, $F = \lvert\cdot\rvert$). | ⚠️ The Lean hypothesis is strictly stronger, hence the theorem strictly weaker than the text. This is the accepted Mathlib idiom (`Continuous.exists_contMDiff_approx_and_eqOn` makes the identical choice: `hU : U ∈ 𝓝ˢ S`, `hfU : CMDiff[U] n f`), so it is acceptable — but it is a real narrowing and a candidate encoding Lee's extension-based definition would be strictly more faithful. |
-| 3 | Statement shape | Lee states the unconditional approximation first and the relative version as a refinement; the ground truth merges them into one theorem with a mandatory `A`. This is only faithful if the unconditional case is recoverable. | ✅ It is: take `A = ∅`, using `isClosed_empty`, `mem_nhdsSet_empty` (`U = ∅ ∈ 𝓝ˢ ∅`), `contMDiffOn_empty`, and `EqOn _ _ ∅` trivially — exactly how Mathlib derives `Continuous.exists_contMDiff_approx` from the relative version. So no content is lost by the merge. |
-| 4 | Faithful encoding | "$\delta$-close" in Lee means $\lvert F'(x) - F(x)\rvert < \delta(x)$ in the Euclidean norm on $\mathbb{R}^k$. `dist` on `Fin k → ℝ` is the **sup** metric of the Pi instance, not the Euclidean one. | ⚠️ Because $\delta$ is an arbitrary positive continuous function, the sup-metric and Euclidean versions are equivalent statements (rescale $\delta$ by $\sqrt{k}$, which preserves positivity and continuity), so no strength is lost; but `EuclideanSpace ℝ (Fin k)` would be the literal reading and is Mathlib's usual convention. |
-| 5 | Hypothesis completeness | $\delta$ must be **continuous** and pointwise strictly positive; both matter. | ✅ `hδ : Continuous δ` and `hδpos : ∀ x, 0 < δ x`, stated separately as in Mathlib. ❗ Predicted error: replacing the function $\delta$ by a constant $\varepsilon > 0$. For non-compact $M$ that is a strictly weaker statement and misses the whole point of a variable tolerance; conversely, dropping continuity of $\delta$ would make the statement false. |
-| 6 | Hypothesis completeness | Lee's smooth manifolds are Hausdorff and second countable, and here it is essential: the proof is a partition-of-unity argument and needs paracompactness. | ✅ `[T2Space M]` and `[SigmaCompactSpace M]` are present (and are exactly the hypotheses of Mathlib's version). ❗ Predicted error: omitting them — the statement is then false for non-paracompact locally Euclidean spaces. Also note `F` need only be `Continuous`, not smooth — a candidate assuming `ContMDiff F` has stated a triviality. |
-| 7 | Mathlib conventions | Mathlib's `Continuous.exists_contMDiff_approx_and_eqOn` returns a bundled `C^n⟮I, M; 𝓘(ℝ, F), F⟯` and adds the extra conclusion `support g ⊆ support f`; it is also stated for an arbitrary normed target `F` and `n : ℕ∞`. | ✅ Using a plain function plus `ContMDiff … ∞` is cleaner for a benchmark statement and matches Lee; omitting the support clause is faithful (it is not in the book). A candidate generalizing the target from `Fin k → ℝ` to an arbitrary finite-dimensional normed space is a strengthening and should be accepted. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | $M$ is a smooth manifold of dimension $m$ without boundary. | ✅ `[ChartedSpace (Fin m → ℝ) M]` and `[IsManifold 𝓘(ℝ, Fin m → ℝ) ∞ M]`. |
+| 2 | $M$ is Hausdorff and $\sigma$-compact — Lee's countability and separation conditions, and here the proof genuinely needs them for partitions of unity. | ✅ `[T2Space M]` and `[SigmaCompactSpace M]`, exactly the hypotheses of Mathlib's version. |
+| 3 | $F$ is only assumed **continuous**, not smooth. | ✅ `hF : Continuous F`. |
+| 4 | $\delta$ is a function on $M$, not a constant, and it is continuous. | ✅ `δ : M → ℝ` with `hδ : Continuous δ`. |
+| 5 | $\delta$ is strictly positive at every point. | ✅ `hδpos : ∀ x, 0 < δ x`. |
+| 6 | $A$ is closed. | ✅ `hA : IsClosed A`. |
+| 7 | Some form of "$F$ is smooth on $A$". | ✅ `hFsmoothOnA : ∃ U ∈ 𝓝ˢ A, ContMDiffOn 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin k → ℝ) ∞ F U`, i.e. $F$ itself is smooth on a whole neighbourhood of $A$. ⚠️ Stronger than Lee's notion; see the notes. |
+| 8 | One single $F'$ carrying all the conclusions, not two separate existence claims. | ✅ A single `∃ Fsmooth : M → (Fin k → ℝ)` followed by a three-way conjunction. |
+| 9 | $F'$ is smooth on all of $M$. | ✅ `ContMDiff 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin k → ℝ) ∞ Fsmooth`. |
+| 10 | $F'$ is within $\delta$ of $F$ at every point, with a strict inequality. | ✅ `∀ x, dist (Fsmooth x) (F x) < δ x`. |
+| 11 | $F'$ agrees with $F$ on $A$. | ✅ `EqOn Fsmooth F A`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Dropping the `EqOn Fsmooth F A` clause. | It is the last sentence of the printed statement and the whole point of the *relative* version. Easy to lose, so check for it explicitly. |
+| 2 | Splitting the conclusion into two existentials — one map that approximates, another that agrees on $A$. | Lee says $F'$ "can be chosen" to do both. Two separate maps do not say that one map has both properties. |
+| 3 | Replacing the function $\delta$ by a constant $\varepsilon > 0$. | Strictly weaker whenever $M$ is not compact, and it discards the point of a variable tolerance: on $\mathbb{R}$ one cannot approximate an arbitrary continuous function uniformly by a smooth one to within any prescribed shrinking accuracy using a fixed $\varepsilon$ statement. |
+| 4 | Keeping $\delta$ a function but dropping `Continuous δ`. | The statement becomes false: an arbitrary positive function can be made to drop to near zero on a dense set, and no smooth map can track a continuous one that closely. |
+| 5 | Assuming $F$ is smooth rather than merely continuous. | Then the theorem is a triviality — take $F' = F$. The content is upgrading continuity to smoothness. |
+| 6 | Dropping `[T2Space M]` or `[SigmaCompactSpace M]`. | The proof is a partition-of-unity argument and needs paracompactness. Without those hypotheses the statement is false for non-paracompact locally Euclidean spaces. |
+| 7 | Requiring $A$ to be compact, or nonempty. | Neither is in the text. In particular $A = \emptyset$ must be allowed, since that is how the unconditional version is recovered. |
+
+## Notes on the ground truth
+
+- ⚠️ Lee's "$F$ is smooth on a subset $A$" means: each $p \in A$ has a neighbourhood $W$ and a smooth
+  $\tilde F$ on $W$ with $\tilde F = F$ on $W \cap A$. That is weaker than what we assume — $F$
+  itself need not be smooth near $A$ (take $M = \mathbb{R}$, $A = \{0\}$, $F = \lvert\cdot\rvert$).
+  Our hypothesis is therefore strictly stronger and our theorem strictly weaker. It is the accepted
+  Mathlib idiom (`Continuous.exists_contMDiff_approx_and_eqOn` makes the identical choice: `hU : U ∈
+  𝓝ˢ S`, plus smoothness of `f` on `U`), so it is acceptable — but a candidate encoding Lee's
+  extension-based definition is strictly more faithful.
+- Lee states the unconditional approximation first and the relative version as a refinement; we merge
+  them into one theorem with a mandatory $A$. No content is lost: taking $A = \emptyset$ recovers the
+  unconditional case, using `isClosed_empty`, `mem_nhdsSet_empty`, `contMDiffOn_empty` and the fact
+  that `EqOn` on the empty set is trivial — exactly how Mathlib derives its unconditional version.
+- ⚠️ `dist` on `Fin k → ℝ` is the **sup** metric of the Pi instance, not the Euclidean one, whereas
+  Lee's $\delta$-closeness is in the Euclidean norm. Because $\delta$ is an arbitrary positive
+  continuous function, the two versions are equivalent (rescale $\delta$ by $\sqrt{k}$, which
+  preserves positivity and continuity), so no strength is lost; `EuclideanSpace ℝ (Fin k)` would be
+  the literal reading and is Mathlib's usual convention.
+- Mathlib's `Continuous.exists_contMDiff_approx_and_eqOn` returns a bundled smooth map and adds the
+  extra conclusion `support g ⊆ support f`; it is also stated for an arbitrary normed target and
+  `n : ℕ∞`. Using a plain function plus `ContMDiff … ∞` is cleaner for a benchmark and matches Lee;
+  omitting the support clause is faithful, since it is not in the book. A candidate that generalizes
+  the target from `Fin k → ℝ` to an arbitrary finite-dimensional normed space has strengthened the
+  statement and should be accepted.
+- This file does not import `Defs.lean`; everything it uses is in Mathlib.

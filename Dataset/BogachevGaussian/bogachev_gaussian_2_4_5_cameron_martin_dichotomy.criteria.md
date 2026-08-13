@@ -2,15 +2,51 @@
 
 **Statement:** [bogachev_gaussian_2_4_5_cameron_martin_dichotomy.md](bogachev_gaussian_2_4_5_cameron_martin_dichotomy.md) · **Lean:** [bogachev_gaussian_2_4_5_cameron_martin_dichotomy.lean](bogachev_gaussian_2_4_5_cameron_martin_dichotomy.lean)
 
-A faithful formalization must carry all three assertions: singularity when $|h|_{H(\gamma)} = \infty$, equivalence when $|h|_{H(\gamma)} < \infty$, and the resulting identification of $H(\gamma)$ with the set of admissible shifts. The decisive encoding question is $|h|_{H(\gamma)}$ itself: it is a supremum over the unit ball of $X^*$ *for the covariance form*, i.e. over $\{f : \operatorname{Var}[f;\gamma] \le 1\}$, and it must be allowed the value $+\infty$ — a real-valued `sSup` would return the junk value `0` exactly on the vectors the theorem is about.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Let $\gamma$ be a Gaussian measure and let $\gamma_h$ be the measure you get by shifting $\gamma$ by
+a vector $h$. Every vector $h$ has a Cameron–Martin norm $\lvert h\rvert_{H(\gamma)}$, defined as
+the supremum of $f(h)$ over all continuous linear functionals $f$ whose variance under $\gamma$ is
+at most $1$; this number may be $+\infty$. The theorem is an all-or-nothing dichotomy. If
+$\lvert h\rvert_{H(\gamma)} = \infty$, then $\gamma_h$ and $\gamma$ live on disjoint sets — they are
+mutually singular. If $\lvert h\rvert_{H(\gamma)} < \infty$, then $\gamma_h$ and $\gamma$ have
+exactly the same null sets — they are equivalent. Consequently the Cameron–Martin space is exactly
+the set of shifts that leave $\gamma$ equivalent to itself.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Junk values | $\lvert h\rvert _{H(\gamma)} = \infty$ is not an edge case but half of the theorem. A real `sSup` over an unbounded set evaluates to `0`, which would turn case (i) into a statement about vectors of *zero* Cameron–Martin norm. | ✅ `cameronMartinNorm` is `ℝ≥0∞`-valued (`⨆ … ENNReal.ofReal (f h)`), so `∞` is a genuine value. ❗ This is the highest-value trap here. |
-| 2 | Faithful encoding | The supremum is over $f \in X^*$ with $R_\gamma(f)(f) = \int (f - \int f\,d\gamma)^2 d\gamma \le 1$, i.e. `Var[f; γ] ≤ 1` — the *variance*, not $\int f^2\,d\gamma$, which differs for non-centered $\gamma$. | ✅ Indexed by `{f : StrongDual ℝ E // Var[f; γ] ≤ 1}`. ❗ Predicted error: `∫ f² dγ ≤ 1` or `‖f‖ ≤ 1`. |
-| 3 | Faithful encoding | $\gamma_h = \gamma(\cdot - h)$ is the *push-forward* of $\gamma$ under translation by $h$, so $\gamma_h(A) = \gamma(A - h)$. | ✅ `γ.map (· + h)`, whose value on `A` is `γ ((· + h) ⁻¹' A) = γ (A - h)`. ❗ Predicted error: `γ.map (· - h)`, the shift in the opposite direction (harmless by symmetry only for centered $\gamma$). |
-| 4 | Conclusion completeness | All of (i), (ii) and (2.4.3) must appear. (2.4.3) is not a formal consequence of (i)+(ii) in Lean without unfolding `cameronMartinSpace`. | ✅ A conjunction of the three. ⚠️ The last clause $X \cap R_\gamma(X^*)$ is omitted, since $R_\gamma$ is not introduced; the retained equalities are the ones the rest of the book uses. |
-| 5 | Mathlib conventions | "Equivalent" is mutual absolute continuity and "mutually singular" is `⟂ₘ`; both must be the two-sided notions. | ✅ `Equivalent μ ν = μ ≪ ν ∧ ν ≪ μ` and `⟂ₘ`. ❗ Predicted error: stating only `γ_h ≪ γ`. |
-| 6 | Hypothesis completeness | $\gamma$ is an arbitrary Gaussian measure; no centering, nondegeneracy or separability may be assumed. | ✅ `[IsGaussian γ]` alone (plus the Borel structure needed to speak of push-forwards). ⚠️ Bogachev works on a locally convex space; the Lean statement is on a normed space, which is where mathlib's `IsGaussian` lives — a restriction of scope, not a change of content. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | $\gamma$ is an arbitrary Gaussian measure; nothing more is assumed about it. | ✅ `(γ : Measure E) [IsGaussian γ]`, plus the `[MeasurableSpace E] [BorelSpace E]` structure needed to talk about pushforwards. |
+| 2 | The Cameron–Martin norm is a supremum over the functionals $f$ with $\int (f - \int f\,d\gamma)^2\,d\gamma \le 1$, i.e. with variance at most $1$. | ✅ `cameronMartinNorm` is indexed by `{f : StrongDual ℝ E // Var[f; γ] ≤ 1}`. |
+| 3 | That norm must be allowed to equal $+\infty$; the infinite case is half the theorem. | ✅ `cameronMartinNorm : … → ℝ≥0∞`, built as `⨆ f, ENNReal.ofReal (f h)`. |
+| 4 | The shift $\gamma_h = \gamma(\cdot - h)$ is the pushforward of $\gamma$ under translation by $h$. | ✅ `γ.map (· + h)`, whose value on a set `A` is `γ (A - h)`. |
+| 5 | Part (i): if $\lvert h\rvert_{H(\gamma)} = \infty$ then $\gamma_h$ and $\gamma$ are mutually singular, for every such $h$. | ✅ `∀ h : E, cameronMartinNorm γ h = ∞ → (γ.map (· + h)) ⟂ₘ γ`. |
+| 6 | Part (ii): if $\lvert h\rvert_{H(\gamma)} < \infty$ then $\gamma_h$ and $\gamma$ are equivalent, meaning each is absolutely continuous with respect to the other. | ✅ `∀ h : E, cameronMartinNorm γ h ≠ ∞ → Equivalent (γ.map (· + h)) γ`, with `Equivalent μ ν := μ ≪ ν ∧ ν ≪ μ`. |
+| 7 | The consequence (2.4.3): the Cameron–Martin space equals the set of $h$ for which $\gamma_h \sim \gamma$. | ⚠️ `cameronMartinSpace γ = {h : E \| Equivalent (γ.map (· + h)) γ}`, the third conjunct. The book's further equality with $X \cap R_\gamma(X^*)$ is dropped, because $R_\gamma$ is never introduced here. |
+| 8 | All three assertions appear in one statement. | ✅ A three-fold conjunction. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Defining the Cameron–Martin norm as a real-valued `sSup`. | In Lean a supremum of an unbounded set of reals evaluates to the junk value `0`. Part (i) would then be a statement about the vectors of Cameron–Martin norm *zero* — the exact opposite of the vectors it is about. This is the highest-value trap here. |
+| 2 | Taking the supremum over $\{f : \int f^2\,d\gamma \le 1\}$ or over $\{f : \lVert f\rVert \le 1\}$. | The constraint is on the *variance*, which subtracts the mean. For a non-centered $\gamma$ these give different, smaller sets of $f$ and hence a different norm; the operator-norm ball is unrelated to $\gamma$ entirely. |
+| 3 | Writing the shift as `γ.map (· - h)`. | That is the shift in the opposite direction. For a general (non-centered) Gaussian this is a different measure, so the statement being asserted is not the printed one. |
+| 4 | Concluding only `γ_h ≪ γ` in part (ii). | One-sided absolute continuity is strictly weaker. The theorem gives mutual absolute continuity, and that is what makes the Cameron–Martin space a group of admissible shifts. |
+| 5 | Keeping only parts (i) and (ii) and omitting (2.4.3). | In Lean the set equality is not a formal consequence of (i) and (ii) without unfolding `cameronMartinSpace`. It is a stated part of the theorem and must be present. |
+| 6 | Adding hypotheses that $\gamma$ is centered, non-degenerate, or lives on a separable space. | The theorem needs none of these. Each added hypothesis narrows the result. |
+| 7 | Stating the dichotomy as "either mutually singular or equivalent" without tying the two cases to the value of $\lvert h\rvert_{H(\gamma)}$. | That is a weaker statement (and is essentially Theorem 2.7.2 specialized to shifts). Here the *criterion* is the content. |
+
+## Notes on the ground truth
+
+- Bogachev works on a locally convex space; the Lean statement is on a normed space, which is where Mathlib's `IsGaussian` lives. This narrows the scope but not the mathematical content.
+- The final clause $H(\gamma) = X \cap R_\gamma(X^*)$ of (2.4.3) is omitted, because $R_\gamma$ is not introduced anywhere in this formalization. The two retained equalities are the ones used throughout the rest of the book.
+- `cameronMartinNorm` uses `ENNReal.ofReal (f h)`, which clamps negative values to $0$. This is harmless: the index set is symmetric ($f$ has variance at most $1$ exactly when $-f$ does), so the supremum is unchanged.
+- `Equivalent` is our own two-line definition because Mathlib has `≪` and `⟂ₘ` but no bundled notion of equivalent measures. Both `≪` and `⟂ₘ` are taken from Mathlib.

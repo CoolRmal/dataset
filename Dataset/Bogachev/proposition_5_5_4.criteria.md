@@ -2,17 +2,62 @@
 
 **Statement:** [proposition_5_5_4.md](proposition_5_5_4.md) · **Lean:** [proposition_5_5_4.lean](proposition_5_5_4.lean)
 
-Three conclusions must all be captured: the outer-measure bound $\lambda(f(E)) \le \int_E |f'|$, Lusin's property (N) on $E$, and the Lipschitz-type bound $\lambda(f(E)) \le L\,\lambda(E)$ under a uniform derivative bound. The integrand $|f'|$ is not assumed integrable and $f(E)$ is not assumed measurable, so both sides of the main inequality must be encoded junk-free.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Let $f$ be any function on the real line and let $E$ be a measurable set at every point of which $f$
+is differentiable. Then the measure of the image $f(E)$ is at most the integral of $\lvert f'\rvert$
+over $E$. Two consequences follow. First, $f$ has Lusin's property (N) on $E$: null subsets of $E$
+have null images. Second, if $\lvert f'\rvert \le L$ throughout $E$, then $f$ can expand $E$ by at
+most the factor $L$, so $\lambda(f(E)) \le L\,\lambda(E)$. Neither $f(E)$ nor $\lvert f'\rvert$ is
+assumed to be well behaved: the image may fail to be measurable and the integral may be infinite.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Faithful encoding | “$f$ is differentiable at every point of $E$” means genuine (two-sided) differentiability: `∀ x ∈ E, DifferentiableAt ℝ f x`. Using `DifferentiableOn ℝ f E` (differentiability *within* `E`) weakens the hypothesis and yields a false statement for thin sets `E`. | ✅ `DifferentiableAt`. ❗ Trap: `DifferentiableOn` is the natural-looking but wrong choice. |
-| 2 | Junk values | $\lvert f'\rvert $ need not be integrable on $E$; the right-hand side must be the lower Lebesgue integral `∫⁻ x in E, ENNReal.ofReal \|deriv f x\|`, never a Bochner `∫` (which would be junk `0` exactly when the bound is most interesting). | ✅ `∫⁻ … ∂volume` with `ENNReal.ofReal`. |
-| 3 | Junk values | `deriv f x` is junk at points where `f` is not differentiable, but it is only ever evaluated at `x ∈ E` (under hypothesis `hf`) inside the set-integral over `E`, so every occurrence is guarded. A candidate integrating `deriv f` over a larger set is unfaithful. | ✅ All occurrences of `deriv f` are restricted to `E`. |
-| 4 | Faithful encoding | $\lambda(f(E))$: the image need not be measurable; applying `volume` to an arbitrary set (Mathlib measures are outer measures on all sets) is exactly the textbook's outer-measure reading. Candidates must not add a measurability hypothesis on `f '' E` or wrap it in a completion. | ✅ `volume (f '' E)` used directly. |
-| 5 | Hypothesis completeness | “Measurable set $E$” is Lebesgue measurability: `NullMeasurableSet E volume`, not Borel `MeasurableSet`. | ✅ `hE : NullMeasurableSet E volume`. |
-| 6 | Conclusion completeness | All three conclusions must be present; the “in particular” clauses (property (N) on $E$; the $L$-bound version) are the ones models drop. The $L$-bound must quantify over all `L : ℝ` with the pointwise bound as its own hypothesis. | ✅ Three-way conjunction with `HasLusinPropertyNOn f E volume volume` and the `∀ L` clause. |
-| 7 | Semantic closeness | Property (N) “of $f$ on $E$” restricts to null subsets of `E` — a dedicated relative notion (`HasLusinPropertyNOn f E`), not global property (N) of the restriction `Set.restrict` (which would change the image sets involved). | ✅ `HasLusinPropertyNOn` in `Defs.lean` quantifies over `A ⊆ E`. |
-| 8 | Junk values | The $L$-bound conclusion multiplies in `ℝ≥0∞`: `ENNReal.ofReal L * volume E`. Note `volume E` may be `∞` and `L` may be given negative (then the hypothesis forces `E` to miss all points, and `ofReal L = 0`); the encoding stays meaningful in all corner cases. | ✅ Stated in `ℝ≥0∞` via `ENNReal.ofReal L`. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | $E$ is a Lebesgue measurable subset of $\mathbb{R}$. | ✅ `hE : NullMeasurableSet E volume`. |
+| 2 | $f$ is differentiable at each point of $E$, in the ordinary two-sided sense on the line. | ✅ `hf : ∀ x ∈ E, DifferentiableAt ℝ f x`. |
+| 3 | Nothing else is assumed about $f$ — no measurability, no continuity off $E$. | ✅ `f : ℝ → ℝ` with only `hf`. |
+| 4 | First conclusion: $\lambda(f(E)) \le \int_E \lvert f'\rvert$. | ✅ `volume (f '' E) ≤ ∫⁻ x in E, ENNReal.ofReal (abs (deriv f x)) ∂volume`. |
+| 5 | The left side measures a set that need not be measurable. | ✅ `volume (f '' E)` — Mathlib measures are outer measures defined on every set, which is the textbook reading. |
+| 6 | The right side stays meaningful when $\lvert f'\rvert$ is not integrable over $E$. | ✅ The lower Lebesgue integral `∫⁻ … ∂volume` valued in `ℝ≥0∞`. |
+| 7 | The derivative is only ever used at points of $E$. | ✅ Every occurrence of `deriv f` sits inside the integral restricted to `E`, or under the hypothesis `∀ x ∈ E`. |
+| 8 | Second conclusion: $f$ has Lusin's property (N) *on* $E$, i.e. for null $A \subseteq E$ the image $f(A)$ is null. | ✅ `HasLusinPropertyNOn f E volume volume`, which quantifies over `A ⊆ E`. |
+| 9 | Third conclusion: for every $L$ with $\lvert f'(x)\rvert \le L$ on $E$, one gets $\lambda(f(E)) \le L\,\lambda(E)$. | ✅ `∀ L : ℝ, (∀ x ∈ E, abs (deriv f x) ≤ L) → volume (f '' E) ≤ ENNReal.ofReal L * volume E`. |
+| 10 | All three conclusions are asserted together. | ✅ A three-way conjunction. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Writing the hypothesis as `DifferentiableOn ℝ f E`. | That is differentiability *within* $E$, which is strictly weaker whenever $E$ has empty interior — at an isolated point of $E$ every function qualifies. Combined with `deriv f` in the integrand it is unsound: at points where $f$ is not differentiable as a function on the line, `deriv f x` is Lean's default $0$, so the right-hand side can collapse to $0$ while the hypothesis still holds. The book means differentiability of $f$ as a function on the line. |
+| 2 | Writing the right-hand side as a Bochner integral `∫ x in E, \|deriv f x\|`. | When $\lvert f'\rvert$ is not integrable over $E$, Lean gives that integral the value $0$, and the inequality then claims $f(E)$ is null — false, and precisely in the cases where the bound matters most. |
+| 3 | Adding a hypothesis that $f(E)$ is measurable, or wrapping it in a completion. | The proposition asserts an outer-measure bound with no measurability of the image. Adding the assumption weakens the statement. |
+| 4 | Using Borel `MeasurableSet E` instead of Lebesgue measurability. | The book's "measurable set" on the line is Lebesgue measurable. |
+| 5 | Dropping the property (N) clause or the $L$-bound clause. | These are the "in particular" sentences and are the parts models most often omit; both are asserted by the proposition. |
+| 6 | Stating property (N) globally for $f$ rather than relative to $E$. | Outside $E$ nothing is assumed about $f$, so global property (N) is false in general. The claim is only about null subsets of $E$. |
+| 7 | Fixing one particular $L$ in the theorem's hypotheses instead of quantifying over all $L$ inside the conclusion. | The book's third assertion is conditional on a bound holding; it must be stated for every $L$ that satisfies the bound. |
+| 8 | Integrating `deriv f` over a set larger than $E$. | Off $E$ the value of `deriv f` is Lean's default and carries no meaning, so such an integral asserts nothing about $f$. |
+
+## Notes on the ground truth
+
+- `deriv f x` returns $0$ at points where $f$ is not differentiable. That default value never
+  matters here because every use is guarded by $x \in E$, where `hf` supplies differentiability.
+- The $L$-bound conclusion is stated in `ℝ≥0∞` as `ENNReal.ofReal L * volume E`. The corner cases
+  behave: if $E$ is nonempty then the hypothesis forces $L \ge 0$; if $L$ is negative then $E$ must
+  be empty and both sides are $0$; if $\lambda(E) = \infty$ and $L = 0$ the product is $0$ in
+  `ℝ≥0∞`, and indeed $f' = 0$ on $E$ then forces $f(E)$ to be null.
+- `HasLusinPropertyNOn f E μ ν` is defined in `Defs.lean` as the relative version of Definition
+  3.6.8: null subsets *of $E$* have null images. Using global property (N) of `Set.restrict f E`
+  would change which sets are being imaged.
+- The lower Lebesgue integral in Lean is defined for any function as the supremum of the integrals
+  of measurable simple functions beneath it. Since $f$ itself is not assumed measurable,
+  `deriv f` need not be measurable on $E$ either, so this value can be smaller than the upper
+  integral the book has in mind — meaning the Lean statement is, if anything, slightly stronger than
+  the printed one. A candidate that writes the same `∫⁻` is on equal footing.

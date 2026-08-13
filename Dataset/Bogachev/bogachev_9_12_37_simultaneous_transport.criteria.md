@@ -2,16 +2,54 @@
 
 **Statement:** [bogachev_9_12_37_simultaneous_transport.md](bogachev_9_12_37_simultaneous_transport.md) · **Lean:** [bogachev_9_12_37_simultaneous_transport.lean](bogachev_9_12_37_simultaneous_transport.lean)
 
-One Borel map $T$ must transport *all* the atomless measures $\mu_1,\dots,\mu_n$ to $\nu$ simultaneously — the quantifier order ($\exists T\, \forall i$) is the entire point. The other delicate ingredients are the encoding of “Souslin space” (Mathlib has `AnalyticSet` but no Souslin-space class) and of “atomless” (the textbook's σ-algebra notion, not the no-point-masses class).
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+On a Souslin space, take finitely many atomless Borel probability measures $\mu_1,\dots,\mu_n$ and
+any Borel probability measure $\nu$. There is a *single* Borel map $T$ of the space to itself that
+pushes each one of the $\mu_i$ forward to $\nu$. The strength of the result is that one map works
+for all $n$ measures at once; for a single measure this is the classical isomorphism theorem.
+"Atomless" is used in the $\sigma$-algebra sense: every set of positive measure splits into a piece
+of strictly smaller but still positive measure.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Quantifier structure | $\exists T\, \forall i \le n$: a single transformation for the whole finite family. Writing `∀ i, ∃ T i` formalizes the trivial one-measure corollary and misses the theorem. | ✅ `∃ T : X → X, ∀ i, MeasurePreserving T (μ i) ν`. ❗ Trap: swapped quantifiers. |
-| 2 | Faithful encoding | “Borel transformation $T$ with $\mu_i \circ T^{-1} = \nu$” = measurability of `T` **plus** the pushforward identity. Mathlib's `MeasurePreserving T (μ i) ν` bundles exactly `Measurable T ∧ Measure.map T (μ i) = ν`. Using only `Measure.map T (μ i) = ν` without measurability is junk-prone: `Measure.map` of a non-a.e.-measurable map is defined to be `0`, so the equation could hold vacuously-wrongly for `ν = 0`-like degenerate cases and hides the Borel requirement. | ✅ `MeasurePreserving` used; measurability is explicit. |
-| 3 | Faithful encoding | “Souslin space”: a Hausdorff space that is a continuous image of a Polish space. Encoded as a class `SouslinSpace X : Prop` extending `[T2Space X]` with `AnalyticSet (univ : Set X)` — Mathlib's `MeasureTheory.AnalyticSet` (empty, or continuous image of `ℕ → ℕ`) applied to the whole space, which is the standard equivalent characterization. | ✅ Faithful; reuses Mathlib's `AnalyticSet` rather than re-defining Polish images. |
-| 4 | Faithful encoding | “Atomless” must be the textbook σ-algebra notion (Definition 7.14.15): every set of positive measure contains a measurable subset of strictly smaller positive measure. Mathlib's `[NoAtoms μ]` (`μ {x} = 0` for all points) is a *different definition* — equivalent for Borel measures on nice (e.g. Souslin) spaces but not in general, and using it substitutes a nontrivial equivalence into the statement. | ✅ Custom `is_atomless_measure` matches 7.14.15. ⚠️ Candidates using `[NoAtoms μ]` deserve case-by-case scrutiny rather than automatic rejection, since on Souslin spaces the notions agree. |
-| 5 | Hypothesis completeness | All structural hypotheses must be present: probability measures (`[IsProbabilityMeasure (μ i)]` and for `ν`), Borel measures on the topology (`[BorelSpace X]`), Hausdorff (`[T2Space X]`), and atomlessness of every `μ i` — but **not** of `ν`: the book quantifies over *every* Borel probability measure `ν`, atoms allowed. Adding `is_atomless_measure ν` would strengthen the hypotheses and weaken the theorem. | ✅ Atomlessness assumed only on the `μ i`; `ν` arbitrary. |
-| 6 | Faithful encoding | The family is *finite*: `μ : Fin n → Measure X`. Generalizing to countably many measures makes the statement false in general; specializing to `n = 2` loses generality. | ✅ `Fin n` indexing. |
-| 7 | Mathlib conventions | Probability/Borel assumptions as typeclasses (`[IsProbabilityMeasure _]`, `[BorelSpace X]`) rather than hypotheses like `μ univ = 1`; `MeasurePreserving` rather than a raw `map` equation. | ✅ Conventions followed. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | One map $T$ serves every index: the existential comes before the universal. | ✅ `∃ T : X → X, ∀ i, MeasurePreserving T (μ i) ν`. |
+| 2 | $T$ is Borel measurable, and the pushforward of each $\mu_i$ along $T$ is exactly $\nu$. | ✅ `MeasurePreserving T (μ i) ν` bundles `Measurable T` with `Measure.map T (μ i) = ν`. |
+| 3 | The family is finite. | ✅ `μ : Fin n → Measure X` with `{n : ℕ}` arbitrary. |
+| 4 | Each $\mu_i$ is a Borel probability measure. | ✅ `[∀ i, IsProbabilityMeasure (μ i)]` together with `[BorelSpace X]`. |
+| 5 | Each $\mu_i$ is atomless in the book's sense: every measurable set of positive measure contains a measurable subset of positive but strictly smaller measure. | ✅ `hμ : ∀ i, is_atomless_measure (μ i)`, defined in `Defs.lean` to say exactly that. |
+| 6 | $\nu$ is an arbitrary Borel probability measure — the statement quantifies over all of them, atoms allowed. | ✅ `(ν : Measure X) [IsProbabilityMeasure ν]`, with no atomlessness hypothesis. |
+| 7 | The space is Souslin, i.e. Hausdorff and an analytic set. | ✅ `[T2Space X] [SouslinSpace X]`, where the class asserts `AnalyticSet (univ : Set X)`. |
+| 8 | The measurable structure is the Borel one coming from the topology. | ✅ `[TopologicalSpace X] [MeasurableSpace X] [BorelSpace X]`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Swapping the quantifiers to `∀ i, ∃ T, …`. | That is the one-measure isomorphism theorem repeated $n$ times, which is a known earlier result. The corollary's whole point is a single simultaneous $T$. |
+| 2 | Writing only `Measure.map T (μ i) = ν` without requiring $T$ measurable. | `Measure.map` of a map that is not a.e. measurable is defined to be the zero measure in Lean, so the equation would be reporting something other than a pushforward, and the Borel requirement on $T$ would silently disappear. |
+| 3 | Assuming $\nu$ is atomless too. | Strengthens the hypotheses and weakens the theorem. The book allows any Borel probability $\nu$, including a point mass. |
+| 4 | Allowing countably many measures instead of finitely many. | The result is stated for a finite family; the countable version is not what is proved here. |
+| 5 | Fixing $n = 2$ or a similar small case. | Loses the general statement. |
+| 6 | Dropping the Souslin hypothesis, or replacing it by "Polish". | Souslin is strictly more general than Polish, and without some such hypothesis the transport statement fails. |
+| 7 | Encoding "atomless" only as $\mu(\{x\}) = 0$ for every point. | That is a different definition. It agrees with the book's on nice spaces, so a candidate using it is not automatically wrong, but it substitutes a nontrivial equivalence for the printed hypothesis and deserves a case-by-case look. |
+
+## Notes on the ground truth
+
+- `SouslinSpace` is a class in `Defs.lean`: a Hausdorff space whose whole underlying set is analytic,
+  spelled with Mathlib's `MeasureTheory.AnalyticSet (univ : Set X)`. This is the standard equivalent
+  form of "continuous image of a Polish space" and avoids re-defining Polish images from scratch.
+- `is_atomless_measure` in `Defs.lean` is the direct negation of Definition 7.14.15: no measurable
+  set is an atom. Mathlib's `[NoAtoms μ]` is a different definition, so it was not used.
+- Probability and Borel assumptions are carried as typeclasses rather than as hypotheses such as
+  `μ Set.univ = 1`, matching Mathlib style.
+- For $n = 0$ the statement is trivially true, since there is nothing to transport. This is a
+  harmless degenerate case of the general `Fin n` indexing.

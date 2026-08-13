@@ -2,17 +2,65 @@
 
 **Statement:** [nikolski_B_1_3_nehari_theorem.md](nikolski_B_1_3_nehari_theorem.md) · **Lean:** [nikolski_B_1_3_nehari_theorem.lean](nikolski_B_1_3_nehari_theorem.lean)
 
-A faithful formalization must produce, from boundedness of the Hankel operator alone, a **single** symbol $\varphi \in L^\infty$ that simultaneously realizes the operator ($H = H_\varphi$, i.e. $\hat\varphi(-n-1) = a_n$) and satisfies the double norm identity $\lVert H_\varphi\rVert = \lVert\varphi\rVert_\infty = \operatorname{dist}(\varphi, H^\infty)$ — the point of Nehari's theorem is that the *extremal* symbol exists, so splitting the two equalities into separate existentials would lose the theorem. Both norms here are infima/suprema over sets that may be empty or unbounded, so the choice of `ℝ≥0∞` versus `ℝ` for `hankelFormNorm` and `symbolDistanceToHInfinity` is the decisive junk-value question.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+A Hankel operator is given by a matrix whose entry in position $(i,j)$ depends only on $i+j$.
+Nehari's theorem says that if such an operator is bounded, then it has a symbol: an essentially
+bounded function $\varphi$ on the unit circle whose Fourier coefficient at $-n-1$ is the $n$-th
+entry of the matrix. Moreover the symbol can be chosen so that its essential supremum norm equals
+the operator norm, and that number is also the distance in $L^\infty$ from $\varphi$ to the
+bounded analytic functions.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Conclusion completeness | Three claims about one and the same $\varphi$: it represents the operator, $\lVert\varphi\rVert_\infty = \lVert H_\varphi\rVert$, and $\operatorname{dist}(\varphi,H^\infty) = \lVert H_\varphi\rVert$. The last equality is the reason $\varphi$ is extremal; a candidate proving only $\lVert H_\varphi\rVert \le \lVert\varphi\rVert_\infty$ (the trivial direction) has not stated Nehari's theorem. | ✅ One `∃ φ` carrying `HasBoundedHankelSymbol a φ ∧ eLpNorm φ ∞ … = hankelFormNorm a ∧ symbolDistanceToHInfinity φ = hankelFormNorm a`. ❗ Trap: two separate existentials, or `≤` in place of `=`. |
-| 2 | Junk values (`sInf` over `ℝ≥0∞`) | An operator-norm-as-infimum is the classic junk site: in `ℝ`, `sInf ∅ = 0`, so an unbounded form would get norm `0` and the theorem would become vacuously provable. The infimum must live in `ℝ≥0∞`, where `sInf ∅ = ⊤`. | ✅ `hankelFormNorm a : ℝ≥0∞` is `sInf {C \| C < ∞ ∧ ∀ N x y, …}`; for an unbounded form the set is empty and the value is `⊤`, which is the mathematically right junk. The `C < ∞` guard is needed because `C.toReal` would otherwise collapse `⊤` to `0` and make the bound absurd. ❗ Trap: `sInf` of a set of reals, or `⨅` over an empty family. |
-| 3 | Junk values (distance to $H^\infty$) | $\operatorname{dist}(\varphi, H^\infty) = \inf_{h\in H^\infty}\lVert \varphi - h\rVert_\infty$ must be an infimum over a nonempty set; and `boundaryValue h` is the junk value of a `limUnder` on the null set where the radial limit fails. | ✅ `symbolDistanceToHInfinity φ = sInf {r : ℝ≥0∞ \| ∃ h, HardyClass ⊤ h ∧ eLpNorm (φ − boundaryValue h) ∞ … ≤ r}`; the set always contains `⊤` (and `h = 0` gives `‖φ‖∞`), so it is never empty. The `boundaryValue` junk is confined to a null set and `eLpNorm … ∞` is an essential supremum, so it cannot affect the value. ⚠️ `HardyClass ⊤ h` does not itself assert `HasRadialBoundaryValues h`; harmless here, but it means the definition leans on Fatou's theorem implicitly. |
-| 4 | Faithful encoding (which Hankel matrix) | The Hankel operator $H_\varphi : H^2 \to H^2_-$ has matrix $(\hat\varphi(-i-j-1))_{i,j\ge0}$, so the relation between the data `a` and the symbol must be $a_n = \hat\varphi(-n-1)$ with the correct off-by-one. An index slip ($\hat\varphi(-n)$, or $\hat\varphi(n)$) yields a different — and false — statement. | ✅ `HasBoundedHankelSymbol a φ` requires `∀ n : ℕ, circleFourierCoefficient φ (-((n : ℤ) + 1)) = a n`, and `circleFourierCoefficient` carries the correct $\tfrac{1}{2\pi}\int \varphi(e^{it})e^{-ikt}dt$ normalization. ❗ Trap: dropping the $-1$ shift. |
-| 5 | Faithful encoding (the operator) | The text speaks of a bounded *operator* $H : H^2 \to H^2_-$; the ground truth models it by the boundedness of the associated bilinear form on finite sections, `∀ N x y, ‖∑_{i<N}∑_{j<N} x_i a_{i+j} y_j‖² ≤ C² ∑‖x_i‖² ∑‖y_j‖²`. | ⚠️ Equivalent (sup over finite sections is the operator norm) and it sidesteps constructing the operator, but it is not the book's object. Mathlib supports the direct route — `ℓ²(ℕ, ℂ) →L[ℂ] ℓ²(ℕ, ℂ)` with `‖T‖`, as used by `RepresentsToeplitzOperator` elsewhere in this same book — and that would be closer and more reusable. |
-| 6 | Semantic closeness | `BoundedHankelForm` states the bound in *squared* form with `C ^ 2`, while `hankelFormNorm` states it unsquared with `C.toReal`; the two must define the same notion or the `↔` compares different objects. | ⚠️ They do agree (square roots of nonnegative reals), but the duplication is a wart: `BoundedHankelForm a ↔ hankelFormNorm a < ∞` would be cleaner, and having a single primitive would remove the risk of the two drifting apart. |
-| 7 | Conclusion completeness (direction) | The text asserts one direction (bounded operator $\Rightarrow$ extremal $L^\infty$ symbol exists). Stating an `↔` additionally claims the easy converse. | ✅ The `↔` is true: the right-hand side gives `hankelFormNorm a = eLpNorm φ ∞ < ∞`, and `sInf < ⊤` in `ℝ≥0∞` forces the defining set to be nonempty, hence the form is bounded. Strengthening to an equivalence is legitimate and a candidate should not be penalized for stating only `→`. |
-| 8 | Hypothesis completeness ($\varphi \in L^\infty$) | "$\varphi \in L^\infty$" is two conditions in mathlib: a.e.-strong-measurability and finiteness of the essential supremum. Omitting measurability would let a pathological $\varphi$ satisfy the Fourier-coefficient clause with junk integrals. | ✅ `HasBoundedHankelSymbol` opens with `AEStronglyMeasurable (fun t ↦ φ (unitCirclePoint t)) …` and `eLpNorm … ∞ … < ∞`, so the Bochner integrals defining `circleFourierCoefficient` are genuine, not junk-`0`. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The data is a sequence $a$, and the operator is the Hankel form $\sum_{i,j<N} x_i a_{i+j} y_j$. | ✅ `BoundedHankelForm a` and `hankelFormNorm a` both use `∑ i ∈ range N, ∑ j ∈ range N, x i * a (i + j) * y j`. |
+| 2 | Boundedness means a single constant works for all finite sections and all coefficient vectors. | ✅ `∃ C : ℝ, 0 ≤ C ∧ ∀ N x y, …` in `BoundedHankelForm`. |
+| 3 | The symbol lies in $L^\infty$: it is almost-everywhere measurable and its essential supremum is finite. | ✅ First two conjuncts of `HasBoundedHankelSymbol a φ`. |
+| 4 | The symbol realizes the matrix with the correct index shift: $a_n = \hat\varphi(-n-1)$. | ✅ `∀ n : ℕ, circleFourierCoefficient φ (-((n : ℤ) + 1)) = a n`, with the $\tfrac{1}{2\pi}\int\varphi e^{-ikt}$ normalization built into `circleFourierCoefficient`. |
+| 5 | The essential supremum norm of the symbol equals the operator norm. | ✅ `eLpNorm (fun t ↦ φ (unitCirclePoint t)) ∞ … = hankelFormNorm a`. |
+| 6 | The distance from the symbol to the bounded analytic functions also equals the operator norm. | ✅ `symbolDistanceToHInfinity φ = hankelFormNorm a`. |
+| 7 | All three claims are about one and the same $\varphi$. | ✅ A single `∃ φ` carrying all three conjuncts. |
+| 8 | The two norms are infima taken in $[0,\infty]$, so an unbounded form gets the value $\infty$. | ✅ `hankelFormNorm` and `symbolDistanceToHInfinity` are both `sInf` over subsets of `ℝ≥0∞`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Splitting the two norm identities into separate existentials, so that a different symbol serves each. | The theorem's content is that one *extremal* symbol does both jobs. Separate existentials are much weaker: a symbol always exists with $\lVert H\rVert \le \lVert\varphi\rVert_\infty$. |
+| 2 | Writing $\le$ instead of $=$ in either norm identity. | $\lVert H_\varphi\rVert \le \lVert\varphi\rVert_\infty$ is the trivial direction and holds for every symbol; the equality is Nehari's theorem. |
+| 3 | Taking the infimum defining the operator norm over a set of real numbers. | Lean sets the infimum of the empty set of reals to $0$. An unbounded form would then be assigned norm $0$ and both equalities could be met for free. |
+| 4 | Dropping the $-1$ and writing $a_n = \hat\varphi(-n)$ or $\hat\varphi(n)$. | That is a different matrix. The Hankel operator from $H^2$ to $H^2_-$ has entries $\hat\varphi(-i-j-1)$, and the statement becomes false with any other shift. |
+| 5 | Omitting measurability of $\varphi$. | The Fourier coefficients are Bochner integrals, which Lean gives the value $0$ when the integrand is not integrable. A non-measurable $\varphi$ could then "realize" the matrix $a = 0$ regardless. |
+| 6 | Dropping the `C < ∞` guard from the set defining the operator norm. | The definition converts `C` to a real number, and Lean sends $\infty$ to $0$ under that conversion. Without the guard, $\infty$ would satisfy an absurd bound and the infimum would be wrong. |
+| 7 | Defining the distance to the bounded analytic functions as an infimum over a set that can be empty. | An empty infimum is the wrong degenerate value. It must be visible that $h = 0$ is always an admissible competitor. |
+
+## Notes on the ground truth
+
+- The printed theorem asserts one direction (bounded operator implies an extremal $L^\infty$ symbol
+  exists). The ground truth states an `↔`. The converse is true and easy: the right-hand side gives
+  `hankelFormNorm a = eLpNorm φ ∞ < ∞`, and an infimum in $[0,\infty]$ that is finite forces the
+  defining set to be nonempty, hence the form is bounded. A candidate stating only the forward
+  implication should not be penalized.
+- The book speaks of a bounded operator $H : H^2 \to H^2_-$. The ground truth never builds an
+  operator; it uses boundedness of the associated bilinear form on finite sections. That is
+  equivalent, since the supremum over finite sections is the operator norm, but it is not the
+  book's object. Mathlib supports the direct route — `ℓ²(ℕ, ℂ) →L[ℂ] ℓ²(ℕ, ℂ)` with `‖T‖`, as
+  `RepresentsToeplitzOperator` does elsewhere in this book — and that would be closer and more
+  reusable.
+- `BoundedHankelForm` states its bound in squared form with `C ^ 2`, while `hankelFormNorm` states
+  the unsquared bound with `C.toReal`. The two describe the same notion (square roots of
+  nonnegative reals), but the duplication is a wart: `BoundedHankelForm a ↔ hankelFormNorm a < ∞`
+  would be cleaner and would remove the risk of the two definitions drifting apart.
+- The set defining `symbolDistanceToHInfinity` always contains $\infty$, and $h = 0$ contributes
+  $\lVert\varphi\rVert_\infty$, so it is never empty.
+- `HardyClass ⊤ h` does not itself assert that $h$ has radial boundary values, so
+  `symbolDistanceToHInfinity` leans on Fatou's theorem implicitly. This is harmless: the junk value
+  of `boundaryValue` lives on a null set, and an essential supremum ignores null sets.

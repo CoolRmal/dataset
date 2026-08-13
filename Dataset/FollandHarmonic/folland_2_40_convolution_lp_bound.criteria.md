@@ -2,15 +2,61 @@
 
 **Statement:** [folland_2_40_convolution_lp_bound.md](folland_2_40_convolution_lp_bound.md) · **Lean:** [folland_2_40_convolution_lp_bound.lean](folland_2_40_convolution_lp_bound.lean)
 
-Three separate assertions, and (b) and (c) are conditional on unimodularity and on compact support respectively. A candidate that states only (a), or that states (b) unconditionally, has lost the point of the proposition — (b) is *false* on a non-unimodular group.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Work on a locally compact group $G$ with a left Haar measure, and define convolution by
+$f*g(x) = \int f(y)\,g(y^{-1}x)\,dy$. Take $1 \le p \le \infty$, an integrable $f$ and a $g$ in
+$L^p$.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Conclusion completeness | All three parts (a), (b), (c) are asserted. | ✅ A three-fold conjunction. ❗ Predicted error: only part (a). |
-| 2 | Hypothesis completeness | Part (b) holds only for unimodular `G`; part (c) only for `f` with compact support. | ✅ Each is an implication with its own hypothesis. ❗ Highest-value trap: asserting `‖g * f‖ₚ ≤ ‖f‖₁‖g‖ₚ` with no unimodularity hypothesis. |
-| 3 | Conclusion completeness | (a) also asserts the a.e. absolute convergence of the defining integral, which is what makes `groupConv` meaningful rather than junk. | ✅ `∀ᵐ x ∂μ, Integrable (fun y ↦ f y * g (y⁻¹ * x)) μ`. ❗ Predicted error: omitting it, leaving the norm bound about a function that is `0` by default wherever the integral diverges. |
-| 4 | Junk values | Mathlib's Bochner integral of a non-integrable function is `0`, so without the a.e.-integrability conjunct the bound could hold vacuously. | ✅ Addressed by the conjunct above. |
-| 5 | Faithful encoding | `‖·‖_p` is `eLpNorm … p μ` and membership is `MemLp`; the exponent range is `1 ≤ p ≤ ∞`, with `p = ∞` allowed. | ✅ `p : ℝ≥0∞` with only `1 ≤ p`, so `p = ∞` is included as in the book. ❗ Predicted error: excluding `p = ∞`. |
-| 6 | Mathlib conventions | Smaller side of the inequality on the left. | ✅ `eLpNorm (groupConv μ f g) p μ ≤ eLpNorm f 1 μ * eLpNorm g p μ`. |
+Part (a): the defining integral converges absolutely for almost every $x$, the resulting function
+$f*g$ lies in $L^p$, and $\lVert f*g\rVert_p \le \lVert f\rVert_1\lVert g\rVert_p$. This is Young's inequality with the $L^1$
+factor on the left.
+
+Part (b): if $G$ is unimodular, the same holds with the factors in the other order, $g*f$. Part (c):
+even when $G$ is not unimodular, $g*f$ still lies in $L^p$ provided $f$ has compact support. Left
+and right are genuinely different here, because the group need not be abelian and the Haar measure
+need not be right invariant.
+
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | $G$ is a locally compact topological group with its Borel structure, and $\mu$ is a left Haar measure. | ✅ `[IsTopologicalGroup G] [LocallyCompactSpace G] [BorelSpace G]`, `(μ : Measure G) [μ.IsHaarMeasure]`. |
+| 2 | The exponent range is $1 \le p \le \infty$, with $p = \infty$ allowed. | ✅ `p : ℝ≥0∞` with only `hp : 1 ≤ p`; no `p ≠ ∞`. |
+| 3 | $f$ is integrable and $g$ is in $L^p$. | ✅ `hf : Integrable f μ`, `hg : MemLp g p μ`. |
+| 4 | Convolution is $\int f(y)\,g(y^{-1}x)\,d\mu(y)$. | ✅ `groupConv μ f g`, defined in `Defs.lean` as `fun x ↦ ∫ y, f y * g (y⁻¹ * x) ∂μ`. |
+| 5 | Part (a) asserts that the defining integral converges absolutely for almost every $x$. | ✅ `∀ᵐ x ∂μ, Integrable (fun y ↦ f y * g (y⁻¹ * x)) μ`. |
+| 6 | Part (a) asserts $f*g \in L^p$. | ✅ `MemLp (groupConv μ f g) p μ`. |
+| 7 | Part (a) asserts the norm bound $\lVert f*g\rVert_p \le \lVert f\rVert_1\lVert g\rVert_p$. | ✅ `eLpNorm (groupConv μ f g) p μ ≤ eLpNorm f 1 μ * eLpNorm g p μ`. |
+| 8 | Part (b) is stated only under unimodularity, and gives both $g*f \in L^p$ and the same bound. | ✅ `(∀ y : G, Measure.modularCharacterFun y = 1) → MemLp (groupConv μ g f) p μ ∧ eLpNorm (groupConv μ g f) p μ ≤ eLpNorm f 1 μ * eLpNorm g p μ`. |
+| 9 | Part (c) is stated under compact support of $f$, and gives $g*f \in L^p$. | ✅ `HasCompactSupport f → MemLp (groupConv μ g f) p μ`. |
+| 10 | All three parts are asserted, not just one. | ✅ A three-fold conjunction. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Asserting $\lVert g*f\rVert_p \le \lVert f\rVert_1\lVert g\rVert_p$ with no unimodularity hypothesis. | False on a non-unimodular group such as the $ax+b$ group. This is the highest-value trap: part (b) is where the modular function enters. |
+| 2 | Formalizing only part (a). | Two-thirds of the proposition is missing, and the missing two-thirds are what distinguishes this from the abelian Young inequality. |
+| 3 | Omitting the a.e. absolute convergence conjunct in (a). | Lean gives a divergent Bochner integral the value `0`, so `groupConv μ f g` is defined everywhere no matter what. The norm bound could then be a statement about a function that is `0` on a large set, and would hold for free. |
+| 4 | Requiring $p \ne \infty$. | Folland allows $p = \infty$ in this proposition; excluding it drops a case. |
+| 5 | Writing convolution additively, as $\int f(y)g(x - y)\,dy$, or as $\int f(y)g(xy^{-1})\,dy$. | The first only makes sense on an abelian group; the second is the *other* convolution, which pairs with right Haar measure and does not satisfy the printed bound. |
+| 6 | Swapping the norms, e.g. $\lVert f*g\rVert_p \le \lVert f\rVert_p\lVert g\rVert_1$. | With $f \in L^1$ and $g \in L^p$ this pairs each function with the wrong exponent; the quantities on the right need not even be finite. |
+| 7 | Adding "$G$ is not unimodular" as a hypothesis of part (c). | Folland's phrasing is rhetorical — (c) is the case not already covered by (b). Stating (c) for all $G$ is correct and stronger. |
+
+## Notes on the ground truth
+
+- Part (c) is stated without any unimodularity assumption, which is stronger than the printed (c)
+  and still true, since the unimodular case follows from (b).
+- Unimodularity is expressed as `∀ y : G, Measure.modularCharacterFun y = 1` rather than through a
+  type class, so that no extra instance is needed for the other two parts.
+- `groupConv` is defined in `Defs.lean` because Mathlib's `MeasureTheory.convolution` is set up for
+  additive groups and does not cover a general multiplicative locally compact group.
+- The norms are `eLpNorm … μ`, valued in `ℝ≥0∞`, so the inequality never presupposes that either
+  side is finite. `MemLp` is stated separately and carries the finiteness claim.

@@ -1,19 +1,53 @@
 # Criteria: krylov_2_5_2_harmonic_smooth_interior_estimates
 
-> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
-
 **Statement:** [krylov_2_5_2_harmonic_smooth_interior_estimates.md](krylov_2_5_2_harmonic_smooth_interior_estimates.md) · **Lean:** [krylov_2_5_2_harmonic_smooth_interior_estimates.lean](krylov_2_5_2_harmonic_smooth_interior_estimates.lean)
 
-A faithful formalization must state both halves — infinite differentiability of a harmonic function, and the derivative estimate $|D^\alpha u(x)| \le N R^{-|\alpha|}\sup_{B_R(x)}|u|$ for every ball $B_R(x) \subset \Omega$ — and must place the constant correctly: Krylov's $N$ is $N(d,\alpha)$, so it may depend on the dimension and the multi-index but on *nothing else*, in particular not on $u$, $\Omega$, $x$ or $R$. The two encoding hazards are the supremum, which is a real-valued `sSup` (junk `0` when the set is unbounded above, so the statement is only meaningful because the closed ball is compact and $u$ continuous there), and the hypothesis "harmonic", which must carry a smoothness assumption: `laplacian` is assembled from `fderiv` and therefore vanishes identically on any nowhere-differentiable function.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+A harmonic function on a domain is automatically infinitely differentiable there, even though only
+two derivatives were assumed. On top of that, every derivative is controlled by the size of the
+function itself on a ball: if the ball of radius $R$ around $x$ lies inside the domain, then
+$\lvert D^\alpha u(x)\rvert \le N R^{-\lvert\alpha\rvert} \sup_{B_R(x)}\lvert u\rvert$. The constant
+$N$ is allowed to depend on the dimension and on the multi-index $\alpha$, but on nothing else — not
+on $u$, not on the domain, not on $x$ and not on $R$.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Constant dependence / quantifier order | $N = N(d,\alpha)$ must be quantified outside $x$, $R$, $u$ and $\Omega$. Putting `∃ C` inside `∀ x` or `∀ R` produces a vacuous statement (any single instance can be satisfied by a large enough constant). | ⚠️ `∀ α : (Fin d → ℕ), ∃ C : ℝ, 0 ≤ C ∧ ∀ x ∈ Ω, ∀ R, …` gets the crucial part right — `C` is outside `∀ x`, `∀ R` — but `u` and `Ω` are *implicit variables of the theorem*, so `C` is allowed to depend on them, which Krylov's $N$ is not. The faithful shape hoists them: `∀ d α, ∃ C, ∀ Ω u, IsOpen Ω → HarmonicIn Ω u → ∀ x ∈ Ω, ∀ R > 0, …`. ❗ This is the single most damaging error class for this book; check it in every estimate. |
-| 2 | Junk values | `sSup {\|u y\| \| y ∈ Metric.closedBall x R}` is a real `sSup`: for a set unbounded above it returns `0` and the estimate would become the false claim $\mid D^\alpha u(x)\mid \le 0$. | ✅ Safe here, but only by accident of the hypotheses: `HarmonicIn Ω u` gives `ContDiffOn ℝ 2 u Ω`, hence continuity on the compact set `Metric.closedBall x R ⊆ Ω`, so the set is nonempty and bounded and `sSup` is the true supremum. ❗ A candidate that drops `Metric.closedBall x R ⊆ Ω`, or takes the sup over `Ω` itself, lands in junk territory; `⨆ y : Metric.closedBall x R, ENNReal.ofReal \|u y\|` (as `functionSupNorm` does elsewhere in this book) is junk-free. |
-| 3 | Faithful encoding / mathlib conventions | $B_R(x)$ is a Euclidean ball. `Fin d → ℝ` carries the sup norm (`Pi.norm_def`), so `Metric.closedBall x R` is the **cube** $\{y : \max_i \lvert y_i - x_i \rvert \le R\}$. | ⚠️ Both occurrences change: the hypothesis `Metric.closedBall x R ⊆ Ω` is stronger than $B_R(x) \subset \Omega$ and the right-hand supremum is over a larger set. Both changes weaken the statement, so it remains true (the Euclidean ball of radius $R$ sits inside the cube), but `EuclideanSpace ℝ (Fin d)` is the faithful type for $\mathbb{R}^d$. |
-| 4 | Mathlib conventions | "$u$ is infinitely differentiable" is $C^\infty$. In current mathlib the smoothness exponent lives in `WithTop ℕ∞` where `∞` is $C^\infty$ and `⊤` is `ω`, i.e. **real-analytic** (`contDiff_omega_iff_analyticOnNhd`). | ⚠️ `ContDiffOn ℝ ⊤ u Ω` asserts analyticity, strictly more than the text. It happens to be true (harmonic functions are real-analytic), so the ground truth is sound but over-claims; `ContDiffOn ℝ ∞ u Ω` is the literal reading. ❗ Predicted error: a candidate writing `⊤` while intending $C^\infty$, or `ContDiffOn ℝ 2` (the hypothesis) as the conclusion. |
-| 5 | Junk values / hypothesis completeness | "Harmonic" must include a differentiability hypothesis. `laplacian u x = ∑ i, directionalDerivativeList [i,i] u x` is built from `fderiv`, which is `0` off the differentiability locus, so *every* nowhere-differentiable function satisfies `∀ x ∈ Ω, laplacian u x = 0`. | ✅ `HarmonicIn Ω u = ContDiffOn ℝ 2 u Ω ∧ ∀ x ∈ Ω, laplacian u x = 0` carries the smoothness. Because `Ω` is open, `ContDiffOn` upgrades to genuine `fderiv`s there, so `laplacian` really is $\sum_i D_{ii}u$. ❗ Predicted error: hypothesising only `laplacian u = 0` (or `∀ x ∈ Ω, laplacian u x = 0` with a merely `Continuous` $u$), which would make the conclusion `ContDiffOn ℝ ⊤ u Ω` outright false. |
-| 6 | Conclusion completeness | Both conclusions are required: smoothness *and* the estimate for **every** multi-index $\alpha$, with the exponent $-\mid \alpha\mid $ on $R$. | ✅ The conjunction is present, `∀ α : (Fin d → ℕ)` ranges over all multi-indices, and `R ^ (-(∑ i, α i : ℤ))` is the `zpow` $R^{-\mid \alpha\mid }$ (well behaved since `0 < R`). ❗ Predicted error: restricting to $\mid \alpha\mid = 1$, or writing `R ^ (-(∑ i, α i) : ℝ)` where a negative real power of a possibly-zero base would need extra care. |
-| 7 | Semantic closeness | "Let $\Omega$ be a domain" = nonempty connected open set; the estimate is genuinely interior (it is asserted only for balls compactly inside $\Omega$). | ✅ `hΩ : IsOpen Ω ∧ IsConnected Ω` matches "domain" (mathlib's `IsConnected` includes nonemptiness). ⚠️ Connectedness is not used by either conclusion, so assuming it only restricts the theorem; `IsOpen Ω` alone would be stronger and equally faithful to the mathematics. The text's extra "$\cap\, C(\Omega)$" is implied by `ContDiffOn ℝ 2`. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The constant is chosen before the domain, the function, the point and the radius, and may depend only on $d$ and $\alpha$. | ✅ `∀ α, ∃ C : ℝ, 0 ≤ C ∧ ∀ (Ω) (u), … → ∀ x ∈ Ω, ∀ R, …`; the dimension `d` is a parameter of the theorem, $\alpha$ is quantified just outside `∃ C`, and everything else comes after it. |
+| 2 | The constant is nonnegative. | ✅ `0 ≤ C`. |
+| 3 | $\Omega$ is a domain: nonempty, connected and open. | ✅ `IsOpen Ω → IsConnected Ω → Ω.Nonempty →`. |
+| 4 | "Harmonic" carries a smoothness assumption as well as $\Delta u = 0$. | ✅ `HarmonicIn Ω u` unfolds to `ContDiffOn ℝ 2 u Ω ∧ ∀ x ∈ Ω, laplacian u x = 0`. |
+| 5 | First conclusion: $u$ is infinitely differentiable on $\Omega$. | ✅ `ContDiffOn ℝ ∞ u Ω`, with `∞` (which in current mathlib means $C^\infty$) rather than `⊤`. |
+| 6 | Second conclusion: the derivative bound, asserted for every multi-index, every interior point and every admissible radius. | ✅ The conjunct after `∧`, quantified `∀ x ∈ Ω, ∀ R : ℝ, 0 < R → …`, with `α` fixed at the outermost level. |
+| 7 | The bound applies only when the ball around $x$ of radius $R$ sits inside $\Omega$. | ✅ `Metric.closedBall x R ⊆ Ω`. |
+| 8 | The power of $R$ is $-\lvert\alpha\rvert$, where $\lvert\alpha\rvert$ is the sum of the entries of $\alpha$. | ✅ `R ^ (-(∑ i, α i : ℤ))`, an integer power, well behaved because `0 < R`. |
+| 9 | The right-hand supremum is of $\lvert u\rvert$ over that ball. | ✅ `sSup {\|u y\| \| y ∈ Metric.closedBall x R}`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Putting `∃ C` inside `∀ x`, inside `∀ R`, or after $u$ and $\Omega$ have been fixed as implicit variables of the theorem. | The estimate then says nothing: for one fixed instance a large enough constant always exists. Krylov's $N$ is uniform over all of these, and this is the single most damaging error class in this book. |
+| 2 | Assuming only $\Delta u = 0$ pointwise, with $u$ merely continuous or with no regularity at all. | `laplacian` is built from `fderiv`, which returns $0$ wherever the function is not differentiable. Every nowhere-differentiable function would then count as harmonic, and the conclusion "$u$ is $C^\infty$" would be plainly false. |
+| 3 | Writing `ContDiffOn ℝ ⊤ u Ω` for "infinitely differentiable". | In current mathlib the smoothness exponent lives in `WithTop ℕ∞`, where `∞` is $C^\infty$ and `⊤` is `ω`, i.e. real-analytic. That is strictly more than the text claims (true for harmonic functions, but not what is stated). |
+| 4 | Taking the supremum over $\Omega$, or dropping the hypothesis that the ball lies inside $\Omega$. | A real `sSup` returns $0$ on a set that is unbounded above, so the estimate would degenerate into the false claim $\lvert D^\alpha u(x)\rvert \le 0$. The ball hypothesis is what makes the set compact and the supremum genuine. |
+| 5 | Dropping the smoothness conclusion and keeping only the estimate, or vice versa. | The theorem asserts both. |
+| 6 | Restricting the estimate to first derivatives, or to $\lvert\alpha\rvert \le$ some bound. | The estimate is claimed for every multi-index. |
+| 7 | Using the positive power $R^{\lvert\alpha\rvert}$, or a natural-number subtraction for the exponent. | The scaling is $R^{-\lvert\alpha\rvert}$: shrinking the ball must make the bound worse, not better. |
+| 8 | Working in `Fin d → ℝ` rather than `EuclideanSpace ℝ (Fin d)`. | `Fin d → ℝ` carries the sup norm, so `Metric.closedBall x R` becomes the cube $\{y : \max_i \lvert y_i - x_i\rvert \le R\}$ rather than a Euclidean ball. |
+
+## Notes on the ground truth
+
+- The text uses the open ball $B_R(x)$; the ground truth uses `Metric.closedBall x R` in both places. The hypothesis is then slightly stronger and the supremum is over a slightly larger set, so the statement is a little weaker than the printed one and remains true.
+- Connectedness of $\Omega$ is assumed to match the word "domain", but neither conclusion uses it. Assuming it only restricts the theorem; `IsOpen Ω` alone would be a stronger and equally faithful result.
+- `Ω.Nonempty` is redundant next to `IsConnected Ω`, since mathlib's `IsConnected` already includes nonemptiness. Harmless duplication.
+- The `sSup` is real-valued rather than `ℝ≥0∞`-valued. It is safe here only because `HarmonicIn` gives continuity on the compact ball, so the set is nonempty and bounded. A `⨆ y : Metric.closedBall x R, ENNReal.ofReal \|u y\|` (the `functionSupNorm` style used elsewhere in this book) would be safe by construction.
+- The text's extra "$\cap\, C(\Omega)$" is already implied by `ContDiffOn ℝ 2`.

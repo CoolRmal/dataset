@@ -2,16 +2,60 @@
 
 **Statement:** [engelking_4_4_1_stone_open_refinement.md](engelking_4_4_1_stone_open_refinement.md) · **Lean:** [engelking_4_4_1_stone_open_refinement.lean](engelking_4_4_1_stone_open_refinement.lean)
 
-The one-sentence statement hides three separate obligations on the produced refinement: it is an **open cover**, it **refines** the given cover, and it is **simultaneously locally finite and $\sigma$-discrete**. The interesting formalization decision is how to say "$\sigma$-discrete" — a family that decomposes into countably many *discrete* subfamilies — since an indexed family carries no built-in decomposition; the ground truth supplies a level function `level : κ → ℕ` and requires each fibre to be discrete. The other place to look is the hypothesis: "metrizable space" must be metrizability of the *given* topology, not an arbitrary metric structure.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Start with a metrizable space and any cover of it by open sets. Stone's theorem produces a second
+open cover, each of whose members sits inside some member of the first, with two extra properties.
+It is *locally finite*: every point has a neighbourhood meeting only finitely many members. And it is
+*$\sigma$-discrete*: the new cover splits into countably many layers, and inside each layer every
+point has a neighbourhood meeting at most one member. Both properties hold of the same refinement at
+the same time.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Faithful encoding ($\sigma$-discreteness) | "$\sigma$-discrete" = the family is a union of countably many discrete subfamilies. With an indexed family this needs an explicit decomposition of the index type into countably many pieces, each of which indexes a discrete family. Asserting instead that the whole refinement is discrete is far too strong (it would force the space to be discrete-like); asserting only that it is $\sigma$-*locally finite* is the Nagata–Smirnov condition, i.e. a weaker theorem. | ✅ `∃ level : κ → ℕ, … ∀ n, IsDiscreteFamily fun j : {j : κ // level j = n} ↦ V j` decomposes `κ` into countably many discrete layers. ❗ Predicted errors: "the refinement is discrete", or replacing discrete by locally finite. |
-| 2 | Conclusion completeness | Engelking asks for a refinement that is **both** locally finite **and** $\sigma$-discrete; a $\sigma$-discrete family need not be locally finite, so the two conjuncts are independent and both must appear. | ✅ `LocallyFinite V ∧ (∀ n, IsDiscreteFamily …)` are separate conjuncts alongside `IsOpenCover V ∧ Refines V U`. |
-| 3 | Faithful encoding (discrete family) | Engelking's discrete family: every point of $X$ has a neighbourhood meeting **at most one** member. Weakening this to pairwise disjointness loses the theorem (disjoint families need not be discrete); strengthening it to "meets exactly one" is also wrong (members may be empty, and points outside $\bigcup$). | ✅ `IsDiscreteFamily U := ∀ x, ∃ V ∈ 𝓝 x, {i \| (V ∩ U i).Nonempty}.Subsingleton`, i.e. `Set.Subsingleton` on the set of indices met — exactly "at most one". ❗ Predicted error: `Pairwise (Disjoint on U)`. |
-| 4 | Hypothesis completeness / mathlib conventions | "Metrizable space" is `TopologicalSpace.MetrizableSpace X`, whose unfolding (`PseudoMetrizableSpace` + `T0Space`) asserts the existence of a uniformity with countably generated `𝓤 X` *whose induced topology is the given `t`*. Assuming instead `[MetricSpace X]` is acceptable (any metrizable space can be equipped with a compatible metric), but assuming completeness, separability or second countability is a strictly stronger hypothesis and makes the theorem easier. | ✅ `[MetrizableSpace X]` — the faithful and topology-preserving reading. ❗ Predicted error: adding `[SeparableSpace X]` / `[CompleteSpace X]`, which would trivialize the $\sigma$-discreteness for the wrong reason. |
-| 5 | Semantic closeness (refinement) | `Refines V U := ∀ j, ∃ i, V j ⊆ U i` — each member of the new family sits inside some member of the old one; and `IsOpenCover V` must be asserted for the new family (openness *and* $\bigcup_j V_j = X$). Omitting `IsOpenCover V` yields a vacuous statement (take `V` empty). | ✅ Both present, in the correct direction. |
-| 6 | Semantic closeness (strength of the conclusion) | Stone's proof actually produces a refinement indexed by `ι × ℕ` with $V_{(i,n)} \subseteq U_i$, i.e. a *precise* refinement whose $n$-th layer is discrete. Producing an arbitrary index type is the weaker (and textbook-faithful) formulation; a candidate that returns the precise `ι × ℕ`-indexed version is stating something stronger, which is fine but not required. | ⚠️ Ground truth uses an existentially quantified index type `κ` with a separate `level : κ → ℕ`; a formulation with `V : ι × ℕ → Set X` and `level := Prod.snd` would be more concrete and would make the layering visible. |
-| 7 | Universe hygiene | The original cover is indexed by `ι : Type v` and the refinement is asserted to exist in a *different*, free universe `κ : Type w`. Since the theorem is universe-polymorphic in `w`, it claims the refinement exists in every universe, including universes too small to index a family of subsets of `X`. | ⚠️ Harmless at the usual instantiation `u = v = w`, but `κ : Type v` (or `Type u`) is the correct choice: the refinement can always be indexed by `ι × ℕ` or by a subfamily of `Set X`. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The space is metrizable, and it is the *given* topology that comes from a metric. | ✅ `[MetrizableSpace X]`, whose definition ties the metric uniformity to the ambient topology. |
+| 2 | The statement holds for **every** open cover, with an arbitrary index type. | ✅ `∀ (ι : Type v) (U : ι → Set X), IsOpenCover U → …`. |
+| 3 | "Open cover" means all members are open **and** their union is everything. | ✅ `IsOpenCover U := (∀ i, IsOpen (U i)) ∧ ⋃ i, U i = univ`. |
+| 4 | The refinement produced is itself an open cover of $X$. | ✅ `IsOpenCover V` is asserted about the new family. |
+| 5 | It refines the given cover in the right direction: every new member lies inside some old member. | ✅ `Refines V U := ∀ j, ∃ i, V j ⊆ U i`. |
+| 6 | The refinement is locally finite. | ✅ `LocallyFinite V`, mathlib's indexed-family version. |
+| 7 | The refinement is $\sigma$-discrete, which needs an explicit split of the index type into countably many layers. | ✅ A level map `level : κ → ℕ` is produced, and each fibre is required to be discrete: `∀ n, IsDiscreteFamily fun j : {j : κ // level j = n} ↦ V j`. |
+| 8 | "Discrete family" is: every point of $X$ has a neighbourhood meeting **at most one** member. | ✅ `IsDiscreteFamily U := ∀ x, ∃ V ∈ 𝓝 x, {i \| (V ∩ U i).Nonempty}.Subsingleton` — `Set.Subsingleton` is exactly "at most one". |
+| 9 | Local finiteness and $\sigma$-discreteness are separate demands on the *same* family. | ✅ They appear as two conjuncts about the one family `V`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Asserting that the whole refinement is discrete, with no layers. | Far too strong. It would force every point to have a neighbourhood meeting one member of the entire cover, which is close to demanding a discrete space. |
+| 2 | Replacing "discrete" by "locally finite" in the layers, giving a $\sigma$-locally finite refinement. | That is the Nagata–Smirnov condition (4.4.7), a weaker conclusion. A $\sigma$-locally finite family need not be $\sigma$-discrete. |
+| 3 | Defining a discrete family as pairwise disjoint. | Disjointness is weaker: the sets $(1/(n+1),\,1/n)$ in $\mathbb{R}$ are pairwise disjoint but no neighbourhood of $0$ meets at most one of them. |
+| 4 | Defining a discrete family as "every point has a neighbourhood meeting exactly one member". | Wrong in the other direction: members may be empty, and a point may lie outside the union, so "at most one" is what is meant. |
+| 5 | Dropping `LocallyFinite V` and keeping only the $\sigma$-discreteness. | The two are independent; a $\sigma$-discrete family need not be locally finite. Engelking asks for both. |
+| 6 | Dropping `IsOpenCover V`, keeping only `Refines V U`. | Then the empty family satisfies everything and the statement says nothing. |
+| 7 | Adding separability, second countability, or completeness to the hypothesis. | Strengthening the hypothesis makes the theorem easier and no longer Stone's. Metrizability alone is the point. |
+
+## Notes on the ground truth
+
+- Assuming `[MetricSpace X]` instead of `[MetrizableSpace X]` is acceptable — every metrizable space
+  can be given a compatible metric — so a candidate doing that should not be penalized.
+- ⚠️ The $\sigma$-decomposition is carried by an existential index type `κ` together with a separate
+  `level : κ → ℕ`. Stone's proof actually gives a refinement indexed by `ι × ℕ` with
+  $V_{(i,n)} \subseteq U_i$ and layer $n$ discrete. A candidate returning that concrete
+  `ι × ℕ`-indexed family is stating something stronger, which is fine but not required; it would also
+  make the layering visible without the auxiliary `level` function.
+- ⚠️ The refinement's index type is `κ : Type w` for a universe `w` that is free, so the theorem
+  claims a refinement exists in *every* universe, including universes too small to index a family of
+  subsets of `X`. Harmless at the usual instantiation `u = v = w`, but `κ : Type v` or `Type u` is
+  the correct choice, since the refinement can always be indexed by `ι × ℕ` or by a subfamily of
+  `Set X`.
+- `IsDiscreteFamily` counts *indices* that are met, not distinct sets. For an existentially produced
+  refinement this is harmless, since the index type can be chosen injectively.

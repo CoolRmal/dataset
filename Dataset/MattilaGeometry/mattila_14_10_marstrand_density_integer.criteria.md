@@ -2,17 +2,58 @@
 
 **Statement:** [mattila_14_10_marstrand_density_integer.md](mattila_14_10_marstrand_density_integer.md) · **Lean:** [mattila_14_10_marstrand_density_integer.lean](mattila_14_10_marstrand_density_integer.lean)
 
-A faithful formalization must say: if some Radon measure on $\mathbb{R}^n$ has a density $\Theta^s(\mu,a) = \lim_{r\downarrow 0}\mu(B(a,r))/(2r)^s$ that **exists** and lies strictly between $0$ and $\infty$ on a set of positive $\mu$ measure, then $s \in \mathbb{Z}$. The entire force of Marstrand's theorem sits in the word "exists": with $\limsup$ or $\liminf$ in place of the limit — i.e. with only the upper or lower density positive and finite — the statement is *false* for every non-integer $s$. The secondary hazards are the `ℝ≥0∞` quotient defining the density and the fact that the exceptional set is not assumed measurable.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Marstrand's theorem says that fractional dimensions do not support well-behaved densities. Fix
+$s > 0$ and a Radon measure $\mu$ on $\mathbb{R}^n$. Consider the ratio $\mu(B(a,r))/(2r)^s$ as the
+radius shrinks to $0$. If this ratio has an honest limit, and that limit is neither $0$ nor $\infty$,
+at all points of some set of positive $\mu$ measure, then $s$ must be a whole number. The force of
+the theorem is in "honest limit": if one only asks for the $\limsup$ to be positive and finite, the
+conclusion is false for every non-integer $s$.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Faithful encoding | "The density exists and is positive and finite" must be a genuine limit: `∃ θ, 0 < θ ∧ θ < ∞ ∧ Tendsto (fun r ↦ μ (closedBall x r) / ENNReal.ofReal ((2*r)^s)) (𝓝[>] 0) (𝓝 θ)`. Replacing `Tendsto` by `limsup … = θ` (or `liminf`) yields a false theorem: sets with $0 < \Theta^{*s} < \infty$ for non-integer $s$ are abundant. | ✅ `Tendsto … (𝓝[>] 0) (𝓝 θ)` with `0 < θ ∧ θ < ∞`. ❗ Predicted error: reusing an upper-density notion (e.g. `upperHausdorffDensity` from `Defs.lean`) here — that is precisely the false variant. |
-| 2 | Semantic closeness / quantifier order | The limit value $\Theta^s(\mu,a)$ is allowed to depend on the point $a$: the existential over `θ` belongs **inside** `∀ x ∈ E`. Hoisting it out (`∃ θ, ∀ x ∈ E, …`) demands a single common density value — a strictly weaker hypothesis and a misreading of the text. | ✅ `∀ x ∈ E, ∃ θ, …`. ❗ Predicted error: the hoisted form. |
-| 3 | Junk values | The density quotient lives in `ℝ≥0∞`; for `r > 0` the denominator `ENNReal.ofReal ((2*r)^s)` is positive and finite, so the quotient is never `0/0` or `∞/∞`, and the filter `𝓝[>] 0` never sees the junk values at `r ≤ 0` (where `(2r)^s = Real.rpow` is junk for negative base). | ✅ Quotient in `ℝ≥0∞`, limit along `𝓝[>] 0`. ❗ Predicted error: a real-valued density via `ENNReal.toReal`, which maps `∞ ↦ 0` and would make "finite" unstatable. |
-| 4 | Faithful encoding | "In a set of positive $\mu$ measure": mathlib measures are outer measures on arbitrary sets, so `∃ E, 0 < μ E ∧ ∀ x ∈ E, …` is the correct junk-free reading and does not require `E` to be measurable. Adding `MeasurableSet E` would strengthen the hypothesis and weaken the theorem. | ✅ `∃ E : Set (EuclideanSpace ℝ (Fin n)), 0 < μ E ∧ …`, with no measurability on `E`. ❗ Predicted error: `MeasurableSet E` bolted on. |
-| 5 | Semantic closeness / normalization | Mattila normalizes by $(2r)^s$ (diameter). Unlike Theorem 6.2, where the constants $2^{-s}$ and $1$ depend on this choice, here dividing by `r ^ s` instead only rescales $\Theta$ by $2^s$ and changes nothing about "positive and finite" — so the statement is insensitive to the normalization of the density (and to that of $\mathcal H^s$, which does not appear at all). | ✅ `(2 * r) ^ s` used, matching the text; a candidate using `r ^ s` would still be faithful. |
-| 6 | Mathlib conventions | "Radon measure on $\mathbb{R}^n$" = locally finite + inner regular w.r.t. compact sets. Both `IsFiniteMeasureOnCompacts` and `Measure.InnerRegular` are mathlib *classes*, so for a `∀`-bound (here implicit-variable) `μ` they should be instance binders rather than a conjunctive hypothesis. On $\mathbb{R}^n$ inner regularity is in fact automatic for locally finite Borel measures. | ⚠️ `hμ : IsFiniteMeasureOnCompacts μ ∧ Measure.InnerRegular μ`; `[IsFiniteMeasureOnCompacts μ] [μ.InnerRegular]` would be idiomatic, and the second component carries no content in this space. |
-| 7 | Hypothesis completeness | `0 < s` must be present (it is the text's standing assumption and is what makes "integer" meaningful together with the conclusion); nothing else may be added — in particular no finiteness of $\mu$, no compact support, no measurability of $\mu$'s density set. | ✅ `hs : 0 < s` present; `μ ≠ 0` is not assumed but follows from `0 < μ E`. ❗ Predicted error: adding `[IsFiniteMeasure μ]` or a compact-support hypothesis "for convenience". |
-| 8 | Conclusion completeness | The conclusion is "$s$ is an integer". Under `0 < s` this is equivalent to `∃ m : ℕ, s = m`. | ✅ `∃ m : ℕ, s = m`. ⚠️ `∃ m : ℤ, s = m` is the literal rendering; equivalent here, and the ℕ form quietly also asserts positivity, which is already a hypothesis. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | $s$ is a positive real. | ✅ `hs : 0 < s`. |
+| 2 | $\mu$ is a Radon measure on $\mathbb{R}^n$: finite on compact sets and inner regular. | ✅ `hμ : IsFiniteMeasureOnCompacts μ ∧ Measure.InnerRegular μ`. |
+| 3 | There is a set $E$ of positive $\mu$ measure on which the density condition holds, and $E$ is not required to be measurable. | ✅ `∃ E : Set (EuclideanSpace ℝ (Fin n)), 0 < μ E ∧ ∀ x ∈ E, …`, with no measurability side condition — mathlib measures are outer measures, defined on every set. |
+| 4 | At each point of $E$ the density is a genuine limit as $r \downarrow 0$, not merely an upper limit. | ✅ `Tendsto (fun r : ℝ ↦ μ (closedBall x r) / ENNReal.ofReal ((2 * r) ^ s)) (𝓝[>] 0) (𝓝 θ)`. |
+| 5 | The limit value is strictly positive and strictly finite. | ✅ `0 < θ ∧ θ < ∞`, with `θ : ℝ≥0∞`. |
+| 6 | The limit value is allowed to vary from point to point. | ✅ `∀ x ∈ E, ∃ θ, …` — the existential sits inside the quantifier over points. |
+| 7 | The density is normalized by $(2r)^s$, matching Mattila's diameter convention. | ✅ `ENNReal.ofReal ((2 * r) ^ s)` in the denominator. |
+| 8 | The conclusion is that $s$ is an integer. | ✅ `∃ m : ℕ, s = m`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Using a `limsup` (for instance reusing `upperHausdorffDensity` from `Defs.lean`) or a `liminf` in place of the limit. | Sets whose *upper* density is positive and finite exist in abundance for non-integer $s$, so the theorem would be false as stated. Existence of the limit is the whole hypothesis. |
+| 2 | Writing `∃ θ, ∀ x ∈ E, …`, with one limit value for all points. | That demands a single common density across $E$, which is a strictly weaker hypothesis and a misreading of the text. |
+| 3 | Adding `MeasurableSet E`. | It strengthens the hypothesis and so weakens the theorem; the book only asks for a set of positive measure. |
+| 4 | Making the density real-valued, e.g. via `ENNReal.toReal`. | `toReal` sends `∞` to `0`, so "the density is finite" could no longer be stated, and points with infinite density would masquerade as points with density $0$. |
+| 5 | Adding `[IsFiniteMeasure μ]`, compact support, or any other convenience hypothesis on $\mu$. | Marstrand's theorem assumes only that $\mu$ is Radon. Extra hypotheses narrow it. |
+| 6 | Dropping `0 < θ` or `θ < ∞`. | With $\theta = 0$ allowed, any measure works and the conclusion fails; with $\theta = \infty$ allowed, likewise. Both bounds are hypotheses. |
+| 7 | Dropping `0 < s`. | It is the text's standing assumption and is what makes the conclusion meaningful together with the `∃ m : ℕ` form. |
+
+## Notes on the ground truth
+
+- The quotient lives in `ℝ≥0∞`. For `r > 0` the denominator `ENNReal.ofReal ((2 * r) ^ s)` is
+  positive and finite, so the ratio is never `0/0` or `∞/∞`, and the filter `𝓝[>] 0` never sees the
+  junk values of `Real.rpow` at nonpositive base.
+- Unlike Theorem 6.2, where the constants $2^{-s}$ and $1$ depend on the normalization, here the
+  choice between $(2r)^s$ and $r^s$ only rescales the density by $2^s$ and changes nothing about
+  "positive and finite". A candidate dividing by `r ^ s` is still faithful.
+- `μ ≠ 0` is not assumed; it follows from `0 < μ E`.
+- ⚠️ `IsFiniteMeasureOnCompacts` and `Measure.InnerRegular` are classes, so instance binders
+  `[IsFiniteMeasureOnCompacts μ] [μ.InnerRegular]` would be more idiomatic than the conjunction
+  `hμ`. On $\mathbb{R}^n$ inner regularity is automatic for locally finite Borel measures, so that
+  component carries no content here.
+- ⚠️ `∃ m : ℤ, s = m` is the literal rendering of "$s$ is an integer". The `ℕ` form used here is
+  equivalent under `0 < s`, but it quietly restates positivity.

@@ -1,20 +1,56 @@
 # Criteria: krylov_4_2_1_better_regular_data_better_regular_solution
 
-> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
-
 **Statement:** [krylov_4_2_1_better_regular_data_better_regular_solution.md](krylov_4_2_1_better_regular_data_better_regular_solution.md) · **Lean:** [krylov_4_2_1_better_regular_data_better_regular_solution.lean](krylov_4_2_1_better_regular_data_better_regular_solution.lean)
 
-Two claims must be kept apart: a regularity implication valid for *every* $\lambda$ ($u \in C^{m+\delta}$ and $L_\lambda u \in C^{k+\delta}$ imply $u \in C^{k+m+\delta}$), and, for $\lvert\lambda\rvert \ge \lambda_0$, the $\lambda$-weighted Schauder estimate with a constant $N = N(\kappa,k,m,\delta,K_1,d)$. The whole value of the second claim lies in the quantifier order and in what $N$ is allowed to depend on: $N$ must be chosen before $u$, before $f$ and before $\lambda$, and must not see the individual operator — only its ellipticity constant and the coefficient bound $K_1$. The second thing to check is $\lambda_0$: in the text it is *produced* by Theorem 4.1.2, so it is existential; if it is instead an arbitrary input, the estimate is asserted down to $\lambda = 0$, where it is false.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Two separate claims about a uniformly elliptic operator $L$ of order $m$ whose coefficients are
+Hölder of order $k+\delta$ with norms bounded by $K_1$. First, a regularity gain valid for *every*
+$\lambda$: if $u$ is in $C^{m+\delta}$ and $L_\lambda u = Lu - \lambda u$ happens to be in
+$C^{k+\delta}$, then $u$ is in $C^{k+m+\delta}$. Second, for all $\lambda$ past a threshold
+$\lambda_0$, a quantitative estimate with $\lambda$-weighted terms,
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Constant dependence / quantifier order | `∃ N` must sit **outside** `∀ u` (and outside `∀ λ`, `∀ f`). A candidate with `∀ u, ∃ N` states nothing. | ✅ `∃ C : ℝ≥0∞, C < ∞ ∧ ∀ (lam : ℝ) (u f : (Fin d → ℝ) → ℝ), …` — the constant is chosen first and is uniform in $\lambda$, $u$, $f$. This is the structural point of the whole book and the ground truth gets it right. ❗ Check it in every candidate for this file. |
-| 2 | Hypothesis completeness / solution concept | The admissible $\lambda$ must exclude the values where $L_\lambda$ is not invertible. With `principalSymbol` written as $\kappa\|\xi\|^m \le \sum_{\lvert\alpha\rvert=m}a^\alpha\xi^\alpha$, $L = \Delta$ is admissible and $L_\lambda = \Delta - \lambda$ annihilates $\sin(n x_1)$ for $\lambda = -n^2$. | ❗ **Genuine defect: the ground truth is false as stated.** `lam : ℝ` with only `lam₀ ≤ \|lam\|` admits $\lambda = -n^2$ with $n^2 \ge \lambda_0$. Take $d = 1$, $m = 2$, $L u = u''$, $K_1 = 1$, $u = \sin(nx)$, $f = 0$: the hypotheses `HolderOn (m+δ) univ u`, `ShiftedEllipticEquation L (-n^2) u 0`, `HolderOn (k+δ) univ 0` hold, but the estimate reads $\text{holderGauge}(k{+}2)\,\delta\,u + n^{2(k+2+\delta)/2}\cdot 1 \le C\cdot(0 + 0)$, i.e. a positive quantity $\le 0$. The hypothesis needs a one-sided condition on $\lambda$ (or a sector for complex $\lambda$). |
-| 3 | Quantifier structure | $\lambda_0$ is the constant *furnished by* Theorem 4.1.2; the estimate is claimed only above it. Turning it into a universally quantified input asserts the estimate for arbitrarily small thresholds. | ❗ **Second genuine defect.** `{lam₀ : ℝ}` is an implicit argument with `hlam₀ : 0 ≤ lam₀`, so $\lambda_0 = 0$ is allowed and then `lam₀ ≤ \|lam\|` holds for $\lambda = 0$, where the estimate degenerates to $\lvert u\rvert_{k+m+\delta} \le C\lvert Lu\rvert_{k+\delta}$ — false: with $L = D^2$ on $\mathbb{R}$ and $u_n = \sin(x/n)$, $Lu_n = -n^{-2}\sin(x/n)$, the left side is $\ge 1$ while the right side tends to $0$. The faithful shape is `∃ lam₀ ≥ 0, ∃ C < ∞, ∀ lam, lam₀ ≤ \|lam\| → …`, as `krylov_4_5_1_variable_coefficient_global_solvability` correctly does for its $\lambda_0$. |
-| 4 | Constant dependence | $N$ depends only on $\kappa, k, m, \delta, K_1, d$ — *not* on the particular operator. That uniformity over the class of operators with given ellipticity constant and coefficient bound is what makes the estimate usable (continuity method, perturbation, freezing coefficients). | ⚠️ `L` is an implicit variable of the theorem, so `C` is chosen after `L` is fixed and may depend on all of it. The statement remains non-trivial and true (modulo rows 2–3), but it is strictly weaker than Krylov's. A faithful version quantifies `∀ κ K₁, ∃ C, ∀ L, …`. |
-| 5 | Faithful encoding | "$\lvert a^\alpha\rvert_{k+\delta} \le K_1$ for any $\alpha$" must bound the Hölder norms of the coefficients of the operator that actually appears. | ✅ `hcoeffBound : OperatorCoefficientGaugeLE m k δ (ENNReal.ofReal K₁) L` unfolds to `∃ data, ∀ α ∈ data.terms, holderGauge k δ univ (data.coefficient α) ≤ K₁`, with `hK₁ : 1 ≤ K₁`. ⚠️ Because `holderGauge` is a maximum where Krylov's $\lvert\cdot\rvert_{k+\delta}$ is a sum, this bounds a slightly smaller quantity — harmless given row 4. |
-| 6 | Hypothesis structure | The three assumptions on $L$ — uniform ellipticity, Hölder coefficients, coefficient bound — should refer to one and the same coefficient representation. | ⚠️ `VariableCoefficientEllipticOperator m L`, `OperatorCoefficientsHolder m (k+δ) L` and `OperatorCoefficientGaugeLE m k δ _ L` each open their own `∃ data : EllipticOperatorData m L`. This is benign — `formula` holds for *all* input functions, so testing on monomials shows any two representations of `L` agree on the multi-indices they use — but bundling a single `data` and stating the three conditions about it would be clearer and avoid relying on that argument. |
-| 7 | Conclusion completeness | Both parts, with the correct guards: the regularity gain for *any* $\lambda$, the estimate only for $\lambda_0 \le \lvert\lambda\rvert$, and the two $\lambda$-weighted terms with exponents $(k+m+\delta)/m$ and $(k+\delta)/m$. | ✅ `HolderOn (k + m + δ) univ u ∧ (lam₀ ≤ \|lam\| → holderGauge (k+m) δ univ u + (ofReal \|lam\|) ^ (((k+m : ℕ) + δ)/m) * functionSupNorm univ u ≤ C * (holderGauge k δ univ f + (ofReal \|lam\|) ^ ((k + δ)/m) * functionSupNorm univ f))`. The exponents, the placement of $\lvert u\rvert_0 = $ `functionSupNorm univ u`, and the identification of $f$ with $L_\lambda u$ via `ShiftedEllipticEquation` all match. ❗ Predicted error: dropping the unguarded regularity conjunct, or attaching the $\lambda$-weights to the wrong terms. |
-| 8 | Junk values | Every quantity in the estimate is `ℝ≥0∞`-valued, so an infinite right-hand side makes the inequality vacuous rather than false, and `ENNReal.rpow (ENNReal.ofReal \|lam\|) p = 0` when $\lambda = 0$ and $p > 0$. | ✅ Sound as arithmetic. ⚠️ The vacuity is real, though: the hypotheses `HolderOn (m+δ) univ u` and `HolderOn (k+δ) univ f` force both sides finite, so nothing is lost — but a candidate that drops `hf : HolderOn (k+δ) univ f` would obtain a vacuously true estimate whenever $f \notin C^{k+\delta}$. |
+$$\lvert u\rvert_{k+m+\delta} + \lvert\lambda\rvert^{(k+m+\delta)/m}\lvert u\rvert_0 \le N\bigl(\lvert L_\lambda u\rvert_{k+\delta} + \lvert\lambda\rvert^{(k+\delta)/m}\lvert L_\lambda u\rvert_0\bigr),$$
+
+where $N$ is one constant serving every $\lambda$, every $u$ and every datum.
+
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The order satisfies $m \ge 1$, $k \ge 0$ is an integer, $0 < \delta < 1$, and $K_1 \ge 1$. | ✅ `hm : 0 < m`, `k : ℕ`, `hδ : 0 < δ ∧ δ < 1`, `hK₁ : 1 ≤ K₁`. |
+| 2 | $L$ is a uniformly elliptic operator of order $m$, written as a sum of coefficient times derivative. | ✅ `hL : VariableCoefficientEllipticOperator m L`, which supplies an `EllipticOperatorData m L` with `order_le`, `formula`, `principalSymbol` and a positive ellipticity constant. |
+| 3 | The coefficients lie in $C^{k+\delta}(\mathbb{R}^d)$. | ✅ `hcoeff : OperatorCoefficientsHolder m (k + δ) L`. |
+| 4 | Every coefficient's Hölder gauge is bounded by the single constant $K_1$. | ✅ `hcoeffBound : OperatorCoefficientGaugeLE m k δ (ENNReal.ofReal K₁) L`. |
+| 5 | The regularity gain is asserted for **every** $\lambda$, with no threshold attached. | ✅ The conjunct `HolderOn (k + m + δ) univ u` sits outside the `lam₀ ≤ lam →` guard, under `∀ (lam : ℝ) (u f), …`. |
+| 6 | The threshold $\lambda_0$ is produced by the theorem, is strictly positive, and is fixed before $\lambda$, $u$ and $f$. | ✅ `∃ lam₀ : ℝ, 0 < lam₀ ∧ …`, with `∀ (lam : ℝ) (u f), …` coming afterwards. |
+| 7 | The constant $N$ is finite and is chosen before $\lambda$, $u$ and $f$. | ✅ `∃ C : ℝ≥0∞, C < ∞ ∧ ∀ (lam : ℝ) (u f), …`. |
+| 8 | The estimate is guarded by the threshold, applying only when $\lambda \ge \lambda_0$. | ✅ `lam₀ ≤ lam → …`. |
+| 9 | The estimate has both weighted terms with the exponents $(k+m+\delta)/m$ on the left and $(k+\delta)/m$ on the right, multiplying the sup norms of $u$ and of $f$. | ✅ `ENNReal.rpow (ENNReal.ofReal \|lam\|) ((((k + m : ℕ) : ℝ) + δ) / m) * functionSupNorm univ u` and the matching term with exponent `(((k : ℕ) : ℝ) + δ) / m` on `f`. |
+| 10 | $f$ is $L_\lambda u$, and both $u \in C^{m+\delta}$ and $f \in C^{k+\delta}$ are hypotheses. | ✅ `ShiftedEllipticEquation L lam u f`, `HolderOn (m + δ) univ u`, `HolderOn (k + δ) univ f`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Writing `∀ u, ∃ C, …` instead of `∃ C, ∀ u, …`. | A constant chosen after $u$ always exists, so the estimate becomes empty. The uniformity of $N$ over $u$, $f$ and $\lambda$ is the whole content of the second claim. |
+| 2 | Taking $\lambda_0$ as an input of the theorem rather than something the theorem produces, or allowing $\lambda_0 = 0$. | The estimate would then be asserted down to $\lambda = 0$, where it is false: with $L = D^2$ on $\mathbb{R}$ and $u_n(x) = \sin(x/n)$ we get $Lu_n = -n^{-2}\sin(x/n)$, so the left side stays at least $1$ while the right side tends to $0$. |
+| 3 | Guarding the estimate by $\lambda_0 \le \lvert\lambda\rvert$ instead of $\lambda_0 \le \lambda$. | That admits large negative $\lambda$, where the estimate fails. Take $d = 1$, $m = 2$, $Lu = u''$, $u = \sin(nx)$ and $\lambda = -n^2$ with $n^2 \ge \lambda_0$. Then $f = L_\lambda u = 0$, so the right side is $0$ while the left side is strictly positive. |
+| 4 | Putting the regularity gain under the threshold guard. | The text asserts the gain "for any $\lambda$"; guarding it loses the part of the theorem that has no constants in it. |
+| 5 | Dropping the hypothesis $f \in C^{k+\delta}$. | Both sides are `ℝ≥0∞`-valued, so if $f$ is not $C^{k+\delta}$ the right side is $\infty$ and the estimate holds for free. The hypothesis is what makes the inequality say something. |
+| 6 | Swapping the two exponents, or attaching the $\lambda$-weight to the Hölder gauge rather than to the sup norm. | The weights encode the parabolic-style scaling of the problem. Placed wrongly, the inequality is a different and false claim. |
+| 7 | Encoding the Hölder memberships as finiteness of a gauge only, without the `ContDiffOn` clause. | `multiDerivative` is built from `fderiv`, which is $0$ off the differentiability locus, so a bounded nowhere-differentiable function has a finite gauge and would slip through. |
+
+## Notes on the ground truth
+
+- Krylov's $N$ depends only on $\kappa, k, m, \delta, K_1, d$ — not on the individual operator. In the Lean statement `L` is an implicit variable of the theorem, so `C` and `lam₀` are chosen after `L` is fixed and may depend on all of it. That is strictly weaker than the printed theorem, though still non-trivial. A faithful version would read `∀ κ K₁, ∃ lam₀ C, ∀ L, …`, which also requires naming $\kappa$ instead of hiding it inside `VariableCoefficientEllipticOperator`.
+- The weights are written with `\|lam\|`, but under the guard `lam₀ ≤ lam` with `lam₀ > 0` this is just `lam`. Harmless.
+- With the ellipticity written as $\sum_{\lvert\alpha\rvert=m}a^\alpha\xi^\alpha \ge \kappa\lVert\xi\rVert^m$, the admissible half-line for $\lambda$ actually depends on $m \bmod 4$: the Fourier multiplier of the principal part is $i^m\sum a^\alpha\xi^\alpha$. For $d = 1$, $m = 4$, $Lu = u''''$ and $\lambda = n^4 \ge \lambda_0$, the function $u = \cos(nx)$ gives $f = 0$ with a strictly positive left side, so the estimate still fails at those orders. `0 < lam₀` fixes the second-order case only.
+- The three hypotheses on $L$ each open their own `∃ data : EllipticOperatorData m L`. This is harmless — `formula` holds for all input functions, so testing on monomials shows any two representations agree on the multi-indices they use — but bundling one `data` and stating all three conditions about it would be clearer.
+- `holderGauge` is a maximum where Krylov's $\lvert\cdot\rvert_{k+\delta}$ is a sum, so `hcoeffBound` bounds a slightly smaller quantity than the text does. Given that `C` may already depend on `L`, this changes nothing.

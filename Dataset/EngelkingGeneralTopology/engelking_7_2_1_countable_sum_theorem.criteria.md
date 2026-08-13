@@ -2,16 +2,59 @@
 
 **Statement:** [engelking_7_2_1_countable_sum_theorem.md](engelking_7_2_1_countable_sum_theorem.md) · **Lean:** [engelking_7_2_1_countable_sum_theorem.lean](engelking_7_2_1_countable_sum_theorem.lean)
 
-Everything in this problem depends on the auxiliary definition of covering dimension: $\dim X \le n$ means that **every finite open cover** of $X$ admits a **finite open refinement of order $\le n+1$**, i.e. one in which no point belongs to more than $n+1$ members. A faithful formalization must use that definition for both the hypothesis ($\dim F_j \le n$, computed in the **subspace** $F_j$) and the conclusion ($\dim X \le n$), must keep the cover countable and **closed**, and must not weaken the order condition by an off-by-one. Mathlib has no covering dimension, so `CoveringDimensionLE` and `CoverOrderLE` are hand-rolled and have to be read literally.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Covering dimension is defined like this: $\dim X \le n$ means every finite open cover of $X$ has a
+finite open refinement in which no point belongs to more than $n+1$ members. The countable sum
+theorem says that dimension cannot go up when you glue countably many closed pieces: if a normal
+space $X$ is the union of countably many closed subsets $F_1, F_2, \ldots$, each of dimension at most
+$n$ in its own subspace topology, then $X$ itself has dimension at most $n$. The same $n$ bounds every
+piece and the whole.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Faithful encoding (covering dimension) | $\dim X \le n$ quantifies over **finite** open covers and produces **finite** open refinements; allowing arbitrary infinite covers defines a different (larger) invariant, and forgetting that the refinement must again cover $X$ makes the condition vacuous. | ✅ `CoveringDimensionLE X n := ∀ (m : ℕ) (U : Fin m → Set X), IsOpenCover U → ∃ (k : ℕ) (V : Fin k → Set X), IsOpenCover V ∧ Refines V U ∧ CoverOrderLE V n` — finite in, finite out, refinement in the correct direction (`∀ j, ∃ i, V j ⊆ U i`). |
-| 2 | Faithful encoding (order of a cover) | "Order $\le n+1$" means no point lies in more than $n+1$ members, i.e. any $n+2$ members have empty intersection. An off-by-one (`s.card ≤ n`, or `< n + 1`) shifts the whole dimension theory by one and would, e.g., make `CoveringDimensionLE X 0` say that the refinement is empty at every point. | ✅ `CoverOrderLE U n := ∀ x, ∀ s : Finset ι, (∀ i ∈ s, x ∈ U i) → s.card ≤ n + 1`, the standard $\dim \le n$ convention. ⚠️ It counts *indices*, so a refinement listing the same set twice is penalized; harmless because the refinement is existentially quantified and can be indexed injectively, but a `{i \| x ∈ V i}.Finite`/`ncard` formulation would be cleaner. |
-| 3 | Hypothesis completeness (closedness) | The cover $\{F_j\}$ must consist of **closed** sets. Without closedness the theorem is false, and spectacularly so: $\mathbb{R}$ is the union of the two zero-dimensional subspaces $\mathbb{Q}$ and $\mathbb{R} \setminus \mathbb{Q}$, yet $\dim \mathbb{R} = 1$. | ✅ `(∀ j, IsClosed (F j))` is part of `hcover`. ❗ Predicted error: dropping closedness, or requiring it only of $\bigcup_j F_j$. |
-| 4 | Hypothesis completeness (subspace dimension) | "$\dim F_j \le n$" is the covering dimension of $F_j$ **as a topological space in its own right** (subspace topology), not a condition about covers of $X$ that are somehow adapted to $F_j$. In Lean this means applying `CoveringDimensionLE` to the coerced subtype `↥(F j)`. | ✅ `∀ j, CoveringDimensionLE (F j) n` elaborates with the subtype instance. ❗ Predicted error: a relativized definition such as "every finite open cover of $X$ has a refinement of order $\le n+1$ on $F_j$", which is a different condition. |
-| 5 | Hypothesis completeness (countability, single $n$) | The cover must be countable — indexing by `ℕ` is the faithful reading of "$\{F_j\}$, $j = 1, 2, \ldots$" — and the **same** $n$ must bound every $\dim F_j$ and the conclusion. A candidate letting $n$ depend on $j$, or concluding $\dim X \le n+1$, states a different theorem. | ✅ `F : ℕ → Set X` with `∀ j, CoveringDimensionLE (F j) n` for a fixed `{n : ℕ}`, concluding `CoveringDimensionLE X n`. |
-| 6 | Separation axioms (the Engelking convention) | Engelking's "normal space" includes $T_1$ (his $\dim$ is only developed for $T_4$ spaces), whereas the ground truth assumes only mathlib's `[NormalSpace X]`. | ⚠️ Improvable rather than wrong: the omission *generalizes* the statement (the classical proof uses normality only, via extension of covers), so nothing false is asserted, but `[T1Space X]` — or `[T4Space X]` — is the faithful transcription. A candidate including $T_1$ should not be penalized. |
-| 7 | Mathlib conventions / statement shape | Mathlib has no covering dimension (checked), so custom definitions are required; `Fin m`-indexed finite families, `IsOpen`/`IsClosed`, `Finset.card` are the right primitives. The closed cover is delivered as an existential hypothesis `hcover : ∃ F, …`. | ✅ / ⚠️ Logically equivalent to taking `F` and its properties as explicit binders, which would be the idiomatic mathlib shape and easier to apply; the existential packaging is acceptable. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The ambient space is normal. | ✅ `[NormalSpace X]`. |
+| 2 | The cover is countable — indexed by $\mathbb{N}$, matching "$\{F_j\}$, $j = 1, 2, \ldots$". | ✅ `F : ℕ → Set X`. |
+| 3 | Every member of the cover is **closed**. | ✅ `∀ j, IsClosed (F j)`. |
+| 4 | The members cover all of $X$. | ✅ `⋃ j, F j = univ`. |
+| 5 | Each piece has covering dimension at most $n$ **as a space in its own right**, with the subspace topology. | ✅ `∀ j, CoveringDimensionLE (F j) n`, which elaborates with `F j` coerced to the subtype `↥(F j)` and its subspace instance. |
+| 6 | The same $n$ bounds every piece, and the conclusion uses that same $n$. | ✅ `{n : ℕ}` is a single fixed variable used in both the hypothesis and the conclusion `CoveringDimensionLE X n`. |
+| 7 | $\dim \le n$ quantifies over **finite** open covers and produces **finite** open refinements. | ✅ `CoveringDimensionLE X n := ∀ (m : ℕ) (U : Fin m → Set X), IsOpenCover U → ∃ (k : ℕ) (V : Fin k → Set X), …` — finite in, finite out. |
+| 8 | The refinement must itself be an open cover and refine in the right direction. | ✅ `IsOpenCover V ∧ Refines V U`, with `Refines V U := ∀ j, ∃ i, V j ⊆ U i`. |
+| 9 | "Order at most $n+1$" means no point lies in more than $n+1$ members of the refinement. | ✅ `CoverOrderLE U n := ∀ x, ∀ s : Finset ι, (∀ i ∈ s, x ∈ U i) → s.card ≤ n + 1`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Dropping closedness of the $F_j$, or asking only that $\bigcup_j F_j$ be closed. | The theorem then fails spectacularly: $\mathbb{R}$ is the union of $\mathbb{Q}$ and $\mathbb{R} \setminus \mathbb{Q}$, both of dimension $0$, yet $\dim \mathbb{R} = 1$. |
+| 2 | Writing the order condition as `s.card ≤ n` or `s.card < n + 1`. | Shifts the whole dimension theory by one. With `s.card ≤ n`, `CoveringDimensionLE X 0` would say the refinement misses every point, i.e. is empty. |
+| 3 | Letting the definition of $\dim \le n$ quantify over arbitrary infinite open covers. | That defines a different, larger invariant. Engelking's covering dimension uses finite covers. |
+| 4 | Forgetting that the refinement must again cover $X$. | The empty family then satisfies the order condition, so $\dim X \le n$ would hold for every space and every $n$. |
+| 5 | Relativizing $\dim F_j \le n$ to covers of $X$ — e.g. "every finite open cover of $X$ has a refinement of order $\le n+1$ over $F_j$". | A different condition. Engelking means the dimension of $F_j$ as a topological space with the subspace topology. |
+| 6 | Letting $n$ depend on $j$, or concluding $\dim X \le n+1$. | A different theorem. The point of the countable sum theorem is that the bound does not grow. |
+
+## Notes on the ground truth
+
+- Mathlib has no covering dimension, so `CoveringDimensionLE` and `CoverOrderLE` are hand-rolled in
+  `Defs.lean` and must be read literally. `Fin m`-indexed finite families, `IsOpen`, `IsClosed` and
+  `Finset.card` are the right primitives.
+- ⚠️ `CoverOrderLE` counts *indices*, so a refinement that lists the same set twice is penalized.
+  This is harmless here because the refinement is existentially quantified and can be indexed
+  injectively, but a formulation using `{i | x ∈ V i}.Finite` and `ncard` would be cleaner.
+- ⚠️ Engelking's "normal space" includes $T_1$ — he develops dimension theory only for $T_4$ spaces —
+  while the ground truth assumes only mathlib's `[NormalSpace X]`. This *generalizes* the statement
+  rather than falsifying it, since the classical proof uses normality only, via extension of covers.
+  Still, `[T1Space X]` or `[T4Space X]` is the faithful transcription, and a candidate that includes
+  $T_1$ should not be penalized.
+- ⚠️ The closed cover is delivered as a single existential hypothesis `hcover : ∃ F, …`. This is
+  logically the same as taking `F` and its properties as explicit binders, which would be the
+  idiomatic mathlib shape and easier to apply. The existential packaging is acceptable.

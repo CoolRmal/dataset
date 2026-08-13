@@ -2,14 +2,47 @@
 
 **Statement:** [niven_zuckerman_10_16_ramanujan_congruence.md](niven_zuckerman_10_16_ramanujan_congruence.md) · **Lean:** [niven_zuckerman_10_16_ramanujan_congruence.lean](niven_zuckerman_10_16_ramanujan_congruence.lean)
 
-One of the cleanest statements in the book and a genuinely deep one: $p(5m+4) \equiv 0 \pmod 5$ for **every** $m \ge 0$. The only encoding question is what `p(n)` is — the number of partitions of `n`, which mathlib provides as the cardinality of `Nat.Partition n`.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Let $p(n)$ be the number of ways of writing $n$ as a sum of positive integers, where the order of
+the summands does not matter. Ramanujan's congruence says that whenever $n$ leaves remainder $4$ on
+division by $5$, the number $p(n)$ is divisible by $5$. The first case is $p(4) = 5$, then
+$p(9) = 30$, $p(14) = 135$, and so on forever. The statement is short but the result is deep; it is
+the payoff of Theorems 10.14 and 10.15.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Faithful encoding | `p(n)` is the number of partitions of `n`, i.e. `Nat.card (Nat.Partition n)`; it is not the number of *distinct-part* partitions and not `Nat.factorization`. | ✅ `partitionCount n = Nat.card (Nat.Partition n)`. ❗ Predicted error: using a partition-counting function restricted to distinct parts. |
-| 2 | Conclusion completeness | The congruence holds for every `m : ℕ`, including `m = 0` (`p(4) = 5`). | ✅ `∀ m : ℕ` with no side condition. ❗ Predicted error: `1 ≤ m`. |
-| 3 | Mathlib conventions | `≡ 0 (mod 5)` on naturals is `n % 5 = 0`; `Nat.ModEq` would also be acceptable. | ✅ `partitionCount (5 * m + 4) % 5 = 0`. |
-| 4 | Faithful encoding | The arithmetic progression is `5m + 4`, not `5m` or `5m + 1`; the congruence is false for those. | ✅ As written. ❗ Predicted error: an off-by-one in the residue. |
-| 5 | Junk values | `Nat.card` of an infinite type is `0`; `Nat.Partition n` is a finite type for every `n`, so the count is genuine. | ⚠️ Relies on mathlib's `Fintype (Nat.Partition n)` instance. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | $p(n)$ is the number of partitions of $n$ — all partitions, with repeats allowed among the parts. | ✅ `partitionCount n`, defined in `Defs.lean` as `Nat.card (Nat.Partition n)`, mathlib's type of partitions of `n`. |
+| 2 | The claim is about the arithmetic progression $5m+4$. | ✅ `partitionCount (5 * m + 4)`. |
+| 3 | The conclusion is divisibility by $5$. | ✅ `… % 5 = 0`. |
+| 4 | It holds for every natural number $m$, with no side condition — including $m = 0$, the case $p(4) = 5$. | ✅ `(m : ℕ)` is a bare universally quantified variable. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Adding a hypothesis such as `1 ≤ m` or `0 < m`. | Drops the very first instance, $p(4) = 5$, which the book's statement includes. |
+| 2 | Shifting the residue: $p(5m)$, $p(5m+1)$, $p(5m+2)$ or $p(5m+3)$. | All false. For example $p(5) = 7$ and $p(6) = 11$, neither divisible by $5$. |
+| 3 | Counting partitions into *distinct* parts, or into odd parts, instead of all partitions. | A different counting function. The congruence is specific to the unrestricted partition function. |
+| 4 | Using a factorisation-flavoured function such as `Nat.factorization` or the divisor count in place of $p(n)$. | Not the partition function at all; the resulting claim is unrelated and false. |
+| 5 | Defining a home-made partition count as `Nat.card` of a set that is not finite — for instance sequences of parts that may include zeros, or lists rather than multisets up to reordering. | Lean's `Nat.card` returns $0$ for an infinite type, and $5$ divides $0$, so the statement would hold for free without saying anything. |
+| 6 | Stating the congruence for one fixed $m$ instead of all $m$. | A single numeric instance, not the theorem. |
+
+## Notes on the ground truth
+
+- Mathlib supplies `Fintype (Nat.Partition n)` for every `n`, so `Nat.card (Nat.Partition n)` is a
+  genuine finite count and never the $0$ that `Nat.card` returns on infinite types.
+- `partitionCount` is a thin wrapper we added in `Defs.lean` purely so the statement reads like the
+  book. A candidate writing `Nat.card (Nat.Partition (5 * m + 4))` directly is equally good.
+- `% 5 = 0` on naturals is one of several equally faithful spellings; `Nat.ModEq 5 _ 0`,
+  `5 ∣ partitionCount (5 * m + 4)`, and the same divisibility cast into `ℤ` should all be accepted.
+- The letter $p$ is overloaded in this chapter: a prime in Theorem 10.14, the partition function
+  here. Only the partition function occurs in this statement.

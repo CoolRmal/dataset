@@ -2,14 +2,55 @@
 
 **Statement:** [folland_2_29_unimodular_of_compact_commutator_quotient.md](folland_2_29_unimodular_of_compact_commutator_quotient.md) · **Lean:** [folland_2_29_unimodular_of_compact_commutator_quotient.lean](folland_2_29_unimodular_of_compact_commutator_quotient.lean)
 
-Short statement, two traps: the commutator subgroup here is the **closed** one (Folland says "the smallest closed subgroup containing all $[x,y]$"), and unimodularity means the modular function is identically $1$, not merely that some particular Haar measure is right invariant.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Let $G$ be a locally compact group. Its modular function $\Delta$ measures how far a left Haar
+measure is from being right invariant: $\lambda(Ex) = \Delta(x)\lambda(E)$. When $\Delta$ is
+identically $1$ the group is called unimodular, and then one measure is both left and right
+invariant.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Faithful encoding | `[G,G]` is the topological closure of `commutator G`, not `commutator G` itself; for a general topological group the algebraic commutator subgroup need not be closed. | ✅ `(commutator G).topologicalClosure`. ❗ Predicted error: bare `commutator G`, which states a weaker hypothesis and hence a stronger (and unproved) theorem. |
-| 2 | Faithful encoding | `G/[G,G]` compact is `CompactSpace` of the coset space; the closed commutator subgroup is normal, so this is also the quotient group. | ✅ `CompactSpace (G ⧸ (commutator G).topologicalClosure)`. |
-| 3 | Conclusion completeness | Unimodular means `Δ ≡ 1`, stated for an arbitrary `x`. | ✅ `Measure.modularCharacterFun x = 1` with `x` universally quantified as a parameter. ❗ Predicted error: `∃ μ, μ.IsMulRightInvariant`, which is implied but is not Folland's `Δ ≡ 1`. |
-| 4 | Mathlib conventions | `modularCharacterFun` is mathlib's `Δ`, valued in `ℝ≥0`; it needs `[LocallyCompactSpace G]` and `[IsTopologicalGroup G]` but no measure argument. | ✅ Reused rather than re-defined, and no spurious measure hypothesis. ⚠️ Mathlib's `Δ` is the reciprocal of Folland's on some conventions; the statement `Δ = 1` is insensitive to that. |
-| 5 | Hypothesis completeness | Local compactness is needed for `Δ` to be defined at all. | ✅ `[LocallyCompactSpace G]`. |
+Write $[G,G]$ for the smallest *closed* subgroup containing all commutators $xyx^{-1}y^{-1}$. The
+proposition says: if the coset space $G/[G,G]$ is compact, then $G$ is unimodular. The idea is that
+$\Delta$ is a homomorphism into the multiplicative group of positive reals, which is abelian, so
+$\Delta$ kills all commutators and factors through $G/[G,G]$; a continuous homomorphism from a
+compact group into the positive reals has image a compact subgroup, which must be $\{1\}$.
+
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | $G$ is a topological group. | ✅ `[Group G] [TopologicalSpace G] [IsTopologicalGroup G]`. |
+| 2 | $G$ is locally compact. Without this there is no Haar measure and no modular function. | ✅ `[LocallyCompactSpace G]`. |
+| 3 | The subgroup being quotiented out is the *closure* of the commutator subgroup, matching Folland's "smallest closed subgroup". | ✅ `(commutator G).topologicalClosure`. |
+| 4 | The hypothesis is that the coset space is compact. | ✅ `hcpt : CompactSpace (G ⧸ (commutator G).topologicalClosure)`. |
+| 5 | The conclusion is that the modular function takes the value $1$. | ✅ `Measure.modularCharacterFun x = 1`. |
+| 6 | The conclusion holds at every group element, not at some distinguished one. | ✅ `x : G` is a universally quantified parameter of the theorem. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Using the bare algebraic subgroup `commutator G` instead of its topological closure. | The algebraic commutator subgroup can be strictly smaller and need not be closed. Its coset space maps continuously onto $G/\overline{[G,G]}$, so assuming *it* is compact is a stronger assumption. The theorem you then state is weaker than the printed one. |
+| 2 | Concluding `∃ μ, μ.IsMulRightInvariant` instead of $\Delta \equiv 1$. | The zero measure is right invariant, so this existential is satisfied by every group. Even repaired with `μ ≠ 0` and left invariance it is a restatement, not Folland's assertion about $\Delta$. |
+| 3 | Dropping `[LocallyCompactSpace G]`. | The modular function is defined from Haar measure, which requires local compactness; in Mathlib the hypothesis is part of the definition's context. |
+| 4 | Assuming $G$ is abelian, or compact, or that $[G,G]$ is trivial. | Each makes the statement immediate and throws away the content, which is exactly the case where $G$ is far from abelian but the abelianisation is small. |
+| 5 | Stating the conclusion for a single fixed $x$ supplied by the theorem rather than for all $x$. | Unimodularity is $\Delta \equiv 1$. A statement about one unnamed element says nothing. |
+| 6 | Assuming $[G,G]$ is normal as an extra hypothesis. | It is automatically normal, since $z[x,y]z^{-1} = [zxz^{-1}, zyz^{-1}]$ and conjugation is a homeomorphism. Adding it is clutter, not the printed hypothesis. |
+
+## Notes on the ground truth
+
+- `Measure.modularCharacterFun` is Mathlib's $\Delta$. It is `ℝ≥0`-valued and takes no measure
+  argument, because the modular function does not depend on which left Haar measure you use. We
+  reuse it rather than defining our own.
+- Mathlib's $\Delta$ is the reciprocal of Folland's (see the notes on `folland_2_31`). The equation
+  $\Delta = 1$ is insensitive to that, so no correction is needed here.
+- `Measure.modularCharacterFun` needs only `[TopologicalSpace G] [Group G] [IsTopologicalGroup G]
+  [LocallyCompactSpace G]`, so the statement carries no measurable-space or Borel hypotheses.
+- The closed commutator subgroup is normal, so `G ⧸ (commutator G).topologicalClosure` is a
+  topological group; the statement only needs it as a compact coset space.

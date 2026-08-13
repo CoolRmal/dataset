@@ -1,20 +1,59 @@
 # Criteria: kong_6_6_4_periodic_sturm_liouville_coupling
 
-> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
-
 **Statement:** [kong_6_6_4_periodic_sturm_liouville_coupling.md](kong_6_6_4_periodic_sturm_liouville_coupling.md) · **Lean:** [kong_6_6_4_periodic_sturm_liouville_coupling.lean](kong_6_6_4_periodic_sturm_liouville_coupling.lean)
 
-A faithful formalization must *produce* three sequences — the periodic eigenvalues $\lambda_n$, the Dirichlet eigenvalues $\mu_n$, the Neumann eigenvalues $\nu_n$ — show that each enumerates the spectrum of its boundary value problem, and then assert the full interlacing chain with its exact alternation of strict and non-strict inequalities, plus the simplicity/doubleness criterion (a) and the zero counts (b). Two structural mistakes dominate: the three sequences must be existentially quantified (they are the object being constructed), and "eigenfunction" must mean nontrivial *on $[a,b]$* — the Sturm–Liouville conditions only constrain $y$ on $[a,b]$, so a global `y ≠ 0` lets a function vanishing identically on $[a,b]$ pose as an eigenfunction for every $\lambda$.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Consider the Sturm–Liouville equation $(p y')' = (q - \lambda w)y$ on $[a,b]$ with $p, q, w$
+continuous and $p, w$ positive. Three boundary value problems can be posed on it: periodic, Dirichlet
+and Neumann. Each has an infinite increasing sequence of real eigenvalues — call them $\lambda_n$,
+$\mu_n$ and $\nu_n$. The theorem says these three sequences interlace in a precise pattern, with the
+inequalities alternating between strict and non-strict in a period-four rhythm:
+$\nu_0 \le \lambda_0 < \{\mu_0,\nu_1\} < \lambda_1 \le \{\mu_1,\nu_2\} \le \lambda_2 < \cdots$. It
+adds two refinements: the lowest periodic eigenvalue is always simple, and a higher one has a
+two-dimensional eigenspace exactly when it is simultaneously a Dirichlet and a Neumann eigenvalue;
+and the eigenfunctions have a prescribed number of zeros — none for $\lambda_0$, and exactly $2n+2$
+in $[a,b)$ for both $\lambda_{2n+1}$ and $\lambda_{2n+2}$.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Quantifier structure | "SLP (S-L), (P) **has** eigenvalues $\lambda_n$ … which can be arranged to satisfy …" is an existential statement about three sequences; they cannot be free variables of the theorem, or the theorem asserts the conclusion for *every* triple of sequences. | ❗ **False as stated.** `{lam μ ν : ℕ → ℝ}` are implicit — hence universally quantified — arguments, so the statement claims the conclusion for all sequences. With `p = w = 1`, `q = 0`, `a = 0`, `b = 1` (so `hSL` holds) and `lam = μ = ν = 0` the conjunct `Tendsto lam atTop atTop` already fails. The fix is `∃ lam μ ν : ℕ → ℝ, …`. |
-| 2 | Junk values / faithful encoding | An eigenfunction must be nontrivial *on the interval where the equation is imposed*: `IsSturmLiouvilleEigenfunction` constrains `y` and the witness `y'` only on `Icc a b`, so a global `y ≠ 0` is far too weak. | ❗ **Second independent falsity.** `IsSturmLiouvilleEigenfunction … := y ≠ 0 ∧ boundary y ∧ ∃ y', …` accepts the $C^\infty$ function $y$ that vanishes on $(-\infty, b]$ and equals $e^{-1/(x-b)^2}$ for $x > b$: take `y' ≡ 0`; then every clause holds for **every** `eigVal`, `periodicBoundary` holds (`y a = y b = 0`, `deriv y a = deriv y b = 0`), and `y ≠ 0`. Consequently `∀ eigVal, (∃ y, …) ↔ ∃ n, lam n = eigVal` forces every real to be some `lam n`, and the clause `{x ∈ Icc a b \| y x = 0} = ∅` for `lam 0` fails outright. The fix is `∃ x ∈ Set.Icc a b, y x ≠ 0`. |
-| 3 | Faithful encoding | The equation must be in quasi-derivative form $(p y')' = (q - \lambda w) y$, with a genuine derivative for both $y$ and $p y'$ — `deriv` would be junk where differentiability fails, and $p$ need not be differentiable so $(py')' \ne p y'' + p' y'$ in general. | ✅ `∃ y', (∀ x ∈ Icc a b, HasDerivAt y (y' x) x) ∧ ∀ x ∈ Icc a b, HasDerivAt (fun t ↦ p t * y' t) ((q x - eigVal * w x) * y x) x`. ⚠️ `HasDerivAt` at the endpoints `a`, `b` is a two-sided derivative; `HasDerivWithinAt … (Icc a b)` is the literal reading of a boundary value problem on $[a,b]$, and the fact that `y'` is unconstrained off `[a,b]` is what makes the junk eigenfunction of row 2 possible. |
-| 4 | Faithful encoding | The three boundary conditions must be the standard ones: periodic $y(a) = y(b)$, $p(a)y'(a) = p(b)y'(b)$; Dirichlet $y(a)=y(b)=0$; Neumann $y'(a)=y'(b)=0$. | ✅ `periodicBoundary p a b y := y a = y b ∧ deriv y a * p a = deriv y b * p b`, `dirichletBoundary`, `neumannBoundary` as expected. ⚠️ They use `deriv y` (junk `0` at non-differentiability) rather than the witness `y'` carried by the eigenfunction predicate; the two agree for genuine eigenfunctions, but the mismatch is precisely what row 2 exploits. |
-| 5 | Conclusion completeness | The interlacing chain must be transcribed index by index, preserving the alternation of `<` and `≤`: $\nu_0 \le \lambda_0 < \{\mu_0,\nu_1\} < \lambda_1 \le \{\mu_1,\nu_2\} \le \lambda_2 < \cdots$. | ✅ `ν 0 ≤ lam 0` together with, for every `n`, the eight relations `lam (2n) < μ (2n)`, `lam (2n) < ν (2n+1)`, `μ (2n) < lam (2n+1)`, `ν (2n+1) < lam (2n+1)`, `lam (2n+1) ≤ μ (2n+1)`, `lam (2n+1) ≤ ν (2n+2)`, `μ (2n+1) ≤ lam (2n+2)`, `ν (2n+2) ≤ lam (2n+2)` — exactly the text's chain. ❗ Trap: uniform `≤` (or uniform `<`) throughout, which is the single most likely transcription error. |
-| 6 | Conclusion completeness | "Countably infinite, all real, bounded below and unbounded above" plus the identification of the three sequences with the three spectra. | ✅ Monotonicity `∀ n, lam n ≤ lam (n+1)` and `Tendsto lam atTop atTop` (bounded below then follows from monotonicity, infinitude from the strict inequalities `lam (2n) < lam (2n+1)`), and three `↔` characterizations tying `lam`, `μ`, `ν` to the periodic, Dirichlet and Neumann eigenvalues respectively. ❗ Trap: asserting the interlacing without ever saying *what* `μ` and `ν` are. |
-| 7 | Faithful encoding | Part (a): geometric simplicity of $\lambda_0$ (one-dimensional eigenspace) and the criterion "$\lambda_n$ is geometrically double $\iff \lambda_n = \mu_i = \nu_j$ for some $i,j$". | ✅ Simplicity as "any two eigenfunctions for `lam 0` are proportional" (`∃ c : ℝ, y₂ = c • y₁`), and the criterion as `(∃ i j, lam n = μ i ∧ lam n = ν j) ↔ ∃ y₁ y₂, … ∧ ¬∃ c : ℝ, y₂ = c • y₁` — non-proportionality of two eigenfunctions, which for nonzero `y₁` is linear independence. ⚠️ The bound "at most double" is not stated separately (it is automatic for a second-order problem, but is part of the text's "may be simple or double"). |
-| 8 | Junk values | Part (b): the zero sets. `Set.ncard` is `0` on infinite sets, so a count of `0` would be junk-satisfiable; the half-open interval $[a,b)$ in the second claim is essential (periodic eigenfunctions have matching values at $a$ and $b$). | ✅ For `lam 0`: `{x ∈ Set.Icc a b \| y x = 0} = ∅`, junk-free and on the *closed* interval as the text says. ✅ For `lam (2n+1)` and `lam (2n+2)`: `{x ∈ Set.Ico a b \| y x = 0}.ncard = 2 * n + 2` on the half-open interval, and the nonzero count rules out the infinite-set junk value. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The coefficient data: $a < b$; $p$, $q$, $w$ continuous on $[a,b]$; $p > 0$ and $w > 0$ there. | ✅ `PeriodicSturmLiouvilleData p q w a b`. |
+| 2 | The three sequences are **produced** by the theorem, not given to it. | ✅ `∃ lam μ ν : ℕ → ℝ, …`. |
+| 3 | The periodic eigenvalues are nondecreasing, bounded below and unbounded above. | ✅ `∀ n, lam n ≤ lam (n + 1)` and `Tendsto lam atTop atTop`; boundedness below follows from monotonicity, and there are infinitely many distinct values because of the strict inequalities `lam (2n) < lam (2n+1)`. |
+| 4 | Each sequence really lists the eigenvalues of its own problem — periodic for $\lambda$, Dirichlet for $\mu$, Neumann for $\nu$ — with nothing left out and nothing extra. | ✅ Three equivalences of the shape `∀ eigVal, (∃ y, IsSturmLiouvilleEigenfunction p q w a b eigVal (…boundary…) y) ↔ ∃ n, lam n = eigVal`. |
+| 5 | The equation is in quasi-derivative form: $y$ has a derivative $y'$ on $[a,b]$ and $p y'$ has derivative $(q - \lambda w)y$ there. | ✅ `∃ y', … (∀ x ∈ Icc a b, HasDerivWithinAt y (y' x) (Icc a b) x) ∧ ∀ x ∈ Icc a b, HasDerivWithinAt (fun t ↦ p t * y' t) ((q x - eigVal * w x) * y x) (Icc a b) x`. |
+| 6 | An eigenfunction must be nontrivial **on $[a,b]$**, the interval where the equation is imposed. | ✅ `∃ x ∈ Set.Icc a b, y x ≠ 0` is the first conjunct of `IsSturmLiouvilleEigenfunction`. |
+| 7 | The three sets of boundary conditions, all expressed with the same $y'$ that solves the equation. | ✅ `periodicBoundary p a b y y' := y a = y b ∧ p a * y' a = p b * y' b`, `dirichletBoundary a b y _ := y a = 0 ∧ y b = 0`, `neumannBoundary a b _ y' := y' a = 0 ∧ y' b = 0`. |
+| 8 | The interlacing chain transcribed index by index, with the exact alternation of $<$ and $\le$, and the opening $\nu_0 \le \lambda_0$. | ✅ `ν 0 ≤ lam 0` plus, for every $n$, the eight relations `lam (2n) < μ (2n)`, `lam (2n) < ν (2n+1)`, `μ (2n) < lam (2n+1)`, `ν (2n+1) < lam (2n+1)`, `lam (2n+1) ≤ μ (2n+1)`, `lam (2n+1) ≤ ν (2n+2)`, `μ (2n+1) ≤ lam (2n+2)`, `ν (2n+2) ≤ lam (2n+2)`. |
+| 9 | (a) $\lambda_0$ is geometrically simple: any two eigenfunctions for it are proportional on $[a,b]$. | ✅ `∀ y₁ y₂, … → ∃ c : ℝ, Set.EqOn y₂ (c • y₁) (Set.Icc a b)`. |
+| 10 | (a) $\lambda_n$ has a two-dimensional eigenspace **exactly when** $\lambda_n = \mu_i = \nu_j$ for some $i, j$. | ✅ `∀ n, (∃ i j, lam n = μ i ∧ lam n = ν j) ↔ ∃ y₁ y₂, … ∧ ¬∃ c : ℝ, Set.EqOn y₂ (c • y₁) (Set.Icc a b)` — two non-proportional eigenfunctions. |
+| 11 | (b) Every eigenfunction for $\lambda_0$ is zero-free on the **closed** interval $[a,b]$. | ✅ `{x ∈ Set.Icc a b \| y x = 0} = ∅`. |
+| 12 | (b) Every eigenfunction for $\lambda_{2n+1}$ and every one for $\lambda_{2n+2}$ has exactly $2n+2$ zeros in the **half-open** interval $[a,b)$. | ✅ `{x ∈ Set.Ico a b \| y x = 0}.ncard = 2 * n + 2`, stated separately for the two indices. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Taking the three sequences as (implicit) variables of the theorem instead of existentially quantifying them. | Implicit variables are universally quantified, so the statement would claim the conclusion for *every* triple of sequences. With $p = w = 1$, $q = 0$, $a = 0$, $b = 1$ and $\lambda = \mu = \nu \equiv 0$ the hypotheses hold and the clause `Tendsto lam atTop atTop` already fails. |
+| 2 | Defining "eigenfunction" by a global $y \ne 0$. | The equation and the boundary conditions only constrain $y$ on $[a,b]$, so a function that vanishes on $(-\infty, b]$ and equals $e^{-1/(x-b)^2}$ beyond $b$ qualifies, with $y' \equiv 0$: it is nonzero as a function, every equation clause reads $0 = 0$, and the periodic conditions hold. It would then be an eigenfunction for *every* real number, so the enumeration clause would force every real to be some $\lambda_n$, and the "no zeros" claim for $\lambda_0$ would fail outright. |
+| 3 | Using $<$ throughout the chain, or $\le$ throughout. | The alternation is the content of the theorem. A uniform relation is either false (the strict places) or strictly weaker (the non-strict places). This is the single most likely transcription error. |
+| 4 | Asserting the interlacing without any clause saying what $\mu$ and $\nu$ are. | The chain then constrains three arbitrary sequences and says nothing about the Dirichlet and Neumann problems. |
+| 5 | Writing the equation as $p y'' + p' y' = (q - \lambda w)y$, or using `deriv`. | $p$ is only assumed continuous, so $p'$ need not exist and the product rule is unavailable — the quasi-derivative form is essential. And `deriv` returns `0` where a function is not differentiable, so it can hide the failure of differentiability. |
+| 6 | Counting the zeros of the higher eigenfunctions in the closed interval $[a,b]$. | Periodic eigenfunctions take the same value at $a$ and at $b$, so a zero at $a$ is matched by one at $b$ and the closed-interval count is one too many. The half-open interval is what makes the count $2n+2$ correct. |
+| 7 | Stating the $\lambda_0$ zero claim as `ncard = 0` rather than as "the zero set is empty". | `Set.ncard` is `0` for infinite sets, so a function vanishing on a whole subinterval would satisfy the count. Writing the set equal to `∅` has no such loophole. |
+| 8 | Demanding two-sided derivatives at the endpoints $a$ and $b$. | A boundary value problem on $[a,b]$ says nothing about $y$ outside $[a,b]$; a two-sided derivative at an endpoint imposes conditions there and rules out genuine eigenfunctions that happen to be extended arbitrarily. |
+
+## Notes on the ground truth
+
+- The text's "may be geometrically simple or double" also contains the bound "at most double". That bound is not stated separately here. It is automatic for a second-order equation, but it is part of what the sentence asserts.
+- Simplicity and doubleness are phrased through proportionality of eigenfunctions on $[a,b]$ rather than through the dimension of an eigenspace, which avoids having to build the eigenspace as a subspace. For a nonzero $y_1$ the two are the same condition.
+- The boundary conditions take the derivative witness $y'$ carried by the eigenfunction predicate, rather than Lean's `deriv y`. This matters: `deriv` would be `0` at points of non-differentiability, and the mismatch between the two is exactly what let the junk eigenfunction of mistake 2 slip past an earlier version of the definition.
+- All the derivatives are taken within $[a,b]$, which is the literal reading of a boundary value problem on a closed interval.
