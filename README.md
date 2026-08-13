@@ -53,6 +53,14 @@ Included books:
 - `Dataset/NivenZuckermanNumberTheory/` — I. Niven and H. S. Zuckerman, *An Introduction to the Theory of Numbers*
 - `Dataset/NikolskiOperators/` — N. K. Nikolski, *Operators, Functions, and Systems*
 
+## Source texts
+
+`reference/` holds the source textbooks themselves, one PDF per book, named
+after the `Dataset/<Book>/` directory it feeds. `reference/README.md` records,
+for each one, the offset between PDF page numbers and printed page numbers —
+several of these books are scans with no text layer, so a page has to be
+rendered to an image before it can be read.
+
 ## Scripts and generated artifacts
 
 - `scripts/make_benchmark_pdfs.py` generates one report per textbook in
