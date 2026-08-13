@@ -61,6 +61,9 @@ def unescaped(line: str) -> int:
     return len(re.findall(r"(?<!\\)\|", line))
 
 
+SEPARATOR = re.compile(r"^\|(?:\s*:?-{3,}:?\s*\|)+$")
+
+
 def main() -> None:
     paths = sorted(ROOT.glob("Dataset/*/*.criteria.md"))
     fixed_rows = fixed_files = 0
@@ -68,15 +71,21 @@ def main() -> None:
     for path in paths:
         lines = path.read_text(encoding="utf-8").splitlines()
         changed = False
+        # A file may hold several tables with different widths; the `|---|---|`
+        # separator under each header fixes that table's delimiter count.
+        width = 0
         for idx, line in enumerate(lines):
-            if not line.startswith("| ") or unescaped(line) == 5:
+            if SEPARATOR.match(line):
+                width = unescaped(line)
+                continue
+            if not line.startswith("| ") or not width or unescaped(line) == width:
                 continue
             new = fix_line(line)
             if new != line:
                 lines[idx] = new
                 changed = True
                 fixed_rows += 1
-            if unescaped(lines[idx]) != 5:
+            if unescaped(lines[idx]) != width:
                 still_bad.append(f"{path.relative_to(ROOT)}:{idx + 1}")
         if changed:
             path.write_text("\n".join(lines) + "\n", encoding="utf-8")
