@@ -53,6 +53,12 @@ Included books:
 - `Dataset/NivenZuckermanNumberTheory/` — I. Niven and H. S. Zuckerman, *An Introduction to the Theory of Numbers*
 - `Dataset/NikolskiOperators/` — N. K. Nikolski, *Operators, Functions, and Systems*
 
+## Expansion
+
+[CANDIDATE_BOOKS.md](CANDIDATE_BOOKS.md) records a search for freely licensed
+textbooks that could become new books, with the licence of each checked against
+its copyright page and the Mathlib gap checked against the library.
+
 ## Source texts
 
 `reference/` holds the source textbooks themselves, one PDF per book, named
