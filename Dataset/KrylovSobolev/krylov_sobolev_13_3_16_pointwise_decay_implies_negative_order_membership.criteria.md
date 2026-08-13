@@ -24,6 +24,7 @@ row is incomplete.
 | 5 | The conclusion is membership in $H_p^\gamma$ together with a bound on $\|u\|_{H_p^\gamma}$. | ✅ `MemSobolev γ p …` and `sobolevNorm γ p … ≤ C`. |
 | 6 | The bounding constant depends only on the listed data and not on $u$. | ✅ `∃ C, C ≠ ⊤ ∧ ∀ u, …` — `C` is chosen before `u`, after $d, p, \rho, \nu, \gamma, N_0$ (and $n$). |
 | 7 | $p \in (1,\infty)$. | ✅ `hp₁` and `hp₂`. |
+| 8 | The dimension is at least $1$. | ✅ `hd : 0 < d`. Krylov works on $\mathbb{R}^d$ throughout; at $d = 0$ the second half is false. |
 
 ## Mistakes to check for
 
@@ -39,9 +40,11 @@ wrong, even if it compiles.
 | 5 | Replacing the "either … or …" by just the first alternative. | The $\gamma = n$ case has a genuinely different exponent condition, $\nu p < d$. |
 | 6 | Stating the decay bound at $x = 0$ as well. | $\lvert x\rvert ^{-\nu}$ is undefined there; the bound is asserted for $x \ne 0$. |
 | 7 | Forgetting that $u$ must be supported in the ball. | Without compact support the decay hypothesis says nothing at infinity, and the conclusion fails. |
+| 8 | Leaving the dimension unconstrained. | At $d = 0$ the space is one point, so "supported in $B_\rho$" and "$\lvert D^\alpha u(x)\rvert \le N_0\lvert x\rvert^{-\nu}$ for $x \ne 0$" are both vacuous and every constant function qualifies — but their $H_p^\gamma$ norms are unbounded, while the constant was fixed first. The second half of the statement is then provably false. |
 
 ## Notes on the ground truth
 
 - To speak of $u$ as a distribution the statement produces an $\mathcal{L}_1$ representative `U` with `u =ᵐ[volume] ⇑U`, and asserts the $H_p^\gamma$ facts about `U`. The decay hypothesis plus compact support is exactly what makes $u$ integrable, so this is part of the conclusion rather than an added assumption.
+- The `hd : 0 < d` hypothesis was added after an adversarial review produced a compiling refutation of the $d = 0$ case; see `GROUND_TRUTH_ISSUES.md`.
 - $\|x\|^{-\nu}$ is `Real.rpow`, which is why the bound is stated for `x ≠ 0`.
 - In the second half `ContDiff ℝ n u` is assumed so that the derivatives $D^\alpha u$ the hypothesis talks about actually exist; `multiDeriv` would otherwise silently return $0$.

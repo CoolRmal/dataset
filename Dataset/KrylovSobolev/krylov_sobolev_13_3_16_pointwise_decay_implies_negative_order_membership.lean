@@ -29,7 +29,7 @@ depending only on `d, p, ρ, ν, γ, N₀`; and, more generally, if `|D^αu(x)| 
 `|α| ≤ n` and either `γ < n` with `0 < (ν + γ - n)p < d` or `γ = n` with `νp < d`, then again
 `u ∈ H_p^γ` with `‖u‖_{H_p^γ}` bounded in terms of `d, p, ρ, ν, γ, n, N₀` alone. -/
 theorem krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership (d : ℕ)
-    (p : ℝ≥0∞) [Fact (1 ≤ p)] (hp₁ : 1 < p) (hp₂ : p ≠ ⊤) :
+    (hd : 0 < d) (p : ℝ≥0∞) [Fact (1 ≤ p)] (hp₁ : 1 < p) (hp₂ : p ≠ ⊤) :
     (∀ ρ ν γ N₀ : ℝ, 0 < ρ → ν < d → γ < 0 → 0 < (ν + γ) * p.toReal → (ν + γ) * p.toReal < d →
         ∃ C : ℝ≥0∞, C ≠ ⊤ ∧ ∀ u : EuclideanSpace ℝ (Fin d) → ℂ, AEStronglyMeasurable u volume →
           support u ⊆ Metric.ball 0 ρ → (∀ x ≠ 0, ‖u x‖ ≤ N₀ * ‖x‖ ^ (-ν)) →

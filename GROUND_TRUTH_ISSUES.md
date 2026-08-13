@@ -14,6 +14,7 @@ statement-only dataset.
 
 | Statement | Repair |
 |---|---|
+| `KrylovSobolev/krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership` | Added `0 < d`. Without it the second half is false at `d = 0`: the space is a single point, so the support and decay hypotheses hold vacuously for every constant function while the bounding constant is fixed in advance, and the `H_p^γ` norms of the constants are unbounded. A machine-checked refutation was produced during review. |
 | `MattilaGeometry/mattila_8_8_frostman_lemma` | Scoped the quantitative conclusion under positive Hausdorff measure, made the witnessing measures finite and compactly supported in `B`, and restored the strict quantitative inequality. |
 | `ConwayFunctionalAnalysis/conway_IX_2_2_bounded_normal_spectral_theorem` | Conjugated the spectral integrand to account for Mathlib's conjugate-linearity in the first inner-product argument. |
 | `EngelkingGeneralTopology/engelking_5_1_9_paracompact_partition_of_unity` | Added the Hausdorff hypothesis implicit in Engelking's convention for paracompact spaces. |
