@@ -1,6 +1,4 @@
-module
-
-public import Dataset.NivenIrrational.Defs
+import Dataset.NivenIrrational.Defs
 
 /-!
 # `niven_C_5_transcendentals_uncountable`
@@ -9,8 +7,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `niven_C_5_transcendentals_uncountable.md`.
 Quality rubric: `niven_C_5_transcendentals_uncountable.criteria.md`.
 -/
-
-@[expose] public section
 
 open Set
 

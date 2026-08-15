@@ -1,6 +1,4 @@
-module
-
-public import Dataset.NivenIrrational.Defs
+import Dataset.NivenIrrational.Defs
 
 /-!
 # `niven_2_4_rational_iff_periodic_decimal`
@@ -9,8 +7,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `niven_2_4_rational_iff_periodic_decimal.md`.
 Quality rubric: `niven_2_4_rational_iff_periodic_decimal.criteria.md`.
 -/
-
-@[expose] public section
 
 open Set
 

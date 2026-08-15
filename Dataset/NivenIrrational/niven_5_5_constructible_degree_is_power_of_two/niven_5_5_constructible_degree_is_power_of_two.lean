@@ -1,6 +1,4 @@
-module
-
-public import Dataset.NivenIrrational.Defs
+import Dataset.NivenIrrational.Defs
 
 /-!
 # `niven_5_5_constructible_degree_is_power_of_two`
@@ -9,8 +7,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `niven_5_5_constructible_degree_is_power_of_two.md`.
 Quality rubric: `niven_5_5_constructible_degree_is_power_of_two.criteria.md`.
 -/
-
-@[expose] public section
 
 open Set
 

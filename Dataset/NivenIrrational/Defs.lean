@@ -1,11 +1,9 @@
-module
-
-public import Mathlib.Analysis.SpecialFunctions.Log.Base
-public import Mathlib.NumberTheory.Real.Irrational
-public import Mathlib.LinearAlgebra.Dimension.Finrank
-public import Mathlib.RingTheory.Adjoin.Basic
-public import Mathlib.Analysis.SpecialFunctions.Pow.Real
-public import Mathlib.RingTheory.Algebraic.Defs
+import Mathlib.Analysis.SpecialFunctions.Log.Base
+import Mathlib.NumberTheory.Real.Irrational
+import Mathlib.LinearAlgebra.Dimension.Finrank
+import Mathlib.RingTheory.Adjoin.Basic
+import Mathlib.Analysis.SpecialFunctions.Pow.Real
+import Mathlib.RingTheory.Algebraic.Defs
 
 /-!
 # Shared definitions for the NivenIrrational problems
@@ -16,8 +14,6 @@ transcendence is `Transcendental`, and countability is `Set.Countable`; what is
 added here is the decimal expansion of a real number together with eventual
 periodicity, and the class of lengths constructible by straightedge and compass.
 -/
-
-@[expose] public section
 
 open Set
 

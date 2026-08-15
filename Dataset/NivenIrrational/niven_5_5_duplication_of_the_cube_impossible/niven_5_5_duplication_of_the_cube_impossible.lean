@@ -1,6 +1,4 @@
-module
-
-public import Dataset.NivenIrrational.Defs
+import Dataset.NivenIrrational.Defs
 
 /-!
 # `niven_5_5_duplication_of_the_cube_impossible`
@@ -9,8 +7,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `niven_5_5_duplication_of_the_cube_impossible.md`.
 Quality rubric: `niven_5_5_duplication_of_the_cube_impossible.criteria.md`.
 -/
-
-@[expose] public section
 
 open Set
 

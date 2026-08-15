@@ -1,6 +1,4 @@
-module
-
-public import Dataset.KrylovSobolev.Defs
+import Dataset.KrylovSobolev.Defs
 
 /-!
 # `krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership`
@@ -11,8 +9,6 @@ Natural-language statement:
 Quality rubric:
 `krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter Function MeasureTheory Set TemperedDistribution Topology
 open scoped ContDiff ENNReal Laplacian NNReal SchwartzMap Topology

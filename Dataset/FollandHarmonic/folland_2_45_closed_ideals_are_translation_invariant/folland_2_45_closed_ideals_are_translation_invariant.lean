@@ -1,7 +1,4 @@
-module
-
-public import Dataset.FollandHarmonic.Defs
-
+import Dataset.FollandHarmonic.Defs
 
 /-!
 # `folland_2_45_closed_ideals_are_translation_invariant`
@@ -10,8 +7,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `folland_2_45_closed_ideals_are_translation_invariant.md`.
 Quality rubric: `folland_2_45_closed_ideals_are_translation_invariant.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter MeasureTheory Set Topology
 open scoped ENNReal NNReal Topology

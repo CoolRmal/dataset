@@ -1,6 +1,4 @@
-module
-
-public import Dataset.HaymanMeromorphic.Defs
+import Dataset.HaymanMeromorphic.Defs
 
 /-!
 # `hayman_2_7_fixpoints_of_entire_functions`
@@ -9,8 +7,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `hayman_2_7_fixpoints_of_entire_functions.md`.
 Quality rubric: `hayman_2_7_fixpoints_of_entire_functions.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter MeasureTheory Set ValueDistribution
 open scoped Topology

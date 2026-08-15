@@ -1,9 +1,7 @@
-module
-
-public import Mathlib.Analysis.Distribution.SchwartzSpace.Fourier
-public import Mathlib.Analysis.Fourier.AddCircle
-public import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
-public import Mathlib.MeasureTheory.Integral.Bochner.Basic
+import Mathlib.Analysis.Distribution.SchwartzSpace.Fourier
+import Mathlib.Analysis.Fourier.AddCircle
+import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
+import Mathlib.MeasureTheory.Integral.Bochner.Basic
 
 /-!
 # `grafakos_3_2_8_poisson_summation`
@@ -12,8 +10,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `grafakos_3_2_8_poisson_summation.md`.
 Quality rubric: `grafakos_3_2_8_poisson_summation.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter Function MeasureTheory Metric Set
 open scoped ENNReal FourierTransform SchwartzMap Topology

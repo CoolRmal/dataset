@@ -1,10 +1,8 @@
-module
-
-public import Dataset.GrafakosFourier.Defs
-public import Mathlib.Analysis.Distribution.SchwartzSpace.Fourier
-public import Mathlib.Analysis.Fourier.AddCircle
-public import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
-public import Mathlib.MeasureTheory.Integral.Bochner.Basic
+import Dataset.GrafakosFourier.Defs
+import Mathlib.Analysis.Distribution.SchwartzSpace.Fourier
+import Mathlib.Analysis.Fourier.AddCircle
+import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
+import Mathlib.MeasureTheory.Integral.Bochner.Basic
 
 /-!
 # `grafakos_5_6_6_vector_valued_maximal`
@@ -13,8 +11,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `grafakos_5_6_6_vector_valued_maximal.md`.
 Quality rubric: `grafakos_5_6_6_vector_valued_maximal.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter Function MeasureTheory Metric Set
 open scoped ENNReal FourierTransform SchwartzMap Topology

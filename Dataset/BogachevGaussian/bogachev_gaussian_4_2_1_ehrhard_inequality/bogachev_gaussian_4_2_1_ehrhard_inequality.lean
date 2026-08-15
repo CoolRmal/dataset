@@ -1,9 +1,7 @@
-module
-
-public import Dataset.BogachevGaussian.Defs
-public import Mathlib.Algebra.Group.Pointwise.Set.Basic
-public import Mathlib.Algebra.Group.Pointwise.Set.Scalar
-public import Mathlib.Analysis.Convex.Basic
+import Dataset.BogachevGaussian.Defs
+import Mathlib.Algebra.Group.Pointwise.Set.Basic
+import Mathlib.Algebra.Group.Pointwise.Set.Scalar
+import Mathlib.Analysis.Convex.Basic
 
 /-!
 # `bogachev_gaussian_4_2_1_ehrhard_inequality`
@@ -12,8 +10,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `bogachev_gaussian_4_2_1_ehrhard_inequality.md`.
 Quality rubric: `bogachev_gaussian_4_2_1_ehrhard_inequality.criteria.md`.
 -/
-
-@[expose] public section
 
 open MeasureTheory ProbabilityTheory Set
 open scoped ENNReal NNReal Pointwise

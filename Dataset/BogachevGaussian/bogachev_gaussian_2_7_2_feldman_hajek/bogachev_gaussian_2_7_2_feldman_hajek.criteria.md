@@ -26,7 +26,7 @@ says so.
 | 3 | The conclusion is a disjunction, so that the two cases are exhaustive. | ✅ The top-level connective is `∨`. |
 | 4 | "Equivalent" is two-sided: each measure is absolutely continuous with respect to the other. | ✅ `Equivalent μ ν`, defined as `μ ≪ ν ∧ ν ≪ μ`. |
 | 5 | "Mutually singular" is the standard notion: the space splits into a set carrying $\mu$ and its complement carrying $\nu$. | ✅ `μ ⟂ₘ ν`, Mathlib's `MeasureTheory.Measure.MutuallySingular`. |
-| 6 | The result holds in any dimension, including infinite-dimensional spaces, and is stated for a general space rather than a particular one. | ◐ `{E : Type*}` with a normed and Borel structure. Bogachev states it for locally convex spaces; a normed space is where Mathlib's `IsGaussian` lives, so this is a narrower setting than the printed one. |
+| 6 | The result holds in any dimension, including infinite-dimensional spaces, and is stated for a general space rather than a particular one. | ✅ `{E : Type*}` carrying `[AddCommGroup E] [Module ℝ E] [TopologicalSpace E] [IsTopologicalAddGroup E] [ContinuousSMul ℝ E] [LocallyConvexSpace ℝ E] [MeasurableSpace E] [BorelSpace E]` — Bogachev's locally convex setting exactly. Mathlib's `IsGaussian` needs only a topological `ℝ`-module, so no normed structure has to be imposed. |
 
 ## Mistakes to check for
 

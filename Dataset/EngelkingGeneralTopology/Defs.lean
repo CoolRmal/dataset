@@ -1,14 +1,12 @@
-module
-
-public import Mathlib.Topology.Compactness.Compact
-public import Mathlib.Topology.Compactness.Paracompact
-public import Mathlib.Topology.ContinuousMap.Compact
-public import Mathlib.Topology.LocallyFinite
-public import Mathlib.Topology.Metrizable.Basic
-public import Mathlib.Topology.PartitionOfUnity
-public import Mathlib.Topology.Compactification.StoneCech
-public import Mathlib.Topology.Separation.CompletelyRegular
-public import Mathlib.Tactic.TFAE
+import Mathlib.Topology.Compactness.Compact
+import Mathlib.Topology.Compactness.Paracompact
+import Mathlib.Topology.ContinuousMap.Compact
+import Mathlib.Topology.LocallyFinite
+import Mathlib.Topology.Metrizable.Basic
+import Mathlib.Topology.PartitionOfUnity
+import Mathlib.Topology.Compactification.StoneCech
+import Mathlib.Topology.Separation.CompletelyRegular
+import Mathlib.Tactic.TFAE
 
 /-!
 # Shared definitions for the EngelkingGeneralTopology problems
@@ -17,8 +15,6 @@ Custom notions used by the statement files in `Dataset/EngelkingGeneralTopology/
 not already supplied by Mathlib. Each problem file that needs them imports
 this module.
 -/
-
-@[expose] public section
 
 open Function Set TopologicalSpace Topology
 

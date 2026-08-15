@@ -1,7 +1,5 @@
-module
-
-public import Dataset.BogachevGaussian.Defs
-public import Mathlib.Analysis.LocallyConvex.Basic
+import Dataset.BogachevGaussian.Defs
+import Mathlib.Analysis.LocallyConvex.Basic
 
 /-!
 # `bogachev_gaussian_4_6_1_correlation_convex_strip`
@@ -10,8 +8,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `bogachev_gaussian_4_6_1_correlation_convex_strip.md`.
 Quality rubric: `bogachev_gaussian_4_6_1_correlation_convex_strip.criteria.md`.
 -/
-
-@[expose] public section
 
 open MeasureTheory ProbabilityTheory Set
 open scoped ENNReal NNReal

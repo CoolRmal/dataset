@@ -1,8 +1,5 @@
-module
-
-public import Dataset.FollandHarmonic.Defs
-public import Mathlib.Topology.Algebra.PontryaginDual
-
+import Dataset.FollandHarmonic.Defs
+import Mathlib.Topology.Algebra.PontryaginDual
 
 /-!
 # `folland_4_81_almost_periodic_characterization`
@@ -11,8 +8,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `folland_4_81_almost_periodic_characterization.md`.
 Quality rubric: `folland_4_81_almost_periodic_characterization.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter MeasureTheory Set Topology
 open scoped ENNReal NNReal Topology

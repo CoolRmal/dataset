@@ -1,17 +1,15 @@
-module
-
-public import Mathlib.Analysis.Calculus.ContDiff.Basic
-public import Mathlib.Analysis.Convex.Function
-public import Mathlib.Analysis.Normed.Module.FiniteDimension
-public import Mathlib.MeasureTheory.Constructions.Polish.Basic
-public import Mathlib.MeasureTheory.Function.UniformIntegrable
-public import Mathlib.MeasureTheory.Integral.Prod
-public import Mathlib.MeasureTheory.Measure.NullMeasurable
-public import Mathlib.MeasureTheory.Measure.ProbabilityMeasure
-public import Mathlib.MeasureTheory.Measure.Regular
-public import Mathlib.MeasureTheory.Measure.Tight
-public import Mathlib.MeasureTheory.VectorMeasure.Basic
-public import Mathlib.MeasureTheory.VectorMeasure.Decomposition.Jordan
+import Mathlib.Analysis.Calculus.ContDiff.Basic
+import Mathlib.Analysis.Convex.Function
+import Mathlib.Analysis.Normed.Module.FiniteDimension
+import Mathlib.MeasureTheory.Constructions.Polish.Basic
+import Mathlib.MeasureTheory.Function.UniformIntegrable
+import Mathlib.MeasureTheory.Integral.Prod
+import Mathlib.MeasureTheory.Measure.NullMeasurable
+import Mathlib.MeasureTheory.Measure.ProbabilityMeasure
+import Mathlib.MeasureTheory.Measure.Regular
+import Mathlib.MeasureTheory.Measure.Tight
+import Mathlib.MeasureTheory.VectorMeasure.Basic
+import Mathlib.MeasureTheory.VectorMeasure.Decomposition.Jordan
 
 /-!
 # `bogachev_4_5_9_de_la_vallee_poussin` — 4.5.9
@@ -20,8 +18,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `bogachev_4_5_9_de_la_vallee_poussin.md`.
 Quality rubric: `bogachev_4_5_9_de_la_vallee_poussin.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter MeasureTheory ProbabilityTheory Set Topology
 open scoped BoundedContinuousFunction ENNReal MeasureTheory NNReal ProbabilityTheory Topology

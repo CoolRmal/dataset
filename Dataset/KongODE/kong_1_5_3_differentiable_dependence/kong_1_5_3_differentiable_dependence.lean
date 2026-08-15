@@ -1,12 +1,10 @@
-module
-
-public import Dataset.KongODE.Defs
-public import Mathlib.Analysis.Calculus.ContDiff.Defs
-public import Mathlib.Analysis.ODE.PicardLindelof
-public import Mathlib.Analysis.Normed.Algebra.MatrixExponential
-public import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
-public import Mathlib.LinearAlgebra.Matrix.Charpoly.Basic
-public import Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic
+import Dataset.KongODE.Defs
+import Mathlib.Analysis.Calculus.ContDiff.Defs
+import Mathlib.Analysis.ODE.PicardLindelof
+import Mathlib.Analysis.Normed.Algebra.MatrixExponential
+import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
+import Mathlib.LinearAlgebra.Matrix.Charpoly.Basic
+import Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic
 
 /-!
 # `kong_1_5_3_differentiable_dependence`
@@ -15,8 +13,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `kong_1_5_3_differentiable_dependence.md`.
 Quality rubric: `kong_1_5_3_differentiable_dependence.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter Function MeasureTheory Set Topology
 open scoped ENNReal Matrix NNReal Topology
@@ -28,8 +24,14 @@ namespace KongODE
 theorem kong_1_5_3_differentiable_dependence
     {n k : ℕ} {D : Set (ℝ × (Fin n → ℝ) × (Fin k → ℝ))}
     {f : ℝ → (Fin n → ℝ) → (Fin k → ℝ) → (Fin n → ℝ)}
-    (hD : IsOpen D) (hf : ContDiffOn ℝ 1
-      (fun p : ℝ × (Fin n → ℝ) × (Fin k → ℝ) ↦ f p.1 p.2.1 p.2.2) D) :
+    (hD : IsOpen D)
+    (hf : ContinuousOn (fun p : ℝ × (Fin n → ℝ) × (Fin k → ℝ) ↦ f p.1 p.2.1 p.2.2) D)
+    (hfx : ContinuousOn
+      (fun p : ℝ × (Fin n → ℝ) × (Fin k → ℝ) ↦ fderiv ℝ (fun y ↦ f p.1 y p.2.2) p.2.1) D)
+    (hfμ : ContinuousOn
+      (fun p : ℝ × (Fin n → ℝ) × (Fin k → ℝ) ↦ fderiv ℝ (fun m ↦ f p.1 p.2.1 m) p.2.2) D)
+    (hfxdiff : ∀ p ∈ D, DifferentiableAt ℝ (fun y ↦ f p.1 y p.2.2) p.2.1)
+    (hfμdiff : ∀ p ∈ D, DifferentiableAt ℝ (fun m ↦ f p.1 p.2.1 m) p.2.2) :
     ∃ (I : ℝ → (Fin n → ℝ) → (Fin k → ℝ) → Set ℝ)
       (x : ℝ → ℝ → (Fin n → ℝ) → (Fin k → ℝ) → (Fin n → ℝ)),
       (∀ t₀ x₀ μ, (t₀, x₀, μ) ∈ D → IsOpen (I t₀ x₀ μ) ∧

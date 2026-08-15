@@ -1,11 +1,9 @@
-module
-
-public import Dataset.KrylovHolder.Defs
-public import Mathlib.Analysis.Calculus.ContDiff.Basic
-public import Mathlib.Analysis.Calculus.IteratedDeriv.Defs
-public import Mathlib.MeasureTheory.Integral.Bochner.Basic
-public import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
-public import Mathlib.MeasureTheory.Measure.Hausdorff
+import Dataset.KrylovHolder.Defs
+import Mathlib.Analysis.Calculus.ContDiff.Basic
+import Mathlib.Analysis.Calculus.IteratedDeriv.Defs
+import Mathlib.MeasureTheory.Integral.Bochner.Basic
+import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
+import Mathlib.MeasureTheory.Measure.Hausdorff
 
 /-!
 # `krylov_6_5_3_smooth_domain_dirichlet_solvability`
@@ -14,8 +12,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `krylov_6_5_3_smooth_domain_dirichlet_solvability.md`.
 Quality rubric: `krylov_6_5_3_smooth_domain_dirichlet_solvability.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter Function MeasureTheory Set Topology
 open scoped ENNReal Topology

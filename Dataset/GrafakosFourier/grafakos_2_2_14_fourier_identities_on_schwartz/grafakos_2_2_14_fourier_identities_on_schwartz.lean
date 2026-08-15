@@ -1,9 +1,7 @@
-module
-
-public import Mathlib.Analysis.Distribution.SchwartzSpace.Fourier
-public import Mathlib.Analysis.Fourier.AddCircle
-public import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
-public import Mathlib.MeasureTheory.Integral.Bochner.Basic
+import Mathlib.Analysis.Distribution.SchwartzSpace.Fourier
+import Mathlib.Analysis.Fourier.AddCircle
+import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
+import Mathlib.MeasureTheory.Integral.Bochner.Basic
 
 /-!
 # `grafakos_2_2_14_fourier_identities_on_schwartz`
@@ -12,8 +10,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `grafakos_2_2_14_fourier_identities_on_schwartz.md`.
 Quality rubric: `grafakos_2_2_14_fourier_identities_on_schwartz.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter Function MeasureTheory Metric Set
 open scoped ENNReal FourierTransform SchwartzMap Topology

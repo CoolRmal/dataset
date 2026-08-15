@@ -1,6 +1,4 @@
-module
-
-public import Dataset.HaymanMeromorphic.Defs
+import Dataset.HaymanMeromorphic.Defs
 
 /-!
 # `hayman_2_0_picard_theorem`
@@ -9,8 +7,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `hayman_2_0_picard_theorem.md`.
 Quality rubric: `hayman_2_0_picard_theorem.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter MeasureTheory Set ValueDistribution
 open scoped Topology

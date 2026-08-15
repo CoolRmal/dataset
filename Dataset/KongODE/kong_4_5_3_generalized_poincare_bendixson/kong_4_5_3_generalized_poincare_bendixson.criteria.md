@@ -24,7 +24,7 @@ says so.
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
 | 1 | The system is planar. | ✅ Everything is indexed by `Fin 2`. |
-| 2 | The vector field is regular enough for the Poincaré–Bendixson machinery. | ◐ `hF : ContDiff ℝ 1 F` is stronger than Kong's standing continuity assumption, so our version is weaker than the printed one; but some regularity is essential (see mistake 1), and $C^1$ is what the text's setting really uses, since it needs uniqueness of solutions. |
+| 2 | The vector field is regular enough that solutions exist and are unique. | ✅ `Continuous F`, Kong's standing hypothesis, together with an explicit uniqueness hypothesis for trajectories — which is what the argument actually uses, rather than the convenient over-assumption $C^1$. |
 | 3 | $x$ is a genuine solution of the autonomous system. | ✅ `horbit : IsAutonomousTrajectory F x`, i.e. `∀ t, HasDerivAt x (F (x t)) t`. |
 | 4 | $E$ is compact. | ✅ `hcompact : IsCompact E`. |
 | 5 | The system has only finitely many equilibria **in $E$**. | ✅ `hfinite : {x ∈ E \| F x = 0}.Finite`. |

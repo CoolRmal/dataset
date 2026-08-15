@@ -1,9 +1,7 @@
-module
-
-public import Dataset.KrylovSobolev.Defs
-public import Mathlib.Algebra.MvPolynomial.PDeriv
-public import Mathlib.Analysis.InnerProductSpace.Laplacian
-public import Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace
+import Dataset.KrylovSobolev.Defs
+import Mathlib.Algebra.MvPolynomial.PDeriv
+import Mathlib.Analysis.InnerProductSpace.Laplacian
+import Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace
 
 /-!
 # `krylov_sobolev_1_3_23_unit_ball_estimate_and_polynomial_operator_bijective`
@@ -14,8 +12,6 @@ Natural-language statement:
 Quality rubric:
 `krylov_sobolev_1_3_23_unit_ball_estimate_and_polynomial_operator_bijective.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter Function MeasureTheory Set Topology
 open scoped ContDiff ENNReal Laplacian NNReal SchwartzMap Topology

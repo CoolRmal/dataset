@@ -1,12 +1,10 @@
-module
-
-public import Dataset.KongODE.Defs
-public import Mathlib.Analysis.Calculus.ContDiff.Defs
-public import Mathlib.Analysis.ODE.PicardLindelof
-public import Mathlib.Analysis.Normed.Algebra.MatrixExponential
-public import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
-public import Mathlib.LinearAlgebra.Matrix.Charpoly.Basic
-public import Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic
+import Dataset.KongODE.Defs
+import Mathlib.Analysis.Calculus.ContDiff.Defs
+import Mathlib.Analysis.ODE.PicardLindelof
+import Mathlib.Analysis.Normed.Algebra.MatrixExponential
+import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
+import Mathlib.LinearAlgebra.Matrix.Charpoly.Basic
+import Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic
 
 /-!
 # `kong_5_4_2_hopf_friedrich_dichotomy`
@@ -15,8 +13,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `kong_5_4_2_hopf_friedrich_dichotomy.md`.
 Quality rubric: `kong_5_4_2_hopf_friedrich_dichotomy.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter Function MeasureTheory Set Topology
 open scoped ContDiff ENNReal Matrix NNReal Topology

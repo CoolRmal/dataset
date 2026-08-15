@@ -1,6 +1,4 @@
-module
-
-public import Dataset.HaymanMeromorphic.Defs
+import Dataset.HaymanMeromorphic.Defs
 
 /-!
 # `hayman_3_8_tumura_clunie_form`
@@ -9,8 +7,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `hayman_3_8_tumura_clunie_form.md`.
 Quality rubric: `hayman_3_8_tumura_clunie_form.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter MeasureTheory Set ValueDistribution
 open scoped Topology

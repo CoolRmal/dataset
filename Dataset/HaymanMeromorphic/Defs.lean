@@ -1,8 +1,4 @@
-module
-
-public import Mathlib.Analysis.Complex.ValueDistribution.CharacteristicFunction
-public import Mathlib.Analysis.Meromorphic.Basic
-public import Mathlib.MeasureTheory.Integral.Bochner.Basic
+import Mathlib.Analysis.Complex.ValueDistribution.CharacteristicFunction
 
 /-!
 # Shared definitions for the HaymanMeromorphic problems
@@ -15,10 +11,7 @@ not already supplied by Mathlib. Mathlib's `ValueDistribution.proximity`,
 conditions used in Chapter 2.
 -/
 
-@[expose] public section
-
-open Filter MeasureTheory Set ValueDistribution
-open scoped Topology
+open Filter Set ValueDistribution
 
 namespace Dataset
 namespace HaymanMeromorphic

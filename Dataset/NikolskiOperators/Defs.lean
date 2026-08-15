@@ -1,18 +1,16 @@
-module
-
-public import Mathlib.Analysis.Calculus.Deriv.Basic
-public import Mathlib.Analysis.Calculus.IteratedDeriv.Defs
-public import Mathlib.Analysis.Complex.Basic
-public import Mathlib.Analysis.SpecialFunctions.Exp
-public import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
-public import Mathlib.Analysis.Normed.Lp.lpSpace
-public import Mathlib.Data.ENNReal.Basic
-public import Mathlib.Data.Matrix.Basic
-public import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
-public import Mathlib.MeasureTheory.Integral.Bochner.Basic
-public import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
-public import Mathlib.Topology.Algebra.InfiniteSum.Basic
-public import Mathlib.Tactic.TFAE
+import Mathlib.Analysis.Calculus.Deriv.Basic
+import Mathlib.Analysis.Calculus.IteratedDeriv.Defs
+import Mathlib.Analysis.Complex.Basic
+import Mathlib.Analysis.SpecialFunctions.Exp
+import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
+import Mathlib.Analysis.Normed.Lp.lpSpace
+import Mathlib.Data.ENNReal.Basic
+import Mathlib.Data.Matrix.Basic
+import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
+import Mathlib.MeasureTheory.Integral.Bochner.Basic
+import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
+import Mathlib.Topology.Algebra.InfiniteSum.Basic
+import Mathlib.Tactic.TFAE
 
 /-!
 # Shared definitions for the NikolskiOperators problems
@@ -21,8 +19,6 @@ Custom notions used by the statement files in `Dataset/NikolskiOperators/` that 
 not already supplied by Mathlib. Each problem file that needs them imports
 this module.
 -/
-
-@[expose] public section
 
 open Filter MeasureTheory Set Topology
 open scoped BigOperators ENNReal Interval lp Topology
@@ -98,6 +94,32 @@ def UnimodularGeneratedSubspace (E : Set (ℝ → ℂ)) (theta : ℝ → ℂ) : 
 /-- Shift-invariance for coefficient subspaces of `H²`. -/
 def ShiftInvariant (M : Set (ℕ → ℂ)) : Prop :=
   ∀ f ∈ M, (fun n : ℕ ↦ if n = 0 then 0 else f (n - 1)) ∈ M
+
+/-- Convergence in `H²`: the boundary `L²` norms of the differences tend to zero. -/
+def HardyTendsto (u : ℕ → ℂ → ℂ) (g : ℂ → ℂ) : Prop :=
+  Filter.Tendsto
+    (fun n ↦ eLpNorm (fun t : ℝ ↦ boundaryValue (u n) (unitCirclePoint t) -
+        boundaryValue g (unitCirclePoint t)) 2
+      (volume.restrict (Set.Ioc 0 (2 * Real.pi)))) Filter.atTop (nhds 0)
+
+/-- `M` is a closed shift-invariant subspace of `H²`: a linear subspace of `H²`, stable under
+multiplication by `z`, and closed for `H²` convergence. -/
+def IsClosedShiftInvariant (M : Set (ℂ → ℂ)) : Prop :=
+  (∀ g ∈ M, HardyClass 2 g) ∧
+    (∀ g ∈ M, ∀ h ∈ M, (fun z ↦ g z + h z) ∈ M) ∧
+    (∀ c : ℂ, ∀ g ∈ M, (fun z ↦ c * g z) ∈ M) ∧
+    (∀ g ∈ M, (fun z ↦ z * g z) ∈ M) ∧
+    ∀ u : ℕ → ℂ → ℂ, (∀ n, u n ∈ M) → ∀ g, HardyClass 2 g → HardyTendsto u g → g ∈ M
+
+/-- `M` is `E_f`, the smallest closed shift-invariant subspace of `H²` containing `f`. -/
+def IsShiftGenerated (f : ℂ → ℂ) (M : Set (ℂ → ℂ)) : Prop :=
+  IsClosedShiftInvariant M ∧ f ∈ M ∧
+    ∀ N : Set (ℂ → ℂ), IsClosedShiftInvariant N → f ∈ N → M ⊆ N
+
+/-- `θ H²`, the set of `H²` functions that are `H²` multiples of `θ` on the disk. -/
+def InnerMultiples (θ : ℂ → ℂ) : Set (ℂ → ℂ) :=
+  {h | HardyClass 2 h ∧ ∃ k : ℂ → ℂ, HardyClass 2 k ∧
+    ∀ z ∈ Metric.ball (0 : ℂ) 1, h z = θ z * k z}
 
 /-- Inner functions: bounded analytic functions with unimodular boundary values almost
 everywhere. -/

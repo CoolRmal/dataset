@@ -26,7 +26,7 @@ says so.
 | 2 | $f$ is a seminorm: subadditive and absolutely homogeneous. | ✅ `f : Seminorm ℝ E`, Mathlib's bundled structure. |
 | 3 | $f$ is measurable. In infinite dimensions this is not automatic. | ✅ `hf : Measurable f`. |
 | 4 | $\chi(f)$ is the supremum of $f$ over the *Cameron–Martin* unit ball $\{h : \lvert h\rvert_{H(\gamma)} \le 1\}$. | ✅ `cameronMartinGauge γ f = ⨆ h : {h // cameronMartinNorm γ h ≤ 1}, ENNReal.ofReal (f h)`. |
-| 5 | The bound must not silently assume $\chi(f)$ is finite by converting it to a real number. | ◐ The statement uses a real bound `c` with `hc : 0 < c` and `hgauge : cameronMartinGauge γ f ≤ ENNReal.ofReal c`, which is equivalent by monotonicity and avoids any `toReal`. It is acceptable but less literal than writing $\chi(f)$ itself in the exponent. |
+| 5 | The bound must not silently assume $\chi(f)$ is finite by converting it to a real number. | ✅ The gauge stays in `ℝ≥0∞` and is bounded above by a real `c` with `0 < c`, so no `toReal` appears and the infinite case simply makes the hypothesis unsatisfiable rather than the bound false. |
 | 6 | The deviation is measured from the **mean** $\int f\,d\gamma$. | ✅ `∫ y, f y ∂γ` inside the absolute value. |
 | 7 | The event is the strict inequality $\lvert f(x) - \mathbb{E}f\rvert > t$. | ✅ `{x \| t < \|f x - ∫ y, f y ∂γ\|}`. |
 | 8 | The bound is $2\exp(-2t^2/(\pi^2\chi(f)^2))$ — factor $2$ in front, and the whole ratio inside the exponential. | ✅ `2 * ENNReal.ofReal (Real.exp (-(2 * t ^ 2 / (Real.pi ^ 2 * c ^ 2))))`. |

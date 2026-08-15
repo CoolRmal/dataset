@@ -1,6 +1,4 @@
-module
-
-public import Dataset.HaymanMeromorphic.Defs
+import Dataset.HaymanMeromorphic.Defs
 
 /-!
 # `hayman_3_6_corollary_derivative_zeros_in_disk`
@@ -9,8 +7,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `hayman_3_6_corollary_derivative_zeros_in_disk.md`.
 Quality rubric: `hayman_3_6_corollary_derivative_zeros_in_disk.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter MeasureTheory Set ValueDistribution
 open scoped Topology

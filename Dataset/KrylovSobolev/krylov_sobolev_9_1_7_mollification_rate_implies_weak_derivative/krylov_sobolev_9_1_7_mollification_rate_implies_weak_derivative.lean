@@ -1,6 +1,4 @@
-module
-
-public import Dataset.KrylovSobolev.Defs
+import Dataset.KrylovSobolev.Defs
 
 /-!
 # `krylov_sobolev_9_1_7_mollification_rate_implies_weak_derivative`
@@ -9,8 +7,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `krylov_sobolev_9_1_7_mollification_rate_implies_weak_derivative.md`.
 Quality rubric: `krylov_sobolev_9_1_7_mollification_rate_implies_weak_derivative.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter Function MeasureTheory Set Topology
 open scoped ContDiff ENNReal Laplacian NNReal SchwartzMap Topology

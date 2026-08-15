@@ -1,8 +1,6 @@
-module
-
-public import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
-public import Mathlib.MeasureTheory.Integral.Bochner.Basic
-public import Mathlib.MeasureTheory.Measure.Haar.Basic
+import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
+import Mathlib.MeasureTheory.Integral.Bochner.Basic
+import Mathlib.MeasureTheory.Measure.Haar.Basic
 
 /-!
 # Shared definitions for the FollandHarmonic problems
@@ -14,8 +12,6 @@ not already supplied by Mathlib. The modular function is Mathlib's
 convolution of two functions on a locally compact group, closedness of a family
 of functions in `𝓛ᵖ`, and uniform almost periodicity.
 -/
-
-@[expose] public section
 
 open Filter MeasureTheory Set Topology
 open scoped ENNReal NNReal Topology

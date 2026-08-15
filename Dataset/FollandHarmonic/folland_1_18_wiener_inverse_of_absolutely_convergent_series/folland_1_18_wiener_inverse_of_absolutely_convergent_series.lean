@@ -1,7 +1,5 @@
-module
-
-public import Dataset.FollandHarmonic.Defs
-public import Mathlib.Analysis.SpecialFunctions.Complex.Circle
+import Dataset.FollandHarmonic.Defs
+import Mathlib.Analysis.SpecialFunctions.Complex.Circle
 
 /-!
 # `folland_1_18_wiener_inverse_of_absolutely_convergent_series`
@@ -10,8 +8,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `folland_1_18_wiener_inverse_of_absolutely_convergent_series.md`.
 Quality rubric: `folland_1_18_wiener_inverse_of_absolutely_convergent_series.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter MeasureTheory Set Topology
 open scoped ENNReal NNReal Topology

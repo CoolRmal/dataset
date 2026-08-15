@@ -1,7 +1,5 @@
-module
-
-public import Dataset.FollandHarmonic.Defs
-public import Mathlib.MeasureTheory.Group.ModularCharacter
+import Dataset.FollandHarmonic.Defs
+import Mathlib.MeasureTheory.Group.ModularCharacter
 
 /-!
 # `folland_2_40_convolution_lp_bound`
@@ -10,8 +8,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `folland_2_40_convolution_lp_bound.md`.
 Quality rubric: `folland_2_40_convolution_lp_bound.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter MeasureTheory Set Topology
 open scoped ENNReal NNReal Topology

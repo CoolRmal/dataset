@@ -1,9 +1,7 @@
-module
-
-public import Dataset.KrylovSobolev.Defs
-public import Mathlib.Analysis.Calculus.ContDiff.Basic
-public import Mathlib.MeasureTheory.Measure.Haar.OfBasis
-public import Mathlib.Topology.Algebra.Support
+import Dataset.KrylovSobolev.Defs
+import Mathlib.Analysis.Calculus.ContDiff.Basic
+import Mathlib.MeasureTheory.Measure.Haar.OfBasis
+import Mathlib.Topology.Algebra.Support
 
 /-!
 # `krylov_sobolev_1_4_8_two_dim_measurable_coeff_L2_estimate`
@@ -12,8 +10,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `krylov_sobolev_1_4_8_two_dim_measurable_coeff_L2_estimate.md`.
 Quality rubric: `krylov_sobolev_1_4_8_two_dim_measurable_coeff_L2_estimate.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter Function MeasureTheory Set Topology
 open scoped ContDiff ENNReal Laplacian NNReal SchwartzMap Topology

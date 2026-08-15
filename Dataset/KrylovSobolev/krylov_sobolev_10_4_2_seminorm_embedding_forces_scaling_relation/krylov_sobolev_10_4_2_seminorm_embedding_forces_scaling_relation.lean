@@ -1,9 +1,7 @@
-module
-
-public import Dataset.KrylovSobolev.Defs
-public import Mathlib.Algebra.Order.Antidiag.Pi
-public import Mathlib.Analysis.Calculus.ContDiff.Basic
-public import Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace
+import Dataset.KrylovSobolev.Defs
+import Mathlib.Algebra.Order.Antidiag.Pi
+import Mathlib.Analysis.Calculus.ContDiff.Basic
+import Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace
 
 /-!
 # `krylov_sobolev_10_4_2_seminorm_embedding_forces_scaling_relation`
@@ -13,8 +11,6 @@ Natural-language statement: `krylov_sobolev_10_4_2_seminorm_embedding_forces_sca
 Quality rubric:
 `krylov_sobolev_10_4_2_seminorm_embedding_forces_scaling_relation.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter Function MeasureTheory Set Topology
 open scoped ContDiff ENNReal Laplacian NNReal SchwartzMap Topology

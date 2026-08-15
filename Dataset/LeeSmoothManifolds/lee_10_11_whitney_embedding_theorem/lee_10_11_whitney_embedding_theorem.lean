@@ -1,7 +1,5 @@
-module
-
-public import Mathlib.Geometry.Manifold.SmoothEmbedding
-public import Mathlib.Topology.Maps.Proper.Basic
+import Mathlib.Geometry.Manifold.SmoothEmbedding
+import Mathlib.Topology.Maps.Proper.Basic
 
 /-!
 # `lee_10_11_whitney_embedding_theorem`
@@ -10,8 +8,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `lee_10_11_whitney_embedding_theorem.md`.
 Quality rubric: `lee_10_11_whitney_embedding_theorem.criteria.md`.
 -/
-
-@[expose] public section
 
 open Function Manifold Set Topology
 open scoped ContDiff Manifold Topology

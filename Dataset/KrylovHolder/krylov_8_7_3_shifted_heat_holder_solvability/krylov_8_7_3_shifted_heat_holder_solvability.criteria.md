@@ -24,7 +24,7 @@ says so.
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
 | 1 | $0 < \delta < 1$. | ✅ `hδ : 0 < δ ∧ δ < 1`. |
-| 2 | The datum lies in the parabolic Hölder space $C^{\delta/2,\,\delta}$: $\delta$-Hölder in $x$, $(\delta/2)$-Hölder in $t$. | ◐ `ParabolicHolderOn δ univ f` says exactly this, but slice by slice — see the notes for what that loses. |
+| 2 | The datum lies in the parabolic Hölder space $C^{\delta/2,\,\delta}$: $\delta$-Hölder in $x$, $(\delta/2)$-Hölder in $t$. | ✅ `ParabolicHolderOn δ univ f`, which asserts the two slice-wise conditions **and** a single constant $C$ with $|u(p)-u(q)| \le C(\|p_x-q_x\|^\delta + |p_t-q_t|^{\delta/2})$ over the whole domain. |
 | 3 | The solution lies in $C^{1+\delta/2,\,2+\delta}$: two space derivatives and one time derivative, Hölder at the top order with the parabolic exponents. | ◐ `ParabolicHolderOn (2 + δ) univ u` gives `HolderOn (2+δ)` in $x$ and `HolderOnReal ((2+δ)/2)` in $t$, whose unique decomposition is $k = 1$, $\delta' = \delta/2$ — the right exponents, with the same slice-wise weakness. |
 | 4 | The equation is $\Delta u - u_t - u = f$, with $\Delta$ acting in the space variables only. | ✅ `ShiftedHeatEquation u f : ∀ t x, laplacian (fun y ↦ u (t, y)) x - deriv (fun s ↦ u (s, x)) t - u (t, x) = f (t, x)`; the Laplacian is applied to the frozen-time slice. |
 | 5 | The zeroth-order shift $-u$ is present. | ✅ The `- u (t, x)` summand. |

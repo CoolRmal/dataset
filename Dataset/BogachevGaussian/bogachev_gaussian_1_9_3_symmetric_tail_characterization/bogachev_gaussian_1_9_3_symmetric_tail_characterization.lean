@@ -1,7 +1,5 @@
-module
-
-public import Dataset.BogachevGaussian.Defs
-public import Mathlib.MeasureTheory.Measure.Prod
+import Dataset.BogachevGaussian.Defs
+import Mathlib.MeasureTheory.Measure.Prod
 
 /-!
 # `bogachev_gaussian_1_9_3_symmetric_tail_characterization`
@@ -10,8 +8,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `bogachev_gaussian_1_9_3_symmetric_tail_characterization.md`.
 Quality rubric: `bogachev_gaussian_1_9_3_symmetric_tail_characterization.criteria.md`.
 -/
-
-@[expose] public section
 
 open MeasureTheory ProbabilityTheory Set
 open scoped ENNReal NNReal

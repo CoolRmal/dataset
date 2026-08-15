@@ -1,11 +1,9 @@
-module
-
-public import Mathlib.Combinatorics.Enumerative.Partition.Basic
-public import Mathlib.Combinatorics.Schnirelmann
-public import Mathlib.NumberTheory.ArithmeticFunction.Moebius
-public import Mathlib.Analysis.SpecialFunctions.Pow.NNReal
-public import Mathlib.SetTheory.Cardinal.Finite
-public import Mathlib.Topology.Algebra.InfiniteSum.Basic
+import Mathlib.Combinatorics.Enumerative.Partition.Basic
+import Mathlib.Combinatorics.Schnirelmann
+import Mathlib.NumberTheory.ArithmeticFunction.Moebius
+import Mathlib.Analysis.SpecialFunctions.Pow.NNReal
+import Mathlib.SetTheory.Cardinal.Finite
+import Mathlib.Topology.Algebra.InfiniteSum.Basic
 
 /-!
 # Shared definitions for the NivenZuckermanNumberTheory problems
@@ -17,8 +15,6 @@ number of partitions of `n` is the cardinality of `Nat.Partition n`; what is add
 here is the counting function `A(n)` of a set of integers and the notion of
 *natural* (asymptotic) density built from it.
 -/
-
-@[expose] public section
 
 open Filter
 open scoped Topology

@@ -1,5 +1,3 @@
-module
-
 import Dataset.Bogachev
 import Dataset.BogachevGaussian
 import Dataset.ConwayFunctionalAnalysis

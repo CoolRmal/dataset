@@ -1,6 +1,4 @@
-module
-
-public import Dataset.NivenZuckermanNumberTheory.Defs
+import Dataset.NivenZuckermanNumberTheory.Defs
 
 /-!
 # `niven_zuckerman_11_4_moebius_sum_eq_six_div_pi_sq`
@@ -9,8 +7,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `niven_zuckerman_11_4_moebius_sum_eq_six_div_pi_sq.md`.
 Quality rubric: `niven_zuckerman_11_4_moebius_sum_eq_six_div_pi_sq.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter
 open scoped Topology

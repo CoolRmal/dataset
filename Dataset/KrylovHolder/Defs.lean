@@ -1,11 +1,9 @@
-module
-
-public import Mathlib.Analysis.Calculus.ContDiff.Basic
-public import Mathlib.Analysis.Calculus.IteratedDeriv.Defs
-public import Mathlib.Analysis.InnerProductSpace.PiL2
-public import Mathlib.MeasureTheory.Integral.Bochner.Basic
-public import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
-public import Mathlib.MeasureTheory.Measure.Hausdorff
+import Mathlib.Analysis.Calculus.ContDiff.Basic
+import Mathlib.Analysis.Calculus.IteratedDeriv.Defs
+import Mathlib.Analysis.InnerProductSpace.PiL2
+import Mathlib.MeasureTheory.Integral.Bochner.Basic
+import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
+import Mathlib.MeasureTheory.Measure.Hausdorff
 
 /-!
 # Shared definitions for the KrylovHolder problems
@@ -14,8 +12,6 @@ Custom notions used by the statement files in `Dataset/KrylovHolder/` that are
 not already supplied by Mathlib. Each problem file that needs them imports
 this module.
 -/
-
-@[expose] public section
 
 open Filter Function MeasureTheory Set Topology
 open scoped ContDiff ENNReal Topology
@@ -75,7 +71,10 @@ def HolderOnReal (r : ℝ) (I : Set ℝ) (u : ℝ → ℝ) : Prop :=
 def ParabolicHolderOn {d : ℕ} (r : ℝ) (Q : Set (ℝ × EuclideanSpace ℝ (Fin d)))
   (u : (ℝ × EuclideanSpace ℝ (Fin d)) → ℝ) : Prop :=
   (∀ t, HolderOn r {x | (t, x) ∈ Q} fun x ↦ u (t, x)) ∧
-    ∀ x, HolderOnReal (r / 2) {t | (t, x) ∈ Q} fun t ↦ u (t, x)
+    (∀ x, HolderOnReal (r / 2) {t | (t, x) ∈ Q} fun t ↦ u (t, x)) ∧
+    -- one constant for the whole of `Q`, not a constant per slice
+    ∃ C : ℝ, ∀ p ∈ Q, ∀ q ∈ Q,
+      |u p - u q| ≤ C * (‖p.2 - q.2‖ ^ r + |p.1 - q.1| ^ (r / 2))
 
 /-- A bounded regular domain admitting barriers at every boundary point. -/
 def RegularBoundedDomain {d : ℕ} (Ω : Set (EuclideanSpace ℝ (Fin d))) : Prop :=
@@ -128,10 +127,16 @@ structure EllipticOperatorData {d : ℕ} (m : ℕ)
   formula : ∀ u x, L u x = ∑ α ∈ terms, coefficient α x * multiDerivative α u x
   ellipticityConstant : ℝ
   ellipticityConstant_pos : 0 < ellipticityConstant
+  /-- Uniform ellipticity, with the sign normalised by the parity of `m / 2` so that the
+  shifted operator `L - λ` is the invertible one for `λ > 0` at every order. For `m = 2` the
+  factor is `+1`, so `Δ` is elliptic and `Δ - λ` is invertible for `λ > 0`; for `m = 4` the
+  factor is `-1`, so `-Δ²` is elliptic and `-Δ² - λ` is invertible for `λ > 0`. Without the
+  parity factor the admissible sign of `λ` would flip whenever `m` is a multiple of `4`. -/
   principalSymbol : ∀ (x ξ : EuclideanSpace ℝ (Fin d)),
     ellipticityConstant * ‖ξ‖ ^ m ≤
-      ∑ α ∈ terms with ∑ i, α i = m,
-        coefficient α x * ∏ i, (ξ i) ^ (α i)
+      (-1) ^ (m / 2 + 1) *
+        ∑ α ∈ terms with ∑ i, α i = m,
+          coefficient α x * ∏ i, (ξ i) ^ (α i)
 
 /-- A uniformly elliptic operator with constant coefficients. -/
 def ConstantCoefficientEllipticOperator {d : ℕ} (m : ℕ)

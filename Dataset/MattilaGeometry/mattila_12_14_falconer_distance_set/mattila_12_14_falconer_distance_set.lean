@@ -1,13 +1,11 @@
-module
-
-public import Mathlib.Analysis.InnerProductSpace.Projection.Submodule
-public import Mathlib.MeasureTheory.Measure.Hausdorff
-public import Mathlib.MeasureTheory.Measure.Decomposition.Lebesgue
-public import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
-public import Mathlib.MeasureTheory.Measure.Regular
-public import Mathlib.MeasureTheory.Measure.Support
-public import Mathlib.Topology.MetricSpace.HausdorffDimension
-public import Mathlib.Tactic.TFAE
+import Mathlib.Analysis.InnerProductSpace.Projection.Submodule
+import Mathlib.MeasureTheory.Measure.Hausdorff
+import Mathlib.MeasureTheory.Measure.Decomposition.Lebesgue
+import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
+import Mathlib.MeasureTheory.Measure.Regular
+import Mathlib.MeasureTheory.Measure.Support
+import Mathlib.Topology.MetricSpace.HausdorffDimension
+import Mathlib.Tactic.TFAE
 
 /-!
 # `mattila_12_14_falconer_distance_set` — 12.14
@@ -16,8 +14,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `mattila_12_14_falconer_distance_set.md`.
 Quality rubric: `mattila_12_14_falconer_distance_set.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter Function MeasureTheory Metric Set Topology
 open scoped ENNReal MeasureTheory NNReal Topology

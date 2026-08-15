@@ -1,17 +1,5 @@
-module
-
-public import Mathlib.Analysis.Calculus.ContDiff.Basic
-public import Mathlib.Analysis.Convex.Function
-public import Mathlib.Analysis.Normed.Module.FiniteDimension
-public import Mathlib.MeasureTheory.Constructions.Polish.Basic
-public import Mathlib.MeasureTheory.Function.UniformIntegrable
-public import Mathlib.MeasureTheory.Integral.Prod
-public import Mathlib.MeasureTheory.Measure.NullMeasurable
-public import Mathlib.MeasureTheory.Measure.ProbabilityMeasure
-public import Mathlib.MeasureTheory.Measure.Regular
-public import Mathlib.MeasureTheory.Measure.Tight
-public import Mathlib.MeasureTheory.VectorMeasure.Basic
-public import Mathlib.MeasureTheory.VectorMeasure.Decomposition.Jordan
+import Mathlib.Analysis.Calculus.ContDiff.Basic
+import Mathlib.MeasureTheory.Integral.Prod
 
 /-!
 # `bogachev_3_7_1_change_of_variables_in_Rn` — 3.7.1
@@ -21,10 +9,7 @@ Natural-language statement: `bogachev_3_7_1_change_of_variables_in_Rn.md`.
 Quality rubric: `bogachev_3_7_1_change_of_variables_in_Rn.criteria.md`.
 -/
 
-@[expose] public section
-
-open Filter MeasureTheory ProbabilityTheory Set Topology
-open scoped BoundedContinuousFunction ENNReal MeasureTheory NNReal ProbabilityTheory Topology
+open MeasureTheory Set
 
 namespace Dataset
 namespace Bogachev

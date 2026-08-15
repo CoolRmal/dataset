@@ -1,6 +1,4 @@
-module
-
-public import Dataset.KrylovSobolev.Defs
+import Dataset.KrylovSobolev.Defs
 
 /-!
 # `krylov_sobolev_12_2_13_real_strongly_elliptic_order_even`
@@ -9,8 +7,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `krylov_sobolev_12_2_13_real_strongly_elliptic_order_even.md`.
 Quality rubric: `krylov_sobolev_12_2_13_real_strongly_elliptic_order_even.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter Function MeasureTheory Set Topology
 open scoped ContDiff ENNReal Laplacian NNReal SchwartzMap Topology

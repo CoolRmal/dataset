@@ -1,8 +1,6 @@
-module
-
-public import Dataset.KrylovSobolev.Defs
-public import Mathlib.MeasureTheory.Function.LpSpace.Basic
-public import Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace
+import Dataset.KrylovSobolev.Defs
+import Mathlib.MeasureTheory.Function.LpSpace.Basic
+import Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace
 
 /-!
 # `krylov_sobolev_1_1_13_const_coeff_operator_range_dense`
@@ -11,8 +9,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `krylov_sobolev_1_1_13_const_coeff_operator_range_dense.md`.
 Quality rubric: `krylov_sobolev_1_1_13_const_coeff_operator_range_dense.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter Function MeasureTheory Set Topology
 open scoped ContDiff ENNReal Laplacian NNReal SchwartzMap Topology

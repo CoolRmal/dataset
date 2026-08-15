@@ -1,13 +1,11 @@
-module
-
-public import Mathlib.Analysis.InnerProductSpace.Projection.Submodule
-public import Mathlib.MeasureTheory.Measure.Hausdorff
-public import Mathlib.MeasureTheory.Measure.Decomposition.Lebesgue
-public import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
-public import Mathlib.MeasureTheory.Measure.Regular
-public import Mathlib.MeasureTheory.Measure.Support
-public import Mathlib.Topology.MetricSpace.HausdorffDimension
-public import Mathlib.Tactic.TFAE
+import Mathlib.Analysis.InnerProductSpace.Projection.Submodule
+import Mathlib.MeasureTheory.Measure.Hausdorff
+import Mathlib.MeasureTheory.Measure.Decomposition.Lebesgue
+import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
+import Mathlib.MeasureTheory.Measure.Regular
+import Mathlib.MeasureTheory.Measure.Support
+import Mathlib.Topology.MetricSpace.HausdorffDimension
+import Mathlib.Tactic.TFAE
 
 /-!
 # Shared definitions for the MattilaGeometry problems
@@ -16,8 +14,6 @@ Custom notions used by the statement files in `Dataset/MattilaGeometry/` that ar
 not already supplied by Mathlib. Each problem file that needs them imports
 this module.
 -/
-
-@[expose] public section
 
 open Filter Function MeasureTheory Metric Set Topology
 open scoped ENNReal MeasureTheory NNReal Topology

@@ -1,12 +1,10 @@
-module
-
-public import Dataset.KongODE.Defs
-public import Mathlib.Analysis.Calculus.ContDiff.Defs
-public import Mathlib.Analysis.ODE.PicardLindelof
-public import Mathlib.Analysis.Normed.Algebra.MatrixExponential
-public import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
-public import Mathlib.LinearAlgebra.Matrix.Charpoly.Basic
-public import Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic
+import Dataset.KongODE.Defs
+import Mathlib.Analysis.Calculus.ContDiff.Defs
+import Mathlib.Analysis.ODE.PicardLindelof
+import Mathlib.Analysis.Normed.Algebra.MatrixExponential
+import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
+import Mathlib.LinearAlgebra.Matrix.Charpoly.Basic
+import Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic
 
 /-!
 # `kong_3_4_2_integrable_perturbation_stability`
@@ -15,8 +13,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `kong_3_4_2_integrable_perturbation_stability.md`.
 Quality rubric: `kong_3_4_2_integrable_perturbation_stability.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter Function MeasureTheory Set Topology
 open scoped ENNReal Matrix NNReal Topology

@@ -1,7 +1,5 @@
-module
-
-public import Dataset.NivenIrrational.Defs
-public import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
+import Dataset.NivenIrrational.Defs
+import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 
 /-!
 # `niven_5_5_trisection_of_the_angle_impossible`
@@ -10,8 +8,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `niven_5_5_trisection_of_the_angle_impossible.md`.
 Quality rubric: `niven_5_5_trisection_of_the_angle_impossible.criteria.md`.
 -/
-
-@[expose] public section
 
 open Set
 

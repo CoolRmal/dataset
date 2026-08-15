@@ -1,6 +1,4 @@
-module
-
-public import Dataset.KrylovSobolev.Defs
+import Dataset.KrylovSobolev.Defs
 
 /-!
 # `krylov_sobolev_13_3_13_negative_order_divergence_decomposition`
@@ -9,8 +7,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `krylov_sobolev_13_3_13_negative_order_divergence_decomposition.md`.
 Quality rubric: `krylov_sobolev_13_3_13_negative_order_divergence_decomposition.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter Function MeasureTheory Set TemperedDistribution Topology
 open scoped ContDiff ENNReal Laplacian LineDeriv NNReal SchwartzMap Topology

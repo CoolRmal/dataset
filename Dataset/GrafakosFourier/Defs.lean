@@ -1,9 +1,7 @@
-module
-
-public import Mathlib.Analysis.Distribution.SchwartzSpace.Fourier
-public import Mathlib.Analysis.Fourier.AddCircle
-public import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
-public import Mathlib.MeasureTheory.Integral.Bochner.Basic
+import Mathlib.Analysis.Distribution.SchwartzSpace.Fourier
+import Mathlib.Analysis.Fourier.AddCircle
+import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
+import Mathlib.MeasureTheory.Integral.Bochner.Basic
 
 /-!
 # Shared definitions for the GrafakosFourier problems
@@ -12,8 +10,6 @@ Custom notions used by the statement files in `Dataset/GrafakosFourier/` that ar
 not already supplied by Mathlib. Each problem file that needs them imports
 this module.
 -/
-
-@[expose] public section
 
 open Filter Function MeasureTheory Metric Set
 open scoped ENNReal FourierTransform SchwartzMap Topology
@@ -33,10 +29,10 @@ def IsSublinearOperator {X : Type u} {Y : Type v}
 /-- Weak type `(p,p)` with a specified constant. -/
 def HasWeakType {X : Type u} {Y : Type v} [MeasurableSpace X] [MeasurableSpace Y]
     (μ : Measure X) (ν : Measure Y) (T : (X → ℂ) → Y → ℂ)
-    (p : ℝ) (C : ℝ≥0∞) : Prop :=
-  ∀ f : X → ℂ, MemLp f (ENNReal.ofReal p) μ → ∀ α : ℝ, 0 < α →
-    ν {y | ENNReal.ofReal α < ‖T f y‖ₑ} ≤
-      ENNReal.rpow (C * eLpNorm f (ENNReal.ofReal p) μ / ENNReal.ofReal α) p
+    (p : ℝ≥0∞) (C : ℝ≥0∞) : Prop :=
+  (p = ∞ → ∀ f : X → ℂ, MemLp f ∞ μ → eLpNorm (T f) ∞ ν ≤ C * eLpNorm f ∞ μ) ∧
+    (p ≠ ∞ → ∀ f : X → ℂ, MemLp f p μ → ∀ α : ℝ≥0∞, 0 < α →
+      ν {y | α < ‖T f y‖ₑ} ≤ ENNReal.rpow (C * eLpNorm f p μ / α) p.toReal)
 
 /-- Strong type `L^p(μ) → L^q(ν)` with a specified constant. -/
 def HasStrongType {X : Type u} {Y : Type v} [MeasurableSpace X] [MeasurableSpace Y]

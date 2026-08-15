@@ -1,6 +1,4 @@
-module
-
-public import Dataset.NivenZuckermanNumberTheory.Defs
+import Dataset.NivenZuckermanNumberTheory.Defs
 
 /-!
 # `niven_zuckerman_11_mann_alpha_beta_theorem`
@@ -9,8 +7,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `niven_zuckerman_11_mann_alpha_beta_theorem.md`.
 Quality rubric: `niven_zuckerman_11_mann_alpha_beta_theorem.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter
 open scoped Topology

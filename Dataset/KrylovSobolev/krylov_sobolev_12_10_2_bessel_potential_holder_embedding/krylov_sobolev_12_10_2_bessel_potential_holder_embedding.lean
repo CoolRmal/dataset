@@ -1,6 +1,4 @@
-module
-
-public import Dataset.KrylovSobolev.Defs
+import Dataset.KrylovSobolev.Defs
 
 /-!
 # `krylov_sobolev_12_10_2_bessel_potential_holder_embedding`
@@ -9,8 +7,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `krylov_sobolev_12_10_2_bessel_potential_holder_embedding.md`.
 Quality rubric: `krylov_sobolev_12_10_2_bessel_potential_holder_embedding.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter Function MeasureTheory Set Topology
 open scoped ContDiff ENNReal Laplacian NNReal SchwartzMap Topology

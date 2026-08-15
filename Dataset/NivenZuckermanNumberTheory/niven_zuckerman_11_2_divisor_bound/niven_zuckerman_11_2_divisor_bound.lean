@@ -1,6 +1,4 @@
-module
-
-public import Dataset.NivenZuckermanNumberTheory.Defs
+import Dataset.NivenZuckermanNumberTheory.Defs
 
 /-!
 # `niven_zuckerman_11_2_divisor_bound`
@@ -9,8 +7,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `niven_zuckerman_11_2_divisor_bound.md`.
 Quality rubric: `niven_zuckerman_11_2_divisor_bound.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter
 open scoped Topology

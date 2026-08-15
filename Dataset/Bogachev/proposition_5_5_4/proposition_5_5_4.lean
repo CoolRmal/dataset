@@ -1,18 +1,16 @@
-module
-
-public import Dataset.Bogachev.Defs
-public import Mathlib.Analysis.Calculus.ContDiff.Basic
-public import Mathlib.Analysis.Convex.Function
-public import Mathlib.Analysis.Normed.Module.FiniteDimension
-public import Mathlib.MeasureTheory.Constructions.Polish.Basic
-public import Mathlib.MeasureTheory.Function.UniformIntegrable
-public import Mathlib.MeasureTheory.Integral.Prod
-public import Mathlib.MeasureTheory.Measure.NullMeasurable
-public import Mathlib.MeasureTheory.Measure.ProbabilityMeasure
-public import Mathlib.MeasureTheory.Measure.Regular
-public import Mathlib.MeasureTheory.Measure.Tight
-public import Mathlib.MeasureTheory.VectorMeasure.Basic
-public import Mathlib.MeasureTheory.VectorMeasure.Decomposition.Jordan
+import Dataset.Bogachev.Defs
+import Mathlib.Analysis.Calculus.ContDiff.Basic
+import Mathlib.Analysis.Convex.Function
+import Mathlib.Analysis.Normed.Module.FiniteDimension
+import Mathlib.MeasureTheory.Constructions.Polish.Basic
+import Mathlib.MeasureTheory.Function.UniformIntegrable
+import Mathlib.MeasureTheory.Integral.Prod
+import Mathlib.MeasureTheory.Measure.NullMeasurable
+import Mathlib.MeasureTheory.Measure.ProbabilityMeasure
+import Mathlib.MeasureTheory.Measure.Regular
+import Mathlib.MeasureTheory.Measure.Tight
+import Mathlib.MeasureTheory.VectorMeasure.Basic
+import Mathlib.MeasureTheory.VectorMeasure.Decomposition.Jordan
 
 /-!
 # `proposition_5_5_4` — 5.5.4
@@ -21,8 +19,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `proposition_5_5_4.md`.
 Quality rubric: `proposition_5_5_4.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter MeasureTheory ProbabilityTheory Set Topology
 open scoped BoundedContinuousFunction ENNReal MeasureTheory NNReal ProbabilityTheory Topology

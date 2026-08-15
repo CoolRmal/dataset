@@ -1,7 +1,6 @@
-module
-
-public import Dataset.BogachevGaussian.Defs
-public import Mathlib.Analysis.Seminorm
+import Dataset.BogachevGaussian.Defs
+import Mathlib.Analysis.LocallyConvex.WithSeminorms
+import Mathlib.Analysis.Seminorm
 
 /-!
 # `bogachev_gaussian_4_5_8_seminorm_concentration`
@@ -11,8 +10,6 @@ Natural-language statement: `bogachev_gaussian_4_5_8_seminorm_concentration.md`.
 Quality rubric: `bogachev_gaussian_4_5_8_seminorm_concentration.criteria.md`.
 -/
 
-@[expose] public section
-
 open MeasureTheory ProbabilityTheory Set
 open scoped ENNReal NNReal
 
@@ -21,8 +18,9 @@ namespace BogachevGaussian
 
 /-- Bogachev 4.5.8: a measurable seminorm concentrates around its mean at a Gaussian rate
 governed by its gauge on the Cameron–Martin unit ball. -/
-theorem bogachev_gaussian_4_5_8_seminorm_concentration {E : Type*} [NormedAddCommGroup E]
-    [NormedSpace ℝ E] [MeasurableSpace E] [BorelSpace E] (γ : Measure E) [IsGaussian γ]
+theorem bogachev_gaussian_4_5_8_seminorm_concentration {E : Type*} [AddCommGroup E] [Module ℝ E] [TopologicalSpace E]
+    [IsTopologicalAddGroup E] [ContinuousSMul ℝ E] [LocallyConvexSpace ℝ E]
+    [MeasurableSpace E] [BorelSpace E] (γ : Measure E) [IsGaussian γ]
     (f : Seminorm ℝ E) (hf : Measurable f) (c : ℝ) (hc : 0 < c)
     (hgauge : cameronMartinGauge γ f ≤ ENNReal.ofReal c) (t : ℝ) (ht : 0 ≤ t) :
     γ {x | t < |f x - ∫ y, f y ∂γ|} ≤

@@ -1,12 +1,10 @@
-module
-
-public import Mathlib.Geometry.Manifold.Algebra.LieGroup
-public import Mathlib.Geometry.Manifold.ContMDiffMFDeriv
-public import Mathlib.Geometry.Manifold.Immersion
-public import Mathlib.Geometry.Manifold.SmoothApprox
-public import Mathlib.Geometry.Manifold.Submersion
-public import Mathlib.Geometry.Manifold.WhitneyEmbedding
-public import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
+import Mathlib.Geometry.Manifold.Algebra.LieGroup
+import Mathlib.Geometry.Manifold.ContMDiffMFDeriv
+import Mathlib.Geometry.Manifold.Immersion
+import Mathlib.Geometry.Manifold.SmoothApprox
+import Mathlib.Geometry.Manifold.Submersion
+import Mathlib.Geometry.Manifold.WhitneyEmbedding
+import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
 
 /-!
 # `lee_10_7_sards_theorem`
@@ -15,8 +13,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `lee_10_7_sards_theorem.md`.
 Quality rubric: `lee_10_7_sards_theorem.criteria.md`.
 -/
-
-@[expose] public section
 
 open Function MeasureTheory Set Topology
 open scoped ContDiff Manifold Topology

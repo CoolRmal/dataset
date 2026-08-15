@@ -1,6 +1,4 @@
-module
-
-public import Dataset.NivenZuckermanNumberTheory.Defs
+import Dataset.NivenZuckermanNumberTheory.Defs
 
 /-!
 # `niven_zuckerman_10_14_euler_product_prime_power`
@@ -9,8 +7,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `niven_zuckerman_10_14_euler_product_prime_power.md`.
 Quality rubric: `niven_zuckerman_10_14_euler_product_prime_power.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter
 open scoped Topology

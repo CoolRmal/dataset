@@ -1,17 +1,15 @@
-module
-
-public import Mathlib.MeasureTheory.Function.ConvergenceInDistribution
-public import Mathlib.MeasureTheory.Function.UniformIntegrable
-public import Mathlib.MeasureTheory.Measure.Prokhorov
-public import Mathlib.Probability.BrownianMotion.Basic
-public import Mathlib.Probability.Distributions.Gaussian.Real
-public import Mathlib.Probability.Kernel.Disintegration.StandardBorel
-public import Mathlib.Probability.Martingale.Basic
-public import Mathlib.Probability.Moments.Variance
-public import Mathlib.Probability.Process.Predictable
-public import Mathlib.Probability.Process.Stopping
-public import Mathlib.Topology.MetricSpace.HolderNorm
-public import Mathlib.Tactic.TFAE
+import Mathlib.MeasureTheory.Function.ConvergenceInDistribution
+import Mathlib.MeasureTheory.Function.UniformIntegrable
+import Mathlib.MeasureTheory.Measure.Prokhorov
+import Mathlib.Probability.BrownianMotion.Basic
+import Mathlib.Probability.Distributions.Gaussian.Real
+import Mathlib.Probability.Kernel.Disintegration.StandardBorel
+import Mathlib.Probability.Martingale.Basic
+import Mathlib.Probability.Moments.Variance
+import Mathlib.Probability.Process.Predictable
+import Mathlib.Probability.Process.Stopping
+import Mathlib.Topology.MetricSpace.HolderNorm
+import Mathlib.Tactic.TFAE
 
 /-!
 # Shared definitions for the KallenbergProbability problems
@@ -20,8 +18,6 @@ Custom notions used by the statement files in `Dataset/KallenbergProbability/` t
 not already supplied by Mathlib. Each problem file that needs them imports
 this module.
 -/
-
-@[expose] public section
 
 open Filter MeasureTheory ProbabilityTheory Set Topology
 open scoped ENNReal MeasureTheory NNReal ProbabilityTheory Topology

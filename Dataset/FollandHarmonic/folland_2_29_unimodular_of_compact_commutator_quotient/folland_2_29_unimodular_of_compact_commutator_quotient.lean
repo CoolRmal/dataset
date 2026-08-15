@@ -1,9 +1,7 @@
-module
-
-public import Dataset.FollandHarmonic.Defs
-public import Mathlib.MeasureTheory.Group.ModularCharacter
-public import Mathlib.GroupTheory.Commutator.Basic
-public import Mathlib.Topology.Algebra.Group.Basic
+import Dataset.FollandHarmonic.Defs
+import Mathlib.MeasureTheory.Group.ModularCharacter
+import Mathlib.GroupTheory.Commutator.Basic
+import Mathlib.Topology.Algebra.Group.Basic
 
 /-!
 # `folland_2_29_unimodular_of_compact_commutator_quotient`
@@ -12,8 +10,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `folland_2_29_unimodular_of_compact_commutator_quotient.md`.
 Quality rubric: `folland_2_29_unimodular_of_compact_commutator_quotient.criteria.md`.
 -/
-
-@[expose] public section
 
 open Filter MeasureTheory Set Topology
 open scoped ENNReal NNReal Topology

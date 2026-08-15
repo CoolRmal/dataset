@@ -1,6 +1,4 @@
-module
-
-public import Dataset.NivenIrrational.Defs
+import Dataset.NivenIrrational.Defs
 
 /-!
 # `niven_6_2_unique_nearest_integer`
@@ -9,8 +7,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `niven_6_2_unique_nearest_integer.md`.
 Quality rubric: `niven_6_2_unique_nearest_integer.criteria.md`.
 -/
-
-@[expose] public section
 
 open Set
 

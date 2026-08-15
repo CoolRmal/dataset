@@ -1,11 +1,9 @@
-module
-
-public import Mathlib.Analysis.Distribution.Sobolev
-public import Mathlib.Analysis.Distribution.FourierMultiplier
-public import Mathlib.MeasureTheory.Integral.Bochner.Basic
-public import Mathlib.Analysis.InnerProductSpace.PiL2
-public import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
-public import Mathlib.RingTheory.MvPolynomial.Homogeneous
+import Mathlib.Analysis.Distribution.Sobolev
+import Mathlib.Analysis.Distribution.FourierMultiplier
+import Mathlib.MeasureTheory.Integral.Bochner.Basic
+import Mathlib.Analysis.InnerProductSpace.PiL2
+import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
+import Mathlib.RingTheory.MvPolynomial.Homogeneous
 
 /-!
 # Shared definitions for the KrylovSobolev problems
@@ -20,8 +18,6 @@ Schwartz functions in Krylov's normalization, generalized first derivatives, the
 divergence-form equation of Chapter 13.6, the norm of the Bessel potential space (which
 Mathlib supplies only as a predicate), and strong ellipticity.
 -/
-
-@[expose] public section
 
 open MeasureTheory TemperedDistribution
 open scoped ContDiff ENNReal SchwartzMap
