@@ -33,6 +33,9 @@ theorem grafakos_2_1_6_hardy_littlewood_maximal {n : ℕ} :
       ∀ α : ℝ, 0 < α → volume {x | ENNReal.ofReal α < M f x} ≤
         ENNReal.ofReal (3 ^ n / α) *
           ∫⁻ x in {x | ENNReal.ofReal α < M f x}, ‖f x‖ₑ) ∧
+    (∀ M ∈ operators, ∀ f : EuclideanSpace ℝ (Fin n) → ℂ, MemLp f 1 volume →
+      ∀ α : ℝ, 0 < α → ENNReal.ofReal α * volume {x | ENNReal.ofReal α < M f x} ≤
+        ENNReal.ofReal (3 ^ n) * eLpNorm f 1 volume) ∧
     ∀ M ∈ operators, ∀ p : ℝ, 1 < p → ∀ f : EuclideanSpace ℝ (Fin n) → ℂ,
       MemLp f (ENNReal.ofReal p) volume →
         ENNReal.rpow (∫⁻ x, ENNReal.rpow (M f x) p) (1 / p) ≤

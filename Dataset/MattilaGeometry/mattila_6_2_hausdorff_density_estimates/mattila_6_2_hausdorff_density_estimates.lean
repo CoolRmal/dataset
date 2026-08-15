@@ -35,7 +35,7 @@ theorem mattila_6_2_hausdorff_density_estimates
     (∀ᵐ x ∂μH[s], x ∈ A →
       ENNReal.ofReal (2 ^ (-s)) ≤ upperHausdorffDensity s A x ∧
         upperHausdorffDensity s A x ≤ 1) ∧
-      (MeasurableSet A → ∀ᵐ x ∂μH[s], x ∉ A → upperHausdorffDensity s A x = 0) := by
+      (NullMeasurableSet A μH[s] → ∀ᵐ x ∂μH[s], x ∉ A → upperHausdorffDensity s A x = 0) := by
   sorry
 
 end MattilaGeometry

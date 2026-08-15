@@ -144,3 +144,23 @@ A grader should report the five band subtotals, every cap applied, and a one-lin
 justification per band, then the total. A total of 90 or above means "as good as the
 ground truth"; 70–89 means "usable with a named defect"; below 70 means the candidate
 should be rejected.
+
+## Recurring regression checks
+
+1. In `WithTop ℕ∞`, `⊤` means real-analytic regularity (`ω`), while smoothness
+   is written `∞` with `open scoped ContDiff`.
+2. Textbook conventions may bundle separation or countability axioms that
+   Mathlib deliberately keeps separate.
+3. Partial operations such as `Metric.diam`, `deriv`, `fderiv`, `tsum`,
+   `sInf`, inverse, conditional expectation, and stopped values at `⊤` return
+   defaults outside their intended domains; every use needs its guard.
+4. Quantifier placement is mathematical content: uniform constants precede
+   the objects they control, existential sequences must not become implicit
+   universal parameters, and uniqueness on a subdomain is `Set.EqOn` or a.e.
+   equality rather than equality of arbitrary total representatives.
+5. Equivalent-but-different hypotheses are a defect even when the theorem is
+   unchanged: use the condition the textbook states.
+
+These were distilled from repairing the dataset's own statements against these rubrics. Every
+defect they record has been fixed in the Lean sources; each `<decl>.criteria.md` documents, in its
+requirement table and its notes, how its own statement stands against them.

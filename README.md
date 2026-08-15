@@ -62,12 +62,13 @@ catalogue of the recurring failure modes each band is meant to catch. Each
 ## Repairs
 
 Applying the rubrics to the dataset's own statements turned up defects in the
-ground truth — statements that are false or unsatisfiable, terms that silently
-evaluate to a junk default, and statements that are true but are not the
-book's theorem. Those defects have been repaired in the Lean sources and are
-recorded in [GROUND_TRUTH_ISSUES.md](GROUND_TRUTH_ISSUES.md) as a regression
-ledger. Relevant rubrics retain the original failure mode as a model-error
-trap and carry a note that the current ground truth incorporates the repair.
+ground truth — statements that were false or unsatisfiable, terms that silently
+evaluated to a junk default, and statements that were true but were not the
+book's theorem. Those defects have been repaired in the Lean sources. Each
+rubric records how its own statement stands against its requirements, and
+retains the original failure mode as a model-error trap; the failure modes that
+recurred across books are collected at the end of
+[GRADING.md](GRADING.md).
 
 Included books:
 

@@ -25,7 +25,7 @@ row is incomplete.
 | 3 | Conclusion (1): the setwise limit is again a signed measure, and the $\mu_n(A)$ converge to its value on every measurable $A$. | ✅ `∃ sLim : SignedMeasure Ω, ∀ A, MeasurableSet A → Tendsto (fun n ↦ s n A) atTop (𝓝 (sLim A))`. Countable additivity of the limit is carried by the type. |
 | 4 | Conclusion (2): there is a finite nonnegative measure $\nu$ and a function $\alpha$ on $[0,\infty)$. | ✅ `∃ ν : FiniteMeasure Ω, ∃ α : ℝ≥0 → ℝ≥0`. |
 | 5 | $\alpha$ is nonnegative, nondecreasing, and bounded. | ✅ Nonnegativity from the type `ℝ≥0`, `Monotone α`, and `∃ C : ℝ≥0, ∀ t, α t ≤ C`. |
-| 6 | $\alpha(t) \to 0$ as $t \to 0$. | ⚠️ `Tendsto α (𝓝 0) (𝓝 0)`. In Lean this also forces $\alpha(0) = 0$, whereas the book's one-sided limit leaves $\alpha(0)$ free. Harmless — one can always redefine $\alpha(0) := 0$ — but `𝓝[>] 0` would match the text literally. |
+| 6 | $\alpha(t) \to 0$ as $t \to 0$. | ✅ `Tendsto α (𝓝[>] 0) (𝓝 0)`, the one-sided limit the book takes, leaving $\alpha(0)$ free. |
 | 7 | The bound $\lvert \mu_n(A)\rvert \le \alpha(\nu(A))$ holds for every $n$ and every measurable $A$. | ✅ `∀ n, ∀ A, MeasurableSet A → \|s n A\| ≤ (α (ν A) : ℝ)`. |
 | 8 | The "in particular" clauses: uniform boundedness in variation, and uniform countable additivity of the whole sequence. | ✅ `UniformlyBoundedInTotalVariation (range s)` and `UniformlyCountablyAdditive (range s)`. |
 | 9 | Conclusion (3): for *every* finite nonnegative measure that dominates all the $\mu_n$, the absolute continuity is uniform. | ✅ `∀ lam : FiniteMeasure Ω, (∀ n, s n ≪ᵥ (lam : Measure Ω).toENNRealVectorMeasure) → UniformlyAbsolutelyContinuous (range s) lam`. |

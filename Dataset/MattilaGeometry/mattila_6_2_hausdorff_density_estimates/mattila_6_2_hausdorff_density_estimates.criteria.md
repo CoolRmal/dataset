@@ -25,7 +25,7 @@ row is incomplete.
 | 4 | Part (1) asserts the lower bound $2^{-s} \le \Theta^{*s}(A,x)$. | ✅ `ENNReal.ofReal (2 ^ (-s)) ≤ upperHausdorffDensity s A x`. |
 | 5 | Part (1) asserts the upper bound $\Theta^{*s}(A,x) \le 1$. | ✅ `upperHausdorffDensity s A x ≤ 1`, in the same conjunction. |
 | 6 | "For $\mathcal{H}^s$ almost all $x \in A$" must mean that the bad points inside $A$ form an $\mathcal{H}^s$-null set, without assuming $A$ measurable. | ✅ `∀ᵐ x ∂μH[s], x ∈ A → …`, which unfolds to `μH[s] {x \| x ∈ A ∧ ¬ P x} = 0`. |
-| 7 | Measurability of $A$ is a hypothesis of part (2) only, so it must appear as an implication inside the second conjunct, not in the binder list. | ✅ `(MeasurableSet A → ∀ᵐ x ∂μH[s], …)`. ⚠️ The book means Carathéodory $\mathcal{H}^s$-measurable, which is `NullMeasurableSet A μH[s]`; Borel `MeasurableSet A` is stronger, so part (2) is a bit weaker than printed. |
+| 7 | Measurability of $A$ is a hypothesis of part (2) only, so it must appear as an implication inside the second conjunct, not in the binder list. | ✅ `(NullMeasurableSet A μH[s] → ∀ᵐ x ∂μH[s], …)`, with Carathéodory measurability as the book intends. |
 | 8 | Part (2) says the density vanishes at almost every point **outside** $A$, and both parts are asserted together. | ✅ `∀ᵐ x ∂μH[s], x ∉ A → upperHausdorffDensity s A x = 0`, joined to part (1) by `∧`. |
 
 ## Mistakes to check for

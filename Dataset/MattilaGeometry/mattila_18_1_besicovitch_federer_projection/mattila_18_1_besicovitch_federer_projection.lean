@@ -32,7 +32,7 @@ universe u
 theorem mattila_18_1_besicovitch_federer_projection
     {n m : ℕ} (hm : 0 < m) (hmn : m < n)
     (γ : Measure (Grassmannian n m)) (hγ : IsInvariantGrassmannianMeasure γ)
-    {A : Set (EuclideanSpace ℝ (Fin n))} (hA : MeasurableSet A) (hAfin : μH[(m : ℝ)] A < ∞) :
+    {A : Set (EuclideanSpace ℝ (Fin n))} (hA : NullMeasurableSet A μH[(m : ℝ)]) (hAfin : μH[(m : ℝ)] A < ∞) :
     (RectifiableSet n m A ↔ ∀ B : Set (EuclideanSpace ℝ (Fin n)),
       MeasurableSet B → B ⊆ A → 0 < μH[(m : ℝ)] B →
         ∀ᵐ V ∂γ, 0 < μH[(m : ℝ)] ((fun x ↦ V.1.orthogonalProjectionOnto x) '' B)) ∧

@@ -20,7 +20,7 @@ row is incomplete.
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
 | 1 | $p$ is continuous on $[0,\infty)$. | ✅ First conjunct of `IntegrableSmallPerturbation p r`: `ContinuousOn p (Set.Ici 0)`. |
-| 2 | $p$ is nonnegative. | ⚠️ `∀ t, 0 ≤ p t` asks this on all of $\mathbb{R}$, where the text asks it only on $[0,\infty)$. A harmless strengthening, since $p$ is used nowhere else. |
+| 2 | $p$ is nonnegative. | ✅ `∀ t ≥ 0, 0 ≤ p t`, on the half-line where the text asks it. |
 | 3 | $\int_0^\infty p < \infty$, stated as integrability rather than as a numerical bound on the integral. | ✅ `IntegrableOn p (Set.Ici 0)`. For continuous $p \ge 0$ this is exactly Kong's condition. |
 | 4 | One radius $\rho$, fixed before $t$, within which the bound $\lVert r(t,x)\rVert \le p(t)\lVert x\rVert$ holds for every $t \ge 0$. | ✅ `∃ ρ, 0 < ρ ∧ ∀ t, 0 ≤ t → ∀ x, ‖x‖ < ρ → ‖r t x‖ ≤ p t * ‖x‖`. |
 | 5 | The perturbed system is $x' = A(t)x + r(t,x)$, and the conclusions are about **its** zero solution. | ✅ `fun t x ↦ A t *ᵥ x + r t x`. |

@@ -51,7 +51,7 @@ theorem bogachev_4_6_3_nikodym_vitali_hahn_saks
         (∃ ν : FiniteMeasure Ω, ∃ α : ℝ≥0 → ℝ≥0,
           Monotone α ∧
             (∃ C : ℝ≥0, ∀ t : ℝ≥0, α t ≤ C) ∧
-              Tendsto α (𝓝 0) (𝓝 0) ∧
+              Tendsto α (𝓝[>] 0) (𝓝 0) ∧
                 ∀ n : ℕ, ∀ A : Set Ω, MeasurableSet A → |s n A| ≤ (α (ν A) : ℝ)) ∧
           UniformlyBoundedInTotalVariation (range s) ∧
             UniformlyCountablyAdditive (range s) ∧

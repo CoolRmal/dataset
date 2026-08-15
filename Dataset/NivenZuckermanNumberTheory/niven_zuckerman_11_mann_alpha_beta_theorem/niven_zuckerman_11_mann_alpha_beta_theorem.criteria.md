@@ -29,7 +29,7 @@ row is incomplete.
 | 4 | The sumset is $\{a + b : a \in A,\ b \in B\}$. | ✅ `{n : ℕ \| ∃ a ∈ A, ∃ b ∈ B, n = a + b}`. |
 | 5 | The bound is the minimum of $1$ and $\alpha+\beta$, not $\alpha+\beta$ itself. | ✅ `min 1 (schnirelmannDensity A + schnirelmannDensity B) ≤ …`. |
 | 6 | The inequality points the right way: the sumset density is the *larger* side. | ✅ The `min` is on the left of `≤`, so the sumset density is on the right. |
-| 7 | Each set fed to `schnirelmannDensity` carries a way to decide membership, the sumset included. | ✅ Three `DecidablePred` instance arguments. ⚠️ Carrying them explicitly is noisy; `Classical.dec` would remove them, at the cost of hiding what is going on. |
+| 7 | Each set fed to `schnirelmannDensity` carries a way to decide membership, the sumset included. | ✅ Three `DecidablePred` instance arguments, stated explicitly rather than hidden behind classical choice, so that the counting function in the density is the intended one. |
 | 8 | No extra hypotheses: no finiteness, no positivity of the densities, no requirement that either density be attained. | ✅ Only membership of $0$ is assumed. |
 
 ## Mistakes to check for

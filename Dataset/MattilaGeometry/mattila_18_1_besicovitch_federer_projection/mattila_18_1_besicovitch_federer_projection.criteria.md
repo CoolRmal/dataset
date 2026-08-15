@@ -23,7 +23,7 @@ row is incomplete.
 |---|-------------|-------------------------------|
 | 1 | The Grassmannian must carry a fixed measurable structure, so that "for $\gamma_{n,m}$ almost all $V$" is determined. | ✅ `Defs.lean` gives `Grassmannian n m` the topology induced by the projection operators, then its Borel $\sigma$-algebra and a `BorelSpace` instance. |
 | 2 | $\gamma_{n,m}$ is a probability measure invariant under every linear isometry of $\mathbb{R}^n$. | ✅ `γ : Measure (Grassmannian n m)` with `hγ : IsInvariantGrassmannianMeasure γ`. |
-| 3 | $A$ is $\mathcal{H}^m$ measurable with $\mathcal{H}^m(A) < \infty$. | ✅ `hA : MeasurableSet A`, `hAfin : μH[(m : ℝ)] A < ∞`. ⚠️ The book's "$\mathcal{H}^m$ measurable" is Carathéodory measurability, `NullMeasurableSet A μH[(m:ℝ)]`; Borel `MeasurableSet` is stronger and so gives a slightly weaker theorem. |
+| 3 | $A$ is $\mathcal{H}^m$ measurable with $\mathcal{H}^m(A) < \infty$. | ✅ `hA : NullMeasurableSet A μH[(m : ℝ)]`, Carathéodory measurability as the book intends, and `hAfin : μH[(m : ℝ)] A < ∞`. |
 | 4 | Part (1) is a biconditional between rectifiability of $A$ and the projection condition, with the "for almost every $V$" quantifier **inside** the "for every subset $B$" quantifier. | ✅ `RectifiableSet n m A ↔ ∀ B, MeasurableSet B → B ⊆ A → 0 < μH[(m:ℝ)] B → ∀ᵐ V ∂γ, 0 < μH[(m:ℝ)] (P_V '' B)`. |
 | 5 | The test sets $B$ in part (1) are the measurable subsets of $A$ with positive $\mathcal{H}^m$ measure. | ✅ All three conditions appear as hypotheses of the inner implication. |
 | 6 | Part (2) is a biconditional between pure unrectifiability of $A$ and $\mathcal{H}^m(P_V A) = 0$ for almost every $V$. | ✅ `PurelyUnrectifiableSet n m A ↔ ∀ᵐ V ∂γ, μH[(m:ℝ)] (P_V '' A) = 0`. |

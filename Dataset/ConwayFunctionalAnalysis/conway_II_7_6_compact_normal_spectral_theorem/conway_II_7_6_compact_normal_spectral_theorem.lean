@@ -32,7 +32,7 @@ universe u
 /-- Conway II.7.6, the spectral theorem for compact normal operators. -/
 theorem conway_II_7_6_compact_normal_spectral_theorem
     {H : Type*} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
-    (T : H →L[ℂ] H) (hnormal : T.adjoint.comp T = T.comp T.adjoint)
+    (T : H →L[ℂ] H) (hnormal : IsStarNormal T)
     (hcompact : IsCompactOperator T) :
     ∃ (ι : Type) (_ : Countable ι) (eigenvalue : ι → ℂ)
       (projection : ι → H →L[ℂ] H),

@@ -18,7 +18,7 @@ row is incomplete.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
-| 1 | $\alpha$ is a real number assumed irrational. | ⚠️ `(a : ℝ) (ha : Irrational a)`. This is the book's hypothesis, but more than is needed: it would be enough that $\alpha$ is not a half-integer, i.e. $2\alpha \notin \mathbb{Z}$. |
+| 1 | $\alpha$ is a real number assumed irrational. | ✅ `(a : ℝ) (ha : Irrational a)`, the book's hypothesis. It is more than the proof needs — $2\alpha \notin \mathbb{Z}$ would do — but the theorem is Niven's as printed, so this is the faithful choice rather than a defect. |
 | 2 | The conclusion asserts existence **and** uniqueness of the integer. | ✅ `∃! m : ℤ, …`. |
 | 3 | The nearby object is an integer, not a natural number or a real. | ✅ `m : ℤ`, cast into `ℝ` inside the inequalities. |
 | 4 | The lower bound $-\tfrac12 < \alpha - m$ is strict. | ✅ `-(1 / 2 : ℝ) < a - m`. |

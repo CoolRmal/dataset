@@ -18,7 +18,7 @@ row is incomplete.
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
 | 1 | The space is a complex Hilbert space: normed group, inner product over $\mathbb{C}$, complete. | ✅ `[NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]`. |
-| 2 | $T$ is normal, and that is the only algebraic hypothesis — no self-adjointness, no separability, no finite dimension. | ✅ `hnormal : T.adjoint.comp T = T.comp T.adjoint`. ⚠️ Mathlib spells this `IsStarNormal T` (`Commute (star T) T`), which is the same equation through the adjoint star instance and would connect to Mathlib's normal-operator lemmas. |
+| 2 | $T$ is normal, and that is the only algebraic hypothesis — no self-adjointness, no separability, no finite dimension. | ✅ `hnormal : IsStarNormal T`, Mathlib's predicate for $T^*T = TT^*$. |
 | 3 | $T$ is compact. | ✅ `hcompact : IsCompactOperator T`. |
 | 4 | The eigenvalues come in a countable family. | ✅ `∃ (ι : Type) (_ : Countable ι) (eigenvalue : ι → ℂ) …`. |
 | 5 | The listed eigenvalues are nonzero and distinct. | ✅ `(∀ i, eigenvalue i ≠ 0)` and `Function.Injective eigenvalue`. |

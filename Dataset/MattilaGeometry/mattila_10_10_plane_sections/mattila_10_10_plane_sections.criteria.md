@@ -23,7 +23,7 @@ row is incomplete.
 |---|-------------|-------------------------------|
 | 1 | The Grassmannian $G(n, n-m)$ must carry a fixed measurable structure, so that "for $\gamma_{n,n-m}$ almost all $W$" means something. | ✅ `Defs.lean` gives `Grassmannian n (n - m)` the topology induced by the projection operators, then its Borel $\sigma$-algebra and a `BorelSpace` instance. |
 | 2 | $\gamma_{n,n-m}$ is a probability measure invariant under all linear isometries of $\mathbb{R}^n$. | ✅ `γ : Measure (Grassmannian n (n - m))` with `hγ : IsInvariantGrassmannianMeasure γ`. |
-| 3 | The hypotheses $m < t$ and $t < n$. | ✅ `hmt : (m : ℝ) < t ∧ t < n`. ⚠️ Packaged as one conjunction; two hypotheses would be more idiomatic. |
+| 3 | The hypotheses $m < t$ and $t < n$. | ✅ `hmt : (m : ℝ) < t` and `htn : t < (n : ℝ)`, as two hypotheses. |
 | 4 | $A$ is Borel with $\mathcal{H}^t(A)$ both finite and positive. | ✅ `hA : MeasurableSet A`, `hAfinite : μH[t] A < ∞`, `hApos : 0 < μH[t] A`. |
 | 5 | The affine planes are $W_a = W + a$ indexed by $a \in W^\perp$, and the slice is $A \cap W_a$. | ✅ `slice W a = A ∩ {x \| x - (a : EuclideanSpace ℝ (Fin n)) ∈ W.1}` with `a : ↥W.1ᗮ`. |
 | 6 | Clause (1) holds for **all** $W$, and for $\mathcal{H}^m$-almost every translate $a$: the slice has finite $\mathcal{H}^{t-m}$ measure. | ✅ `∀ W, ∀ᵐ a ∂(μH[(m : ℝ)] : Measure ↥W.1ᗮ), (μH[t - m]) (slice W a) < ∞`. |

@@ -62,7 +62,7 @@ def UniformlyCountablyAdditive {Ω : Type*} [MeasurableSpace Ω]
 /-- A family of signed measures is uniformly bounded in total variation. -/
 def UniformlyBoundedInTotalVariation {Ω : Type*} [MeasurableSpace Ω]
     (S : Set (SignedMeasure Ω)) : Prop :=
-  ∃ C : ℝ≥0, ∀ s ∈ S, s.totalVariation univ ≤ C
+  ⨆ s : S, (s : SignedMeasure Ω).totalVariation univ < ∞
 
 /-- Uniform absolute continuity of a family of signed measures with respect to a measure. -/
 def UniformlyAbsolutelyContinuous {Ω : Type*} [MeasurableSpace Ω]

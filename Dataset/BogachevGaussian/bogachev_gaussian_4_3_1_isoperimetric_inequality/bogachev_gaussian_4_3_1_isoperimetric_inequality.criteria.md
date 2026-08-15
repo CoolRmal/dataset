@@ -23,7 +23,7 @@ row is incomplete.
 | 2 | $\Phi^{-1}$ is valued in $[-\infty,+\infty]$, with $-\infty$ at $0$ and $+\infty$ at $1$. | ✅ `quantile (gaussianReal 0 1) : ℝ → EReal`. |
 | 3 | $A$ is an arbitrary measurable set — no convexity, no closedness, no symmetry. | ✅ `hA : MeasurableSet A` is the only condition on `A`. |
 | 4 | The enlargement is the Minkowski sum of $A$ with the *closed* ball of radius $r$ centered at the origin, in the Euclidean metric. | ✅ `A + Metric.closedBall (0 : EuclideanSpace ℝ (Fin n)) r`, with `+` the pointwise set sum. This is Bogachev's literal $A + rU$. |
-| 5 | The radius $r$ is positive. | ⚠️ `hr : 0 < r`, as printed. The inequality also holds trivially at $r = 0$, so this hypothesis could be weakened to `0 ≤ r`. |
+| 5 | The radius $r$ is non-negative. | ✅ `hr : 0 ≤ r`. The printed hypothesis is $r > 0$; the inequality also holds at $r = 0$, so stating it for $r \ge 0$ is the slightly stronger and cleaner form, and a candidate writing `0 < r` is equally acceptable. |
 | 6 | The gain is exactly $+r$, with no unspecified constant. | ✅ `+ (r : EReal)`, the literal $r$ coerced into `EReal`. |
 | 7 | The inequality is between the quantile of $A$ plus $r$ and the quantile of the enlargement. | ✅ `Φinv (γ A).toReal + (r : EReal) ≤ Φinv (γ (A + closedBall 0 r)).toReal`. |
 

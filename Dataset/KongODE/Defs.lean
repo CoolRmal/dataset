@@ -109,7 +109,7 @@ def UnstableLinearEquation {n : ℕ} (A : ℝ → Matrix (Fin n) (Fin n) ℝ) : 
 /-- An integrable perturbation which is linearly small near the origin. -/
 def IntegrableSmallPerturbation {n : ℕ} (p : ℝ → ℝ)
     (r : ℝ → (Fin n → ℝ) → (Fin n → ℝ)) : Prop :=
-  ContinuousOn p (Set.Ici 0) ∧ (∀ t, 0 ≤ p t) ∧
+  ContinuousOn p (Set.Ici 0) ∧ (∀ t ≥ 0, 0 ≤ p t) ∧
     IntegrableOn p (Set.Ici 0) ∧
     ∃ ρ : ℝ, 0 < ρ ∧
       ∀ t, 0 ≤ t → ∀ x, ‖x‖ < ρ → ‖r t x‖ ≤ p t * ‖x‖

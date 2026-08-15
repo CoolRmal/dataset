@@ -25,7 +25,7 @@ row is incomplete.
 | 5 | The period must be strictly positive. | ✅ `0 < p` inside `EventuallyPeriodic`. |
 | 6 | The repetition is only required from some point on, not from the first digit. | ✅ The `N ≤ k` guard. This is what lets $1/6 = 0.1666\ldots$ count. |
 | 7 | Terminating decimals are covered, not treated as a separate case. | ✅ A terminating expansion has $d_k = 0$ for large $k$, which satisfies `EventuallyPeriodic` with $p = 1$. No disjunction is needed. |
-| 8 | $x$ is real and lies in $[0,1)$. | ⚠️ `hx : x ∈ Ico (0 : ℝ) 1`. The digit formula is correct for every $x \ge 0$, so `0 ≤ x` alone would do and would be closer to the book, which states the result for an arbitrary fraction $a/b$. Restricting to $[0,1)$ is a normalisation: the integer part contributes no digits after the point. |
+| 8 | $x$ is a non-negative real. | ✅ `hx : 0 ≤ x`. The digit formula $\lfloor 10^{k+1}x\rfloor \bmod 10$ is the $k$-th digit after the point for every $x \ge 0$, so no normalisation to $[0,1)$ is needed and the statement covers an arbitrary fraction $a/b \ge 0$, as the book does. |
 
 ## Mistakes to check for
 

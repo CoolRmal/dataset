@@ -45,7 +45,7 @@ wrong, even if it compiles.
 ## Notes on the ground truth
 
 - To speak of $u$ as a distribution the statement produces an $\mathcal{L}_1$ representative `U` with `u =ᵐ[volume] ⇑U`, and asserts the $H_p^\gamma$ facts about `U`. The decay hypothesis plus compact support is exactly what makes $u$ integrable, so this is part of the conclusion rather than an added assumption.
-- The `hd : 0 < d` hypothesis was added after an adversarial review produced a compiling refutation of the $d = 0$ case; see `GROUND_TRUTH_ISSUES.md`.
+- The `hd : 0 < d` hypothesis was added after an adversarial review produced a compiling refutation of the $d = 0$ case.
 - $\|x\|^{-\nu}$ is `Real.rpow`, which is why the bound is stated for `x ≠ 0`.
 - In the second half `ContDiff ℝ n u` is assumed so that the derivatives $D^\alpha u$ the hypothesis talks about actually exist; `multiDeriv` would otherwise silently return $0$.
 

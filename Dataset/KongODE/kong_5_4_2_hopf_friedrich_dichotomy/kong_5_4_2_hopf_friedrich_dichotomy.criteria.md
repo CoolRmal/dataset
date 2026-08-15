@@ -21,7 +21,7 @@ row is incomplete.
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
 | 1 | $\beta > 0$. | ✅ `hβ : 0 < β`. |
-| 2 | $F$ is analytic in the pair $(x,\mu)$. | ⚠️ `ContDiff ℝ ∞ (fun p : (Fin 2 → ℝ) × ℝ ↦ F p.1 p.2)` says $C^\infty$, not analytic: with mathlib's `ContDiff` notation `∞` is $C^\infty$ and `ω` is analytic. This weakens Kong's hypothesis (5.4.2), and the dichotomy is not available for merely smooth families — the centre/focus alternative can fail. `ContDiff ℝ ω` would be the faithful hypothesis. |
+| 2 | $F$ is analytic in the pair $(x,\mu)$. | ✅ `ContDiff ℝ ω (fun p : (Fin 2 → ℝ) × ℝ ↦ F p.1 p.2)`; in the `ContDiff` scope `ω` is real-analytic, which is Kong's hypothesis (5.4.2), while `∞` would be merely $C^\infty$ and the dichotomy is not available there. |
 | 3 | The origin is an equilibrium for **every** value of the parameter. | ✅ `∀ μ, F 0 μ = 0`. |
 | 4 | The linearization is the Jacobian in $x$, evaluated at the origin, for the given $\mu$. | ✅ `linearizationMatrix F μ i j := fderiv ℝ (fun x ↦ F x μ) 0 (Pi.single j 1) i` — the columns are the directional derivatives along the standard basis at $0$. |
 | 5 | $\alpha(0) = 0$, i.e. the trace of the linearization at $\mu = 0$ vanishes. | ✅ `Matrix.trace (linearizationMatrix F 0) = 0`. |

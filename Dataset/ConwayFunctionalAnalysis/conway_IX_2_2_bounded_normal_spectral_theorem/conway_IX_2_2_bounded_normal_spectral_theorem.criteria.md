@@ -18,7 +18,7 @@ row is incomplete.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
-| 1 | The only hypothesis is that $N$ is a bounded normal operator on a complex Hilbert space — no separability, no self-adjointness, no compactness. | ✅ `hnormal : T.adjoint.comp T = T.comp T.adjoint` over `[NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]`. ⚠️ Mathlib's `IsStarNormal T` is the idiomatic spelling of the same equation. |
+| 1 | The only hypothesis is that $N$ is a bounded normal operator on a complex Hilbert space — no separability, no self-adjointness, no compactness. | ✅ `hnormal : IsStarNormal T` over `[NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]`. |
 | 2 | There is a projection-valued measure: each Borel set gets an orthogonal projection, the empty set gets $0$, disjoint sets get projections whose product is $0$, and countable disjoint unions add up in the strong topology. | ✅ The structure `ProjectionValuedMeasure H` from `Defs.lean` carries `empty`, `univ`, `projection`, `orthogonal` and `countablyAdditive`. |
 | 3 | The measure is **unique**, not merely existent. | ✅ `∃! E : ProjectionValuedMeasure H, …`. |
 | 4 | Uniqueness has to be made coherent: the value of $E$ on non-Borel sets must be pinned down, or two spectral measures could differ off the Borel sets and uniqueness would be false. | ✅ The `nonmeasurable : ∀ B, ¬MeasurableSet B → toFun B = 0` field of `ProjectionValuedMeasure`. |

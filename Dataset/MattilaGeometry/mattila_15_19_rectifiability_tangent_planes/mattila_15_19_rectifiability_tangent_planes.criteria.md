@@ -21,7 +21,7 @@ row is incomplete.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
-| 1 | The hypotheses: $E$ is $\mathcal{H}^m$ measurable and $\mathcal{H}^m(E) < \infty$. | ✅ `hEmeas : MeasurableSet E`, `hEfinite : μH[(m : ℝ)] E < ∞`. ⚠️ The book means Carathéodory $\mathcal{H}^m$-measurable, i.e. `NullMeasurableSet E μH[(m:ℝ)]`; Borel `MeasurableSet` is stronger, so our version is a slightly narrower theorem. |
+| 1 | The hypotheses: $E$ is $\mathcal{H}^m$ measurable and $\mathcal{H}^m(E) < \infty$. | ✅ `hEmeas : NullMeasurableSet E μH[(m : ℝ)]` — Carathéodory $\mathcal{H}^m$-measurability, which is what the book means — and `hEfinite : μH[(m : ℝ)] E < ∞`. |
 | 2 | All four conditions are asserted equivalent, as one equivalence rather than a chain of implications. | ✅ `List.TFAE [ … ]` with four entries. |
 | 3 | Rectifiability (15.3): countably many Lipschitz maps $\mathbb{R}^m \to \mathbb{R}^n$, **each with its own** Lipschitz constant, whose ranges cover $E$ up to an $\mathcal{H}^m$-null set. | ✅ `RectifiableSet n m E = ∃ f : ℕ → …, (∀ j, ∃ K : ℝ≥0, LipschitzWith K (f j)) ∧ μH[(m:ℝ)] (E \ ⋃ j, range (f j)) = 0`. |
 | 4 | Linear approximability (15.7): for almost every $a \in E$ and **every** $\eta > 0$ there are a plane, a scale $r_0$ and a constant $c$ — all allowed to depend on $\eta$ — such that both displayed inequalities hold for all $0 < r < r_0$. | ✅ `LinearlyApproximableSet`: `∀ᵐ a ∂μH[(m:ℝ)].restrict E, ∀ η, 0 < η → ∃ V, ∃ r₀ c, 0 < r₀ ∧ 0 < c ∧ ∀ r, 0 < r → r < r₀ → …`. |

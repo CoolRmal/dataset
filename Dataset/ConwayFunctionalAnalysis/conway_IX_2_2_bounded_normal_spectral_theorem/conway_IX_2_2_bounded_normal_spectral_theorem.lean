@@ -32,7 +32,7 @@ universe u
 /-- Conway IX.2.2, the spectral theorem for bounded normal operators. -/
 theorem conway_IX_2_2_bounded_normal_spectral_theorem
     {H : Type*} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
-    (T : H →L[ℂ] H) (hnormal : T.adjoint.comp T = T.comp T.adjoint) :
+    (T : H →L[ℂ] H) (hnormal : IsStarNormal T) :
     ∃! E : ProjectionValuedMeasure H,
       E.toFun (spectrum ℂ T) = ContinuousLinearMap.id ℂ H ∧
       (∃ scalarMeasure : H → H → ComplexMeasure ℂ,
