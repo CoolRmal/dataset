@@ -15,7 +15,11 @@ $X_\infty = \lim_{t \to \infty} X_t$ on the event $\{\tau = \infty\}$.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -55,7 +59,7 @@ wrong, even if it compiles.
 - An earlier version of this file used `stoppedValue` throughout, including inside the closure
   clause, where it compared arbitrary default values instead of $X_\infty$. Mistake row 1 keeps that
   defect on record.
-- ⚠️ `hτbounded` is an almost-sure bound where the text says simply "bounded". This makes the theorem
+- **Deliberate departure.** `hτbounded` is an almost-sure bound where the text says simply "bounded". This makes the theorem
   formally stronger and is harmless; `∀ ω, τ ω ≤ u` is the literal reading.
 - Mathlib's `UniformIntegrable` bundles almost-everywhere strong measurability and a uniform $L^1$
   bound alongside the uniform-integrability condition. Both hold automatically for the positive part

@@ -18,7 +18,11 @@ $\ker(A + K)$ for every compact $K$.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -61,7 +65,7 @@ wrong, even if it compiles.
 - $E[0,\delta]$ becomes `E.toFun (Metric.closedBall (0 : ℂ) δ)`, a disc in $\mathbb{C}$. This is
   legitimate because the anchoring condition forces $E$ to sit on $\sigma(\text{modulus}) \subseteq
   [0,\infty)$, where the disc meets the support exactly in the interval $[0,\delta]$.
-- ⚠️ `H →L[ℂ] H` *is* a `CStarAlgebra` in Mathlib, so `CFC.sqrt (A⋆ * A)` from the continuous
+- **Deliberate departure.** `H →L[ℂ] H` *is* a `CStarAlgebra` in Mathlib, so `CFC.sqrt (A⋆ * A)` from the continuous
   functional calculus would name the modulus directly instead of characterizing it by three
   equations. Similarly `modulus.adjoint = modulus` would read better as `IsSelfAdjoint modulus`, and
   `∀ x, 0 ≤ (inner ℂ (modulus x) x).re` as `modulus.IsPositive`.

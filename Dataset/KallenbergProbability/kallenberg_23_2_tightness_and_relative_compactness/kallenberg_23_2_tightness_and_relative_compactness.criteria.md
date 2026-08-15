@@ -14,7 +14,11 @@ complete. The asymmetry is the point: the first half needs no assumption on $S$,
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -45,12 +49,12 @@ wrong, even if it compiles.
 
 - Kallenberg speaks of a set of random elements; the ground truth works with the set of their laws.
   This is legitimate, because both tightness and relative compactness in distribution depend only on
-  the laws. ⚠️ It is one step away from the printed wording; a candidate that indexes actual random
+  the laws. It is one step away from the printed wording; a candidate that indexes actual random
   variables and then applies both conditions to the resulting set of laws is equally acceptable.
 - `IsTightMeasureSet` in Mathlib is stated for `Set (Measure S)`, so the ground truth coerces:
   `{((ν : ProbabilityMeasure S) : Measure S) \| ν ∈ Ξ}`. This is the same set-builder coercion used
   in Mathlib's `isCompact_closure_of_isTightMeasureSet` and `isTightMeasureSet_of_isCompact_closure`.
-- ⚠️ Separability and completeness appear as a `Prop`-valued hypothesis rather than as typeclass
+- **Deliberate departure.** Separability and completeness appear as a `Prop`-valued hypothesis rather than as typeclass
   instances, which is unusual style. It is forced here: making them instances would contaminate the
   first conjunct. Splitting into two theorems — one general, one with `[SeparableSpace S]
   [CompleteSpace S]` as instances — would be more idiomatic and would preserve the content.

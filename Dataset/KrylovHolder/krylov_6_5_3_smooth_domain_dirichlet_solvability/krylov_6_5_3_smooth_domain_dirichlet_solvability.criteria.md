@@ -13,7 +13,11 @@ $u$ in $C^{k+2+\delta}(\Omega)$ of $Lu = f$ inside $\Omega$ with $u = g$ on the 
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -22,7 +26,7 @@ row is incomplete.
 | 3 | $L$ is a second-order operator given by coefficients, uniformly elliptic, with all coefficients bounded. | ✅ `hL : SecondOrderEllipticOperator L 0` supplies an `EllipticOperatorData 2 L` with `principalSymbol`, `ellipticityConstant_pos`, and a uniform bound on all coefficients. |
 | 4 | The zeroth-order coefficient satisfies $c \le 0$, and the zero multi-index really appears among the operator's terms. | ✅ Same hypothesis with `lam = 0`: `∃ zeroIndex ∈ data.terms, (∀ i, zeroIndex i = 0) ∧ ∀ x, data.coefficient zeroIndex x ≤ -0`. |
 | 5 | The coefficients lie in $C^{k+\delta}$. | ✅ `hcoeff : OperatorCoefficientsHolder 2 (k + δ) L`. |
-| 6 | The data are $f \in C^{k+\delta}(\Omega)$ and $g \in C^{k+2+\delta}(\bar\Omega)$ — note the asymmetry between the two sets. | ⚠️ `HolderOn (k + δ) Ω f` and `HolderOn (k + 2 + δ) (closure Ω) g` reproduce the asymmetry, but `closure Ω` is not open: `holderGauge` measures `multiDerivative`, built from the global `fderiv`, which is typically $0$ at boundary points, so the gauge constrains $g$ only inside $\Omega$. A `fderivWithin`-based gauge would render $C^{k+2+\delta}(\bar\Omega)$ properly. |
+| 6 | The data are $f \in C^{k+\delta}(\Omega)$ and $g \in C^{k+2+\delta}(\bar\Omega)$ — note the asymmetry between the two sets. | ◐ `HolderOn (k + δ) Ω f` and `HolderOn (k + 2 + δ) (closure Ω) g` reproduce the asymmetry, but `closure Ω` is not open: `holderGauge` measures `multiDerivative`, built from the global `fderiv`, which is typically $0$ at boundary points, so the gauge constrains $g$ only inside $\Omega$. A `fderivWithin`-based gauge would render $C^{k+2+\delta}(\bar\Omega)$ properly. |
 | 7 | Existence of a solution in $C^{k+2+\delta}(\Omega)$. | ✅ `∃ u, HolderOn (k + 2 + δ) Ω u ∧ …`; since $\Omega$ is open, `HolderOn` there delivers genuine derivatives. |
 | 8 | The solution is classical: twice continuously differentiable inside, continuous up to $\bar\Omega$, satisfying $Lu = f$ in $\Omega$ and $u = g$ on $\partial\Omega$. | ✅ `EllipticDirichletSolution Ω L f g u` is the conjunction of `ContDiffOn ℝ 2 u Ω`, `ContinuousOn u (closure Ω)`, `∀ x ∈ Ω, L u x = f x`, and `∀ x ∈ frontier Ω, u x = g x`. |
 | 9 | Uniqueness, stated on the set where the problem lives and only against competitors with the same regularity. | ✅ `∀ v, HolderOn (k + 2 + δ) Ω v → EllipticDirichletSolution Ω L f g v → Set.EqOn v u (closure Ω)`. |

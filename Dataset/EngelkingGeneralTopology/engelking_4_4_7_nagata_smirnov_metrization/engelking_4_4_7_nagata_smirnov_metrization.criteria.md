@@ -13,7 +13,11 @@ is called $\sigma$-locally finite. Both directions are asserted.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -49,7 +53,7 @@ wrong, even if it compiles.
 - Mathlib has no $\sigma$-locally finite base predicate and no Nagata–Smirnov theorem, so the custom
   definition is justified. Everything else is mathlib's: `IsTopologicalBasis` for "base",
   `LocallyFinite` for local finiteness, `MetrizableSpace` for metrizability.
-- ⚠️ Each layer is indexed by `ι n : Type v` with `v` a free universe parameter, so the biconditional
+- **Deliberate departure.** Each layer is indexed by `ι n : Type v` with `v` a free universe parameter, so the biconditional
   is implicitly claimed for every universe `v`. For `v` below the universe of `X`, the right-to-left
   direction may be unsatisfiable simply because there are not enough index values. Indexing the
   layers by subtypes of `Set X`, or stating the base as a `Set (Set X)` with a decomposition

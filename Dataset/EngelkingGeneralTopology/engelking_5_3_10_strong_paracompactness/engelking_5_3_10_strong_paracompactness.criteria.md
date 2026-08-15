@@ -14,7 +14,11 @@ star-countable in place of star-finite; and every open cover has a star-countabl
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -52,10 +56,10 @@ wrong, even if it compiles.
 - The `T2Space` conjunct inside `IsStronglyParacompact` is redundant given `[RegularSpace X]` and
   `[T1Space X]`, but it keeps the definition faithful when it is reused elsewhere.
 - A candidate writing `[T3Space X]` in place of `[RegularSpace X] [T1Space X]` is equally faithful.
-- ⚠️ `IsStarFiniteFamily` and `IsStarCountableFamily` count *indices*, not distinct sets, so a family
+- **Deliberate departure.** `IsStarFiniteFamily` and `IsStarCountableFamily` count *indices*, not distinct sets, so a family
   that lists the same set twice is judged more harshly. For the existentially produced refinements in
   items (i)–(iv) this is harmless — re-index injectively — and it is the stronger reading.
-- ⚠️ All cover index types live in a single free universe `v` (and `IsStronglyParacompact` binds its
+- **Deliberate departure.** All cover index types live in a single free universe `v` (and `IsStronglyParacompact` binds its
   own, separately). Fixing everything at `Type u` — every cover can be re-indexed by a subfamily of
   `Set X` — would make the four items line up exactly.
 

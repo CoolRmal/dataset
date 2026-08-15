@@ -13,14 +13,18 @@ vector $h$, then $f$ is almost everywhere equal to a single constant.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
 | 1 | $\gamma$ is an arbitrary Gaussian measure on the ambient space. | ✅ `(γ : Measure E) [IsGaussian γ]` with `[NormedAddCommGroup E] [NormedSpace ℝ E] [MeasurableSpace E] [BorelSpace E]`. |
 | 2 | Set half: the set $A$ is measurable. | ✅ `∀ A : Set E, MeasurableSet A → …`. |
 | 3 | Set half: the invariance hypothesis is $\gamma(A+h) = \gamma(A)$, where $A+h$ is the translate $\{x+h : x \in A\}$. | ✅ `γ ((fun x ↦ x + h) '' A) = γ A`. |
-| 4 | The shifts $h$ range over the Cameron–Martin space, not over the whole space and not over a single vector. | ⚠️ `∀ h ∈ cameronMartinSpace γ` in both halves. Bogachev instead assumes $R_\gamma(X^*) \subset X$ and shifts by $R_\gamma(X^*)$; the two agree under that hypothesis, and on a normed space it is automatic, so this is a faithful but not literal transcription. |
+| 4 | The shifts $h$ range over the Cameron–Martin space, not over the whole space and not over a single vector. | ◐ `∀ h ∈ cameronMartinSpace γ` in both halves. Bogachev instead assumes $R_\gamma(X^*) \subset X$ and shifts by $R_\gamma(X^*)$; the two agree under that hypothesis, and on a normed space it is automatic, so this is a faithful but not literal transcription. |
 | 5 | Set half: the conclusion is the two-value dichotomy $\gamma(A) \in \{0,1\}$. | ✅ `γ A = 0 ∨ γ A = 1`. |
 | 6 | Function half: $f$ is a measurable real-valued function. | ✅ `∀ f : E → ℝ, Measurable f → …`. |
 | 7 | Function half: the invariance is almost-everywhere for each fixed $h$, not everywhere. | ✅ `∀ h ∈ cameronMartinSpace γ, ∀ᵐ x ∂γ, f (x + h) = f x`. |

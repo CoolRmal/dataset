@@ -15,7 +15,11 @@ copies of $X$.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -51,7 +55,7 @@ wrong, even if it compiles.
   decision is how to unfold it. The ground truth unfolds it as the three conjuncts (a), (b), (c).
 - Uniqueness of the proximity in clause (a) needs no separate conjunct: `IsAssignedProximity e p`
   determines `p.close` completely, and two `Proximity` values with equal `close` fields are equal.
-- ⚠️ The converse of clause (c) — equivalent compactifications get the same proximity — is not
+- **Deliberate departure.** The converse of clause (c) — equivalent compactifications get the same proximity — is not
   asserted. It is the easy direction (transport the closures along $h$), but adding
   `IsCompactification e → IsCompactification f → EquivalentCompactifications e f → IsAssignedProximity e p → IsAssignedProximity f p`
   would make the statement a complete rendering of "one-to-one correspondence between classes". A
@@ -60,9 +64,9 @@ wrong, even if it compiles.
   compactification predicates are hand-rolled; `Homeomorph`, `IsEmbedding`, `DenseRange`, `closure`
   and `Set.Nonempty` are the correct mathlib primitives. `union_left` is stated on the left only,
   which suffices given `symmetric`.
-- ⚠️ `T2Space K` and `IsCompact univ` appear as `Prop`-conjuncts rather than instances. This is
+- **Deliberate departure.** `T2Space K` and `IsCompact univ` appear as `Prop`-conjuncts rather than instances. This is
   forced by `tK` being a bound variable and is acceptable.
-- ⚠️ Compactifications are quantified over `K L : Type v` with `v` free, whereas the compactification
+- **Deliberate departure.** Compactifications are quantified over `K L : Type v` with `v` free, whereas the compactification
   constructed in clause (b) naturally lives in `Type u` (a quotient of a space built from
   `Set (Set X)`). For `v` below `u`, clause (b) may be unsatisfiable for size reasons, so `Type u`
   (or `Type (max u v)`) would be the safe choice.

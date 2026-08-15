@@ -13,7 +13,11 @@ threshold is a fixed number, chosen once and for all before $\lambda$ and before
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -22,7 +26,7 @@ row is incomplete.
 | 3 | $L$ is uniformly elliptic: $\sum_{\lvert\alpha\rvert = m}a^\alpha(x)\xi^\alpha \ge \kappa\lVert\xi\rVert^m$ for all $x$ and $\xi$, with $\kappa > 0$. | ✅ `principalSymbol` plus `ellipticityConstant_pos`, inside `hL : VariableCoefficientEllipticOperator m L`. |
 | 4 | The coefficients are $C^{k+\delta}$ on all of $\mathbb{R}^d$ — which in particular makes them bounded. | ✅ `hcoeff : OperatorCoefficientsHolder m (k + δ) L`, i.e. `HolderOn (k + δ) univ` for each coefficient used by `formula`. |
 | 5 | The threshold $\lambda_0$ is produced by the theorem, not supplied to it, and is fixed before both $\lambda$ and $f$. | ✅ `∃ lam₀ : ℝ, 0 < lam₀ ∧ ∀ lam : ℝ, lam₀ ≤ lam → ∀ f, …`. |
-| 6 | $\lambda$ is restricted to the half-line on which $L_\lambda$ is actually invertible. | ⚠️ `lam₀ ≤ lam` with `0 < lam₀` is the right one-sided restriction for $m = 2$. The text writes the two-sided $\lvert\lambda\rvert \ge \lambda_0$, which is false under the ellipticity convention printed alongside it; the ground truth deliberately departs from the text here. See the notes for the remaining gap at $m$ a multiple of $4$. |
+| 6 | $\lambda$ is restricted to the half-line on which $L_\lambda$ is actually invertible. | ◐ `lam₀ ≤ lam` with `0 < lam₀` is the right one-sided restriction for $m = 2$. The text writes the two-sided $\lvert\lambda\rvert \ge \lambda_0$, which is false under the ellipticity convention printed alongside it; the ground truth deliberately departs from the text here. See the notes for the remaining gap at $m$ a multiple of $4$. |
 | 7 | "$f \in C^{k+\delta}$" and "$u \in C^{k+m+\delta}$" are genuine membership: $\lfloor r\rfloor$ continuous derivatives plus a finite Hölder gauge. | ✅ `HolderOn r univ ·` is `ContDiffOn ℝ k' · univ ∧ holderGauge k' δ' univ · < ⊤`, and the decomposition $r = k' + \delta'$ is unique. |
 | 8 | The conclusion asserts existence **and** uniqueness, with uniqueness relative to the same class $C^{k+m+\delta}$. | ✅ `∃! u, HolderOn (k + m + δ) univ u ∧ ShiftedEllipticEquation L lam u f`. |
 | 9 | The equation is the classical pointwise one on all of $\mathbb{R}^d$, with the shift subtracted. | ✅ `ShiftedEllipticEquation L lam u f : ∀ x, L u x - lam * u x = f x`. |

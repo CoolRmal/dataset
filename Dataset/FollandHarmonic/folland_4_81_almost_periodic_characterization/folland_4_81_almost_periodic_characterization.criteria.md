@@ -17,7 +17,11 @@ uniform limits of trigonometric polynomials $\sum c_k e^{i\lambda_k x}$.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -49,7 +53,7 @@ wrong, even if it compiles.
 
 ## Notes on the ground truth
 
-- ⚠️ Only the equivalence (b) $\Leftrightarrow$ (c) is formalized. Clause (a), that $f$ extends to a
+- **Deliberate departure.** Only the equivalence (b) $\Leftrightarrow$ (c) is formalized. Clause (a), that $f$ extends to a
   continuous function on the Bohr compactification $bG$, is omitted because Mathlib has no Bohr
   compactification. A candidate that also formalizes (a) — for instance by quantifying over a
   compact group containing a dense continuous image of $G$ — is closer to the printed theorem.

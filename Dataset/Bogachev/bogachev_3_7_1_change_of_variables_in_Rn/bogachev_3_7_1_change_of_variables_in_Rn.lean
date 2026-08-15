@@ -39,7 +39,7 @@ theorem bogachev_3_7_1_change_of_variables_in_Rn
     {n : ℕ} {U A : Set (Fin n → ℝ)} {F : (Fin n → ℝ) → (Fin n → ℝ)}
     {g : (Fin n → ℝ) → ℝ}
     (hU : IsOpen U) (hF : ContDiffOn ℝ 1 F U) (hinj : InjOn F U)
-    (hA : NullMeasurableSet A volume) (hAU : A ⊆ U) (hg : Integrable g volume) :
+    (hA : NullMeasurableSet A volume) (hAU : A ⊆ U) (hgB : Measurable g) (hg : Integrable g volume) :
     (∫ x in A, g (F x) * |(fderivWithin ℝ F U x).det| ∂volume) =
       ∫ y in F '' A, g y ∂volume := by
   sorry

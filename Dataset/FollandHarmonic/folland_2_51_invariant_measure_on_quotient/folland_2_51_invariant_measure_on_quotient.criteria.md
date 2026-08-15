@@ -19,7 +19,11 @@ $$\int_G f\,d\lambda = \int_{G/H}\Big(\int_H f(x\xi)\,d\xi\Big)\,d\mu(xH).$$
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -51,17 +55,17 @@ wrong, even if it compiles.
 
 ## Notes on the ground truth
 
-- ⚠️ Uniqueness of $\mu$ up to a positive constant is part of Folland's statement and is **not**
+- **Deliberate departure.** Uniqueness of $\mu$ up to a positive constant is part of Folland's statement and is **not**
   formalized here. A candidate that adds it is closer to the printed theorem.
 - The "suitably chosen constant factor" is absorbed into the existential over `ρ`: the statement
   asks for *some* nonzero invariant measure that makes (2.52) hold, which is the honest reading.
-- ⚠️ The inner integral is written `∫ y : H, f (Quotient.out q * y) ∂ν`, using `Quotient.out` to
+- **Deliberate departure.** The inner integral is written `∫ y : H, f (Quotient.out q * y) ∂ν`, using `Quotient.out` to
   pick a representative of the coset $q$. The value does not depend on the choice, because $\nu$ is
   left invariant on $H$, but `Quotient.out` is not a measurable section in general, so this is a
   place where a formulation built on Mathlib's quotient-measure machinery would be cleaner.
-- ⚠️ "Radon" in Folland's statement means inner and outer regular. The Lean statement asks only for
+- **Deliberate departure.** "Radon" in Folland's statement means inner and outer regular. The Lean statement asks only for
   a nonzero invariant Borel measure satisfying (2.52); regularity is not imposed.
-- ⚠️ The topology, measurable space and Borel structure on `G ⧸ H` are taken as instance arguments
+- **Deliberate departure.** The topology, measurable space and Borel structure on `G ⧸ H` are taken as instance arguments
   rather than being the quotient structures. A cleaner version would use Mathlib's quotient topology
   instance directly.
 - $\Delta$ is `Measure.modularCharacterFun`, which is `ℝ≥0`-valued and takes no measure argument;

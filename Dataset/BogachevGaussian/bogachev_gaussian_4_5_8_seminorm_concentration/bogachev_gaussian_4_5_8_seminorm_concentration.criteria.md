@@ -14,7 +14,11 @@ The dimension of the space plays no role — only $\chi(f)$ does.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -22,7 +26,7 @@ row is incomplete.
 | 2 | $f$ is a seminorm: subadditive and absolutely homogeneous. | ✅ `f : Seminorm ℝ E`, Mathlib's bundled structure. |
 | 3 | $f$ is measurable. In infinite dimensions this is not automatic. | ✅ `hf : Measurable f`. |
 | 4 | $\chi(f)$ is the supremum of $f$ over the *Cameron–Martin* unit ball $\{h : \lvert h\rvert_{H(\gamma)} \le 1\}$. | ✅ `cameronMartinGauge γ f = ⨆ h : {h // cameronMartinNorm γ h ≤ 1}, ENNReal.ofReal (f h)`. |
-| 5 | The bound must not silently assume $\chi(f)$ is finite by converting it to a real number. | ⚠️ The statement uses a real bound `c` with `hc : 0 < c` and `hgauge : cameronMartinGauge γ f ≤ ENNReal.ofReal c`, which is equivalent by monotonicity and avoids any `toReal`. It is acceptable but less literal than writing $\chi(f)$ itself in the exponent. |
+| 5 | The bound must not silently assume $\chi(f)$ is finite by converting it to a real number. | ◐ The statement uses a real bound `c` with `hc : 0 < c` and `hgauge : cameronMartinGauge γ f ≤ ENNReal.ofReal c`, which is equivalent by monotonicity and avoids any `toReal`. It is acceptable but less literal than writing $\chi(f)$ itself in the exponent. |
 | 6 | The deviation is measured from the **mean** $\int f\,d\gamma$. | ✅ `∫ y, f y ∂γ` inside the absolute value. |
 | 7 | The event is the strict inequality $\lvert f(x) - \mathbb{E}f\rvert > t$. | ✅ `{x \| t < \|f x - ∫ y, f y ∂γ\|}`. |
 | 8 | The bound is $2\exp(-2t^2/(\pi^2\chi(f)^2))$ — factor $2$ in front, and the whole ratio inside the exponential. | ✅ `2 * ENNReal.ofReal (Real.exp (-(2 * t ^ 2 / (Real.pi ^ 2 * c ^ 2))))`. |

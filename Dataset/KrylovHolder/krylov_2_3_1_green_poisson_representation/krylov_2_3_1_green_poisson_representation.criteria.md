@@ -15,7 +15,11 @@ Poisson kernel $H = -\partial G/\partial n$ against $g$.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -25,7 +29,7 @@ row is incomplete.
 | 4 | For each $x \in \Omega$ the corrector $h(x,\cdot)$ is $C^2$ and harmonic in $\Omega$, and equals $K(x,\cdot)$ on $\partial\Omega$. | ✅ `hharmonic : ∀ x ∈ Ω, HarmonicIn Ω (h x)` and `hboundary`. |
 | 5 | $G = K - h$, and $G(x,\cdot)$ is harmonic on $\Omega \setminus \{x\}$ and vanishes on $\partial\Omega$. | ✅ `hgreen`, `hgreenHarmonic`, `hgreenBoundary`. |
 | 6 | The Poisson kernel is minus the normal derivative of $G$ at a boundary point, taken as a one-sided derivative from inside the domain. | ✅ `hpoisson` uses `fderivWithin ℝ (G x) (closure Ω) y (normal y)`, not the plain `fderiv`. |
-| 7 | The direction differentiated along is the outward unit normal to $\partial\Omega$. | ⚠️ `hnormal : IsOutwardUnitNormal Ω normal` asks for length $1$, orthogonality to the velocity of every curve that stays in $\partial\Omega$, and some $\varepsilon > 0$ with $y - \varepsilon n \in \Omega$ and $y + \varepsilon n \notin \bar\Omega$. On a smooth boundary that determines $n$ exactly; on a rough boundary carrying no differentiable curves the orthogonality clause is empty, and then only the sign is fixed. |
+| 7 | The direction differentiated along is the outward unit normal to $\partial\Omega$. | ◐ `hnormal : IsOutwardUnitNormal Ω normal` asks for length $1$, orthogonality to the velocity of every curve that stays in $\partial\Omega$, and some $\varepsilon > 0$ with $y - \varepsilon n \in \Omega$ and $y + \varepsilon n \notin \bar\Omega$. On a smooth boundary that determines $n$ exactly; on a rough boundary carrying no differentiable curves the orthogonality clause is empty, and then only the sign is fixed. |
 | 8 | $u$ is a classical solution: twice continuously differentiable in $\Omega$, continuous on $\bar\Omega$, solving $\Delta u = f$ inside and equal to $g$ on $\partial\Omega$. | ✅ `hu : LaplaceDirichletSolution Ω f g u`, which is the conjunction of all four clauses. |
 | 9 | The conclusion holds at every interior point and is the sum of two integrals: $G(x,\cdot)f$ over $\Omega$ against Lebesgue measure, and $H(x,\cdot)g$ over $\partial\Omega$ against the $(d-1)$-dimensional surface measure. | ✅ `∀ x ∈ Ω, u x = ∫ y in Ω, G x y * f y + ∫ y, H x y * g y ∂boundaryMeasure` with `hmeasure : boundaryMeasure = μH[((d : ℝ) - 1)].restrict (frontier Ω)`. |
 | 10 | Both integrals must actually converge. | ✅ `hGintegrable` and `hHintegrable`. |

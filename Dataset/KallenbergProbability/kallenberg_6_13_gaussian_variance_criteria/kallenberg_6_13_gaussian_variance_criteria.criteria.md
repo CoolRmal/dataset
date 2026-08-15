@@ -15,7 +15,11 @@ condition.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -48,11 +52,11 @@ wrong, even if it compiles.
 
 ## Notes on the ground truth
 
-- ⚠️ The Lindeberg integrals are written as a Bochner integral of $\xi^2$ times an indicator
+- **Deliberate departure.** The Lindeberg integrals are written as a Bochner integral of $\xi^2$ times an indicator
   composed with $\xi$. The idiomatic Mathlib spelling is a set integral,
   `∫ ω in {ω \| ε < \|ξ n j ω\|}, (ξ n j ω) ^ 2 ∂μ`. The two are equal; the indicator form is
   correct but roundabout.
-- ⚠️ Rows have length `k n + 1` rather than `k n`. The `+ 1` exists only so that each row is
+- **Deliberate departure.** Rows have length `k n + 1` rather than `k n`. The `+ 1` exists only so that each row is
   nonempty and `Finset.sup'` can be applied. Using `Fin (k n)` with a supremum that tolerates empty
   rows would be marginally more faithful.
 - `hξmeas : ∀ n j, AEMeasurable (ξ n j) μ` is redundant given `hξsq`, since `MemLp` already carries

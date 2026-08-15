@@ -15,7 +15,11 @@ paracompactness.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -55,13 +59,13 @@ wrong, even if it compiles.
 - The printed statement says "$T_1$-space"; the Lean file says `T2Space`. This is a deliberate
   departure, since Engelking's paracompactness silently includes Hausdorff and item (i) would
   otherwise not mean what he means.
-- ⚠️ Subordination. Engelking calls a partition of unity subordinated to a cover when the sets
+- **Deliberate departure.** Subordination. Engelking calls a partition of unity subordinated to a cover when the sets
   $\{x \mid \rho_i(x) \neq 0\}$ refine it — an arbitrary-index refinement condition. The ground truth
   uses mathlib's precise closed variant `∀ i, tsupport (ρ i) ⊆ U i`: same index type, and the closure
   of the support rather than the set where $\rho_i \neq 0$. This is standard and implies Engelking's
   version, but it makes items (ii) and (iii) formally stronger than the text. Graders must also
   accept the literal reading `∀ i, ∃ j, {x | ρ i x ≠ 0} ⊆ U j`.
-- ⚠️ Items (ii) and (iii) quantify covers over `ι : Type v` with `v` free, while mathlib's
+- **Deliberate departure.** Items (ii) and (iii) quantify covers over `ι : Type v` with `v` free, while mathlib's
   `ParacompactSpace X` quantifies only over index types in `X`'s own universe. Harmless — any cover
   can be re-indexed by its range inside `Set X` — but taking `ι : Type u` throughout would make the
   three items literally comparable.

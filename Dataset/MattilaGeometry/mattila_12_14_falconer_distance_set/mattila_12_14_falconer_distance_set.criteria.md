@@ -14,7 +14,11 @@ bigger than $\dim A - (n-1)/2$.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -54,7 +58,7 @@ wrong, even if it compiles.
   `dimH A` above that value. Casting through `ℝ` would make this visible without the reader having
   to check.
 - $D(A)$ contains $0$ whenever $A$ is nonempty, matching the text's definition.
-- ⚠️ The `let D := …` inside the statement elaborates to a binder in the theorem's type. Harmless,
+- **Deliberate departure.** The `let D := …` inside the statement elaborates to a binder in the theorem's type. Harmless,
   but inlining `D` or introducing it as a top-level abbreviation would be tidier.
 - `MeasurableSet A` is essential and must not be weakened to `NullMeasurableSet` or dropped: the
   proof extracts Frostman measures from $A$.

@@ -14,7 +14,11 @@ directions are asserted.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -50,7 +54,7 @@ wrong, even if it compiles.
 - The `T2Space X` conjunct inside `IsCountablyParacompact` is not redundant on its own, but under the
   ambient `[T1Space X]` together with `NormalSpace X` it follows anyway (normal + $T_1$ implies
   Hausdorff). Keeping it makes the definition faithful when reused elsewhere.
-- ⚠️ `IsCountablyParacompact` quantifies covers over `ι : Type v` for a free universe `v`, and the
+- **Deliberate departure.** `IsCountablyParacompact` quantifies covers over `ι : Type v` for a free universe `v`, and the
   refinement index `κ` over the same `v`. Since only countable covers occur, an equivalent and
   cleaner formulation indexes them by `ℕ`, removing the universe parameter; candidates using
   `U : ℕ → Set X` should be accepted as faithful.

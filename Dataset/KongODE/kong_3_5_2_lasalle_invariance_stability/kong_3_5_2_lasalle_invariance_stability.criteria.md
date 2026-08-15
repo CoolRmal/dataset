@@ -15,12 +15,16 @@ actually tend to it.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
 | 1 | The ball has positive radius. | ✅ `hl : 0 < l`. |
-| 2 | The vector field is regular enough that solutions exist through the points the proof needs. | ⚠️ `hF : ContDiff ℝ 1 F` is stronger than Kong's standing hypothesis that $f$ is merely continuous, so our version is weaker than the printed one. Some regularity is essential (see mistake 1); $C^1$ is a convenient over-assumption. |
+| 2 | The vector field is regular enough that solutions exist through the points the proof needs. | ◐ `hF : ContDiff ℝ 1 F` is stronger than Kong's standing hypothesis that $f$ is merely continuous, so our version is weaker than the printed one. Some regularity is essential (see mistake 1); $C^1$ is a convenient over-assumption. |
 | 3 | The origin is an equilibrium, so that $x \equiv 0$ really is a solution. | ✅ `hF0 : F 0 = 0`. |
 | 4 | $V$ is $C^1$ on the closed ball. | ✅ First conjunct of `LyapunovFunctionOnBall l V F`: `ContDiffOn ℝ 1 V (Metric.closedBall 0 l)`. |
 | 5 | $V$ is positive definite: $V(0) = 0$ and $V(x) > 0$ for every other point of the ball. | ✅ `V 0 = 0 ∧ ∀ x ∈ Metric.closedBall 0 l, x ≠ 0 → 0 < V x`. |

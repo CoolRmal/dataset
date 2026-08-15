@@ -16,7 +16,11 @@ not known to be measurable.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -55,8 +59,8 @@ wrong, even if it compiles.
 - $d\mathcal{L}^m y$ is Lebesgue measure on $\mathbb{R}^m$. Using `μH[(m:ℝ)]` on the target instead
   would change the bound only by a dimensional constant, which `c` could absorb, but it is farther
   from the text.
-- ⚠️ `(K : ℝ≥0∞) ^ (m : ℝ)` is `rpow`; the simpler natural power `^ m` would read better.
-- ⚠️ The range condition is packaged as one conjunction `(m : ℝ) < s ∧ s < n`; two separate
+- **Deliberate departure.** `(K : ℝ≥0∞) ^ (m : ℝ)` is `rpow`; the simpler natural power `^ m` would read better.
+- **Deliberate departure.** The range condition is packaged as one conjunction `(m : ℝ) < s ∧ s < n`; two separate
   hypotheses would be more idiomatic.
 - The constant is only required to be finite, not positive. A smaller `c` gives a stronger claim, so
   no lower bound on `c` is needed.

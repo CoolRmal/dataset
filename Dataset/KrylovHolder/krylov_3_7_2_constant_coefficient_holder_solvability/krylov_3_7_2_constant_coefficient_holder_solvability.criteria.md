@@ -13,7 +13,11 @@ derivatives, and the solution is unique only within that regularity class.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -21,7 +25,7 @@ row is incomplete.
 | 2 | $L$ is a sum $\sum_{\lvert\alpha\rvert \le m} a^\alpha D^\alpha$ acting pointwise, with the multi-indices really of order at most $m$. | ✅ `EllipticOperatorData m L` carries `order_le` and `formula : ∀ u x, L u x = ∑ α ∈ terms, coefficient α x * multiDerivative α u x`. |
 | 3 | $L$ is uniformly elliptic: $\sum_{\lvert\alpha\rvert = m} a^\alpha \xi^\alpha \ge \kappa\lVert\xi\rVert^m$ for all $\xi$, with $\kappa > 0$. | ✅ `principalSymbol` together with `ellipticityConstant_pos`, where `∏ i, (ξ i) ^ (α i)` is $\xi^\alpha$. |
 | 4 | The coefficients are constant, on exactly the multi-indices the operator actually uses. | ✅ `ConstantCoefficientEllipticOperator m L` adds `∀ α ∈ data.terms, ∀ x y, data.coefficient α x = data.coefficient α y`. |
-| 5 | $\lambda$ is restricted to the sign for which $L_\lambda$ is invertible; it cannot be an arbitrary nonzero real. | ⚠️ `hlam : 0 < lam` is the correct restriction for $m = 2$. With the ellipticity written as in the statement file, the admissible sign actually flips when $m$ is a multiple of $4$ — see the notes. |
+| 5 | $\lambda$ is restricted to the sign for which $L_\lambda$ is invertible; it cannot be an arbitrary nonzero real. | ◐ `hlam : 0 < lam` is the correct restriction for $m = 2$. With the ellipticity written as in the statement file, the admissible sign actually flips when $m$ is a multiple of $4$ — see the notes. |
 | 6 | "$f \in C^{k+\delta}$" is genuine membership: $k$ continuous derivatives *plus* a finite Hölder gauge. | ✅ `HolderOn (k + δ) univ f`, which is `ContDiffOn ℝ k f univ ∧ holderGauge k δ univ f < ⊤`. |
 | 7 | The Hölder gauge is exactly Krylov's data: sup of $\lvert D^\alpha u\rvert$ over all $\lvert\alpha\rvert \le k$, together with the $\delta$-difference quotient of the derivatives of order exactly $k$, both over the whole set. | ✅ `holderGauge k δ Ω u` joins `⨆ α : {α // ∑ i, α i ≤ k}, ⨆ x : Ω, ENNReal.ofReal \|multiDerivative α u x\|` with the top-order quotient supremum. |
 | 8 | The conclusion asserts existence **and** uniqueness, with the solution required to lie in $C^{k+m+\delta}$ — a gain of exactly $m$ derivatives. | ✅ `∃! u, HolderOn (k + m + δ) univ u ∧ ShiftedEllipticEquation L lam u f`. |

@@ -17,7 +17,11 @@ than $L^\infty$.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -46,11 +50,11 @@ wrong, even if it compiles.
 
 ## Notes on the ground truth
 
-- ⚠️ Only the $L^p$ clause of the theorem is formalized. Folland also states
+- **Deliberate departure.** Only the $L^p$ clause of the theorem is formalized. Folland also states
   $L^1 * L^\infty = L^1 * C_{lu} = C_{lu}$ and $L^\infty * L^1 = C_{ru} * L^1 = C_{ru}$. Those need
   $C_{lu}$ and $C_{ru}$, which Mathlib does not supply; they are recorded in the `.md` but not in
   Lean.
-- ⚠️ Only the surjectivity half of the set equality is formalized. The inclusion
+- **Deliberate departure.** Only the surjectivity half of the set equality is formalized. The inclusion
   $L^1 * L^p \subseteq L^p$ is the content of `folland_2_40_convolution_lp_bound`, which appears
   separately in this book, so nothing is lost across the dataset — but a candidate that states both
   halves is closer to the printed sentence.

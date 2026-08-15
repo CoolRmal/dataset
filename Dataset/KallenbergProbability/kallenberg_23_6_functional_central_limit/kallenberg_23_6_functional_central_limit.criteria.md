@@ -14,7 +14,11 @@ $\mathbb{R}^d$. The convergence is on path space, not just at finitely many time
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -48,10 +52,10 @@ wrong, even if it compiles.
 ## Notes on the ground truth
 
 - `X` is a parameter constrained by the equation `hX` rather than a defined object, and `hX` is only
-  imposed for `0 < n`. ⚠️ This is acceptable: the conclusion is a limit along `atTop`, so `X 0` is
+  imposed for `0 < n`. This is acceptable: the conclusion is a limit along `atTop`, so `X 0` is
   irrelevant, and $1/\sqrt{0}$ would be undefined anyway. A candidate must not, however, leave
   `X n` unconstrained for infinitely many `n`.
-- ⚠️ Independence of the coordinates of $B$ is encoded through all finite collections of times rather
+- **Deliberate departure.** Independence of the coordinates of $B$ is encoded through all finite collections of times rather
   than directly on path space. This is equivalent, because cylinder sets generate the Borel
   $\sigma$-algebra of path space, but `iIndepFun (fun i ω ↦ fun t ↦ B ω t i) μ'` would render
   "$B^1, \dots, B^d$ are independent" more directly.

@@ -13,7 +13,11 @@ homeomorphic.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -43,7 +47,7 @@ wrong, even if it compiles.
 
 ## Notes on the ground truth
 
-- ⚠️ $C(X)$ is modelled as `X →ᵇ ℂ`, the bounded continuous functions. Mathlib also has `C(X, ℂ)`,
+- **Deliberate departure.** $C(X)$ is modelled as `X →ᵇ ℂ`, the bounded continuous functions. Mathlib also has `C(X, ℂ)`,
   which is normed once `[CompactSpace X]` is available and is closer to the book's notation and to
   how Mathlib states other results about $C(X)$ on compact spaces. For compact $X$ the two are the
   same object up to isometry, so either is acceptable in a candidate.

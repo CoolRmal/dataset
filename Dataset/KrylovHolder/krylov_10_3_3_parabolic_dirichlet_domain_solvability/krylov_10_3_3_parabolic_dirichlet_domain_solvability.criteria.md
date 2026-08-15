@@ -15,16 +15,20 @@ problem run backwards in time.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
 | 1 | $0 < \delta < 1$. | ✅ `hδ : 0 < δ ∧ δ < 1`. |
 | 2 | $L$ acts in the space variables and is uniformly parabolic: $\sum_{i,j} a^{ij}\xi_i\xi_j \ge \kappa\lVert\xi\rVert^2$ with $\kappa > 0$. | ✅ `hL : ParabolicOperator L`, which also fixes the shape $\sum a^{ij}D_{ij}u + \sum b^iD_iu + cu$ with the derivatives taken in the frozen-time slice. |
-| 3 | The coefficients $a^{ij}, b^i, c$ lie in $C^{\delta/2,\,\delta}(Q)$. | ⚠️ `hcoeff : ParabolicOperatorCoefficientsHolder δ Q L` says this in the slice-wise sense of `ParabolicHolderOn`, which does not deliver a bound uniform over $Q$ — see the notes. |
+| 3 | The coefficients $a^{ij}, b^i, c$ lie in $C^{\delta/2,\,\delta}(Q)$. | ◐ `hcoeff : ParabolicOperatorCoefficientsHolder δ Q L` says this in the slice-wise sense of `ParabolicHolderOn`, which does not deliver a bound uniform over $Q$ — see the notes. |
 | 4 | $Q$ is open, bounded, nonempty, and regular enough that a barrier exists at every parabolic boundary point. | ✅ `hQ : RegularParabolicDomain Q L`, whose barrier is continuous on $\bar Q$, `ParabolicHolderOn 2 Q`, zero at the point, positive elsewhere, and satisfies $L b - b_t \le 0$ in $Q$. |
 | 5 | The parabolic boundary is the set of boundary points approachable from $Q$ at *later* times: bottom and lateral surface in, top surface out. | ✅ `parabolicBoundary Q = {p ∈ frontier Q \mid ∀ ε > 0, ∃ q ∈ Q, p.1 ≤ q.1 ∧ dist q p < ε}`. For $Q = (0,1)\times B$ a bottom point $(0,x)$ qualifies via $q = (\varepsilon/2, x)$, while a top point $(1,x)$ does not, since every $q \in Q$ has $q_1 < 1$. |
-| 6 | The data are $f \in C^{\delta/2,\,\delta}$ and $g \in C^{1+\delta/2,\,2+\delta}$. | ⚠️ `ParabolicHolderOn δ Q f` and `ParabolicHolderOn (2 + δ) (closure Q) g`; the latter is stated on `closure Q`, which is stronger than the text but partly ineffective there — see the notes. |
+| 6 | The data are $f \in C^{\delta/2,\,\delta}$ and $g \in C^{1+\delta/2,\,2+\delta}$. | ◐ `ParabolicHolderOn δ Q f` and `ParabolicHolderOn (2 + δ) (closure Q) g`; the latter is stated on `closure Q`, which is stronger than the text but partly ineffective there — see the notes. |
 | 7 | Existence of a solution in $C^{1+\delta/2,\,2+\delta}(Q)$, with the exponent bookkeeping right. | ✅ `∃ u, ParabolicHolderOn (2 + δ) Q u ∧ …`; `ParabolicHolderOn (2 + δ)` gives $C^{2+\delta}$ in $x$ and $C^{(2+\delta)/2} = C^{1+\delta/2}$ in $t$. |
 | 8 | The solution is classical: continuous up to the parabolic boundary, differentiable in $t$ inside, satisfying $Lu - u_t = f$ in $Q$ and $u = g$ on $\partial'Q$. | ✅ `ParabolicDirichletSolution Q L f g u` conjoins `ContinuousOn u (Q ∪ parabolicBoundary Q)`, `∀ p ∈ Q, DifferentiableAt ℝ (fun t ↦ u (t, p.2)) p.1`, the equation, and the boundary condition. |
 | 9 | Uniqueness, stated on the set where the problem lives and only against competitors of the same regularity. | ✅ `∀ v, ParabolicHolderOn (2 + δ) Q v → ParabolicDirichletSolution Q L f g v → Set.EqOn v u (Q ∪ parabolicBoundary Q)`. |

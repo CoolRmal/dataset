@@ -32,8 +32,9 @@ theorem lee_10_16_whitney_approximation_theorem
     [IsManifold 𝓘(ℝ, (Fin m → ℝ)) ∞ M] [T2Space M] [SecondCountableTopology M]
     {F : M → (Fin k → ℝ)} {δ : M → ℝ} {A : Set M}
     (hF : Continuous F) (hδ : Continuous δ) (hδpos : ∀ x, 0 < δ x)
-    (hA : IsClosed A) (hFsmoothOnA : ∃ U ∈ 𝓝ˢ A,
-      ContMDiffOn 𝓘(ℝ, (Fin m → ℝ)) 𝓘(ℝ, (Fin k → ℝ)) ∞ F U) :
+    (hA : IsClosed A)
+    (hFsmoothOnA : ∀ p ∈ A, ∃ U ∈ 𝓝 p, ∃ G : M → (Fin k → ℝ),
+      ContMDiff 𝓘(ℝ, (Fin m → ℝ)) 𝓘(ℝ, (Fin k → ℝ)) ∞ G ∧ EqOn G F (U ∩ A)) :
     ∃ Fsmooth : M → (Fin k → ℝ),
       ContMDiff 𝓘(ℝ, (Fin m → ℝ)) 𝓘(ℝ, (Fin k → ℝ)) ∞ Fsmooth ∧
         (∀ x, dist (Fsmooth x) (F x) < δ x) ∧ EqOn Fsmooth F A := by

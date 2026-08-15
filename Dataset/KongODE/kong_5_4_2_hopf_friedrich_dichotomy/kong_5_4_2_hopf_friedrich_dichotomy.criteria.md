@@ -16,7 +16,11 @@ the origin as $\mu \to 0$ with its period tending to $2\pi/\beta$.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -31,7 +35,7 @@ row is incomplete.
 | 9 | The centre case has two conjuncts: every nearby nonconstant orbit at $\mu = 0$ is closed, **and** for small $\mu \ne 0$ there are no nearby closed orbits. | ✅ Both, with the first restricted to nonconstant trajectories with $\lVert x(0)\rVert < \varepsilon$ and the second as `∀ μ, 0 < abs μ → abs μ < ε → ¬∃ x, IsClosedOrbit (fun y ↦ F y μ) x ∧ ‖x 0‖ < ε`. |
 | 10 | In the cycle case, for every small $\mu$ on the chosen side there is a closed orbit with a positive period. | ✅ `IsClosedOrbit (fun y ↦ F y μ) (orbit μ) ∧ 0 < period μ ∧ ∀ t, orbit μ (t + period μ) = orbit μ t`. |
 | 11 | That cycle is **unique** among nearby closed orbits, as a set of points rather than as a parametrized curve. | ✅ `∀ y, IsClosedOrbit (fun z ↦ F z μ) y → ‖y 0‖ < ε → range y = range (orbit μ)`. |
-| 12 | The cycle shrinks to the origin and its period tends to $2\pi/\beta$ as $\mu \to 0$. | ⚠️ `Tendsto (fun μ ↦ ‖orbit μ 0‖) (𝓝[≠] 0) (𝓝 0)` and `Tendsto period (𝓝[≠] 0) (𝓝 (2 * Real.pi / β))`. Both are stated, but see the notes: only the base point of the cycle is tracked, and the filter is two-sided. |
+| 12 | The cycle shrinks to the origin and its period tends to $2\pi/\beta$ as $\mu \to 0$. | ◐ `Tendsto (fun μ ↦ ‖orbit μ 0‖) (𝓝[≠] 0) (𝓝 0)` and `Tendsto period (𝓝[≠] 0) (𝓝 (2 * Real.pi / β))`. Both are stated, but see the notes: only the base point of the cycle is tracked, and the filter is two-sided. |
 
 ## Mistakes to check for
 

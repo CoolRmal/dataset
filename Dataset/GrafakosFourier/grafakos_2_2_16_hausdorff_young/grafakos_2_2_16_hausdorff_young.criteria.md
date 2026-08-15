@@ -14,14 +14,18 @@ extension of the transform from nice functions, obtained as a limit.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
 | 1 | The exponent range is exactly $1 \le p \le 2$, both endpoints included. | ✅ `hp : 1 ≤ p ∧ p ≤ 2`. |
 | 2 | The hypothesis on $f$ is membership in $L^p$ and nothing more. | ✅ `hf : MemLp f (ENNReal.ofReal p) volume`, with `f : EuclideanSpace ℝ (Fin n) → ℂ` a total function and `volume` supplying the geometry. |
 | 3 | The conjugate exponent is $p/(p-1)$, with the $p = 1$ case sent to $\infty$ rather than to whatever $p/(p-1)$ evaluates to there. | ✅ `let conjugateExponent : ℝ≥0∞ := if p = 1 then ∞ else ENNReal.ofReal (p / (p - 1))`, giving $\infty$ at $p=1$ and $2$ at $p=2$. |
-| 4 | $\widehat f$ is the *extended* transform, not the raw integral: some $F$ that is approached in $L^{p'}$ by the transforms of Schwartz functions approaching $f$ in $L^p$. | ⚠️ `∃ F, IsLpFourierTransform (ENNReal.ofReal p) conjugateExponent f F ∧ …`, where `IsLpFourierTransform` (in `Defs.lean`) asks for an approximating sequence of Schwartz maps converging to `f` in $L^p$ whose transforms converge to `F` in $L^{p'}$. This is the right notion, but the statement produces *one* such `F` rather than asserting the bound for every `F` satisfying the condition; the stronger `∀ F, IsLpFourierTransform … → …` is also true and would say more. |
+| 4 | $\widehat f$ is the *extended* transform, not the raw integral: some $F$ that is approached in $L^{p'}$ by the transforms of Schwartz functions approaching $f$ in $L^p$. | ◐ `∃ F, IsLpFourierTransform (ENNReal.ofReal p) conjugateExponent f F ∧ …`, where `IsLpFourierTransform` (in `Defs.lean`) asks for an approximating sequence of Schwartz maps converging to `f` in $L^p$ whose transforms converge to `F` in $L^{p'}$. This is the right notion, but the statement produces *one* such `F` rather than asserting the bound for every `F` satisfying the condition; the stronger `∀ F, IsLpFourierTransform … → …` is also true and would say more. |
 | 5 | The membership claim: the transform lies in $L^{p'}$. | ✅ `MemLp F conjugateExponent volume`. |
 | 6 | The norm inequality itself. | ✅ `eLpNorm F conjugateExponent volume ≤ eLpNorm f (ENNReal.ofReal p) volume`. |
 | 7 | The bound is constant-free — the implied constant is exactly $1$. | ✅ No constant appears, which is correct for Grafakos's $e^{-2\pi i x\cdot\xi}$ normalization, the one Mathlib's `𝓕` uses. |

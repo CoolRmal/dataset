@@ -14,14 +14,18 @@ regular, and there the statement holds with nothing to check.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
 | 1 | $M$ is a smooth manifold of dimension $m$ without boundary, and $N$ one of dimension $n$. | ✅ `[ChartedSpace (Fin m → ℝ) M]` with `[IsManifold 𝓘(ℝ, Fin m → ℝ) ∞ M]`, and the same for `N` with `n`. |
 | 2 | $\Phi$ is smooth, as a hypothesis in its own right. | ✅ `hΦ : ContMDiff 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin n → ℝ) ∞ Φ`. It is not implied by regularity of $c$, which says nothing at points off the level set. |
 | 3 | "$c$ is a regular value": the condition is imposed at **every** point of the fibre $\Phi^{-1}(c)$, not at one point and not on all of $M$. | ✅ `hc : RegularValue Φ c`, which is `∀ p, Φ p = c → Manifold.IsSubmersionAt 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin n → ℝ) ∞ Φ p`. |
-| 4 | The regularity condition must be free of junk values: it must not be satisfiable by a map that has no derivative at all. | ✅ `Manifold.IsSubmersionAt` is defined by a chart normal form and already implies `ContMDiffAt`, so there is no default-value loophole. ⚠️ As a hypothesis it is formally stronger than Lee's "differential surjective" — see the notes. |
+| 4 | The regularity condition must be free of junk values: it must not be satisfiable by a map that has no derivative at all. | ◐ `Manifold.IsSubmersionAt` is defined by a chart normal form and already implies `ContMDiffAt`, so there is no default-value loophole. As a hypothesis it is formally stronger than Lee's "differential surjective" — see the notes. |
 | 5 | The level set is closed in $M$. | ✅ `IsClosed {p \| Φ p = c}`. |
 | 6 | The same level set is an embedded submanifold, expressed by Lee's local slice condition using a chart from the smooth structure. | ✅ `EmbeddedSubmanifoldOfCodimension (m := m) {p \| Φ p = c} n`, which requires for each point of the set a chart `φ ∈ IsManifold.maximalAtlas 𝓘(ℝ, Fin m → ℝ) ∞ M` with `φ '' (S ∩ φ.source) = {x ∈ φ.target \| ∀ i, m - n ≤ i.1 → x i = 0}`. |
 | 7 | The codimension is exactly $n = \dim N$. | ✅ The last argument is `n`, the model dimension of `N`. |
@@ -45,7 +49,7 @@ wrong, even if it compiles.
 ## Notes on the ground truth
 
 - We render "$d\Phi_p$ is surjective" by Mathlib's `Manifold.IsSubmersionAt`, which asks for charts
-  in which $\Phi$ reads $(u,v) \mapsto u$. ⚠️ `Mathlib/Geometry/Manifold/Submersion.lean` still lists
+  in which $\Phi$ reads $(u,v) \mapsto u$. `Mathlib/Geometry/Manifold/Submersion.lean` still lists
   "`mfderiv` surjective ⟹ `IsSubmersionAt` for finite-dimensional manifolds" as a TODO, so as a
   *hypothesis* `IsSubmersionAt` is formally stronger than Lee's condition and our theorem is
   formally weaker. Mathematically the two agree here since both manifolds are finite-dimensional.
@@ -53,7 +57,7 @@ wrong, even if it compiles.
   the text and equally free of junk values; a candidate using it should be accepted.
 - `IsClosed` is provable with no separation typeclass on $N$: a `ChartedSpace (Fin n → ℝ) N` is
   automatically T1, so `{c}` is closed and $\Phi$ is continuous.
-- ⚠️ Lee's smooth manifolds are Hausdorff and second countable; neither `[T2Space M]` nor
+- **Deliberate departure.** Lee's smooth manifolds are Hausdorff and second countable; neither `[T2Space M]` nor
   `[SecondCountableTopology M]` appears. Harmless here — the statement is local plus T1, so the Lean
   version is more general and still true — but it is not a transcription of the book's hypotheses.
 - `m - n` inside `EmbeddedSubmanifoldOfCodimension` is truncated natural subtraction. Nothing in a

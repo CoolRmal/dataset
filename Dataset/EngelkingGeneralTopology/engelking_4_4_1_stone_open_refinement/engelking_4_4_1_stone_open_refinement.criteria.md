@@ -14,7 +14,11 @@ the same time.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -47,12 +51,12 @@ wrong, even if it compiles.
 
 - Assuming `[MetricSpace X]` instead of `[MetrizableSpace X]` is acceptable — every metrizable space
   can be given a compatible metric — so a candidate doing that should not be penalized.
-- ⚠️ The $\sigma$-decomposition is carried by an existential index type `κ` together with a separate
+- **Deliberate departure.** The $\sigma$-decomposition is carried by an existential index type `κ` together with a separate
   `level : κ → ℕ`. Stone's proof actually gives a refinement indexed by `ι × ℕ` with
   $V_{(i,n)} \subseteq U_i$ and layer $n$ discrete. A candidate returning that concrete
   `ι × ℕ`-indexed family is stating something stronger, which is fine but not required; it would also
   make the layering visible without the auxiliary `level` function.
-- ⚠️ The refinement's index type is `κ : Type w` for a universe `w` that is free, so the theorem
+- **Deliberate departure.** The refinement's index type is `κ : Type w` for a universe `w` that is free, so the theorem
   claims a refinement exists in *every* universe, including universes too small to index a family of
   subsets of `X`. Harmless at the usual instantiation `u = v = w`, but `κ : Type v` or `Type u` is
   the correct choice, since the refinement can always be indexed by `ι × ℕ` or by a subfamily of

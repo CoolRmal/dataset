@@ -13,7 +13,11 @@ asserted.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -50,7 +54,7 @@ wrong, even if it compiles.
 - `IsDiscreteFamily` is stated for an *indexed* family and its `Subsingleton` condition is on the set
   of indices met. That is the right indexed analogue: a discrete family cannot list the same
   nonempty set twice.
-- ⚠️ The layer index types `ι n : Type v` live in a free universe parameter, so the statement is
+- **Deliberate departure.** The layer index types `ι n : Type v` live in a free universe parameter, so the statement is
   implicitly claimed for every `v`. At universes below that of `X` the right-hand side can be
   unsatisfiable for size reasons. Indexing the layers by subtypes of `Set X` would be unambiguous and
   just as readable.

@@ -14,7 +14,11 @@ orientation.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -22,7 +26,7 @@ row is incomplete.
 | 2 | $F$ is continuously differentiable on $U$. Also from the surrounding text. | ✅ `hF : ContDiffOn ℝ 1 F U`. |
 | 3 | $F$ is injective on $U$ (not necessarily on all of $\mathbb{R}^n$). | ✅ `hinj : InjOn F U`. |
 | 4 | $A$ is a Lebesgue measurable set and $A \subseteq U$. | ✅ `hA : NullMeasurableSet A volume` and `hAU : A ⊆ U`. |
-| 5 | $g$ is a Borel function lying in $L^1(\mathbb{R}^n)$, i.e. integrable over all of $\mathbb{R}^n$, not merely over the image. | ⚠️ `hg : Integrable g volume` gives integrability plus measurability up to null sets, which is the usual Mathlib reading; it does not literally say "Borel". Acceptable, and the printed conclusion is unaffected. |
+| 5 | $g$ is a Borel function lying in $L^1(\mathbb{R}^n)$, i.e. integrable over all of $\mathbb{R}^n$, not merely over the image. | ✅ `hgB : Measurable g` for the Borel condition and `hg : Integrable g volume` for membership in $L^1$. |
 | 6 | The left side integrates over $A$ the product $g(F(x)) \cdot \lvert \det F'(x)\rvert$. | ✅ `∫ x in A, g (F x) * \|(fderivWithin ℝ F U x).det\| ∂volume`. |
 | 7 | The Jacobian is the determinant of the derivative of $F$ taken inside $U$, where $F$ is actually differentiable. | ✅ `fderivWithin ℝ F U x`. |
 | 8 | The determinant carries an absolute value. | ✅ `\|(fderivWithin ℝ F U x).det\|`. |

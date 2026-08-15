@@ -14,7 +14,11 @@ Khatri–Šidák case of the Gaussian correlation problem, in which one of the t
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -23,7 +27,7 @@ row is incomplete.
 | 3 | $A$ is measurable. | ✅ `hA : MeasurableSet A`. |
 | 4 | $A$ is convex. | ✅ `hconv : Convex ℝ A`. |
 | 5 | $A$ is balanced, i.e. $\alpha A \subseteq A$ for $\lvert\alpha\rvert \le 1$. | ✅ `hbal : Balanced ℝ A`. |
-| 6 | The second set is a symmetric strip cut out by a **linear** functional: $\{x : \lvert f(x)\rvert \le c\}$. | ⚠️ `f : EuclideanSpace ℝ (Fin n) →ₗ[ℝ] ℝ` and the set `{x \| \|f x\| ≤ c}`. Plain linearity is adequate because continuity is automatic in finite dimensions; a continuous linear map `→L[ℝ]` would be the more transferable choice. |
+| 6 | The second set is a symmetric strip cut out by a **linear** functional: $\{x : \lvert f(x)\rvert \le c\}$. | ✅ `f : EuclideanSpace ℝ (Fin n) →L[ℝ] ℝ` and the set `{x | ‖f x‖ ≤ c}`. Continuity is automatic in finite dimensions, but stating it makes the strip manifestly closed and the statement transferable. |
 | 7 | $c$ is an arbitrary real number, with no positivity assumed. | ✅ `(c : ℝ)` unconstrained; for $c < 0$ the strip is empty and the inequality is trivially true, matching the text. |
 | 8 | The conclusion is the product inequality $\gamma(A)\gamma(\Pi) \le \gamma(A \cap \Pi)$, with the intersection on the larger side. | ✅ `γ A * γ {x \| \|f x\| ≤ c} ≤ γ (A ∩ {x \| \|f x\| ≤ c})`. |
 

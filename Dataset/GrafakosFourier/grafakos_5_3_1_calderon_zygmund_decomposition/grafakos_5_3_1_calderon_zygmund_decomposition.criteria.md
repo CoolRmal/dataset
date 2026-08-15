@@ -15,14 +15,18 @@ some of these claims is a fragment, not the theorem.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
 | 1 | The hypotheses are exactly $f \in L^1(\mathbb{R}^n)$, complex-valued, and $\alpha > 0$. | ✅ `hf : MemLp f 1 volume`, `hα : 0 < α`, `f : EuclideanSpace ℝ (Fin n) → ℂ`. |
 | 2 | The splitting $f = g + b$. | ✅ `f = g + b` as an equality of functions, holding at every point, not merely almost everywhere. |
 | 3 | Both bounds on the good part: $\|g\|_1 \le \|f\|_1$ and $\|g\|_\infty \le 2^n\alpha$. | ✅ `eLpNorm g 1 volume ≤ eLpNorm f 1 volume` and `eLpNorm g ∞ volume ≤ ENNReal.ofReal (2 ^ n * α)`. |
-| 4 | The bad part is the sum of the pieces, $b = \sum_j b_j$. | ⚠️ `HasSum bad b`, which is unconditional summation in the function space, i.e. pointwise. This is sound here because the supports are disjoint, so at each point at most one summand is nonzero, but the text means convergence in $L^1$; `Tendsto (fun s ↦ eLpNorm (b - ∑ j ∈ s, bad j) 1 volume) atTop (𝓝 0)` would say that directly. |
+| 4 | The bad part is the sum of the pieces, $b = \sum_j b_j$. | ✅ `Tendsto (fun s : Finset J ↦ eLpNorm (b - ∑ j ∈ s, bad j) 1 volume) atTop (𝓝 0)` — convergence in $L^1$, which is what the text means. |
 | 5 | Each piece is supported in its own dyadic cube, and the cubes are pairwise disjoint. | ✅ `∀ j, Function.support (bad j) ⊆ (Q j).carrier` together with `Pairwise fun i j ↦ Disjoint (Q i).carrier (Q j).carrier`, where `DyadicCube n` has a `scale : ℤ` and an integer `corner`, and `carrier = {x \| ∀ i, (corner i : ℝ) * 2 ^ scale ≤ x i ∧ x i < (corner i + 1 : ℤ) * 2 ^ scale}` — the half-open convention, at every scale. |
 | 6 | Each piece has integral zero. | ✅ `∀ j, ∫ x, bad j x = 0`. Because the support sits inside $Q_j$, integrating over $\mathbb{R}^n$ and over $Q_j$ give the same number. |
 | 7 | Each piece obeys $\|b_j\|_1 \le 2^{n+1}\alpha\lvert Q_j\rvert$. | ✅ `eLpNorm (bad j) 1 volume ≤ ENNReal.ofReal (2 ^ (n + 1) * α) * volume (Q j).carrier`. |

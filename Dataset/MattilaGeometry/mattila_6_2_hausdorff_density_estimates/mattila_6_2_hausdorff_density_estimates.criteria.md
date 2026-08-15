@@ -15,7 +15,11 @@ outside $A$ the upper density is $0$.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -54,9 +58,9 @@ wrong, even if it compiles.
   the same `limsup` value, but it is a needless departure from the text.
 - `2 ^ (-s)` is `Real.rpow`, moved into `ℝ≥0∞` by `ENNReal.ofReal`, the correct coercion of a
   positive real.
-- ⚠️ `hs : 0 < s` is our addition; the text does not state it. It is a harmless narrowing (at
+- **Deliberate departure.** `hs : 0 < s` is our addition; the text does not state it. It is a harmless narrowing (at
   $s = 0$ the bounds read $1 \le \Theta \le 1$ for counting measure), but it is not in the source.
-- ⚠️ Part (2) uses Borel `MeasurableSet A` rather than $\mathcal{H}^s$-measurability; see
+- **Deliberate departure.** Part (2) uses Borel `MeasurableSet A` rather than $\mathcal{H}^s$-measurability; see
   Requirement 7.
 
 ## Grading (out of 100)

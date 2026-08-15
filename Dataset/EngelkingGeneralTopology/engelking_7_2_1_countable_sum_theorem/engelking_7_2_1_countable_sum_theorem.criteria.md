@@ -14,7 +14,11 @@ piece and the whole.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -47,15 +51,15 @@ wrong, even if it compiles.
 - Mathlib has no covering dimension, so `CoveringDimensionLE` and `CoverOrderLE` are hand-rolled in
   `Defs.lean` and must be read literally. `Fin m`-indexed finite families, `IsOpen`, `IsClosed` and
   `Finset.card` are the right primitives.
-- ⚠️ `CoverOrderLE` counts *indices*, so a refinement that lists the same set twice is penalized.
+- **Deliberate departure.** `CoverOrderLE` counts *indices*, so a refinement that lists the same set twice is penalized.
   This is harmless here because the refinement is existentially quantified and can be indexed
   injectively, but a formulation using `{i | x ∈ V i}.Finite` and `ncard` would be cleaner.
-- ⚠️ Engelking's "normal space" includes $T_1$ — he develops dimension theory only for $T_4$ spaces —
+- **Deliberate departure.** Engelking's "normal space" includes $T_1$ — he develops dimension theory only for $T_4$ spaces —
   while the ground truth assumes only mathlib's `[NormalSpace X]`. This *generalizes* the statement
   rather than falsifying it, since the classical proof uses normality only, via extension of covers.
   Still, `[T1Space X]` or `[T4Space X]` is the faithful transcription, and a candidate that includes
   $T_1$ should not be penalized.
-- ⚠️ The closed cover is delivered as a single existential hypothesis `hcover : ∃ F, …`. This is
+- **Deliberate departure.** The closed cover is delivered as a single existential hypothesis `hcover : ∃ F, …`. This is
   logically the same as taking `F` and its properties as explicit binders, which would be the
   idiomatic mathlib shape and easier to apply. The existential packaging is acceptable.
 

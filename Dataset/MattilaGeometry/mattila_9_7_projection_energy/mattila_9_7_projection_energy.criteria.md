@@ -16,7 +16,11 @@ on $n$ and $m$.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -57,14 +61,14 @@ wrong, even if it compiles.
   almost every `V`, rather than canonically. This is sound: the values of `density V` are pinned
   $\mathcal{H}^m$-almost everywhere for almost every `V`, and both integrals ignore null-set
   ambiguity.
-- ⚠️ Using `(Measure.map (fun x ↦ V.1.orthogonalProjectionOnto x) μ).rnDeriv μH[(m:ℝ)]` would be
+- **Deliberate departure.** Using `(Measure.map (fun x ↦ V.1.orthogonalProjectionOnto x) μ).rnDeriv μH[(m:ℝ)]` would be
   canonical and would avoid the existential altogether. The existential form is also slightly loose
   in another way: the chosen `density` is not required to be measurable, and `∫⁻` of a
   non-measurable function is the supremum over measurable functions below it, so the left-hand side
   could come out smaller than the intended $L^2$ integral.
-- ⚠️ The bound is stated with `≤` where the book writes `<`. Immaterial given that `c` is
+- **Deliberate departure.** The bound is stated with `≤` where the book writes `<`. Immaterial given that `c` is
   unspecified, but not literal.
-- ⚠️ `IsFiniteMeasureOnCompacts` and `Measure.InnerRegular` are classes; since `μ` is universally
+- **Deliberate departure.** `IsFiniteMeasureOnCompacts` and `Measure.InnerRegular` are classes; since `μ` is universally
   quantified here, instance binders would be more idiomatic than plain implications.
 - No hypothesis $m \le n$ is imposed. When $m > n$ the Grassmannian is empty, no probability measure
   exists on it, and the theorem is empty of content — harmless, but worth knowing.

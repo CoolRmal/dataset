@@ -14,7 +14,11 @@ $P\{\xi \in B\}$.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -46,12 +50,12 @@ wrong, even if it compiles.
 - The probabilities are `ℝ≥0∞`-valued throughout, so `liminf` and `limsup` always exist and no
   conversion to real numbers can truncate at $\infty$. Using `μ.real` or `ENNReal.toReal` would work
   here but would need `IsProbabilityMeasure` to be sound.
-- ⚠️ Because `ξn n` is only assumed `AEMeasurable`, the preimages `ξn n ⁻¹' G` need not be
+- **Deliberate departure.** Because `ξn n` is only assumed `AEMeasurable`, the preimages `ξn n ⁻¹' G` need not be
   measurable, and `μ` is being applied to them as an outer measure. This is sound — for an
   almost-everywhere measurable map, the outer measure of the preimage agrees with the pushforward
   law of the set — but it is a subtle reading. Writing `(μ.map (ξn n)) G`, or assuming `Measurable`
   instead of `AEMeasurable`, would make the intent plain without changing the mathematics.
-- ⚠️ Kallenberg allows $\xi, \xi_1, \xi_2, \dots$ to live on unrelated probability spaces. The ground
+- **Deliberate departure.** Kallenberg allows $\xi, \xi_1, \xi_2, \dots$ to live on unrelated probability spaces. The ground
   truth puts all the $\xi_n$ on one space $(\Omega, \mu)$ and $\xi$ on another. This is harmless,
   since weak convergence depends only on the laws, and `TendstoInDistribution` already supports a
   different space per index, so the fully general form is closer to the text.

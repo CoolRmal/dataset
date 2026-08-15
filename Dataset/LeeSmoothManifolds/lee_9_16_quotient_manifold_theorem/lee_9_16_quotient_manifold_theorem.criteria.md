@@ -14,7 +14,11 @@ diffeomorphism that respects the two projections.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -52,15 +56,15 @@ wrong, even if it compiles.
   continuous and open, hence a quotient map, so the topology on $Q$ is pinned down.
 - The diffeomorphism $e$ in the uniqueness clause is automatically unique, because $\pi$ is
   surjective and $e \circ \pi = \pi'$ determines $e$ on all of $Q$.
-- ⚠️ `m - g` is truncated natural subtraction. No falsehood is introduced — a free proper action of a
+- **Deliberate departure.** `m - g` is truncated natural subtraction. No falsehood is introduced — a free proper action of a
   $g$-dimensional Lie group on a nonempty $m$-manifold forces $g \le m$, and for $M = \emptyset$ any
   dimension works — but a candidate that guards with a hypothesis `g ≤ m` is being more careful.
-- ⚠️ Mathlib offers `[MulAction G M]`, `[ContMDiffSMul I n G M]` and `[ProperSMul G M]`. Phrasing the
+- **Deliberate departure.** Mathlib offers `[MulAction G M]`, `[ContMDiffSMul I n G M]` and `[ProperSMul G M]`. Phrasing the
   hypothesis with those classes and `fun p : G × M ↦ p.1 • p.2` would be more idiomatic and inherit
   the `MulAction` API. Hand-rolling `SmoothFreeProperAction` is defensible because the theorem
   quantifies over a bare function `act : G → M → M`, but then the action axioms have to be restated
   by hand, which they are.
-- ⚠️ Candidates that state properness as "for every compact $K$, the set $\{a \mid (a \cdot K) \cap K
+- **Deliberate departure.** Candidates that state properness as "for every compact $K$, the set $\{a \mid (a \cdot K) \cap K
   \ne \emptyset\}$ is compact", or via `[ProperSMul G M]`, should be judged acceptable. That
   equivalence holds for locally compact Hausdorff spaces but is not proved in Mathlib in this
   generality.

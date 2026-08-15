@@ -15,7 +15,11 @@ $p, p_0, p_1, A_0, A_1$.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -23,7 +27,7 @@ row is incomplete.
 | 2 | $T$ is sublinear: it kills the zero function, the size of $T(f+g)$ is at most the sum of the sizes, and scalars come out in absolute value. | ✅ `hT : IsSublinearOperator T`, which is `T 0 = 0 ∧ (∀ f g x, ‖T (f + g) x‖ ≤ ‖T f x‖ + ‖T g x‖) ∧ ∀ c f x, ‖T (c • f) x‖ = ‖c‖ * ‖T f x‖`. |
 | 3 | A weak-type bound at $p_0$ with constant $A_0$ and one at $p_1$ with constant $A_1$. Each says: for every $f$ in that $L^{p_j}$ and every $\alpha > 0$, the measure of the set where $\lvert Tf\rvert$ is *strictly* above $\alpha$ is at most $(A_j\|f\|_{p_j}/\alpha)^{p_j}$. | ✅ `h₀ : HasWeakType μ ν T p₀ A₀` and `h₁ : HasWeakType μ ν T p₁ A₁`, unfolding to `∀ f, MemLp f (ENNReal.ofReal p) μ → ∀ α, 0 < α → ν {y \| ENNReal.ofReal α < ‖T f y‖ₑ} ≤ ENNReal.rpow (C * eLpNorm f (ENNReal.ofReal p) μ / ENNReal.ofReal α) p`. |
 | 4 | Both endpoint constants are finite. | ✅ `hA₀ : A₀ < ∞` and `hA₁ : A₁ < ∞`. |
-| 5 | The exponents satisfy $0 < p_0 < p < p_1 \le \infty$. | ⚠️ `hp : 0 < p₀ ∧ p₀ < p ∧ p < p₁` with `p₀ p₁ p : ℝ`, so $p_1$ is forced to be finite. The text allows $p_1 = \infty$, and that case (weak $(1,1)$ plus $L^\infty \to L^\infty$) is the one used for the Hardy–Littlewood maximal operator. Taking `p₁ : ℝ≥0∞` would cover it. |
+| 5 | The exponents satisfy $0 < p_0 < p < p_1 \le \infty$. | ◐ `hp : 0 < p₀ ∧ p₀ < p ∧ p < p₁` with `p₀ p₁ p : ℝ`, so $p_1$ is forced to be finite. The text allows $p_1 = \infty$, and that case (weak $(1,1)$ plus $L^\infty \to L^\infty$) is the one used for the Hardy–Littlewood maximal operator. Taking `p₁ : ℝ≥0∞` would cover it. |
 | 6 | $T$ turns measurable functions into measurable functions — the text's "taking values in the space of measurable functions on $Y$". | ✅ `hmeas : ∀ f, AEStronglyMeasurable f μ → AEStronglyMeasurable (T f) ν`. |
 | 7 | The conclusion has two halves: for $f \in L^p$, $Tf$ is again in $L^p$, and its norm is bounded by the constant times $\|f\|_p$. | ✅ `HasStrongType μ ν T (ENNReal.ofReal p) (ENNReal.ofReal p) A`, which unfolds to `MemLp (T f) _ ν ∧ eLpNorm (T f) _ ν ≤ A * eLpNorm f _ μ`. |
 | 8 | The constant is the printed closed formula, built only from $p, p_0, p_1, A_0, A_1$ — so it is the same for every $f$. | ✅ `2 * ENNReal.rpow (ENNReal.ofReal (p / (p - p₀) + p / (p₁ - p))) (1 / p) * ENNReal.rpow A₀ ((p₀ / p) * ((p₁ - p) / (p₁ - p₀))) * ENNReal.rpow A₁ ((p₁ / p) * ((p - p₀) / (p₁ - p₀)))`. Every denominator is nonzero by `hp`, and the binders for the constants precede the `∀ f` hidden inside `HasStrongType`. |

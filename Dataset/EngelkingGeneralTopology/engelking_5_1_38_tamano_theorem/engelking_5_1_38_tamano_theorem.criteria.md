@@ -15,7 +15,11 @@ content lies.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -45,14 +49,14 @@ wrong, even if it compiles.
 
 ## Notes on the ground truth
 
-- ⚠️ `IsCompact (univ : Set K)` is equivalent to `CompactSpace K`; the latter is the idiomatic
+- **Deliberate departure.** `IsCompact (univ : Set K)` is equivalent to `CompactSpace K`; the latter is the idiomatic
   spelling but cannot be produced as an instance for a bound `tK`, so the `Prop`-level form is a
   reasonable choice here.
-- ⚠️ Inside items (ii) and (iv), `NormalSpace` is applied with an explicit `@` and a hand-written
+- **Deliberate departure.** Inside items (ii) and (iv), `NormalSpace` is applied with an explicit `@` and a hand-written
   product topology while the neighbouring `T1Space (X × K)` is written without `@`, relying on `tK`
   being picked up as a local instance. The two spellings agree definitionally, but the inconsistency
   is fragile; `letI := tK`, or instance-implicit binders, would be cleaner.
-- ⚠️ Items (ii) and (iv) quantify compactifications over `K : Type v` for a free universe `v`, while
+- **Deliberate departure.** Items (ii) and (iv) quantify compactifications over `K : Type v` for a free universe `v`, while
   item (iii) supplies `StoneCech X : Type u`. When `v ≠ u`, the implication (iii) $\Rightarrow$ (iv)
   cannot be witnessed by $\beta X$, so the four items are only genuinely comparable at `v = u`.
   Using `K : Type u` would make the equivalence literally correct at every instantiation.

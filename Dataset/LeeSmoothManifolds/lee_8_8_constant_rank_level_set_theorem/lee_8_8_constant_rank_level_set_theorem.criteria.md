@@ -15,7 +15,11 @@ with nothing to check).
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -53,13 +57,13 @@ wrong, even if it compiles.
   compose the chart with a coordinate permutation, which stays in the maximal atlas.
 - No bound `k ≤ min(m,n)` is imposed, and none is needed: `ConstantRank` already forces it whenever
   $M$ is nonempty. This is cleaner than `lee_7_8` and `lee_7_13`, which carry a redundant `hk`.
-  ⚠️ `m - codim` is truncated natural subtraction, so `codim > m` would silently read as
+  `m - codim` is truncated natural subtraction, so `codim > m` would silently read as
   `codim = m`; nothing here can reach that branch, but candidates that reintroduce a free dimension
   parameter should be checked for it.
 - `IsClosed` is genuinely provable here with no separation typeclass on $N$: a
   `ChartedSpace (Fin n → ℝ) N` is automatically T1, so singletons are closed and $\Phi$ is
   continuous. A candidate that adds `[T2Space N]` for this purpose is harmless but unnecessary.
-- ⚠️ Lee's smooth manifolds are Hausdorff and second countable, and neither `[T2Space M]` nor
+- **Deliberate departure.** Lee's smooth manifolds are Hausdorff and second countable, and neither `[T2Space M]` nor
   `[SecondCountableTopology M]` is assumed. Not needed for the truth of this statement (it is local
   plus T1), so the Lean version is more general — but it does not transcribe the book's hypotheses.
 

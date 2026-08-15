@@ -16,7 +16,11 @@ $L^p$, and $S_R f$ converges to it in $L^p$ for every $f$.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -28,7 +32,7 @@ row is incomplete.
 | 6 | $S_R f$ is the multiplier series $\sum_m a(m,R)\widehat f(m)e^{2\pi i m\cdot x}$. | ✅ `let S := fun R f x ↦ ∑' m, a R m * torusFourierCoefficient μ f m * torusCharacter m x`; condition (i) makes the family finitely supported, so this `tsum` is a finite sum. |
 | 7 | The left half of the biconditional is "$S_R f$ converges in $L^p$" — to *some* limit, not to a named operator. | ✅ `∀ f, MemLp f (ENNReal.ofReal p) μ → ∃ g, MemLp g (ENNReal.ofReal p) μ ∧ Tendsto (fun R ↦ eLpNorm (S R f - g) (ENNReal.ofReal p) μ) atTop (𝓝 0)`. |
 | 8 | The right half is one finite constant valid for all $R$ — the existential must sit outside the quantifier over $R$. | ✅ `∃ C : ℝ≥0∞, C < ∞ ∧ ∀ R, 0 < R → HasStrongType μ μ (S R) (ENNReal.ofReal p) (ENNReal.ofReal p) C`. |
-| 9 | The "furthermore" clause, for the *same* constant: a limit operator $A$ bounded on $L^p$ by that constant, agreeing with the limit multiplier series where that series converges, and reached by $S_R f$ in $L^p$ for every $f \in L^p$. | ⚠️ `∀ C, (∀ R, 0 < R → HasStrongType μ μ (S R) … C) → ∃ A, HasStrongType μ μ A … C ∧ (∀ h, MemLp h … → Summable (fun m ↦ fun x ↦ aLimit m * torusFourierCoefficient μ h m * torusCharacter m x) → A h = formalLimit h) ∧ ∀ f, MemLp f … → Tendsto (fun R ↦ eLpNorm (S R f - A f) … ) atTop (𝓝 0)`. The text ties $A$ to $C^\infty(\mathbb{T}^n)$, where the series always converges; the Lean version ties it instead to those $h$ whose series is summable. Weaker, but sound. |
+| 9 | The "furthermore" clause, for the *same* constant: a limit operator $A$ bounded on $L^p$ by that constant, agreeing with the limit multiplier series where that series converges, and reached by $S_R f$ in $L^p$ for every $f \in L^p$. | ◐ `∀ C, (∀ R, 0 < R → HasStrongType μ μ (S R) … C) → ∃ A, HasStrongType μ μ A … C ∧ (∀ h, MemLp h … → Summable (fun m ↦ fun x ↦ aLimit m * torusFourierCoefficient μ h m * torusCharacter m x) → A h = formalLimit h) ∧ ∀ f, MemLp f … → Tendsto (fun R ↦ eLpNorm (S R f - A f) … ) atTop (𝓝 0)`. The text ties $A$ to $C^\infty(\mathbb{T}^n)$, where the series always converges; the Lean version ties it instead to those $h$ whose series is summable. Weaker, but sound. |
 
 ## Mistakes to check for
 

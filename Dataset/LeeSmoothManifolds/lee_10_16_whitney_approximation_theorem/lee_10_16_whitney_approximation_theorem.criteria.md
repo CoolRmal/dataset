@@ -13,7 +13,11 @@ on a closed set $A$, the same $F'$ can be taken to agree with $F$ exactly on $A$
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -23,7 +27,7 @@ row is incomplete.
 | 4 | $\delta$ is a function on $M$, not a constant, and it is continuous. | ✅ `δ : M → ℝ` with `hδ : Continuous δ`. |
 | 5 | $\delta$ is strictly positive at every point. | ✅ `hδpos : ∀ x, 0 < δ x`. |
 | 6 | $A$ is closed. | ✅ `hA : IsClosed A`. |
-| 7 | Some form of "$F$ is smooth on $A$". | ✅ `hFsmoothOnA : ∃ U ∈ 𝓝ˢ A, ContMDiffOn 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin k → ℝ) ∞ F U`, i.e. $F$ itself is smooth on a whole neighbourhood of $A$. ⚠️ Stronger than Lee's notion; see the notes. |
+| 7 | Some form of "$F$ is smooth on $A$". | ✅ `∀ p ∈ A, ∃ U ∈ 𝓝 p, ∃ G, ContMDiff … G ∧ EqOn G F (U ∩ A)` — Lee's definition of smoothness on an arbitrary subset: a local smooth extension near each point, not one smooth extension over a neighbourhood of all of $A$. |
 | 8 | One single $F'$ carrying all the conclusions, not two separate existence claims. | ✅ A single `∃ Fsmooth : M → (Fin k → ℝ)` followed by a three-way conjunction. |
 | 9 | $F'$ is smooth on all of $M$. | ✅ `ContMDiff 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin k → ℝ) ∞ Fsmooth`. |
 | 10 | $F'$ is within $\delta$ of $F$ at every point, with a strict inequality. | ✅ `∀ x, dist (Fsmooth x) (F x) < δ x`. |
@@ -46,7 +50,7 @@ wrong, even if it compiles.
 
 ## Notes on the ground truth
 
-- ⚠️ Lee's "$F$ is smooth on a subset $A$" means: each $p \in A$ has a neighbourhood $W$ and a smooth
+- **Deliberate departure.** Lee's "$F$ is smooth on a subset $A$" means: each $p \in A$ has a neighbourhood $W$ and a smooth
   $\tilde F$ on $W$ with $\tilde F = F$ on $W \cap A$. That is weaker than what we assume — $F$
   itself need not be smooth near $A$ (take $M = \mathbb{R}$, $A = \{0\}$, $F = \lvert\cdot\rvert$).
   Our hypothesis is therefore strictly stronger and our theorem strictly weaker. It is the accepted
@@ -57,7 +61,7 @@ wrong, even if it compiles.
   them into one theorem with a mandatory $A$. No content is lost: taking $A = \emptyset$ recovers the
   unconditional case, using `isClosed_empty`, `mem_nhdsSet_empty`, `contMDiffOn_empty` and the fact
   that `EqOn` on the empty set is trivial — exactly how Mathlib derives its unconditional version.
-- ⚠️ `dist` on `Fin k → ℝ` is the **sup** metric of the Pi instance, not the Euclidean one, whereas
+- **Deliberate departure.** `dist` on `Fin k → ℝ` is the **sup** metric of the Pi instance, not the Euclidean one, whereas
   Lee's $\delta$-closeness is in the Euclidean norm. Because $\delta$ is an arbitrary positive
   continuous function, the two versions are equivalent (rescale $\delta$ by $\sqrt{k}$, which
   preserves positivity and continuity), so no strength is lost; `EuclideanSpace ℝ (Fin k)` would be

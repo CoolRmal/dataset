@@ -14,7 +14,11 @@ $\int f(\xi, t)\,\mu(\xi, dt)$. The kernel is the conditional distribution of $\
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -47,7 +51,7 @@ wrong, even if it compiles.
 ## Notes on the ground truth
 
 - Item (i) of the text, $\mathcal{L}(\eta \mid \xi) = \mu(\xi, \cdot)$ almost surely, is not stated
-  as its own clause. ⚠️ No content is lost, because it is the case
+  as its own clause. No content is lost, because it is the case
   `f := fun _ t ↦ Set.indicator B 1 t` of the integration formula, but an explicit clause such as
   `∀ B, MeasurableSet B → ∀ A, MeasurableSet A → μ (ξ ⁻¹' A ∩ η ⁻¹' B) = ∫⁻ ω in ξ ⁻¹' A, κ (ξ ω) B ∂μ`
   would make the conditional-distribution reading visible on the page.

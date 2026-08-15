@@ -15,7 +15,11 @@ $F(p)$, with $F(U_0) \subseteq V_0$.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -50,7 +54,7 @@ wrong, even if it compiles.
   `SmoothDiffeomorphismOn` bundles `mapsTo` together with `rightInvOn`, they are forced to equal
   `φ.toFun '' U₀` and `ψ.toFun '' V₀`, so asserting the normal form for `x ∈ φ.toFun '' U₀` is the
   same as asserting it on all of `sourceTarget`.
-- ⚠️ Nothing requires `IsOpen sourceTarget` or `IsOpen targetTarget`, and `ContDiffOn` on a set that
+- **Deliberate departure.** Nothing requires `IsOpen sourceTarget` or `IsOpen targetTarget`, and `ContDiffOn` on a set that
   is not open is weaker than smoothness of a genuine chart. Adding
   `IsOpen sourceTarget ∧ IsOpen targetTarget` would close that gap.
 - The `i.1 < m` conjunct inside the `if` is only there so a `Fin m` index can be built; it follows

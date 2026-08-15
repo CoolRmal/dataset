@@ -16,7 +16,11 @@ the set of shifts that leave $\gamma$ equivalent to itself.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -26,7 +30,7 @@ row is incomplete.
 | 4 | The shift $\gamma_h = \gamma(\cdot - h)$ is the pushforward of $\gamma$ under translation by $h$. | ✅ `γ.map (· + h)`, whose value on a set `A` is `γ (A - h)`. |
 | 5 | Part (i): if $\lvert h\rvert_{H(\gamma)} = \infty$ then $\gamma_h$ and $\gamma$ are mutually singular, for every such $h$. | ✅ `∀ h : E, cameronMartinNorm γ h = ∞ → (γ.map (· + h)) ⟂ₘ γ`. |
 | 6 | Part (ii): if $\lvert h\rvert_{H(\gamma)} < \infty$ then $\gamma_h$ and $\gamma$ are equivalent, meaning each is absolutely continuous with respect to the other. | ✅ `∀ h : E, cameronMartinNorm γ h ≠ ∞ → Equivalent (γ.map (· + h)) γ`, with `Equivalent μ ν := μ ≪ ν ∧ ν ≪ μ`. |
-| 7 | The consequence (2.4.3): the Cameron–Martin space equals the set of $h$ for which $\gamma_h \sim \gamma$. | ⚠️ `cameronMartinSpace γ = {h : E \| Equivalent (γ.map (· + h)) γ}`, the third conjunct. The book's further equality with $X \cap R_\gamma(X^*)$ is dropped, because $R_\gamma$ is never introduced here. |
+| 7 | The consequence (2.4.3): the Cameron–Martin space equals the set of $h$ for which $\gamma_h \sim \gamma$. | ◐ `cameronMartinSpace γ = {h : E \| Equivalent (γ.map (· + h)) γ}`, the third conjunct. The book's further equality with $X \cap R_\gamma(X^*)$ is dropped, because $R_\gamma$ is never introduced here. |
 | 8 | All three assertions appear in one statement. | ✅ A three-fold conjunction. |
 
 ## Mistakes to check for

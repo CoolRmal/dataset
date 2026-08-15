@@ -15,7 +15,11 @@ allowed to vary from point to point, because $M$ need not be closed.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -49,17 +53,17 @@ wrong, even if it compiles.
 
 ## Notes on the ground truth
 
-- ⚠️ Continuity of `radius` is genuinely absent (requirement row 11). This is the one substantive gap
+- **Deliberate departure.** Continuity of `radius` is genuinely absent (requirement row 11). This is the one substantive gap
   in the file.
 - `∑ i, v i * velocity i` is the genuine Euclidean inner product, which is the right notion of
   perpendicularity even though `Fin n → ℝ` carries the sup norm.
-- ⚠️ The fibre condition `‖p.2‖ < radius p.1` uses the sup norm of `Fin n → ℝ`, so the fibres are
+- **Deliberate departure.** The fibre condition `‖p.2‖ < radius p.1` uses the sup norm of `Fin n → ℝ`, so the fibres are
   cubes rather than Euclidean disks. Since `radius` is existentially chosen and otherwise
   unconstrained, the two versions are equivalent statements; `EuclideanSpace ℝ (Fin n)` would be the
   literal reading and is Mathlib's convention for $\mathbb{R}^n$.
 - Quantifying only over curves that are smooth, rather than merely differentiable at $0$, would give
   the same tangent space and is an acceptable variant.
-- ⚠️ `EmbeddedSubmanifoldOfCodimension` uses the truncated natural subtraction `n - codim` for the
+- **Deliberate departure.** `EmbeddedSubmanifoldOfCodimension` uses the truncated natural subtraction `n - codim` for the
   slice dimension, so `codim > n` would silently read as `codim = n`. Harmless in substance — only
   `codim ≤ n` is realizable — but worth checking in candidates that reintroduce a dimension
   parameter.

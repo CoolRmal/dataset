@@ -14,7 +14,11 @@ spectral resolution of $A$.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -45,23 +49,23 @@ wrong, even if it compiles.
 
 ## Notes on the ground truth
 
-- ⚠️ Mathlib already has unbounded operators — `H →ₗ.[ℂ] H` (`LinearPMap`), `LinearPMap.adjoint`
+- **Deliberate departure.** Mathlib already has unbounded operators — `H →ₗ.[ℂ] H` (`LinearPMap`), `LinearPMap.adjoint`
   (postfix `†`), `LinearPMap.isSelfAdjoint_def : IsSelfAdjoint A ↔ A† = A`, and
   `IsSelfAdjoint.dense_domain`. The ground truth hand-rolls `DenselyDefinedOperator` and
   `IsSelfAdjointUnbounded` instead. The custom definitions are correct, but a `LinearPMap`-based
   statement would be materially more idiomatic and would connect to the existing lemmas.
-- ⚠️ Mathlib's inner product is conjugate-linear in its **first** argument, so
+- **Deliberate departure.** Mathlib's inner product is conjugate-linear in its **first** argument, so
   `inner ℂ (U t x) y = ∫ᵛ z, exp (I * t * z) ∂[…]` literally encodes
   $U(t) = \int e^{-itz}\,dE(z) = \exp(-itA)$, while `inner ℂ (A.op x) y = ∫ᵛ z, z ∂[…]` does give
   $A = \int z\,dE$ correctly, because $E$ lives on the reals. The statement is still **true** —
   replace $A$ by $-A$ — but the generator it produces is the negative of the textbook one. Inserting
   `starRingEnd ℂ` in the exponential integrand, or swapping the inner-product arguments, would match
   $U(t) = \exp(itA)$ literally.
-- ⚠️ The transcribed X.5.6 asserts only existence ("there is a self-adjoint operator $A$"); the Lean
+- **Deliberate departure.** The transcribed X.5.6 asserts only existence ("there is a self-adjoint operator $A$"); the Lean
   asserts `∃!`. Uniqueness of the generator is a true part of Stone's theorem, and `∃!` over
   `DenselyDefinedOperator H` correctly means equality of both the domain and the map. A candidate
   stating plain `∃` matches the text exactly and should not be marked unfaithful.
-- ⚠️ `IsUnitaryOperator` is spelled out as a pair of adjoint identities. Mathlib's
+- **Deliberate departure.** `IsUnitaryOperator` is spelled out as a pair of adjoint identities. Mathlib's
   `U ∈ unitary (H →L[ℂ] H)` (with `unitary.mem_iff`) is the same pair and is the idiomatic spelling.
 - The projection-valued measure is hand-rolled in `Defs.lean` because Mathlib has none.
 

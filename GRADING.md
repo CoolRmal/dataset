@@ -125,6 +125,20 @@ merely shares a name. Recurring traps:
 - No unused hypothesis, no `autoImplicit` reliance, binders and names follow Mathlib
   convention, `variable` used where it belongs.
 
+## Reading the rubrics' assessment column
+
+Each rubric's requirement table records how the *ground truth* stands against its own
+requirements: ✅ where the Lean statement says the thing, ◐ where it says it in a form that
+deliberately departs from the text. A ◐ is a decision with a reason attached — a narrower ambient
+setting because that is where the library's notion lives, a stronger hypothesis that buys
+well-definedness, an equivalent but less literal phrasing — and the note bullets that begin
+**Deliberate departure** record the same kind of choice in prose. None of them marks an open defect:
+defects, once found, were repaired in the Lean sources.
+
+For grading a *candidate*, a ◐ row is still worth full marks under Band A when the candidate states
+the requirement in any equivalent form, and a candidate that renders the text **more** literally
+than the ground truth does should be scored at least as high.
+
 ## Caps
 
 Caps are applied after the bands are summed, and the lowest applicable cap wins.

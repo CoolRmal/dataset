@@ -13,7 +13,11 @@ pair: "for all $t$" and "for some $t$" turn out to say the same thing.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -49,7 +53,7 @@ wrong, even if it compiles.
   content.
 - A spectral spelling of item (a) — `IsSelfAdjoint a ∧ ∀ z ∈ spectrum ℝ a, 0 ≤ z` — is equally
   faithful to Conway and should be accepted in a candidate.
-- ⚠️ The scalar in (d) and (e) is written `algebraMap ℂ A (t : ℂ)` with `t : ℝ`, a slightly indirect
+- **Deliberate departure.** The scalar in (d) and (e) is written `algebraMap ℂ A (t : ℂ)` with `t : ℝ`, a slightly indirect
   round trip through $\mathbb{C}$. `(t : ℝ) • (1 : A)` reads closer to the book's "$t - a$". The
   meaning is the same, and the guard $\lVert a\rVert \le t$ already forces $t \ge 0$.
 - The items are `let`-bound propositions combined with `List.TFAE`, matching how the other

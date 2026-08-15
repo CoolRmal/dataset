@@ -14,7 +14,11 @@ not just be arbitrary homeomorphisms, or the normal form would say nothing about
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -46,7 +50,7 @@ wrong, even if it compiles.
 ## Notes on the ground truth
 
 - Lee's "smooth manifold" is second countable and Hausdorff. Mathlib carries those as the separate
-  typeclasses `[T2Space M]` and `[SecondCountableTopology M]`, and neither is assumed here. ⚠️ This
+  typeclasses `[T2Space M]` and `[SecondCountableTopology M]`, and neither is assumed here. This
   is harmless *for this theorem* — the rank theorem is local, so the Lean version is more general and
   still true — but it is not a transcription of the book's hypotheses. The same omission is fatal in
   `lee_10_7_sards_theorem`, where second countability is genuinely needed.

@@ -17,7 +17,11 @@ all directions, and purely unrectifiable ones cast invisible shadows in almost a
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -51,11 +55,11 @@ wrong, even if it compiles.
 
 - An earlier version left the measurable structure on the Grassmannian as an unconstrained instance
   argument; that defect has been repaired in `Defs.lean` and survives above as Mistake 1.
-- ⚠️ `MeasurableSet` is used both for $A$ and for the test sets $B$, where the book means
+- **Deliberate departure.** `MeasurableSet` is used both for $A$ and for the test sets $B$, where the book means
   $\mathcal{H}^m$ measurability. On $A$ this weakens the theorem; on $B$ it shrinks the family of
   test sets, which weakens the forward direction of part (1) and strengthens the reverse one.
   `NullMeasurableSet · μH[(m:ℝ)]` would be the literal rendering.
-- ⚠️ `hm : 0 < m` and `hmn : m < n` are our additions. They exclude the degenerate cases the text
+- **Deliberate departure.** `hm : 0 < m` and `hmn : m < n` are our additions. They exclude the degenerate cases the text
   nominally covers: at $m = n$ the Grassmannian is a single point and $P_V$ is the identity. Harmless
   but a narrowing.
 - The Hausdorff exponent is the real cast `(m : ℝ)` of the natural number `m` throughout, and the

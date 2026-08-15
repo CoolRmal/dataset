@@ -17,7 +17,11 @@ $c > 0$ depends only on $n$.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -59,14 +63,14 @@ wrong, even if it compiles.
 - `IsFiniteMeasureOnCompacts` and `Measure.InnerRegular` are classes, but `μ` here is existentially
   bound, so they correctly appear as plain propositions. On $\mathbb{R}^n$ inner regularity is
   automatic for locally finite Borel measures, so that conjunct is redundant but harmless.
-- ⚠️ `0 < s` is our hypothesis, not stated in the transcribed text. It is needed for `r ^ s` to
+- **Deliberate departure.** `0 < s` is our hypothesis, not stated in the transcribed text. It is needed for `r ^ s` to
   behave as intended.
-- ⚠️ Honest weakness: when $\mathcal{H}^s_\infty(B) = \infty$ — for example $B = \mathbb{R}^n$ with
+- **Deliberate departure.** Honest weakness: when $\mathcal{H}^s_\infty(B) = \infty$ — for example $B = \mathbb{R}^n$ with
   $s = n$ — the refinement demands `c * ∞ < μ B` for a finite measure `μ`, which is impossible, so
   our second conjunct is false for such $B$. Mattila's "moreover" is only meaningful for sets of
   finite content (in particular for bounded ones); a faithful repair would restrict $B$ to be
   bounded, or require `hausdorffContent s B < ∞`.
-- ⚠️ The property list is written out twice, once in each conjunct. A named abbreviation would be
+- **Deliberate departure.** The property list is written out twice, once in each conjunct. A named abbreviation would be
   tidier, but the duplication is faithful.
 
 ## Grading (out of 100)

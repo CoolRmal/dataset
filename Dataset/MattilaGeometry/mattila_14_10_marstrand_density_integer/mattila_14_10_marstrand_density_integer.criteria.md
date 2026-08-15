@@ -14,7 +14,11 @@ conclusion is false for every non-integer $s$.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -51,11 +55,11 @@ wrong, even if it compiles.
   choice between $(2r)^s$ and $r^s$ only rescales the density by $2^s$ and changes nothing about
   "positive and finite". A candidate dividing by `r ^ s` is still faithful.
 - `μ ≠ 0` is not assumed; it follows from `0 < μ E`.
-- ⚠️ `IsFiniteMeasureOnCompacts` and `Measure.InnerRegular` are classes, so instance binders
+- **Deliberate departure.** `IsFiniteMeasureOnCompacts` and `Measure.InnerRegular` are classes, so instance binders
   `[IsFiniteMeasureOnCompacts μ] [μ.InnerRegular]` would be more idiomatic than the conjunction
   `hμ`. On $\mathbb{R}^n$ inner regularity is automatic for locally finite Borel measures, so that
   component carries no content here.
-- ⚠️ `∃ m : ℤ, s = m` is the literal rendering of "$s$ is an integer". The `ℕ` form used here is
+- **Deliberate departure.** `∃ m : ℤ, s = m` is the literal rendering of "$s$ is an integer". The `ℕ` form used here is
   equivalent under `0 < s`, but it quietly restates positivity.
 
 ## Grading (out of 100)

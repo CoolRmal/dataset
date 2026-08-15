@@ -17,7 +17,11 @@ $E$ near $a$ lying outside every cone around $V$ is negligible at small scales.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -59,11 +63,11 @@ wrong, even if it compiles.
   $\{x : d(x-a, V) < s\lvert x - a\rvert\}$.
 - The two normalizations differ on purpose and match the book: `upperHausdorffDensity` divides by
   $(2r)^m$, while the cone condition in 15.17 divides by $r^m$.
-- ⚠️ The slab complement in 15.7 uses `η * r ≤ infDist …`, i.e. the complement of the *open*
+- **Deliberate departure.** The slab complement in 15.7 uses `η * r ≤ infDist …`, i.e. the complement of the *open*
   $\eta r$-neighbourhood of the plane. Reading the book's $W(\eta r)$ as closed would give a strict
   `<` there instead. This does not affect the equivalence, since $\eta$ is universally quantified,
   but it is not literal.
-- ⚠️ `MeasurableSet E` rather than `NullMeasurableSet E μH[(m:ℝ)]`; note the tension with the
+- **Deliberate departure.** `MeasurableSet E` rather than `NullMeasurableSet E μH[(m:ℝ)]`; note the tension with the
   `.restrict E` encoding — a fully literal version would have to switch to guarded a.e. statements
   as well.
 - All quotients are `ℝ≥0∞`-valued with denominators `ENNReal.ofReal (r ^ (m:ℝ))`, which are positive

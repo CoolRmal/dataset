@@ -14,7 +14,11 @@ belongs to the spectrum.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -49,7 +53,7 @@ wrong, even if it compiles.
 - Conway says "one and only one of the following possibilities occurs"; the Lean uses an inclusive
   `∨`. Exclusivity does follow from the shapes — case (b) has `0 < n` with an injective
   `eig : Fin n → ℂ`, case (c) an injective `eig : ℕ → ℂ`, so the three descriptions of the spectrum
-  have different sizes — but it is never asserted. ⚠️ An "exactly one" formulation would match the
+  have different sizes — but it is never asserted. An "exactly one" formulation would match the
   text more closely.
 - Kernels are taken as `LinearMap.ker (… ).toLinearMap`. Mathlib also offers
   `(T - eig i • ContinuousLinearMap.id ℂ E).ker` directly, which is marginally more idiomatic; the

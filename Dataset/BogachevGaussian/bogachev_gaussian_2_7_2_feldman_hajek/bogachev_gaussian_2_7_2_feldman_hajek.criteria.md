@@ -13,7 +13,11 @@ the third possibility is excluded.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -22,7 +26,7 @@ row is incomplete.
 | 3 | The conclusion is a disjunction, so that the two cases are exhaustive. | ✅ The top-level connective is `∨`. |
 | 4 | "Equivalent" is two-sided: each measure is absolutely continuous with respect to the other. | ✅ `Equivalent μ ν`, defined as `μ ≪ ν ∧ ν ≪ μ`. |
 | 5 | "Mutually singular" is the standard notion: the space splits into a set carrying $\mu$ and its complement carrying $\nu$. | ✅ `μ ⟂ₘ ν`, Mathlib's `MeasureTheory.Measure.MutuallySingular`. |
-| 6 | The result holds in any dimension, including infinite-dimensional spaces, and is stated for a general space rather than a particular one. | ⚠️ `{E : Type*}` with a normed and Borel structure. Bogachev states it for locally convex spaces; a normed space is where Mathlib's `IsGaussian` lives, so this is a narrower setting than the printed one. |
+| 6 | The result holds in any dimension, including infinite-dimensional spaces, and is stated for a general space rather than a particular one. | ◐ `{E : Type*}` with a normed and Borel structure. Bogachev states it for locally convex spaces; a normed space is where Mathlib's `IsGaussian` lives, so this is a narrower setting than the printed one. |
 
 ## Mistakes to check for
 

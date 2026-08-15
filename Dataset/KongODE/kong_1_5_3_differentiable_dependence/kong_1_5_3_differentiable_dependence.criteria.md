@@ -17,12 +17,16 @@ $t_0$-derivative.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
 | 1 | $D$ is an **open** subset of $\mathbb{R} \times \mathbb{R}^n \times \mathbb{R}^k$. | ✅ `hD : IsOpen D`. |
-| 2 | $f$ is continuous on $D$ and has continuous partial derivatives in $x$ and in $\mu$ there. | ⚠️ `hf : ContDiffOn ℝ 1 (fun p ↦ f p.1 p.2.1 p.2.2) D` also demands differentiability in $t$, which Kong does not assume. It is a stronger hypothesis, so the formalized theorem is weaker than the printed one. A faithful version would assume `ContinuousOn` of $f$ plus `ContinuousOn` of the two partial derivatives. |
+| 2 | $f$ is continuous on $D$ and has continuous partial derivatives in $x$ and in $\mu$ there. | ◐ `hf : ContDiffOn ℝ 1 (fun p ↦ f p.1 p.2.1 p.2.2) D` also demands differentiability in $t$, which Kong does not assume. It is a stronger hypothesis, so the formalized theorem is weaker than the printed one. A faithful version would assume `ContinuousOn` of $f$ plus `ContinuousOn` of the two partial derivatives. |
 | 3 | For every initial datum $(t_0, x_0, \mu) \in D$ there is an **open interval** of existence containing $t_0$, and it may depend on that datum. | ✅ `I : ℝ → (Fin n → ℝ) → (Fin k → ℝ) → Set ℝ` with `IsOpen (I t₀ x₀ μ)`, `(I t₀ x₀ μ).OrdConnected` and `t₀ ∈ I t₀ x₀ μ`. |
 | 4 | On that interval the function solves $x' = f(t,x;\mu)$ and satisfies $x(t_0) = x_0$. | ✅ `IsTrajectoryOn (I t₀ x₀ μ) (fun t y ↦ f t y μ) (fun t ↦ x t t₀ x₀ μ)` and `x t₀ t₀ x₀ μ = x₀`. |
 | 5 | The solution stays in $D$, and every competitor in the uniqueness clause is required to stay in $D$ too. | ✅ `(∀ t ∈ I t₀ x₀ μ, (t, x t t₀ x₀ μ, μ) ∈ D)` and the same guard as a hypothesis on `y`. |

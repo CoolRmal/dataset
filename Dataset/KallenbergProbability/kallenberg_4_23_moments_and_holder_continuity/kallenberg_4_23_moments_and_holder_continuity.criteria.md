@@ -14,7 +14,11 @@ every bounded set, for every $p$ strictly between $0$ and $b/a$.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -48,13 +52,13 @@ wrong, even if it compiles.
 ## Notes on the ground truth
 
 - $\mathbb{R}^d$ is modelled as `Fin d → ℝ`, whose norm `‖s - t‖` is the maximum of the coordinates
-  rather than the Euclidean length. ⚠️ The difference is absorbed into the constant $C$, so nothing
+  rather than the Euclidean length. The difference is absorbed into the constant $C$, so nothing
   is lost, but `EuclideanSpace ℝ (Fin d)` would match $|s - t|$ literally.
 - `IsLocallyHolder` uses closed balls centred at $0$; those exhaust the bounded subsets of
   `Fin d → ℝ`, and the constant `C` is chosen after the radius `R`, as it must be. `HolderOnWith C p f s`
   means `edist (f x) (f y) ≤ C * edist x y ^ p` for `x, y ∈ s`, a uniform bound on the ball; on a
   bounded set this is equivalent to Kallenberg's asymptotic condition $w_f(r) \lesssim r^p$.
-- ⚠️ The conclusion is written `∀ p, ∀ᵐ ω, …`, which allows the null set to depend on $p$. The
+- **Deliberate departure.** The conclusion is written `∀ p, ∀ᵐ ω, …`, which allows the null set to depend on $p$. The
   theorem actually gives one null set outside of which the path of $Y$ is locally Hölder of every
   order $p < b/a$ at once, i.e. `∀ᵐ ω ∂μ, ∀ p ∈ Ioo 0 (b/a), …`. That form is true, stronger, and
   closer to the intended content; a candidate stating it should be scored at least as highly.

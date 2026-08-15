@@ -13,7 +13,11 @@ chart of $N$, the picture of the critical-value set has Lebesgue measure zero.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete.
+row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
+◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
+stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
+a decision, not an open defect; where a more literal rendering would be at least as good, the row
+says so.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -50,11 +54,11 @@ wrong, even if it compiles.
   proved "`mfderiv` surjective ⟺ `IsSubmersionAt`" in finite dimensions (it is a TODO in
   `Submersion.lean`), so `¬ IsSubmersionAt` is possibly a *larger* set than Lee's critical set, which
   makes our conclusion at least as strong as his — the safe direction.
-- ⚠️ The critical set is introduced with a `let critical := …` inside the statement. It works, but a
+- **Deliberate departure.** The critical set is introduced with a `let critical := …` inside the statement. It works, but a
   `let` in a benchmark statement is awkward: it has to be introduced or unfolded before use, and it
   obscures the logical shape. Inlining the set, or naming it as a top-level definition in
   `Defs.lean` alongside `RegularValue`, would read better.
-- ⚠️ Neither `[T2Space M]` nor `[T2Space N]` is assumed, although Lee's manifolds are Hausdorff.
+- **Deliberate departure.** Neither `[T2Space M]` nor `[T2Space N]` is assumed, although Lee's manifolds are Hausdorff.
   Unlike second countability, Hausdorffness is not needed for the truth of this statement, so its
   absence only generalizes the result; a candidate that includes it is equally acceptable.
 - `[SecondCountableTopology N]` is also assumed. It is not needed for the truth of the statement,
