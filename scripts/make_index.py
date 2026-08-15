@@ -42,10 +42,11 @@ BOOKS = [
 def record(title: str, entry: bench.Entry) -> dict:
     book = Path(entry.lean_file).stem
     book_dir = Path(entry.lean_file).with_suffix("")
-    lean_path = book_dir / f"{entry.decl}.lean"
-    md_path = book_dir / f"{entry.decl}.md"
-    criteria_path = book_dir / f"{entry.decl}.criteria.md"
-    context_path = book_dir / f"{entry.decl}.context.md"
+    problem_dir = book_dir / entry.decl
+    lean_path = problem_dir / f"{entry.decl}.lean"
+    md_path = problem_dir / f"{entry.decl}.md"
+    criteria_path = problem_dir / f"{entry.decl}.criteria.md"
+    context_path = problem_dir / f"{entry.decl}.context.md"
     defs_path = book_dir / "Defs.lean"
     rec = {
         "id": f"{book}/{entry.decl}",
@@ -59,6 +60,7 @@ def record(title: str, entry: bench.Entry) -> dict:
         "statement_file": str(md_path),
         "criteria_file": str(criteria_path),
         "context_file": str(context_path),
+        "problem_dir": str(problem_dir),
         "defs_file": str(defs_path) if (ROOT / defs_path).exists() else None,
         "natural_language_statement": entry.statement,
         "lean_statement": bench.make_formalization(entry),

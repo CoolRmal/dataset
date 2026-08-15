@@ -7,8 +7,8 @@ mathlib checkout as dependency. The whole dataset elaborates under
 ## Layout
 
 The dataset contains sixteen textbooks with ten problems each. Every problem has
-its own set of files under `Dataset/<Book>/`, named after the Lean
-declaration:
+its own directory `Dataset/<Book>/<decl>/`, named after the Lean declaration and
+holding that problem's four files, each also named after the declaration:
 
 - `<decl>.lean` — the statement-only formalization (the proof is intentionally
   `sorry`). Custom notions not already supplied by Mathlib live in the book's
@@ -34,9 +34,21 @@ declaration:
   context file records that in that chapter "measure" means a finite *signed*
   Borel measure.
 
-`Dataset/<Book>.lean` is an import roll-up for the book, so `lake build`
-builds every problem file; declaration names are unchanged from the original
-monolithic per-book files.
+So a problem occupies four files in one folder:
+
+```
+Dataset/Bogachev/proposition_5_5_4/
+  proposition_5_5_4.lean         -- the statement, proof `sorry`
+  proposition_5_5_4.md           -- the textbook statement
+  proposition_5_5_4.criteria.md  -- rubric + grading section
+  proposition_5_5_4.context.md   -- background needed to read it
+```
+
+Notions shared across a book live in `Dataset/<Book>/Defs.lean`, one level up.
+`Dataset/<Book>.lean` is an import roll-up for the book, so `lake build` builds
+every problem file; declaration names are unchanged from the original
+monolithic per-book files, though module paths now carry the folder
+(`Dataset.Bogachev.proposition_5_5_4.proposition_5_5_4`).
 
 ## Grading
 

@@ -595,9 +595,14 @@ def decl_search_paths(entry: Entry, name: str) -> list[Path]:
     """
     monolith = ROOT / entry.lean_file
     book_dir = monolith.with_suffix("")
-    paths = [book_dir / f"{name}.lean", book_dir / "Defs.lean", monolith]
+    paths = [
+        book_dir / name / f"{name}.lean",
+        book_dir / f"{name}.lean",
+        book_dir / "Defs.lean",
+        monolith,
+    ]
     if book_dir.is_dir():
-        paths.extend(sorted(book_dir.glob("*.lean")))
+        paths.extend(sorted(book_dir.rglob("*.lean")))
     seen: set[Path] = set()
     out: list[Path] = []
     for p in paths:
