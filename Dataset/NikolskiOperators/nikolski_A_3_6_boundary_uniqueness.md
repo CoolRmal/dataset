@@ -4,6 +4,7 @@
 - **Domain:** Hardy spaces
 - **Lean declaration:** `Dataset.NikolskiOperators.nikolski_A_3_6_boundary_uniqueness` ([nikolski_A_3_6_boundary_uniqueness.lean](nikolski_A_3_6_boundary_uniqueness.lean))
 - **Criteria:** [nikolski_A_3_6_boundary_uniqueness.criteria.md](nikolski_A_3_6_boundary_uniqueness.criteria.md)
+- **Context:** [nikolski_A_3_6_boundary_uniqueness.context.md](nikolski_A_3_6_boundary_uniqueness.context.md)
 
 ## Statement
 

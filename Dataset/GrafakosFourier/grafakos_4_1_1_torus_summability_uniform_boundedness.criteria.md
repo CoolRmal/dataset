@@ -1,6 +1,6 @@
 # Criteria: grafakos_4_1_1_torus_summability_uniform_boundedness
 
-**Statement:** [grafakos_4_1_1_torus_summability_uniform_boundedness.md](grafakos_4_1_1_torus_summability_uniform_boundedness.md) · **Lean:** [grafakos_4_1_1_torus_summability_uniform_boundedness.lean](grafakos_4_1_1_torus_summability_uniform_boundedness.lean)
+**Statement:** [grafakos_4_1_1_torus_summability_uniform_boundedness.md](grafakos_4_1_1_torus_summability_uniform_boundedness.md) · **Lean:** [grafakos_4_1_1_torus_summability_uniform_boundedness.lean](grafakos_4_1_1_torus_summability_uniform_boundedness.lean) · **Context:** [grafakos_4_1_1_torus_summability_uniform_boundedness.context.md](grafakos_4_1_1_torus_summability_uniform_boundedness.context.md)
 
 ## What the theorem says
 
@@ -64,3 +64,35 @@ wrong, even if it compiles.
 - `hbounded` is never used to bound `aLimit` directly, but the bound for the limit follows from it.
 - The left half of the biconditional was repaired: it previously named the limit as the formal
   series and was therefore false.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[grafakos_4_1_1_torus_summability_uniform_boundedness.md](grafakos_4_1_1_torus_summability_uniform_boundedness.md) and the background in [grafakos_4_1_1_torus_summability_uniform_boundedness.context.md](grafakos_4_1_1_torus_summability_uniform_boundedness.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 8 with the uniform bound quantified inside $R$ (a constant per $R$), which is automatic and empty.
+- Requirement 7 with the limit of $S_R f$ identified in advance rather than asserted to exist.
+- Requirement 1 dropped, so that $S_R(f)$ is an infinite series whose convergence is unaddressed.
+
+### Domain-specific pitfalls for this problem
+
+- Condition (1) — finitely many nonzero multipliers for each $R$ — is what makes $S_R f$ well defined for arbitrary $f \in L^p$; without it the definition itself is junk-prone.
+- The uniform bound $M_0$ of condition (2) is over $m$ **and** $R$ jointly.
+- The convergence in condition (3) is for each fixed $m$ separately.
+- The "furthermore" clause reuses the *same* constant $K$; introducing a fresh constant there weakens the theorem.
+- The Fourier coefficients on the torus are taken against the conjugated character, and the reconstruction uses the unconjugated one.

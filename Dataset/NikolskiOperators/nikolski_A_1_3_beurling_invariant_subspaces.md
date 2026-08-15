@@ -4,6 +4,7 @@
 - **Domain:** Hardy spaces
 - **Lean declaration:** `Dataset.NikolskiOperators.nikolski_A_1_3_beurling_invariant_subspaces` ([nikolski_A_1_3_beurling_invariant_subspaces.lean](nikolski_A_1_3_beurling_invariant_subspaces.lean))
 - **Criteria:** [nikolski_A_1_3_beurling_invariant_subspaces.criteria.md](nikolski_A_1_3_beurling_invariant_subspaces.criteria.md)
+- **Context:** [nikolski_A_1_3_beurling_invariant_subspaces.context.md](nikolski_A_1_3_beurling_invariant_subspaces.context.md)
 
 ## Statement
 

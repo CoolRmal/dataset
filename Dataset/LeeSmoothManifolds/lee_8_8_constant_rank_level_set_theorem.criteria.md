@@ -1,6 +1,6 @@
 # Criteria: lee_8_8_constant_rank_level_set_theorem
 
-**Statement:** [lee_8_8_constant_rank_level_set_theorem.md](lee_8_8_constant_rank_level_set_theorem.md) · **Lean:** [lee_8_8_constant_rank_level_set_theorem.lean](lee_8_8_constant_rank_level_set_theorem.lean)
+**Statement:** [lee_8_8_constant_rank_level_set_theorem.md](lee_8_8_constant_rank_level_set_theorem.md) · **Lean:** [lee_8_8_constant_rank_level_set_theorem.lean](lee_8_8_constant_rank_level_set_theorem.lean) · **Context:** [lee_8_8_constant_rank_level_set_theorem.context.md](lee_8_8_constant_rank_level_set_theorem.context.md)
 
 ## What the theorem says
 
@@ -62,3 +62,34 @@ wrong, even if it compiles.
 - ⚠️ Lee's smooth manifolds are Hausdorff and second countable, and neither `[T2Space M]` nor
   `[SecondCountableTopology M]` is assumed. Not needed for the truth of this statement (it is local
   plus T1), so the Lean version is more general — but it does not transcribe the book's hypotheses.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[lee_8_8_constant_rank_level_set_theorem.md](lee_8_8_constant_rank_level_set_theorem.md) and the background in [lee_8_8_constant_rank_level_set_theorem.context.md](lee_8_8_constant_rank_level_set_theorem.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 7 with codimension $\dim N$ instead of $k$.
+- Requirement 3 with the rank condition imposed only on the level set rather than on all of $M$.
+- Requirement 5 with $c$ moved into the hypotheses, or restricted to attained values.
+
+### Domain-specific pitfalls for this problem
+
+- The codimension is the rank $k$, not the dimension of the target.
+- Constant rank is a global hypothesis on $M$.
+- The conclusion is for every $c$, empty level sets included.
+- The slice charts must belong to the smooth structure, and the slice condition is relative to the chart's image.

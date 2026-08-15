@@ -4,6 +4,7 @@
 - **Domain:** Geometric measure theory
 - **Lean declaration:** `Dataset.MattilaGeometry.mattila_8_19_compact_subsets_of_finite_hausdorff_measure` ([mattila_8_19_compact_subsets_of_finite_hausdorff_measure.lean](mattila_8_19_compact_subsets_of_finite_hausdorff_measure.lean))
 - **Criteria:** [mattila_8_19_compact_subsets_of_finite_hausdorff_measure.criteria.md](mattila_8_19_compact_subsets_of_finite_hausdorff_measure.criteria.md)
+- **Context:** [mattila_8_19_compact_subsets_of_finite_hausdorff_measure.context.md](mattila_8_19_compact_subsets_of_finite_hausdorff_measure.context.md)
 
 ## Statement
 

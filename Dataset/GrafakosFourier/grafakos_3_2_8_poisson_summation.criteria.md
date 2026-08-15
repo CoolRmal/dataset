@@ -1,6 +1,6 @@
 # Criteria: grafakos_3_2_8_poisson_summation
 
-**Statement:** [grafakos_3_2_8_poisson_summation.md](grafakos_3_2_8_poisson_summation.md) · **Lean:** [grafakos_3_2_8_poisson_summation.lean](grafakos_3_2_8_poisson_summation.lean)
+**Statement:** [grafakos_3_2_8_poisson_summation.md](grafakos_3_2_8_poisson_summation.md) · **Lean:** [grafakos_3_2_8_poisson_summation.lean](grafakos_3_2_8_poisson_summation.lean) · **Context:** [grafakos_3_2_8_poisson_summation.context.md](grafakos_3_2_8_poisson_summation.context.md)
 
 ## What the theorem says
 
@@ -21,7 +21,7 @@ row is incomplete.
 | 1 | $f$ is continuous on all of $\mathbb{R}^n$. | ✅ `Continuous f`, the first conjunct of `hf`. |
 | 2 | The decay bound $\lvert f(x)\rvert \le C(1+\lvert x\rvert)^{-n-\delta}$ for *some* $C > 0$ and $\delta > 0$, valid at every $x$. | ✅ `∃ C δ : ℝ, 0 < C ∧ 0 < δ ∧ ∀ x, ‖f x‖ ≤ C * (1 + ‖x‖) ^ (-(n : ℝ) - δ)`, with the existential inside the hypothesis and the exponent a real power on the positive base `1 + ‖x‖`. |
 | 3 | A separate hypothesis that $\widehat f$ restricted to $\mathbb{Z}^n$ is absolutely summable. | ✅ `Summable fun m : Fin n → ℤ ↦ 𝓕 f (WithLp.toLp 2 fun i ↦ (m i : ℝ))`. Over a countable index in `ℂ`, `Summable` is unconditional summability, which is the same as absolute summability. |
-| 4 | $f$ is integrable, so that $\widehat f$ is a genuine integral rather than a default value. | ⚠️ `Integrable f` is listed, but it already follows from continuity plus the decay bound, so it is formally redundant. A candidate omitting it is still faithful. |
+| 4 | $f$ is integrable, so that $\widehat f$ is a genuine integral rather than a default value. | ✅ `hint : Integrable f`, a named hypothesis. It already follows from continuity plus the decay bound, so it is formally redundant and a candidate omitting it is still faithful. |
 | 5 | The lattice $\mathbb{Z}^n$ is embedded into the *Euclidean* space, and both sums run over the full lattice. | ✅ `WithLp.toLp 2 fun i ↦ (m i : ℝ)` maps `Fin n → ℤ` into `EuclideanSpace ℝ (Fin n)`, and both `∑'` are indexed by `m k : Fin n → ℤ`. |
 | 6 | The character is $e^{+2\pi i m\cdot x}$, with the sign opposite to the $e^{-2\pi i x\cdot\xi}$ inside the transform. | ✅ `Complex.exp (2 * Real.pi * Complex.I * (∑ i, (m i : ℂ) * (x i : ℂ)))`; the pairing matches the inner product used by `𝓕` and the signs are consistent. |
 | 7 | First conclusion: the identity holds at *every* $x \in \mathbb{R}^n$. | ✅ `∀ x : EuclideanSpace ℝ (Fin n), ∑' m, 𝓕 f (…) * Complex.exp (…) = ∑' k, f (x + …)`. |
@@ -56,3 +56,35 @@ wrong, even if it compiles.
   that concludes summability as well says strictly more and should be rewarded.
 - The index type `Fin n → ℤ` is the natural rendering of $\mathbb{Z}^n$ and is countable, so `tsum`
   and `Summable` behave as expected.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[grafakos_3_2_8_poisson_summation.md](grafakos_3_2_8_poisson_summation.md) and the background in [grafakos_3_2_8_poisson_summation.context.md](grafakos_3_2_8_poisson_summation.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 dropped: without absolute summability of $\widehat f|_{\mathbb{Z}^n}$ the left-hand series need not converge.
+- Requirement 6 with the sign of the character reversed.
+- Requirement 7 weakened to almost-everywhere equality.
+
+### Domain-specific pitfalls for this problem
+
+- Junk value — `tsum`: an unordered sum over a non-summable family is `0`, so both summability hypotheses are what keep the identity from being a statement about defaults.
+- The decay exponent is $-n-\delta$ with $\delta > 0$ strictly; $-n$ alone is not enough for absolute convergence of the periodization.
+- The lattice $\mathbb{Z}^n$ must be embedded into the Euclidean space carrying the transform, and the same embedding used on both sides.
+- The character is $e^{+2\pi i m \cdot x}$ — the inverse-transform sign, opposite to the $e^{-2\pi i x\cdot\xi}$ in $\widehat f$.
+- The dot product $m \cdot x$ is the Euclidean inner product of the lattice point with $x$.

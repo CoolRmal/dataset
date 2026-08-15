@@ -4,6 +4,7 @@
 - **Domain:** Harmonic analysis
 - **Lean declaration:** `Dataset.FollandHarmonic.folland_1_18_wiener_inverse_of_absolutely_convergent_series` ([folland_1_18_wiener_inverse_of_absolutely_convergent_series.lean](folland_1_18_wiener_inverse_of_absolutely_convergent_series.lean))
 - **Criteria:** [folland_1_18_wiener_inverse_of_absolutely_convergent_series.criteria.md](folland_1_18_wiener_inverse_of_absolutely_convergent_series.criteria.md)
+- **Context:** [folland_1_18_wiener_inverse_of_absolutely_convergent_series.context.md](folland_1_18_wiener_inverse_of_absolutely_convergent_series.context.md)
 
 ## Statement
 

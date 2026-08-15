@@ -1,6 +1,6 @@
 # Criteria: krylov_sobolev_12_2_13_real_strongly_elliptic_order_even
 
-**Statement:** [krylov_sobolev_12_2_13_real_strongly_elliptic_order_even.md](krylov_sobolev_12_2_13_real_strongly_elliptic_order_even.md) · **Lean:** [krylov_sobolev_12_2_13_real_strongly_elliptic_order_even.lean](krylov_sobolev_12_2_13_real_strongly_elliptic_order_even.lean)
+**Statement:** [krylov_sobolev_12_2_13_real_strongly_elliptic_order_even.md](krylov_sobolev_12_2_13_real_strongly_elliptic_order_even.md) · **Lean:** [krylov_sobolev_12_2_13_real_strongly_elliptic_order_even.lean](krylov_sobolev_12_2_13_real_strongly_elliptic_order_even.lean) · **Context:** [krylov_sobolev_12_2_13_real_strongly_elliptic_order_even.context.md](krylov_sobolev_12_2_13_real_strongly_elliptic_order_even.context.md)
 
 ## What the theorem says
 
@@ -44,3 +44,34 @@ wrong, even if it compiles.
 
 - The coefficient family $(a^\alpha)_{|\alpha| \le m}$ is packaged as a `MvPolynomial (Fin d) ℂ`; the characteristic polynomial $\sum a^\alpha i^{|\alpha|}\xi^\alpha$ is then simply $P$ evaluated at $i\xi$, since $\sum_\alpha a^\alpha\prod_j(i\xi^j)^{\alpha_j} = P(i\xi)$.
 - Mathlib has no notion of an elliptic differential operator, so `IsStronglyElliptic` is a new definition; it is three short conjuncts and nothing more.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[krylov_sobolev_12_2_13_real_strongly_elliptic_order_even.md](krylov_sobolev_12_2_13_real_strongly_elliptic_order_even.md) and the background in [krylov_sobolev_12_2_13_real_strongly_elliptic_order_even.context.md](krylov_sobolev_12_2_13_real_strongly_elliptic_order_even.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 7 rows, so each row is worth 7.1 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 1 with only one of the two conditions of strong ellipticity.
+- Requirement 5 with the hypothesis $d \ge 2$ dropped: false in dimension one.
+- Requirement 6 with only the top-order coefficients required real.
+
+### Domain-specific pitfalls for this problem
+
+- The characteristic polynomial carries the factors $i^{|\alpha|}$; omitting them gives a different polynomial and a different condition.
+- The first condition constrains the principal part only; the second constrains the whole symbol.
+- $\xi$ ranges over *real* vectors in both conditions, even though the coefficients are complex.
+- Reality is assumed of every coefficient, not only the leading ones.

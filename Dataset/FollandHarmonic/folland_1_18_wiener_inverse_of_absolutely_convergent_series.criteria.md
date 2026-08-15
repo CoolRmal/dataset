@@ -1,6 +1,6 @@
 # Criteria: folland_1_18_wiener_inverse_of_absolutely_convergent_series
 
-**Statement:** [folland_1_18_wiener_inverse_of_absolutely_convergent_series.md](folland_1_18_wiener_inverse_of_absolutely_convergent_series.md) · **Lean:** [folland_1_18_wiener_inverse_of_absolutely_convergent_series.lean](folland_1_18_wiener_inverse_of_absolutely_convergent_series.lean)
+**Statement:** [folland_1_18_wiener_inverse_of_absolutely_convergent_series.md](folland_1_18_wiener_inverse_of_absolutely_convergent_series.md) · **Lean:** [folland_1_18_wiener_inverse_of_absolutely_convergent_series.lean](folland_1_18_wiener_inverse_of_absolutely_convergent_series.lean) · **Context:** [folland_1_18_wiener_inverse_of_absolutely_convergent_series.context.md](folland_1_18_wiener_inverse_of_absolutely_convergent_series.context.md)
 
 ## What the theorem says
 
@@ -56,3 +56,34 @@ wrong, even if it compiles.
 - Mathlib has no Wiener lemma and no Gelfand theory for the convolution algebra $\ell^1(\mathbb{Z})$.
   The Wiener–Ikehara theorem mentioned in `Mathlib/NumberTheory/LSeries/PrimesInAP.lean` is a
   different result.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[folland_1_18_wiener_inverse_of_absolutely_convergent_series.md](folland_1_18_wiener_inverse_of_absolutely_convergent_series.md) and the background in [folland_1_18_wiener_inverse_of_absolutely_convergent_series.context.md](folland_1_18_wiener_inverse_of_absolutely_convergent_series.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 7 rows, so each row is worth 7.1 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 1 with the sums taken over $\mathbb{N}$ rather than $\mathbb{Z}$: the one-sided algebra is the disc algebra and the theorem is different.
+- Requirement 6 dropped, so the conclusion asserts only that a Fourier expansion exists: automatic and empty.
+- Requirement 4 weakened to non-vanishing at some points or almost everywhere.
+
+### Domain-specific pitfalls for this problem
+
+- Absolute summability of a two-sided family is unordered summability of $\lVert a_n\rVert$ over $\mathbb{Z}$, which is what makes the series converge independently of any enumeration.
+- Junk value — `tsum`: a `tsum` over a non-summable family is `0`, so the non-vanishing hypothesis must be applied to a series already known to converge, which the summability hypothesis supplies.
+- Stating the conclusion as $1/f = \sum b_n e^{in\theta}$ requires a division; multiplying up avoids it and says the same thing.
+- The non-vanishing is pointwise on the circle, i.e. for every real $\theta$.

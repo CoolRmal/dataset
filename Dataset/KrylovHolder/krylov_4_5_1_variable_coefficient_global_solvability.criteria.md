@@ -1,6 +1,6 @@
 # Criteria: krylov_4_5_1_variable_coefficient_global_solvability
 
-**Statement:** [krylov_4_5_1_variable_coefficient_global_solvability.md](krylov_4_5_1_variable_coefficient_global_solvability.md) · **Lean:** [krylov_4_5_1_variable_coefficient_global_solvability.lean](krylov_4_5_1_variable_coefficient_global_solvability.lean)
+**Statement:** [krylov_4_5_1_variable_coefficient_global_solvability.md](krylov_4_5_1_variable_coefficient_global_solvability.md) · **Lean:** [krylov_4_5_1_variable_coefficient_global_solvability.lean](krylov_4_5_1_variable_coefficient_global_solvability.lean) · **Context:** [krylov_4_5_1_variable_coefficient_global_solvability.context.md](krylov_4_5_1_variable_coefficient_global_solvability.context.md)
 
 ## What the theorem says
 
@@ -50,3 +50,35 @@ wrong, even if it compiles.
 - `hL` and `hcoeff` each introduce their own `EllipticOperatorData m L`. Benign, since `formula` is quantified over all input functions and therefore determines the coefficients from `L`, but a single bundled `data` would be cleaner and would let $\kappa$ be named.
 - Because the domain is all of $\mathbb{R}^d$, `∃!` on global functions is the right notion of uniqueness. In the domain problems of this book it must instead be `Set.EqOn` on the closure.
 - `holderGauge` uses a maximum where Krylov's norm uses a sum; the two are equivalent up to a factor depending on $d$ and $k$, invisible in a statement that asserts no constants.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[krylov_4_5_1_variable_coefficient_global_solvability.md](krylov_4_5_1_variable_coefficient_global_solvability.md) and the background in [krylov_4_5_1_variable_coefficient_global_solvability.context.md](krylov_4_5_1_variable_coefficient_global_solvability.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 5 with $\lambda_0$ supplied as a hypothesis rather than produced, or allowed to depend on $f$.
+- Requirement 6 with $\lambda$ unrestricted in sign.
+- Requirement 8 with existence only, or uniqueness only.
+
+### Domain-specific pitfalls for this problem
+
+- The threshold depends only on the structural data, and its quantifier position is what makes the theorem uniform.
+- Ellipticity is uniform in $x$ with a single $\kappa$.
+- The coefficients are $C^{k+\delta}$ globally, which also bounds them.
+- The shift's sign decides invertibility.
+- The regularity gain is exactly $m$ derivatives.

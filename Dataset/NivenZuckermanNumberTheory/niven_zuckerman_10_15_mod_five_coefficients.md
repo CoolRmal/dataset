@@ -4,6 +4,7 @@
 - **Domain:** Number theory
 - **Lean declaration:** `Dataset.NivenZuckermanNumberTheory.niven_zuckerman_10_15_mod_five_coefficients` ([niven_zuckerman_10_15_mod_five_coefficients.lean](niven_zuckerman_10_15_mod_five_coefficients.lean))
 - **Criteria:** [niven_zuckerman_10_15_mod_five_coefficients.criteria.md](niven_zuckerman_10_15_mod_five_coefficients.criteria.md)
+- **Context:** [niven_zuckerman_10_15_mod_five_coefficients.context.md](niven_zuckerman_10_15_mod_five_coefficients.context.md)
 
 ## Statement
 

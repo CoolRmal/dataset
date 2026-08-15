@@ -4,6 +4,7 @@
 - **Domain:** PDE
 - **Lean declaration:** `Dataset.KrylovSobolev.krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership` ([krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership.lean](krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership.lean))
 - **Criteria:** [krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership.criteria.md](krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership.criteria.md)
+- **Context:** [krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership.context.md](krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership.context.md)
 
 ## Statement
 

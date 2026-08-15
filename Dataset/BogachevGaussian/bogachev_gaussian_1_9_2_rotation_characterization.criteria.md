@@ -1,6 +1,6 @@
 # Criteria: bogachev_gaussian_1_9_2_rotation_characterization
 
-**Statement:** [bogachev_gaussian_1_9_2_rotation_characterization.md](bogachev_gaussian_1_9_2_rotation_characterization.md) · **Lean:** [bogachev_gaussian_1_9_2_rotation_characterization.lean](bogachev_gaussian_1_9_2_rotation_characterization.lean)
+**Statement:** [bogachev_gaussian_1_9_2_rotation_characterization.md](bogachev_gaussian_1_9_2_rotation_characterization.md) · **Lean:** [bogachev_gaussian_1_9_2_rotation_characterization.lean](bogachev_gaussian_1_9_2_rotation_characterization.lean) · **Context:** [bogachev_gaussian_1_9_2_rotation_characterization.context.md](bogachev_gaussian_1_9_2_rotation_characterization.context.md)
 
 ## What the theorem says
 
@@ -49,3 +49,34 @@ wrong, even if it compiles.
 - "Gaussian" is Mathlib's `IsGaussian`: every continuous linear functional has a real Gaussian law, degenerate cases included. We reuse the class rather than re-defining Gaussianity.
 - "Centered" is written as the Bochner integral of the identity, `∫ x, x ∂μ = 0`, rather than `∀ L, μ[L] = 0`. The two agree here.
 - Lean gives a non-integrable Bochner integral the value $0$, so `∫ x, x ∂μ = 0` could in principle hold for free. It does not cause a problem here: in the forward direction the hypothesis `IsGaussian μ` supplies integrability (`IsGaussian.integrable_id`), and in the backward direction the centering is part of what is being proved alongside `IsGaussian`. Also `EuclideanSpace ℝ (Fin n)` is complete, so the Bochner integral is not disabled outright.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[bogachev_gaussian_1_9_2_rotation_characterization.md](bogachev_gaussian_1_9_2_rotation_characterization.md) and the background in [bogachev_gaussian_1_9_2_rotation_characterization.context.md](bogachev_gaussian_1_9_2_rotation_characterization.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 5 weakened to equality of marginals rather than equality of the joint law on the product: the resulting statement is not a characterization of Gaussian laws.
+- Requirement 2 with only the easy direction stated.
+- Requirement 8 strengthened by a second-moment hypothesis: that finiteness is part of what the theorem proves.
+
+### Domain-specific pitfalls for this problem
+
+- "Independent copies" is a statement about the *joint* law: the product measure `μ.prod μ` on the pair, not two separate marginal conditions.
+- The rotation is the specific map printed; swapping which coordinate carries the minus sign, or flipping a sign, gives a genuinely different map of the plane and a different theorem.
+- Centredness is the vanishing of the mean vector $\int x \, d\gamma$. This Bochner integral is not a junk value here because a Gaussian measure has all moments — but the same expression would be junk for an arbitrary probability measure.
+- `EuclideanSpace ℝ (Fin n)` carries the inner-product structure the statement's geometry needs; `Fin n → ℝ` with the sup norm is a different normed space, although for this statement the two give the same content.

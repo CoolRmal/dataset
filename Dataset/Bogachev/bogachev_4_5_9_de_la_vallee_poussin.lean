@@ -39,15 +39,14 @@ function `G` on `[0,∞)` such that `G(t)/t → ∞` and
 theorem bogachev_4_5_9_de_la_vallee_poussin
     {Ω ι : Type*} [MeasurableSpace Ω] {μ : Measure Ω} [IsFiniteMeasure μ]
     {F : ι → Ω → ℝ} (hF : ∀ i : ι, Integrable (F i) μ) :
-    let superlinear := fun G : ℝ → ℝ ↦
-      (∀ t : ℝ, 0 ≤ t → 0 ≤ G t) ∧ MonotoneOn G (Ici (0 : ℝ)) ∧
-        Tendsto (fun t : ℝ ↦ G t / t) atTop atTop
     (UniformIntegrable F 1 μ ↔
-      ∃ G : ℝ → ℝ, superlinear G ∧
-        ∃ C : ℝ≥0, ∀ i : ι, ∫⁻ x, ENNReal.ofReal (G |F i x|) ∂μ ≤ C) ∧
+      ∃ G : ℝ → ℝ, (∀ t ≥ 0, 0 ≤ G t) ∧ MonotoneOn G (Ici 0) ∧
+        Tendsto (fun t ↦ G t / t) atTop atTop ∧
+        ⨆ i : ι, ∫⁻ x, ENNReal.ofReal (G |F i x|) ∂μ < ∞) ∧
       (UniformIntegrable F 1 μ →
-        ∃ G : ℝ → ℝ, superlinear G ∧ ConvexOn ℝ (Ici (0 : ℝ)) G ∧
-          ∃ C : ℝ≥0, ∀ i : ι, ∫⁻ x, ENNReal.ofReal (G |F i x|) ∂μ ≤ C) := by
+        ∃ G : ℝ → ℝ, (∀ t ≥ 0, 0 ≤ G t) ∧ MonotoneOn G (Ici 0) ∧
+        Tendsto (fun t ↦ G t / t) atTop atTop ∧ ConvexOn ℝ (Ici 0) G ∧
+          ⨆ i : ι, ∫⁻ x, ENNReal.ofReal (G |F i x|) ∂μ < ∞) := by
   sorry
 
 end Bogachev

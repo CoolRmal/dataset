@@ -4,6 +4,7 @@
 - **Domain:** Probability
 - **Lean declaration:** `Dataset.KallenbergProbability.kallenberg_8_5_conditional_distributions` ([kallenberg_8_5_conditional_distributions.lean](kallenberg_8_5_conditional_distributions.lean))
 - **Criteria:** [kallenberg_8_5_conditional_distributions.criteria.md](kallenberg_8_5_conditional_distributions.criteria.md)
+- **Context:** [kallenberg_8_5_conditional_distributions.context.md](kallenberg_8_5_conditional_distributions.context.md)
 
 ## Statement
 

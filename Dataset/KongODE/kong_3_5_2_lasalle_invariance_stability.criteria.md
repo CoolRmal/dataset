@@ -1,6 +1,6 @@
 # Criteria: kong_3_5_2_lasalle_invariance_stability
 
-**Statement:** [kong_3_5_2_lasalle_invariance_stability.md](kong_3_5_2_lasalle_invariance_stability.md) · **Lean:** [kong_3_5_2_lasalle_invariance_stability.lean](kong_3_5_2_lasalle_invariance_stability.lean)
+**Statement:** [kong_3_5_2_lasalle_invariance_stability.md](kong_3_5_2_lasalle_invariance_stability.md) · **Lean:** [kong_3_5_2_lasalle_invariance_stability.lean](kong_3_5_2_lasalle_invariance_stability.lean) · **Context:** [kong_3_5_2_lasalle_invariance_stability.context.md](kong_3_5_2_lasalle_invariance_stability.context.md)
 
 ## What the theorem says
 
@@ -51,3 +51,35 @@ wrong, even if it compiles.
 - The invariance hypothesis quantifies only over trajectories defined on all of $\mathbb{R}$, whereas Kong's orbits are those of maximal solutions. That makes our hypothesis weaker, hence the theorem formally stronger — an honest divergence from the text.
 - In the same way, the conclusion speaks only about solutions defined on all of $\mathbb{R}$, so it is weaker than Kong's, which also covers solutions that exist only forward in time. For the trajectories at issue here, which stay in a compact ball, the restriction is mild but it is real.
 - The autonomous field is fed to the time-dependent stability predicate as `fun _ x ↦ F x`. Quantifying the initial time over $[0,\infty)$ rather than a single instant is harmless because the system is invariant under time translation.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[kong_3_5_2_lasalle_invariance_stability.md](kong_3_5_2_lasalle_invariance_stability.md) and the background in [kong_3_5_2_lasalle_invariance_stability.context.md](kong_3_5_2_lasalle_invariance_stability.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 11 rows, so each row is worth 4.5 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 8 with the invariance hypothesis dropped: only stability follows, not asymptotic stability.
+- Requirement 6 with $\dot V$ required negative *definite*, which is a strictly stronger hypothesis and a weaker theorem.
+- Requirement 3 with the equilibrium condition $f(0)=0$ dropped, so $x \equiv 0$ need not be a solution.
+
+### Domain-specific pitfalls for this problem
+
+- The orbital derivative is $\nabla V \cdot f$, a function of $x$ alone.
+- Positive definiteness of $V$ is strict off the origin; negative semi-definiteness of $\dot V$ is not strict.
+- "Nontrivial orbit" excludes the constant solution at the origin; the hypothesis is that no other whole orbit stays in $D_0$.
+- The derivative of $V$ is taken within the closed ball, matching $V \in C^1(D)$.
+- The conclusion is a conjunction of the two stability properties, with radii independent of the initial time.

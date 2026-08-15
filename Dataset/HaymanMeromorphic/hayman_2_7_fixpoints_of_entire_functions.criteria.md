@@ -1,6 +1,6 @@
 # Criteria: hayman_2_7_fixpoints_of_entire_functions
 
-**Statement:** [hayman_2_7_fixpoints_of_entire_functions.md](hayman_2_7_fixpoints_of_entire_functions.md) · **Lean:** [hayman_2_7_fixpoints_of_entire_functions.lean](hayman_2_7_fixpoints_of_entire_functions.lean)
+**Statement:** [hayman_2_7_fixpoints_of_entire_functions.md](hayman_2_7_fixpoints_of_entire_functions.md) · **Lean:** [hayman_2_7_fixpoints_of_entire_functions.lean](hayman_2_7_fixpoints_of_entire_functions.lean) · **Context:** [hayman_2_7_fixpoints_of_entire_functions.context.md](hayman_2_7_fixpoints_of_entire_functions.context.md)
 
 ## What the theorem says
 
@@ -52,3 +52,35 @@ wrong, even if it compiles.
 - `Set.Subsingleton` is the right rendering of "except for at most one value of $n$": it allows zero
   or one exception, never two.
 - No integrals, suprema or coercions appear here, so there is no default-value hazard.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[hayman_2_7_fixpoints_of_entire_functions.md](hayman_2_7_fixpoints_of_entire_functions.md) and the background in [hayman_2_7_fixpoints_of_entire_functions.context.md](hayman_2_7_fixpoints_of_entire_functions.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 6 with the exactness clause dropped: every fix-point of order $1$ is then a fix-point of every order and the statement collapses.
+- Requirement 2 dropped: a polynomial is a counterexample.
+- Requirement 9 with the exceptional set of orders bounded by something other than one element.
+
+### Domain-specific pitfalls for this problem
+
+- Exact order $n$ means $f_n(z) = z$ **and** $f_m(z) \ne z$ for all $1 \le m < n$.
+- The iterates are defined by $f_1 = f$ and $f_{\nu+1} = f \circ f_\nu$; supplying them as data with those two equations as hypotheses is a faithful encoding, but both equations are needed.
+- Only orders $n \ge 1$ are in play; $n = 0$ has no meaning here and must be excluded.
+- "Infinitely many" is infiniteness of the solution set, not merely non-emptiness.
+- "Transcendental integral function" is entire and not a polynomial.

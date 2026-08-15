@@ -4,6 +4,7 @@
 - **Domain:** PDE
 - **Lean declaration:** `Dataset.KrylovSobolev.krylov_sobolev_12_10_2_bessel_potential_holder_embedding` ([krylov_sobolev_12_10_2_bessel_potential_holder_embedding.lean](krylov_sobolev_12_10_2_bessel_potential_holder_embedding.lean))
 - **Criteria:** [krylov_sobolev_12_10_2_bessel_potential_holder_embedding.criteria.md](krylov_sobolev_12_10_2_bessel_potential_holder_embedding.criteria.md)
+- **Context:** [krylov_sobolev_12_10_2_bessel_potential_holder_embedding.context.md](krylov_sobolev_12_10_2_bessel_potential_holder_embedding.context.md)
 
 ## Statement
 

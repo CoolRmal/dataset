@@ -27,7 +27,8 @@ universe u v
 /-- Grafakos 1.3.4, the Riesz-Thorin interpolation theorem. -/
 theorem grafakos_1_3_4_riesz_thorin_interpolation
     {X : Type u} {Y : Type v} [MeasurableSpace X] [MeasurableSpace Y]
-    (μ : Measure X) (ν : Measure Y) (T : (X → ℂ) →ₗ[ℂ] (Y → ℂ))
+    (μ : Measure X) (ν : Measure Y) [SigmaFinite μ] [SigmaFinite ν]
+    (T : (X → ℂ) →ₗ[ℂ] (Y → ℂ))
     {p₀ p₁ q₀ q₁ p q : ℝ≥0∞} {θ : ℝ} {M₀ M₁ : ℝ≥0∞}
     (hθ : 0 < θ ∧ θ < 1)
     (hexponents : 1 ≤ p₀ ∧ 1 ≤ p₁ ∧ 1 ≤ q₀ ∧ 1 ≤ q₁)

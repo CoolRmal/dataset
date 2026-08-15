@@ -4,6 +4,7 @@
 - **Domain:** PDE
 - **Lean declaration:** `Dataset.KrylovHolder.krylov_3_7_2_constant_coefficient_holder_solvability` ([krylov_3_7_2_constant_coefficient_holder_solvability.lean](krylov_3_7_2_constant_coefficient_holder_solvability.lean))
 - **Criteria:** [krylov_3_7_2_constant_coefficient_holder_solvability.criteria.md](krylov_3_7_2_constant_coefficient_holder_solvability.criteria.md)
+- **Context:** [krylov_3_7_2_constant_coefficient_holder_solvability.context.md](krylov_3_7_2_constant_coefficient_holder_solvability.context.md)
 
 ## Statement
 

@@ -4,6 +4,7 @@
 - **Domain:** Topology
 - **Lean declaration:** `Dataset.EngelkingGeneralTopology.engelking_3_11_16_hewitt_realcompactification` ([engelking_3_11_16_hewitt_realcompactification.lean](engelking_3_11_16_hewitt_realcompactification.lean))
 - **Criteria:** [engelking_3_11_16_hewitt_realcompactification.criteria.md](engelking_3_11_16_hewitt_realcompactification.criteria.md)
+- **Context:** [engelking_3_11_16_hewitt_realcompactification.context.md](engelking_3_11_16_hewitt_realcompactification.context.md)
 
 ## Statement
 

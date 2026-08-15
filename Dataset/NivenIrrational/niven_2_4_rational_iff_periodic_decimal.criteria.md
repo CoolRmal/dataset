@@ -1,6 +1,6 @@
 # Criteria: niven_2_4_rational_iff_periodic_decimal
 
-**Statement:** [niven_2_4_rational_iff_periodic_decimal.md](niven_2_4_rational_iff_periodic_decimal.md) · **Lean:** [niven_2_4_rational_iff_periodic_decimal.lean](niven_2_4_rational_iff_periodic_decimal.lean)
+**Statement:** [niven_2_4_rational_iff_periodic_decimal.md](niven_2_4_rational_iff_periodic_decimal.md) · **Lean:** [niven_2_4_rational_iff_periodic_decimal.lean](niven_2_4_rational_iff_periodic_decimal.lean) · **Context:** [niven_2_4_rational_iff_periodic_decimal.context.md](niven_2_4_rational_iff_periodic_decimal.context.md)
 
 ## What the theorem says
 
@@ -50,3 +50,34 @@ wrong, even if it compiles.
   condition, but the positive form matches the book's phrasing.
 - The `.md` file records in its Notation block that a terminating expansion is the one repeating
   $0$, so the reader knows why the right side is a single condition.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[niven_2_4_rational_iff_periodic_decimal.md](niven_2_4_rational_iff_periodic_decimal.md) and the background in [niven_2_4_rational_iff_periodic_decimal.context.md](niven_2_4_rational_iff_periodic_decimal.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 5 with the period allowed to be $0$: every sequence is then "periodic" and the statement collapses.
+- Requirement 6 with periodicity required from the first digit.
+- Requirement 1 with only one direction.
+
+### Domain-specific pitfalls for this problem
+
+- Terminating expansions are not a separate case: they are eventually periodic with repeating digit $0$.
+- The digit function is $\lfloor 10^{k+1}x\rfloor \bmod 10$; a different indexing shifts every digit.
+- "Rational" means equal to some element of $\mathbb{Q}$ after coercion, not "is a quotient of integers" in some ad-hoc sense.
+- The hypothesis $x \in [0,1)$ is what makes the digit formula the expansion.

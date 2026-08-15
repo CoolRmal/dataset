@@ -1,6 +1,6 @@
 # Criteria: conway_IX_2_2_bounded_normal_spectral_theorem
 
-**Statement:** [conway_IX_2_2_bounded_normal_spectral_theorem.md](conway_IX_2_2_bounded_normal_spectral_theorem.md) · **Lean:** [conway_IX_2_2_bounded_normal_spectral_theorem.lean](conway_IX_2_2_bounded_normal_spectral_theorem.lean)
+**Statement:** [conway_IX_2_2_bounded_normal_spectral_theorem.md](conway_IX_2_2_bounded_normal_spectral_theorem.md) · **Lean:** [conway_IX_2_2_bounded_normal_spectral_theorem.lean](conway_IX_2_2_bounded_normal_spectral_theorem.lean) · **Context:** [conway_IX_2_2_bounded_normal_spectral_theorem.context.md](conway_IX_2_2_bounded_normal_spectral_theorem.context.md)
 
 ## What the theorem says
 
@@ -62,3 +62,35 @@ wrong, even if it compiles.
 - The same missing-conjugation pattern appears harmlessly in `conway_XI_2_3` item (g) and in
   `conway_X_5_6`, because there the spectral measure sits on the reals where $\bar z = z$. It is
   only fatal when the spectrum is genuinely complex, as here.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[conway_IX_2_2_bounded_normal_spectral_theorem.md](conway_IX_2_2_bounded_normal_spectral_theorem.md) and the background in [conway_IX_2_2_bounded_normal_spectral_theorem.context.md](conway_IX_2_2_bounded_normal_spectral_theorem.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3: existence only, without uniqueness.
+- Requirement 8 with "open in $\mathbb{C}$" instead of "relatively open in $\sigma(N)$": a strictly weaker support condition.
+- Requirement 9 with only one of the two commutation identities, or with the equivalence turned into a single implication.
+
+### Domain-specific pitfalls for this problem
+
+- Countable additivity of a projection-valued measure is in the *strong* topology (pointwise on vectors), not in operator norm.
+- The projections must be orthogonal (self-adjoint idempotents), not merely idempotent.
+- $\int z \, dE(z)$ is a weak integral against the complex measures $\langle E(\cdot)x,y\rangle$; those measures must be pinned on *every* measurable set, not merely on a generating family.
+- Mathlib's inner product is conjugate-linear in the **first** argument, so transcribing $\langle E(\Delta)x,y\rangle$ or the integrand without accounting for the conjugation silently states the adjoint identity.
+- Uniqueness requires the behaviour on non-Borel sets to be fixed; otherwise the `∃!` is comparing objects that are not determined by the stated conditions.

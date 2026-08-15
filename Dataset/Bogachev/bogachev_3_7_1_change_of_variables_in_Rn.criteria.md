@@ -1,6 +1,6 @@
 # Criteria: bogachev_3_7_1_change_of_variables_in_Rn
 
-**Statement:** [bogachev_3_7_1_change_of_variables_in_Rn.md](bogachev_3_7_1_change_of_variables_in_Rn.md) · **Lean:** [bogachev_3_7_1_change_of_variables_in_Rn.lean](bogachev_3_7_1_change_of_variables_in_Rn.lean)
+**Statement:** [bogachev_3_7_1_change_of_variables_in_Rn.md](bogachev_3_7_1_change_of_variables_in_Rn.md) · **Lean:** [bogachev_3_7_1_change_of_variables_in_Rn.lean](bogachev_3_7_1_change_of_variables_in_Rn.lean) · **Context:** [bogachev_3_7_1_change_of_variables_in_Rn.context.md](bogachev_3_7_1_change_of_variables_in_Rn.context.md)
 
 ## What the theorem says
 
@@ -59,3 +59,33 @@ wrong, even if it compiles.
   term by term.
 - Both integrals are Bochner integrals `∫`. Under the hypotheses both integrands are genuinely
   integrable, so no value is silently defaulting to $0$.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[bogachev_3_7_1_change_of_variables_in_Rn.md](bogachev_3_7_1_change_of_variables_in_Rn.md) and the background in [bogachev_3_7_1_change_of_variables_in_Rn.context.md](bogachev_3_7_1_change_of_variables_in_Rn.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 (injectivity on $U$) or requirement 8 (the absolute value on the determinant): without either, the identity is false, with counterexamples in dimension one.
+- Requirements 1–2 (openness of $U$, $C^1$ regularity of $F$): these are the hypotheses carried in from the surrounding prose, and the statement is false without them.
+
+### Domain-specific pitfalls for this problem
+
+- "Measurable" here is Lebesgue, not Borel: `NullMeasurableSet A volume`, not `MeasurableSet A`. Using the Borel σ-algebra proves a strictly weaker theorem.
+- The derivative is taken *within* $U$. Since $U$ is open the within-derivative agrees with the total derivative on $U$, but off $U$ both are Lean's junk value $0$, so the integrand is meaningful only because the integral is restricted to $A \subseteq U$.
+- Both sides are Bochner integrals of signed functions, which is correct here because $g$ is assumed integrable; rewriting them as lower Lebesgue integrals `∫⁻` would silently restrict the theorem to nonnegative $g$.
+- $F(A)$ is a forward image, not a preimage. The right-hand integral is over the image; integrating over $U$, over $F(U)$ or over $F^{-1}(A)$ is a different identity.

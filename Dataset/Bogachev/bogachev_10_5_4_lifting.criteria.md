@@ -1,6 +1,6 @@
 # Criteria: bogachev_10_5_4_lifting
 
-**Statement:** [bogachev_10_5_4_lifting.md](bogachev_10_5_4_lifting.md) · **Lean:** [bogachev_10_5_4_lifting.lean](bogachev_10_5_4_lifting.lean)
+**Statement:** [bogachev_10_5_4_lifting.md](bogachev_10_5_4_lifting.md) · **Lean:** [bogachev_10_5_4_lifting.lean](bogachev_10_5_4_lifting.lean) · **Context:** [bogachev_10_5_4_lifting.context.md](bogachev_10_5_4_lifting.context.md)
 
 ## What the theorem says
 
@@ -57,3 +57,33 @@ wrong, even if it compiles.
   book's $\mathcal{L}^\infty_{\mathcal{A}}$, which is the space of bounded measurable functions.
 - The book's single linearity condition (iv) is split into `map_add` and `map_smul`. Together they
   give the printed statement.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[bogachev_10_5_4_lifting.md](bogachev_10_5_4_lifting.md) and the background in [bogachev_10_5_4_lifting.context.md](bogachev_10_5_4_lifting.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 with requirements 6–9: if the lifting acts on almost-everywhere classes, or if any of conditions (ii)–(v) is stated with `=ᵐ[μ]` rather than exact equality, the statement is trivially true and is not this theorem.
+- Requirement 2: dropping completeness of $\mu$ states an unproved (and, in the printed generality, different) result.
+
+### Domain-specific pitfalls for this problem
+
+- The confusable pair here is $\mathcal{L}^\infty$ (bounded measurable *functions*) versus $L^\infty$ (their a.e. classes). Mathlib's `Lp ℝ ∞ μ` is the quotient, so it is the wrong home for the domain and codomain of a lifting.
+- Boundedness must be part of the guard on every condition. Without it the statement asserts a lifting on all of $X \to \mathbb{R}$, which is a strictly stronger and different claim.
+- `IsProbabilityMeasure` versus `IsFiniteMeasure` versus `SFinite`: the printed hypothesis is a probability measure, and substituting a weaker one silently changes the theorem.
+- Completeness of a measure is `Measure.IsComplete`, a property of the measure together with its σ-algebra; it is not the same as `MeasureSpace` or as working with `NullMeasurableSet`.

@@ -1,6 +1,6 @@
 # Criteria: engelking_5_2_8_normal_product_interval
 
-**Statement:** [engelking_5_2_8_normal_product_interval.md](engelking_5_2_8_normal_product_interval.md) · **Lean:** [engelking_5_2_8_normal_product_interval.lean](engelking_5_2_8_normal_product_interval.lean)
+**Statement:** [engelking_5_2_8_normal_product_interval.md](engelking_5_2_8_normal_product_interval.md) · **Lean:** [engelking_5_2_8_normal_product_interval.lean](engelking_5_2_8_normal_product_interval.lean) · **Context:** [engelking_5_2_8_normal_product_interval.context.md](engelking_5_2_8_normal_product_interval.context.md)
 
 ## What the theorem says
 
@@ -54,3 +54,34 @@ wrong, even if it compiles.
   refinement index `κ` over the same `v`. Since only countable covers occur, an equivalent and
   cleaner formulation indexes them by `ℕ`, removing the universe parameter; candidates using
   `U : ℕ → Set X` should be accepted as faithful.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[engelking_5_2_8_normal_product_interval.md](engelking_5_2_8_normal_product_interval.md) and the background in [engelking_5_2_8_normal_product_interval.context.md](engelking_5_2_8_normal_product_interval.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 5 with the cover restriction to countable families dropped, which turns countable paracompactness into paracompactness.
+- Requirement 1 stated as a single implication.
+- Requirement 3 with Engelking's $T_1$ clause dropped from "normal".
+
+### Domain-specific pitfalls for this problem
+
+- Countable paracompactness restricts to *countable* open covers; without that it is paracompactness and the equivalence is false.
+- Engelking's "normal" is normal plus $T_1$, and his "countably paracompact" carries Hausdorff.
+- The second factor is the closed unit interval as a topological space, with the subspace topology from $\mathbb{R}$.
+- Both properties of $X$ belong inside the biconditional, not among the hypotheses.

@@ -1,6 +1,6 @@
 # Criteria: grafakos_5_3_1_calderon_zygmund_decomposition
 
-**Statement:** [grafakos_5_3_1_calderon_zygmund_decomposition.md](grafakos_5_3_1_calderon_zygmund_decomposition.md) · **Lean:** [grafakos_5_3_1_calderon_zygmund_decomposition.lean](grafakos_5_3_1_calderon_zygmund_decomposition.lean)
+**Statement:** [grafakos_5_3_1_calderon_zygmund_decomposition.md](grafakos_5_3_1_calderon_zygmund_decomposition.md) · **Lean:** [grafakos_5_3_1_calderon_zygmund_decomposition.lean](grafakos_5_3_1_calderon_zygmund_decomposition.lean) · **Context:** [grafakos_5_3_1_calderon_zygmund_decomposition.context.md](grafakos_5_3_1_calderon_zygmund_decomposition.context.md)
 
 ## What the theorem says
 
@@ -28,7 +28,7 @@ row is incomplete.
 | 7 | Each piece obeys $\|b_j\|_1 \le 2^{n+1}\alpha\lvert Q_j\rvert$. | ✅ `eLpNorm (bad j) 1 volume ≤ ENNReal.ofReal (2 ^ (n + 1) * α) * volume (Q j).carrier`. |
 | 8 | The cubes pack: $\sum_j \lvert Q_j\rvert \le \alpha^{-1}\|f\|_1$. | ✅ `∑' j : J, volume (Q j).carrier ≤ eLpNorm f 1 volume / ENNReal.ofReal α`. |
 | 9 | The family of cubes is countable but allowed to be finite or even empty. | ✅ The index is `J : Set ℕ` with `Q : J → DyadicCube n`, so `J` may be empty — which is what happens when $f = 0$ almost everywhere. |
-| 10 | The pieces are genuinely integrable, so that "$\int b_j = 0$" carries information. | ⚠️ The statement bounds `eLpNorm (bad j) 1 volume` but never asserts `MemLp (bad j) 1 volume`, and `eLpNorm` alone does not give measurability. Since everything sits inside an `∃`, the ground truth is still provable — the real Calderón–Zygmund pieces are integrable — but adding `MemLp (bad j) 1 volume` (and likewise for `g` and `b`) would make the produced decomposition meaningful rather than merely formal. |
+| 10 | The pieces are genuinely integrable, so that "$\int b_j = 0$" carries information. | ✅ `MemLp g 1 volume`, `MemLp b 1 volume` and `∀ j, MemLp (bad j) 1 volume` are all asserted, so every `eLpNorm` bound and every vanishing-integral clause is about an honest $L^1$ function. |
 
 ## Mistakes to check for
 
@@ -57,3 +57,35 @@ wrong, even if it compiles.
   correct for the standard construction; an almost-everywhere version would also be acceptable.
 - The index set was changed from `ℕ` to a subset `J : Set ℕ` to repair the degenerate case described
   in mistake 1.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[grafakos_5_3_1_calderon_zygmund_decomposition.md](grafakos_5_3_1_calderon_zygmund_decomposition.md) and the background in [grafakos_5_3_1_calderon_zygmund_decomposition.context.md](grafakos_5_3_1_calderon_zygmund_decomposition.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 9 with the cubes indexed by all of $\mathbb{N}$, forcing an infinite family: false when no cube is selected.
+- Requirement 3 or 7 with the explicit constants replaced by unspecified ones.
+- Requirement 6 asserted without integrability of the pieces, so that the vanishing-integral condition is about a default value.
+
+### Domain-specific pitfalls for this problem
+
+- Junk value — Bochner integral: `∫ x, bad j x = 0` is satisfied automatically by a non-integrable $b_j$, so the $L^1$ membership of each piece must be asserted.
+- Dyadic cubes are half-open; using closed cubes destroys the disjointness that the selection provides.
+- Pairwise disjointness of the selected cubes is a genuine condition, not automatic for dyadic families.
+- "$b = \sum_j b_j$" is convergence in $L^1$ in the text; unordered summation in the function space is legitimate here only because the supports are disjoint.
+- The index set must be allowed to be finite or empty.

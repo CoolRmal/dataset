@@ -1,6 +1,6 @@
 # Criteria: niven_5_5_constructible_degree_is_power_of_two
 
-**Statement:** [niven_5_5_constructible_degree_is_power_of_two.md](niven_5_5_constructible_degree_is_power_of_two.md) · **Lean:** [niven_5_5_constructible_degree_is_power_of_two.lean](niven_5_5_constructible_degree_is_power_of_two.lean)
+**Statement:** [niven_5_5_constructible_degree_is_power_of_two.md](niven_5_5_constructible_degree_is_power_of_two.md) · **Lean:** [niven_5_5_constructible_degree_is_power_of_two.lean](niven_5_5_constructible_degree_is_power_of_two.lean) · **Context:** [niven_5_5_constructible_degree_is_power_of_two.context.md](niven_5_5_constructible_degree_is_power_of_two.context.md)
 
 ## What the theorem says
 
@@ -55,3 +55,34 @@ wrong, even if it compiles.
   by accident.
 - The theorem is stated in one direction only, matching the book. The converse would need the tower
   condition and is not asserted.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[niven_5_5_constructible_degree_is_power_of_two.md](niven_5_5_constructible_degree_is_power_of_two.md) and the background in [niven_5_5_constructible_degree_is_power_of_two.context.md](niven_5_5_constructible_degree_is_power_of_two.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 4 with square-root closure allowed for negative arguments.
+- Requirement 5 or 6 with only one of the two conclusions.
+- Requirement 7 with the exponent $k$ quantified before $x$.
+
+### Domain-specific pitfalls for this problem
+
+- Square-root closure is restricted to non-negative already-constructed quantities.
+- The degree is the degree of the minimal polynomial over $\mathbb{Q}$, i.e. the dimension of $\mathbb{Q}(x)$ over $\mathbb{Q}$.
+- Degree $1$ (the rationals) is included, so the exponent may be $0$.
+- Algebraicity is part of the conclusion, not an assumption.

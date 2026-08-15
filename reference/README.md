@@ -1,6 +1,6 @@
 # Reference PDFs
 
-This directory holds the source textbooks behind the problems in `Dataset/`, one PDF per `Dataset/<Book>/` directory. Several of them are scans: four have no text layer at all, and five more carry only a noisy OCR layer, so grepping for a theorem is unreliable and pages usually have to be looked at. The table below gives the offset between the printed (book) page number and the PDF page number, so a citation like "Theorem 5.1, p. 281" can be turned into a PDF page directly instead of hunted for. For a scanned book, render the page you want with
+This directory holds the source textbooks behind the problems in `Dataset/`, one PDF per `Dataset/<Book>/` directory, and nothing else: no generated reports, and no book that does not back a `Dataset/` directory. Several of them are scans: four have no text layer at all, and five more carry only a noisy OCR layer, so grepping for a theorem is unreliable and pages usually have to be looked at. The table below gives the offset between the printed (book) page number and the PDF page number, so a citation like "Theorem 5.1, p. 281" can be turned into a PDF page directly instead of hunted for. For a scanned book, render the page you want with
 
 ```
 pdftoppm -r 130 -gray -png -f <pdfpage> -l <pdfpage> <file> <outprefix>
@@ -23,8 +23,6 @@ and open the resulting `<outprefix>-<pdfpage>.png`.
 | `LeeSmoothManifolds.pdf` | Lee, *Introduction to Smooth Manifolds* | `Dataset/LeeSmoothManifolds/` | OCR | **+16** [^lee] |
 | `NivenIrrational.pdf` | Niven, *Numbers: Rational and Irrational* | `Dataset/NivenIrrational/` | OCR | **+9** |
 | `NivenZuckermanNumberTheory.pdf` | Niven and Zuckerman, *An Introduction to the Theory of Numbers* | `Dataset/NivenZuckermanNumberTheory/` | no | **+11** [^nz] |
-| `unused-Cazenave-SemilinearSchrodinger.pdf` | Cazenave, *Semilinear Schrödinger Equations* | — (dropped) | OCR | **+9** [^caz] |
-| `unused-Rudin-FourierAnalysisOnGroups.pdf` | Rudin, *Fourier Analysis on Groups* | — (dropped) | OCR | **+6** [^rud] |
 
 [^bog]: Two volumes in one file, each numbered from 1. Vol. 1: +16 through printed p. 441 (PDF 456), then +15 for the references/index. Vol. 2 begins at PDF p. 527 = printed p. 1 and is a constant +526 to the end.
 [^bg]: Printed p. 347 is missing from the scan, so PDF 360–421 run at +12 (printed pp. 348–409); a duplicated scan of p. 409 at PDF 421/422 restores +13 from PDF 423 on.
@@ -32,8 +30,6 @@ and open the resulting `<outprefix>-<pdfpage>.png`.
 [^kong]: +13 for ch. 1 (pp. 1–29), +12 for pp. 31–203, +11 for pp. 204–261, then +10/+9 for the bibliography and index.
 [^lee]: Constant +16 for the whole body and references; +15 in the index (from printed p. 602).
 [^nz]: +12 for printed pp. 1–118 (PDF 13–130); printed p. 119 is missing from the scan, so +11 from printed p. 120 (PDF 131) to the end.
-[^caz]: Drifts at chapter openers: +10 to p. 29, +9 to p. 147, +8 to p. 162, +7 to p. 214, +6 to p. 282, +5 thereafter.
-[^rud]: Drifts at chapter openers: +8 to p. 58, +7 to p. 76, +6 to p. 156, +5 to p. 192, then +4/+3/+2/+1/0 through the back matter.
 
 ## Books in `Dataset/` with no source PDF here
 

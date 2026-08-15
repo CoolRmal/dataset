@@ -4,6 +4,7 @@
 - **Domain:** Measure theory
 - **Lean declaration:** `Dataset.BogachevGaussian.bogachev_gaussian_4_6_1_correlation_convex_strip` ([bogachev_gaussian_4_6_1_correlation_convex_strip.lean](bogachev_gaussian_4_6_1_correlation_convex_strip.lean))
 - **Criteria:** [bogachev_gaussian_4_6_1_correlation_convex_strip.criteria.md](bogachev_gaussian_4_6_1_correlation_convex_strip.criteria.md)
+- **Context:** [bogachev_gaussian_4_6_1_correlation_convex_strip.context.md](bogachev_gaussian_4_6_1_correlation_convex_strip.context.md)
 
 ## Statement
 

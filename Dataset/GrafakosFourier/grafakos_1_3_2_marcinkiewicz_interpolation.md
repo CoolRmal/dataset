@@ -4,6 +4,7 @@
 - **Domain:** Fourier analysis
 - **Lean declaration:** `Dataset.GrafakosFourier.grafakos_1_3_2_marcinkiewicz_interpolation` ([grafakos_1_3_2_marcinkiewicz_interpolation.lean](grafakos_1_3_2_marcinkiewicz_interpolation.lean))
 - **Criteria:** [grafakos_1_3_2_marcinkiewicz_interpolation.criteria.md](grafakos_1_3_2_marcinkiewicz_interpolation.criteria.md)
+- **Context:** [grafakos_1_3_2_marcinkiewicz_interpolation.context.md](grafakos_1_3_2_marcinkiewicz_interpolation.context.md)
 
 ## Statement
 

@@ -1,6 +1,6 @@
 # Criteria: engelking_4_4_8_bing_metrization
 
-**Statement:** [engelking_4_4_8_bing_metrization.md](engelking_4_4_8_bing_metrization.md) · **Lean:** [engelking_4_4_8_bing_metrization.lean](engelking_4_4_8_bing_metrization.lean)
+**Statement:** [engelking_4_4_8_bing_metrization.md](engelking_4_4_8_bing_metrization.md) · **Lean:** [engelking_4_4_8_bing_metrization.lean](engelking_4_4_8_bing_metrization.lean) · **Context:** [engelking_4_4_8_bing_metrization.context.md](engelking_4_4_8_bing_metrization.context.md)
 
 ## What the theorem says
 
@@ -54,3 +54,34 @@ wrong, even if it compiles.
   implicitly claimed for every `v`. At universes below that of `X` the right-hand side can be
   unsatisfiable for size reasons. Indexing the layers by subtypes of `Set X` would be unambiguous and
   just as readable.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[engelking_4_4_8_bing_metrization.md](engelking_4_4_8_bing_metrization.md) and the background in [engelking_4_4_8_bing_metrization.context.md](engelking_4_4_8_bing_metrization.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 7 rows, so each row is worth 7.1 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 6 with each layer required to be a base instead of the union.
+- Requirement 7 with "discrete" weakened to "locally finite", which states Nagata–Smirnov rather than Bing.
+- Requirement 1 stated as a single implication.
+
+### Domain-specific pitfalls for this problem
+
+- A discrete family is strictly stronger than a locally finite one; substituting the latter gives a different theorem.
+- Engelking's "regular" includes $T_1$.
+- It is the union of the countably many layers that must be a base.
+- "Metrizable" refers to the given topology.

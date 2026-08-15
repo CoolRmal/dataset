@@ -4,6 +4,7 @@
 - **Domain:** Hardy spaces
 - **Lean declaration:** `Dataset.NikolskiOperators.nikolski_A_2_4_inner_outer_factorization` ([nikolski_A_2_4_inner_outer_factorization.lean](nikolski_A_2_4_inner_outer_factorization.lean))
 - **Criteria:** [nikolski_A_2_4_inner_outer_factorization.criteria.md](nikolski_A_2_4_inner_outer_factorization.criteria.md)
+- **Context:** [nikolski_A_2_4_inner_outer_factorization.context.md](nikolski_A_2_4_inner_outer_factorization.context.md)
 
 ## Statement
 

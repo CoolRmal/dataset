@@ -1,6 +1,6 @@
 # Criteria: kong_5_4_2_hopf_friedrich_dichotomy
 
-**Statement:** [kong_5_4_2_hopf_friedrich_dichotomy.md](kong_5_4_2_hopf_friedrich_dichotomy.md) · **Lean:** [kong_5_4_2_hopf_friedrich_dichotomy.lean](kong_5_4_2_hopf_friedrich_dichotomy.lean)
+**Statement:** [kong_5_4_2_hopf_friedrich_dichotomy.md](kong_5_4_2_hopf_friedrich_dichotomy.md) · **Lean:** [kong_5_4_2_hopf_friedrich_dichotomy.lean](kong_5_4_2_hopf_friedrich_dichotomy.lean) · **Context:** [kong_5_4_2_hopf_friedrich_dichotomy.context.md](kong_5_4_2_hopf_friedrich_dichotomy.context.md)
 
 ## What the theorem says
 
@@ -55,3 +55,35 @@ wrong, even if it compiles.
 - The limits are taken along the two-sided filter `𝓝[≠] 0`, but `orbit` and `period` are constrained only on the relevant side of $0$; their values on the other side are unconstrained, so the existential can choose whatever makes the limits work. `𝓝[>] 0` and `𝓝[<] 0` would be exact.
 - `period μ` is asserted to *be* a period, not the least one. Since any integer multiple of a period is a period, the limit $2\pi/\beta$ constrains a chosen period rather than the minimal one. Adding minimality — for instance `IsLeast {T \| 0 < T ∧ Function.Periodic (orbit μ) T} (period μ)` — would be faithful.
 - "Orbits in a neighborhood of $(0,0)$" is encoded by a bound on the initial point $\lVert x(0)\rVert < \varepsilon$ only, not by asking the whole orbit to stay in the neighborhood.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[kong_5_4_2_hopf_friedrich_dichotomy.md](kong_5_4_2_hopf_friedrich_dichotomy.md) and the background in [kong_5_4_2_hopf_friedrich_dichotomy.context.md](kong_5_4_2_hopf_friedrich_dichotomy.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 12 rows, so each row is worth 4.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 7 with the degeneracy condition $\alpha'(0)=0$ dropped: that is the ordinary Hopf setting and a different theorem.
+- Requirement 8 with the two alternatives merged, or with case (b) allowed on both sides of $\mu=0$ simultaneously.
+- Requirement 11 with uniqueness of the cycle dropped.
+
+### Domain-specific pitfalls for this problem
+
+- Analyticity of $F$ is what the theorem assumes; smoothness is strictly weaker and does not suffice for the centre alternative.
+- The trace/determinant formulation of the eigenvalue hypotheses is equivalent to the printed one and avoids naming $\alpha,\beta$ as functions.
+- Case (b) is one-sided: a cycle for small $\mu>0$ *only*, or for small $\mu<0$ *only*.
+- Uniqueness of the limit cycle is as a set of points, not as a parametrized solution.
+- The limiting period is $2\pi/\beta$ with $\beta>0$ the imaginary part at $\mu=0$.

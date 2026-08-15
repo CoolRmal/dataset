@@ -1,6 +1,6 @@
 # Criteria: folland_2_51_invariant_measure_on_quotient
 
-**Statement:** [folland_2_51_invariant_measure_on_quotient.md](folland_2_51_invariant_measure_on_quotient.md) · **Lean:** [folland_2_51_invariant_measure_on_quotient.lean](folland_2_51_invariant_measure_on_quotient.lean)
+**Statement:** [folland_2_51_invariant_measure_on_quotient.md](folland_2_51_invariant_measure_on_quotient.md) · **Lean:** [folland_2_51_invariant_measure_on_quotient.lean](folland_2_51_invariant_measure_on_quotient.lean) · **Context:** [folland_2_51_invariant_measure_on_quotient.context.md](folland_2_51_invariant_measure_on_quotient.context.md)
 
 ## What the theorem says
 
@@ -66,3 +66,35 @@ wrong, even if it compiles.
   instance directly.
 - $\Delta$ is `Measure.modularCharacterFun`, which is `ℝ≥0`-valued and takes no measure argument;
   both sides of the criterion are coerced to `ℝ` so they can be compared as printed.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[folland_2_51_invariant_measure_on_quotient.md](folland_2_51_invariant_measure_on_quotient.md) and the background in [folland_2_51_invariant_measure_on_quotient.context.md](folland_2_51_invariant_measure_on_quotient.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 2 with $H$ not required closed: $G/H$ is then not Hausdorff and the statement is not Folland's.
+- Requirement 5 with the invariant measure allowed to be zero, which makes existence trivial.
+- Requirement 9 comparing $\Delta_G$ with $\Delta_G$, or $\Delta_H$ extended to $G$: the condition compares two genuinely different modular functions on $H$.
+
+### Domain-specific pitfalls for this problem
+
+- The coset space must carry the *quotient* topology. Introducing a topology on `G ⧸ H` as a free instance variable quantifies over arbitrary topologies and states something else.
+- $\Delta_G|_H$ and $\Delta_H$ are different functions; the equality is convention-independent as long as one convention is used throughout.
+- The zero measure is invariant, so nonvanishing has to be asserted.
+- Weil's formula is stated for continuous compactly supported $f$, and its inner integral is over $H$ against a Haar measure on $H$; the choice of coset representative is immaterial but must be handled explicitly.
+- "Unique up to a constant factor" is a further assertion of the theorem beyond existence.

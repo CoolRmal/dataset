@@ -4,6 +4,7 @@
 - **Domain:** Smooth manifolds
 - **Lean declaration:** `Dataset.LeeSmoothManifolds.lee_10_16_whitney_approximation_theorem` ([lee_10_16_whitney_approximation_theorem.lean](lee_10_16_whitney_approximation_theorem.lean))
 - **Criteria:** [lee_10_16_whitney_approximation_theorem.criteria.md](lee_10_16_whitney_approximation_theorem.criteria.md)
+- **Context:** [lee_10_16_whitney_approximation_theorem.context.md](lee_10_16_whitney_approximation_theorem.context.md)
 
 ## Statement
 

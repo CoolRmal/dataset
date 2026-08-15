@@ -4,6 +4,7 @@
 - **Domain:** Operator theory
 - **Lean declaration:** `Dataset.ConwayFunctionalAnalysis.conway_VII_7_1_riesz_compact_operator_spectrum` ([conway_VII_7_1_riesz_compact_operator_spectrum.lean](conway_VII_7_1_riesz_compact_operator_spectrum.lean))
 - **Criteria:** [conway_VII_7_1_riesz_compact_operator_spectrum.criteria.md](conway_VII_7_1_riesz_compact_operator_spectrum.criteria.md)
+- **Context:** [conway_VII_7_1_riesz_compact_operator_spectrum.context.md](conway_VII_7_1_riesz_compact_operator_spectrum.context.md)
 
 ## Statement
 

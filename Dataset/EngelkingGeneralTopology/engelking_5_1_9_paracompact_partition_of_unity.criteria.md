@@ -1,6 +1,6 @@
 # Criteria: engelking_5_1_9_paracompact_partition_of_unity
 
-**Statement:** [engelking_5_1_9_paracompact_partition_of_unity.md](engelking_5_1_9_paracompact_partition_of_unity.md) · **Lean:** [engelking_5_1_9_paracompact_partition_of_unity.lean](engelking_5_1_9_paracompact_partition_of_unity.lean)
+**Statement:** [engelking_5_1_9_paracompact_partition_of_unity.md](engelking_5_1_9_paracompact_partition_of_unity.md) · **Lean:** [engelking_5_1_9_paracompact_partition_of_unity.lean](engelking_5_1_9_paracompact_partition_of_unity.lean) · **Context:** [engelking_5_1_9_paracompact_partition_of_unity.context.md](engelking_5_1_9_paracompact_partition_of_unity.context.md)
 
 ## What the theorem says
 
@@ -65,3 +65,35 @@ wrong, even if it compiles.
   `ParacompactSpace X` quantifies only over index types in `X`'s own universe. Harmless — any cover
   can be re-indexed by its range inside `Set X` — but taking `ι : Type u` throughout would make the
   three items literally comparable.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[engelking_5_1_9_paracompact_partition_of_unity.md](engelking_5_1_9_paracompact_partition_of_unity.md) and the background in [engelking_5_1_9_paracompact_partition_of_unity.context.md](engelking_5_1_9_paracompact_partition_of_unity.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 6 with local finiteness left in item (iii), collapsing it into item (ii).
+- Requirement 8 with the sum asserted only for finitely many nonzero terms, or with no convergence assertion.
+- Requirement 2 with Engelking's Hausdorff clause dropped from paracompactness.
+
+### Domain-specific pitfalls for this problem
+
+- Item (iii) is item (ii) *minus* local finiteness, so Mathlib's bundled `PartitionOfUnity` (which builds local finiteness in) can express (ii) but not (iii).
+- The subordination condition is on the closed support (`tsupport`), not on the open set where the function is nonzero.
+- The sum is over an arbitrary index type and must be an unordered sum equal to $1$ at each point.
+- Engelking's "paracompact" carries Hausdorff; Mathlib's `ParacompactSpace` does not.
+- The functions are nonnegative and continuous; dropping nonnegativity makes the notion meaningless.

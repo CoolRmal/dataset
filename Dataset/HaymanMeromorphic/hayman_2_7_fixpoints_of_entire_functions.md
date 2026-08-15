@@ -4,6 +4,7 @@
 - **Domain:** Complex analysis
 - **Lean declaration:** `Dataset.HaymanMeromorphic.hayman_2_7_fixpoints_of_entire_functions` ([hayman_2_7_fixpoints_of_entire_functions.lean](hayman_2_7_fixpoints_of_entire_functions.lean))
 - **Criteria:** [hayman_2_7_fixpoints_of_entire_functions.criteria.md](hayman_2_7_fixpoints_of_entire_functions.criteria.md)
+- **Context:** [hayman_2_7_fixpoints_of_entire_functions.context.md](hayman_2_7_fixpoints_of_entire_functions.context.md)
 
 ## Statement
 

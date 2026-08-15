@@ -4,6 +4,7 @@
 - **Domain:** Smooth manifolds
 - **Lean declaration:** `Dataset.LeeSmoothManifolds.lee_8_10_regular_level_set_theorem` ([lee_8_10_regular_level_set_theorem.lean](lee_8_10_regular_level_set_theorem.lean))
 - **Criteria:** [lee_8_10_regular_level_set_theorem.criteria.md](lee_8_10_regular_level_set_theorem.criteria.md)
+- **Context:** [lee_8_10_regular_level_set_theorem.context.md](lee_8_10_regular_level_set_theorem.context.md)
 
 ## Statement
 

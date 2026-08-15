@@ -1,6 +1,6 @@
 # Criteria: lee_10_7_sards_theorem
 
-**Statement:** [lee_10_7_sards_theorem.md](lee_10_7_sards_theorem.md) · **Lean:** [lee_10_7_sards_theorem.lean](lee_10_7_sards_theorem.lean)
+**Statement:** [lee_10_7_sards_theorem.md](lee_10_7_sards_theorem.md) · **Lean:** [lee_10_7_sards_theorem.lean](lee_10_7_sards_theorem.lean) · **Context:** [lee_10_7_sards_theorem.context.md](lee_10_7_sards_theorem.context.md)
 
 ## What the theorem says
 
@@ -60,3 +60,35 @@ wrong, even if it compiles.
 - `[SecondCountableTopology N]` is also assumed. It is not needed for the truth of the statement,
   but it is part of Lee's definition of a smooth manifold, so keeping it is faithful.
 - This file does not import `Defs.lean`; it uses only Mathlib notions.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[lee_10_7_sards_theorem.md](lee_10_7_sards_theorem.md) and the background in [lee_10_7_sards_theorem.context.md](lee_10_7_sards_theorem.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 5 with the conclusion about the critical *points* rather than the critical *values*.
+- Requirement 2 with second countability of $M$ dropped: the statement is false.
+- Requirement 6 with nullity defined by an arbitrary chart rather than one in the smooth structure.
+
+### Domain-specific pitfalls for this problem
+
+- A critical point is one where the differential fails to be *surjective*; injectivity is the wrong condition.
+- "Measure zero in $N$" is a chartwise condition, quantified over the charts of the smooth structure.
+- Only $S \cap \operatorname{dom}\psi$ can be pushed through $\psi$; forgetting the intersection makes the statement ill-formed.
+- No measurability of the image is assumed, and none is needed for an outer measure.
+- The smoothness hypothesis is what makes the differential the genuine one.

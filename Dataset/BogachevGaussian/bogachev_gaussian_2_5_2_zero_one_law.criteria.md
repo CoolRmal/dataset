@@ -1,6 +1,6 @@
 # Criteria: bogachev_gaussian_2_5_2_zero_one_law
 
-**Statement:** [bogachev_gaussian_2_5_2_zero_one_law.md](bogachev_gaussian_2_5_2_zero_one_law.md) · **Lean:** [bogachev_gaussian_2_5_2_zero_one_law.lean](bogachev_gaussian_2_5_2_zero_one_law.lean)
+**Statement:** [bogachev_gaussian_2_5_2_zero_one_law.md](bogachev_gaussian_2_5_2_zero_one_law.md) · **Lean:** [bogachev_gaussian_2_5_2_zero_one_law.lean](bogachev_gaussian_2_5_2_zero_one_law.lean) · **Context:** [bogachev_gaussian_2_5_2_zero_one_law.context.md](bogachev_gaussian_2_5_2_zero_one_law.context.md)
 
 ## What the theorem says
 
@@ -47,3 +47,35 @@ wrong, even if it compiles.
 - Bogachev's hypothesis is $R_\gamma(X^*) \subset X$, under which $H(\gamma) = R_\gamma(X^*)$, so his shifts are exactly the Cameron–Martin shifts. Our statement uses `cameronMartinSpace γ` directly and works on a normed space, where that inclusion is automatic. This is recorded in the notation block of the `.md`.
 - `cameronMartinSpace γ = {h \| cameronMartinNorm γ h ≠ ∞}`, and `cameronMartinNorm` is valued in `ℝ≥0∞`. So no vector sneaks into the space through a junk-value supremum of `0`; see the Cameron–Martin dichotomy rubric for why that matters.
 - Bogachev states the theorem for sets and functions measurable with respect to the completed $\gamma$-measurable $\sigma$-algebra. We use plain `MeasurableSet` and `Measurable`, which is a mild restriction — the completed version follows by adjusting on a null set.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[bogachev_gaussian_2_5_2_zero_one_law.md](bogachev_gaussian_2_5_2_zero_one_law.md) and the background in [bogachev_gaussian_2_5_2_zero_one_law.context.md](bogachev_gaussian_2_5_2_zero_one_law.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 4 with the shifts quantified over all of $X$ (hypothesis far too strong, theorem near-vacuous) or over a single fixed $h$ (hypothesis far too weak, statement false).
+- Requirement 8 stated as `∀ᵐ x, ∃ c, f x = c`: trivially true, since $c$ may be taken to be $f(x)$.
+- Requirement 7 strengthened to everywhere-invariance of $f$.
+
+### Domain-specific pitfalls for this problem
+
+- Quantifier order in the function conclusion: the constant is chosen *before* the almost-everywhere quantifier.
+- "$f$ equals a constant a.e." is not "$f$ is constant": the latter is false, as $f$ may be modified on a $\gamma$-null set.
+- The translate $A + h$ is the image $\{x + h : x \in A\}$; the preimage $\{x : x + h \in A\}$ is $A - h$. Here the two give equivalent hypotheses because the Cameron–Martin space is a subspace, but the distinction is real.
+- $\mathcal{E}(X)_\gamma$ is a *completed* σ-algebra; using Borel measurability states a slightly weaker theorem, which is acceptable but should be recognised as a choice.
+- The set half and the function half are separate assertions; in a formal statement the second does not follow from the first without further work.

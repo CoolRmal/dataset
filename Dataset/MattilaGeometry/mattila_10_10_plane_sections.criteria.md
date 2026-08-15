@@ -1,6 +1,6 @@
 # Criteria: mattila_10_10_plane_sections
 
-**Statement:** [mattila_10_10_plane_sections.md](mattila_10_10_plane_sections.md) · **Lean:** [mattila_10_10_plane_sections.lean](mattila_10_10_plane_sections.lean)
+**Statement:** [mattila_10_10_plane_sections.md](mattila_10_10_plane_sections.md) · **Lean:** [mattila_10_10_plane_sections.lean](mattila_10_10_plane_sections.lean) · **Context:** [mattila_10_10_plane_sections.context.md](mattila_10_10_plane_sections.context.md)
 
 ## What the theorem says
 
@@ -60,3 +60,35 @@ wrong, even if it compiles.
   constant relating it to Lebesgue measure on that $m$-dimensional subspace is irrelevant.
 - The slice family is introduced by a local `let slice := …` inside the statement, which elaborates
   to a binder in the theorem's type. Harmless, but a top-level abbreviation would be tidier.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[mattila_10_10_plane_sections.md](mattila_10_10_plane_sections.md) and the background in [mattila_10_10_plane_sections.context.md](mattila_10_10_plane_sections.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 6 or 7 with the quantifier over $W$ changed: clause (1) is for all $W$, clause (2) for almost all $W$.
+- Requirement 4 with either of $0 < \mathcal{H}^t(A)$ and $\mathcal{H}^t(A) < \infty$ dropped.
+- Requirement 2 with $\gamma_{n,n-m}$ not required invariant, or not a probability measure.
+
+### Domain-specific pitfalls for this problem
+
+- The slices are indexed by $a \in W^\perp$ and measured with $\mathcal{H}^m$ there; $W_a = W+a$ is an affine plane, not a linear one.
+- Clause (2) is about the Hausdorff **dimension** of the slice being exactly $t-m$, not about its measure.
+- Hausdorff dimension is extended-real-valued, so the comparison with $t-m$ must be made in a type that can express it.
+- The Grassmannian needs a fixed measurable structure and an invariant probability measure for the almost-all statements to have content.
+- Both clauses are asserted.

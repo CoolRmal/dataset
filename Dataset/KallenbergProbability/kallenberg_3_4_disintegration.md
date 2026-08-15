@@ -4,6 +4,7 @@
 - **Domain:** Probability
 - **Lean declaration:** `Dataset.KallenbergProbability.kallenberg_3_4_disintegration` ([kallenberg_3_4_disintegration.lean](kallenberg_3_4_disintegration.lean))
 - **Criteria:** [kallenberg_3_4_disintegration.criteria.md](kallenberg_3_4_disintegration.criteria.md)
+- **Context:** [kallenberg_3_4_disintegration.context.md](kallenberg_3_4_disintegration.context.md)
 
 ## Statement
 

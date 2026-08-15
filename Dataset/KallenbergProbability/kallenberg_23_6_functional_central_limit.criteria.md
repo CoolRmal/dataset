@@ -1,6 +1,6 @@
 # Criteria: kallenberg_23_6_functional_central_limit
 
-**Statement:** [kallenberg_23_6_functional_central_limit.md](kallenberg_23_6_functional_central_limit.md) · **Lean:** [kallenberg_23_6_functional_central_limit.lean](kallenberg_23_6_functional_central_limit.lean)
+**Statement:** [kallenberg_23_6_functional_central_limit.md](kallenberg_23_6_functional_central_limit.md) · **Lean:** [kallenberg_23_6_functional_central_limit.lean](kallenberg_23_6_functional_central_limit.lean) · **Context:** [kallenberg_23_6_functional_central_limit.context.md](kallenberg_23_6_functional_central_limit.context.md)
 
 ## What the theorem says
 
@@ -57,3 +57,35 @@ wrong, even if it compiles.
   "$B^1, \dots, B^d$ are independent" more directly.
 - `hξmeas : ∀ n, AEMeasurable (ξ n) μ` is largely redundant given `hsecondMoment` and
   `IdentDistrib`; it is harmless. `hXmeas` is genuinely needed, since path space is not discrete.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[kallenberg_23_6_functional_central_limit.md](kallenberg_23_6_functional_central_limit.md) and the background in [kallenberg_23_6_functional_central_limit.context.md](kallenberg_23_6_functional_central_limit.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 5 with the interpolation term dropped: the process is then not continuous and does not live in $C(\mathbb{R}_+,\mathbb{R}^d)$.
+- Requirement 1 with pairwise instead of mutual independence.
+- Requirement 4 with the covariance condition weakened, e.g. only variances specified.
+
+### Domain-specific pitfalls for this problem
+
+- The convergence is in distribution *on path space*, not finite-dimensional convergence; the difference is the entire content of the invariance principle.
+- Mutual independence of the whole family is `iIndepFun` on the sequence, not pairwise independence.
+- The covariance condition is the identity matrix: variance $1$ per coordinate **and** zero cross-covariances.
+- $[nt]$ is the floor of $nt$; the interpolation weight is $nt - [nt]$ and the interpolated summand is $\xi_{[nt]+1}$.
+- The limit must be a genuine $d$-dimensional Brownian motion, i.e. with *independent* Brownian coordinates.

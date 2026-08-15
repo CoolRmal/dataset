@@ -1,6 +1,6 @@
 # Criteria: mattila_6_2_hausdorff_density_estimates
 
-**Statement:** [mattila_6_2_hausdorff_density_estimates.md](mattila_6_2_hausdorff_density_estimates.md) · **Lean:** [mattila_6_2_hausdorff_density_estimates.lean](mattila_6_2_hausdorff_density_estimates.lean)
+**Statement:** [mattila_6_2_hausdorff_density_estimates.md](mattila_6_2_hausdorff_density_estimates.md) · **Lean:** [mattila_6_2_hausdorff_density_estimates.lean](mattila_6_2_hausdorff_density_estimates.lean) · **Context:** [mattila_6_2_hausdorff_density_estimates.context.md](mattila_6_2_hausdorff_density_estimates.context.md)
 
 ## What the theorem says
 
@@ -58,3 +58,35 @@ wrong, even if it compiles.
   $s = 0$ the bounds read $1 \le \Theta \le 1$ for counting measure), but it is not in the source.
 - ⚠️ Part (2) uses Borel `MeasurableSet A` rather than $\mathcal{H}^s$-measurability; see
   Requirement 7.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[mattila_6_2_hausdorff_density_estimates.md](mattila_6_2_hausdorff_density_estimates.md) and the background in [mattila_6_2_hausdorff_density_estimates.context.md](mattila_6_2_hausdorff_density_estimates.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 7 with measurability of $A$ made a standing hypothesis rather than a hypothesis of part (2).
+- Requirement 3 with a genuine limit or a lower density in place of the $\limsup$, or with $r^s$ in place of $(2r)^s$.
+- Requirement 8 with part (2) stated about points of $A$ rather than of its complement.
+
+### Domain-specific pitfalls for this problem
+
+- The normalization is by the diameter $(2r)^s$, which is where the constant $2^{-s}$ comes from.
+- Part (1) holds for an arbitrary set; only part (2) needs measurability.
+- "Almost all $x \in A$" restricts the Hausdorff measure to $A$; part (2)'s "almost all $x \notin A$" restricts it to the complement.
+- Both bounds of part (1) are asserted.
+- Densities live in $[0,\infty]$.

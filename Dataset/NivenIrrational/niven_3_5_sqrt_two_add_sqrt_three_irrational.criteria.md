@@ -1,6 +1,6 @@
 # Criteria: niven_3_5_sqrt_two_add_sqrt_three_irrational
 
-**Statement:** [niven_3_5_sqrt_two_add_sqrt_three_irrational.md](niven_3_5_sqrt_two_add_sqrt_three_irrational.md) · **Lean:** [niven_3_5_sqrt_two_add_sqrt_three_irrational.lean](niven_3_5_sqrt_two_add_sqrt_three_irrational.lean)
+**Statement:** [niven_3_5_sqrt_two_add_sqrt_three_irrational.md](niven_3_5_sqrt_two_add_sqrt_three_irrational.md) · **Lean:** [niven_3_5_sqrt_two_add_sqrt_three_irrational.lean](niven_3_5_sqrt_two_add_sqrt_three_irrational.lean) · **Context:** [niven_3_5_sqrt_two_add_sqrt_three_irrational.context.md](niven_3_5_sqrt_two_add_sqrt_three_irrational.context.md)
 
 ## What the theorem says
 
@@ -42,3 +42,32 @@ wrong, even if it compiles.
   positive, so no default value is in play.
 - The statement is deliberately bare: no minimal polynomial, no degree, no mention of $\sqrt6$. Those
   belong to the proof, not to what §3.5 asserts.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[niven_3_5_sqrt_two_add_sqrt_three_irrational.md](niven_3_5_sqrt_two_add_sqrt_three_irrational.md) and the background in [niven_3_5_sqrt_two_add_sqrt_three_irrational.context.md](niven_3_5_sqrt_two_add_sqrt_three_irrational.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 4 rows, so each row is worth 12.5 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 1 with the claim made about $\sqrt2$ and $\sqrt3$ separately.
+- Requirement 2 with "irrational" replaced by a weaker or different predicate.
+
+### Domain-specific pitfalls for this problem
+
+- Junk value — `Real.sqrt`: the square root of a negative number is $0$ in Lean; harmless here because $2$ and $3$ are positive, but a candidate that computes with a symbolic root must ensure it is the non-negative one.
+- Irrationality is non-membership in the image of $\mathbb{Q}$, not "the number is not a quotient of two integers I can name".
+- The theorem takes no hypotheses.

@@ -4,6 +4,7 @@
 - **Domain:** Measure theory
 - **Lean declaration:** `Dataset.BogachevGaussian.bogachev_gaussian_2_8_10_anderson_inequality` ([bogachev_gaussian_2_8_10_anderson_inequality.lean](bogachev_gaussian_2_8_10_anderson_inequality.lean))
 - **Criteria:** [bogachev_gaussian_2_8_10_anderson_inequality.criteria.md](bogachev_gaussian_2_8_10_anderson_inequality.criteria.md)
+- **Context:** [bogachev_gaussian_2_8_10_anderson_inequality.context.md](bogachev_gaussian_2_8_10_anderson_inequality.context.md)
 
 ## Statement
 

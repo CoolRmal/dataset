@@ -4,6 +4,7 @@
 - **Domain:** Harmonic analysis
 - **Lean declaration:** `Dataset.FollandHarmonic.folland_2_31_modular_inversion_formula` ([folland_2_31_modular_inversion_formula.lean](folland_2_31_modular_inversion_formula.lean))
 - **Criteria:** [folland_2_31_modular_inversion_formula.criteria.md](folland_2_31_modular_inversion_formula.criteria.md)
+- **Context:** [folland_2_31_modular_inversion_formula.context.md](folland_2_31_modular_inversion_formula.context.md)
 
 ## Statement
 

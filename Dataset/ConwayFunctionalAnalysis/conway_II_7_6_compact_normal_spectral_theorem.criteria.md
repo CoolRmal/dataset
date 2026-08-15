@@ -1,6 +1,6 @@
 # Criteria: conway_II_7_6_compact_normal_spectral_theorem
 
-**Statement:** [conway_II_7_6_compact_normal_spectral_theorem.md](conway_II_7_6_compact_normal_spectral_theorem.md) · **Lean:** [conway_II_7_6_compact_normal_spectral_theorem.lean](conway_II_7_6_compact_normal_spectral_theorem.lean)
+**Statement:** [conway_II_7_6_compact_normal_spectral_theorem.md](conway_II_7_6_compact_normal_spectral_theorem.md) · **Lean:** [conway_II_7_6_compact_normal_spectral_theorem.lean](conway_II_7_6_compact_normal_spectral_theorem.lean) · **Context:** [conway_II_7_6_compact_normal_spectral_theorem.context.md](conway_II_7_6_compact_normal_spectral_theorem.context.md)
 
 ## What the theorem says
 
@@ -55,3 +55,35 @@ wrong, even if it compiles.
   existence statement. A candidate that omits it should not be penalized.
 - Normality is written out as an equation on adjoints rather than as `IsStarNormal T`. The two are
   the same statement; the equation is just less idiomatic.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[conway_II_7_6_compact_normal_spectral_theorem.md](conway_II_7_6_compact_normal_spectral_theorem.md) and the background in [conway_II_7_6_compact_normal_spectral_theorem.context.md](conway_II_7_6_compact_normal_spectral_theorem.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 6 weakened to "idempotent": an oblique projection onto the same eigenspace does not satisfy the theorem.
+- Requirement 7 weakened to an inclusion rather than equality of the range with the eigenspace.
+- Requirement 10 with convergence in the strong or weak topology instead of the operator norm.
+
+### Domain-specific pitfalls for this problem
+
+- An orthogonal projection is idempotent *and* self-adjoint (`IsStarProjection`); `P ∘ P = P` alone is a strictly weaker condition.
+- Normality is $T^*T = TT^*$; substituting self-adjointness states a special case with real eigenvalues.
+- The listed eigenvalues must be nonzero and pairwise distinct, and each projection nonzero, or the enumeration can be padded with junk.
+- Convergence "in the metric of $\mathcal{B}(\mathcal{H})$" is operator-norm convergence; `HasSum` in the operator-norm topology is the right notion and is order-independent.
+- Countability of the index type is part of the conclusion, not an assumption on $\mathcal{H}$.

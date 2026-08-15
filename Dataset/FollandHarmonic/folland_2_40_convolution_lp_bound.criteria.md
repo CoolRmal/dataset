@@ -1,6 +1,6 @@
 # Criteria: folland_2_40_convolution_lp_bound
 
-**Statement:** [folland_2_40_convolution_lp_bound.md](folland_2_40_convolution_lp_bound.md) · **Lean:** [folland_2_40_convolution_lp_bound.lean](folland_2_40_convolution_lp_bound.lean)
+**Statement:** [folland_2_40_convolution_lp_bound.md](folland_2_40_convolution_lp_bound.md) · **Lean:** [folland_2_40_convolution_lp_bound.lean](folland_2_40_convolution_lp_bound.lean) · **Context:** [folland_2_40_convolution_lp_bound.context.md](folland_2_40_convolution_lp_bound.context.md)
 
 ## What the theorem says
 
@@ -60,3 +60,35 @@ wrong, even if it compiles.
   additive groups and does not cover a general multiplicative locally compact group.
 - The norms are `eLpNorm … μ`, valued in `ℝ≥0∞`, so the inequality never presupposes that either
   side is finite. `MemLp` is stated separately and carries the finiteness claim.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[folland_2_40_convolution_lp_bound.md](folland_2_40_convolution_lp_bound.md) and the background in [folland_2_40_convolution_lp_bound.context.md](folland_2_40_convolution_lp_bound.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 8 with part (b) asserted without the unimodularity hypothesis: false on a non-unimodular group.
+- Requirement 5 dropped, so that the conclusions are about a function whose defining integral has not been shown to converge.
+- Requirement 4 with $f*g$ and $g*f$ interchanged in any part.
+
+### Domain-specific pitfalls for this problem
+
+- Junk value — convolution: a convolution defined by a Bochner integral is `0` wherever the integral diverges. Part (a)'s a.e.-convergence claim is what makes the other clauses meaningful.
+- Which factor is on the left is part of every clause; convolution on a non-abelian group is not commutative.
+- Part (c) claims membership only, not the norm bound.
+- The exponent lives in `ℝ≥0∞` and $p = \infty$ is included, so the $L^p$ norms must be `eLpNorm`-style and not presuppose finiteness.
+- Unimodularity has to be stated as $\Delta \equiv 1$ (or by a Mathlib class expressing it), not as commutativity of $G$.

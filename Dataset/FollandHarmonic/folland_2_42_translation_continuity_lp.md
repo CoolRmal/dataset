@@ -4,6 +4,7 @@
 - **Domain:** Harmonic analysis
 - **Lean declaration:** `Dataset.FollandHarmonic.folland_2_42_translation_continuity_lp` ([folland_2_42_translation_continuity_lp.lean](folland_2_42_translation_continuity_lp.lean))
 - **Criteria:** [folland_2_42_translation_continuity_lp.criteria.md](folland_2_42_translation_continuity_lp.criteria.md)
+- **Context:** [folland_2_42_translation_continuity_lp.context.md](folland_2_42_translation_continuity_lp.context.md)
 
 ## Statement
 

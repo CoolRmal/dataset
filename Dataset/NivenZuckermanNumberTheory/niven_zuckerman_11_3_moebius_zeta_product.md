@@ -4,6 +4,7 @@
 - **Domain:** Number theory
 - **Lean declaration:** `Dataset.NivenZuckermanNumberTheory.niven_zuckerman_11_3_moebius_zeta_product` ([niven_zuckerman_11_3_moebius_zeta_product.lean](niven_zuckerman_11_3_moebius_zeta_product.lean))
 - **Criteria:** [niven_zuckerman_11_3_moebius_zeta_product.criteria.md](niven_zuckerman_11_3_moebius_zeta_product.criteria.md)
+- **Context:** [niven_zuckerman_11_3_moebius_zeta_product.context.md](niven_zuckerman_11_3_moebius_zeta_product.context.md)
 
 ## Statement
 

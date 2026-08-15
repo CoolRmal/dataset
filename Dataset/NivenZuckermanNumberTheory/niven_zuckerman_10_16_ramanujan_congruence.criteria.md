@@ -1,6 +1,6 @@
 # Criteria: niven_zuckerman_10_16_ramanujan_congruence
 
-**Statement:** [niven_zuckerman_10_16_ramanujan_congruence.md](niven_zuckerman_10_16_ramanujan_congruence.md) · **Lean:** [niven_zuckerman_10_16_ramanujan_congruence.lean](niven_zuckerman_10_16_ramanujan_congruence.lean)
+**Statement:** [niven_zuckerman_10_16_ramanujan_congruence.md](niven_zuckerman_10_16_ramanujan_congruence.md) · **Lean:** [niven_zuckerman_10_16_ramanujan_congruence.lean](niven_zuckerman_10_16_ramanujan_congruence.lean) · **Context:** [niven_zuckerman_10_16_ramanujan_congruence.context.md](niven_zuckerman_10_16_ramanujan_congruence.context.md)
 
 ## What the theorem says
 
@@ -46,3 +46,33 @@ wrong, even if it compiles.
   `5 ∣ partitionCount (5 * m + 4)`, and the same divisibility cast into `ℤ` should all be accepted.
 - The letter $p$ is overloaded in this chapter: a prime in Theorem 10.14, the partition function
   here. Only the partition function occurs in this statement.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[niven_zuckerman_10_16_ramanujan_congruence.md](niven_zuckerman_10_16_ramanujan_congruence.md) and the background in [niven_zuckerman_10_16_ramanujan_congruence.context.md](niven_zuckerman_10_16_ramanujan_congruence.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 4 rows, so each row is worth 12.5 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 1 with a partition-counting function that orders the parts (compositions) rather than partitions.
+- Requirement 2 with a progression other than $5m+4$.
+- Requirement 4 with $m = 0$ excluded.
+
+### Domain-specific pitfalls for this problem
+
+- Partitions are unordered; counting ordered sums gives compositions and a different function.
+- $p(0) = 1$ by convention, and the progression starts at $n = 4$.
+- The congruence holds for every $m$, with no positivity hypothesis.

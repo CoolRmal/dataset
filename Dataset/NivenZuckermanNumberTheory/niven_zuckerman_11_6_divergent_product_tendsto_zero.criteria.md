@@ -1,6 +1,6 @@
 # Criteria: niven_zuckerman_11_6_divergent_product_tendsto_zero
 
-**Statement:** [niven_zuckerman_11_6_divergent_product_tendsto_zero.md](niven_zuckerman_11_6_divergent_product_tendsto_zero.md) · **Lean:** [niven_zuckerman_11_6_divergent_product_tendsto_zero.lean](niven_zuckerman_11_6_divergent_product_tendsto_zero.lean)
+**Statement:** [niven_zuckerman_11_6_divergent_product_tendsto_zero.md](niven_zuckerman_11_6_divergent_product_tendsto_zero.md) · **Lean:** [niven_zuckerman_11_6_divergent_product_tendsto_zero.lean](niven_zuckerman_11_6_divergent_product_tendsto_zero.lean) · **Context:** [niven_zuckerman_11_6_divergent_product_tendsto_zero.context.md](niven_zuckerman_11_6_divergent_product_tendsto_zero.context.md)
 
 ## What the theorem says
 
@@ -52,3 +52,34 @@ wrong, even if it compiles.
 - The book's $\varepsilon$–$N$ phrasing and our `Tendsto … (𝓝 0)` say the same thing here, because
   the partial products are positive. A candidate writing the explicit $\varepsilon$–$N$ form is
   equally faithful.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[niven_zuckerman_11_6_divergent_product_tendsto_zero.md](niven_zuckerman_11_6_divergent_product_tendsto_zero.md) and the background in [niven_zuckerman_11_6_divergent_product_tendsto_zero.context.md](niven_zuckerman_11_6_divergent_product_tendsto_zero.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 6 rows, so each row is worth 8.3 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 with summability in place of divergence, which reverses the hypothesis.
+- Requirement 1 or 2 with either bound on $c_j$ dropped.
+- Requirement 4 with the product taken of $c_j$ rather than of $1-c_j$.
+
+### Domain-specific pitfalls for this problem
+
+- Divergence here means the partial sums tend to $+\infty$, which for a non-negative series is the negation of summability.
+- The factors are $1 - c_j$, and they lie in $(0,1)$ exactly because of the two hypotheses on $c_j$.
+- The conclusion is convergence of the partial products to $0$, equivalent to the printed $\varepsilon$-$N$ form.
+- The sequence is otherwise arbitrary.

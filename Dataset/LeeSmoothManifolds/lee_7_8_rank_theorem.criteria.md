@@ -1,6 +1,6 @@
 # Criteria: lee_7_8_rank_theorem
 
-**Statement:** [lee_7_8_rank_theorem.md](lee_7_8_rank_theorem.md) · **Lean:** [lee_7_8_rank_theorem.lean](lee_7_8_rank_theorem.lean)
+**Statement:** [lee_7_8_rank_theorem.md](lee_7_8_rank_theorem.md) · **Lean:** [lee_7_8_rank_theorem.lean](lee_7_8_rank_theorem.lean) · **Context:** [lee_7_8_rank_theorem.context.md](lee_7_8_rank_theorem.context.md)
 
 ## What the theorem says
 
@@ -28,7 +28,7 @@ row is incomplete.
 | 7 | $F(U_0) \subseteq V_0$, so that $\psi \circ F \circ \varphi^{-1}$ is defined where the normal form is claimed. | ✅ `MapsTo F U₀ V₀`. |
 | 8 | Smooth coordinate changes: a smooth diffeomorphism $\varphi$ defined on $U_0$ and a smooth diffeomorphism $\psi$ defined on $V_0$, each with a smooth inverse. | ✅ `φ : SmoothDiffeomorphismOn U₀ sourceTarget` and `ψ : SmoothDiffeomorphismOn V₀ targetTarget`, with the two image sets existentially quantified. |
 | 9 | The normal form: for every $x$ in the image $\varphi(U_0)$, coordinate $i$ of $\psi(F(\varphi^{-1}(x)))$ is $x^i$ when $i < k$ and $0$ otherwise, with $i$ ranging over all $n$ output coordinates. | ✅ `∀ x ∈ φ.toFun '' U₀, ψ.toFun (F (φ.invFun x)) = fun i ↦ if h : i.1 < k ∧ i.1 < m then x ⟨i.1, h.2⟩ else 0`. Checked coordinate by coordinate this is $(x^1,\dots,x^k,0,\dots,0)$. |
-| 10 | Lee's charts are **centred**: $\varphi(p) = 0$ and $\psi(F(p)) = 0$. | ⚠️ Missing. Neither `φ.toFun p = 0` nor `ψ.toFun (F p) = 0` appears, so our conclusion is weaker than the printed one. Adding `φ.toFun p = 0` alone would be enough, since the normal form then forces $\psi(F(p)) = 0$. |
+| 10 | Lee's charts are **centred**: $\varphi(p) = 0$ and $\psi(F(p)) = 0$. | ✅ `φ.toFun p = 0 ∧ ψ.toFun (F p) = 0`. |
 
 ## Mistakes to check for
 
@@ -59,3 +59,35 @@ wrong, even if it compiles.
   most $\min(m,n)$, and `hp : p ∈ U` makes the rank hypothesis non-empty. A candidate that omits
   `hk` has produced a slightly stronger, equally faithful statement and should not be penalised.
 - The centring conditions $\varphi(p) = 0$, $\psi(F(p)) = 0$ are absent; see requirement row 10.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[lee_7_8_rank_theorem.md](lee_7_8_rank_theorem.md) and the background in [lee_7_8_rank_theorem.context.md](lee_7_8_rank_theorem.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 with the rank condition imposed only at $p$.
+- Requirement 10 with the charts not centred.
+- Requirement 8 with coordinate changes that are smooth bijections rather than diffeomorphisms.
+
+### Domain-specific pitfalls for this problem
+
+- Constant rank holds throughout $U$.
+- The coordinate changes must be diffeomorphisms — smooth with smooth inverse.
+- Junk value — `fderiv`: the smoothness hypothesis is what makes the rank condition meaningful.
+- $F(U_0)\subseteq V_0$ is part of the conclusion, so that the composite normal form is defined.
+- The charts are centred at $p$ and $F(p)$.

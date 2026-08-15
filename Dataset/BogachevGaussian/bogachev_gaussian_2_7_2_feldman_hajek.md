@@ -4,6 +4,7 @@
 - **Domain:** Measure theory
 - **Lean declaration:** `Dataset.BogachevGaussian.bogachev_gaussian_2_7_2_feldman_hajek` ([bogachev_gaussian_2_7_2_feldman_hajek.lean](bogachev_gaussian_2_7_2_feldman_hajek.lean))
 - **Criteria:** [bogachev_gaussian_2_7_2_feldman_hajek.criteria.md](bogachev_gaussian_2_7_2_feldman_hajek.criteria.md)
+- **Context:** [bogachev_gaussian_2_7_2_feldman_hajek.context.md](bogachev_gaussian_2_7_2_feldman_hajek.context.md)
 
 ## Statement
 

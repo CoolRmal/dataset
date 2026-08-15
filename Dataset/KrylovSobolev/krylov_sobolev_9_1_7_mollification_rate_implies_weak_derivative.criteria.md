@@ -1,6 +1,6 @@
 # Criteria: krylov_sobolev_9_1_7_mollification_rate_implies_weak_derivative
 
-**Statement:** [krylov_sobolev_9_1_7_mollification_rate_implies_weak_derivative.md](krylov_sobolev_9_1_7_mollification_rate_implies_weak_derivative.md) · **Lean:** [krylov_sobolev_9_1_7_mollification_rate_implies_weak_derivative.lean](krylov_sobolev_9_1_7_mollification_rate_implies_weak_derivative.lean)
+**Statement:** [krylov_sobolev_9_1_7_mollification_rate_implies_weak_derivative.md](krylov_sobolev_9_1_7_mollification_rate_implies_weak_derivative.md) · **Lean:** [krylov_sobolev_9_1_7_mollification_rate_implies_weak_derivative.lean](krylov_sobolev_9_1_7_mollification_rate_implies_weak_derivative.lean) · **Context:** [krylov_sobolev_9_1_7_mollification_rate_implies_weak_derivative.context.md](krylov_sobolev_9_1_7_mollification_rate_implies_weak_derivative.context.md)
 
 ## What the theorem says
 
@@ -42,3 +42,35 @@ wrong, even if it compiles.
 - `HasWeakGradient u v` is the shared definition $\int u\,D_j\varphi = -\int v_j\varphi$ for all test functions $\varphi$; Mathlib has no weak-derivative predicate.
 - The mollification is written in Krylov's third form, $\int u(x - \varepsilon y)\zeta(y)\,dy$, which needs no new definition.
 - `M` is a non-negative real (`ℝ≥0`), matching the fact that the hypothesis bounds a square.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[krylov_sobolev_9_1_7_mollification_rate_implies_weak_derivative.md](krylov_sobolev_9_1_7_mollification_rate_implies_weak_derivative.md) and the background in [krylov_sobolev_9_1_7_mollification_rate_implies_weak_derivative.context.md](krylov_sobolev_9_1_7_mollification_rate_implies_weak_derivative.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 6 rows, so each row is worth 8.3 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 5 with classical rather than generalized derivatives: $u$ is only in $\mathcal{L}_2$ and need not be differentiable.
+- Requirement 2 with $N$ allowed to depend on $u$ or $M$.
+- Requirement 4 with the weight $\varepsilon^{-3}$ or the interval $(0,1)$ altered.
+
+### Domain-specific pitfalls for this problem
+
+- The generalized derivative is defined by the integration-by-parts identity with a minus sign; getting the sign wrong defines $-D_ju$.
+- $\|u_x\|$ is the summed first-order seminorm, not the full $W_2^1$ norm.
+- The hypothesis integral has a square inside and the weight $\varepsilon^{-3}$; it may be infinite a priori, so it belongs in an extended-real integral.
+- $\zeta$ is even, smooth, compactly supported and of unit mass; all four are used.
+- The constant $N$ may depend on the dimension and on $\zeta$ but not on $u$ or $M$.

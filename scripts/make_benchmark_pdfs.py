@@ -1784,8 +1784,8 @@ MATTILA_GEOMETRY = [
 
 
 def main() -> None:
-    out_dir = ROOT / "reports"
-    out_dir.mkdir(exist_ok=True)
+    out_dir = ROOT / "build" / "benchmarks"
+    out_dir.mkdir(parents=True, exist_ok=True)
     for stale_tex in out_dir.glob("*.tex"):
         stale_tex.unlink()
     render_report(

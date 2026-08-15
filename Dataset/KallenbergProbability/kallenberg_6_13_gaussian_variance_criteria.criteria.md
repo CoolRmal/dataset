@@ -1,6 +1,6 @@
 # Criteria: kallenberg_6_13_gaussian_variance_criteria
 
-**Statement:** [kallenberg_6_13_gaussian_variance_criteria.md](kallenberg_6_13_gaussian_variance_criteria.md) · **Lean:** [kallenberg_6_13_gaussian_variance_criteria.lean](kallenberg_6_13_gaussian_variance_criteria.lean)
+**Statement:** [kallenberg_6_13_gaussian_variance_criteria.md](kallenberg_6_13_gaussian_variance_criteria.md) · **Lean:** [kallenberg_6_13_gaussian_variance_criteria.lean](kallenberg_6_13_gaussian_variance_criteria.lean) · **Context:** [kallenberg_6_13_gaussian_variance_criteria.context.md](kallenberg_6_13_gaussian_variance_criteria.context.md)
 
 ## What the theorem says
 
@@ -59,3 +59,35 @@ wrong, even if it compiles.
   almost-everywhere strong measurability. It is harmless.
 - `HasLaw ζ (gaussianReal 0 1) μ'` also supplies measurability of `ζ`, so no separate hypothesis is
   needed for the comparison variable.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[kallenberg_6_13_gaussian_variance_criteria.md](kallenberg_6_13_gaussian_variance_criteria.md) and the background in [kallenberg_6_13_gaussian_variance_criteria.context.md](kallenberg_6_13_gaussian_variance_criteria.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 8 dropped, so condition (i) is only the distributional convergence: the equivalence is then false.
+- Requirement 9 with $\mathbb{E}(Y;A)$ read as a conditional expectation rather than $\mathbb{E}[Y\mathbf{1}_A]$.
+- Requirement 5 moved inside one side of the equivalence rather than kept as a standing hypothesis.
+
+### Domain-specific pitfalls for this problem
+
+- $\mathbb{E}(Y; A)$ is the integral of $Y$ over the event $A$ — an indicator, not a conditioning.
+- Independence is within each row; nothing links different rows.
+- The negligibility condition $\sup_j \operatorname{Var} \to 0$ is half of (i) and is essential.
+- The row length varies with $n$, so the array cannot be indexed by a fixed finite type.
+- The threshold in the Lindeberg sum is strict, and $\varepsilon$ is quantified outside the limit in $n$.

@@ -1,6 +1,6 @@
 # Criteria: conway_VIII_5_17_gelfand_naimark
 
-**Statement:** [conway_VIII_5_17_gelfand_naimark.md](conway_VIII_5_17_gelfand_naimark.md) · **Lean:** [conway_VIII_5_17_gelfand_naimark.lean](conway_VIII_5_17_gelfand_naimark.lean)
+**Statement:** [conway_VIII_5_17_gelfand_naimark.md](conway_VIII_5_17_gelfand_naimark.md) · **Lean:** [conway_VIII_5_17_gelfand_naimark.lean](conway_VIII_5_17_gelfand_naimark.lean) · **Context:** [conway_VIII_5_17_gelfand_naimark.context.md](conway_VIII_5_17_gelfand_naimark.context.md)
 
 ## What the theorem says
 
@@ -55,3 +55,34 @@ wrong, even if it compiles.
   and picks up its $C^*$-algebra structure automatically. Nothing here is hand-rolled.
 - An earlier version of this file used the unital class `[CStarAlgebra A]` with `A →⋆ₐ[ℂ] …`. It has
   been widened to the non-unital class, which matches the generality of the printed statement.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[conway_VIII_5_17_gelfand_naimark.md](conway_VIII_5_17_gelfand_naimark.md) and the background in [conway_VIII_5_17_gelfand_naimark.context.md](conway_VIII_5_17_gelfand_naimark.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 7 rows, so each row is worth 7.1 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 with $\pi$ merely linear or merely multiplicative: a $*$-homomorphism is all three conditions.
+- Requirement 4 weakened to injectivity or to a norm bound $\lVert \pi a\rVert \le \lVert a\rVert$.
+- Requirement 5 omitted: the separable refinement is part of the printed theorem.
+
+### Domain-specific pitfalls for this problem
+
+- "Hilbert space" includes completeness; producing an inner-product space that is not complete is not a representation.
+- The isometry is of the *algebra norm*, so it is an equality $\lVert \pi a \rVert = \lVert a \rVert$, not a topological embedding.
+- The separable case re-quantifies both $\mathcal{H}$ and $\pi$; asserting separability of the space produced by the first part is a different (and false) reading.
+- Universe placement is a real constraint: an existential over `Type u` for an algebra in `Type u` is the GNS-strength statement, while quantifying over a larger universe weakens it.

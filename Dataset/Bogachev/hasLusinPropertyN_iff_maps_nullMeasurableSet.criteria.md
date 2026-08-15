@@ -1,6 +1,6 @@
 # Criteria: hasLusinPropertyN_iff_maps_nullMeasurableSet
 
-**Statement:** [hasLusinPropertyN_iff_maps_nullMeasurableSet.md](hasLusinPropertyN_iff_maps_nullMeasurableSet.md) · **Lean:** [hasLusinPropertyN_iff_maps_nullMeasurableSet.lean](hasLusinPropertyN_iff_maps_nullMeasurableSet.lean)
+**Statement:** [hasLusinPropertyN_iff_maps_nullMeasurableSet.md](hasLusinPropertyN_iff_maps_nullMeasurableSet.md) · **Lean:** [hasLusinPropertyN_iff_maps_nullMeasurableSet.lean](hasLusinPropertyN_iff_maps_nullMeasurableSet.lean) · **Context:** [hasLusinPropertyN_iff_maps_nullMeasurableSet.context.md](hasLusinPropertyN_iff_maps_nullMeasurableSet.context.md)
 
 ## What the theorem says
 
@@ -55,3 +55,34 @@ wrong, even if it compiles.
 - Lebesgue measurability of a *set* is `NullMeasurableSet A volume`, which says $A$ differs from a
   Borel set by a null set — the standard description of the completed $\sigma$-algebra. Lebesgue
   measurability of the *map* is `NullMeasurable F volume`.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[hasLusinPropertyN_iff_maps_nullMeasurableSet.md](hasLusinPropertyN_iff_maps_nullMeasurableSet.md) and the background in [hasLusinPropertyN_iff_maps_nullMeasurableSet.context.md](hasLusinPropertyN_iff_maps_nullMeasurableSet.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 7 rows, so each row is worth 7.1 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 2: assuming Borel measurability of $F$ instead of Lebesgue measurability, which proves a strictly narrower theorem.
+- Requirement 6 strengthened to `MeasurableSet (F '' A)` (Borel): almost never true, and the equivalence becomes false.
+- Requirement 4: adding a measurability hypothesis on $F(A)$ inside property (N), which makes the left-hand condition weaker for free.
+
+### Domain-specific pitfalls for this problem
+
+- `Measurable` (Borel) versus `NullMeasurable` (Lebesgue) is the whole difficulty of this statement, on both sides of the equivalence and in the hypothesis on $F$.
+- $\nu(F(A))$ is an outer measure applied to a possibly non-measurable set. Mathlib measures are defined on all sets, so this is meaningful without any extra hypothesis.
+- Property (N) is about *null* sets, quantified over the completed σ-algebra: restricting to Borel null sets misses the subsets of Borel null sets, which is exactly where the counterexamples live.
+- The theorem is about the pair (Lebesgue, Lebesgue) on all of $\mathbb{R}^n$; a version relativised to a subset, or with a different pair of measures, is a different statement.

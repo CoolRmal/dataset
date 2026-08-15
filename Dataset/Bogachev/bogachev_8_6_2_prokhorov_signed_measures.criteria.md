@@ -1,6 +1,6 @@
 # Criteria: bogachev_8_6_2_prokhorov_signed_measures
 
-**Statement:** [bogachev_8_6_2_prokhorov_signed_measures.md](bogachev_8_6_2_prokhorov_signed_measures.md) · **Lean:** [bogachev_8_6_2_prokhorov_signed_measures.lean](bogachev_8_6_2_prokhorov_signed_measures.lean)
+**Statement:** [bogachev_8_6_2_prokhorov_signed_measures.md](bogachev_8_6_2_prokhorov_signed_measures.md) · **Lean:** [bogachev_8_6_2_prokhorov_signed_measures.lean](bogachev_8_6_2_prokhorov_signed_measures.lean) · **Context:** [bogachev_8_6_2_prokhorov_signed_measures.context.md](bogachev_8_6_2_prokhorov_signed_measures.context.md)
 
 ## What the theorem says
 
@@ -59,3 +59,36 @@ wrong, even if it compiles.
 - On a complete separable metric space every finite Borel measure is tight, so the hypothesis of the
   second conjunct holds automatically there and the first conjunct is a special case of the second.
   Both are kept because the book states both.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[bogachev_8_6_2_prokhorov_signed_measures.md](bogachev_8_6_2_prokhorov_signed_measures.md) and the background in [bogachev_8_6_2_prokhorov_signed_measures.context.md](bogachev_8_6_2_prokhorov_signed_measures.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 1: stating the theorem for `ProbabilityMeasure` or `FiniteMeasure`. For nonnegative measures the variation bound is automatic and the result is a much weaker, already-formalized statement.
+- Requirement 5: requiring the weak limit of the subsequence to lie in $M$ turns relative compactness into compactness and makes the equivalence false.
+- Requirement 7: dropping the uniform variation bound, which for signed measures does not follow from tightness.
+- Requirement 10: assuming separability globally, so that the second conjunct repeats the first instead of stating the theorem's second claim.
+
+### Domain-specific pitfalls for this problem
+
+- The notational trap of this problem is $M$: Bogachev's "measure" in Chapter 8 is *signed*. `Measure X` in Mathlib is nonnegative and `ℝ≥0∞`-valued; the right type is `SignedMeasure X`.
+- Tightness must be asserted for the total variation measures $|\mu|$, not for the signed measures. A signed measure is not a measure and `IsTightMeasureSet` does not apply to it directly.
+- Weak convergence must be tested against *bounded continuous* functions (`X →ᵇ ℝ`). Compactly supported test functions give vague convergence; unbounded continuous ones are not integrable against a general finite measure.
+- The integral of a bounded continuous function against a signed measure has to be built from the Jordan decomposition. An ad-hoc definition that ignores the negative part is not the integral, and every weak-convergence clause built on it is meaningless.
+- Separability is `SecondCountableTopology` (equivalently, for metric spaces, `TopologicalSpace.SeparableSpace`), and it belongs to the first claim only. Putting it in the binder list rather than in the first conjunct silently deletes the second claim.

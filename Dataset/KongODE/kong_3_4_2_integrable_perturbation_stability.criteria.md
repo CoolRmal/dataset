@@ -1,6 +1,6 @@
 # Criteria: kong_3_4_2_integrable_perturbation_stability
 
-**Statement:** [kong_3_4_2_integrable_perturbation_stability.md](kong_3_4_2_integrable_perturbation_stability.md) · **Lean:** [kong_3_4_2_integrable_perturbation_stability.lean](kong_3_4_2_integrable_perturbation_stability.lean)
+**Statement:** [kong_3_4_2_integrable_perturbation_stability.md](kong_3_4_2_integrable_perturbation_stability.md) · **Lean:** [kong_3_4_2_integrable_perturbation_stability.lean](kong_3_4_2_integrable_perturbation_stability.lean) · **Context:** [kong_3_4_2_integrable_perturbation_stability.context.md](kong_3_4_2_integrable_perturbation_stability.context.md)
 
 ## What the theorem says
 
@@ -49,3 +49,35 @@ wrong, even if it compiles.
 
 - Kong's standing assumptions for the two systems include continuity of $A$ and of $r$, and $r(t,0) = 0$ so that $x \equiv 0$ really is a solution. We assume none of these. Without them the perturbed system may simply have no solutions through a given point, in which case the conclusion holds because there is nothing to check rather than for a mathematical reason. The condition $r(t,0) = 0$ does follow for $t \ge 0$ from the bound at $x = 0$: $\lVert r(t,0)\rVert \le p(t)\cdot 0 = 0$.
 - `IsTrajectory` asks for a solution defined on all of $\mathbb{R}$, including backwards in time, whereas Kong's solutions only need to exist on their maximal interval. This narrows the class of solutions the conclusion speaks about, so our version is weaker than the printed one. It is also the design choice that made the counterexample in mistake 1 possible before the initial time was restricted to $t_0 \ge 0$.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[kong_3_4_2_integrable_perturbation_stability.md](kong_3_4_2_integrable_perturbation_stability.md) and the background in [kong_3_4_2_integrable_perturbation_stability.context.md](kong_3_4_2_integrable_perturbation_stability.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 4 with the smallness radius allowed to depend on $t$.
+- Requirement 3 with the integrability of $p$ dropped or weakened to boundedness.
+- Requirement 9 with the stability radii allowed to depend on the initial time.
+
+### Domain-specific pitfalls for this problem
+
+- The perturbation bound is $|r(t,x)| \le p(t)|x|$ — linear in $|x|$, with the integrable factor in $t$.
+- The smallness radius is fixed before $t$ and the bound holds for all $t \ge 0$.
+- Uniformity in the initial time is what the word "uniformly" carries in both stability notions.
+- The hypotheses live on $[0,\infty)$, so initial times are restricted there.
+- Part (b) assumes and concludes *both* properties.

@@ -4,6 +4,7 @@
 - **Domain:** Probability
 - **Lean declaration:** `Dataset.BogachevGaussian.bogachev_gaussian_1_9_3_symmetric_tail_characterization` ([bogachev_gaussian_1_9_3_symmetric_tail_characterization.lean](bogachev_gaussian_1_9_3_symmetric_tail_characterization.lean))
 - **Criteria:** [bogachev_gaussian_1_9_3_symmetric_tail_characterization.criteria.md](bogachev_gaussian_1_9_3_symmetric_tail_characterization.criteria.md)
+- **Context:** [bogachev_gaussian_1_9_3_symmetric_tail_characterization.context.md](bogachev_gaussian_1_9_3_symmetric_tail_characterization.context.md)
 
 ## Statement
 

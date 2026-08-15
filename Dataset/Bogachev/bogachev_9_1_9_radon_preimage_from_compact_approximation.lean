@@ -39,9 +39,8 @@ each `Kₙ` and `limₙ |ν|(f(Kₙ)) = ‖ν‖`. Then there exists a Radon sig
 theorem bogachev_9_1_9_radon_preimage_from_compact_approximation
     {X Y : Type*} [TopologicalSpace X] [MeasurableSpace X] [BorelSpace X]
     [TopologicalSpace Y] [MeasurableSpace Y] [BorelSpace Y]
-    {f : X → Y} {ν : SignedMeasure Y} (hν : Measure.InnerRegular ν.totalVariation)
-    (K : ℕ → Set X) :
-    (Monotone K → (∀ n, IsCompact (K n)) → (∀ n, ContinuousOn f (K n)) →
+    {f : X → Y} {ν : SignedMeasure Y} (hν : Measure.InnerRegular ν.totalVariation) :
+    (∀ K : ℕ → Set X, Monotone K → (∀ n, IsCompact (K n)) → (∀ n, ContinuousOn f (K n)) →
       Tendsto (fun n ↦ ν.totalVariation (f '' K n)) atTop (𝓝 (ν.totalVariation univ)) →
       ∃ μ : SignedMeasure X, Measure.InnerRegular μ.totalVariation ∧
         μ.totalVariation univ = ν.totalVariation univ ∧

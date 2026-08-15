@@ -1,6 +1,6 @@
 # Criteria: niven_5_5_trisection_of_the_angle_impossible
 
-**Statement:** [niven_5_5_trisection_of_the_angle_impossible.md](niven_5_5_trisection_of_the_angle_impossible.md) · **Lean:** [niven_5_5_trisection_of_the_angle_impossible.lean](niven_5_5_trisection_of_the_angle_impossible.lean)
+**Statement:** [niven_5_5_trisection_of_the_angle_impossible.md](niven_5_5_trisection_of_the_angle_impossible.md) · **Lean:** [niven_5_5_trisection_of_the_angle_impossible.lean](niven_5_5_trisection_of_the_angle_impossible.lean) · **Context:** [niven_5_5_trisection_of_the_angle_impossible.context.md](niven_5_5_trisection_of_the_angle_impossible.context.md)
 
 ## What the theorem says
 
@@ -46,3 +46,33 @@ wrong, even if it compiles.
 - $20°$ is $\pi/9$ radians because $20/180 = 1/9$.
 - The cubic $8x^3 - 6x - 1$ comes from the triple-angle identity $\cos 3\theta = 4\cos^3\theta -
   3\cos\theta$ at $3\theta = 60°$; it is mentioned here only as background, not asserted in Lean.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[niven_5_5_trisection_of_the_angle_impossible.md](niven_5_5_trisection_of_the_angle_impossible.md) and the background in [niven_5_5_trisection_of_the_angle_impossible.context.md](niven_5_5_trisection_of_the_angle_impossible.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 5 rows, so each row is worth 10.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 1 with an angle other than $20° = \pi/9$, or with degrees and radians confused.
+- Requirement 2 with the claim made about all angles.
+
+### Domain-specific pitfalls for this problem
+
+- $20°$ is $\pi/9$ radians; a formalization must not write $\cos 20$.
+- The claim is about the single length $\cos(\pi/9)$.
+- "Constructible" must be the same class as in the general theorem.
+- The statement is unconditional.

@@ -4,6 +4,7 @@
 - **Domain:** Complex analysis
 - **Lean declaration:** `Dataset.HaymanMeromorphic.hayman_3_6_corollary_derivative_zeros_in_disk` ([hayman_3_6_corollary_derivative_zeros_in_disk.lean](hayman_3_6_corollary_derivative_zeros_in_disk.lean))
 - **Criteria:** [hayman_3_6_corollary_derivative_zeros_in_disk.criteria.md](hayman_3_6_corollary_derivative_zeros_in_disk.criteria.md)
+- **Context:** [hayman_3_6_corollary_derivative_zeros_in_disk.context.md](hayman_3_6_corollary_derivative_zeros_in_disk.context.md)
 
 ## Statement
 

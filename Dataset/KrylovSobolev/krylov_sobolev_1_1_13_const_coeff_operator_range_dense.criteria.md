@@ -1,6 +1,6 @@
 # Criteria: krylov_sobolev_1_1_13_const_coeff_operator_range_dense
 
-**Statement:** [krylov_sobolev_1_1_13_const_coeff_operator_range_dense.md](krylov_sobolev_1_1_13_const_coeff_operator_range_dense.md) · **Lean:** [krylov_sobolev_1_1_13_const_coeff_operator_range_dense.lean](krylov_sobolev_1_1_13_const_coeff_operator_range_dense.lean)
+**Statement:** [krylov_sobolev_1_1_13_const_coeff_operator_range_dense.md](krylov_sobolev_1_1_13_const_coeff_operator_range_dense.md) · **Lean:** [krylov_sobolev_1_1_13_const_coeff_operator_range_dense.lean](krylov_sobolev_1_1_13_const_coeff_operator_range_dense.lean) · **Context:** [krylov_sobolev_1_1_13_const_coeff_operator_range_dense.context.md](krylov_sobolev_1_1_13_const_coeff_operator_range_dense.context.md)
 
 ## What the theorem says
 
@@ -44,3 +44,34 @@ wrong, even if it compiles.
 - The coefficient family is packaged as a multivariate polynomial, because a `MvPolynomial (Fin d) ℂ` is exactly a finitely supported family of complex numbers indexed by multi-indices. `totalDegree ≤ m` says precisely that $a^\alpha = 0$ whenever $|\alpha| > m$.
 - `[Fact (1 ≤ p)]` appears only so that `Lp ℂ p volume` has its normed-space structure; it follows from `hp2` and adds no restriction.
 - `p ≠ ⊤` is used rather than `p ≠ ∞` because `∞` is ambiguous once the `ContDiff` scope is open.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[krylov_sobolev_1_1_13_const_coeff_operator_range_dense.md](krylov_sobolev_1_1_13_const_coeff_operator_range_dense.md) and the background in [krylov_sobolev_1_1_13_const_coeff_operator_range_dense.context.md](krylov_sobolev_1_1_13_const_coeff_operator_range_dense.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 7 rows, so each row is worth 7.1 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 2 with the non-vanishing hypothesis on the coefficients dropped: for $L = 0$ the range is $\{0\}$.
+- Requirement 6 with the exponent range widened to $[1,\infty)$.
+- Requirement 5 with surjectivity claimed instead of density.
+
+### Domain-specific pitfalls for this problem
+
+- The coefficients are complex and only jointly non-zero; no ellipticity is assumed.
+- The sum includes $\alpha = 0$, so $L$ may have a zeroth-order term.
+- Density is a topological statement about the closure of the image inside $\mathcal{L}_p$.
+- Both the test functions and the target space are complex-scalar.

@@ -1,6 +1,6 @@
 # Criteria: niven_zuckerman_11_mann_alpha_beta_theorem
 
-**Statement:** [niven_zuckerman_11_mann_alpha_beta_theorem.md](niven_zuckerman_11_mann_alpha_beta_theorem.md) · **Lean:** [niven_zuckerman_11_mann_alpha_beta_theorem.lean](niven_zuckerman_11_mann_alpha_beta_theorem.lean)
+**Statement:** [niven_zuckerman_11_mann_alpha_beta_theorem.md](niven_zuckerman_11_mann_alpha_beta_theorem.md) · **Lean:** [niven_zuckerman_11_mann_alpha_beta_theorem.lean](niven_zuckerman_11_mann_alpha_beta_theorem.lean) · **Context:** [niven_zuckerman_11_mann_alpha_beta_theorem.context.md](niven_zuckerman_11_mann_alpha_beta_theorem.context.md)
 
 ## What the theorem says
 
@@ -60,3 +60,34 @@ wrong, even if it compiles.
   needed here. Mann's theorem itself is not in mathlib — the Schnirelmann file lists it as a to-do.
 - The truncation at $1$ is not decoration: mathlib's `schnirelmannDensity_le_one` says every one of
   these densities is at most $1$, so an untruncated bound would be unprovable.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[niven_zuckerman_11_mann_alpha_beta_theorem.md](niven_zuckerman_11_mann_alpha_beta_theorem.md) and the background in [niven_zuckerman_11_mann_alpha_beta_theorem.context.md](niven_zuckerman_11_mann_alpha_beta_theorem.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 with natural density in place of Schnirelmann density.
+- Requirement 5 with $\alpha+\beta$ in place of $\min(1,\alpha+\beta)$.
+- Requirement 2 with the hypothesis $0 \in A$, $0 \in B$ dropped.
+
+### Domain-specific pitfalls for this problem
+
+- Schnirelmann density is an infimum over all $n \ge 1$, not a limit; it is $0$ as soon as $1 \notin A$.
+- The minimum with $1$ is essential, since densities are at most $1$.
+- The sumset is the set of pairwise sums, and $0 \in A \cap B$ makes it contain both sets.
+- The inequality points with the sumset density on the larger side.

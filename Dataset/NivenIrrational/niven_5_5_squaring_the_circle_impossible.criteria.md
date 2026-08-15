@@ -1,6 +1,6 @@
 # Criteria: niven_5_5_squaring_the_circle_impossible
 
-**Statement:** [niven_5_5_squaring_the_circle_impossible.md](niven_5_5_squaring_the_circle_impossible.md) · **Lean:** [niven_5_5_squaring_the_circle_impossible.lean](niven_5_5_squaring_the_circle_impossible.lean)
+**Statement:** [niven_5_5_squaring_the_circle_impossible.md](niven_5_5_squaring_the_circle_impossible.md) · **Lean:** [niven_5_5_squaring_the_circle_impossible.lean](niven_5_5_squaring_the_circle_impossible.lean) · **Context:** [niven_5_5_squaring_the_circle_impossible.context.md](niven_5_5_squaring_the_circle_impossible.context.md)
 
 ## What the theorem says
 
@@ -47,3 +47,34 @@ wrong, even if it compiles.
   involved.
 - The statement omits the geometric wrapper (the square, the circle) and keeps only the algebraic
   residue, exactly as Niven's own reduction does.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[niven_5_5_squaring_the_circle_impossible.md](niven_5_5_squaring_the_circle_impossible.md) and the background in [niven_5_5_squaring_the_circle_impossible.context.md](niven_5_5_squaring_the_circle_impossible.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 5 rows, so each row is worth 10.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 2 with $\pi$ in place of $\sqrt\pi$.
+- Requirement 5 with transcendence taken over $\mathbb{R}$ rather than $\mathbb{Q}$.
+- Requirement 1 with the transcendence of $\pi$ omitted, so the statement is asserted unconditionally.
+
+### Domain-specific pitfalls for this problem
+
+- The length to construct is $\sqrt\pi$; that is what "squaring the circle" means for the unit circle.
+- Transcendence is over $\mathbb{Q}$; over $\mathbb{R}$ the notion is empty.
+- The book grants the transcendence of $\pi$, so it belongs as a hypothesis.
+- Junk value — `Real.sqrt`: harmless here since $\pi > 0$.

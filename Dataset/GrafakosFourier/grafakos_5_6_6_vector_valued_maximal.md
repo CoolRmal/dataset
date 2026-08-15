@@ -4,6 +4,7 @@
 - **Domain:** Fourier analysis
 - **Lean declaration:** `Dataset.GrafakosFourier.grafakos_5_6_6_vector_valued_maximal` ([grafakos_5_6_6_vector_valued_maximal.lean](grafakos_5_6_6_vector_valued_maximal.lean))
 - **Criteria:** [grafakos_5_6_6_vector_valued_maximal.criteria.md](grafakos_5_6_6_vector_valued_maximal.criteria.md)
+- **Context:** [grafakos_5_6_6_vector_valued_maximal.context.md](grafakos_5_6_6_vector_valued_maximal.context.md)
 
 ## Statement
 

@@ -1,6 +1,6 @@
 # Criteria: bogachev_gaussian_2_8_10_anderson_inequality
 
-**Statement:** [bogachev_gaussian_2_8_10_anderson_inequality.md](bogachev_gaussian_2_8_10_anderson_inequality.md) · **Lean:** [bogachev_gaussian_2_8_10_anderson_inequality.lean](bogachev_gaussian_2_8_10_anderson_inequality.lean)
+**Statement:** [bogachev_gaussian_2_8_10_anderson_inequality.md](bogachev_gaussian_2_8_10_anderson_inequality.md) · **Lean:** [bogachev_gaussian_2_8_10_anderson_inequality.lean](bogachev_gaussian_2_8_10_anderson_inequality.lean) · **Context:** [bogachev_gaussian_2_8_10_anderson_inequality.context.md](bogachev_gaussian_2_8_10_anderson_inequality.context.md)
 
 ## What the theorem says
 
@@ -51,3 +51,35 @@ wrong, even if it compiles.
 - Bogachev's hypotheses include that $A$ and its translates lie in the completed $\gamma$-measurable $\sigma$-algebra. We assume `MeasurableSet A`; the translates are then measurable automatically because translation is a measurable equivalence.
 - Bogachev works on a locally convex space; we work on a complete normed space, which is where Mathlib's `IsGaussian` lives.
 - Inequalities are written with the smaller side on the left, so `γ (A + a) ≤ γ A` rather than the book's `≥` orientation.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[bogachev_gaussian_2_8_10_anderson_inequality.md](bogachev_gaussian_2_8_10_anderson_inequality.md) and the background in [bogachev_gaussian_2_8_10_anderson_inequality.context.md](bogachev_gaussian_2_8_10_anderson_inequality.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 5 or 6 dropped: convexity alone and balancedness alone each admit explicit counterexamples.
+- Requirement 2 dropped: false for a Gaussian with non-zero mean.
+- Requirement 3: stating centredness with a Bochner integral on a space not known to be complete, where `∫` is the junk value `0` and the hypothesis is vacuous.
+
+### Domain-specific pitfalls for this problem
+
+- Junk value — Bochner integral on an incomplete space: Mathlib defines `∫ x, f x ∂μ` as `if _ : CompleteSpace G then … else 0`. Stating $\int x \, d\gamma = 0$ without `[CompleteSpace E]` makes the centring hypothesis hold for free.
+- "Absolutely convex" is two conditions, `Convex ℝ A` *and* `Balanced ℝ A`. Neither implies the other and neither alone suffices.
+- $A + a$ is the image of $A$ under translation, not a Minkowski sum with a ball or a preimage.
+- The second conclusion compares the *fully* shifted set $A+a$ with the partially shifted $A+ta$; comparing $A+ta$ with $A$, or two partial shifts with each other, is a different claim.
+- The parameter range is the closed interval $[0,1]$; the endpoints are exactly where the second conclusion meets the first.

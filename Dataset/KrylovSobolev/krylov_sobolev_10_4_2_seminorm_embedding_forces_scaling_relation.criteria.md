@@ -1,6 +1,6 @@
 # Criteria: krylov_sobolev_10_4_2_seminorm_embedding_forces_scaling_relation
 
-**Statement:** [krylov_sobolev_10_4_2_seminorm_embedding_forces_scaling_relation.md](krylov_sobolev_10_4_2_seminorm_embedding_forces_scaling_relation.md) · **Lean:** [krylov_sobolev_10_4_2_seminorm_embedding_forces_scaling_relation.lean](krylov_sobolev_10_4_2_seminorm_embedding_forces_scaling_relation.lean)
+**Statement:** [krylov_sobolev_10_4_2_seminorm_embedding_forces_scaling_relation.md](krylov_sobolev_10_4_2_seminorm_embedding_forces_scaling_relation.md) · **Lean:** [krylov_sobolev_10_4_2_seminorm_embedding_forces_scaling_relation.lean](krylov_sobolev_10_4_2_seminorm_embedding_forces_scaling_relation.lean) · **Context:** [krylov_sobolev_10_4_2_seminorm_embedding_forces_scaling_relation.context.md](krylov_sobolev_10_4_2_seminorm_embedding_forces_scaling_relation.context.md)
 
 ## What the theorem says
 
@@ -42,3 +42,35 @@ wrong, even if it compiles.
 
 - Because $q$ may be less than $1$, `eLpNorm _ (ENNReal.ofReal q)` is Mathlib's $\left(\int|f|^q\right)^{1/q}$, which is Krylov's $\mathcal{L}_q$ quantity for such $q$ as well.
 - The hypothesis `hemb` is itself an existential statement, so the theorem has the shape "if there is such an $N$, then the exponents are related". Hoisting that `∃ N` outward would change the meaning.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[krylov_sobolev_10_4_2_seminorm_embedding_forces_scaling_relation.md](krylov_sobolev_10_4_2_seminorm_embedding_forces_scaling_relation.md) and the background in [krylov_sobolev_10_4_2_seminorm_embedding_forces_scaling_relation.context.md](krylov_sobolev_10_4_2_seminorm_embedding_forces_scaling_relation.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 7 rows, so each row is worth 7.1 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 6 with a relation among $k,m,p,q$ assumed: the exercise is to *derive* it.
+- Requirement 4 with full Sobolev norms in place of the top-order seminorms.
+- Requirement 2 with the constant allowed to depend on $u$.
+
+### Domain-specific pitfalls for this problem
+
+- The seminorm $[u]_{W^k_p}$ sums over $|\alpha| = k$ exactly; the full norm includes lower orders and is not dilation-homogeneous.
+- The conclusion is a conjunction: $m \le k$ **and** the exponent identity.
+- $m$ carries no hypothesis; bounding it is half of what is to be proved.
+- The test functions are compactly supported inside $\Omega$, which for the half-space means away from the boundary.
+- One constant works for all $u$; that uniformity is the hypothesis.

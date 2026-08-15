@@ -4,6 +4,7 @@
 - **Domain:** Harmonic analysis
 - **Lean declaration:** `Dataset.FollandHarmonic.folland_4_81_almost_periodic_characterization` ([folland_4_81_almost_periodic_characterization.lean](folland_4_81_almost_periodic_characterization.lean))
 - **Criteria:** [folland_4_81_almost_periodic_characterization.criteria.md](folland_4_81_almost_periodic_characterization.criteria.md)
+- **Context:** [folland_4_81_almost_periodic_characterization.context.md](folland_4_81_almost_periodic_characterization.context.md)
 
 ## Statement
 

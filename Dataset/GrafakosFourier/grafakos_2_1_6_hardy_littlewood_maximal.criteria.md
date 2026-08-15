@@ -1,6 +1,6 @@
 # Criteria: grafakos_2_1_6_hardy_littlewood_maximal
 
-**Statement:** [grafakos_2_1_6_hardy_littlewood_maximal.md](grafakos_2_1_6_hardy_littlewood_maximal.md) · **Lean:** [grafakos_2_1_6_hardy_littlewood_maximal.lean](grafakos_2_1_6_hardy_littlewood_maximal.lean)
+**Statement:** [grafakos_2_1_6_hardy_littlewood_maximal.md](grafakos_2_1_6_hardy_littlewood_maximal.md) · **Lean:** [grafakos_2_1_6_hardy_littlewood_maximal.lean](grafakos_2_1_6_hardy_littlewood_maximal.lean) · **Context:** [grafakos_2_1_6_hardy_littlewood_maximal.context.md](grafakos_2_1_6_hardy_littlewood_maximal.context.md)
 
 ## What the theorem says
 
@@ -56,3 +56,35 @@ wrong, even if it compiles.
 - Collecting the two operators into a two-element `Set` and quantifying with `∀ M ∈ operators` is
   compact but unusual. Two separate conjunctions, or two theorems, would read better and would not
   need `Set.mem_insert_iff` to unfold.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[grafakos_2_1_6_hardy_littlewood_maximal.md](grafakos_2_1_6_hardy_littlewood_maximal.md) and the background in [grafakos_2_1_6_hardy_littlewood_maximal.context.md](grafakos_2_1_6_hardy_littlewood_maximal.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 1 or 2 with the two operators confused, or with the claims made for only one of them.
+- Requirement 8 with the explicit constants replaced by unspecified ones.
+- Requirement 4 with an integrability side condition imposed so that the maximal function is defined only for good $f$.
+
+### Domain-specific pitfalls for this problem
+
+- Junk value — supremum: the maximal function must take values in `ℝ≥0∞`. A real-valued `sSup` over an unbounded family is `0`, which would make $Mf$ vanish exactly where it is largest.
+- The uncentred operator ranges over balls *containing* $x$, not centred at $x$; conflating the two loses one of the two claims.
+- The averages are $\frac{1}{|B|}\int_B|f|$, so the division is in `ℝ≥0∞`; the ball has positive finite measure for $r>0$, so no division by $0$ or $\infty$ occurs.
+- The displayed local estimate integrates $|f|$ only over the level set $\{Mf>\alpha\}$ and is strictly stronger than weak $(1,1)$; both are printed.
+- "Ball" is the Euclidean ball, so the ambient space must carry the Euclidean norm.

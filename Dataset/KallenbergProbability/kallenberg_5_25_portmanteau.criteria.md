@@ -1,6 +1,6 @@
 # Criteria: kallenberg_5_25_portmanteau
 
-**Statement:** [kallenberg_5_25_portmanteau.md](kallenberg_5_25_portmanteau.md) · **Lean:** [kallenberg_5_25_portmanteau.lean](kallenberg_5_25_portmanteau.lean)
+**Statement:** [kallenberg_5_25_portmanteau.md](kallenberg_5_25_portmanteau.md) · **Lean:** [kallenberg_5_25_portmanteau.lean](kallenberg_5_25_portmanteau.lean) · **Context:** [kallenberg_5_25_portmanteau.context.md](kallenberg_5_25_portmanteau.context.md)
 
 ## What the theorem says
 
@@ -56,3 +56,34 @@ wrong, even if it compiles.
   since weak convergence depends only on the laws, and `TendstoInDistribution` already supports a
   different space per index, so the fully general form is closer to the text.
 - The text writes (ii) as `liminf ≥`; the Lean writes the same inequality with the sides exchanged.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[kallenberg_5_25_portmanteau.md](kallenberg_5_25_portmanteau.md) and the background in [kallenberg_5_25_portmanteau.context.md](kallenberg_5_25_portmanteau.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 7 rows, so each row is worth 7.1 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirements 4–5 with the $\liminf$/$\limsup$ or the inequality directions swapped.
+- Requirement 6 with condition (iv) asserted for all Borel sets rather than for $\xi$-continuity sets.
+- Requirement 7 with the four conditions strung as implications rather than a single equivalence.
+
+### Domain-specific pitfalls for this problem
+
+- Open sets pair with $\liminf \ge$, closed sets with $\limsup \le$; the asymmetry is the substance.
+- The boundary in condition (iv) is taken in the ambient space $S$, and the null condition is for the law of the limit $\xi$.
+- Convergence in distribution is about laws; the random elements need not share a probability space.
+- The measures of preimages live in `ℝ≥0∞`, where `liminf`/`limsup` are always defined — no boundedness side condition is needed.

@@ -4,6 +4,7 @@
 - **Domain:** Probability
 - **Lean declaration:** `Dataset.KallenbergProbability.kallenberg_23_2_tightness_and_relative_compactness` ([kallenberg_23_2_tightness_and_relative_compactness.lean](kallenberg_23_2_tightness_and_relative_compactness.lean))
 - **Criteria:** [kallenberg_23_2_tightness_and_relative_compactness.criteria.md](kallenberg_23_2_tightness_and_relative_compactness.criteria.md)
+- **Context:** [kallenberg_23_2_tightness_and_relative_compactness.context.md](kallenberg_23_2_tightness_and_relative_compactness.context.md)
 
 ## Statement
 

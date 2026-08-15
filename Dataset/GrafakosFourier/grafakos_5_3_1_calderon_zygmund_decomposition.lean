@@ -31,7 +31,9 @@ theorem grafakos_5_3_1_calderon_zygmund_decomposition
     ∃ g b : EuclideanSpace ℝ (Fin n) → ℂ,
       ∃ (J : Set ℕ) (Q : J → DyadicCube n)
         (bad : J → EuclideanSpace ℝ (Fin n) → ℂ),
-        f = g + b ∧ HasSum bad b ∧ eLpNorm g 1 volume ≤ eLpNorm f 1 volume ∧
+        f = g + b ∧ HasSum bad b ∧
+          MemLp g 1 volume ∧ MemLp b 1 volume ∧ (∀ j, MemLp (bad j) 1 volume) ∧
+          eLpNorm g 1 volume ≤ eLpNorm f 1 volume ∧
           eLpNorm g ∞ volume ≤ ENNReal.ofReal (2 ^ n * α) ∧
           (Pairwise fun i j ↦ Disjoint (Q i).carrier (Q j).carrier) ∧
           (∀ j, Function.support (bad j) ⊆ (Q j).carrier) ∧

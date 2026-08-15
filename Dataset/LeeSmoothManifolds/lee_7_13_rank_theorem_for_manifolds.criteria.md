@@ -1,6 +1,6 @@
 # Criteria: lee_7_13_rank_theorem_for_manifolds
 
-**Statement:** [lee_7_13_rank_theorem_for_manifolds.md](lee_7_13_rank_theorem_for_manifolds.md) · **Lean:** [lee_7_13_rank_theorem_for_manifolds.lean](lee_7_13_rank_theorem_for_manifolds.lean)
+**Statement:** [lee_7_13_rank_theorem_for_manifolds.md](lee_7_13_rank_theorem_for_manifolds.md) · **Lean:** [lee_7_13_rank_theorem_for_manifolds.lean](lee_7_13_rank_theorem_for_manifolds.lean) · **Context:** [lee_7_13_rank_theorem_for_manifolds.context.md](lee_7_13_rank_theorem_for_manifolds.context.md)
 
 ## What the theorem says
 
@@ -27,7 +27,7 @@ row is incomplete.
 | 7 | The charts are positioned: $p$ is in the domain of $\varphi$, and $F(p)$ is in the domain of $\psi$. | ✅ `p ∈ φ.source` and `F p ∈ ψ.source`. |
 | 8 | $F$ carries the domain of $\varphi$ into the domain of $\psi$. | ✅ `MapsTo F φ.source ψ.source`. |
 | 9 | The normal form holds on the whole chart image: for every $x \in \varphi(\text{source})$, coordinate $i$ of $\psi(F(\varphi^{-1}(x)))$ is $x^i$ for $i < k$ and $0$ for the remaining $n - k$ coordinates. | ✅ `∀ x ∈ φ.target, ψ (F (φ.symm x)) = fun i ↦ if h : i.1 < k ∧ i.1 < m then x ⟨i.1, h.2⟩ else 0`. |
-| 10 | Lee's coordinates are **centred**: $\varphi(p) = 0$ and $\psi(F(p)) = 0$. | ⚠️ Missing. Neither conjunct appears, so our conclusion is weaker than the text. Adding `φ p = 0` alone would suffice, since the normal form then forces `ψ (F p) = 0`. |
+| 10 | Lee's coordinates are **centred**: $\varphi(p) = 0$ and $\psi(F(p)) = 0$. | ✅ `φ p = 0 ∧ ψ (F p) = 0`. |
 
 ## Mistakes to check for
 
@@ -59,3 +59,35 @@ wrong, even if it compiles.
   The choice would matter in a statement that mentioned distances or norms.
 - The `i.1 < m` conjunct inside the `if` exists only to build a `Fin m` index and is implied by
   `i.1 < k` together with `hk.1`.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[lee_7_13_rank_theorem_for_manifolds.md](lee_7_13_rank_theorem_for_manifolds.md) and the background in [lee_7_13_rank_theorem_for_manifolds.context.md](lee_7_13_rank_theorem_for_manifolds.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 with the rank condition imposed only at $p$.
+- Requirement 10 with the charts not centred.
+- Requirement 6 with charts that are merely homeomorphisms rather than members of the smooth atlas.
+
+### Domain-specific pitfalls for this problem
+
+- Constant rank is a hypothesis at every point of $M$.
+- The charts are centred: $\varphi(p)=0$ and $\psi(F(p))=0$.
+- Junk value — `mfderiv`: without the smoothness hypothesis the differential is a default and any rank condition about it is empty.
+- The chart domains must be positioned so that $F$ maps one into the other.
+- The normal form must hold on the whole chart image, not only at the centre.

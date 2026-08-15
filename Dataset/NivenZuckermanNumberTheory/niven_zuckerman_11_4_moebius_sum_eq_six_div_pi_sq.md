@@ -4,6 +4,7 @@
 - **Domain:** Number theory
 - **Lean declaration:** `Dataset.NivenZuckermanNumberTheory.niven_zuckerman_11_4_moebius_sum_eq_six_div_pi_sq` ([niven_zuckerman_11_4_moebius_sum_eq_six_div_pi_sq.lean](niven_zuckerman_11_4_moebius_sum_eq_six_div_pi_sq.lean))
 - **Criteria:** [niven_zuckerman_11_4_moebius_sum_eq_six_div_pi_sq.criteria.md](niven_zuckerman_11_4_moebius_sum_eq_six_div_pi_sq.criteria.md)
+- **Context:** [niven_zuckerman_11_4_moebius_sum_eq_six_div_pi_sq.context.md](niven_zuckerman_11_4_moebius_sum_eq_six_div_pi_sq.context.md)
 
 ## Statement
 

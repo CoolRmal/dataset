@@ -4,6 +4,7 @@
 - **Domain:** Smooth manifolds
 - **Lean declaration:** `Dataset.LeeSmoothManifolds.lee_9_16_quotient_manifold_theorem` ([lee_9_16_quotient_manifold_theorem.lean](lee_9_16_quotient_manifold_theorem.lean))
 - **Criteria:** [lee_9_16_quotient_manifold_theorem.criteria.md](lee_9_16_quotient_manifold_theorem.criteria.md)
+- **Context:** [lee_9_16_quotient_manifold_theorem.context.md](lee_9_16_quotient_manifold_theorem.context.md)
 
 ## Statement
 

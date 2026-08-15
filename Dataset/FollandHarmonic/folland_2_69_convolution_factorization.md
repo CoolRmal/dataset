@@ -4,6 +4,7 @@
 - **Domain:** Harmonic analysis
 - **Lean declaration:** `Dataset.FollandHarmonic.folland_2_69_convolution_factorization` ([folland_2_69_convolution_factorization.lean](folland_2_69_convolution_factorization.lean))
 - **Criteria:** [folland_2_69_convolution_factorization.criteria.md](folland_2_69_convolution_factorization.criteria.md)
+- **Context:** [folland_2_69_convolution_factorization.context.md](folland_2_69_convolution_factorization.context.md)
 
 ## Statement
 

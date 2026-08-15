@@ -1,6 +1,6 @@
 # Criteria: hayman_3_8_tumura_clunie_form
 
-**Statement:** [hayman_3_8_tumura_clunie_form.md](hayman_3_8_tumura_clunie_form.md) · **Lean:** [hayman_3_8_tumura_clunie_form.lean](hayman_3_8_tumura_clunie_form.lean)
+**Statement:** [hayman_3_8_tumura_clunie_form.md](hayman_3_8_tumura_clunie_form.md) · **Lean:** [hayman_3_8_tumura_clunie_form.lean](hayman_3_8_tumura_clunie_form.lean) · **Context:** [hayman_3_8_tumura_clunie_form.context.md](hayman_3_8_tumura_clunie_form.context.md)
 
 ## What the theorem says
 
@@ -58,3 +58,34 @@ wrong, even if it compiles.
   evaluation is a total function, so nothing in this statement can be satisfied by a junk value.
 - The negative power is written with an integer exponent, `(A * z + B) ^ (-(n : ℤ))`, so Lean's
   `zpow` is used; at $Az+B = 0$ that would return $0$, which is why the guard is present.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[hayman_3_8_tumura_clunie_form.md](hayman_3_8_tumura_clunie_form.md) and the background in [hayman_3_8_tumura_clunie_form.context.md](hayman_3_8_tumura_clunie_form.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 5 with $l = 1$ admitted.
+- Requirement 6 with $P_2$ allowed to be the zero polynomial.
+- Requirement 8 with the second conclusion asserted under "finitely many zeros" rather than "no zeros".
+
+### Domain-specific pitfalls for this problem
+
+- Junk value — division: $P_1/P_2$ is Lean's default where $P_2$ vanishes, so the identity must be guarded by $P_2(z) \ne 0$ — which is exactly where $f$ has its poles.
+- The second alternative is a *negative* integer power $(Az+B)^{-n}$ with $n \ge 1$; a positive power is a different family.
+- The extra hypothesis of the second conclusion is the absence of zeros, strictly stronger than their finiteness.
+- "Finitely many poles" is finiteness of the set of non-analyticity points inside the domain of meromorphy.

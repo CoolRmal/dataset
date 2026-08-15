@@ -4,6 +4,7 @@
 - **Domain:** PDE
 - **Lean declaration:** `Dataset.KrylovSobolev.krylov_sobolev_13_6_3_divergence_form_solvability` ([krylov_sobolev_13_6_3_divergence_form_solvability.lean](krylov_sobolev_13_6_3_divergence_form_solvability.lean))
 - **Criteria:** [krylov_sobolev_13_6_3_divergence_form_solvability.criteria.md](krylov_sobolev_13_6_3_divergence_form_solvability.criteria.md)
+- **Context:** [krylov_sobolev_13_6_3_divergence_form_solvability.context.md](krylov_sobolev_13_6_3_divergence_form_solvability.context.md)
 
 ## Statement
 

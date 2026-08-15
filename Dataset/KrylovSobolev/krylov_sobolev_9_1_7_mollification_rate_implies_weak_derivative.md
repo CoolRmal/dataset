@@ -4,6 +4,7 @@
 - **Domain:** PDE
 - **Lean declaration:** `Dataset.KrylovSobolev.krylov_sobolev_9_1_7_mollification_rate_implies_weak_derivative` ([krylov_sobolev_9_1_7_mollification_rate_implies_weak_derivative.lean](krylov_sobolev_9_1_7_mollification_rate_implies_weak_derivative.lean))
 - **Criteria:** [krylov_sobolev_9_1_7_mollification_rate_implies_weak_derivative.criteria.md](krylov_sobolev_9_1_7_mollification_rate_implies_weak_derivative.criteria.md)
+- **Context:** [krylov_sobolev_9_1_7_mollification_rate_implies_weak_derivative.context.md](krylov_sobolev_9_1_7_mollification_rate_implies_weak_derivative.context.md)
 
 ## Statement
 

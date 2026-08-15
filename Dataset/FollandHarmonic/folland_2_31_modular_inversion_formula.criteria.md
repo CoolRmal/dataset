@@ -1,6 +1,6 @@
 # Criteria: folland_2_31_modular_inversion_formula
 
-**Statement:** [folland_2_31_modular_inversion_formula.md](folland_2_31_modular_inversion_formula.md) · **Lean:** [folland_2_31_modular_inversion_formula.lean](folland_2_31_modular_inversion_formula.lean)
+**Statement:** [folland_2_31_modular_inversion_formula.md](folland_2_31_modular_inversion_formula.md) · **Lean:** [folland_2_31_modular_inversion_formula.lean](folland_2_31_modular_inversion_formula.lean) · **Context:** [folland_2_31_modular_inversion_formula.context.md](folland_2_31_modular_inversion_formula.context.md)
 
 ## What the theorem says
 
@@ -58,3 +58,35 @@ wrong, even if it compiles.
   `ℝ → ℂ` coercion.
 - The measure `μ` is an arbitrary left Haar measure, not a distinguished one; the identity is
   scale-invariant, so this is the right level of generality.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[folland_2_31_modular_inversion_formula.md](folland_2_31_modular_inversion_formula.md) and the background in [folland_2_31_modular_inversion_formula.context.md](folland_2_31_modular_inversion_formula.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 5 with the weight taken at the wrong point, so that the identity asserted is the reciprocal one: the resulting statement is false on any non-unimodular group.
+- Requirement 4 with $f$ evaluated at $x$ rather than $x^{-1}$ on the left.
+- Requirement 2 with a *right* Haar measure.
+
+### Domain-specific pitfalls for this problem
+
+- The modular-function convention decides whether the weight is written $\Delta(x)$ or $\Delta(x^{-1})$. Mathlib's `Measure.modularCharacterFun` satisfies `map (· * g) μ = modularCharacterFun g • μ`, i.e. $\mu(Eg^{-1}) = \Delta_M(g)\mu(E)$, so Folland's $\Delta(x^{-1})$ **is** Mathlib's `modularCharacterFun x`. Writing `modularCharacterFun x⁻¹` states the reciprocal identity, which is false in the non-unimodular case.
+- `IsHaarMeasure` in Mathlib is the *left* Haar condition for a multiplicative group; using a right Haar measure changes the theorem.
+- The modular function is `ℝ≥0`-valued and must be coerced to multiply a complex or real integrand; the coercion is where a sign or inversion error hides.
+- The weight belongs inside the integral, multiplying the integrand pointwise.
+- The identity is for all $f \in L^1$, so both integrals are Bochner integrals of integrable functions and no junk value is involved.

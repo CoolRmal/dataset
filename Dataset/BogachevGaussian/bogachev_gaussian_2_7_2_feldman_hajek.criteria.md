@@ -1,6 +1,6 @@
 # Criteria: bogachev_gaussian_2_7_2_feldman_hajek
 
-**Statement:** [bogachev_gaussian_2_7_2_feldman_hajek.md](bogachev_gaussian_2_7_2_feldman_hajek.md) · **Lean:** [bogachev_gaussian_2_7_2_feldman_hajek.lean](bogachev_gaussian_2_7_2_feldman_hajek.lean)
+**Statement:** [bogachev_gaussian_2_7_2_feldman_hajek.md](bogachev_gaussian_2_7_2_feldman_hajek.md) · **Lean:** [bogachev_gaussian_2_7_2_feldman_hajek.lean](bogachev_gaussian_2_7_2_feldman_hajek.lean) · **Context:** [bogachev_gaussian_2_7_2_feldman_hajek.context.md](bogachev_gaussian_2_7_2_feldman_hajek.context.md)
 
 ## What the theorem says
 
@@ -43,3 +43,33 @@ wrong, even if it compiles.
 - Bogachev states the theorem on a locally convex space. We state it on a normed space with a Borel structure, because that is where Mathlib's `IsGaussian` lives. This narrows the scope but not the mathematical content. A candidate that states it on a locally convex space with a hand-written Gaussianity predicate is at least as faithful, provided the predicate matches Definition 2.2.1 (every continuous linear functional has a real Gaussian law).
 - `Equivalent` is our own definition, in `Defs.lean`, because Mathlib supplies `≪` and `⟂ₘ` but no bundled notion of equivalent measures. A candidate writing `μ ≪ ν ∧ ν ≪ μ` inline is equally correct.
 - The statement contains no suprema, integrals or `toReal` conversions, so there is no place where a Lean default value could make it true for the wrong reason. The only modelling choice is the ambient space.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[bogachev_gaussian_2_7_2_feldman_hajek.md](bogachev_gaussian_2_7_2_feldman_hajek.md) and the background in [bogachev_gaussian_2_7_2_feldman_hajek.context.md](bogachev_gaussian_2_7_2_feldman_hajek.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 6 rows, so each row is worth 8.3 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 or 4 weakened to a one-sided statement (`μ ≪ ν ∨ μ ⟂ₘ ν`), which loses the theorem.
+- Requirement 2 strengthened by assuming a common covariance operator, which reduces the statement to Theorem 2.4.5.
+
+### Domain-specific pitfalls for this problem
+
+- "Equivalent" is two-sided absolute continuity; Mathlib's `≪` gives only one side.
+- The conclusion is a disjunction, not an implication with an extra hypothesis: exhaustiveness is what is being asserted.
+- Centredness, non-degeneracy and separability are all absent from the hypotheses; each is a narrowing.
+- Specialising the ambient space to $\mathbb{R}^n$ or to $C[0,1]$ removes the interesting content.

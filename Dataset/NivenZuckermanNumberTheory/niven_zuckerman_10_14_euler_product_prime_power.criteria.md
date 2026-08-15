@@ -1,6 +1,6 @@
 # Criteria: niven_zuckerman_10_14_euler_product_prime_power
 
-**Statement:** [niven_zuckerman_10_14_euler_product_prime_power.md](niven_zuckerman_10_14_euler_product_prime_power.md) · **Lean:** [niven_zuckerman_10_14_euler_product_prime_power.lean](niven_zuckerman_10_14_euler_product_prime_power.lean)
+**Statement:** [niven_zuckerman_10_14_euler_product_prime_power.md](niven_zuckerman_10_14_euler_product_prime_power.md) · **Lean:** [niven_zuckerman_10_14_euler_product_prime_power.lean](niven_zuckerman_10_14_euler_product_prime_power.lean) · **Context:** [niven_zuckerman_10_14_euler_product_prime_power.context.md](niven_zuckerman_10_14_euler_product_prime_power.context.md)
 
 ## What the theorem says
 
@@ -58,3 +58,35 @@ wrong, even if it compiles.
   harmless.
 - Careful with the letter $p$: in this chapter of the book it is both the prime here and the
   partition function $p(n)$ elsewhere. Only the prime occurs in this statement.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[niven_zuckerman_10_14_euler_product_prime_power.md](niven_zuckerman_10_14_euler_product_prime_power.md) and the background in [niven_zuckerman_10_14_euler_product_prime_power.context.md](niven_zuckerman_10_14_euler_product_prime_power.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 8 with the coefficient sequence quantified after $x$.
+- Requirement 4 with $\phi(x^p)$ and $\phi(x)^p$ interchanged.
+- Requirement 6 with the explicit factor $p$ dropped.
+
+### Domain-specific pitfalls for this problem
+
+- The two occurrences of $p$ sit in different places: inside the argument on top, as an exponent of the value on the bottom.
+- The coefficients are integers, cast to $\mathbb{R}$ only where the series is summed.
+- Junk value — `tsum`: the series must be asserted convergent (or the identity read only where it converges), since an unsummable `tsum` is $0$.
+- One coefficient sequence works for every $x \in [0,1)$.
+- $\phi$ must be Euler's product, not an arbitrary function.

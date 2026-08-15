@@ -1,6 +1,6 @@
 # Criteria: krylov_8_7_3_shifted_heat_holder_solvability
 
-**Statement:** [krylov_8_7_3_shifted_heat_holder_solvability.md](krylov_8_7_3_shifted_heat_holder_solvability.md) · **Lean:** [krylov_8_7_3_shifted_heat_holder_solvability.lean](krylov_8_7_3_shifted_heat_holder_solvability.lean)
+**Statement:** [krylov_8_7_3_shifted_heat_holder_solvability.md](krylov_8_7_3_shifted_heat_holder_solvability.md) · **Lean:** [krylov_8_7_3_shifted_heat_holder_solvability.lean](krylov_8_7_3_shifted_heat_holder_solvability.lean) · **Context:** [krylov_8_7_3_shifted_heat_holder_solvability.context.md](krylov_8_7_3_shifted_heat_holder_solvability.context.md)
 
 ## What the theorem says
 
@@ -49,3 +49,34 @@ wrong, even if it compiles.
 - `HolderOnReal r I u` contributes no supremum bound at all, unlike `holderGauge`, which does include $\sup\lvert D^\alpha u\rvert$ for $\lvert\alpha\rvert \le k$. So $u(t,x) = t$ counts as "$C^{1+\delta/2}$ in $t$", and functions unbounded in time are admitted. Adding a bound on $u$ and its time derivatives would match the text.
 - The two halves of `ParabolicHolderOn` are written in different styles: `HolderOnReal` uses mathlib's `HolderOnWith` and `iteratedDeriv`, whereas the spatial `holderGauge` hand-rolls its difference quotient.
 - Points of $\mathbb{R}^{d+1}$ are `ℝ × EuclideanSpace ℝ (Fin d)` with time first, used consistently.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[krylov_8_7_3_shifted_heat_holder_solvability.md](krylov_8_7_3_shifted_heat_holder_solvability.md) and the background in [krylov_8_7_3_shifted_heat_holder_solvability.context.md](krylov_8_7_3_shifted_heat_holder_solvability.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 5 with the zeroth-order shift $-u$ dropped: uniqueness then fails.
+- Requirement 4 with $\Delta$ taken over all $d+1$ variables.
+- Requirement 7 with existence only, or uniqueness only.
+
+### Domain-specific pitfalls for this problem
+
+- The Laplacian is spatial; the time derivative appears separately.
+- The parabolic Hölder exponents are locked by the scaling: $(\delta/2,\delta)$ for the datum and $(1+\delta/2,2+\delta)$ for the solution.
+- Junk value — `deriv`: the equation is meaningful only together with the regularity assumption that makes the derivatives exist.
+- Uniqueness is within the stated class.

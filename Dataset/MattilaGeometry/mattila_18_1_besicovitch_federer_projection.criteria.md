@@ -1,6 +1,6 @@
 # Criteria: mattila_18_1_besicovitch_federer_projection
 
-**Statement:** [mattila_18_1_besicovitch_federer_projection.md](mattila_18_1_besicovitch_federer_projection.md) · **Lean:** [mattila_18_1_besicovitch_federer_projection.lean](mattila_18_1_besicovitch_federer_projection.lean)
+**Statement:** [mattila_18_1_besicovitch_federer_projection.md](mattila_18_1_besicovitch_federer_projection.md) · **Lean:** [mattila_18_1_besicovitch_federer_projection.lean](mattila_18_1_besicovitch_federer_projection.lean) · **Context:** [mattila_18_1_besicovitch_federer_projection.context.md](mattila_18_1_besicovitch_federer_projection.context.md)
 
 ## What the theorem says
 
@@ -61,3 +61,35 @@ wrong, even if it compiles.
 - The Hausdorff exponent is the real cast `(m : ℝ)` of the natural number `m` throughout, and the
   comparisons `0 < μH[(m:ℝ)] B` and `μH[(m:ℝ)] (…) = 0` are made in `ℝ≥0∞`, where they are the right
   junk-free readings for a possibly infinite measure.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[mattila_18_1_besicovitch_federer_projection.md](mattila_18_1_besicovitch_federer_projection.md) and the background in [mattila_18_1_besicovitch_federer_projection.context.md](mattila_18_1_besicovitch_federer_projection.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 5 with the quantifiers over $B$ and over $V$ interchanged.
+- Requirement 8 with pure unrectifiability quantified over some family rather than all rectifiable sets.
+- Requirement 10 with either biconditional reduced to one direction.
+
+### Domain-specific pitfalls for this problem
+
+- In part (1) the null set of bad directions may depend on the test set $B$; hoisting the "almost all $V$" outside states something stronger.
+- $P_V$ is the orthogonal projection, and $\mathcal{H}^m$ of the image is computed in $V$ with its inherited metric.
+- Rectifiability is by countably many Lipschitz maps with a null remainder; pure unrectifiability is a statement about intersections with *every* rectifiable set.
+- Finiteness of $\mathcal{H}^m(A)$ is a hypothesis.
+- The Grassmannian carries an invariant probability measure and a fixed measurable structure.

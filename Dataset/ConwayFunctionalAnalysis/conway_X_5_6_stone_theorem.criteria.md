@@ -1,6 +1,6 @@
 # Criteria: conway_X_5_6_stone_theorem
 
-**Statement:** [conway_X_5_6_stone_theorem.md](conway_X_5_6_stone_theorem.md) · **Lean:** [conway_X_5_6_stone_theorem.lean](conway_X_5_6_stone_theorem.lean)
+**Statement:** [conway_X_5_6_stone_theorem.md](conway_X_5_6_stone_theorem.md) · **Lean:** [conway_X_5_6_stone_theorem.lean](conway_X_5_6_stone_theorem.lean) · **Context:** [conway_X_5_6_stone_theorem.context.md](conway_X_5_6_stone_theorem.context.md)
 
 ## What the theorem says
 
@@ -64,3 +64,36 @@ wrong, even if it compiles.
 - ⚠️ `IsUnitaryOperator` is spelled out as a pair of adjoint identities. Mathlib's
   `U ∈ unitary (H →L[ℂ] H)` (with `unitary.mem_iff`) is the same pair and is the idiomatic spelling.
 - The projection-valued measure is hand-rolled in `Defs.lean` because Mathlib has none.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[conway_X_5_6_stone_theorem.md](conway_X_5_6_stone_theorem.md) and the background in [conway_X_5_6_stone_theorem.context.md](conway_X_5_6_stone_theorem.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 4 with a *bounded* generator: the theorem is then false, since most one-parameter unitary groups have unbounded generators.
+- Requirement 6 weakened to symmetry instead of self-adjointness of the unbounded operator.
+- Requirement 5 with the domain not required dense, so that the generator is not determined.
+- Requirement 2 with norm continuity substituted for strong continuity.
+
+### Domain-specific pitfalls for this problem
+
+- Unitarity is *both* $U^*U = 1$ and $UU^* = 1$; on an infinite dimensional space the first alone only says $U$ is an isometry.
+- Strong continuity is continuity of $t \mapsto U(t)x$ for each $x$, not of $t \mapsto U(t)$ in operator norm.
+- An unbounded operator carries its domain as part of its data, and every identity involving it may only be asserted for vectors in that domain.
+- $\exp(itA)$ has to be given a meaning by a spectral measure supported on $\mathbb{R}$; a power series or a `Real.exp`-style definition does not typecheck for unbounded $A$.
+- The scalar measures $\langle E(\cdot)x,y\rangle$ must be pinned on every measurable set for the integral identities to determine anything.

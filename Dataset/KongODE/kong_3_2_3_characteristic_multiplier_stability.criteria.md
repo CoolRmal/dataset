@@ -1,6 +1,6 @@
 # Criteria: kong_3_2_3_characteristic_multiplier_stability
 
-**Statement:** [kong_3_2_3_characteristic_multiplier_stability.md](kong_3_2_3_characteristic_multiplier_stability.md) · **Lean:** [kong_3_2_3_characteristic_multiplier_stability.lean](kong_3_2_3_characteristic_multiplier_stability.lean)
+**Statement:** [kong_3_2_3_characteristic_multiplier_stability.md](kong_3_2_3_characteristic_multiplier_stability.md) · **Lean:** [kong_3_2_3_characteristic_multiplier_stability.lean](kong_3_2_3_characteristic_multiplier_stability.lean) · **Context:** [kong_3_2_3_characteristic_multiplier_stability.context.md](kong_3_2_3_characteristic_multiplier_stability.context.md)
 
 ## What the theorem says
 
@@ -21,7 +21,7 @@ row is incomplete.
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
 | 1 | The period is positive and $A$ repeats with that period at every time. | ✅ `hω : 0 < ω` and `PeriodicLinearEquation ω A`. |
-| 2 | Kong's system (H-p) also assumes $A$ continuous. | ⚠️ Omitted, so our version is formally stronger than the printed one. This is harmless: `hV` already hands us a fundamental matrix $X$, and for any trajectory $y$ the function $X^{-1}y$ has derivative $0$ everywhere, so the solution set is exactly $\{X(t)c\}$ whatever the regularity of $A$; $X$ and $X^{-1}$ are continuous, hence bounded on $[0,\omega]$, which is all that is used. |
+| 2 | Kong's system (H-p) also assumes $A$ continuous. | ✅ `hA : Continuous A`. It is not actually used — `hV` already hands over a fundamental matrix $X$, and for any trajectory $y$ the function $X^{-1}y$ has derivative $0$, so the solution set is $\{X(t)c\}$ whatever the regularity of $A$ — but the printed theorem states it, so the ground truth does too. |
 | 3 | $V$ is the one-period transition matrix built from **some** fundamental matrix solution on all of $\mathbb{R}$, pushed into the complex matrices. | ✅ `IsPeriodTransitionMatrix ω A V`, which is `∃ X, FundamentalMatrixSolution univ A X ∧ V = (X ω * (X 0)⁻¹).map (algebraMap ℝ ℂ)`. |
 | 4 | $\mu$ is a list of exactly $n$ complex numbers: all eigenvalues of $V$, each repeated as often as its algebraic multiplicity. | ✅ `CharacteristicMultipliers V μ`, which is `Matrix.charpoly V = ∏ i, (Polynomial.X - Polynomial.C (μ i))`. Since the characteristic polynomial is monic of degree $n$, this pins $\mu$ down as the multiset of its roots. |
 | 5 | "In the diagonal Jordan block" means every Jordan block of $V$ for that eigenvalue is $1\times 1$, equivalently $\ker(V - \mu)^2 = \ker(V - \mu)$. | ✅ `InDiagonalJordanBlock V μ`, which is `∀ v, (V - μ • 1) *ᵥ ((V - μ • 1) *ᵥ v) = 0 → (V - μ • 1) *ᵥ v = 0`. |
@@ -54,3 +54,35 @@ wrong, even if it compiles.
 - The transition matrix is only pinned down up to the choice of fundamental matrix solution, but the choice does not matter: two fundamental matrices differ by a constant right factor, $\tilde X = XM$, and then $\tilde X(\omega)\tilde X(0)^{-1} = X(\omega)X(0)^{-1}$. Kong's $V$ comes from $X(t+\omega) = X(t)V$, i.e. $X^{-1}(0)X(\omega)$, which is conjugate to ours, so both the multipliers and the semisimplicity condition are unchanged.
 - Because `UnstableLinearEquation A` is defined as `¬UniformlyStableLinearEquation A`, part (c) is literally the contrapositive of part (a) and carries no independent mathematical content. We keep it because the text lists it. Note also that Kong's "unstable" negates plain stability while ours negates uniform stability; for periodic linear systems these agree.
 - Requiring trajectories to be defined on all of $\mathbb{R}$ is exactly right here: every maximal solution of a linear system is global.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[kong_3_2_3_characteristic_multiplier_stability.md](kong_3_2_3_characteristic_multiplier_stability.md) and the background in [kong_3_2_3_characteristic_multiplier_stability.context.md](kong_3_2_3_characteristic_multiplier_stability.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 12 rows, so each row is worth 4.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 5 with the semisimplicity condition dropped from (a) and (c): the characterisation is then false.
+- Requirement 8 with any of the three stated as a one-way implication.
+- Requirement 4 with the multipliers listed as a *set* of eigenvalues rather than with algebraic multiplicity.
+
+### Domain-specific pitfalls for this problem
+
+- "In the diagonal Jordan block" is semisimplicity of that eigenvalue, i.e. all its Jordan blocks are $1\times1$.
+- The multipliers are the $n$ eigenvalues with algebraic multiplicity, so a family indexed by `Fin n` is the right shape.
+- The transition matrix is built from *some* fundamental matrix solution; its eigenvalues do not depend on the choice.
+- Junk value — matrix inverse: $X^{-1}(0)$ is meaningful only because $X$ is nonsingular.
+- "Uniformly" stable means the radius is independent of the initial time.

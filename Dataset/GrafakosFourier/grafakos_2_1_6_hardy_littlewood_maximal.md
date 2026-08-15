@@ -4,6 +4,7 @@
 - **Domain:** Fourier analysis
 - **Lean declaration:** `Dataset.GrafakosFourier.grafakos_2_1_6_hardy_littlewood_maximal` ([grafakos_2_1_6_hardy_littlewood_maximal.lean](grafakos_2_1_6_hardy_littlewood_maximal.lean))
 - **Criteria:** [grafakos_2_1_6_hardy_littlewood_maximal.criteria.md](grafakos_2_1_6_hardy_littlewood_maximal.criteria.md)
+- **Context:** [grafakos_2_1_6_hardy_littlewood_maximal.context.md](grafakos_2_1_6_hardy_littlewood_maximal.context.md)
 
 ## Statement
 

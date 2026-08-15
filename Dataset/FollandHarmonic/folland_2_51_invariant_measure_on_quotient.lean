@@ -29,7 +29,7 @@ theorem folland_2_51_invariant_measure_on_quotient {G : Type*} [Group G]
     (μ : Measure G) [μ.IsHaarMeasure]
     (H : Subgroup G) (hH : IsClosed (H : Set G)) [LocallyCompactSpace H]
     (ν : Measure H) [ν.IsHaarMeasure]
-    [TopologicalSpace (G ⧸ H)] [MeasurableSpace (G ⧸ H)] [BorelSpace (G ⧸ H)] :
+    [MeasurableSpace (G ⧸ H)] [BorelSpace (G ⧸ H)] :
     (∃ ρ : Measure (G ⧸ H), ρ ≠ 0 ∧
         (∀ g : G, ρ.map (fun q ↦ g • q) = ρ) ∧
         ∀ f : G → ℂ, Continuous f → HasCompactSupport f →

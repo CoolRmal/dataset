@@ -1,6 +1,6 @@
 # Criteria: kong_1_3_3_nth_order_scalar_ivp
 
-**Statement:** [kong_1_3_3_nth_order_scalar_ivp.md](kong_1_3_3_nth_order_scalar_ivp.md) · **Lean:** [kong_1_3_3_nth_order_scalar_ivp.lean](kong_1_3_3_nth_order_scalar_ivp.lean)
+**Statement:** [kong_1_3_3_nth_order_scalar_ivp.md](kong_1_3_3_nth_order_scalar_ivp.md) · **Lean:** [kong_1_3_3_nth_order_scalar_ivp.lean](kong_1_3_3_nth_order_scalar_ivp.lean) · **Context:** [kong_1_3_3_nth_order_scalar_ivp.context.md](kong_1_3_3_nth_order_scalar_ivp.context.md)
 
 ## What the theorem says
 
@@ -54,3 +54,35 @@ wrong, even if it compiles.
 - Local Lipschitz dependence is asked of `companionField g` rather than of `g` itself. The two are equivalent, because the shift part of the companion field is $1$-Lipschitz in the supremum norm on `Fin n → ℝ`, so a Lipschitz bound for one gives a Lipschitz bound for the other.
 - On a closed interval the literal reading of "solution on $\lvert t-t_0\rvert \le \gamma$" is a one-sided derivative at the two endpoints. `IsTrajectoryOn` uses `HasDerivWithinAt … I t`, which is exactly that, and matches what mathlib's Picard–Lindelöf API produces. An earlier version demanded the two-sided `HasDerivAt` everywhere; that was harmless for existence (shrink $\gamma$) but silently narrowed the class of competitors in the uniqueness clause, making uniqueness easier to satisfy than it should be.
 - The two parts are stated as two implications conjoined in one theorem rather than as two declarations, so that the shared hypotheses `hD` and `hpoint` are written once.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[kong_1_3_3_nth_order_scalar_ivp.md](kong_1_3_3_nth_order_scalar_ivp.md) and the background in [kong_1_3_3_nth_order_scalar_ivp.context.md](kong_1_3_3_nth_order_scalar_ivp.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 12 rows, so each row is worth 4.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 7 with a Lipschitz condition imposed in $t$ as well, or with a global instead of a local one.
+- Requirement 8 with part (b) asserting uniqueness without existence.
+- Requirement 11 dropped, so solutions are not required to remain in $D$ where the field is defined.
+
+### Domain-specific pitfalls for this problem
+
+- $C(D,\cdot)$ is joint continuity; separate continuity is weaker.
+- A solution must be asserted differentiable, not merely to satisfy an identity between derivative values — `deriv` of a non-differentiable function is the junk value $0$.
+- The Lipschitz hypothesis is on the state variables only and is local.
+- The $n$-th order scalar problem carries $n$ scalar initial conditions; the companion system is a faithful reformulation but must reproduce all of them.
+- Both the produced solution and every competitor in the uniqueness clause must stay inside $D$.

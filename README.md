@@ -1,7 +1,8 @@
 # dataset
 
 Lean statement dataset for hard autoformalization targets, using the local
-mathlib checkout as dependency.
+mathlib checkout as dependency. The whole dataset elaborates under
+`lake build`: 160 statement files, 160 `sorry` warnings, no errors.
 
 ## Layout
 
@@ -18,13 +19,35 @@ declaration:
   and potential errors a model can make when formalizing this statement
   (hypothesis/conclusion completeness, junk values, semantic closeness to the
   text, closeness to Mathlib conventions, likely traps), together with an
-  honest assessment of the ground-truth statement against each criterion.
-  These rubrics define what it means for a candidate Lean statement of this
-  problem to be good quality.
+  honest assessment of the ground-truth statement against each criterion, and
+  a `## Grading (out of 100)` section instantiating the shared scale of
+  [GRADING.md](GRADING.md) for this problem — the per-problem point split,
+  the requirements whose violation is fatal, and the domain-specific pitfalls
+  to check for. These rubrics define what it means for a candidate Lean
+  statement of this problem to be good quality.
+- `<decl>.context.md` — the minimal background a reader needs in order to read
+  the statement correctly: what the notation means, which of several
+  same-sounding notions the book intends, and which readings are wrong. It is
+  natural language only — no Lean, and no hint at how to formalize the
+  statement — and exists to resolve confusion rather than to give the answer
+  away. Example: Bogachev 8.6.2 speaks of a family `M` of "measures", and the
+  context file records that in that chapter "measure" means a finite *signed*
+  Borel measure.
 
 `Dataset/<Book>.lean` is an import roll-up for the book, so `lake build`
 builds every problem file; declaration names are unchanged from the original
 monolithic per-book files.
+
+## Grading
+
+[GRADING.md](GRADING.md) defines the 100-point scale used by every rubric:
+five bands (completeness 50, semantic fidelity 20, Mathlib-concept
+correctness 15, non-degeneracy 10, hygiene 5), a list of caps for statements
+that are false, vacuous, junk-satisfied or simply a different theorem, and a
+catalogue of the recurring failure modes each band is meant to catch. Each
+`<decl>.criteria.md` closes with that scale instantiated for its own problem.
+
+## Repairs
 
 Applying the rubrics to the dataset's own statements turned up defects in the
 ground truth — statements that are false or unsatisfiable, terms that silently
@@ -61,16 +84,18 @@ its copyright page and the Mathlib gap checked against the library.
 
 ## Source texts
 
-`reference/` holds the source textbooks themselves, one PDF per book, named
-after the `Dataset/<Book>/` directory it feeds. `reference/README.md` records,
-for each one, the offset between PDF page numbers and printed page numbers —
-several of these books are scans with no text layer, so a page has to be
-rendered to an image before it can be read.
+`reference/` holds the source textbooks themselves and nothing else: one PDF
+per book, named after the `Dataset/<Book>/` directory it feeds. Generated
+benchmark reports and books that back no `Dataset/` directory have been removed
+from it. `reference/README.md` records, for each PDF, the offset between PDF
+page numbers and printed page numbers — several of these books are scans with
+no text layer, so a page has to be rendered to an image before it can be read.
 
 ## Scripts and generated artifacts
 
 - `scripts/make_benchmark_pdfs.py` generates one report per textbook in
-  `reports/`. Every report has exactly three columns: the textbook's
+  `build/benchmarks/` (git-ignored; the directory is a build artifact, not part
+  of the dataset). Every report has exactly three columns: the textbook's
   natural-language statement (followed by textbook definitions only when a
   required notion is absent from Mathlib), domain, and `GroundTruth`
   (including the corresponding Lean definitions and theorem statement).
@@ -78,5 +103,9 @@ rendered to an image before it can be read.
   synthesized from Lean docstrings.
 - `scripts/make_index.py` generates `data/records.jsonl` with one record per
   problem: id, book, domain, declaration name, file paths (Lean / statement /
-  criteria / Defs), the natural-language statement, and the extracted Lean
-  formalization.
+  criteria / context / Defs), the natural-language statement, and the extracted
+  Lean formalization.
+- `scripts/rubric_lib.py` holds the shared machinery for maintaining the
+  rubrics: it computes each problem's point split from its own requirement
+  table and writes the `## Grading (out of 100)` section and the
+  `<decl>.context.md` header.

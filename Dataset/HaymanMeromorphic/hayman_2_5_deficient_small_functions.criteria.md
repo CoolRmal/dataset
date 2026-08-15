@@ -1,6 +1,6 @@
 # Criteria: hayman_2_5_deficient_small_functions
 
-**Statement:** [hayman_2_5_deficient_small_functions.md](hayman_2_5_deficient_small_functions.md) · **Lean:** [hayman_2_5_deficient_small_functions.lean](hayman_2_5_deficient_small_functions.lean)
+**Statement:** [hayman_2_5_deficient_small_functions.md](hayman_2_5_deficient_small_functions.md) · **Lean:** [hayman_2_5_deficient_small_functions.lean](hayman_2_5_deficient_small_functions.lean) · **Context:** [hayman_2_5_deficient_small_functions.context.md](hayman_2_5_deficient_small_functions.context.md)
 
 ## What the theorem says
 
@@ -58,3 +58,35 @@ wrong, even if it compiles.
   zero never occurs for large $r$, so the ratio form is safe.
 - The reduced counting function is applied to `fun z ↦ f z - a ν z`. Mathlib's meromorphic functions
   are ordinary functions, so this subtraction is literal pointwise subtraction, including at poles.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[hayman_2_5_deficient_small_functions.md](hayman_2_5_deficient_small_functions.md) and the background in [hayman_2_5_deficient_small_functions.context.md](hayman_2_5_deficient_small_functions.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 with the $a_\nu$ taken to be constants: that is the second fundamental theorem, not this refinement.
+- Requirement 6 with $N$ in place of $\bar N$.
+- Requirement 5 dropped, so the comparison functions are unrestricted.
+
+### Domain-specific pitfalls for this problem
+
+- $\bar N(r, 1/(f-a_\nu))$ counts *zeros of $f - a_\nu$*, ignoring multiplicity; the reciprocal in the notation does not mean a counting function of $1/f$.
+- Both $\{1+o(1)\}$ and $S(r,f)$ are $o(T(r,f))$ error terms; folding them into a single $\varepsilon T(r,f)$ on each side is the faithful reading.
+- The inequality holds eventually in $r$, not for every $r$.
+- Distinctness of the $a_\nu$ is as functions, not pointwise at each $z$.
+- Admissibility of $f$ must be assumed.

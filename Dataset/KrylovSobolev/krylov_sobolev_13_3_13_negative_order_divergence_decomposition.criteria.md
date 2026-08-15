@@ -1,6 +1,6 @@
 # Criteria: krylov_sobolev_13_3_13_negative_order_divergence_decomposition
 
-**Statement:** [krylov_sobolev_13_3_13_negative_order_divergence_decomposition.md](krylov_sobolev_13_3_13_negative_order_divergence_decomposition.md) · **Lean:** [krylov_sobolev_13_3_13_negative_order_divergence_decomposition.lean](krylov_sobolev_13_3_13_negative_order_divergence_decomposition.lean)
+**Statement:** [krylov_sobolev_13_3_13_negative_order_divergence_decomposition.md](krylov_sobolev_13_3_13_negative_order_divergence_decomposition.md) · **Lean:** [krylov_sobolev_13_3_13_negative_order_divergence_decomposition.lean](krylov_sobolev_13_3_13_negative_order_divergence_decomposition.lean) · **Context:** [krylov_sobolev_13_3_13_negative_order_divergence_decomposition.context.md](krylov_sobolev_13_3_13_negative_order_divergence_decomposition.context.md)
 
 ## What the theorem says
 
@@ -41,3 +41,34 @@ wrong, even if it compiles.
 - `sobolevNorm (-1) p g` is the shared definition of $\|g\|_{H_p^{-1}}$: Mathlib supplies `MemSobolev` as a predicate but no norm. It is defined as an infimum over $\mathcal{L}_p$ representatives, so it takes the value $\top$ exactly when $g$ is not in the space.
 - Mathlib's `besselPotential` carries the $2\pi$ normalization, so `sobolevNorm` is equivalent to, rather than equal to, Krylov's norm. Both constants here are existential, so the statement is unaffected.
 - Tempered distributions in Mathlib need complex scalars, so the statement is over $\mathbb{C}$; the real case is contained in it.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[krylov_sobolev_13_3_13_negative_order_divergence_decomposition.md](krylov_sobolev_13_3_13_negative_order_divergence_decomposition.md) and the background in [krylov_sobolev_13_3_13_negative_order_divergence_decomposition.context.md](krylov_sobolev_13_3_13_negative_order_divergence_decomposition.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 6 rows, so each row is worth 8.3 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 1 with the constant quantified after $g$ (or after the $f_j$).
+- Requirement 3 omitted, so only one direction of the characterisation is asserted.
+- Requirement 5 with the identity read pointwise rather than as an identity of distributions.
+
+### Domain-specific pitfalls for this problem
+
+- There are $d+1$ functions; $f_0$ is not differentiated.
+- $D_jf_j$ is a distributional derivative — an element of $H_p^{-1}$, not an $\mathcal{L}_p$ function.
+- Both inequalities have their own uniform constant, quantified outermost.
+- $H_p^{-1}$ is a space of distributions; membership is a statement about the Bessel potential of $g$.

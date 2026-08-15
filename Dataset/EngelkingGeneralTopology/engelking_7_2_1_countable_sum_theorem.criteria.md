@@ -1,6 +1,6 @@
 # Criteria: engelking_7_2_1_countable_sum_theorem
 
-**Statement:** [engelking_7_2_1_countable_sum_theorem.md](engelking_7_2_1_countable_sum_theorem.md) · **Lean:** [engelking_7_2_1_countable_sum_theorem.lean](engelking_7_2_1_countable_sum_theorem.lean)
+**Statement:** [engelking_7_2_1_countable_sum_theorem.md](engelking_7_2_1_countable_sum_theorem.md) · **Lean:** [engelking_7_2_1_countable_sum_theorem.lean](engelking_7_2_1_countable_sum_theorem.lean) · **Context:** [engelking_7_2_1_countable_sum_theorem.context.md](engelking_7_2_1_countable_sum_theorem.context.md)
 
 ## What the theorem says
 
@@ -58,3 +58,34 @@ wrong, even if it compiles.
 - ⚠️ The closed cover is delivered as a single existential hypothesis `hcover : ∃ F, …`. This is
   logically the same as taking `F` and its properties as explicit binders, which would be the
   idiomatic mathlib shape and easier to apply. The existential packaging is acceptable.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[engelking_7_2_1_countable_sum_theorem.md](engelking_7_2_1_countable_sum_theorem.md) and the background in [engelking_7_2_1_countable_sum_theorem.context.md](engelking_7_2_1_countable_sum_theorem.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 7 with $\dim$ defined through arbitrary rather than finite open covers: a different dimension function.
+- Requirement 3 with the pieces not required closed.
+- Requirement 1 with normality dropped.
+
+### Domain-specific pitfalls for this problem
+
+- Covering dimension is defined by *finite* open covers and *finite* open refinements; using arbitrary covers defines a different invariant.
+- "Order at most $n+1$" means at most $n+1$ members contain any given point — the $+1$ is not a typo.
+- The dimension of each $F_j$ is computed in the subspace topology, so the covers there are relatively open.
+- One fixed $n$ bounds every piece and is the $n$ of the conclusion.

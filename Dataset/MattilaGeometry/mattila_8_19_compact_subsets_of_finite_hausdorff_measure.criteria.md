@@ -1,6 +1,6 @@
 # Criteria: mattila_8_19_compact_subsets_of_finite_hausdorff_measure
 
-**Statement:** [mattila_8_19_compact_subsets_of_finite_hausdorff_measure.md](mattila_8_19_compact_subsets_of_finite_hausdorff_measure.md) · **Lean:** [mattila_8_19_compact_subsets_of_finite_hausdorff_measure.lean](mattila_8_19_compact_subsets_of_finite_hausdorff_measure.lean)
+**Statement:** [mattila_8_19_compact_subsets_of_finite_hausdorff_measure.md](mattila_8_19_compact_subsets_of_finite_hausdorff_measure.md) · **Lean:** [mattila_8_19_compact_subsets_of_finite_hausdorff_measure.lean](mattila_8_19_compact_subsets_of_finite_hausdorff_measure.lean) · **Context:** [mattila_8_19_compact_subsets_of_finite_hausdorff_measure.context.md](mattila_8_19_compact_subsets_of_finite_hausdorff_measure.context.md)
 
 ## What the theorem says
 
@@ -56,3 +56,34 @@ wrong, even if it compiles.
   in the statement. It is a harmless restriction (for $s = 0$ the identity still holds, with
   $\mathcal{H}^0$ the counting measure), but `0 ≤ s`, or no restriction at all, would be closer to
   the text.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[mattila_8_19_compact_subsets_of_finite_hausdorff_measure.md](mattila_8_19_compact_subsets_of_finite_hausdorff_measure.md) and the background in [mattila_8_19_compact_subsets_of_finite_hausdorff_measure.context.md](mattila_8_19_compact_subsets_of_finite_hausdorff_measure.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 7 rows, so each row is worth 7.1 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 5 with a finiteness hypothesis on $\mathcal{H}^s(X)$, which removes the interesting case.
+- Requirement 6 with the side condition $\mathcal{H}^s(C) < \infty$ dropped, which makes the identity trivial.
+- Requirement 4 with only one inequality asserted.
+
+### Domain-specific pitfalls for this problem
+
+- Junk value — supremum: the supremum must be taken in $[0,\infty]$, where an unbounded family has supremum $\infty$; in $\mathbb{R}$ it would default to $0$ and the identity would be false.
+- The family is the compact subsets of *finite* $\mathcal{H}^s$ measure.
+- The theorem's content is the case $\mathcal{H}^s(X) = \infty$.
+- $X$ is a compact metric space and $\mathcal{H}^s$ is computed in it.

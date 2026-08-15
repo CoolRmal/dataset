@@ -4,6 +4,7 @@
 - **Domain:** Smooth manifolds
 - **Lean declaration:** `Dataset.LeeSmoothManifolds.lee_7_13_rank_theorem_for_manifolds` ([lee_7_13_rank_theorem_for_manifolds.lean](lee_7_13_rank_theorem_for_manifolds.lean))
 - **Criteria:** [lee_7_13_rank_theorem_for_manifolds.criteria.md](lee_7_13_rank_theorem_for_manifolds.criteria.md)
+- **Context:** [lee_7_13_rank_theorem_for_manifolds.context.md](lee_7_13_rank_theorem_for_manifolds.context.md)
 
 ## Statement
 

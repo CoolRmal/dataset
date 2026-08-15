@@ -1,6 +1,6 @@
 # Criteria: folland_4_81_almost_periodic_characterization
 
-**Statement:** [folland_4_81_almost_periodic_characterization.md](folland_4_81_almost_periodic_characterization.md) · **Lean:** [folland_4_81_almost_periodic_characterization.lean](folland_4_81_almost_periodic_characterization.lean)
+**Statement:** [folland_4_81_almost_periodic_characterization.md](folland_4_81_almost_periodic_characterization.md) · **Lean:** [folland_4_81_almost_periodic_characterization.lean](folland_4_81_almost_periodic_characterization.lean) · **Context:** [folland_4_81_almost_periodic_characterization.context.md](folland_4_81_almost_periodic_characterization.context.md)
 
 ## What the theorem says
 
@@ -64,3 +64,35 @@ wrong, even if it compiles.
   groups, where characters exist in abundance; the Lean statement uses `CommGroup` to match.
 - `PontryaginDual G` is Mathlib's dual group of continuous characters $G \to \mathbb{T}$, so the
   pairing $\langle x,\xi\rangle$ of the book is the application `ξ x`.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[folland_4_81_almost_periodic_characterization.md](folland_4_81_almost_periodic_characterization.md) and the background in [folland_4_81_almost_periodic_characterization.context.md](folland_4_81_almost_periodic_characterization.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 6 with an infinite sum or series of characters instead of a finite linear combination.
+- Requirement 7 with the approximation quantified pointwise (a different sum for each $x$) rather than uniformly.
+- Requirement 9 with total boundedness replaced by boundedness, which is automatic and empty.
+
+### Domain-specific pitfalls for this problem
+
+- "Uniform limit" means the $\forall x$ sits inside the choice of approximating sum: one trigonometric polynomial works at every point.
+- The translates in the definition of almost periodicity are the *right* translates $R_yf(x) = f(xy)$.
+- Total boundedness in the supremum norm is a finite-$\varepsilon$-net condition, strictly stronger than boundedness and strictly weaker than relative compactness in a general space.
+- Characters take values in the circle, so their modulus is $1$; a formalization using arbitrary continuous homomorphisms into $\mathbb{C}^\times$ states something else.
+- Folland's item (a), extension to the Bohr compactification, is part of the printed theorem; omitting it is a genuine incompleteness even when the ambient library has no Bohr compactification.

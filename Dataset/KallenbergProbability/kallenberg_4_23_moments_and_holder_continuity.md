@@ -4,6 +4,7 @@
 - **Domain:** Stochastic processes
 - **Lean declaration:** `Dataset.KallenbergProbability.kallenberg_4_23_moments_and_holder_continuity` ([kallenberg_4_23_moments_and_holder_continuity.lean](kallenberg_4_23_moments_and_holder_continuity.lean))
 - **Criteria:** [kallenberg_4_23_moments_and_holder_continuity.criteria.md](kallenberg_4_23_moments_and_holder_continuity.criteria.md)
+- **Context:** [kallenberg_4_23_moments_and_holder_continuity.context.md](kallenberg_4_23_moments_and_holder_continuity.context.md)
 
 ## Statement
 

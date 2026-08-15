@@ -1,6 +1,6 @@
 # Criteria: bogachev_gaussian_4_2_1_ehrhard_inequality
 
-**Statement:** [bogachev_gaussian_4_2_1_ehrhard_inequality.md](bogachev_gaussian_4_2_1_ehrhard_inequality.md) · **Lean:** [bogachev_gaussian_4_2_1_ehrhard_inequality.lean](bogachev_gaussian_4_2_1_ehrhard_inequality.lean)
+**Statement:** [bogachev_gaussian_4_2_1_ehrhard_inequality.md](bogachev_gaussian_4_2_1_ehrhard_inequality.md) · **Lean:** [bogachev_gaussian_4_2_1_ehrhard_inequality.lean](bogachev_gaussian_4_2_1_ehrhard_inequality.lean) · **Context:** [bogachev_gaussian_4_2_1_ehrhard_inequality.context.md](bogachev_gaussian_4_2_1_ehrhard_inequality.context.md)
 
 ## What the theorem says
 
@@ -50,3 +50,35 @@ wrong, even if it compiles.
 - Bogachev notes that convexity of only one of the two sets already suffices. Our statement assumes both, which is the printed form.
 - `quantile` is defined once in `Defs.lean` and shared with the isoperimetric problem.
 - Convex subsets of $\mathbb{R}^n$ are Lebesgue measurable, so no measurability hypothesis is needed on $A$, $B$, or their combination.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[bogachev_gaussian_4_2_1_ehrhard_inequality.md](bogachev_gaussian_4_2_1_ehrhard_inequality.md) and the background in [bogachev_gaussian_4_2_1_ehrhard_inequality.context.md](bogachev_gaussian_4_2_1_ehrhard_inequality.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 2 with a real-valued quantile: $\Phi^{-1}$ must reach $\pm\infty$, since measure $0$ and measure $1$ are exactly the extreme cases.
+- Requirement 3 dropped: without convexity the statement is an open conjecture, not the theorem.
+- Requirement 6 read as a union, an intersection, or a convex hull instead of the Minkowski combination.
+
+### Domain-specific pitfalls for this problem
+
+- Junk value — quantile: a real-valued inverse of $\Phi$ has to return some finite default at $0$ and $1$, and those are precisely the interesting cases. The target type must be `EReal` (or `ℝ≥0∞`-like).
+- Arithmetic in `EReal` is not arithmetic in `ℝ`: $0 \cdot (-\infty) = 0$ and $(+\infty) + (-\infty) = -\infty$ by convention. At the endpoints $\lambda \in \{0,1\}$ and for sets of measure $0$ or $1$ these conventions decide what the inequality asserts, which is why nonemptiness of $A$ and $B$ is worth stating explicitly.
+- $\lambda A$ is the pointwise scalar multiple of a set and $+$ is pointwise set addition; both are `Pointwise`-scoped operations, not the lattice ones.
+- The Euclidean structure matters for the standard Gaussian; a sup-norm model of $\mathbb{R}^n$ is a different normed space, even where it does not change this particular statement.
+- $\lambda$ ranges over the *closed* interval $[0,1]$.

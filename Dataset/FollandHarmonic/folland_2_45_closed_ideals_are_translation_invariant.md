@@ -4,6 +4,7 @@
 - **Domain:** Harmonic analysis
 - **Lean declaration:** `Dataset.FollandHarmonic.folland_2_45_closed_ideals_are_translation_invariant` ([folland_2_45_closed_ideals_are_translation_invariant.lean](folland_2_45_closed_ideals_are_translation_invariant.lean))
 - **Criteria:** [folland_2_45_closed_ideals_are_translation_invariant.criteria.md](folland_2_45_closed_ideals_are_translation_invariant.criteria.md)
+- **Context:** [folland_2_45_closed_ideals_are_translation_invariant.context.md](folland_2_45_closed_ideals_are_translation_invariant.context.md)
 
 ## Statement
 

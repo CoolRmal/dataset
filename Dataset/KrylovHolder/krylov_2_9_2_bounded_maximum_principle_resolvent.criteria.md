@@ -1,6 +1,6 @@
 # Criteria: krylov_2_9_2_bounded_maximum_principle_resolvent
 
-**Statement:** [krylov_2_9_2_bounded_maximum_principle_resolvent.md](krylov_2_9_2_bounded_maximum_principle_resolvent.md) · **Lean:** [krylov_2_9_2_bounded_maximum_principle_resolvent.lean](krylov_2_9_2_bounded_maximum_principle_resolvent.lean)
+**Statement:** [krylov_2_9_2_bounded_maximum_principle_resolvent.md](krylov_2_9_2_bounded_maximum_principle_resolvent.md) · **Lean:** [krylov_2_9_2_bounded_maximum_principle_resolvent.lean](krylov_2_9_2_bounded_maximum_principle_resolvent.lean) · **Context:** [krylov_2_9_2_bounded_maximum_principle_resolvent.context.md](krylov_2_9_2_bounded_maximum_principle_resolvent.context.md)
 
 ## What the theorem says
 
@@ -50,3 +50,35 @@ wrong, even if it compiles.
 - The uniform coefficient bound also covers $c$. That is harmless, because $c \le -\lambda$ is only a one-sided condition.
 - `EllipticOperatorData.formula` is quantified over *all* input functions, including nowhere-differentiable ones where `multiDerivative` returns $0$. So $L$ is pinned down as literally the junk-extended differential expression, rather than as an operator that merely agrees with it on $C^2$ functions.
 - `functionSupNorm Ω (fun x ↦ max (u x) 0)` really is $\sup_\Omega u^+$, since the inner absolute value is applied to a quantity that is already nonnegative.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[krylov_2_9_2_bounded_maximum_principle_resolvent.md](krylov_2_9_2_bounded_maximum_principle_resolvent.md) and the background in [krylov_2_9_2_bounded_maximum_principle_resolvent.context.md](krylov_2_9_2_bounded_maximum_principle_resolvent.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 7 with $c \le 0$ instead of $c \le -\lambda$ with $\lambda>0$: the estimate is then false.
+- Requirement 3 with the boundedness of $u$ dropped.
+- Requirement 9 with $(Lu)^-$ read as $-(Lu)$ or as $\min$, rather than as the nonnegative negative part.
+
+### Domain-specific pitfalls for this problem
+
+- $t^- = \max(-t,0)$ is nonnegative; getting its sign wrong reverses the first inequality.
+- Junk value — supremum: the suprema are over $\Omega$ and must remain meaningful for an unbounded family, so they belong in an extended-real type or must come with a boundedness hypothesis.
+- The boundary condition is conditional on $\partial\Omega \ne \emptyset$, so the whole-space case must be admitted.
+- Both the one-sided and the two-sided estimate are asserted.
+- Boundedness of the coefficients $a$ and $b$ is a hypothesis.

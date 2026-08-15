@@ -1,6 +1,6 @@
 # Criteria: hayman_2_9_polya_composition_order
 
-**Statement:** [hayman_2_9_polya_composition_order.md](hayman_2_9_polya_composition_order.md) · **Lean:** [hayman_2_9_polya_composition_order.lean](hayman_2_9_polya_composition_order.lean)
+**Statement:** [hayman_2_9_polya_composition_order.md](hayman_2_9_polya_composition_order.md) · **Lean:** [hayman_2_9_polya_composition_order.lean](hayman_2_9_polya_composition_order.lean) · **Context:** [hayman_2_9_polya_composition_order.context.md](hayman_2_9_polya_composition_order.context.md)
 
 ## What the theorem says
 
@@ -55,3 +55,34 @@ wrong, even if it compiles.
 - The exponent $r^{k}$ uses real exponentiation, so $k$ may be any real number, not just a natural
   one. That matches "order" being a real number.
 - No integrals, `Set.ncard`, or coercions to `ℝ` from an extended type occur here.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[hayman_2_9_polya_composition_order.md](hayman_2_9_polya_composition_order.md) and the background in [hayman_2_9_polya_composition_order.context.md](hayman_2_9_polya_composition_order.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 with the composition taken in the wrong order.
+- Requirement 8 with the two alternatives attached to the wrong functions.
+- Requirement 5 with "zero order" read as "finite order" or as "bounded".
+
+### Domain-specific pitfalls for this problem
+
+- Finite order quantifies the exponent existentially and zero order universally; the two definitions differ only in that quantifier.
+- Both growth conditions are asymptotic — they constrain $M(r,\cdot)$ only for large $r$.
+- $g\{f(z)\}$ is $g \circ f$; the inner function is $f$.
+- "Integral function" means entire.

@@ -4,6 +4,7 @@
 - **Domain:** PDE
 - **Lean declaration:** `Dataset.KrylovSobolev.krylov_sobolev_10_4_2_seminorm_embedding_forces_scaling_relation` ([krylov_sobolev_10_4_2_seminorm_embedding_forces_scaling_relation.lean](krylov_sobolev_10_4_2_seminorm_embedding_forces_scaling_relation.lean))
 - **Criteria:** [krylov_sobolev_10_4_2_seminorm_embedding_forces_scaling_relation.criteria.md](krylov_sobolev_10_4_2_seminorm_embedding_forces_scaling_relation.criteria.md)
+- **Context:** [krylov_sobolev_10_4_2_seminorm_embedding_forces_scaling_relation.context.md](krylov_sobolev_10_4_2_seminorm_embedding_forces_scaling_relation.context.md)
 
 ## Statement
 

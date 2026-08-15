@@ -1,6 +1,6 @@
 # Criteria: niven_zuckerman_11_5_squarefree_density
 
-**Statement:** [niven_zuckerman_11_5_squarefree_density.md](niven_zuckerman_11_5_squarefree_density.md) · **Lean:** [niven_zuckerman_11_5_squarefree_density.lean](niven_zuckerman_11_5_squarefree_density.lean)
+**Statement:** [niven_zuckerman_11_5_squarefree_density.md](niven_zuckerman_11_5_squarefree_density.md) · **Lean:** [niven_zuckerman_11_5_squarefree_density.lean](niven_zuckerman_11_5_squarefree_density.lean) · **Context:** [niven_zuckerman_11_5_squarefree_density.context.md](niven_zuckerman_11_5_squarefree_density.context.md)
 
 ## What the theorem says
 
@@ -55,3 +55,34 @@ wrong, even if it compiles.
   is taken along `atTop`.
 - The counting is done with `Nat.card` of a set that is finite for each `n`, so it is a genuine
   count and not the $0$ that `Nat.card` returns on infinite types.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[niven_zuckerman_11_5_squarefree_density.md](niven_zuckerman_11_5_squarefree_density.md) and the background in [niven_zuckerman_11_5_squarefree_density.context.md](niven_zuckerman_11_5_squarefree_density.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 6 rows, so each row is worth 8.3 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 1 with Schnirelmann density in place of natural density.
+- Requirement 5 with a limsup or a subsequential limit rather than the existence of the limit.
+- Requirement 3 with a definition of square-free that excludes $1$ or admits squares.
+
+### Domain-specific pitfalls for this problem
+
+- Natural and Schnirelmann density are different notions and both appear in this chapter.
+- The counting function ranges over $1 \le a \le n$.
+- The ratio is a real division, so the count must be cast.
+- The value is $6/\pi^2$, the reciprocal of $\zeta(2)$.

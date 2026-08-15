@@ -4,6 +4,7 @@
 - **Domain:** Hardy spaces
 - **Lean declaration:** `Dataset.NikolskiOperators.nikolski_A_3_7_blaschke_zero_sets` ([nikolski_A_3_7_blaschke_zero_sets.lean](nikolski_A_3_7_blaschke_zero_sets.lean))
 - **Criteria:** [nikolski_A_3_7_blaschke_zero_sets.criteria.md](nikolski_A_3_7_blaschke_zero_sets.criteria.md)
+- **Context:** [nikolski_A_3_7_blaschke_zero_sets.context.md](nikolski_A_3_7_blaschke_zero_sets.context.md)
 
 ## Statement
 

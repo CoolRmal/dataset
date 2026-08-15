@@ -4,6 +4,7 @@
 - **Domain:** Functional analysis
 - **Lean declaration:** `Dataset.ConwayFunctionalAnalysis.conway_V_13_1_eberlein_smulian` ([conway_V_13_1_eberlein_smulian.lean](conway_V_13_1_eberlein_smulian.lean))
 - **Criteria:** [conway_V_13_1_eberlein_smulian.criteria.md](conway_V_13_1_eberlein_smulian.criteria.md)
+- **Context:** [conway_V_13_1_eberlein_smulian.context.md](conway_V_13_1_eberlein_smulian.context.md)
 
 ## Statement
 

@@ -1,6 +1,6 @@
 # Criteria: bogachev_gaussian_4_5_8_seminorm_concentration
 
-**Statement:** [bogachev_gaussian_4_5_8_seminorm_concentration.md](bogachev_gaussian_4_5_8_seminorm_concentration.md) · **Lean:** [bogachev_gaussian_4_5_8_seminorm_concentration.lean](bogachev_gaussian_4_5_8_seminorm_concentration.lean)
+**Statement:** [bogachev_gaussian_4_5_8_seminorm_concentration.md](bogachev_gaussian_4_5_8_seminorm_concentration.md) · **Lean:** [bogachev_gaussian_4_5_8_seminorm_concentration.lean](bogachev_gaussian_4_5_8_seminorm_concentration.lean) · **Context:** [bogachev_gaussian_4_5_8_seminorm_concentration.context.md](bogachev_gaussian_4_5_8_seminorm_concentration.context.md)
 
 ## What the theorem says
 
@@ -51,3 +51,35 @@ wrong, even if it compiles.
 - `∫ y, f y ∂γ` would be Lean's default value $0$ if $f$ were not integrable. That does not create a loophole: a seminorm with $\chi(f) < \infty$ is $\gamma$-integrable by Fernique's theorem, so the hypothesis `hgauge` already guarantees the mean is the real one. Bogachev makes the same point when he says $f$ satisfies condition (4.5.4).
 - Bogachev's "$\gamma$-measurable seminorm" is only required to be defined almost everywhere. We use a genuine everywhere-defined `Seminorm ℝ E` together with a measurability hypothesis, which is a mild strengthening of the setup.
 - The right-hand side is written in `ℝ≥0∞` via `ENNReal.ofReal`, matching the left-hand side's measure value, so no finiteness is presupposed anywhere.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[bogachev_gaussian_4_5_8_seminorm_concentration.md](bogachev_gaussian_4_5_8_seminorm_concentration.md) and the background in [bogachev_gaussian_4_5_8_seminorm_concentration.context.md](bogachev_gaussian_4_5_8_seminorm_concentration.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- $\chi(f)$ typed as a real number obtained by an `ℝ`-valued supremum: the gauge may be infinite, and an unbounded `sSup` in `ℝ` is the junk value `0`, which would make the bound assert something false.
+- Replacing $\chi(f)$ by a norm of $f$ on $X$, or by $\mathbb{E}f$: a different quantity, and the inequality is then not the printed one.
+- Dropping the seminorm structure and stating the bound for an arbitrary measurable function: false.
+
+### Domain-specific pitfalls for this problem
+
+- Junk value — supremum: the gauge must be taken in `ℝ≥0∞`. Bounding it above by a real constant $c$ with $0 < c$ and stating the inequality with $c$ is a faithful way to avoid extended arithmetic in the exponent.
+- $\mathbb{E}f$ is a Bochner integral of a real function; it is finite here by Fernique's theorem, but the statement should not silently depend on the integral's default value.
+- The measure of the deviation event lives in `ℝ≥0∞`, so the right-hand side must be coerced from `ℝ` by `ENNReal.ofReal`, which sends negatives to `0` — harmless for an exponential, but the coercion is where a sign error would hide.
+- The event is the strict inequality $|f(x) - \mathbb{E}f| > t$, and both the factor $2$ in front and the constant $2/\pi^2$ in the exponent are as printed.
+- A seminorm is subadditive and absolutely homogeneous but need not be continuous; assuming continuity narrows the example to a case where it is much easier.

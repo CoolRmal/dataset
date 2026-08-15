@@ -4,6 +4,7 @@
 - **Domain:** ODE
 - **Lean declaration:** `Dataset.KongODE.kong_5_4_2_hopf_friedrich_dichotomy` ([kong_5_4_2_hopf_friedrich_dichotomy.lean](kong_5_4_2_hopf_friedrich_dichotomy.lean))
 - **Criteria:** [kong_5_4_2_hopf_friedrich_dichotomy.criteria.md](kong_5_4_2_hopf_friedrich_dichotomy.criteria.md)
+- **Context:** [kong_5_4_2_hopf_friedrich_dichotomy.context.md](kong_5_4_2_hopf_friedrich_dichotomy.context.md)
 
 ## Statement
 

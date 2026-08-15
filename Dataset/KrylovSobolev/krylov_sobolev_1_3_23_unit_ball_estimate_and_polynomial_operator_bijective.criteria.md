@@ -1,6 +1,6 @@
 # Criteria: krylov_sobolev_1_3_23_unit_ball_estimate_and_polynomial_operator_bijective
 
-**Statement:** [krylov_sobolev_1_3_23_unit_ball_estimate_and_polynomial_operator_bijective.md](krylov_sobolev_1_3_23_unit_ball_estimate_and_polynomial_operator_bijective.md) · **Lean:** [krylov_sobolev_1_3_23_unit_ball_estimate_and_polynomial_operator_bijective.lean](krylov_sobolev_1_3_23_unit_ball_estimate_and_polynomial_operator_bijective.lean)
+**Statement:** [krylov_sobolev_1_3_23_unit_ball_estimate_and_polynomial_operator_bijective.md](krylov_sobolev_1_3_23_unit_ball_estimate_and_polynomial_operator_bijective.md) · **Lean:** [krylov_sobolev_1_3_23_unit_ball_estimate_and_polynomial_operator_bijective.lean](krylov_sobolev_1_3_23_unit_ball_estimate_and_polynomial_operator_bijective.lean) · **Context:** [krylov_sobolev_1_3_23_unit_ball_estimate_and_polynomial_operator_bijective.context.md](krylov_sobolev_1_3_23_unit_ball_estimate_and_polynomial_operator_bijective.context.md)
 
 ## What the theorem says
 
@@ -45,3 +45,35 @@ wrong, even if it compiles.
 - The open ball and the closed ball differ by a null set, so it makes no difference to the integrals which one carries the measure; the open ball is used because that is where the derivative is unambiguous.
 - Part (ii) is expressed with `MvPolynomial.pderiv` twice per coordinate, which is the Laplacian on polynomials.
 - Part (iii) of the exercise is omitted: it needs $W_2^2(B)$, a Sobolev space on a domain, which Mathlib does not have.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[krylov_sobolev_1_3_23_unit_ball_estimate_and_polynomial_operator_bijective.md](krylov_sobolev_1_3_23_unit_ball_estimate_and_polynomial_operator_bijective.md) and the background in [krylov_sobolev_1_3_23_unit_ball_estimate_and_polynomial_operator_bijective.context.md](krylov_sobolev_1_3_23_unit_ball_estimate_and_polynomial_operator_bijective.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 4 with the explicit constant $4$ replaced by an unspecified one.
+- Requirement 3 with the boundary condition dropped: the estimate is then false.
+- Requirement 6 with $A$ not asserted to map $P_n$ into $P_n$, or invertibility claimed only for one $n$.
+
+### Domain-specific pitfalls for this problem
+
+- The left side of (i) involves $u$ and its first derivatives, squared in $\mathcal{L}_2(B)$; second derivatives do not appear.
+- $u$ is $C^2$ on the *closed* ball while the norms are over the *open* ball.
+- "Degree $\le n$" is total degree in $d$ variables.
+- That $Ap$ again has degree $\le n$ is part of what must be stated.
+- Both parts are asserted.

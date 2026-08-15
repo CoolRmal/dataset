@@ -1,6 +1,6 @@
 # Criteria: nikolski_A_1_3_beurling_invariant_subspaces
 
-**Statement:** [nikolski_A_1_3_beurling_invariant_subspaces.md](nikolski_A_1_3_beurling_invariant_subspaces.md) · **Lean:** [nikolski_A_1_3_beurling_invariant_subspaces.lean](nikolski_A_1_3_beurling_invariant_subspaces.lean)
+**Statement:** [nikolski_A_1_3_beurling_invariant_subspaces.md](nikolski_A_1_3_beurling_invariant_subspaces.md) · **Lean:** [nikolski_A_1_3_beurling_invariant_subspaces.lean](nikolski_A_1_3_beurling_invariant_subspaces.lean) · **Context:** [nikolski_A_1_3_beurling_invariant_subspaces.context.md](nikolski_A_1_3_beurling_invariant_subspaces.context.md)
 
 ## What the theorem says
 
@@ -60,3 +60,35 @@ wrong, even if it compiles.
   an inner generator). That statement was true but formalized Beurling's $H^2$ theorem rather than
   the printed Beurling–Helson theorem in $L^2$; the current file uses the $L^2$ model. Mistake 4
   records the defect.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[nikolski_A_1_3_beurling_invariant_subspaces.md](nikolski_A_1_3_beurling_invariant_subspaces.md) and the background in [nikolski_A_1_3_beurling_invariant_subspaces.context.md](nikolski_A_1_3_beurling_invariant_subspaces.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 4 with $zE \subseteq E$ but not $zE \ne E$: the conclusion is false for doubly-invariant subspaces.
+- Requirement 3 with $E$ not required closed.
+- Requirement 7 with an inclusion in place of the equality $E = \Theta H^2$.
+
+### Domain-specific pitfalls for this problem
+
+- $|\Theta| = 1$ is an almost-everywhere condition on the circle, not a pointwise one.
+- Multiplication by $z$ means multiplication by $e^{it}$ on the boundary parametrisation.
+- Uniqueness is up to a unimodular **constant**, not up to a unimodular function.
+- $H^2$ here is the boundary model: the $L^2$ functions with vanishing negative Fourier coefficients.
+- All identifications are modulo null sets.

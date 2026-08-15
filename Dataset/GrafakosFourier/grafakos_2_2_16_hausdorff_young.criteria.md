@@ -1,6 +1,6 @@
 # Criteria: grafakos_2_2_16_hausdorff_young
 
-**Statement:** [grafakos_2_2_16_hausdorff_young.md](grafakos_2_2_16_hausdorff_young.md) · **Lean:** [grafakos_2_2_16_hausdorff_young.lean](grafakos_2_2_16_hausdorff_young.lean)
+**Statement:** [grafakos_2_2_16_hausdorff_young.md](grafakos_2_2_16_hausdorff_young.md) · **Lean:** [grafakos_2_2_16_hausdorff_young.lean](grafakos_2_2_16_hausdorff_young.lean) · **Context:** [grafakos_2_2_16_hausdorff_young.context.md](grafakos_2_2_16_hausdorff_young.context.md)
 
 ## What the theorem says
 
@@ -55,3 +55,35 @@ wrong, even if it compiles.
   $n$-dimensional Lebesgue measure.
 - The current statement replaces an earlier one that bounded `eLpNorm (𝓕 f) …` directly and was
   therefore empty for non-integrable $f$.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[grafakos_2_2_16_hausdorff_young.md](grafakos_2_2_16_hausdorff_young.md) and the background in [grafakos_2_2_16_hausdorff_young.context.md](grafakos_2_2_16_hausdorff_young.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 7 rows, so each row is worth 7.1 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 with the conjugate exponent wrong at $p=1$, e.g. computed by a division that returns a junk value there.
+- Requirement 4 with $\widehat f$ read as the defining integral, which need not converge for $f \in L^p$, $p>1$.
+- Requirement 7 with an unspecified constant in place of $1$.
+
+### Domain-specific pitfalls for this problem
+
+- Junk value — division: $p/(p-1)$ at $p=1$ is a division by zero, which in Lean is `0`, not `∞`. The $p=1$ case has to be handled explicitly.
+- The transform on $L^p$ is defined by extension from a dense class; the statement must identify the object it is bounding, not assume the raw integral converges.
+- The exponent must live in a type containing $\infty$, since $p' = \infty$ at $p = 1$.
+- The inequality has no constant; inserting one weakens the proposition.
+- The range $1 \le p \le 2$ includes both endpoints.

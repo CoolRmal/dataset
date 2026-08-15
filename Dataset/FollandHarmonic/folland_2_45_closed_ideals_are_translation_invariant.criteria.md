@@ -1,6 +1,6 @@
 # Criteria: folland_2_45_closed_ideals_are_translation_invariant
 
-**Statement:** [folland_2_45_closed_ideals_are_translation_invariant.md](folland_2_45_closed_ideals_are_translation_invariant.md) · **Lean:** [folland_2_45_closed_ideals_are_translation_invariant.lean](folland_2_45_closed_ideals_are_translation_invariant.lean)
+**Statement:** [folland_2_45_closed_ideals_are_translation_invariant.md](folland_2_45_closed_ideals_are_translation_invariant.md) · **Lean:** [folland_2_45_closed_ideals_are_translation_invariant.lean](folland_2_45_closed_ideals_are_translation_invariant.lean) · **Context:** [folland_2_45_closed_ideals_are_translation_invariant.context.md](folland_2_45_closed_ideals_are_translation_invariant.context.md)
 
 ## What the theorem says
 
@@ -61,3 +61,34 @@ wrong, even if it compiles.
   is set against.
 - Inside `IsLpClosed` the clause `MemLp g p μ` is redundant here given `hmem`; it is part of the
   general definition and costs nothing.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[folland_2_45_closed_ideals_are_translation_invariant.md](folland_2_45_closed_ideals_are_translation_invariant.md) and the background in [folland_2_45_closed_ideals_are_translation_invariant.context.md](folland_2_45_closed_ideals_are_translation_invariant.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 with the closedness hypothesis dropped: the theorem is false for non-closed subspaces.
+- Requirement 6 or 8 with the left/right pairing crossed (left ideals matched to right translations).
+- Requirement 5 with either equivalence stated as a single implication.
+
+### Domain-specific pitfalls for this problem
+
+- Which side the arbitrary $L^1$ function multiplies on distinguishes left from right ideals; on a non-abelian group the two are genuinely different.
+- Closedness is in the $L^1$ topology; a formalization has to say what it means for a set of functions (rather than of a.e. classes) to be $L^1$-closed.
+- Left translation carries the inverse, $L_yf(x) = f(y^{-1}x)$.
+- Membership in $I$ has to come with integrability, since the ambient object is $L^1$.

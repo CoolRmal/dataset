@@ -1,6 +1,6 @@
 # Criteria: nikolski_B_7_2_1_adamyan_arov_krein
 
-**Statement:** [nikolski_B_7_2_1_adamyan_arov_krein.md](nikolski_B_7_2_1_adamyan_arov_krein.md) · **Lean:** [nikolski_B_7_2_1_adamyan_arov_krein.lean](nikolski_B_7_2_1_adamyan_arov_krein.lean)
+**Statement:** [nikolski_B_7_2_1_adamyan_arov_krein.md](nikolski_B_7_2_1_adamyan_arov_krein.md) · **Lean:** [nikolski_B_7_2_1_adamyan_arov_krein.lean](nikolski_B_7_2_1_adamyan_arov_krein.lean) · **Context:** [nikolski_B_7_2_1_adamyan_arov_krein.context.md](nikolski_B_7_2_1_adamyan_arov_krein.context.md)
 
 ## What the theorem says
 
@@ -72,3 +72,35 @@ wrong, even if it compiles.
   is invisible to the integral definitions inside `HasBoundedHankelSymbol`; `InnerFunction B`,
   required by `FiniteBlaschkeProductDegreeLE`, already asserts that the radial limits exist almost
   everywhere.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[nikolski_B_7_2_1_adamyan_arov_krein.md](nikolski_B_7_2_1_adamyan_arov_krein.md) and the background in [nikolski_B_7_2_1_adamyan_arov_krein.context.md](nikolski_B_7_2_1_adamyan_arov_krein.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 6 with $R_n$ not containing the zero function, or with the degree condition on the rational functions wrong.
+- Requirement 3 with the second quantity taken over arbitrary rather than Hankel operators, collapsing it into the first.
+- Requirement 9 with fewer than all four quantities asserted equal.
+
+### Domain-specific pitfalls for this problem
+
+- Rank at most $n$ should be expressed by a factorization through an $n$-dimensional space, not by a `rank` function that could return a default.
+- $R_n$ consists of rational functions tending to $0$ at infinity with poles inside the disc; the zero function is a member, with degree $0$.
+- The degree of an inner function is the number of zeros of the corresponding finite Blaschke product, counted with multiplicity, and $\infty$ otherwise.
+- All four quantities are infima or minima and belong in $[0,\infty]$.
+- The symbol $\bar B\varphi$ carries a complex conjugate on the Blaschke product, not a harmonic conjugate.

@@ -1,6 +1,6 @@
 # Criteria: krylov_6_5_3_smooth_domain_dirichlet_solvability
 
-**Statement:** [krylov_6_5_3_smooth_domain_dirichlet_solvability.md](krylov_6_5_3_smooth_domain_dirichlet_solvability.md) · **Lean:** [krylov_6_5_3_smooth_domain_dirichlet_solvability.lean](krylov_6_5_3_smooth_domain_dirichlet_solvability.lean)
+**Statement:** [krylov_6_5_3_smooth_domain_dirichlet_solvability.md](krylov_6_5_3_smooth_domain_dirichlet_solvability.md) · **Lean:** [krylov_6_5_3_smooth_domain_dirichlet_solvability.lean](krylov_6_5_3_smooth_domain_dirichlet_solvability.lean) · **Context:** [krylov_6_5_3_smooth_domain_dirichlet_solvability.context.md](krylov_6_5_3_smooth_domain_dirichlet_solvability.context.md)
 
 ## What the theorem says
 
@@ -50,3 +50,35 @@ wrong, even if it compiles.
 - `hcoeff` asks for Hölder regularity on `univ`, i.e. on all of $\mathbb{R}^d$, where the text only needs it on $\bar\Omega$. Again stronger than needed, so the theorem stays sound.
 - `hL` and `hcoeff` each open their own `EllipticOperatorData 2 L`. Benign, since `formula` is quantified over all input functions and hence determines the coefficients from `L`.
 - The uniqueness conclusion is `Set.EqOn v u (closure Ω)`, which is genuinely stronger than agreement on $\Omega$ alone.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[krylov_6_5_3_smooth_domain_dirichlet_solvability.md](krylov_6_5_3_smooth_domain_dirichlet_solvability.md) and the background in [krylov_6_5_3_smooth_domain_dirichlet_solvability.context.md](krylov_6_5_3_smooth_domain_dirichlet_solvability.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 4 with the sign condition $c \le 0$ dropped: uniqueness fails.
+- Requirement 6 with $g$ required only on the open set rather than on $\bar\Omega$.
+- Requirement 2 with the boundary not required smooth.
+
+### Domain-specific pitfalls for this problem
+
+- The zeroth-order coefficient's sign is a hypothesis, and the zero multi-index must genuinely occur in the operator for it to constrain anything.
+- $f$ lives on $\Omega$ and $g$ on $\bar\Omega$; the closure matters.
+- The regularity gain is exactly two derivatives.
+- The solution is classical and continuous up to the boundary, so the boundary condition is a statement about limits from inside.
+- Uniqueness is relative to the same regularity class.

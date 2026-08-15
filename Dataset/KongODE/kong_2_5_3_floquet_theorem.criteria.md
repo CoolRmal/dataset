@@ -1,6 +1,6 @@
 # Criteria: kong_2_5_3_floquet_theorem
 
-**Statement:** [kong_2_5_3_floquet_theorem.md](kong_2_5_3_floquet_theorem.md) · **Lean:** [kong_2_5_3_floquet_theorem.lean](kong_2_5_3_floquet_theorem.lean)
+**Statement:** [kong_2_5_3_floquet_theorem.md](kong_2_5_3_floquet_theorem.md) · **Lean:** [kong_2_5_3_floquet_theorem.lean](kong_2_5_3_floquet_theorem.lean) · **Context:** [kong_2_5_3_floquet_theorem.context.md](kong_2_5_3_floquet_theorem.context.md)
 
 ## What the theorem says
 
@@ -48,3 +48,35 @@ wrong, even if it compiles.
 - The regularity of $P$ is written entrywise, `∀ i j, ContDiff ℝ 1 fun t ↦ P t i j`. That is equivalent to `ContDiff ℝ 1 P` into the finite-dimensional matrix space, but noisier; the packaged form would read better.
 - `NormedSpace.exp` is mathlib's matrix exponential, defined by the norm-independent series, so no norm instance has to be chosen in the statement. The exponent is written `t • R` with the real scalar $t$ acting on the complex matrix $R$.
 - The real fundamental matrix is coerced entrywise with `(X t).map (algebraMap ℝ ℂ)`, which is the only place the real/complex boundary is crossed.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[kong_2_5_3_floquet_theorem.md](kong_2_5_3_floquet_theorem.md) and the background in [kong_2_5_3_floquet_theorem.context.md](kong_2_5_3_floquet_theorem.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 5 or 6 with $R$ or $P$ required real: the theorem is then false.
+- Requirement 8 with the invertibility of $P$ dropped.
+- Requirement 7 with the periodicity of $P$ dropped or given a different period.
+
+### Domain-specific pitfalls for this problem
+
+- Complex entries are essential: a real periodic factorization exists only after doubling the period.
+- $P$ must be nonsingular at every $t$, not merely at one point.
+- The factor order $P(t)e^{Rt}$ matters.
+- $X$ is a fundamental matrix solution on all of $\mathbb{R}$, so its invertibility is global.
+- The matrix exponential is of $tR$, with the real scalar multiplying the complex matrix.

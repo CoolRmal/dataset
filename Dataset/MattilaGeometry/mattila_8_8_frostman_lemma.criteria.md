@@ -1,6 +1,6 @@
 # Criteria: mattila_8_8_frostman_lemma
 
-**Statement:** [mattila_8_8_frostman_lemma.md](mattila_8_8_frostman_lemma.md) · **Lean:** [mattila_8_8_frostman_lemma.lean](mattila_8_8_frostman_lemma.lean)
+**Statement:** [mattila_8_8_frostman_lemma.md](mattila_8_8_frostman_lemma.md) · **Lean:** [mattila_8_8_frostman_lemma.lean](mattila_8_8_frostman_lemma.lean) · **Context:** [mattila_8_8_frostman_lemma.context.md](mattila_8_8_frostman_lemma.context.md)
 
 ## What the theorem says
 
@@ -68,3 +68,35 @@ wrong, even if it compiles.
   bounded, or require `hausdorffContent s B < ∞`.
 - ⚠️ The property list is written out twice, once in each conjunct. A named abbreviation would be
   tidier, but the duplication is faithful.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[mattila_8_8_frostman_lemma.md](mattila_8_8_frostman_lemma.md) and the background in [mattila_8_8_frostman_lemma.context.md](mattila_8_8_frostman_lemma.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 1 with $c$ quantified after $B$ or $s$.
+- Requirement 4 with the witnessing measure allowed to be zero, or not required to be supported in $B$.
+- Requirement 5 with a non-strict growth bound, or with the bound restricted to small $r$ or to $x \in B$.
+
+### Domain-specific pitfalls for this problem
+
+- $\mathcal{H}^s_\infty$ (content, covers of unrestricted diameter) and $\mathcal{H}^s$ (measure, diameters $\to 0$) are different quantities and both appear.
+- The measure must be nonzero, finite, Radon and compactly supported inside $B$.
+- The growth bound is strict and holds for all centres and all radii.
+- The quantitative clause strengthens one direction of the biconditional and must be attached there.
+- All quantities live in $[0,\infty]$.

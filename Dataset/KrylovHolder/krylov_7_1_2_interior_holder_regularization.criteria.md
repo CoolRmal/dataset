@@ -1,6 +1,6 @@
 # Criteria: krylov_7_1_2_interior_holder_regularization
 
-**Statement:** [krylov_7_1_2_interior_holder_regularization.md](krylov_7_1_2_interior_holder_regularization.md) · **Lean:** [krylov_7_1_2_interior_holder_regularization.lean](krylov_7_1_2_interior_holder_regularization.lean)
+**Statement:** [krylov_7_1_2_interior_holder_regularization.md](krylov_7_1_2_interior_holder_regularization.md) · **Lean:** [krylov_7_1_2_interior_holder_regularization.lean](krylov_7_1_2_interior_holder_regularization.lean) · **Context:** [krylov_7_1_2_interior_holder_regularization.context.md](krylov_7_1_2_interior_holder_regularization.context.md)
 
 ## What the theorem says
 
@@ -49,3 +49,34 @@ wrong, even if it compiles.
 - `HolderLocallyOn` quantifies over all compact $K \subseteq \Omega$. Its `HolderOn` clause pairs a `ContDiffOn ℝ k' u K` smoothness condition (built on `fderivWithin K`) with a gauge built on the global `fderiv`. Since $\Omega$ is open and $K$ ranges over closed balls inside it, this still pins down the classical derivatives, but the mismatch is worth noting.
 - `holderGauge` hand-rolls the top-order difference quotient where mathlib's `HolderOnWith`/`eHolderNorm` would serve, and uses `multiDerivative` (repeated directional `fderiv` along a fixed list of coordinates) instead of `iteratedFDeriv`. Both are sound on open sets — mixed partials of a $C^k$ function commute, so the arbitrary order chosen by `multiIndexDirections` is harmless — but they are further from mathlib's API than necessary.
 - `holderGauge` takes a maximum where Krylov's norm takes a sum; equivalent up to a factor depending on $d$ and $k$, and invisible in a statement with no constants.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[krylov_7_1_2_interior_holder_regularization.md](krylov_7_1_2_interior_holder_regularization.md) and the background in [krylov_7_1_2_interior_holder_regularization.context.md](krylov_7_1_2_interior_holder_regularization.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 9 with the conclusion stated as a global Hölder bound up to $\partial\Omega$.
+- Requirement 8 with a threshold or sign condition imposed on $\lambda$.
+- Requirement 6 with the equation imposed outside $\Omega$, where $u$ is unknown.
+
+### Domain-specific pitfalls for this problem
+
+- "Interior" is the whole point: regularity on compact subsets, no claim at the boundary.
+- No condition on $\lambda$ is needed or assumed here.
+- Hölder membership on an open set means local finiteness of the norms; a single global gauge would be a different condition.
+- The coefficients' regularity is the same $k+\delta$ as the datum's.

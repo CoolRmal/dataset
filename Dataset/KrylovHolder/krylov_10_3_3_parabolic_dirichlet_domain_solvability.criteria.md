@@ -1,6 +1,6 @@
 # Criteria: krylov_10_3_3_parabolic_dirichlet_domain_solvability
 
-**Statement:** [krylov_10_3_3_parabolic_dirichlet_domain_solvability.md](krylov_10_3_3_parabolic_dirichlet_domain_solvability.md) · **Lean:** [krylov_10_3_3_parabolic_dirichlet_domain_solvability.lean](krylov_10_3_3_parabolic_dirichlet_domain_solvability.lean)
+**Statement:** [krylov_10_3_3_parabolic_dirichlet_domain_solvability.md](krylov_10_3_3_parabolic_dirichlet_domain_solvability.md) · **Lean:** [krylov_10_3_3_parabolic_dirichlet_domain_solvability.lean](krylov_10_3_3_parabolic_dirichlet_domain_solvability.lean) · **Context:** [krylov_10_3_3_parabolic_dirichlet_domain_solvability.context.md](krylov_10_3_3_parabolic_dirichlet_domain_solvability.context.md)
 
 ## What the theorem says
 
@@ -53,3 +53,35 @@ wrong, even if it compiles.
 - `g` is assumed `ParabolicHolderOn (2 + δ) (closure Q)`, where the text asks only for $Q$. `closure Q` is not open, and `holderGauge` measures `multiDerivative`, built from the global `fderiv`, which is typically $0$ at boundary points — so the extra strength is largely illusory.
 - No compatibility condition between $f$ and $g$ at the corner where the initial and lateral surfaces meet is stated. Krylov's standing setting (a cylinder over a smooth domain) supplies the geometry that makes this work; `RegularParabolicDomain` is a barrier condition rather than a smoothness condition on $\partial Q$.
 - The docstring on `parabolicBoundary` in `Defs.lean` describes it as "approach from earlier times", which reads backwards relative to the condition `p.1 ≤ q.1` that the definition actually uses. The definition is the correct one; the wording is not.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[krylov_10_3_3_parabolic_dirichlet_domain_solvability.md](krylov_10_3_3_parabolic_dirichlet_domain_solvability.md) and the background in [krylov_10_3_3_parabolic_dirichlet_domain_solvability.context.md](krylov_10_3_3_parabolic_dirichlet_domain_solvability.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 5 with the boundary condition imposed on the whole topological boundary rather than on $\partial' Q$.
+- Requirement 2 with parabolicity replaced by an ellipticity condition in all $d+1$ variables.
+- Requirement 7 with the two Hölder exponents chosen independently of the parabolic scaling.
+
+### Domain-specific pitfalls for this problem
+
+- The parabolic boundary excludes the top of a cylinder; this is what makes the problem well posed rather than over-determined.
+- $L$ differentiates in $x$ only; $u_t$ is a separate term of the equation.
+- Parabolic Hölder exponents come in the locked pairs $(\delta/2,\delta)$ and $(1+\delta/2, 2+\delta)$.
+- Membership in a Hölder space requires the derivatives to exist, not just a gauge to be finite; `deriv` of a non-differentiable function is the junk value $0$.
+- Uniqueness is relative to the same regularity class.

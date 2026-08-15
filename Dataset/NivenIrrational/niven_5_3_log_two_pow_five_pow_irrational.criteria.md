@@ -1,6 +1,6 @@
 # Criteria: niven_5_3_log_two_pow_five_pow_irrational
 
-**Statement:** [niven_5_3_log_two_pow_five_pow_irrational.md](niven_5_3_log_two_pow_five_pow_irrational.md) · **Lean:** [niven_5_3_log_two_pow_five_pow_irrational.lean](niven_5_3_log_two_pow_five_pow_irrational.lean)
+**Statement:** [niven_5_3_log_two_pow_five_pow_irrational.md](niven_5_3_log_two_pow_five_pow_irrational.md) · **Lean:** [niven_5_3_log_two_pow_five_pow_irrational.lean](niven_5_3_log_two_pow_five_pow_irrational.lean) · **Context:** [niven_5_3_log_two_pow_five_pow_irrational.context.md](niven_5_3_log_two_pow_five_pow_irrational.context.md)
 
 ## What the theorem says
 
@@ -45,3 +45,33 @@ wrong, even if it compiles.
 - The exponents are natural numbers, matching "non-negative integers" in the text. The same claim
   holds for integer exponents, but the book's hypothesis is the one formalized.
 - Irrationality is Mathlib's `Irrational`, not a hand-rolled "not of the form $a/b$".
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[niven_5_3_log_two_pow_five_pow_irrational.md](niven_5_3_log_two_pow_five_pow_irrational.md) and the background in [niven_5_3_log_two_pow_five_pow_irrational.context.md](niven_5_3_log_two_pow_five_pow_irrational.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 5 rows, so each row is worth 10.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 2 with the hypothesis $c \ne d$ dropped: false, since $\log 10^c = c$.
+- Requirement 3 with the natural logarithm in place of the base-$10$ one.
+
+### Domain-specific pitfalls for this problem
+
+- The base is $10$; `Real.log` is the natural logarithm and `Real.logb 10` is the intended one.
+- Junk value — `Real.log`: the logarithm of a non-positive number is $0$ in Lean, which is harmless here because $2^c5^d > 0$.
+- $c$ and $d$ range over the non-negative integers, $0$ included.
+- The conclusion is irrationality, not transcendence.

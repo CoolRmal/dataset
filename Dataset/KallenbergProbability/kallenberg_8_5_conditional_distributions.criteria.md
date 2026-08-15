@@ -1,6 +1,6 @@
 # Criteria: kallenberg_8_5_conditional_distributions
 
-**Statement:** [kallenberg_8_5_conditional_distributions.md](kallenberg_8_5_conditional_distributions.md) · **Lean:** [kallenberg_8_5_conditional_distributions.lean](kallenberg_8_5_conditional_distributions.lean)
+**Statement:** [kallenberg_8_5_conditional_distributions.md](kallenberg_8_5_conditional_distributions.md) · **Lean:** [kallenberg_8_5_conditional_distributions.lean](kallenberg_8_5_conditional_distributions.lean) · **Context:** [kallenberg_8_5_conditional_distributions.context.md](kallenberg_8_5_conditional_distributions.context.md)
 
 ## What the theorem says
 
@@ -58,3 +58,35 @@ wrong, even if it compiles.
   measurable non-negative integrand and no default value can arise.
 - Measurability of `ξ` matters twice: `μ.map ξ` is the zero measure for a non-measurable map, and
   `ξ ⁻¹' A` has to be measurable for the restricted integrals to mean anything.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[kallenberg_8_5_conditional_distributions.md](kallenberg_8_5_conditional_distributions.md) and the background in [kallenberg_8_5_conditional_distributions.context.md](kallenberg_8_5_conditional_distributions.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 4 with an arbitrary kernel instead of a probability kernel.
+- Requirement 1 with the standard Borel hypothesis moved to $S$ or imposed on both.
+- Requirement 6 with uniqueness stated as literal equality of kernels rather than a.e. equality.
+
+### Domain-specific pitfalls for this problem
+
+- A probability kernel has every fibre of mass $1$; `Kernel` alone does not.
+- $\mathcal{L}(\xi) \otimes \mu$ is a composition-product, not a product measure — the second factor depends on the first coordinate.
+- In (ii) the test function $f$ depends on both arguments, and the integral is over the second only.
+- Uniqueness is almost everywhere for the law of $\xi$; on a null set the kernel is unconstrained.
+- The integral in (ii) is of a non-negative function and may be infinite, so it belongs in `ℝ≥0∞`.

@@ -1,6 +1,6 @@
 # Criteria: nikolski_B_4_3_3_devinatz_widom
 
-**Statement:** [nikolski_B_4_3_3_devinatz_widom.md](nikolski_B_4_3_3_devinatz_widom.md) · **Lean:** [nikolski_B_4_3_3_devinatz_widom.lean](nikolski_B_4_3_3_devinatz_widom.lean)
+**Statement:** [nikolski_B_4_3_3_devinatz_widom.md](nikolski_B_4_3_3_devinatz_widom.md) · **Lean:** [nikolski_B_4_3_3_devinatz_widom.lean](nikolski_B_4_3_3_devinatz_widom.lean) · **Context:** [nikolski_B_4_3_3_devinatz_widom.context.md](nikolski_B_4_3_3_devinatz_widom.context.md)
 
 ## What the theorem says
 
@@ -70,3 +70,35 @@ wrong, even if it compiles.
 - The functions `v` and `w` in item (4) carry no measurability hypothesis. `eLpNorm … ∞` still
   makes sense without it, but `AEStronglyMeasurable` would match the intent of "real valued bounded
   functions on $\mathbb{T}$".
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[nikolski_B_4_3_3_devinatz_widom.md](nikolski_B_4_3_3_devinatz_widom.md) and the background in [nikolski_B_4_3_3_devinatz_widom.context.md](nikolski_B_4_3_3_devinatz_widom.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 4 with only one of the two distance conditions in item (2).
+- Requirement 7 with the $\pi/2$ bound attached to $b$ or to $\tilde b$ instead of to $a$.
+- Requirement 5 with $h$ not required outer.
+
+### Domain-specific pitfalls for this problem
+
+- $\tilde b$ is the harmonic conjugate of $b$; the norm bound applies to the un-conjugated function $a$.
+- Toeplitz matrices depend on $i-j$; Hankel on $i+j$.
+- The unimodularity of $u$ is almost everywhere.
+- Every distance and norm inequality is strict.
+- Junk value — infimum: the distances are infima over function spaces and belong in $[0,\infty]$.

@@ -4,6 +4,7 @@
 - **Domain:** ODE
 - **Lean declaration:** `Dataset.KongODE.kong_3_5_2_lasalle_invariance_stability` ([kong_3_5_2_lasalle_invariance_stability.lean](kong_3_5_2_lasalle_invariance_stability.lean))
 - **Criteria:** [kong_3_5_2_lasalle_invariance_stability.criteria.md](kong_3_5_2_lasalle_invariance_stability.criteria.md)
+- **Context:** [kong_3_5_2_lasalle_invariance_stability.context.md](kong_3_5_2_lasalle_invariance_stability.context.md)
 
 ## Statement
 

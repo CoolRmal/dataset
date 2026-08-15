@@ -1,6 +1,6 @@
 # Criteria: engelking_8_4_13_smirnov_proximity_compactification
 
-**Statement:** [engelking_8_4_13_smirnov_proximity_compactification.md](engelking_8_4_13_smirnov_proximity_compactification.md) · **Lean:** [engelking_8_4_13_smirnov_proximity_compactification.lean](engelking_8_4_13_smirnov_proximity_compactification.lean)
+**Statement:** [engelking_8_4_13_smirnov_proximity_compactification.md](engelking_8_4_13_smirnov_proximity_compactification.md) · **Lean:** [engelking_8_4_13_smirnov_proximity_compactification.lean](engelking_8_4_13_smirnov_proximity_compactification.lean) · **Context:** [engelking_8_4_13_smirnov_proximity_compactification.context.md](engelking_8_4_13_smirnov_proximity_compactification.context.md)
 
 ## What the theorem says
 
@@ -66,3 +66,34 @@ wrong, even if it compiles.
   constructed in clause (b) naturally lives in `Type u` (a quotient of a space built from
   `Set (Set X)`). For `v` below `u`, clause (b) may be unsatisfiable for size reasons, so `Type u`
   (or `Type (max u v)`) would be the safe choice.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[engelking_8_4_13_smirnov_proximity_compactification.md](engelking_8_4_13_smirnov_proximity_compactification.md) and the background in [engelking_8_4_13_smirnov_proximity_compactification.context.md](engelking_8_4_13_smirnov_proximity_compactification.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 4: dropping the Efremovič (strong) axiom, without which the correspondence is false.
+- Requirement 10 with "equivalent" read as a bare homeomorphism rather than one commuting with the embeddings.
+- Requirement 8 or 9 omitted, so that the "one-to-one correspondence" is asserted only in one direction.
+
+### Domain-specific pitfalls for this problem
+
+- The compatibility axiom $\overline{A} = \{x : \{x\}\,\delta\,A\}$ ties the proximity to the given topology; a proximity structure without it is unrelated to $X$'s topology.
+- The assignment $\delta(c)$ is a biconditional definition in terms of closures of images inside $cX$.
+- "One-to-one correspondence" unpacks into existence, surjectivity and injectivity-up-to-equivalence; all three are needed.
+- A compactification is a *dense embedding* into a compact Hausdorff space, and Engelking's "compact" includes Hausdorff.

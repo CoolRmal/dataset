@@ -4,6 +4,7 @@
 - **Domain:** Number theory
 - **Lean declaration:** `Dataset.NivenIrrational.niven_5_5_trisection_of_the_angle_impossible` ([niven_5_5_trisection_of_the_angle_impossible.lean](niven_5_5_trisection_of_the_angle_impossible.lean))
 - **Criteria:** [niven_5_5_trisection_of_the_angle_impossible.criteria.md](niven_5_5_trisection_of_the_angle_impossible.criteria.md)
+- **Context:** [niven_5_5_trisection_of_the_angle_impossible.context.md](niven_5_5_trisection_of_the_angle_impossible.context.md)
 
 ## Statement
 

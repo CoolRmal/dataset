@@ -1,6 +1,6 @@
 # Criteria: grafakos_1_3_2_marcinkiewicz_interpolation
 
-**Statement:** [grafakos_1_3_2_marcinkiewicz_interpolation.md](grafakos_1_3_2_marcinkiewicz_interpolation.md) · **Lean:** [grafakos_1_3_2_marcinkiewicz_interpolation.lean](grafakos_1_3_2_marcinkiewicz_interpolation.lean)
+**Statement:** [grafakos_1_3_2_marcinkiewicz_interpolation.md](grafakos_1_3_2_marcinkiewicz_interpolation.md) · **Lean:** [grafakos_1_3_2_marcinkiewicz_interpolation.lean](grafakos_1_3_2_marcinkiewicz_interpolation.lean) · **Context:** [grafakos_1_3_2_marcinkiewicz_interpolation.context.md](grafakos_1_3_2_marcinkiewicz_interpolation.context.md)
 
 ## What the theorem says
 
@@ -63,3 +63,35 @@ wrong, even if it compiles.
   `hmeas`.
 - `hmeas` was added to repair an earlier version of this file, which lacked it and was therefore not
   provable.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[grafakos_1_3_2_marcinkiewicz_interpolation.md](grafakos_1_3_2_marcinkiewicz_interpolation.md) and the background in [grafakos_1_3_2_marcinkiewicz_interpolation.context.md](grafakos_1_3_2_marcinkiewicz_interpolation.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 with strong-type endpoint hypotheses instead of weak-type: that is a different (much easier) interpolation theorem.
+- Requirement 8 with the constant existentially quantified rather than given by the printed formula.
+- Requirement 2 with $T$ assumed linear: linearity is not available for the maximal operators this theorem is designed for.
+
+### Domain-specific pitfalls for this problem
+
+- Weak-type $(p,p)$ is a bound on the distribution function, $\nu\{|Tf|>\alpha\} \le (A\lVert f\rVert_p/\alpha)^p$, not a bound on an $L^p$ norm.
+- Measurability of $Tf$ has to be assumed, since $T$ is only known to take values in the measurable functions.
+- The endpoint $p_1 = \infty$ is admitted by the text; typing $p_1$ as a real number silently excludes it and narrows the theorem.
+- The constant is built from real powers of `ℝ≥0∞` values; `ENNReal.rpow` at exponent $0$ or at $\infty$ has conventions that must not be relied on — the finiteness hypotheses $A_0,A_1<\infty$ are there for that reason.
+- $\sigma$-finiteness is assumed of the *domain* measure only; the target space is arbitrary.

@@ -4,6 +4,7 @@
 - **Domain:** Number theory
 - **Lean declaration:** `Dataset.NivenZuckermanNumberTheory.niven_zuckerman_11_6_divergent_product_tendsto_zero` ([niven_zuckerman_11_6_divergent_product_tendsto_zero.lean](niven_zuckerman_11_6_divergent_product_tendsto_zero.lean))
 - **Criteria:** [niven_zuckerman_11_6_divergent_product_tendsto_zero.criteria.md](niven_zuckerman_11_6_divergent_product_tendsto_zero.criteria.md)
+- **Context:** [niven_zuckerman_11_6_divergent_product_tendsto_zero.context.md](niven_zuckerman_11_6_divergent_product_tendsto_zero.context.md)
 
 ## Statement
 

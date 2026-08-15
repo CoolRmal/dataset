@@ -4,6 +4,7 @@
 - **Domain:** Measure theory
 - **Lean declaration:** `Dataset.Bogachev.bogachev_9_1_9_radon_preimage_from_compact_approximation` ([bogachev_9_1_9_radon_preimage_from_compact_approximation.lean](bogachev_9_1_9_radon_preimage_from_compact_approximation.lean))
 - **Criteria:** [bogachev_9_1_9_radon_preimage_from_compact_approximation.criteria.md](bogachev_9_1_9_radon_preimage_from_compact_approximation.criteria.md)
+- **Context:** [bogachev_9_1_9_radon_preimage_from_compact_approximation.context.md](bogachev_9_1_9_radon_preimage_from_compact_approximation.context.md)
 
 ## Statement
 

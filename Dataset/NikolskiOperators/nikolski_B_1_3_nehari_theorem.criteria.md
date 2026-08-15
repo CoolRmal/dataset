@@ -1,6 +1,6 @@
 # Criteria: nikolski_B_1_3_nehari_theorem
 
-**Statement:** [nikolski_B_1_3_nehari_theorem.md](nikolski_B_1_3_nehari_theorem.md) · **Lean:** [nikolski_B_1_3_nehari_theorem.lean](nikolski_B_1_3_nehari_theorem.lean)
+**Statement:** [nikolski_B_1_3_nehari_theorem.md](nikolski_B_1_3_nehari_theorem.md) · **Lean:** [nikolski_B_1_3_nehari_theorem.lean](nikolski_B_1_3_nehari_theorem.lean) · **Context:** [nikolski_B_1_3_nehari_theorem.context.md](nikolski_B_1_3_nehari_theorem.context.md)
 
 ## What the theorem says
 
@@ -64,3 +64,34 @@ wrong, even if it compiles.
 - `HardyClass ⊤ h` does not itself assert that $h$ has radial boundary values, so
   `symbolDistanceToHInfinity` leans on Fatou's theorem implicitly. This is harmless: the junk value
   of `boundaryValue` lives on a null set, and an essential supremum ignores null sets.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[nikolski_B_1_3_nehari_theorem.md](nikolski_B_1_3_nehari_theorem.md) and the background in [nikolski_B_1_3_nehari_theorem.context.md](nikolski_B_1_3_nehari_theorem.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 7 with the three claims made about different symbols.
+- Requirement 4 with the index shift $a_n = \hat\varphi(-n-1)$ wrong.
+- Requirement 5 or 6 with an inequality in place of an equality.
+
+### Domain-specific pitfalls for this problem
+
+- The symbol of a Hankel operator is unique only modulo $H^\infty$; the theorem picks one whose norm equals the distance to $H^\infty$.
+- Junk value — infimum: the operator norm and the distance to $H^\infty$ must be taken in $[0,\infty]$, so that an unbounded form is not assigned $0$.
+- Boundedness is uniformity of one constant over all finite sections and all coefficient vectors.
+- Hankel means entries depending on $i+j$; Toeplitz means $i-j$.

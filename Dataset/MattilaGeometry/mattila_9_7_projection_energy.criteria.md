@@ -1,6 +1,6 @@
 # Criteria: mattila_9_7_projection_energy
 
-**Statement:** [mattila_9_7_projection_energy.md](mattila_9_7_projection_energy.md) · **Lean:** [mattila_9_7_projection_energy.lean](mattila_9_7_projection_energy.lean)
+**Statement:** [mattila_9_7_projection_energy.md](mattila_9_7_projection_energy.md) · **Lean:** [mattila_9_7_projection_energy.lean](mattila_9_7_projection_energy.lean) · **Context:** [mattila_9_7_projection_energy.context.md](mattila_9_7_projection_energy.context.md)
 
 ## What the theorem says
 
@@ -68,3 +68,35 @@ wrong, even if it compiles.
   quantified here, instance binders would be more idiomatic than plain implications.
 - No hypothesis $m \le n$ is imposed. When $m > n$ the Grassmannian is empty, no probability measure
   exists on it, and the theorem is empty of content — harmless, but worth knowing.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[mattila_9_7_projection_energy.md](mattila_9_7_projection_energy.md) and the background in [mattila_9_7_projection_energy.context.md](mattila_9_7_projection_energy.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 with the constant quantified after $\mu$.
+- Requirement 7 with the absolute continuity conclusion omitted, so that the density in the second conclusion is undefined.
+- Requirement 6 with the energy taken with a different kernel exponent.
+
+### Domain-specific pitfalls for this problem
+
+- The energy is a double integral of a nonnegative singular kernel and belongs in $[0,\infty]$.
+- The density $D(P_{V\#}\mu,\cdot)$ exists only because of the first conclusion; asserting the bound without it refers to an undefined object.
+- $\mathcal{H}^m$ on $V$ uses the metric $V$ inherits from $\mathbb{R}^n$.
+- Compact support of $\mu$ is a hypothesis.
+- The constant depends only on $n$ and $m$.

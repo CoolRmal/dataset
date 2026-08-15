@@ -1,6 +1,6 @@
 # Criteria: krylov_2_5_2_harmonic_smooth_interior_estimates
 
-**Statement:** [krylov_2_5_2_harmonic_smooth_interior_estimates.md](krylov_2_5_2_harmonic_smooth_interior_estimates.md) · **Lean:** [krylov_2_5_2_harmonic_smooth_interior_estimates.lean](krylov_2_5_2_harmonic_smooth_interior_estimates.lean)
+**Statement:** [krylov_2_5_2_harmonic_smooth_interior_estimates.md](krylov_2_5_2_harmonic_smooth_interior_estimates.md) · **Lean:** [krylov_2_5_2_harmonic_smooth_interior_estimates.lean](krylov_2_5_2_harmonic_smooth_interior_estimates.lean) · **Context:** [krylov_2_5_2_harmonic_smooth_interior_estimates.context.md](krylov_2_5_2_harmonic_smooth_interior_estimates.context.md)
 
 ## What the theorem says
 
@@ -51,3 +51,34 @@ wrong, even if it compiles.
 - `Ω.Nonempty` is redundant next to `IsConnected Ω`, since mathlib's `IsConnected` already includes nonemptiness. Harmless duplication.
 - The `sSup` is real-valued rather than `ℝ≥0∞`-valued. It is safe here only because `HarmonicIn` gives continuity on the compact ball, so the set is nonempty and bounded. A `⨆ y : Metric.closedBall x R, ENNReal.ofReal \|u y\|` (the `functionSupNorm` style used elsewhere in this book) would be safe by construction.
 - The text's extra "$\cap\, C(\Omega)$" is already implied by `ContDiffOn ℝ 2`.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[krylov_2_5_2_harmonic_smooth_interior_estimates.md](krylov_2_5_2_harmonic_smooth_interior_estimates.md) and the background in [krylov_2_5_2_harmonic_smooth_interior_estimates.context.md](krylov_2_5_2_harmonic_smooth_interior_estimates.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 1 with the constant quantified after $u$, $x$ or $R$: the estimate is then vacuous.
+- Requirement 7 with the containment $B_R(x)\subseteq\Omega$ dropped.
+- Requirement 8 with a power of $R$ other than $-|\alpha|$.
+
+### Domain-specific pitfalls for this problem
+
+- The constant depends only on the dimension and the multi-index; its position in the quantifier prefix is the whole content.
+- Junk value — supremum: $\sup_{B_R(x)}|u|$ over a set that is unbounded above would be `0` in `ℝ`; here it is finite because $u$ is continuous on a bounded ball, but the statement should not rely on the default.
+- "Domain" carries connectedness as well as openness and non-emptiness.
+- Smoothness of $u$ is a conclusion, not a hypothesis; the hypothesis is $C^2$ plus harmonicity.

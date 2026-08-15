@@ -4,6 +4,7 @@
 - **Domain:** Fourier analysis
 - **Lean declaration:** `Dataset.GrafakosFourier.grafakos_4_1_1_torus_summability_uniform_boundedness` ([grafakos_4_1_1_torus_summability_uniform_boundedness.lean](grafakos_4_1_1_torus_summability_uniform_boundedness.lean))
 - **Criteria:** [grafakos_4_1_1_torus_summability_uniform_boundedness.criteria.md](grafakos_4_1_1_torus_summability_uniform_boundedness.criteria.md)
+- **Context:** [grafakos_4_1_1_torus_summability_uniform_boundedness.context.md](grafakos_4_1_1_torus_summability_uniform_boundedness.context.md)
 
 ## Statement
 

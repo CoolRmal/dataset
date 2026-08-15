@@ -4,6 +4,7 @@
 - **Domain:** Complex analysis
 - **Lean declaration:** `Dataset.HaymanMeromorphic.hayman_2_5_deficient_small_functions` ([hayman_2_5_deficient_small_functions.lean](hayman_2_5_deficient_small_functions.lean))
 - **Criteria:** [hayman_2_5_deficient_small_functions.criteria.md](hayman_2_5_deficient_small_functions.criteria.md)
+- **Context:** [hayman_2_5_deficient_small_functions.context.md](hayman_2_5_deficient_small_functions.context.md)
 
 ## Statement
 

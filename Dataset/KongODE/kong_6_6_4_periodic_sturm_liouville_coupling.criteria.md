@@ -1,6 +1,6 @@
 # Criteria: kong_6_6_4_periodic_sturm_liouville_coupling
 
-**Statement:** [kong_6_6_4_periodic_sturm_liouville_coupling.md](kong_6_6_4_periodic_sturm_liouville_coupling.md) · **Lean:** [kong_6_6_4_periodic_sturm_liouville_coupling.lean](kong_6_6_4_periodic_sturm_liouville_coupling.lean)
+**Statement:** [kong_6_6_4_periodic_sturm_liouville_coupling.md](kong_6_6_4_periodic_sturm_liouville_coupling.md) · **Lean:** [kong_6_6_4_periodic_sturm_liouville_coupling.lean](kong_6_6_4_periodic_sturm_liouville_coupling.lean) · **Context:** [kong_6_6_4_periodic_sturm_liouville_coupling.context.md](kong_6_6_4_periodic_sturm_liouville_coupling.context.md)
 
 ## What the theorem says
 
@@ -57,3 +57,36 @@ wrong, even if it compiles.
 - Simplicity and doubleness are phrased through proportionality of eigenfunctions on $[a,b]$ rather than through the dimension of an eigenspace, which avoids having to build the eigenspace as a subspace. For a nonzero $y_1$ the two are the same condition.
 - The boundary conditions take the derivative witness $y'$ carried by the eigenfunction predicate, rather than Lean's `deriv y`. This matters: `deriv` would be `0` at points of non-differentiability, and the mismatch between the two is exactly what let the junk eigenfunction of mistake 2 slip past an earlier version of the definition.
 - All the derivatives are taken within $[a,b]$, which is the literal reading of a boundary value problem on a closed interval.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[kong_6_6_4_periodic_sturm_liouville_coupling.md](kong_6_6_4_periodic_sturm_liouville_coupling.md) and the background in [kong_6_6_4_periodic_sturm_liouville_coupling.context.md](kong_6_6_4_periodic_sturm_liouville_coupling.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 12 rows, so each row is worth 4.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 8 with the interlacing chain's pattern of strict and non-strict inequalities altered, or with an order asserted between $\mu_i$ and $\nu_j$.
+- Requirement 12 with the zero count taken on the closed interval $[a,b]$ rather than $[a,b)$.
+- Requirement 5 with the equation written as $py''+p'y' = \dots$, which presupposes $p$ differentiable.
+
+### Domain-specific pitfalls for this problem
+
+- The equation is in quasi-derivative form: $y'$ exists and $p y'$ is differentiable; $p$ itself is only continuous.
+- $\{\mu_i,\nu_j\}$ means "each of them separately", with no comparison between the two.
+- An eigenfunction must be nontrivial on $[a,b]$; the zero function satisfies every boundary condition.
+- Part (b)'s zero counts are on $[a,b)$ for $n \ge 1$ and on the closed $[a,b]$ for the zero-free statement about $\lambda_0$.
+- Geometric simplicity is about the dimension of the eigenspace, not about algebraic multiplicity.
+- The three sequences are conclusions of the theorem, not inputs.

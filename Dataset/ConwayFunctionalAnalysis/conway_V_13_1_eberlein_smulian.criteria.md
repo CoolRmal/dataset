@@ -1,6 +1,6 @@
 # Criteria: conway_V_13_1_eberlein_smulian
 
-**Statement:** [conway_V_13_1_eberlein_smulian.md](conway_V_13_1_eberlein_smulian.md) · **Lean:** [conway_V_13_1_eberlein_smulian.lean](conway_V_13_1_eberlein_smulian.lean)
+**Statement:** [conway_V_13_1_eberlein_smulian.md](conway_V_13_1_eberlein_smulian.md) · **Lean:** [conway_V_13_1_eberlein_smulian.lean](conway_V_13_1_eberlein_smulian.lean) · **Context:** [conway_V_13_1_eberlein_smulian.context.md](conway_V_13_1_eberlein_smulian.context.md)
 
 ## What the theorem says
 
@@ -56,3 +56,34 @@ wrong, even if it compiles.
   Nothing is lost, since the weak topology of a complex space agrees with the weak topology of its
   underlying real space. A version parametrized by `RCLike 𝕜` would cover the text exactly and
   should not be penalized in a candidate.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[conway_V_13_1_eberlein_smulian.md](conway_V_13_1_eberlein_smulian.md) and the background in [conway_V_13_1_eberlein_smulian.context.md](conway_V_13_1_eberlein_smulian.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 with the norm topology substituted anywhere: in the norm topology the three conditions are equivalent for trivial reasons and the theorem is lost.
+- Requirement 5 with the limit required to lie in $A$.
+- Requirement 9 stated as a chain of implications rather than a full equivalence, or with an item omitted.
+
+### Domain-specific pitfalls for this problem
+
+- Everything must be transported into the weak topology (Mathlib's `WeakSpace ℂ E` via `toWeakSpace`); writing `Tendsto` in the ambient normed space is norm convergence.
+- A cluster point of a sequence is `MapClusterPt`, not the limit of a subsequence — conflating the two assumes the theorem.
+- "Weak closure" is the closure taken inside the weak topology; the norm closure is a different (smaller) set.
+- $A$ carries no hypotheses; adding boundedness or convexity states a special case.

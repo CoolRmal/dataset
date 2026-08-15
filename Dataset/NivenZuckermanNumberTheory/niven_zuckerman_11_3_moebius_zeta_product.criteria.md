@@ -1,6 +1,6 @@
 # Criteria: niven_zuckerman_11_3_moebius_zeta_product
 
-**Statement:** [niven_zuckerman_11_3_moebius_zeta_product.md](niven_zuckerman_11_3_moebius_zeta_product.md) · **Lean:** [niven_zuckerman_11_3_moebius_zeta_product.lean](niven_zuckerman_11_3_moebius_zeta_product.lean)
+**Statement:** [niven_zuckerman_11_3_moebius_zeta_product.md](niven_zuckerman_11_3_moebius_zeta_product.md) · **Lean:** [niven_zuckerman_11_3_moebius_zeta_product.lean](niven_zuckerman_11_3_moebius_zeta_product.lean) · **Context:** [niven_zuckerman_11_3_moebius_zeta_product.context.md](niven_zuckerman_11_3_moebius_zeta_product.context.md)
 
 ## What the theorem says
 
@@ -50,3 +50,34 @@ wrong, even if it compiles.
   unguarded sum over `ℕ` whose first term is silently a division by zero.
 - `ArithmeticFunction.moebius` is mathlib's $\mu$: it is $0$ on non-squarefree arguments and
   $(-1)^k$ on a product of $k$ distinct primes, with $\mu(1) = 1$.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[niven_zuckerman_11_3_moebius_zeta_product.md](niven_zuckerman_11_3_moebius_zeta_product.md) and the background in [niven_zuckerman_11_3_moebius_zeta_product.context.md](niven_zuckerman_11_3_moebius_zeta_product.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 6 rows, so each row is worth 8.3 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 with the $n=0$ term left to a division-by-zero convention rather than excluded.
+- Requirement 4 with a claim about one sum rather than about the product.
+- Requirement 6 with a different exponent.
+
+### Domain-specific pitfalls for this problem
+
+- Junk value — division: $1/0 = 0$ in Lean, so the $n = 0$ term must be handled explicitly rather than relied upon.
+- The Möbius function is $\mathbb{Z}$-valued and needs a cast.
+- Both series must be summable for the product statement to be about genuine sums.
+- The assertion is about the product of the two sums.

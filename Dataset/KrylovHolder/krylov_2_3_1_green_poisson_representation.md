@@ -4,6 +4,7 @@
 - **Domain:** PDE
 - **Lean declaration:** `Dataset.KrylovHolder.krylov_2_3_1_green_poisson_representation` ([krylov_2_3_1_green_poisson_representation.lean](krylov_2_3_1_green_poisson_representation.lean))
 - **Criteria:** [krylov_2_3_1_green_poisson_representation.criteria.md](krylov_2_3_1_green_poisson_representation.criteria.md)
+- **Context:** [krylov_2_3_1_green_poisson_representation.context.md](krylov_2_3_1_green_poisson_representation.context.md)
 
 ## Statement
 

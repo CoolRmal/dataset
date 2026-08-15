@@ -4,6 +4,7 @@
 - **Domain:** Measure theory
 - **Lean declaration:** `Dataset.BogachevGaussian.bogachev_gaussian_2_5_2_zero_one_law` ([bogachev_gaussian_2_5_2_zero_one_law.lean](bogachev_gaussian_2_5_2_zero_one_law.lean))
 - **Criteria:** [bogachev_gaussian_2_5_2_zero_one_law.criteria.md](bogachev_gaussian_2_5_2_zero_one_law.criteria.md)
+- **Context:** [bogachev_gaussian_2_5_2_zero_one_law.context.md](bogachev_gaussian_2_5_2_zero_one_law.context.md)
 
 ## Statement
 

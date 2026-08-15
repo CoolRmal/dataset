@@ -1,6 +1,6 @@
 # Criteria: mattila_7_7_lipschitz_level_sets
 
-**Statement:** [mattila_7_7_lipschitz_level_sets.md](mattila_7_7_lipschitz_level_sets.md) · **Lean:** [mattila_7_7_lipschitz_level_sets.lean](mattila_7_7_lipschitz_level_sets.lean)
+**Statement:** [mattila_7_7_lipschitz_level_sets.md](mattila_7_7_lipschitz_level_sets.md) · **Lean:** [mattila_7_7_lipschitz_level_sets.lean](mattila_7_7_lipschitz_level_sets.lean) · **Context:** [mattila_7_7_lipschitz_level_sets.context.md](mattila_7_7_lipschitz_level_sets.context.md)
 
 ## What the theorem says
 
@@ -60,3 +60,35 @@ wrong, even if it compiles.
   hypotheses would be more idiomatic.
 - The constant is only required to be finite, not positive. A smaller `c` gives a stronger claim, so
   no lower bound on `c` is needed.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[mattila_7_7_lipschitz_level_sets.md](mattila_7_7_lipschitz_level_sets.md) and the background in [mattila_7_7_lipschitz_level_sets.context.md](mattila_7_7_lipschitz_level_sets.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 1 with the constant quantified after $A$ or $f$.
+- Requirement 5 with an ordinary integral in place of the upper integral, or with a measurability hypothesis added to make one available.
+- Requirement 7 with the power of $\mathrm{Lip}(f)$ other than $m$.
+
+### Domain-specific pitfalls for this problem
+
+- The upper integral is what makes the statement meaningful without measurability of the slice function; adding measurability changes the hypotheses.
+- $f$ is Lipschitz on $A$ only.
+- Both sides are extended-real valued and may be infinite.
+- The constant depends only on $n$ and $m$.
+- The slice is $A \cap f^{-1}\{y\}$ and is measured with $\mathcal{H}^{s-m}$.

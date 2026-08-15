@@ -4,6 +4,7 @@
 - **Domain:** Number theory
 - **Lean declaration:** `Dataset.NivenIrrational.niven_2_4_rational_iff_periodic_decimal` ([niven_2_4_rational_iff_periodic_decimal.lean](niven_2_4_rational_iff_periodic_decimal.lean))
 - **Criteria:** [niven_2_4_rational_iff_periodic_decimal.criteria.md](niven_2_4_rational_iff_periodic_decimal.criteria.md)
+- **Context:** [niven_2_4_rational_iff_periodic_decimal.context.md](niven_2_4_rational_iff_periodic_decimal.context.md)
 
 ## Statement
 

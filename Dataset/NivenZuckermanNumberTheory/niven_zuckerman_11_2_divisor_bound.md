@@ -4,6 +4,7 @@
 - **Domain:** Number theory
 - **Lean declaration:** `Dataset.NivenZuckermanNumberTheory.niven_zuckerman_11_2_divisor_bound` ([niven_zuckerman_11_2_divisor_bound.lean](niven_zuckerman_11_2_divisor_bound.lean))
 - **Criteria:** [niven_zuckerman_11_2_divisor_bound.criteria.md](niven_zuckerman_11_2_divisor_bound.criteria.md)
+- **Context:** [niven_zuckerman_11_2_divisor_bound.context.md](niven_zuckerman_11_2_divisor_bound.context.md)
 
 ## Statement
 

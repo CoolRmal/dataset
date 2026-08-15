@@ -4,6 +4,7 @@
 - **Domain:** Number theory
 - **Lean declaration:** `Dataset.NivenZuckermanNumberTheory.niven_zuckerman_10_16_ramanujan_congruence` ([niven_zuckerman_10_16_ramanujan_congruence.lean](niven_zuckerman_10_16_ramanujan_congruence.lean))
 - **Criteria:** [niven_zuckerman_10_16_ramanujan_congruence.criteria.md](niven_zuckerman_10_16_ramanujan_congruence.criteria.md)
+- **Context:** [niven_zuckerman_10_16_ramanujan_congruence.context.md](niven_zuckerman_10_16_ramanujan_congruence.context.md)
 
 ## Statement
 

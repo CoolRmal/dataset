@@ -4,6 +4,7 @@
 - **Domain:** Analysis
 - **Lean declaration:** `Dataset.Bogachev.bogachev_3_7_1_change_of_variables_in_Rn` ([bogachev_3_7_1_change_of_variables_in_Rn.lean](bogachev_3_7_1_change_of_variables_in_Rn.lean))
 - **Criteria:** [bogachev_3_7_1_change_of_variables_in_Rn.criteria.md](bogachev_3_7_1_change_of_variables_in_Rn.criteria.md)
+- **Context:** [bogachev_3_7_1_change_of_variables_in_Rn.context.md](bogachev_3_7_1_change_of_variables_in_Rn.context.md)
 
 ## Statement
 

@@ -4,6 +4,7 @@
 - **Domain:** Probability
 - **Lean declaration:** `Dataset.BogachevGaussian.bogachev_gaussian_1_9_2_rotation_characterization` ([bogachev_gaussian_1_9_2_rotation_characterization.lean](bogachev_gaussian_1_9_2_rotation_characterization.lean))
 - **Criteria:** [bogachev_gaussian_1_9_2_rotation_characterization.criteria.md](bogachev_gaussian_1_9_2_rotation_characterization.criteria.md)
+- **Context:** [bogachev_gaussian_1_9_2_rotation_characterization.context.md](bogachev_gaussian_1_9_2_rotation_characterization.context.md)
 
 ## Statement
 

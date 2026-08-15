@@ -4,6 +4,7 @@
 - **Domain:** PDE
 - **Lean declaration:** `Dataset.KrylovSobolev.krylov_sobolev_12_2_13_real_strongly_elliptic_order_even` ([krylov_sobolev_12_2_13_real_strongly_elliptic_order_even.lean](krylov_sobolev_12_2_13_real_strongly_elliptic_order_even.lean))
 - **Criteria:** [krylov_sobolev_12_2_13_real_strongly_elliptic_order_even.criteria.md](krylov_sobolev_12_2_13_real_strongly_elliptic_order_even.criteria.md)
+- **Context:** [krylov_sobolev_12_2_13_real_strongly_elliptic_order_even.context.md](krylov_sobolev_12_2_13_real_strongly_elliptic_order_even.context.md)
 
 ## Statement
 

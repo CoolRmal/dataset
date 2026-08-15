@@ -4,6 +4,7 @@
 - **Domain:** Number theory
 - **Lean declaration:** `Dataset.NivenIrrational.niven_5_5_squaring_the_circle_impossible` ([niven_5_5_squaring_the_circle_impossible.lean](niven_5_5_squaring_the_circle_impossible.lean))
 - **Criteria:** [niven_5_5_squaring_the_circle_impossible.criteria.md](niven_5_5_squaring_the_circle_impossible.criteria.md)
+- **Context:** [niven_5_5_squaring_the_circle_impossible.context.md](niven_5_5_squaring_the_circle_impossible.context.md)
 
 ## Statement
 

@@ -1,6 +1,6 @@
 # Criteria: conway_VI_2_1_banach_stone
 
-**Statement:** [conway_VI_2_1_banach_stone.md](conway_VI_2_1_banach_stone.md) · **Lean:** [conway_VI_2_1_banach_stone.lean](conway_VI_2_1_banach_stone.lean)
+**Statement:** [conway_VI_2_1_banach_stone.md](conway_VI_2_1_banach_stone.md) · **Lean:** [conway_VI_2_1_banach_stone.lean](conway_VI_2_1_banach_stone.lean) · **Context:** [conway_VI_2_1_banach_stone.context.md](conway_VI_2_1_banach_stone.context.md)
 
 ## What the theorem says
 
@@ -53,3 +53,34 @@ wrong, even if it compiles.
   equivalent. Acceptable but less direct.
 - The transcribed VI.2.1 asserts existence of $(\tau, \alpha)$ only. Uniqueness does hold, but
   writing `∃!` would go beyond the text; the ground truth stays with plain existence.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[conway_VI_2_1_banach_stone.md](conway_VI_2_1_banach_stone.md) and the background in [conway_VI_2_1_banach_stone.context.md](conway_VI_2_1_banach_stone.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 5 with $\tau$ oriented $X \to Y$: the representation formula no longer typechecks as the theorem's.
+- Requirement 3 strengthened by assuming $T$ multiplicative (an algebra isomorphism): that makes the theorem elementary.
+- Requirement 7 weakened to $\lVert\alpha\rVert \le 1$ or to $\alpha$ nonvanishing.
+
+### Domain-specific pitfalls for this problem
+
+- $T$ is assumed only linear, norm-preserving and onto. Assuming it is an algebra homomorphism or order-preserving is a different, much easier theorem.
+- For compact $X$, `C(X)` and the bounded continuous functions `X →ᵇ ℂ` agree; on a non-compact space they do not, so the compactness hypotheses carry weight.
+- Hausdorffness is part of Conway's "compact" and must be stated explicitly.
+- $\alpha$ has modulus exactly $1$ at *every* point, and the representation formula is asserted for all $f$ and all $y$.

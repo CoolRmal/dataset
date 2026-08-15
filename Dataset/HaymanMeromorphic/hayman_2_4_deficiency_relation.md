@@ -4,6 +4,7 @@
 - **Domain:** Complex analysis
 - **Lean declaration:** `Dataset.HaymanMeromorphic.hayman_2_4_deficiency_relation` ([hayman_2_4_deficiency_relation.lean](hayman_2_4_deficiency_relation.lean))
 - **Criteria:** [hayman_2_4_deficiency_relation.criteria.md](hayman_2_4_deficiency_relation.criteria.md)
+- **Context:** [hayman_2_4_deficiency_relation.context.md](hayman_2_4_deficiency_relation.context.md)
 
 ## Statement
 

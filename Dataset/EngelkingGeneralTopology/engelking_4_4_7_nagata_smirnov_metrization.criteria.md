@@ -1,6 +1,6 @@
 # Criteria: engelking_4_4_7_nagata_smirnov_metrization
 
-**Statement:** [engelking_4_4_7_nagata_smirnov_metrization.md](engelking_4_4_7_nagata_smirnov_metrization.md) · **Lean:** [engelking_4_4_7_nagata_smirnov_metrization.lean](engelking_4_4_7_nagata_smirnov_metrization.lean)
+**Statement:** [engelking_4_4_7_nagata_smirnov_metrization.md](engelking_4_4_7_nagata_smirnov_metrization.md) · **Lean:** [engelking_4_4_7_nagata_smirnov_metrization.lean](engelking_4_4_7_nagata_smirnov_metrization.lean) · **Context:** [engelking_4_4_7_nagata_smirnov_metrization.context.md](engelking_4_4_7_nagata_smirnov_metrization.context.md)
 
 ## What the theorem says
 
@@ -54,3 +54,34 @@ wrong, even if it compiles.
   direction may be unsatisfiable simply because there are not enough index values. Indexing the
   layers by subtypes of `Set X`, or stating the base as a `Set (Set X)` with a decomposition
   `Set X → ℕ`, removes the ambiguity.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[engelking_4_4_7_nagata_smirnov_metrization.md](engelking_4_4_7_nagata_smirnov_metrization.md) and the background in [engelking_4_4_7_nagata_smirnov_metrization.context.md](engelking_4_4_7_nagata_smirnov_metrization.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 7 rows, so each row is worth 7.1 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 6 with each layer required to be a base instead of the union: a different and false statement.
+- Requirement 7 with local finiteness demanded of the union rather than of each layer.
+- Requirement 1 stated as a single implication.
+
+### Domain-specific pitfalls for this problem
+
+- Engelking's "regular" includes $T_1$; without it the equivalence fails, since an indiscrete space is regular in the modern sense and not metrizable.
+- "Metrizable" is about the *given* topology (`MetrizableSpace X`), not the existence of some metric space homeomorphic to it in an unrelated topology.
+- Regularity is a conjunct of the right-hand side, not a hypothesis; moving it out changes what is being characterised.
+- The countable indexing of the layers is part of "$\sigma$-"; a single locally finite base is a much stronger condition.

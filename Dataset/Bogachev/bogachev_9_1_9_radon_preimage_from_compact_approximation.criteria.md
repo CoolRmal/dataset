@@ -1,6 +1,6 @@
 # Criteria: bogachev_9_1_9_radon_preimage_from_compact_approximation
 
-**Statement:** [bogachev_9_1_9_radon_preimage_from_compact_approximation.md](bogachev_9_1_9_radon_preimage_from_compact_approximation.md) · **Lean:** [bogachev_9_1_9_radon_preimage_from_compact_approximation.lean](bogachev_9_1_9_radon_preimage_from_compact_approximation.lean)
+**Statement:** [bogachev_9_1_9_radon_preimage_from_compact_approximation.md](bogachev_9_1_9_radon_preimage_from_compact_approximation.md) · **Lean:** [bogachev_9_1_9_radon_preimage_from_compact_approximation.lean](bogachev_9_1_9_radon_preimage_from_compact_approximation.lean) · **Context:** [bogachev_9_1_9_radon_preimage_from_compact_approximation.context.md](bogachev_9_1_9_radon_preimage_from_compact_approximation.context.md)
 
 ## What the theorem says
 
@@ -58,3 +58,35 @@ wrong, even if it compiles.
 - The sequence `K : ℕ → Set X` is a parameter of the whole declaration even though the second
   conjunct never mentions it. Harmless: the second conjunct is then asserted for every choice of
   `K`, which is the same as asserting it once.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[bogachev_9_1_9_radon_preimage_from_compact_approximation.md](bogachev_9_1_9_radon_preimage_from_compact_approximation.md) and the background in [bogachev_9_1_9_radon_preimage_from_compact_approximation.context.md](bogachev_9_1_9_radon_preimage_from_compact_approximation.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 2: adding global measurability or continuity of $f$ to the hypotheses, which assumes away what the theorem constructs.
+- Requirement 8: expressing $\mu \circ f^{-1} = \nu$ as a pushforward `Measure.map f μ = ν`, which for a non-measurable $f$ is the zero measure.
+- Requirement 7: producing the Radon property, the norm equality and the image equation for possibly *different* measures rather than for one $\mu$.
+
+### Domain-specific pitfalls for this problem
+
+- Junk value — pushforward: `Measure.map f μ` collapses to `0` unless `f` is a.e. measurable, precisely the situation here. The image condition must be spelled out set by set.
+- Radon means *inner* regularity of the total variation with respect to compacts (`Measure.InnerRegular ν.totalVariation`). Outer regularity is a different property and does not give the theorem.
+- $|\nu|$ applied to the non-measurable set $f(K_n)$ is the outer measure and is perfectly meaningful; adding a measurability hypothesis on $f(K_n)$ is an extra assumption the book does not make.
+- The variation norm is `ν.totalVariation univ`, a value in `ℝ≥0∞`; comparing it with an `ℝ`-valued norm requires a coercion that can lose the infinite case.
+- The compact-surjection corollary is a second conjunct with its own hypotheses, not a consequence a reader may leave implicit.

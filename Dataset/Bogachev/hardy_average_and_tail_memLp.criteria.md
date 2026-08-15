@@ -1,6 +1,6 @@
 # Criteria: hardy_average_and_tail_memLp
 
-**Statement:** [hardy_average_and_tail_memLp.md](hardy_average_and_tail_memLp.md) · **Lean:** [hardy_average_and_tail_memLp.lean](hardy_average_and_tail_memLp.lean)
+**Statement:** [hardy_average_and_tail_memLp.md](hardy_average_and_tail_memLp.md) · **Lean:** [hardy_average_and_tail_memLp.lean](hardy_average_and_tail_memLp.lean) · **Context:** [hardy_average_and_tail_memLp.context.md](hardy_average_and_tail_memLp.context.md)
 
 ## What the theorem says
 
@@ -56,3 +56,34 @@ wrong, even if it compiles.
   Endpoints carry no mass, so a candidate using `Icc 0 x` or `Ici x` is equivalent, not worse.
 - The exponent is lifted with `ENNReal.ofReal p`, which for `1 < p` is finite and larger than 1, as
   `MemLp` expects.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[hardy_average_and_tail_memLp.md](hardy_average_and_tail_memLp.md) and the background in [hardy_average_and_tail_memLp.context.md](hardy_average_and_tail_memLp.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 7 rows, so each row is worth 7.1 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 1 weakened to $1 \le p$, or an exponent typed so that $p = \infty$ is admissible: the statement is then false, with the counterexamples above.
+- Requirement 2 or 5–6 stated over $\mathbb{R}$ rather than $(0,\infty)$: $\psi$ is not defined for $x \le 0$ and the claim is not the exercise's.
+
+### Domain-specific pitfalls for this problem
+
+- Junk value — Bochner integral: both $\varphi$ and $\psi$ are defined by Bochner integrals, which return `0` on a non-integrable integrand. Convergence of these integrals is part of what must be true, so a candidate must not rely on the default to make the claim come out right.
+- Junk value — division: $1/x$ at $x=0$ is `0` in Lean. It is harmless only because the measure is restricted to the *open* half-line, where $x>0$.
+- $L^p$ membership must be `MemLp f p μ`, which carries a.e.-strong-measurability as well as finiteness of the norm; `Integrable (fun x ↦ |f x| ^ p)` drops the measurability half and is a different condition.
+- The exponent must be transported into `ℝ≥0∞` in a way that preserves $1 < p < \infty$; `ENNReal.ofReal p` for real $p > 1$ does that, while an `ℝ≥0∞`-valued `p` with only `1 < p` admits `p = ∞`.
+- Both conjuncts are required; the two operators are different and neither claim implies the other.

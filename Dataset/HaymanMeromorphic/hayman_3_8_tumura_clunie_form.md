@@ -4,6 +4,7 @@
 - **Domain:** Complex analysis
 - **Lean declaration:** `Dataset.HaymanMeromorphic.hayman_3_8_tumura_clunie_form` ([hayman_3_8_tumura_clunie_form.lean](hayman_3_8_tumura_clunie_form.lean))
 - **Criteria:** [hayman_3_8_tumura_clunie_form.criteria.md](hayman_3_8_tumura_clunie_form.criteria.md)
+- **Context:** [hayman_3_8_tumura_clunie_form.context.md](hayman_3_8_tumura_clunie_form.context.md)
 
 ## Statement
 

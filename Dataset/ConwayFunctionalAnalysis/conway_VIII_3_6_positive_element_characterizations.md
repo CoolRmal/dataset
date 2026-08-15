@@ -4,6 +4,7 @@
 - **Domain:** Operator algebras
 - **Lean declaration:** `Dataset.ConwayFunctionalAnalysis.conway_VIII_3_6_positive_element_characterizations` ([conway_VIII_3_6_positive_element_characterizations.lean](conway_VIII_3_6_positive_element_characterizations.lean))
 - **Criteria:** [conway_VIII_3_6_positive_element_characterizations.criteria.md](conway_VIII_3_6_positive_element_characterizations.criteria.md)
+- **Context:** [conway_VIII_3_6_positive_element_characterizations.context.md](conway_VIII_3_6_positive_element_characterizations.context.md)
 
 ## Statement
 

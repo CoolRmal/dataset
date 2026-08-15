@@ -1,6 +1,6 @@
 # Criteria: krylov_sobolev_1_4_8_two_dim_measurable_coeff_L2_estimate
 
-**Statement:** [krylov_sobolev_1_4_8_two_dim_measurable_coeff_L2_estimate.md](krylov_sobolev_1_4_8_two_dim_measurable_coeff_L2_estimate.md) · **Lean:** [krylov_sobolev_1_4_8_two_dim_measurable_coeff_L2_estimate.lean](krylov_sobolev_1_4_8_two_dim_measurable_coeff_L2_estimate.lean)
+**Statement:** [krylov_sobolev_1_4_8_two_dim_measurable_coeff_L2_estimate.md](krylov_sobolev_1_4_8_two_dim_measurable_coeff_L2_estimate.md) · **Lean:** [krylov_sobolev_1_4_8_two_dim_measurable_coeff_L2_estimate.lean](krylov_sobolev_1_4_8_two_dim_measurable_coeff_L2_estimate.lean) · **Context:** [krylov_sobolev_1_4_8_two_dim_measurable_coeff_L2_estimate.context.md](krylov_sobolev_1_4_8_two_dim_measurable_coeff_L2_estimate.context.md)
 
 ## What the theorem says
 
@@ -47,3 +47,35 @@ wrong, even if it compiles.
 - The norms are `eLpNorm _ 2 volume`, valued in `ℝ≥0∞`, so no finiteness is assumed anywhere.
 - $|\xi|^2$ is written `∑ i, ξ i ^ 2` with `ξ : Fin 2 → ℝ`; this is the same number as `‖ξ‖ ^ 2` on `EuclideanSpace ℝ (Fin 2)` but avoids coordinate-projection noise.
 - Krylov's indices $1,2$ become Lean's `0, 1 : Fin 2`, so $a^{11} + a^{22}$ is `a 0 0 x + a 1 1 x`.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[krylov_sobolev_1_4_8_two_dim_measurable_coeff_L2_estimate.md](krylov_sobolev_1_4_8_two_dim_measurable_coeff_L2_estimate.md) and the background in [krylov_sobolev_1_4_8_two_dim_measurable_coeff_L2_estimate.context.md](krylov_sobolev_1_4_8_two_dim_measurable_coeff_L2_estimate.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 6 with the zeroth-order term taken as $\lambda u$ instead of $\lambda(a^{11}+a^{22})u$.
+- Requirement 9 with the explicit constant $\nu^2/\mu^4$ replaced by an unspecified one.
+- Requirement 7 with any of the three weights on the left wrong.
+
+### Domain-specific pitfalls for this problem
+
+- The shift involves the trace of the coefficient matrix, so it is $x$-dependent.
+- The second-derivative sum is over ordered pairs, counting mixed derivatives twice.
+- The coefficients are only measurable; assuming continuity states a different (easier) exercise.
+- The ellipticity bound is two-sided, with both $\mu$ and $\nu$ used in the constant.
+- The dimension is exactly $2$.

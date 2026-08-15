@@ -1,6 +1,6 @@
 # Criteria: mattila_14_10_marstrand_density_integer
 
-**Statement:** [mattila_14_10_marstrand_density_integer.md](mattila_14_10_marstrand_density_integer.md) · **Lean:** [mattila_14_10_marstrand_density_integer.lean](mattila_14_10_marstrand_density_integer.lean)
+**Statement:** [mattila_14_10_marstrand_density_integer.md](mattila_14_10_marstrand_density_integer.md) · **Lean:** [mattila_14_10_marstrand_density_integer.lean](mattila_14_10_marstrand_density_integer.lean) · **Context:** [mattila_14_10_marstrand_density_integer.context.md](mattila_14_10_marstrand_density_integer.context.md)
 
 ## What the theorem says
 
@@ -57,3 +57,35 @@ wrong, even if it compiles.
   component carries no content here.
 - ⚠️ `∃ m : ℤ, s = m` is the literal rendering of "$s$ is an integer". The `ℕ` form used here is
   equivalent under `0 < s`, but it quietly restates positivity.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[mattila_14_10_marstrand_density_integer.md](mattila_14_10_marstrand_density_integer.md) and the background in [mattila_14_10_marstrand_density_integer.context.md](mattila_14_10_marstrand_density_integer.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 4 with an upper or lower density in place of a genuine limit.
+- Requirement 5 with either positivity or finiteness of the limit dropped.
+- Requirement 7 with the normalization $r^s$ instead of $(2r)^s$.
+
+### Domain-specific pitfalls for this problem
+
+- The density is a two-sided limit as $r \downarrow 0$; a `limsup` version is a different (and false) statement.
+- The normalization uses the diameter $2r$, Mattila's convention.
+- The density value may depend on the point, so the existential over it sits inside the quantifier over $a$.
+- "Radon" is finiteness on compacts plus inner regularity.
+- The exceptional set has positive $\mu$ measure — positive, not full.

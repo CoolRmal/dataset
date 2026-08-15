@@ -1,6 +1,6 @@
 # Criteria: kallenberg_10_5_doob_meyer
 
-**Statement:** [kallenberg_10_5_doob_meyer.md](kallenberg_10_5_doob_meyer.md) · **Lean:** [kallenberg_10_5_doob_meyer.lean](kallenberg_10_5_doob_meyer.lean)
+**Statement:** [kallenberg_10_5_doob_meyer.md](kallenberg_10_5_doob_meyer.md) · **Lean:** [kallenberg_10_5_doob_meyer.lean](kallenberg_10_5_doob_meyer.lean) · **Context:** [kallenberg_10_5_doob_meyer.context.md](kallenberg_10_5_doob_meyer.context.md)
 
 ## What the theorem says
 
@@ -68,3 +68,35 @@ wrong, even if it compiles.
 - ⚠️ `IsLocallyIntegrableProcess A ℱ μ` asks that `stoppedProcess A (τ n) t` be integrable for every
   finite `t`. Kallenberg's local integrability is $\mathbb{E}\,A_{\tau_n} < \infty$, which is the
   supremum over `t` of those quantities and is therefore slightly stronger.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[kallenberg_10_5_doob_meyer.md](kallenberg_10_5_doob_meyer.md) and the background in [kallenberg_10_5_doob_meyer.context.md](kallenberg_10_5_doob_meyer.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 8 with predictability dropped or weakened to adaptedness: uniqueness then fails and the theorem is false.
+- Requirement 3 or 4 with "martingale"/"submartingale" in place of the *local* versions.
+- Requirement 10 omitted, so the theorem asserts existence without uniqueness.
+
+### Domain-specific pitfalls for this problem
+
+- Predictable is strictly stronger than adapted; it is the hypothesis that makes the decomposition unique.
+- "Local" is a localization by stopping times increasing to infinity, with centring by $X_0$; a local martingale need not be a martingale.
+- "Increasing process" in Kallenberg bundles right-continuity, adaptedness and $A_0 = 0$; each has to be stated.
+- The a.s. quantifier belongs outside the time quantifier: one null set for all $t$, not one per $t$.
+- The filtration's right-continuity and the paths' right-continuity are conventions of the chapter and must be restored explicitly.

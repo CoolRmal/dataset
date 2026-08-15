@@ -1,6 +1,6 @@
 # Criteria: nikolski_B_2_2_hartman_compact_hankel
 
-**Statement:** [nikolski_B_2_2_hartman_compact_hankel.md](nikolski_B_2_2_hartman_compact_hankel.md) · **Lean:** [nikolski_B_2_2_hartman_compact_hankel.lean](nikolski_B_2_2_hartman_compact_hankel.lean)
+**Statement:** [nikolski_B_2_2_hartman_compact_hankel.md](nikolski_B_2_2_hartman_compact_hankel.md) · **Lean:** [nikolski_B_2_2_hartman_compact_hankel.lean](nikolski_B_2_2_hartman_compact_hankel.lean) · **Context:** [nikolski_B_2_2_hartman_compact_hankel.context.md](nikolski_B_2_2_hartman_compact_hankel.context.md)
 
 ## What the theorem says
 
@@ -64,3 +64,34 @@ wrong, even if it compiles.
   continuous $g$ — is not stated. It is an "in other words" (adding a bounded analytic part does
   not change the Hankel operator), so the omission is minor, but a formalization carrying both
   clauses is strictly better.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[nikolski_B_2_2_hartman_compact_hankel.md](nikolski_B_2_2_hartman_compact_hankel.md) and the background in [nikolski_B_2_2_hartman_compact_hankel.context.md](nikolski_B_2_2_hartman_compact_hankel.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 6 with $H^\infty + C$ read as an intersection, or with the continuous summand dropped.
+- Requirement 8 with only one direction.
+- Requirement 5 with the symbol not tied to the matrix data by the correct Fourier-coefficient relation.
+
+### Domain-specific pitfalls for this problem
+
+- $H^\infty + C$ is an algebraic sum of two spaces of functions on the circle.
+- The continuous summand is continuous on $\mathbb{T}$, a compact space, so it is automatically bounded.
+- Compactness of a Hankel operator is symbol-independent modulo $H^\infty$, which is why the "continuous symbol" reformulation is equivalent.
+- The index conventions relating symbol and matrix must match those of Nehari's theorem.

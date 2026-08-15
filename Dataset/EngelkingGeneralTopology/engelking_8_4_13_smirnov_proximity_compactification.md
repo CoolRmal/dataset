@@ -4,6 +4,7 @@
 - **Domain:** Topology
 - **Lean declaration:** `Dataset.EngelkingGeneralTopology.engelking_8_4_13_smirnov_proximity_compactification` ([engelking_8_4_13_smirnov_proximity_compactification.lean](engelking_8_4_13_smirnov_proximity_compactification.lean))
 - **Criteria:** [engelking_8_4_13_smirnov_proximity_compactification.criteria.md](engelking_8_4_13_smirnov_proximity_compactification.criteria.md)
+- **Context:** [engelking_8_4_13_smirnov_proximity_compactification.context.md](engelking_8_4_13_smirnov_proximity_compactification.context.md)
 
 ## Statement
 

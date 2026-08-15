@@ -4,6 +4,7 @@
 - **Domain:** Geometric measure theory
 - **Lean declaration:** `Dataset.MattilaGeometry.mattila_9_7_projection_energy` ([mattila_9_7_projection_energy.lean](mattila_9_7_projection_energy.lean))
 - **Criteria:** [mattila_9_7_projection_energy.criteria.md](mattila_9_7_projection_energy.criteria.md)
+- **Context:** [mattila_9_7_projection_energy.context.md](mattila_9_7_projection_energy.context.md)
 
 ## Statement
 

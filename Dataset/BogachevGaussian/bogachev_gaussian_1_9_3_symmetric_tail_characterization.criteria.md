@@ -1,6 +1,6 @@
 # Criteria: bogachev_gaussian_1_9_3_symmetric_tail_characterization
 
-**Statement:** [bogachev_gaussian_1_9_3_symmetric_tail_characterization.md](bogachev_gaussian_1_9_3_symmetric_tail_characterization.md) · **Lean:** [bogachev_gaussian_1_9_3_symmetric_tail_characterization.lean](bogachev_gaussian_1_9_3_symmetric_tail_characterization.lean)
+**Statement:** [bogachev_gaussian_1_9_3_symmetric_tail_characterization.md](bogachev_gaussian_1_9_3_symmetric_tail_characterization.md) · **Lean:** [bogachev_gaussian_1_9_3_symmetric_tail_characterization.lean](bogachev_gaussian_1_9_3_symmetric_tail_characterization.lean) · **Context:** [bogachev_gaussian_1_9_3_symmetric_tail_characterization.context.md](bogachev_gaussian_1_9_3_symmetric_tail_characterization.context.md)
 
 ## What the theorem says
 
@@ -50,3 +50,34 @@ wrong, even if it compiles.
 - Measures in Mathlib are defined on all sets (they extend to outer measures), so `μ {x \| t ≤ \|x\|}` needs no measurability side condition. Both tail sets are closed anyway.
 - The symmetry hypothesis is supplied as the instance `[μ.IsNegInvariant]` rather than as a named equation `μ.map Neg.neg = μ`. A candidate writing the explicit equation is equally faithful.
 - `√2` is `Real.sqrt 2`.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[bogachev_gaussian_1_9_3_symmetric_tail_characterization.md](bogachev_gaussian_1_9_3_symmetric_tail_characterization.md) and the background in [bogachev_gaussian_1_9_3_symmetric_tail_characterization.context.md](bogachev_gaussian_1_9_3_symmetric_tail_characterization.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 2 dropped or weakened to "mean zero": symmetry is not implied by the tail bound, and the theorem fails without it.
+- Requirement 4 with the $\sqrt2$ omitted: the hypothesis becomes unsatisfiable for non-degenerate laws and the statement is vacuous.
+- Requirement 8 strengthened to a non-degenerate Gaussian: false, since the Dirac mass at $0$ satisfies every hypothesis.
+
+### Domain-specific pitfalls for this problem
+
+- The direction of the inequality is part of the hypothesis: the *normalized sum* is on the smaller side. The reverse inequality holds for every symmetric law of finite variance and characterizes nothing.
+- Independence with a common law is encoded by working on the product measure; two separate measures would be a different statement.
+- Degenerate Gaussians must count: in Mathlib `gaussianReal m 0 = dirac m`, so `IsGaussian` is the right predicate and `∃ v > 0, μ = gaussianReal 0 v` is not.
+- Adding a finite-variance hypothesis assumes away the hard half of the proof.

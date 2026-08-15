@@ -1,6 +1,6 @@
 # Criteria: proposition_5_5_4
 
-**Statement:** [proposition_5_5_4.md](proposition_5_5_4.md) · **Lean:** [proposition_5_5_4.lean](proposition_5_5_4.lean)
+**Statement:** [proposition_5_5_4.md](proposition_5_5_4.md) · **Lean:** [proposition_5_5_4.lean](proposition_5_5_4.lean) · **Context:** [proposition_5_5_4.context.md](proposition_5_5_4.context.md)
 
 ## What the theorem says
 
@@ -61,3 +61,36 @@ wrong, even if it compiles.
   `deriv f` need not be measurable on $E$ either, so this value can be smaller than the upper
   integral the book has in mind — meaning the Lean statement is, if anything, slightly stronger than
   the printed one. A candidate that writes the same `∫⁻` is on equal footing.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[proposition_5_5_4.md](proposition_5_5_4.md) and the background in [proposition_5_5_4.context.md](proposition_5_5_4.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 2 weakened to `DifferentiableOn ℝ f E` (differentiability within $E$): the hypothesis becomes vacuous on sets with empty interior and the proposition is false.
+- Requirement 6: writing the right-hand side as a Bochner integral, which is `0` for a non-integrable $|f'|$ and would then assert that $f(E)$ is null.
+- Requirement 8 stated globally rather than relative to $E$: global property (N) does not follow, since $f$ is unconstrained off $E$.
+
+### Domain-specific pitfalls for this problem
+
+- Junk value — Bochner integral: `∫ x in E, |deriv f x|` is `0` when $|f'|$ is not integrable over $E$, turning the inequality into the false claim $\lambda(f(E)) = 0$. Use the lower Lebesgue integral into `ℝ≥0∞`.
+- Junk value — `deriv`: `deriv f x` is `0` wherever $f$ is not differentiable, so any occurrence outside $E$ is meaningless. Every use must sit under `x ∈ E`.
+- `DifferentiableAt ℝ f x` for `x ∈ E` versus `DifferentiableOn ℝ f E` is the concept confusion of this problem: the latter is `DifferentiableWithinAt` and is much weaker.
+- $\lambda(f(E))$ is an outer measure of a possibly non-measurable set; Mathlib measures already apply to every set, so no completion or measurability hypothesis is needed or wanted.
+- "Measurable set $E$" on the line means Lebesgue measurable (`NullMeasurableSet E volume`), not Borel.
+- The constant $L$ is universally quantified *inside* the third conclusion, with the bound as its hypothesis; hoisting $L$ into the proposition's binders states something weaker.

@@ -4,6 +4,7 @@
 - **Domain:** Probability
 - **Lean declaration:** `Dataset.KallenbergProbability.kallenberg_5_27_continuous_mapping` ([kallenberg_5_27_continuous_mapping.lean](kallenberg_5_27_continuous_mapping.lean))
 - **Criteria:** [kallenberg_5_27_continuous_mapping.criteria.md](kallenberg_5_27_continuous_mapping.criteria.md)
+- **Context:** [kallenberg_5_27_continuous_mapping.context.md](kallenberg_5_27_continuous_mapping.context.md)
 
 ## Statement
 

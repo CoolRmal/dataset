@@ -4,6 +4,7 @@
 - **Domain:** Number theory
 - **Lean declaration:** `Dataset.NivenIrrational.niven_5_5_duplication_of_the_cube_impossible` ([niven_5_5_duplication_of_the_cube_impossible.lean](niven_5_5_duplication_of_the_cube_impossible.lean))
 - **Criteria:** [niven_5_5_duplication_of_the_cube_impossible.criteria.md](niven_5_5_duplication_of_the_cube_impossible.criteria.md)
+- **Context:** [niven_5_5_duplication_of_the_cube_impossible.context.md](niven_5_5_duplication_of_the_cube_impossible.context.md)
 
 ## Statement
 

@@ -1,6 +1,6 @@
 # Criteria: niven_6_2_unique_nearest_integer
 
-**Statement:** [niven_6_2_unique_nearest_integer.md](niven_6_2_unique_nearest_integer.md) · **Lean:** [niven_6_2_unique_nearest_integer.lean](niven_6_2_unique_nearest_integer.lean)
+**Statement:** [niven_6_2_unique_nearest_integer.md](niven_6_2_unique_nearest_integer.md) · **Lean:** [niven_6_2_unique_nearest_integer.lean](niven_6_2_unique_nearest_integer.lean) · **Context:** [niven_6_2_unique_nearest_integer.context.md](niven_6_2_unique_nearest_integer.context.md)
 
 ## What the theorem says
 
@@ -48,3 +48,34 @@ wrong, even if it compiles.
 - `Irrational` is Mathlib's predicate. It is stronger than necessary, as noted in row 1, but it is
   the hypothesis the book states and keeps the formalization aligned with the text.
 - The integer `m` is coerced to `ℝ` automatically in `a - m`; the subtraction happens in `ℝ`.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[niven_6_2_unique_nearest_integer.md](niven_6_2_unique_nearest_integer.md) and the background in [niven_6_2_unique_nearest_integer.context.md](niven_6_2_unique_nearest_integer.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 7 rows, so each row is worth 7.1 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 2 with existence only, or uniqueness only.
+- Requirement 4 or 5 with a non-strict inequality: uniqueness then fails at half-integers.
+- Requirement 3 with $m$ a natural number.
+
+### Domain-specific pitfalls for this problem
+
+- Both inequalities are strict, and it is precisely the strictness that makes irrationality relevant.
+- The bounded quantity is $\alpha - m$; the reversed difference gives the same interval only because it is symmetric, but the statement should be read as printed.
+- $m$ ranges over $\mathbb{Z}$ and is cast into $\mathbb{R}$ for the comparison.
+- The irrationality hypothesis is stronger than needed (non-half-integrality suffices) but is the book's.

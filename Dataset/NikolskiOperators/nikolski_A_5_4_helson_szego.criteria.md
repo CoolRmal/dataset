@@ -1,6 +1,6 @@
 # Criteria: nikolski_A_5_4_helson_szego
 
-**Statement:** [nikolski_A_5_4_helson_szego.md](nikolski_A_5_4_helson_szego.md) · **Lean:** [nikolski_A_5_4_helson_szego.lean](nikolski_A_5_4_helson_szego.lean)
+**Statement:** [nikolski_A_5_4_helson_szego.md](nikolski_A_5_4_helson_szego.md) · **Lean:** [nikolski_A_5_4_helson_szego.lean](nikolski_A_5_4_helson_szego.lean) · **Context:** [nikolski_A_5_4_helson_szego.context.md](nikolski_A_5_4_helson_szego.context.md)
 
 ## What the theorem says
 
@@ -72,3 +72,35 @@ wrong, even if it compiles.
 - `u` and `v` in item (5) carry no measurability hypothesis. `eLpNorm … ∞` is still meaningful for
   a non-measurable function, so nothing breaks, but adding `AEStronglyMeasurable` would match the
   intent of "$u, v$ are bounded real functions on $\mathbb{T}$".
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[nikolski_A_5_4_helson_szego.md](nikolski_A_5_4_helson_szego.md) and the background in [nikolski_A_5_4_helson_szego.context.md](nikolski_A_5_4_helson_szego.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 with the completeness half of item (1) dropped.
+- Requirement 7 with the bound $\pi/2$ attached to the wrong function, or with $\tilde v$ read as a complex conjugate.
+- Requirement 8 with the five items given as implications rather than one equivalence.
+
+### Domain-specific pitfalls for this problem
+
+- $\tilde v$ is the harmonic conjugate (Hilbert transform), not complex conjugation; $\bar h$ in item (4) *is* complex conjugation. Both symbols occur in the same theorem.
+- The Riesz projection includes the zero frequency.
+- All the inequalities involving $\operatorname{dist}$ and $\|v\|_\infty$ are strict.
+- Item (1)'s coefficient sequences are finitely supported, so the sums are finite and no convergence question arises.
+- $h$ in item (4) must be **outer**, not merely in $H^2$.

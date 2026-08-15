@@ -1,6 +1,6 @@
 # Criteria: kallenberg_4_23_moments_and_holder_continuity
 
-**Statement:** [kallenberg_4_23_moments_and_holder_continuity.md](kallenberg_4_23_moments_and_holder_continuity.md) · **Lean:** [kallenberg_4_23_moments_and_holder_continuity.lean](kallenberg_4_23_moments_and_holder_continuity.lean)
+**Statement:** [kallenberg_4_23_moments_and_holder_continuity.md](kallenberg_4_23_moments_and_holder_continuity.md) · **Lean:** [kallenberg_4_23_moments_and_holder_continuity.lean](kallenberg_4_23_moments_and_holder_continuity.lean) · **Context:** [kallenberg_4_23_moments_and_holder_continuity.context.md](kallenberg_4_23_moments_and_holder_continuity.context.md)
 
 ## What the theorem says
 
@@ -60,3 +60,35 @@ wrong, even if it compiles.
   closer to the intended content; a candidate stating it should be scored at least as highly.
 - "Version" is per-time almost-sure equality, `∀ t, X t =ᵐ[μ] Y t`, not indistinguishability. That
   is the correct reading of Kallenberg's word here.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[kallenberg_4_23_moments_and_holder_continuity.md](kallenberg_4_23_moments_and_holder_continuity.md) and the background in [kallenberg_4_23_moments_and_holder_continuity.context.md](kallenberg_4_23_moments_and_holder_continuity.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 4 with the moment constant chosen after $s$ and $t$, making the hypothesis vacuous.
+- Requirement 8 with a different version $Y$ for each Hölder exponent.
+- Requirement 7 with the conclusion asserted about $X$ itself rather than about a version.
+
+### Domain-specific pitfalls for this problem
+
+- $\lesssim$ hides an existential constant that must be quantified before the variables it is uniform in.
+- A *version* is equality a.s. at each fixed time, which is weaker than indistinguishability; the theorem gives only a version.
+- "Locally Hölder" means Hölder on every bounded set, with the constant allowed to depend on the set.
+- The exponent range is the open interval $(0, b/a)$, and the moment exponent on the right is $d + b$ with $d$ the index dimension.
+- The expectation on the left may be infinite a priori, so it should be taken as a lower Lebesgue integral rather than a Bochner integral.

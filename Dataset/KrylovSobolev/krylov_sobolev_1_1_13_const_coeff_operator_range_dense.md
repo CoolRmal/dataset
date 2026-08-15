@@ -4,6 +4,7 @@
 - **Domain:** PDE
 - **Lean declaration:** `Dataset.KrylovSobolev.krylov_sobolev_1_1_13_const_coeff_operator_range_dense` ([krylov_sobolev_1_1_13_const_coeff_operator_range_dense.lean](krylov_sobolev_1_1_13_const_coeff_operator_range_dense.lean))
 - **Criteria:** [krylov_sobolev_1_1_13_const_coeff_operator_range_dense.criteria.md](krylov_sobolev_1_1_13_const_coeff_operator_range_dense.criteria.md)
+- **Context:** [krylov_sobolev_1_1_13_const_coeff_operator_range_dense.context.md](krylov_sobolev_1_1_13_const_coeff_operator_range_dense.context.md)
 
 ## Statement
 

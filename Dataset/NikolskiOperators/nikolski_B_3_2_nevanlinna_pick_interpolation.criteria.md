@@ -1,6 +1,6 @@
 # Criteria: nikolski_B_3_2_nevanlinna_pick_interpolation
 
-**Statement:** [nikolski_B_3_2_nevanlinna_pick_interpolation.md](nikolski_B_3_2_nevanlinna_pick_interpolation.md) · **Lean:** [nikolski_B_3_2_nevanlinna_pick_interpolation.lean](nikolski_B_3_2_nevanlinna_pick_interpolation.lean)
+**Statement:** [nikolski_B_3_2_nevanlinna_pick_interpolation.md](nikolski_B_3_2_nevanlinna_pick_interpolation.md) · **Lean:** [nikolski_B_3_2_nevanlinna_pick_interpolation.lean](nikolski_B_3_2_nevanlinna_pick_interpolation.lean) · **Context:** [nikolski_B_3_2_nevanlinna_pick_interpolation.context.md](nikolski_B_3_2_nevanlinna_pick_interpolation.context.md)
 
 ## What the theorem says
 
@@ -63,3 +63,35 @@ wrong, even if it compiles.
   except for the analyticity it carries, which is essential.
 - No hypothesis is placed on the targets $w_k$, and none is needed: $\lvert w_k\rvert \le 1$ follows
   from solvability and is already encoded in the Pick condition.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[nikolski_B_3_2_nevanlinna_pick_interpolation.md](nikolski_B_3_2_nevanlinna_pick_interpolation.md) and the background in [nikolski_B_3_2_nevanlinna_pick_interpolation.context.md](nikolski_B_3_2_nevanlinna_pick_interpolation.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 2 with the nodes not required distinct.
+- Requirement 8 with the uniqueness clause asserted unconditionally rather than under solvability.
+- Requirement 9 with uniqueness compared outside the disc.
+
+### Domain-specific pitfalls for this problem
+
+- The competitors are Schur functions: analytic on the disc with modulus $\le 1$ **there**, not merely bounded.
+- The Pick matrix's denominators are nonzero because the nodes are inside the disc; a node on the circle would make them junk.
+- Positive semidefiniteness is the Hermitian quadratic form condition, with conjugates in the right places.
+- Degeneracy means singularity of $I - WW^*$, i.e. rank $< n$.
+- Uniqueness is equality of functions restricted to the disc.

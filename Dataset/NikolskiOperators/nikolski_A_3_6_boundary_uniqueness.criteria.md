@@ -1,6 +1,6 @@
 # Criteria: nikolski_A_3_6_boundary_uniqueness
 
-**Statement:** [nikolski_A_3_6_boundary_uniqueness.md](nikolski_A_3_6_boundary_uniqueness.md) · **Lean:** [nikolski_A_3_6_boundary_uniqueness.lean](nikolski_A_3_6_boundary_uniqueness.lean)
+**Statement:** [nikolski_A_3_6_boundary_uniqueness.md](nikolski_A_3_6_boundary_uniqueness.md) · **Lean:** [nikolski_A_3_6_boundary_uniqueness.lean](nikolski_A_3_6_boundary_uniqueness.lean) · **Context:** [nikolski_A_3_6_boundary_uniqueness.context.md](nikolski_A_3_6_boundary_uniqueness.context.md)
 
 ## What the theorem says
 
@@ -61,3 +61,34 @@ wrong, even if it compiles.
 - The circle is modelled by the parameter interval $(0,2\pi]$ with unnormalized Lebesgue measure
   rather than by the normalized measure $m$ of the text. Positivity of measure,
   almost-everywhere statements and integrability are all unaffected by the constant factor $2\pi$.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[nikolski_A_3_6_boundary_uniqueness.md](nikolski_A_3_6_boundary_uniqueness.md) and the background in [nikolski_A_3_6_boundary_uniqueness.context.md](nikolski_A_3_6_boundary_uniqueness.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 7 rows, so each row is worth 7.1 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 5 with the boundary zero set required to have full measure rather than positive measure.
+- Requirement 4 with $\log|g|$ read on the disc rather than on the boundary values.
+- Requirement 7 with the conclusion weakened to "$g^* = 0$ a.e." without asserting vanishing on the disc.
+
+### Domain-specific pitfalls for this problem
+
+- The hypothesis is positivity of the measure of the boundary zero set — a strictly weaker hypothesis than full measure, which is what makes the theorem strong.
+- Junk value — `Real.log`: $\log$ of $0$ is $0$ in Lean, so "$\log|g^*| \in L^1$" must be read as integrability of a function that is genuinely $-\infty$ where $g^*$ vanishes; the integrability assertion is what rules that out.
+- Radial boundary values exist only almost everywhere and must be produced as part of the statement.
+- The conclusion is vanishing at every point of the disc.

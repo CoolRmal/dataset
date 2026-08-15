@@ -1,6 +1,6 @@
 # Criteria: lee_8_10_regular_level_set_theorem
 
-**Statement:** [lee_8_10_regular_level_set_theorem.md](lee_8_10_regular_level_set_theorem.md) · **Lean:** [lee_8_10_regular_level_set_theorem.lean](lee_8_10_regular_level_set_theorem.lean)
+**Statement:** [lee_8_10_regular_level_set_theorem.md](lee_8_10_regular_level_set_theorem.md) · **Lean:** [lee_8_10_regular_level_set_theorem.lean](lee_8_10_regular_level_set_theorem.lean) · **Context:** [lee_8_10_regular_level_set_theorem.context.md](lee_8_10_regular_level_set_theorem.context.md)
 
 ## What the theorem says
 
@@ -59,3 +59,35 @@ wrong, even if it compiles.
 - `m - n` inside `EmbeddedSubmanifoldOfCodimension` is truncated natural subtraction. Nothing in a
   realizable situation reaches the truncated branch (a regular value forces $n \le m$ when the fibre
   is nonempty), but it is worth checking in candidate statements.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[lee_8_10_regular_level_set_theorem.md](lee_8_10_regular_level_set_theorem.md) and the background in [lee_8_10_regular_level_set_theorem.context.md](lee_8_10_regular_level_set_theorem.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 with the regularity condition imposed at only one point, or on all of $M$.
+- Requirement 7 with a codimension other than $\dim N$.
+- Requirement 4 with the surjectivity condition stated about a differential that is not known to be genuine.
+
+### Domain-specific pitfalls for this problem
+
+- Regularity is surjectivity of the differential, at every point of the fibre.
+- "Embedded submanifold" is the local slice condition with charts from the smooth structure.
+- Junk value — `mfderiv`: the smoothness hypothesis must be present for the regularity condition to constrain anything.
+- Both conclusions — closedness and the submanifold structure — are asserted.
+- The statement is for every regular value, with $c$ quantified inside.

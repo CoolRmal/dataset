@@ -1,6 +1,6 @@
 # Criteria: bogachev_gaussian_4_6_1_correlation_convex_strip
 
-**Statement:** [bogachev_gaussian_4_6_1_correlation_convex_strip.md](bogachev_gaussian_4_6_1_correlation_convex_strip.md) · **Lean:** [bogachev_gaussian_4_6_1_correlation_convex_strip.lean](bogachev_gaussian_4_6_1_correlation_convex_strip.lean)
+**Statement:** [bogachev_gaussian_4_6_1_correlation_convex_strip.md](bogachev_gaussian_4_6_1_correlation_convex_strip.md) · **Lean:** [bogachev_gaussian_4_6_1_correlation_convex_strip.lean](bogachev_gaussian_4_6_1_correlation_convex_strip.lean) · **Context:** [bogachev_gaussian_4_6_1_correlation_convex_strip.context.md](bogachev_gaussian_4_6_1_correlation_convex_strip.context.md)
 
 ## What the theorem says
 
@@ -49,3 +49,36 @@ wrong, even if it compiles.
 - The centering hypothesis is a Bochner integral, `∫ x, x ∂γ = 0`. Lean disables the Bochner integral on incomplete spaces (returning $0$), which would make such a hypothesis hold for free; here the space is `EuclideanSpace ℝ (Fin n)`, which is complete, so the condition is genuine.
 - All four quantities are values of a probability measure and so lie in $[0,1]$. `ℝ≥0∞` multiplication has the special rule $0 \cdot \infty = 0$, but no infinite value can arise here, so nothing is truncated.
 - The inequality is written with the smaller side on the left, reversing the book's `≥` orientation without changing the content.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[bogachev_gaussian_4_6_1_correlation_convex_strip.md](bogachev_gaussian_4_6_1_correlation_convex_strip.md) and the background in [bogachev_gaussian_4_6_1_correlation_convex_strip.context.md](bogachev_gaussian_4_6_1_correlation_convex_strip.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Replacing the strip by a second arbitrary absolutely convex set: that is the full Gaussian correlation conjecture, not this theorem.
+- Dropping convexity or balancedness of $A$: the inequality fails.
+- Dropping centredness of $\gamma$.
+- Reversing the inequality.
+
+### Domain-specific pitfalls for this problem
+
+- "Absolutely convex" is `Convex ℝ A` *and* `Balanced ℝ A`; neither alone suffices.
+- The strip is defined by a *linear functional*, symmetric about the origin: $\{x : |f(x)| \le c\}$, not a half-space $\{f(x) \le c\}$ and not a ball.
+- $c$ is an arbitrary real; negative $c$ gives the empty strip and the inequality still has to hold, so no positivity may be assumed.
+- Centredness is the vanishing of the mean vector, a genuine hypothesis; the Bochner integral expressing it is not a junk value because a Gaussian measure has all moments.
+- The inequality is between measures in `ℝ≥0∞`; multiplication there is fine, but a version passing through `toReal` would need the measures to be finite, which they are only because $\gamma$ is a probability measure.

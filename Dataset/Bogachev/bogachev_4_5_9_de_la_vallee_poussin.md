@@ -4,6 +4,7 @@
 - **Domain:** Measure theory
 - **Lean declaration:** `Dataset.Bogachev.bogachev_4_5_9_de_la_vallee_poussin` ([bogachev_4_5_9_de_la_vallee_poussin.lean](bogachev_4_5_9_de_la_vallee_poussin.lean))
 - **Criteria:** [bogachev_4_5_9_de_la_vallee_poussin.criteria.md](bogachev_4_5_9_de_la_vallee_poussin.criteria.md)
+- **Context:** [bogachev_4_5_9_de_la_vallee_poussin.context.md](bogachev_4_5_9_de_la_vallee_poussin.context.md)
 
 ## Statement
 

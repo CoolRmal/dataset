@@ -4,6 +4,7 @@
 - **Domain:** Complex analysis
 - **Lean declaration:** `Dataset.HaymanMeromorphic.hayman_3_6_derivative_zeros_near_poles` ([hayman_3_6_derivative_zeros_near_poles.lean](hayman_3_6_derivative_zeros_near_poles.lean))
 - **Criteria:** [hayman_3_6_derivative_zeros_near_poles.criteria.md](hayman_3_6_derivative_zeros_near_poles.criteria.md)
+- **Context:** [hayman_3_6_derivative_zeros_near_poles.context.md](hayman_3_6_derivative_zeros_near_poles.context.md)
 
 ## Statement
 

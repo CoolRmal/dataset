@@ -1,6 +1,6 @@
 # Criteria: engelking_4_4_1_stone_open_refinement
 
-**Statement:** [engelking_4_4_1_stone_open_refinement.md](engelking_4_4_1_stone_open_refinement.md) · **Lean:** [engelking_4_4_1_stone_open_refinement.lean](engelking_4_4_1_stone_open_refinement.lean)
+**Statement:** [engelking_4_4_1_stone_open_refinement.md](engelking_4_4_1_stone_open_refinement.md) · **Lean:** [engelking_4_4_1_stone_open_refinement.lean](engelking_4_4_1_stone_open_refinement.lean) · **Context:** [engelking_4_4_1_stone_open_refinement.context.md](engelking_4_4_1_stone_open_refinement.context.md)
 
 ## What the theorem says
 
@@ -59,3 +59,35 @@ wrong, even if it compiles.
   `Set X`.
 - `IsDiscreteFamily` counts *indices* that are met, not distinct sets. For an existentially produced
   refinement this is harmless, since the index type can be chosen injectively.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[engelking_4_4_1_stone_open_refinement.md](engelking_4_4_1_stone_open_refinement.md) and the background in [engelking_4_4_1_stone_open_refinement.context.md](engelking_4_4_1_stone_open_refinement.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 9: producing two refinements, one locally finite and one $\sigma$-discrete, rather than one family with both properties.
+- Requirement 5 with the refinement relation reversed.
+- Requirement 8 with "discrete" weakened to "locally finite" inside the $\sigma$-decomposition, which makes the second condition redundant.
+
+### Domain-specific pitfalls for this problem
+
+- A discrete family is stronger than a locally finite one: each point has a neighbourhood meeting *at most one* member.
+- $\sigma$-discreteness is not a property of the family alone in a formal statement; the countable splitting must be exhibited.
+- "Refines" means each new member is contained in some old member; it does not mean the new family is a subfamily.
+- The refinement must itself cover $X$ and consist of open sets.
+- The index type of the cover is arbitrary, so the statement must quantify over index types rather than fixing one.

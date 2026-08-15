@@ -1,6 +1,6 @@
 # Criteria: nikolski_A_3_7_blaschke_zero_sets
 
-**Statement:** [nikolski_A_3_7_blaschke_zero_sets.md](nikolski_A_3_7_blaschke_zero_sets.md) · **Lean:** [nikolski_A_3_7_blaschke_zero_sets.lean](nikolski_A_3_7_blaschke_zero_sets.lean)
+**Statement:** [nikolski_A_3_7_blaschke_zero_sets.md](nikolski_A_3_7_blaschke_zero_sets.md) · **Lean:** [nikolski_A_3_7_blaschke_zero_sets.lean](nikolski_A_3_7_blaschke_zero_sets.lean) · **Context:** [nikolski_A_3_7_blaschke_zero_sets.context.md](nikolski_A_3_7_blaschke_zero_sets.context.md)
 
 ## What the theorem says
 
@@ -70,3 +70,34 @@ wrong, even if it compiles.
   makes the two directions combine into a single `↔`.
 - The summands $1 - \lvert\lambda_n\rvert$ are nonnegative, so `Summable` (which is unconditional
   convergence) is exactly the printed condition.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[nikolski_A_3_7_blaschke_zero_sets.md](nikolski_A_3_7_blaschke_zero_sets.md) and the background in [nikolski_A_3_7_blaschke_zero_sets.context.md](nikolski_A_3_7_blaschke_zero_sets.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 6 with zeros counted without multiplicity.
+- Requirement 8 with the sequence allowed to list only some of the zeros.
+- Requirement 9 with only one direction asserted.
+
+### Domain-specific pitfalls for this problem
+
+- Multiplicity counting must be spelled out as a statement about the size of each fibre of the sequence.
+- The Blaschke condition is a summability condition on $1 - |\lambda_n|$, so the $\lambda_n$ approach the boundary fast enough.
+- $|B| \le 1$ holds on the open disc, while $|B^*| = 1$ holds a.e. on the circle; the two venues are different.
+- The nonzero hypothesis is about the function on the disc.

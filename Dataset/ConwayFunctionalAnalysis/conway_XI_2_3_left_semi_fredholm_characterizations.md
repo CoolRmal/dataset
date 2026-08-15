@@ -4,6 +4,7 @@
 - **Domain:** Fredholm theory
 - **Lean declaration:** `Dataset.ConwayFunctionalAnalysis.conway_XI_2_3_left_semi_fredholm_characterizations` ([conway_XI_2_3_left_semi_fredholm_characterizations.lean](conway_XI_2_3_left_semi_fredholm_characterizations.lean))
 - **Criteria:** [conway_XI_2_3_left_semi_fredholm_characterizations.criteria.md](conway_XI_2_3_left_semi_fredholm_characterizations.criteria.md)
+- **Context:** [conway_XI_2_3_left_semi_fredholm_characterizations.context.md](conway_XI_2_3_left_semi_fredholm_characterizations.context.md)
 
 ## Statement
 

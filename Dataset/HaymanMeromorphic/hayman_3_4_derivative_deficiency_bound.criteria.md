@@ -1,6 +1,6 @@
 # Criteria: hayman_3_4_derivative_deficiency_bound
 
-**Statement:** [hayman_3_4_derivative_deficiency_bound.md](hayman_3_4_derivative_deficiency_bound.md) · **Lean:** [hayman_3_4_derivative_deficiency_bound.lean](hayman_3_4_derivative_deficiency_bound.lean)
+**Statement:** [hayman_3_4_derivative_deficiency_bound.md](hayman_3_4_derivative_deficiency_bound.md) · **Lean:** [hayman_3_4_derivative_deficiency_bound.lean](hayman_3_4_derivative_deficiency_bound.lean) · **Context:** [hayman_3_4_derivative_deficiency_bound.context.md](hayman_3_4_derivative_deficiency_bound.context.md)
 
 ## What the theorem says
 
@@ -64,3 +64,35 @@ wrong, even if it compiles.
 - Mathlib models meromorphic functions as ordinary functions with a value at each pole, so the set
   `{z \| ψ z = a}` may include an accidental hit at a pole of $\psi$. Extra points only make the set
   larger, so the "infinitely often" conclusion is not weakened by this.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[hayman_3_4_derivative_deficiency_bound.md](hayman_3_4_derivative_deficiency_bound.md) and the background in [hayman_3_4_derivative_deficiency_bound.context.md](hayman_3_4_derivative_deficiency_bound.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 6 with $a = \infty$ included in the sum: the bound is then false.
+- Requirement 7 with the bound $2$ (Theorem 2.4's) instead of $1 + \frac{1}{l+1}$.
+- Requirement 2 read as "not a polynomial".
+
+### Domain-specific pitfalls for this problem
+
+- The sum runs over finite values only; the improvement over Theorem 2.4 depends on excluding the pole deficiency.
+- $\Theta$ is built from the *reduced* counting function $\bar N$.
+- Junk value — `tsum`: quantifying over all finite subsums avoids an unordered sum over an uncountable index.
+- The "in particular" clause is a second assertion and models routinely omit it.
+- The bound depends on $l$ and requires $l \ge 1$.

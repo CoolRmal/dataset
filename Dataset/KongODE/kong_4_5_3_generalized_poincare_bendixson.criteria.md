@@ -1,6 +1,6 @@
 # Criteria: kong_4_5_3_generalized_poincare_bendixson
 
-**Statement:** [kong_4_5_3_generalized_poincare_bendixson.md](kong_4_5_3_generalized_poincare_bendixson.md) · **Lean:** [kong_4_5_3_generalized_poincare_bendixson.lean](kong_4_5_3_generalized_poincare_bendixson.lean)
+**Statement:** [kong_4_5_3_generalized_poincare_bendixson.md](kong_4_5_3_generalized_poincare_bendixson.md) · **Lean:** [kong_4_5_3_generalized_poincare_bendixson.lean](kong_4_5_3_generalized_poincare_bendixson.lean) · **Context:** [kong_4_5_3_generalized_poincare_bendixson.context.md](kong_4_5_3_generalized_poincare_bendixson.context.md)
 
 ## What the theorem says
 
@@ -53,3 +53,35 @@ wrong, even if it compiles.
 - `GraphicForPlanarSystem` permits *constant* connecting orbits. As a result a single equilibrium counts as a graphic, so case (d) already covers case (a) and the four alternatives are not mutually exclusive. This is harmless inside a disjunction but is a divergence from the intended reading.
 - In the hypothesis `{x ∈ E \| F x = 0}` the set-builder binder `x` shadows the trajectory `x : ℝ → (Fin 2 → ℝ)`. It elaborates to the set of equilibria in $E$, which is what is meant, but it is easy to misread.
 - Requiring the trajectory to exist for all real times, forwards and backwards, is stronger than Kong's setting, where the forward-bounded solution is only known to exist on its maximal interval.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[kong_4_5_3_generalized_poincare_bendixson.md](kong_4_5_3_generalized_poincare_bendixson.md) and the background in [kong_4_5_3_generalized_poincare_bendixson.context.md](kong_4_5_3_generalized_poincare_bendixson.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 12 rows, so each row is worth 4.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 11 with "closed orbit" allowed to be an equilibrium, or with the period not required positive.
+- Requirement 12 omitted, dropping the graphic case: the four alternatives are then not exhaustive.
+- Requirement 7 with only the $\omega$-limit half stated.
+
+### Domain-specific pitfalls for this problem
+
+- The limit sets are sets of subsequential limits along times going to $\pm\infty$.
+- Case (b) is about the given orbit; case (c) about the limit set. They are different alternatives.
+- A closed orbit comes from a nonconstant periodic solution with strictly positive period.
+- Finiteness of the equilibria is required only inside $E$.
+- The system is planar; the theorem is false in higher dimension.

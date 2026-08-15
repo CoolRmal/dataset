@@ -4,6 +4,7 @@
 - **Domain:** Harmonic analysis
 - **Lean declaration:** `Dataset.FollandHarmonic.folland_2_40_convolution_lp_bound` ([folland_2_40_convolution_lp_bound.lean](folland_2_40_convolution_lp_bound.lean))
 - **Criteria:** [folland_2_40_convolution_lp_bound.criteria.md](folland_2_40_convolution_lp_bound.criteria.md)
+- **Context:** [folland_2_40_convolution_lp_bound.context.md](folland_2_40_convolution_lp_bound.context.md)
 
 ## Statement
 

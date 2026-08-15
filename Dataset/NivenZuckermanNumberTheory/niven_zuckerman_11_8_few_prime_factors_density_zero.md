@@ -4,6 +4,7 @@
 - **Domain:** Number theory
 - **Lean declaration:** `Dataset.NivenZuckermanNumberTheory.niven_zuckerman_11_8_few_prime_factors_density_zero` ([niven_zuckerman_11_8_few_prime_factors_density_zero.lean](niven_zuckerman_11_8_few_prime_factors_density_zero.lean))
 - **Criteria:** [niven_zuckerman_11_8_few_prime_factors_density_zero.criteria.md](niven_zuckerman_11_8_few_prime_factors_density_zero.criteria.md)
+- **Context:** [niven_zuckerman_11_8_few_prime_factors_density_zero.context.md](niven_zuckerman_11_8_few_prime_factors_density_zero.context.md)
 
 ## Statement
 

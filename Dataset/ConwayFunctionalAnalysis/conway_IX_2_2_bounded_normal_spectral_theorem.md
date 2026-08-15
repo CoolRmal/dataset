@@ -4,6 +4,7 @@
 - **Domain:** Operator theory
 - **Lean declaration:** `Dataset.ConwayFunctionalAnalysis.conway_IX_2_2_bounded_normal_spectral_theorem` ([conway_IX_2_2_bounded_normal_spectral_theorem.lean](conway_IX_2_2_bounded_normal_spectral_theorem.lean))
 - **Criteria:** [conway_IX_2_2_bounded_normal_spectral_theorem.criteria.md](conway_IX_2_2_bounded_normal_spectral_theorem.criteria.md)
+- **Context:** [conway_IX_2_2_bounded_normal_spectral_theorem.context.md](conway_IX_2_2_bounded_normal_spectral_theorem.context.md)
 
 ## Statement
 

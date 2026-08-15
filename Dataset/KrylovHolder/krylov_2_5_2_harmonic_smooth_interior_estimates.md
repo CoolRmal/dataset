@@ -4,6 +4,7 @@
 - **Domain:** PDE
 - **Lean declaration:** `Dataset.KrylovHolder.krylov_2_5_2_harmonic_smooth_interior_estimates` ([krylov_2_5_2_harmonic_smooth_interior_estimates.lean](krylov_2_5_2_harmonic_smooth_interior_estimates.lean))
 - **Criteria:** [krylov_2_5_2_harmonic_smooth_interior_estimates.criteria.md](krylov_2_5_2_harmonic_smooth_interior_estimates.criteria.md)
+- **Context:** [krylov_2_5_2_harmonic_smooth_interior_estimates.context.md](krylov_2_5_2_harmonic_smooth_interior_estimates.context.md)
 
 ## Statement
 

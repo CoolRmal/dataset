@@ -4,6 +4,7 @@
 - **Domain:** Number theory
 - **Lean declaration:** `Dataset.NivenIrrational.niven_C_5_transcendentals_uncountable` ([niven_C_5_transcendentals_uncountable.lean](niven_C_5_transcendentals_uncountable.lean))
 - **Criteria:** [niven_C_5_transcendentals_uncountable.criteria.md](niven_C_5_transcendentals_uncountable.criteria.md)
+- **Context:** [niven_C_5_transcendentals_uncountable.context.md](niven_C_5_transcendentals_uncountable.context.md)
 
 ## Statement
 

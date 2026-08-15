@@ -1,6 +1,6 @@
 # Criteria: conway_VIII_3_6_positive_element_characterizations
 
-**Statement:** [conway_VIII_3_6_positive_element_characterizations.md](conway_VIII_3_6_positive_element_characterizations.md) · **Lean:** [conway_VIII_3_6_positive_element_characterizations.lean](conway_VIII_3_6_positive_element_characterizations.lean)
+**Statement:** [conway_VIII_3_6_positive_element_characterizations.md](conway_VIII_3_6_positive_element_characterizations.md) · **Lean:** [conway_VIII_3_6_positive_element_characterizations.lean](conway_VIII_3_6_positive_element_characterizations.lean) · **Context:** [conway_VIII_3_6_positive_element_characterizations.context.md](conway_VIII_3_6_positive_element_characterizations.context.md)
 
 ## What the theorem says
 
@@ -54,3 +54,35 @@ wrong, even if it compiles.
   meaning is the same, and the guard $\lVert a\rVert \le t$ already forces $t \ge 0$.
 - The items are `let`-bound propositions combined with `List.TFAE`, matching how the other
   multi-part equivalences in this book's files are written.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[conway_VIII_3_6_positive_element_characterizations.md](conway_VIII_3_6_positive_element_characterizations.md) and the background in [conway_VIII_3_6_positive_element_characterizations.context.md](conway_VIII_3_6_positive_element_characterizations.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 7: dropping the self-adjointness clause from (d) or from (e).
+- Requirement 8 with (d) and (e) merged, or with a proper subset of the five items.
+- Requirement 1: dropping unitality, which makes (d) and (e) meaningless.
+
+### Domain-specific pitfalls for this problem
+
+- $\operatorname{Re}\mathcal{A}$ is the self-adjoint part of the algebra, not a real part of a scalar; item (b) requires $b$ self-adjoint *and* $a = b^2$.
+- $t$ is a real scalar acting through the unit: $t - a$ is $t \cdot 1 - a$, so the statement needs the algebra map from the scalars.
+- (d) quantifies over all $t \ge \lVert a\rVert$ and (e) over some such $t$; collapsing them loses the theorem's point.
+- Which partial order `0 ≤ a` refers to matters. In Mathlib the order on a $C^*$-algebra comes from `StarOrderedRing`, whose defining property already relates positivity to sums of elements $x^*x$; a candidate should not be scored as having proved (a) ⇔ (c) for free, but nor is using that order an error.
+- Item (c) puts no condition on $x$ at all.

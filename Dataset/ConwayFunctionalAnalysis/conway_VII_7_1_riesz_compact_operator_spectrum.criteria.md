@@ -1,6 +1,6 @@
 # Criteria: conway_VII_7_1_riesz_compact_operator_spectrum
 
-**Statement:** [conway_VII_7_1_riesz_compact_operator_spectrum.md](conway_VII_7_1_riesz_compact_operator_spectrum.md) · **Lean:** [conway_VII_7_1_riesz_compact_operator_spectrum.lean](conway_VII_7_1_riesz_compact_operator_spectrum.lean)
+**Statement:** [conway_VII_7_1_riesz_compact_operator_spectrum.md](conway_VII_7_1_riesz_compact_operator_spectrum.md) · **Lean:** [conway_VII_7_1_riesz_compact_operator_spectrum.lean](conway_VII_7_1_riesz_compact_operator_spectrum.lean) · **Context:** [conway_VII_7_1_riesz_compact_operator_spectrum.context.md](conway_VII_7_1_riesz_compact_operator_spectrum.context.md)
 
 ## What the theorem says
 
@@ -55,3 +55,35 @@ wrong, even if it compiles.
   `(T - eig i • ContinuousLinearMap.id ℂ E).ker` directly, which is marginally more idiomatic; the
   two name the same subspace.
 - `IsCompactOperator` and `spectrum ℂ` are reused from Mathlib rather than hand-rolled.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[conway_VII_7_1_riesz_compact_operator_spectrum.md](conway_VII_7_1_riesz_compact_operator_spectrum.md) and the background in [conway_VII_7_1_riesz_compact_operator_spectrum.context.md](conway_VII_7_1_riesz_compact_operator_spectrum.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 1 with the infinite-dimensionality hypothesis dropped: in finite dimensions $0$ need not be in the spectrum and the trichotomy is false.
+- Requirement 8: listing spectral values without asserting they are eigenvalues witnessed by a nonzero vector.
+- Requirement 6 with the convergence $\lambda_k \to 0$ omitted.
+
+### Domain-specific pitfalls for this problem
+
+- The spectrum is the Banach-algebra spectrum, not the eigenvalue set; that nonzero spectral values are eigenvalues is a conclusion.
+- An eigenvalue needs a *nonzero* eigenvector; `T x = λ • x` alone is satisfied by `x = 0`.
+- Distinctness of the listed $\lambda_k$ (injectivity of the enumeration) and their nonvanishing are what make the three cases exclusive.
+- "Finite dimensional eigenspace" is about $\ker(A - \lambda_k)$ as a subspace of $\mathcal{X}$; it must be asserted for every index.
+- The three cases must be offered as covering all possibilities, not as three separate theorems.

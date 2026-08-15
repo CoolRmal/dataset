@@ -1,6 +1,6 @@
 # Criteria: folland_2_69_convolution_factorization
 
-**Statement:** [folland_2_69_convolution_factorization.md](folland_2_69_convolution_factorization.md) · **Lean:** [folland_2_69_convolution_factorization.lean](folland_2_69_convolution_factorization.lean)
+**Statement:** [folland_2_69_convolution_factorization.md](folland_2_69_convolution_factorization.md) · **Lean:** [folland_2_69_convolution_factorization.lean](folland_2_69_convolution_factorization.lean) · **Context:** [folland_2_69_convolution_factorization.context.md](folland_2_69_convolution_factorization.context.md)
 
 ## What the theorem says
 
@@ -60,3 +60,34 @@ wrong, even if it compiles.
   the a.e. equality with `f` is an honest claim either way.
 - `groupConv` is defined in `Defs.lean` because Mathlib's `MeasureTheory.convolution` is set up for
   additive groups and does not cover a general multiplicative locally compact group.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[folland_2_69_convolution_factorization.md](folland_2_69_convolution_factorization.md) and the background in [folland_2_69_convolution_factorization.context.md](folland_2_69_convolution_factorization.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 7 with an approximate factorization ($g*h$ close to $f$) instead of exact a.e. equality: that is the approximate-identity statement and is much weaker.
+- Requirement 8 with the $L^1$ factor on the wrong side.
+- Requirement 2 with $p = \infty$ admitted in the $L^p$ clause.
+
+### Domain-specific pitfalls for this problem
+
+- The set equation packages two inclusions; the substantive one is that every $L^p$ function factors exactly.
+- Junk value — convolution: `groupConv` returns `0` where its defining integral diverges, so the a.e. equality with $f$ must be read together with the integrability of the factors.
+- Convolution is not commutative; the side of the $L^1$ factor is part of the claim.
+- Folland's sentence also covers $L^\infty$, $C_{lu}$ and $C_{ru}$; a candidate that formalizes only the $L^p$ clause has stated part of the theorem.

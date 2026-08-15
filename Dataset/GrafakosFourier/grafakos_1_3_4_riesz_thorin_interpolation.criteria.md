@@ -1,6 +1,6 @@
 # Criteria: grafakos_1_3_4_riesz_thorin_interpolation
 
-**Statement:** [grafakos_1_3_4_riesz_thorin_interpolation.md](grafakos_1_3_4_riesz_thorin_interpolation.md) · **Lean:** [grafakos_1_3_4_riesz_thorin_interpolation.lean](grafakos_1_3_4_riesz_thorin_interpolation.lean)
+**Statement:** [grafakos_1_3_4_riesz_thorin_interpolation.md](grafakos_1_3_4_riesz_thorin_interpolation.md) · **Lean:** [grafakos_1_3_4_riesz_thorin_interpolation.lean](grafakos_1_3_4_riesz_thorin_interpolation.lean) · **Context:** [grafakos_1_3_4_riesz_thorin_interpolation.context.md](grafakos_1_3_4_riesz_thorin_interpolation.context.md)
 
 ## What the theorem says
 
@@ -27,7 +27,7 @@ row is incomplete.
 | 6 | Both endpoint constants are finite. | ✅ `hM₀ : M₀ < ∞` and `hM₁ : M₁ < ∞`. |
 | 7 | The conclusion has two halves: $Tf$ lies in $L^q$, and its norm is at most the constant times $\|f\|_p$. | ✅ `HasStrongType μ ν T p q _` carries both. |
 | 8 | The constant is exactly the geometric mean $M_0^{1-\theta}M_1^{\theta}$, with $1-\theta$ attached to the *first* endpoint. | ✅ `ENNReal.rpow M₀ (1 - θ) * ENNReal.rpow M₁ θ`. |
-| 9 | Both measure spaces are $\sigma$-finite. | ⚠️ Neither `[SigmaFinite μ]` nor `[SigmaFinite ν]` appears, so the Lean statement is formally stronger than the text (and stronger than the sibling `grafakos_1_3_2`, which does carry `[SigmaFinite μ]`). A candidate that includes both must not be marked down. |
+| 9 | Both measure spaces are $\sigma$-finite. | ✅ `[SigmaFinite μ] [SigmaFinite ν]`, matching the text. |
 
 ## Mistakes to check for
 
@@ -61,3 +61,35 @@ wrong, even if it compiles.
   way.
 - `ENNReal.rpow` is well behaved for $0 \le M < \infty$ and $0 < \theta < 1$, so the constant carries
   no hidden default value.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[grafakos_1_3_4_riesz_thorin_interpolation.md](grafakos_1_3_4_riesz_thorin_interpolation.md) and the background in [grafakos_1_3_4_riesz_thorin_interpolation.context.md](grafakos_1_3_4_riesz_thorin_interpolation.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 1 with $T$ only real-linear.
+- Requirement 4 with the exponents mixed directly rather than reciprocally.
+- Requirement 8 with an extra constant factor, or with $\theta$ and $1-\theta$ attached to the wrong endpoints.
+
+### Domain-specific pitfalls for this problem
+
+- Reciprocal mixing means the identity is about $p^{-1}$; in `ℝ≥0∞` the inverse of $\infty$ is $0$, which is exactly the convention that makes the endpoint cases work.
+- The hypotheses are strong-type at both endpoints; a weak-type hypothesis would be Marcinkiewicz.
+- $T$ is defined on finitely simple functions only; asserting it on all of $L^{p_0}$ changes the hypothesis.
+- Both measure spaces are $\sigma$-finite here, unlike in Marcinkiewicz where only the domain is.
+- The density extension claim for $p < \infty$ is a further assertion, with uniqueness of the extension.

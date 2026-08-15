@@ -1,6 +1,6 @@
 # Criteria: folland_2_29_unimodular_of_compact_commutator_quotient
 
-**Statement:** [folland_2_29_unimodular_of_compact_commutator_quotient.md](folland_2_29_unimodular_of_compact_commutator_quotient.md) · **Lean:** [folland_2_29_unimodular_of_compact_commutator_quotient.lean](folland_2_29_unimodular_of_compact_commutator_quotient.lean)
+**Statement:** [folland_2_29_unimodular_of_compact_commutator_quotient.md](folland_2_29_unimodular_of_compact_commutator_quotient.md) · **Lean:** [folland_2_29_unimodular_of_compact_commutator_quotient.lean](folland_2_29_unimodular_of_compact_commutator_quotient.lean) · **Context:** [folland_2_29_unimodular_of_compact_commutator_quotient.context.md](folland_2_29_unimodular_of_compact_commutator_quotient.context.md)
 
 ## What the theorem says
 
@@ -54,3 +54,34 @@ wrong, even if it compiles.
   [LocallyCompactSpace G]`, so the statement carries no measurable-space or Borel hypotheses.
 - The closed commutator subgroup is normal, so `G ⧸ (commutator G).topologicalClosure` is a
   topological group; the statement only needs it as a compact coset space.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[folland_2_29_unimodular_of_compact_commutator_quotient.md](folland_2_29_unimodular_of_compact_commutator_quotient.md) and the background in [folland_2_29_unimodular_of_compact_commutator_quotient.context.md](folland_2_29_unimodular_of_compact_commutator_quotient.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 6 rows, so each row is worth 8.3 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 with the *algebraic* commutator subgroup instead of its closure.
+- Requirement 2 with local compactness dropped, so that no Haar measure and no modular function exist.
+- Requirement 6 with the conclusion asserted at a single element rather than at every element.
+
+### Domain-specific pitfalls for this problem
+
+- The commutator subgroup must be topologically closed; `commutator G` in Mathlib is the algebraic one and `.topologicalClosure` is needed.
+- Unimodularity is $\Delta \equiv 1$, a convention-independent statement — no care about which modular-function convention is in use is needed here.
+- The hypothesis is compactness of the *quotient*, not of $G$.
+- The modular function needs a locally compact group to exist at all.

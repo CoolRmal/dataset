@@ -1,6 +1,6 @@
 # Criteria: niven_zuckerman_11_2_divisor_bound
 
-**Statement:** [niven_zuckerman_11_2_divisor_bound.md](niven_zuckerman_11_2_divisor_bound.md) · **Lean:** [niven_zuckerman_11_2_divisor_bound.lean](niven_zuckerman_11_2_divisor_bound.lean)
+**Statement:** [niven_zuckerman_11_2_divisor_bound.md](niven_zuckerman_11_2_divisor_bound.md) · **Lean:** [niven_zuckerman_11_2_divisor_bound.lean](niven_zuckerman_11_2_divisor_bound.lean) · **Context:** [niven_zuckerman_11_2_divisor_bound.context.md](niven_zuckerman_11_2_divisor_bound.context.md)
 
 ## What the theorem says
 
@@ -48,3 +48,33 @@ wrong, even if it compiles.
   acceptable.
 - The bound is never attained, but the printed relation is `≤`, so a candidate must not silently
   strengthen it to `<`.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[niven_zuckerman_11_2_divisor_bound.md](niven_zuckerman_11_2_divisor_bound.md) and the background in [niven_zuckerman_11_2_divisor_bound.context.md](niven_zuckerman_11_2_divisor_bound.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 5 rows, so each row is worth 10.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 1 with the sum of divisors instead of their count.
+- Requirement 3 with a constant other than $2$.
+
+### Domain-specific pitfalls for this problem
+
+- $\tau$ is the count of divisors; $\sigma$ is their sum.
+- The inequality is between a natural number cast to $\mathbb{R}$ and $2\sqrt n$.
+- The hypothesis is $n \ge 1$; at $n = 0$ the divisor set is conventionally different.
+- The inequality is non-strict.

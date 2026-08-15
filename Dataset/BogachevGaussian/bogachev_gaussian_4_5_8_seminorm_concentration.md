@@ -4,6 +4,7 @@
 - **Domain:** Measure theory
 - **Lean declaration:** `Dataset.BogachevGaussian.bogachev_gaussian_4_5_8_seminorm_concentration` ([bogachev_gaussian_4_5_8_seminorm_concentration.lean](bogachev_gaussian_4_5_8_seminorm_concentration.lean))
 - **Criteria:** [bogachev_gaussian_4_5_8_seminorm_concentration.criteria.md](bogachev_gaussian_4_5_8_seminorm_concentration.criteria.md)
+- **Context:** [bogachev_gaussian_4_5_8_seminorm_concentration.context.md](bogachev_gaussian_4_5_8_seminorm_concentration.context.md)
 
 ## Statement
 

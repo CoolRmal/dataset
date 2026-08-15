@@ -4,6 +4,7 @@
 - **Domain:** Operator theory
 - **Lean declaration:** `Dataset.NikolskiOperators.nikolski_B_1_3_nehari_theorem` ([nikolski_B_1_3_nehari_theorem.lean](nikolski_B_1_3_nehari_theorem.lean))
 - **Criteria:** [nikolski_B_1_3_nehari_theorem.criteria.md](nikolski_B_1_3_nehari_theorem.criteria.md)
+- **Context:** [nikolski_B_1_3_nehari_theorem.context.md](nikolski_B_1_3_nehari_theorem.context.md)
 
 ## Statement
 

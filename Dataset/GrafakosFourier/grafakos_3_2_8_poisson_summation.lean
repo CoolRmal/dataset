@@ -26,9 +26,10 @@ universe u v
 /-- Grafakos 3.2.8, the Poisson summation formula. -/
 theorem grafakos_3_2_8_poisson_summation
     {n : ℕ} {f : EuclideanSpace ℝ (Fin n) → ℂ}
-    (hf : Continuous f ∧ Integrable f ∧
-      (∃ C δ : ℝ, 0 < C ∧ 0 < δ ∧ ∀ x,
-        ‖f x‖ ≤ C * (1 + ‖x‖) ^ (-(n : ℝ) - δ)) ∧
+    (hcont : Continuous f) (hint : Integrable f)
+    (hdecay : ∃ C δ : ℝ, 0 < C ∧ 0 < δ ∧ ∀ x,
+      ‖f x‖ ≤ C * (1 + ‖x‖) ^ (-(n : ℝ) - δ))
+    (hsummable :
       Summable fun m : Fin n → ℤ ↦ 𝓕 f ((WithLp.toLp 2 fun i ↦ (m i : ℝ)))) :
     (∀ x : EuclideanSpace ℝ (Fin n),
       ∑' m : Fin n → ℤ, 𝓕 f ((WithLp.toLp 2 fun i ↦ (m i : ℝ))) *

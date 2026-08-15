@@ -1,6 +1,6 @@
 # Criteria: hayman_3_6_derivative_zeros_near_poles
 
-**Statement:** [hayman_3_6_derivative_zeros_near_poles.md](hayman_3_6_derivative_zeros_near_poles.md) · **Lean:** [hayman_3_6_derivative_zeros_near_poles.lean](hayman_3_6_derivative_zeros_near_poles.lean)
+**Statement:** [hayman_3_6_derivative_zeros_near_poles.md](hayman_3_6_derivative_zeros_near_poles.md) · **Lean:** [hayman_3_6_derivative_zeros_near_poles.lean](hayman_3_6_derivative_zeros_near_poles.lean) · **Context:** [hayman_3_6_derivative_zeros_near_poles.context.md](hayman_3_6_derivative_zeros_near_poles.context.md)
 
 ## What the theorem says
 
@@ -71,3 +71,35 @@ wrong, even if it compiles.
 - The docstring on the Lean declaration says the derivatives "have zeros arbitrarily close to that
   circle". The statement actually places the zeros arbitrarily close to the *centre* $z_0$, which is
   what Hayman writes. The docstring, not the statement, is the inaccurate one.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[hayman_3_6_derivative_zeros_near_poles.md](hayman_3_6_derivative_zeros_near_poles.md) and the background in [hayman_3_6_derivative_zeros_near_poles.context.md](hayman_3_6_derivative_zeros_near_poles.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 5 with $r$ not required maximal: the two cases then fail to be exhaustive and case (ii)'s hypothesis can hold vacuously.
+- Requirement 9 with pointwise instead of uniform divergence.
+- Requirement 8 with "at least one pole" instead of "exactly one" on the circle.
+
+### Domain-specific pitfalls for this problem
+
+- Uniform divergence on a disc is divergence of the infimum of $|f^{(l)}|$ over that disc; a pointwise statement is strictly weaker.
+- Junk value — infimum: an infimum over a set of reals is meaningful here because the set is nonempty and bounded below by $0$; over an empty set it would be a default.
+- In case (i) the quantifiers are $\forall \delta > 0$ then $\forall^\infty l$, and the zeros are near the **centre** $z_0$, not near the circle.
+- Case (ii) asserts the conclusion for all sufficiently small $\delta$, so the $\delta$-quantifier is an eventually-near-$0$ one.
+- Poles are the points of the disc where $f$ is meromorphic but not analytic.

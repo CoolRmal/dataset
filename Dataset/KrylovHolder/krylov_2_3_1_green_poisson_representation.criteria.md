@@ -1,6 +1,6 @@
 # Criteria: krylov_2_3_1_green_poisson_representation
 
-**Statement:** [krylov_2_3_1_green_poisson_representation.md](krylov_2_3_1_green_poisson_representation.md) · **Lean:** [krylov_2_3_1_green_poisson_representation.lean](krylov_2_3_1_green_poisson_representation.lean)
+**Statement:** [krylov_2_3_1_green_poisson_representation.md](krylov_2_3_1_green_poisson_representation.md) · **Lean:** [krylov_2_3_1_green_poisson_representation.lean](krylov_2_3_1_green_poisson_representation.lean) · **Context:** [krylov_2_3_1_green_poisson_representation.context.md](krylov_2_3_1_green_poisson_representation.context.md)
 
 ## What the theorem says
 
@@ -51,3 +51,35 @@ wrong, even if it compiles.
 - `hgreenHarmonic` and `hgreenBoundary` are consequences of the earlier hypotheses in the text ("so that, in particular"); assuming them explicitly is harmless.
 - `laplacian` and `multiDerivative` are hand-rolled from repeated `fderiv` along coordinate directions rather than built on mathlib's `iteratedFDeriv`. On the open set $\Omega$ they agree with the classical derivatives, but they interact less well with mathlib's calculus API.
 - `IsOutwardUnitNormal` is the weakest point of the encoding (row 7): it constrains the direction rather than determining it.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[krylov_2_3_1_green_poisson_representation.md](krylov_2_3_1_green_poisson_representation.md) and the background in [krylov_2_3_1_green_poisson_representation.context.md](krylov_2_3_1_green_poisson_representation.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 with $K$ an arbitrary two-variable kernel rather than the fundamental solution of the Laplacian.
+- Requirement 6 or 7 with the sign of $H$ or the direction of the normal wrong.
+- Requirement 5 with $G$ not required to vanish on the boundary.
+
+### Domain-specific pitfalls for this problem
+
+- The normal derivative is in the *second* variable and along the *outward* normal, and the Poisson kernel carries an explicit minus sign.
+- The corrector is harmonic in $y$ for each fixed $x$ and matches $K$ on the boundary; both clauses are needed.
+- Regularity of the domain (existence of barriers) is what makes the hypothesis on $h$ satisfiable.
+- Both integrals must be asserted to converge; a Bochner integral of a non-integrable function is the junk value $0$.
+- $u$ is a classical solution — $C^2$ inside and continuous up to the boundary.

@@ -1,6 +1,6 @@
 # Criteria: engelking_5_3_10_strong_paracompactness
 
-**Statement:** [engelking_5_3_10_strong_paracompactness.md](engelking_5_3_10_strong_paracompactness.md) · **Lean:** [engelking_5_3_10_strong_paracompactness.lean](engelking_5_3_10_strong_paracompactness.lean)
+**Statement:** [engelking_5_3_10_strong_paracompactness.md](engelking_5_3_10_strong_paracompactness.md) · **Lean:** [engelking_5_3_10_strong_paracompactness.lean](engelking_5_3_10_strong_paracompactness.lean) · **Context:** [engelking_5_3_10_strong_paracompactness.context.md](engelking_5_3_10_strong_paracompactness.context.md)
 
 ## What the theorem says
 
@@ -58,3 +58,34 @@ wrong, even if it compiles.
 - ⚠️ All cover index types live in a single free universe `v` (and `IsStronglyParacompact` binds its
   own, separately). Fixing everything at `Type u` — every cover can be re-indexed by a subfamily of
   `Set X` — would make the four items line up exactly.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[engelking_5_3_10_strong_paracompactness.md](engelking_5_3_10_strong_paracompactness.md) and the background in [engelking_5_3_10_strong_paracompactness.context.md](engelking_5_3_10_strong_paracompactness.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 8 with star-finite and star-countable interchanged between items (ii) and (iii).
+- Requirement 9 with local finiteness added to item (iv), or the refinement in (iv) taken closed rather than open.
+- Requirement 6 with the closed refinements of (ii)–(iii) not required to cover $X$.
+
+### Domain-specific pitfalls for this problem
+
+- Star-finiteness is a condition on the family's own index set — each member meets only finitely many members — and is independent of local finiteness.
+- Items (ii) and (iii) ask for *closed* refinements, item (iv) for an *open* one; the theorem's content is that these coincide.
+- Engelking's "regular" bundles $T_1$, and his "strongly paracompact" bundles Hausdorff.
+- Refinement is containment in the correct direction, and the refining families must be covers.

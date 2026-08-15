@@ -4,6 +4,7 @@
 - **Domain:** Number theory
 - **Lean declaration:** `Dataset.NivenIrrational.niven_7_5_transcendence_of_e` ([niven_7_5_transcendence_of_e.lean](niven_7_5_transcendence_of_e.lean))
 - **Criteria:** [niven_7_5_transcendence_of_e.criteria.md](niven_7_5_transcendence_of_e.criteria.md)
+- **Context:** [niven_7_5_transcendence_of_e.context.md](niven_7_5_transcendence_of_e.context.md)
 
 ## Statement
 

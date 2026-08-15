@@ -1,6 +1,6 @@
 # Criteria: folland_2_42_translation_continuity_lp
 
-**Statement:** [folland_2_42_translation_continuity_lp.md](folland_2_42_translation_continuity_lp.md) · **Lean:** [folland_2_42_translation_continuity_lp.lean](folland_2_42_translation_continuity_lp.lean)
+**Statement:** [folland_2_42_translation_continuity_lp.md](folland_2_42_translation_continuity_lp.md) · **Lean:** [folland_2_42_translation_continuity_lp.lean](folland_2_42_translation_continuity_lp.lean) · **Context:** [folland_2_42_translation_continuity_lp.context.md](folland_2_42_translation_continuity_lp.context.md)
 
 ## What the theorem says
 
@@ -53,3 +53,34 @@ wrong, even if it compiles.
   presupposes that the seminorm is finite, although `hf` makes it so.
 - `leftTranslate y f - f` is pointwise subtraction of functions `G → ℂ`, which is what the book's
   $L_yf - f$ means.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[folland_2_42_translation_continuity_lp.md](folland_2_42_translation_continuity_lp.md) and the background in [folland_2_42_translation_continuity_lp.context.md](folland_2_42_translation_continuity_lp.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 with $p = \infty$ admitted: the statement is then false.
+- Requirement 7 with only one of the two translations.
+- Requirement 8 with the limit taken along a sequence rather than along the neighbourhood filter of $1$.
+
+### Domain-specific pitfalls for this problem
+
+- $L_y f(x) = f(y^{-1}x)$ and $R_y f(x) = f(xy)$ — the inverse appears on the left translate only.
+- The limit is along `𝓝 (1 : G)`, the neighbourhood filter of the group identity; a sequential formulation is weaker on a non-metrizable group.
+- The quantity tending to $0$ is the $L^p$ seminorm of the *difference*, which for `eLpNorm` lives in `ℝ≥0∞`.
+- The right-translation half is independent of the left-translation half on a non-unimodular group.

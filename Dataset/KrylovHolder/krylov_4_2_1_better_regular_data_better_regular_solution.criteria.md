@@ -1,6 +1,6 @@
 # Criteria: krylov_4_2_1_better_regular_data_better_regular_solution
 
-**Statement:** [krylov_4_2_1_better_regular_data_better_regular_solution.md](krylov_4_2_1_better_regular_data_better_regular_solution.md) · **Lean:** [krylov_4_2_1_better_regular_data_better_regular_solution.lean](krylov_4_2_1_better_regular_data_better_regular_solution.lean)
+**Statement:** [krylov_4_2_1_better_regular_data_better_regular_solution.md](krylov_4_2_1_better_regular_data_better_regular_solution.md) · **Lean:** [krylov_4_2_1_better_regular_data_better_regular_solution.lean](krylov_4_2_1_better_regular_data_better_regular_solution.lean) · **Context:** [krylov_4_2_1_better_regular_data_better_regular_solution.context.md](krylov_4_2_1_better_regular_data_better_regular_solution.context.md)
 
 ## What the theorem says
 
@@ -54,3 +54,35 @@ wrong, even if it compiles.
 - With the ellipticity written as $\sum_{\lvert\alpha\rvert=m}a^\alpha\xi^\alpha \ge \kappa\lVert\xi\rVert^m$, the admissible half-line for $\lambda$ actually depends on $m \bmod 4$: the Fourier multiplier of the principal part is $i^m\sum a^\alpha\xi^\alpha$. For $d = 1$, $m = 4$, $Lu = u''''$ and $\lambda = n^4 \ge \lambda_0$, the function $u = \cos(nx)$ gives $f = 0$ with a strictly positive left side, so the estimate still fails at those orders. `0 < lam₀` fixes the second-order case only.
 - The three hypotheses on $L$ each open their own `∃ data : EllipticOperatorData m L`. This is harmless — `formula` holds for all input functions, so testing on monomials shows any two representations agree on the multi-indices they use — but bundling one `data` and stating all three conditions about it would be clearer.
 - `holderGauge` is a maximum where Krylov's $\lvert\cdot\rvert_{k+\delta}$ is a sum, so `hcoeffBound` bounds a slightly smaller quantity than the text does. Given that `C` may already depend on `L`, this changes nothing.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[krylov_4_2_1_better_regular_data_better_regular_solution.md](krylov_4_2_1_better_regular_data_better_regular_solution.md) and the background in [krylov_4_2_1_better_regular_data_better_regular_solution.context.md](krylov_4_2_1_better_regular_data_better_regular_solution.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 5 with the regularity gain restricted to $|\lambda| \ge \lambda_0$: part 1 holds for every $\lambda$.
+- Requirement 7 with $N$ quantified after $\lambda$ or $u$.
+- Requirement 9 with either weighted term dropped or the two exponents interchanged.
+
+### Domain-specific pitfalls for this problem
+
+- The two parts have different $\lambda$-ranges: part 1 is unconditional, part 2 is above the threshold.
+- The exponents $(k+m+\delta)/m$ and $(k+\delta)/m$ come from the scaling of the operator and are not symmetric.
+- $|u|_0$ is the sup norm, distinct from the full Hölder norm $|u|_{k+\delta}$.
+- $K_1 \ge 1$ bounds all coefficient norms with a single constant.
+- The constant $N$ is chosen before everything it is claimed independent of.

@@ -4,6 +4,7 @@
 - **Domain:** Number theory
 - **Lean declaration:** `Dataset.NivenIrrational.niven_5_5_constructible_degree_is_power_of_two` ([niven_5_5_constructible_degree_is_power_of_two.lean](niven_5_5_constructible_degree_is_power_of_two.lean))
 - **Criteria:** [niven_5_5_constructible_degree_is_power_of_two.criteria.md](niven_5_5_constructible_degree_is_power_of_two.criteria.md)
+- **Context:** [niven_5_5_constructible_degree_is_power_of_two.context.md](niven_5_5_constructible_degree_is_power_of_two.context.md)
 
 ## Statement
 

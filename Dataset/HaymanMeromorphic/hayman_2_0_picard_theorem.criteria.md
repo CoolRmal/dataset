@@ -1,6 +1,6 @@
 # Criteria: hayman_2_0_picard_theorem
 
-**Statement:** [hayman_2_0_picard_theorem.md](hayman_2_0_picard_theorem.md) · **Lean:** [hayman_2_0_picard_theorem.lean](hayman_2_0_picard_theorem.lean)
+**Statement:** [hayman_2_0_picard_theorem.md](hayman_2_0_picard_theorem.md) · **Lean:** [hayman_2_0_picard_theorem.lean](hayman_2_0_picard_theorem.lean) · **Context:** [hayman_2_0_picard_theorem.context.md](hayman_2_0_picard_theorem.context.md)
 
 ## What the theorem says
 
@@ -57,3 +57,34 @@ wrong, even if it compiles.
   solution sets larger), but it is the recurring modelling hazard throughout this book.
 - No integrals, suprema or `toReal` coercions appear, so there is no default-value hazard beyond the
   pole convention above.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[hayman_2_0_picard_theorem.md](hayman_2_0_picard_theorem.md) and the background in [hayman_2_0_picard_theorem.context.md](hayman_2_0_picard_theorem.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 6 rows, so each row is worth 8.3 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 2 dropped or read as "not a polynomial": a rational function is a counterexample.
+- Requirement 3 read as "omits the value" rather than "takes it only finitely often": a strictly weaker conclusion.
+- Requirement 5 with a bound other than two exceptional values.
+
+### Domain-specific pitfalls for this problem
+
+- For a *meromorphic* function, transcendental means not rational; the polynomial version of the condition is the entire-function notion and is too weak here.
+- Being exceptional means being attained only finitely often, not being omitted.
+- A meromorphic function represented as a total function $\mathbb{C} \to \mathbb{C}$ takes a default value at its poles, so any clause about the solution set of $f(z) = a$ must be read with that in mind.
+- "At most two" is naturally written as containment in a two-element set, which correctly allows fewer than two exceptions.

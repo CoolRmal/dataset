@@ -1,6 +1,6 @@
 # Criteria: lee_10_19_tubular_neighborhood_theorem
 
-**Statement:** [lee_10_19_tubular_neighborhood_theorem.md](lee_10_19_tubular_neighborhood_theorem.md) · **Lean:** [lee_10_19_tubular_neighborhood_theorem.lean](lee_10_19_tubular_neighborhood_theorem.lean)
+**Statement:** [lee_10_19_tubular_neighborhood_theorem.md](lee_10_19_tubular_neighborhood_theorem.md) · **Lean:** [lee_10_19_tubular_neighborhood_theorem.lean](lee_10_19_tubular_neighborhood_theorem.lean) · **Context:** [lee_10_19_tubular_neighborhood_theorem.context.md](lee_10_19_tubular_neighborhood_theorem.context.md)
 
 ## What the theorem says
 
@@ -29,7 +29,7 @@ row is incomplete.
 | 8 | The map $(x,v) \mapsto x + v$ carries the disk bundle one-to-one **onto** $U$. | ✅ `Set.BijOn (fun p : M × (Fin n → ℝ) ↦ (p.1 : Fin n → ℝ) + p.2) (NormalDiskBundle M radius) U`. |
 | 9 | The inverse of that map is smooth, in both of its components. | ✅ `ContinuousOn inverse U`, `ContDiffOn ℝ ∞ (fun z ↦ ((inverse z).1 : Fin n → ℝ)) U` and `ContDiffOn ℝ ∞ (fun z ↦ (inverse z).2) U`, with `∞` meaning $C^\infty$. |
 | 10 | `inverse` really is the inverse of $(x,v) \mapsto x+v$ on the bundle. | ✅ `∀ p ∈ NormalDiskBundle M radius, inverse ((p.1 : Fin n → ℝ) + p.2) = p`. No separate "`inverse` lands in the bundle" clause is needed: that follows from surjectivity in `BijOn` together with this left-inverse clause. |
-| 11 | The radius function is **continuous**. | ⚠️ Missing. Only positivity is asserted. Without continuity the "disk bundle" need not even be open inside the normal bundle, and the object produced is not the book's tubular neighbourhood. A candidate that adds `Continuous radius` (or continuity/smoothness on $M$) is strictly better than our statement. |
+| 11 | The radius function is **continuous**. | ✅ `Continuous radius`, alongside positivity. Without it the "disk bundle" need not be open inside the normal bundle and the object produced would not be the book's tubular neighbourhood. |
 
 ## Mistakes to check for
 
@@ -66,3 +66,34 @@ wrong, even if it compiles.
 - `IsNormalVector M x v` includes the conjunct `x ∈ M`. Inside `NormalDiskBundle` the first
   component already has type `↥M`, so that conjunct is automatically satisfied there and adds
   nothing.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[lee_10_19_tubular_neighborhood_theorem.md](lee_10_19_tubular_neighborhood_theorem.md) and the background in [lee_10_19_tubular_neighborhood_theorem.context.md](lee_10_19_tubular_neighborhood_theorem.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 11 rows, so each row is worth 4.5 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 11 with the radius not required continuous.
+- Requirement 4 with a single constant radius.
+- Requirement 8 or 9 with the bijection or the smoothness of its inverse dropped.
+
+### Domain-specific pitfalls for this problem
+
+- The radius is a positive **continuous** function on $M$, varying from point to point.
+- Normality is orthogonality to the tangent space, which has to be spelled out since the ambient library has no normal-bundle API.
+- The identification map is $(x,v)\mapsto x+v$ and must be a bijection onto the open set $U$, with smooth inverse in both components.
+- No closedness or compactness of $M$ is assumed.

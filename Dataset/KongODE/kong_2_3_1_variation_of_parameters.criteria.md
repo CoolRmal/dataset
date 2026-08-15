@@ -1,6 +1,6 @@
 # Criteria: kong_2_3_1_variation_of_parameters
 
-**Statement:** [kong_2_3_1_variation_of_parameters.md](kong_2_3_1_variation_of_parameters.md) · **Lean:** [kong_2_3_1_variation_of_parameters.lean](kong_2_3_1_variation_of_parameters.lean)
+**Statement:** [kong_2_3_1_variation_of_parameters.md](kong_2_3_1_variation_of_parameters.md) · **Lean:** [kong_2_3_1_variation_of_parameters.lean](kong_2_3_1_variation_of_parameters.lean) · **Context:** [kong_2_3_1_variation_of_parameters.context.md](kong_2_3_1_variation_of_parameters.context.md)
 
 ## What the theorem says
 
@@ -51,3 +51,35 @@ wrong, even if it compiles.
 - Kong works on the open interval $(a,b)$. We allow any order-connected set $I$ and use the derivative taken within $I$, which specialises correctly to the open case and also makes the statement true on a closed interval.
 - `IsUnit (X t)` and `(X t).det ≠ 0` are interchangeable over $\mathbb{R}$ (`Matrix.isUnit_iff_isUnit_det`); either is a fine encoding of "nonsingular".
 - The hypotheses are exactly what keeps the two Lean default values out of the statement: continuity of $A$, $f$ and invertibility of $X$ on the interval make the integrand continuous on the compact segment between $t_0$ and $t$, so it is genuinely integrable, and `OrdConnected` puts that whole segment inside $I$ where $X$ is invertible.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[kong_2_3_1_variation_of_parameters.md](kong_2_3_1_variation_of_parameters.md) and the background in [kong_2_3_1_variation_of_parameters.context.md](kong_2_3_1_variation_of_parameters.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 11 rows, so each row is worth 4.5 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 with the invertibility of $X$ dropped: $X^{-1}(s)$ is then a junk value.
+- Requirement 4 with only one direction of the equivalence, so the formula is not shown to capture *all* solutions.
+- Requirement 7 with a set-integral over $[t_0,t]$, which loses the orientation when $t < t_0$.
+
+### Domain-specific pitfalls for this problem
+
+- Junk value — matrix inverse: in Lean the inverse of a singular matrix is $0$, so nonsingularity of $X(t)$ must be part of the hypothesis.
+- Matrix multiplication is not commutative; $X(t)X^{-1}(s)f(s)$ is a specific product with $X(t)$ outside the $s$-integral.
+- The oriented interval integral is needed for $t$ on either side of $t_0$.
+- "General solution" is a biconditional characterisation of the solution set.
+- The constant $c$ is quantified per solution.

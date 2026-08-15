@@ -4,6 +4,7 @@
 - **Domain:** Topology
 - **Lean declaration:** `Dataset.EngelkingGeneralTopology.engelking_7_2_1_countable_sum_theorem` ([engelking_7_2_1_countable_sum_theorem.lean](engelking_7_2_1_countable_sum_theorem.lean))
 - **Criteria:** [engelking_7_2_1_countable_sum_theorem.criteria.md](engelking_7_2_1_countable_sum_theorem.criteria.md)
+- **Context:** [engelking_7_2_1_countable_sum_theorem.context.md](engelking_7_2_1_countable_sum_theorem.context.md)
 
 ## Statement
 

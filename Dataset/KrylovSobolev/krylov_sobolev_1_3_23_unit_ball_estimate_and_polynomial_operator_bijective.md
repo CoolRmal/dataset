@@ -4,6 +4,7 @@
 - **Domain:** PDE
 - **Lean declaration:** `Dataset.KrylovSobolev.krylov_sobolev_1_3_23_unit_ball_estimate_and_polynomial_operator_bijective` ([krylov_sobolev_1_3_23_unit_ball_estimate_and_polynomial_operator_bijective.lean](krylov_sobolev_1_3_23_unit_ball_estimate_and_polynomial_operator_bijective.lean))
 - **Criteria:** [krylov_sobolev_1_3_23_unit_ball_estimate_and_polynomial_operator_bijective.criteria.md](krylov_sobolev_1_3_23_unit_ball_estimate_and_polynomial_operator_bijective.criteria.md)
+- **Context:** [krylov_sobolev_1_3_23_unit_ball_estimate_and_polynomial_operator_bijective.context.md](krylov_sobolev_1_3_23_unit_ball_estimate_and_polynomial_operator_bijective.context.md)
 
 ## Statement
 

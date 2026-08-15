@@ -1,6 +1,6 @@
 # Criteria: bogachev_gaussian_2_4_5_cameron_martin_dichotomy
 
-**Statement:** [bogachev_gaussian_2_4_5_cameron_martin_dichotomy.md](bogachev_gaussian_2_4_5_cameron_martin_dichotomy.md) · **Lean:** [bogachev_gaussian_2_4_5_cameron_martin_dichotomy.lean](bogachev_gaussian_2_4_5_cameron_martin_dichotomy.lean)
+**Statement:** [bogachev_gaussian_2_4_5_cameron_martin_dichotomy.md](bogachev_gaussian_2_4_5_cameron_martin_dichotomy.md) · **Lean:** [bogachev_gaussian_2_4_5_cameron_martin_dichotomy.lean](bogachev_gaussian_2_4_5_cameron_martin_dichotomy.lean) · **Context:** [bogachev_gaussian_2_4_5_cameron_martin_dichotomy.context.md](bogachev_gaussian_2_4_5_cameron_martin_dichotomy.context.md)
 
 ## What the theorem says
 
@@ -50,3 +50,35 @@ wrong, even if it compiles.
 - The final clause $H(\gamma) = X \cap R_\gamma(X^*)$ of (2.4.3) is omitted, because $R_\gamma$ is not introduced anywhere in this formalization. The two retained equalities are the ones used throughout the rest of the book.
 - `cameronMartinNorm` uses `ENNReal.ofReal (f h)`, which clamps negative values to $0$. This is harmless: the index set is symmetric ($f$ has variance at most $1$ exactly when $-f$ does), so the supremum is unchanged.
 - `Equivalent` is our own two-line definition because Mathlib has `≪` and `⟂ₘ` but no bundled notion of equivalent measures. Both `≪` and `⟂ₘ` are taken from Mathlib.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[bogachev_gaussian_2_4_5_cameron_martin_dichotomy.md](bogachev_gaussian_2_4_5_cameron_martin_dichotomy.md) and the background in [bogachev_gaussian_2_4_5_cameron_martin_dichotomy.context.md](bogachev_gaussian_2_4_5_cameron_martin_dichotomy.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3: a real-valued Cameron–Martin norm. An `ℝ`-valued supremum of an unbounded set is the junk value `0`, so part (i) would quantify over an empty or wrong set of vectors.
+- Requirement 2 with the constraint taken on $\int f^2 d\gamma$ or on $\lVert f\rVert$ rather than on the *variance*: a different norm, and a different theorem for non-centred $\gamma$.
+- Requirement 6 weakened to one-sided absolute continuity.
+
+### Domain-specific pitfalls for this problem
+
+- Junk value — supremum: the Cameron–Martin norm must be taken in `ℝ≥0∞` (or `EReal`). In `ℝ`, `sSup` of an unbounded set is `0`, which would make the infinite-norm vectors look like the zero vector.
+- The constraint set is $\{f : R_\gamma(f)(f) \le 1\}$, i.e. variance at most one — the mean is subtracted. For a non-centred measure $\int f^2 d\gamma \ne \operatorname{Var} f$.
+- $\gamma_h = \gamma(\cdot - h)$ is the pushforward under $x \mapsto x + h$, not under $x \mapsto x - h$; for non-centred $\gamma$ these are different measures.
+- "Equivalent" is mutual absolute continuity, a two-sided condition; Mathlib has `≪` for one side only, so the two-sided notion has to be spelled out.
+- Formula (2.4.3) is a stated part of the theorem, not a corollary a reader may leave out: as a set equality it is not a formal consequence of (i) and (ii) without unfolding the definition of $H(\gamma)$.

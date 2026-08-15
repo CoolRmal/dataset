@@ -1,6 +1,6 @@
 # Criteria: niven_zuckerman_10_15_mod_five_coefficients
 
-**Statement:** [niven_zuckerman_10_15_mod_five_coefficients.md](niven_zuckerman_10_15_mod_five_coefficients.md) · **Lean:** [niven_zuckerman_10_15_mod_five_coefficients.lean](niven_zuckerman_10_15_mod_five_coefficients.lean)
+**Statement:** [niven_zuckerman_10_15_mod_five_coefficients.md](niven_zuckerman_10_15_mod_five_coefficients.md) · **Lean:** [niven_zuckerman_10_15_mod_five_coefficients.lean](niven_zuckerman_10_15_mod_five_coefficients.lean) · **Context:** [niven_zuckerman_10_15_mod_five_coefficients.context.md](niven_zuckerman_10_15_mod_five_coefficients.context.md)
 
 ## What the theorem says
 
@@ -55,3 +55,34 @@ wrong, even if it compiles.
 - As in Theorem 10.14, `φ` is a variable characterised by a hypothesis rather than a definition,
   because mathlib has no Euler partition product. Defining it by an infinite product is equally
   faithful.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[niven_zuckerman_10_15_mod_five_coefficients.md](niven_zuckerman_10_15_mod_five_coefficients.md) and the background in [niven_zuckerman_10_15_mod_five_coefficients.context.md](niven_zuckerman_10_15_mod_five_coefficients.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 7 rows, so each row is worth 7.1 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 with the leading factor $x$ or the exponent $4$ wrong.
+- Requirement 7 with the two conclusions about different sequences, or with the sequence depending on $x$.
+- Requirement 5 with the divisibility asserted for all $m$ rather than for $m \equiv 0 \bmod 5$.
+
+### Domain-specific pitfalls for this problem
+
+- The expansion starts at $m = 1$ because of the leading factor $x$.
+- The coefficients are integers; the divisibility is in $\mathbb{Z}$.
+- Junk value — `tsum`: convergence must be part of the assertion.
+- One sequence serves every $x$ in $[0,1)$.

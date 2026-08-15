@@ -1,6 +1,6 @@
 # Criteria: conway_V_13_3_james
 
-**Statement:** [conway_V_13_3_james.md](conway_V_13_3_james.md) · **Lean:** [conway_V_13_3_james.lean](conway_V_13_3_james.lean)
+**Statement:** [conway_V_13_3_james.md](conway_V_13_3_james.md) · **Lean:** [conway_V_13_3_james.lean](conway_V_13_3_james.lean) · **Context:** [conway_V_13_3_james.context.md](conway_V_13_3_james.context.md)
 
 ## What the theorem says
 
@@ -52,3 +52,35 @@ wrong, even if it compiles.
 - The converse — weakly compact implies every functional attains its supremum — is true but is not
   what V.13.3 asserts. ⚠️ A candidate stating the `↔` is still a true theorem; treat it as
   over-strong relative to the text rather than as wrong.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[conway_V_13_3_james.md](conway_V_13_3_james.md) and the background in [conway_V_13_3_james.context.md](conway_V_13_3_james.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 5 stated with an `ℝ`-valued supremum equation rather than attainment: an unbounded supremum in `ℝ` is the junk value `0`, and the hypothesis becomes satisfiable for the wrong reason.
+- Requirement 2 or 3 dropped: without closedness or convexity the conclusion fails.
+- Requirement 7 weakened to weak compactness of the *closure* of $A$ together with no closedness hypothesis.
+
+### Domain-specific pitfalls for this problem
+
+- Junk value — supremum: `sSup {‖φ x‖ | x ∈ A}` in `ℝ` is `0` for an unbounded or empty set. Writing the hypothesis as "there is $x_0 \in A$ with $\lVert \varphi x\rVert \le \lVert \varphi x_0\rVert$ for all $x \in A$" avoids the trap entirely.
+- The maximised quantity is the modulus of the scalar, not its real part and not the scalar itself.
+- The hypothesis quantifies over the whole dual space; restricting to a norming subset or to the unit sphere of the dual states something weaker.
+- The conclusion is compactness in the weak topology (`WeakSpace`), not norm compactness, and not sequential compactness.
+- Convexity over `ℝ` is the right notion even when the space is complex.

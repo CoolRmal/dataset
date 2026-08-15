@@ -4,6 +4,7 @@
 - **Domain:** Number theory
 - **Lean declaration:** `Dataset.NivenZuckermanNumberTheory.niven_zuckerman_10_14_euler_product_prime_power` ([niven_zuckerman_10_14_euler_product_prime_power.lean](niven_zuckerman_10_14_euler_product_prime_power.lean))
 - **Criteria:** [niven_zuckerman_10_14_euler_product_prime_power.criteria.md](niven_zuckerman_10_14_euler_product_prime_power.criteria.md)
+- **Context:** [niven_zuckerman_10_14_euler_product_prime_power.context.md](niven_zuckerman_10_14_euler_product_prime_power.context.md)
 
 ## Statement
 

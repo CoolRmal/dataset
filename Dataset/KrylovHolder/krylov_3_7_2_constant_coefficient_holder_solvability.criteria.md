@@ -1,6 +1,6 @@
 # Criteria: krylov_3_7_2_constant_coefficient_holder_solvability
 
-**Statement:** [krylov_3_7_2_constant_coefficient_holder_solvability.md](krylov_3_7_2_constant_coefficient_holder_solvability.md) · **Lean:** [krylov_3_7_2_constant_coefficient_holder_solvability.lean](krylov_3_7_2_constant_coefficient_holder_solvability.lean)
+**Statement:** [krylov_3_7_2_constant_coefficient_holder_solvability.md](krylov_3_7_2_constant_coefficient_holder_solvability.md) · **Lean:** [krylov_3_7_2_constant_coefficient_holder_solvability.lean](krylov_3_7_2_constant_coefficient_holder_solvability.lean) · **Context:** [krylov_3_7_2_constant_coefficient_holder_solvability.context.md](krylov_3_7_2_constant_coefficient_holder_solvability.context.md)
 
 ## What the theorem says
 
@@ -51,3 +51,35 @@ wrong, even if it compiles.
 - For odd $m$ the ellipticity condition cannot hold over $\mathbb{R}$ (replace $\xi$ by $-\xi$), so those cases are empty. Harmless.
 - The top-order quotient could be expressed with mathlib's `HolderOnWith`/`eHolderNorm`, as the companion definition `HolderOnReal` does, instead of a hand-rolled quotient.
 - Because the domain is all of $\mathbb{R}^d$, plain `∃!` on global functions is the right notion of uniqueness here. In the domain problems of this book uniqueness must instead be stated as `Set.EqOn` on the closure.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[krylov_3_7_2_constant_coefficient_holder_solvability.md](krylov_3_7_2_constant_coefficient_holder_solvability.md) and the background in [krylov_3_7_2_constant_coefficient_holder_solvability.context.md](krylov_3_7_2_constant_coefficient_holder_solvability.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 5 with $\lambda$ unrestricted in sign: the equation is then not solvable for every $f$.
+- Requirement 8 with existence only, or uniqueness only.
+- Requirement 6 with membership replaced by finiteness of a gauge, without asserting the derivatives exist.
+
+### Domain-specific pitfalls for this problem
+
+- The shift is $Lu - \lambda u$; the sign of $\lambda$ decides invertibility.
+- Ellipticity constrains only the principal part $|\alpha| = m$.
+- Hölder membership bundles the lower-order sup norms as well as the top seminorm.
+- The regularity gain is exactly $m$: from $C^{k+\delta}$ data to $C^{k+m+\delta}$ solutions.
+- Junk value — `deriv`/`fderiv`: a Hölder gauge written with derivative operators is meaningless where the derivative does not exist, so differentiability must be asserted.

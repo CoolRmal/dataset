@@ -1,6 +1,6 @@
 # Criteria: kong_1_5_3_differentiable_dependence
 
-**Statement:** [kong_1_5_3_differentiable_dependence.md](kong_1_5_3_differentiable_dependence.md) · **Lean:** [kong_1_5_3_differentiable_dependence.lean](kong_1_5_3_differentiable_dependence.lean)
+**Statement:** [kong_1_5_3_differentiable_dependence.md](kong_1_5_3_differentiable_dependence.md) · **Lean:** [kong_1_5_3_differentiable_dependence.lean](kong_1_5_3_differentiable_dependence.lean) · **Context:** [kong_1_5_3_differentiable_dependence.context.md](kong_1_5_3_differentiable_dependence.context.md)
 
 ## What the theorem says
 
@@ -54,3 +54,35 @@ wrong, even if it compiles.
 - The `fderiv` used is the ambient one, not `fderivWithin D`. That is legitimate only because $D$ is open, which is why row 1 of the mistakes table matters twice over.
 - Derivatives with values in $\mathbb{R}^{n\times n}$ and $\mathbb{R}^{n\times k}$ are written as continuous linear maps rather than `Matrix`, with `.comp` playing the role of the matrix product $Jz$. This is the idiomatic choice and is equivalent.
 - "Open interval" is expressed as `IsOpen` together with `OrdConnected`. Mathlib has no packaged flow-domain API for time-dependent fields, so `flowDomain` is assembled by hand.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[kong_1_5_3_differentiable_dependence.md](kong_1_5_3_differentiable_dependence.md) and the background in [kong_1_5_3_differentiable_dependence.context.md](kong_1_5_3_differentiable_dependence.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 11 rows, so each row is worth 4.5 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 11 with $J$ evaluated at the initial point rather than along the solution.
+- Requirement 10 with the sign of the initial value $-f(t_0,x_0;\mu)$ wrong.
+- Requirement 8 with the inhomogeneous term of the $\mu$-variational equation dropped.
+
+### Domain-specific pitfalls for this problem
+
+- The three variational equations share a coefficient and are distinguished only by their initial data; getting one initial value wrong states a different theorem.
+- $\partial x/\partial x_0$ is matrix-valued, with initial value the identity matrix.
+- The domain $D$ is open, and the interval of existence is open.
+- $C^1$ dependence is joint in all four arguments.
+- Every solution and competitor must stay inside $D$.

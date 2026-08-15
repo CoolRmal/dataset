@@ -1,6 +1,6 @@
 # Criteria: lee_10_11_whitney_embedding_theorem
 
-**Statement:** [lee_10_11_whitney_embedding_theorem.md](lee_10_11_whitney_embedding_theorem.md) · **Lean:** [lee_10_11_whitney_embedding_theorem.lean](lee_10_11_whitney_embedding_theorem.lean)
+**Statement:** [lee_10_11_whitney_embedding_theorem.md](lee_10_11_whitney_embedding_theorem.md) · **Lean:** [lee_10_11_whitney_embedding_theorem.lean](lee_10_11_whitney_embedding_theorem.lean) · **Context:** [lee_10_11_whitney_embedding_theorem.context.md](lee_10_11_whitney_embedding_theorem.context.md)
 
 ## What the theorem says
 
@@ -19,13 +19,13 @@ row is incomplete.
 |---|-------------|-------------------------------|
 | 1 | $M$ is a smooth manifold of dimension exactly $m$, without boundary. | ✅ `[ChartedSpace (Fin m → ℝ) M]` and `[IsManifold 𝓘(ℝ, Fin m → ℝ) ∞ M]`. The model `𝓘(ℝ, ·)` is boundaryless (as opposed to `modelWithCornersEuclideanHalfSpace`) and `∞` gives $C^\infty$ transitions. |
 | 2 | $M$ is Hausdorff. | ✅ `[T2Space M]`. |
-| 3 | $M$ satisfies Lee's countability requirement. | ✅ `[SigmaCompactSpace M]`. For a locally Euclidean Hausdorff space, $\sigma$-compactness and second countability are equivalent, so this is a faithful rendering. |
+| 3 | $M$ satisfies Lee's countability requirement. | ✅ `[SecondCountableTopology M]`, the condition Lee actually states. For a locally Euclidean Hausdorff space it is equivalent to $\sigma$-compactness, but the textbook's own hypothesis is second countability, so that is what the ground truth uses. |
 | 4 | The conclusion produces a single map $F$ carrying all the required properties at once, not several unrelated existence claims. | ✅ One `∃ F : M → (Fin (2 * m + 1) → ℝ)` followed by a conjunction. |
 | 5 | The target dimension is exactly $2m+1$. | ✅ `F : M → (Fin (2 * m + 1) → ℝ)`, with the dimension written out rather than existentially quantified. |
-| 6 | $F$ is smooth. | ✅ `ContMDiff 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin (2 * m + 1) → ℝ) ∞ F`. |
-| 7 | $F$ is a topological embedding: injective, and a homeomorphism onto its image. | ✅ `IsEmbedding F` (the `Topology.IsEmbedding` spelling, available via `open Topology`). |
+| 6 | $F$ is smooth. | ✅ Implied by `IsSmoothEmbedding …`, whose `isImmersion` field already gives `CMDiff ∞ F`; asserting `ContMDiff` as a separate conjunct would be redundant. |
+| 7 | $F$ is a topological embedding: injective, and a homeomorphism onto its image. | ✅ The `isEmbedding` field of `Manifold.IsSmoothEmbedding`. |
 | 8 | $F$ is proper. | ✅ `IsProperMap F`. Mathlib's `IsProperMap` is universal closedness, which for these spaces is the same as "preimages of compact sets are compact". |
-| 9 | $F$ is an **immersion**: its differential is injective at every point. | ⚠️ Missing. `IsEmbedding F ∧ ContMDiff … ∞ F` does not imply it. `Manifold.IsImmersion 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin (2 * m + 1) → ℝ) ∞ F` should be a fourth conjunct; the file already imports `Mathlib.Geometry.Manifold.Immersion`, so adding it costs nothing. A candidate that includes it is *better* than our statement. |
+| 9 | $F$ is an **immersion**: its differential is injective at every point. | ✅ The `isImmersion` field of `Manifold.IsSmoothEmbedding`. This is exactly why the Mathlib notion, and not "`ContMDiff` + `IsEmbedding`", is the right rendering of "smooth embedding". |
 
 ## Mistakes to check for
 
@@ -43,11 +43,46 @@ wrong, even if it compiles.
 
 ## Notes on the ground truth
 
-- ⚠️ The immersion conjunct is genuinely absent (requirement row 9), so our conclusion is weaker than
-  the printed theorem. This is the one substantive gap in this file.
+- `Manifold.IsSmoothEmbedding I J n f` is a structure with two fields, `isImmersion` and
+  `isEmbedding`, so one conjunct carries requirements 6, 7 and 9 at once. An earlier version of this
+  file wrote `IsEmbedding F ∧ ContMDiff … F`, which is strictly weaker — `t ↦ t³` on `ℝ` is a smooth
+  homeomorphism that is not an immersion — and that gap has been repaired.
 - The model space is `Fin m → ℝ` (sup norm) rather than Mathlib's usual `EuclideanSpace ℝ (Fin m)`.
   The two are linearly homeomorphic, hence diffeomorphic, so nothing in an embedding statement
   changes; it is off-convention only.
 - `ContMDiff I I' ∞` with the scoped `∞` really is $C^\infty$. Contrast the Euclidean files of this
   book, where `⊤` under `open scoped ContDiff` would elaborate to `ω`, real-analytic.
 - This file does not import `Defs.lean`; everything it needs is in Mathlib.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[lee_10_11_whitney_embedding_theorem.md](lee_10_11_whitney_embedding_theorem.md) and the background in [lee_10_11_whitney_embedding_theorem.context.md](lee_10_11_whitney_embedding_theorem.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 9 dropped — "smooth embedding" rendered as smoothness plus a topological embedding: strictly weaker, and the standard counterexample is $t \mapsto t^3$.
+- Requirement 5 with the target dimension existentially quantified.
+- Requirement 2 or 3 dropped: the statement becomes false.
+- Requirement 8 dropped, leaving the weaker non-proper embedding claim.
+
+### Domain-specific pitfalls for this problem
+
+- "Smooth embedding" is `Manifold.IsSmoothEmbedding` — immersion **and** topological embedding — not `ContMDiff` conjoined with `Topology.IsEmbedding`.
+- Lee's countability hypothesis is **second countability**, not $\sigma$-compactness; the two are equivalent here but the textbook states the former.
+- Since `IsSmoothEmbedding` already entails smoothness, a separate `ContMDiff` conjunct is redundant and costs hygiene credit.
+- The model with corners `𝓘(ℝ, E)` is boundaryless; a half-space model would state the with-boundary theorem.
+- The smoothness exponent `∞` is $C^\infty$; in the same scope `⊤` elaborates to `ω`, real-analytic.

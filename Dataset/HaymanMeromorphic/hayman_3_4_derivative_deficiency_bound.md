@@ -4,6 +4,7 @@
 - **Domain:** Complex analysis
 - **Lean declaration:** `Dataset.HaymanMeromorphic.hayman_3_4_derivative_deficiency_bound` ([hayman_3_4_derivative_deficiency_bound.lean](hayman_3_4_derivative_deficiency_bound.lean))
 - **Criteria:** [hayman_3_4_derivative_deficiency_bound.criteria.md](hayman_3_4_derivative_deficiency_bound.criteria.md)
+- **Context:** [hayman_3_4_derivative_deficiency_bound.context.md](hayman_3_4_derivative_deficiency_bound.context.md)
 
 ## Statement
 

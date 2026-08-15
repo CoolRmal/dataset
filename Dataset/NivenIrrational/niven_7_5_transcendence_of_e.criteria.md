@@ -1,6 +1,6 @@
 # Criteria: niven_7_5_transcendence_of_e
 
-**Statement:** [niven_7_5_transcendence_of_e.md](niven_7_5_transcendence_of_e.md) · **Lean:** [niven_7_5_transcendence_of_e.lean](niven_7_5_transcendence_of_e.lean)
+**Statement:** [niven_7_5_transcendence_of_e.md](niven_7_5_transcendence_of_e.md) · **Lean:** [niven_7_5_transcendence_of_e.lean](niven_7_5_transcendence_of_e.lean) · **Context:** [niven_7_5_transcendence_of_e.context.md](niven_7_5_transcendence_of_e.context.md)
 
 ## What the theorem says
 
@@ -44,3 +44,33 @@ wrong, even if it compiles.
 - Stating it over `ℤ` instead of `ℚ` would be equivalent — clear denominators — and is not counted
   as an error, but `ℚ` is the standard Mathlib phrasing and matches the `.md` notation block.
 - The statement is a single line by design; all of Niven's §7.5 machinery belongs to the proof.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[niven_7_5_transcendence_of_e.md](niven_7_5_transcendence_of_e.md) and the background in [niven_7_5_transcendence_of_e.context.md](niven_7_5_transcendence_of_e.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 5 rows, so each row is worth 10.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 2 with irrationality claimed instead of transcendence.
+- Requirement 4 with the non-zero condition on the polynomial dropped.
+
+### Domain-specific pitfalls for this problem
+
+- Transcendence is the negation of algebraicity, and algebraicity quantifies over **non-zero** polynomials.
+- The coefficient field is $\mathbb{Q}$; over $\mathbb{R}$ the notion is empty.
+- $e$ is $\exp(1)$; there is no separate constant.
+- The statement takes no hypotheses.

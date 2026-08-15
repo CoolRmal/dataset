@@ -4,6 +4,7 @@
 - **Domain:** Number theory
 - **Lean declaration:** `Dataset.NivenIrrational.niven_6_2_unique_nearest_integer` ([niven_6_2_unique_nearest_integer.lean](niven_6_2_unique_nearest_integer.lean))
 - **Criteria:** [niven_6_2_unique_nearest_integer.criteria.md](niven_6_2_unique_nearest_integer.criteria.md)
+- **Context:** [niven_6_2_unique_nearest_integer.context.md](niven_6_2_unique_nearest_integer.context.md)
 
 ## Statement
 

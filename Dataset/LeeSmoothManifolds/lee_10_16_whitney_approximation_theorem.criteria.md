@@ -1,6 +1,6 @@
 # Criteria: lee_10_16_whitney_approximation_theorem
 
-**Statement:** [lee_10_16_whitney_approximation_theorem.md](lee_10_16_whitney_approximation_theorem.md) · **Lean:** [lee_10_16_whitney_approximation_theorem.lean](lee_10_16_whitney_approximation_theorem.lean)
+**Statement:** [lee_10_16_whitney_approximation_theorem.md](lee_10_16_whitney_approximation_theorem.md) · **Lean:** [lee_10_16_whitney_approximation_theorem.lean](lee_10_16_whitney_approximation_theorem.lean) · **Context:** [lee_10_16_whitney_approximation_theorem.context.md](lee_10_16_whitney_approximation_theorem.context.md)
 
 ## What the theorem says
 
@@ -18,7 +18,7 @@ row is incomplete.
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
 | 1 | $M$ is a smooth manifold of dimension $m$ without boundary. | ✅ `[ChartedSpace (Fin m → ℝ) M]` and `[IsManifold 𝓘(ℝ, Fin m → ℝ) ∞ M]`. |
-| 2 | $M$ is Hausdorff and $\sigma$-compact — Lee's countability and separation conditions, and here the proof genuinely needs them for partitions of unity. | ✅ `[T2Space M]` and `[SigmaCompactSpace M]`, exactly the hypotheses of Mathlib's version. |
+| 2 | $M$ is Hausdorff and second countable — Lee's separation and countability conditions, which he builds into the phrase "smooth manifold". | ✅ `[T2Space M]` and `[SecondCountableTopology M]`. Second countability is the hypothesis the textbook states; for a locally Euclidean Hausdorff space it is equivalent to $\sigma$-compactness, but the textbook's own form is the faithful one. |
 | 3 | $F$ is only assumed **continuous**, not smooth. | ✅ `hF : Continuous F`. |
 | 4 | $\delta$ is a function on $M$, not a constant, and it is continuous. | ✅ `δ : M → ℝ` with `hδ : Continuous δ`. |
 | 5 | $\delta$ is strictly positive at every point. | ✅ `hδpos : ∀ x, 0 < δ x`. |
@@ -41,7 +41,7 @@ wrong, even if it compiles.
 | 3 | Replacing the function $\delta$ by a constant $\varepsilon > 0$. | Strictly weaker whenever $M$ is not compact, and it discards the point of a variable tolerance: on $\mathbb{R}$ one cannot approximate an arbitrary continuous function uniformly by a smooth one to within any prescribed shrinking accuracy using a fixed $\varepsilon$ statement. |
 | 4 | Keeping $\delta$ a function but dropping `Continuous δ`. | The statement becomes false: an arbitrary positive function can be made to drop to near zero on a dense set, and no smooth map can track a continuous one that closely. |
 | 5 | Assuming $F$ is smooth rather than merely continuous. | Then the theorem is a triviality — take $F' = F$. The content is upgrading continuity to smoothness. |
-| 6 | Dropping `[T2Space M]` or `[SigmaCompactSpace M]`. | The proof is a partition-of-unity argument and needs paracompactness. Without those hypotheses the statement is false for non-paracompact locally Euclidean spaces. |
+| 6 | Dropping `[T2Space M]` or `[SecondCountableTopology M]`. | The proof is a partition-of-unity argument and needs paracompactness. Without those hypotheses the statement is false for non-paracompact locally Euclidean spaces. |
 | 7 | Requiring $A$ to be compact, or nonempty. | Neither is in the text. In particular $A = \emptyset$ must be allowed, since that is how the unconditional version is recovered. |
 
 ## Notes on the ground truth
@@ -69,3 +69,34 @@ wrong, even if it compiles.
   the target from `Fin k → ℝ` to an arbitrary finite-dimensional normed space has strengthened the
   statement and should be accepted.
 - This file does not import `Defs.lean`; everything it uses is in Mathlib.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[lee_10_16_whitney_approximation_theorem.md](lee_10_16_whitney_approximation_theorem.md) and the background in [lee_10_16_whitney_approximation_theorem.context.md](lee_10_16_whitney_approximation_theorem.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 11 rows, so each row is worth 4.5 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 4 with $\delta$ a constant rather than a positive continuous function.
+- Requirement 3 with $F$ assumed smooth.
+- Requirement 11 weakened from exact agreement on $A$ to closeness on $A$.
+
+### Domain-specific pitfalls for this problem
+
+- "Smooth on a closed set" means smooth on a neighbourhood of it; a `ContMDiffOn` restricted to the set itself is a different (weaker) condition.
+- The approximation is pointwise-strict, $|F'(x)-F(x)| < \delta(x)$, at every $x$.
+- Hausdorffness and second countability of $M$ are needed — the proof is a partition-of-unity argument — and Lee's stated countability condition is second countability.
+- One single $F'$ must satisfy all three conclusions.

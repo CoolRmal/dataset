@@ -1,6 +1,6 @@
 # Criteria: krylov_sobolev_12_10_2_bessel_potential_holder_embedding
 
-**Statement:** [krylov_sobolev_12_10_2_bessel_potential_holder_embedding.md](krylov_sobolev_12_10_2_bessel_potential_holder_embedding.md) · **Lean:** [krylov_sobolev_12_10_2_bessel_potential_holder_embedding.lean](krylov_sobolev_12_10_2_bessel_potential_holder_embedding.lean)
+**Statement:** [krylov_sobolev_12_10_2_bessel_potential_holder_embedding.md](krylov_sobolev_12_10_2_bessel_potential_holder_embedding.md) · **Lean:** [krylov_sobolev_12_10_2_bessel_potential_holder_embedding.lean](krylov_sobolev_12_10_2_bessel_potential_holder_embedding.lean) · **Context:** [krylov_sobolev_12_10_2_bessel_potential_holder_embedding.context.md](krylov_sobolev_12_10_2_bessel_potential_holder_embedding.context.md)
 
 ## What the theorem says
 
@@ -45,3 +45,35 @@ wrong, even if it compiles.
 - `besselOp γ` uses the symbol $(1 + (2\pi)^2|\xi|^2)^{\gamma/2}$, which under Mathlib's Fourier convention is exactly Krylov's $(1-\Delta)^{\gamma/2}$ — not merely an equivalent operator.
 - `0 ≤ N` is not stated because it is forced: the left sides are norms, so any $N$ that works is non-negative.
 - `(p⁻¹).toReal` is used instead of `d / p.toReal` because `ENNReal.toReal ⊤ = 0`; writing it this way makes the $p = \infty$ convention explicit rather than accidental.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[krylov_sobolev_12_10_2_bessel_potential_holder_embedding.md](krylov_sobolev_12_10_2_bessel_potential_holder_embedding.md) and the background in [krylov_sobolev_12_10_2_bessel_potential_holder_embedding.context.md](krylov_sobolev_12_10_2_bessel_potential_holder_embedding.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 2 with $N$ quantified after $\phi$, $x$ or $y$.
+- Requirement 4 with $d/p$ at $p=\infty$ evaluated by a division that returns a junk value rather than $0$.
+- Requirement 7 with $(1-\Delta)^{\gamma/2}$ replaced by a differential operator rather than the Fourier multiplier.
+
+### Domain-specific pitfalls for this problem
+
+- Junk value — division: $d/p$ with $p = \infty$ must be $0$; in `ℝ≥0∞` the inverse of $\infty$ is $0$, which gives the right convention, but a real-valued division would not.
+- $(1-\Delta)^{\gamma/2}$ is defined through the Fourier transform, with symbol $(1+|\xi|^2)^{\gamma/2}$; $\gamma$ is real and may be non-integral.
+- Both estimates share the constant $N$.
+- The exponent in the Hölder factor is $\delta = \gamma - d/p$, the same $\delta$ constrained by the hypothesis.
+- The endpoint $p = \infty$ is included in the range.

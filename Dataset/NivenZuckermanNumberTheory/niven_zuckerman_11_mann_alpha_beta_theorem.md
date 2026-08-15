@@ -4,6 +4,7 @@
 - **Domain:** Number theory
 - **Lean declaration:** `Dataset.NivenZuckermanNumberTheory.niven_zuckerman_11_mann_alpha_beta_theorem` ([niven_zuckerman_11_mann_alpha_beta_theorem.lean](niven_zuckerman_11_mann_alpha_beta_theorem.lean))
 - **Criteria:** [niven_zuckerman_11_mann_alpha_beta_theorem.criteria.md](niven_zuckerman_11_mann_alpha_beta_theorem.criteria.md)
+- **Context:** [niven_zuckerman_11_mann_alpha_beta_theorem.context.md](niven_zuckerman_11_mann_alpha_beta_theorem.context.md)
 
 ## Statement
 

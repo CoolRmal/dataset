@@ -4,6 +4,7 @@
 - **Domain:** PDE
 - **Lean declaration:** `Dataset.KrylovSobolev.krylov_sobolev_13_3_13_negative_order_divergence_decomposition` ([krylov_sobolev_13_3_13_negative_order_divergence_decomposition.lean](krylov_sobolev_13_3_13_negative_order_divergence_decomposition.lean))
 - **Criteria:** [krylov_sobolev_13_3_13_negative_order_divergence_decomposition.criteria.md](krylov_sobolev_13_3_13_negative_order_divergence_decomposition.criteria.md)
+- **Context:** [krylov_sobolev_13_3_13_negative_order_divergence_decomposition.context.md](krylov_sobolev_13_3_13_negative_order_divergence_decomposition.context.md)
 
 ## Statement
 

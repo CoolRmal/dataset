@@ -1,6 +1,6 @@
 # Criteria: lee_7_6_inverse_function_theorem
 
-**Statement:** [lee_7_6_inverse_function_theorem.md](lee_7_6_inverse_function_theorem.md) · **Lean:** [lee_7_6_inverse_function_theorem.lean](lee_7_6_inverse_function_theorem.lean)
+**Statement:** [lee_7_6_inverse_function_theorem.md](lee_7_6_inverse_function_theorem.md) · **Lean:** [lee_7_6_inverse_function_theorem.lean](lee_7_6_inverse_function_theorem.lean) · **Context:** [lee_7_6_inverse_function_theorem.context.md](lee_7_6_inverse_function_theorem.context.md)
 
 ## What the theorem says
 
@@ -56,3 +56,34 @@ wrong, even if it compiles.
   statement mentions distances, so the two are interchangeable here.
 - The smoothness class was originally written `⊤` and has been repaired to `∞`; mistake row 4 is
   kept as a regression check.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[lee_7_6_inverse_function_theorem.md](lee_7_6_inverse_function_theorem.md) and the background in [lee_7_6_inverse_function_theorem.context.md](lee_7_6_inverse_function_theorem.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 9 with a smooth bijection in place of a diffeomorphism (no smooth inverse).
+- Requirement 10 with the diffeomorphism not identified with $F$.
+- Requirement 5 with the derivative condition stated for an operator that is not known to be the genuine derivative.
+
+### Domain-specific pitfalls for this problem
+
+- Junk value — `fderiv`: without $C^\infty$ (or at least differentiability at $p$), `fderiv` is a default and the nonsingularity hypothesis says nothing.
+- Both neighbourhoods are required connected, and each is contained in the corresponding given open set.
+- The inverse must be smooth, not merely continuous.
+- $F$ must map $U$ into $V$ for the conclusion $V_0 \subseteq V$ to be available.

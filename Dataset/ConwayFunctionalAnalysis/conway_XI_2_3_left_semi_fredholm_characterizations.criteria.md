@@ -1,6 +1,6 @@
 # Criteria: conway_XI_2_3_left_semi_fredholm_characterizations
 
-**Statement:** [conway_XI_2_3_left_semi_fredholm_characterizations.md](conway_XI_2_3_left_semi_fredholm_characterizations.md) · **Lean:** [conway_XI_2_3_left_semi_fredholm_characterizations.lean](conway_XI_2_3_left_semi_fredholm_characterizations.lean)
+**Statement:** [conway_XI_2_3_left_semi_fredholm_characterizations.md](conway_XI_2_3_left_semi_fredholm_characterizations.md) · **Lean:** [conway_XI_2_3_left_semi_fredholm_characterizations.lean](conway_XI_2_3_left_semi_fredholm_characterizations.lean) · **Context:** [conway_XI_2_3_left_semi_fredholm_characterizations.context.md](conway_XI_2_3_left_semi_fredholm_characterizations.context.md)
 
 ## What the theorem says
 
@@ -71,3 +71,35 @@ wrong, even if it compiles.
 - Everything else is reused from Mathlib rather than hand-rolled: `IsCompactOperator`,
   `Orthonormal ℂ`, `ContinuousLinearMap.adjoint`, `toWeakSpace ℂ H`, `Submodule`,
   `FiniteDimensional`.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[conway_XI_2_3_left_semi_fredholm_characterizations.md](conway_XI_2_3_left_semi_fredholm_characterizations.md) and the background in [conway_XI_2_3_left_semi_fredholm_characterizations.context.md](conway_XI_2_3_left_semi_fredholm_characterizations.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 11 rows, so each row is worth 4.5 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 11 with any of the eight items omitted, or stated as implications rather than one equivalence.
+- Requirement 2 with $AB$ in place of $BA$, or with the error placed on the codomain space.
+- Requirement 3 with only one of "closed range" and "finite dimensional kernel".
+
+### Domain-specific pitfalls for this problem
+
+- "Manifold" in (f) means linear subspace; reading it geometrically produces a different statement.
+- Weak convergence in (d) must be taken in the weak topology (`WeakSpace`), and the vectors have norm exactly $1$.
+- (d) and (e) are *negative* statements — the assertion is that no such sequence exists; dropping a negation inverts the condition.
+- Compact and finite-rank errors are different in (a) and (c); that the two give the same class is part of the theorem.
+- In (g) the operator is the positive square root of $A^*A$, characterised by being positive with square $A^*A$; the spectral projection is that of the interval $[0,\delta]$, and finite-dimensionality is of its *range*.

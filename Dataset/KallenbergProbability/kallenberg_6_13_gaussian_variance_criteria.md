@@ -4,6 +4,7 @@
 - **Domain:** Probability
 - **Lean declaration:** `Dataset.KallenbergProbability.kallenberg_6_13_gaussian_variance_criteria` ([kallenberg_6_13_gaussian_variance_criteria.lean](kallenberg_6_13_gaussian_variance_criteria.lean))
 - **Criteria:** [kallenberg_6_13_gaussian_variance_criteria.criteria.md](kallenberg_6_13_gaussian_variance_criteria.criteria.md)
+- **Context:** [kallenberg_6_13_gaussian_variance_criteria.context.md](kallenberg_6_13_gaussian_variance_criteria.context.md)
 
 ## Statement
 

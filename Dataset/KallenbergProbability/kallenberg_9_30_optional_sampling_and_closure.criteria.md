@@ -1,6 +1,6 @@
 # Criteria: kallenberg_9_30_optional_sampling_and_closure
 
-**Statement:** [kallenberg_9_30_optional_sampling_and_closure.md](kallenberg_9_30_optional_sampling_and_closure.md) · **Lean:** [kallenberg_9_30_optional_sampling_and_closure.lean](kallenberg_9_30_optional_sampling_and_closure.lean)
+**Statement:** [kallenberg_9_30_optional_sampling_and_closure.md](kallenberg_9_30_optional_sampling_and_closure.md) · **Lean:** [kallenberg_9_30_optional_sampling_and_closure.lean](kallenberg_9_30_optional_sampling_and_closure.lean) · **Context:** [kallenberg_9_30_optional_sampling_and_closure.context.md](kallenberg_9_30_optional_sampling_and_closure.context.md)
 
 ## What the theorem says
 
@@ -62,3 +62,35 @@ wrong, even if it compiles.
   of a submartingale, so nothing beyond the text is being assumed.
 - `IsStoppingTime.measurableSpace` is a sub-$\sigma$-algebra of the ambient one in Mathlib, so the
   conditional expectations here are not silently $0$ for that reason.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[kallenberg_9_30_optional_sampling_and_closure.md](kallenberg_9_30_optional_sampling_and_closure.md) and the background in [kallenberg_9_30_optional_sampling_and_closure.context.md](kallenberg_9_30_optional_sampling_and_closure.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 11 rows, so each row is worth 4.5 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 7 with an equality in place of the sampling inequality.
+- Requirement 8 with the closure clause stated as a one-way implication rather than an equivalence.
+- Requirement 5 dropped, so the sampling inequality is asserted for unbounded $\tau$ unconditionally: false.
+
+### Domain-specific pitfalls for this problem
+
+- Optional times take values in $[0,\infty]$; on $\{\tau = \infty\}$ the stopped value has to be the terminal limit $X_\infty$, not an arbitrary default.
+- $\mathcal{F}_\sigma$ is the stopped $\sigma$-algebra, not $\mathcal{F}_t$ at some fixed $t$.
+- For a submartingale the sampling relation is an inequality in the stated direction.
+- Uniform integrability is of the positive parts $X_t^+$, not of $X_t$.
+- The right-continuity of both the filtration and the paths is a convention of the chapter and must be stated.

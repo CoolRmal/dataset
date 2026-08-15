@@ -4,6 +4,7 @@
 - **Domain:** Operator algebras
 - **Lean declaration:** `Dataset.ConwayFunctionalAnalysis.conway_VIII_5_17_gelfand_naimark` ([conway_VIII_5_17_gelfand_naimark.lean](conway_VIII_5_17_gelfand_naimark.lean))
 - **Criteria:** [conway_VIII_5_17_gelfand_naimark.criteria.md](conway_VIII_5_17_gelfand_naimark.criteria.md)
+- **Context:** [conway_VIII_5_17_gelfand_naimark.context.md](conway_VIII_5_17_gelfand_naimark.context.md)
 
 ## Statement
 

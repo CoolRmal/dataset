@@ -4,6 +4,7 @@
 - **Domain:** Measure theory
 - **Lean declaration:** `Dataset.BogachevGaussian.bogachev_gaussian_2_4_5_cameron_martin_dichotomy` ([bogachev_gaussian_2_4_5_cameron_martin_dichotomy.lean](bogachev_gaussian_2_4_5_cameron_martin_dichotomy.lean))
 - **Criteria:** [bogachev_gaussian_2_4_5_cameron_martin_dichotomy.criteria.md](bogachev_gaussian_2_4_5_cameron_martin_dichotomy.criteria.md)
+- **Context:** [bogachev_gaussian_2_4_5_cameron_martin_dichotomy.context.md](bogachev_gaussian_2_4_5_cameron_martin_dichotomy.context.md)
 
 ## Statement
 

@@ -1,6 +1,6 @@
 # Criteria: niven_zuckerman_11_8_few_prime_factors_density_zero
 
-**Statement:** [niven_zuckerman_11_8_few_prime_factors_density_zero.md](niven_zuckerman_11_8_few_prime_factors_density_zero.md) · **Lean:** [niven_zuckerman_11_8_few_prime_factors_density_zero.lean](niven_zuckerman_11_8_few_prime_factors_density_zero.lean)
+**Statement:** [niven_zuckerman_11_8_few_prime_factors_density_zero.md](niven_zuckerman_11_8_few_prime_factors_density_zero.md) · **Lean:** [niven_zuckerman_11_8_few_prime_factors_density_zero.lean](niven_zuckerman_11_8_few_prime_factors_density_zero.lean) · **Context:** [niven_zuckerman_11_8_few_prime_factors_density_zero.context.md](niven_zuckerman_11_8_few_prime_factors_density_zero.context.md)
 
 ## What the theorem says
 
@@ -54,3 +54,34 @@ wrong, even if it compiles.
 - Proving the theorem for the largest such set, $\{n : \omega(n) \le k\}$, gives the general case by
   comparison, so a candidate stating it for that specific set rather than for an arbitrary $A$ is
   making an equivalent claim. The printed version quantifies over $A$, so prefer that form.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[niven_zuckerman_11_8_few_prime_factors_density_zero.md](niven_zuckerman_11_8_few_prime_factors_density_zero.md) and the background in [niven_zuckerman_11_8_few_prime_factors_density_zero.context.md](niven_zuckerman_11_8_few_prime_factors_density_zero.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 5 rows, so each row is worth 10.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 with prime factors counted with multiplicity.
+- Requirement 1 with $k$ quantified after $A$.
+- Requirement 4 with only an upper bound on a limsup rather than existence of the limit.
+
+### Domain-specific pitfalls for this problem
+
+- "Distinct prime factors" is the cardinality of the prime support, not the number of prime factors with multiplicity.
+- The density asserted is the natural one, and its existence is part of the claim.
+- $k$ is fixed in advance, so the hypothesis is uniform over the members of $A$.
+- The counting function ranges over $1 \le a \le n$.

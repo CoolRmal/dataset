@@ -4,6 +4,7 @@
 - **Domain:** Topology
 - **Lean declaration:** `Dataset.EngelkingGeneralTopology.engelking_5_1_38_tamano_theorem` ([engelking_5_1_38_tamano_theorem.lean](engelking_5_1_38_tamano_theorem.lean))
 - **Criteria:** [engelking_5_1_38_tamano_theorem.criteria.md](engelking_5_1_38_tamano_theorem.criteria.md)
+- **Context:** [engelking_5_1_38_tamano_theorem.context.md](engelking_5_1_38_tamano_theorem.context.md)
 
 ## Statement
 

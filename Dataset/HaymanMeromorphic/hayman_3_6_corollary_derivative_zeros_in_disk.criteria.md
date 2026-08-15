@@ -1,6 +1,6 @@
 # Criteria: hayman_3_6_corollary_derivative_zeros_in_disk
 
-**Statement:** [hayman_3_6_corollary_derivative_zeros_in_disk.md](hayman_3_6_corollary_derivative_zeros_in_disk.md) · **Lean:** [hayman_3_6_corollary_derivative_zeros_in_disk.lean](hayman_3_6_corollary_derivative_zeros_in_disk.lean)
+**Statement:** [hayman_3_6_corollary_derivative_zeros_in_disk.md](hayman_3_6_corollary_derivative_zeros_in_disk.md) · **Lean:** [hayman_3_6_corollary_derivative_zeros_in_disk.lean](hayman_3_6_corollary_derivative_zeros_in_disk.lean) · **Context:** [hayman_3_6_corollary_derivative_zeros_in_disk.context.md](hayman_3_6_corollary_derivative_zeros_in_disk.context.md)
 
 ## What the theorem says
 
@@ -51,3 +51,34 @@ wrong, even if it compiles.
   makes the threshold on $l$ uniform. Keeping it as its own declaration is deliberate.
 - No integrals, suprema or coercions appear, so there is no default-value hazard beyond the pole
   convention and the `deriv` convention mentioned above.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[hayman_3_6_corollary_derivative_zeros_in_disk.md](hayman_3_6_corollary_derivative_zeros_in_disk.md) and the background in [hayman_3_6_corollary_derivative_zeros_in_disk.context.md](hayman_3_6_corollary_derivative_zeros_in_disk.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 7 rows, so each row is worth 7.1 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 1 with the threshold on $l$ chosen after the function or the disc.
+- Requirement 5 with only one pole required, or with the poles not required distinct.
+- Requirement 7 with the zero located anywhere in the plane rather than in the disc.
+
+### Domain-specific pitfalls for this problem
+
+- The quantifier order — $\forall^\infty l\ \forall f\ \forall \text{disc}$ — is the whole content; the reversed order is much weaker.
+- A pole is a point of meromorphy that is not a point of analyticity; "$f$ is undefined there" is not expressible for a total function.
+- The two poles must be distinct points of the *same* disc.
+- "Sufficiently large $l$" is an eventually-in-$l$ statement.

@@ -4,6 +4,7 @@
 - **Domain:** Number theory
 - **Lean declaration:** `Dataset.NivenIrrational.niven_5_3_log_two_pow_five_pow_irrational` ([niven_5_3_log_two_pow_five_pow_irrational.lean](niven_5_3_log_two_pow_five_pow_irrational.lean))
 - **Criteria:** [niven_5_3_log_two_pow_five_pow_irrational.criteria.md](niven_5_3_log_two_pow_five_pow_irrational.criteria.md)
+- **Context:** [niven_5_3_log_two_pow_five_pow_irrational.context.md](niven_5_3_log_two_pow_five_pow_irrational.context.md)
 
 ## Statement
 

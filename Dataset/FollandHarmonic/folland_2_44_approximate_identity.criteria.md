@@ -1,6 +1,6 @@
 # Criteria: folland_2_44_approximate_identity
 
-**Statement:** [folland_2_44_approximate_identity.md](folland_2_44_approximate_identity.md) · **Lean:** [folland_2_44_approximate_identity.lean](folland_2_44_approximate_identity.lean)
+**Statement:** [folland_2_44_approximate_identity.md](folland_2_44_approximate_identity.md) · **Lean:** [folland_2_44_approximate_identity.lean](folland_2_44_approximate_identity.lean) · **Context:** [folland_2_44_approximate_identity.context.md](folland_2_44_approximate_identity.context.md)
 
 ## What the theorem says
 
@@ -59,3 +59,35 @@ wrong, even if it compiles.
 - $\psi$ is real-valued, matching the book, and is coerced into `ℂ` where the convolution needs it.
 - `ε` is taken in `ℝ≥0∞`, so `ε = ∞` is permitted by `0 < ε`. That instance of the statement is
   trivially true and harmless.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[folland_2_44_approximate_identity.md](folland_2_44_approximate_identity.md) and the background in [folland_2_44_approximate_identity.context.md](folland_2_44_approximate_identity.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 with the quantifiers reordered — in particular fixing one family $\psi_U$ in advance rather than quantifying over all admissible bumps supported in $U$.
+- Requirement 8 with the right-hand conclusion asserted without the symmetry hypothesis (iii).
+- Requirement 6 with the unit-mass condition dropped: without it $\psi * f$ converges to a multiple of $f$.
+
+### Domain-specific pitfalls for this problem
+
+- The statement is $\forall \varepsilon\, \exists U\, \forall \psi$; a sequential reading ($\exists$ a family with norms tending to $0$) is strictly weaker.
+- Condition (i) is about the *closed* support being compact and contained in $U$.
+- Nonnegativity and unit mass are both needed; either alone gives a different limit.
+- Symmetry (iii) is needed only for the $f * \psi$ half, and it is the condition $\psi(x^{-1}) = \psi(x)$, not evenness in any additive sense.
+- Junk value — convolution: the convolution integral must converge for the $L^p$ estimate to be meaningful; here it does, because $\psi$ is integrable and $f \in L^p$.

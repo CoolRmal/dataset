@@ -4,6 +4,7 @@
 - **Domain:** Topology
 - **Lean declaration:** `Dataset.EngelkingGeneralTopology.engelking_5_1_9_paracompact_partition_of_unity` ([engelking_5_1_9_paracompact_partition_of_unity.lean](engelking_5_1_9_paracompact_partition_of_unity.lean))
 - **Criteria:** [engelking_5_1_9_paracompact_partition_of_unity.criteria.md](engelking_5_1_9_paracompact_partition_of_unity.criteria.md)
+- **Context:** [engelking_5_1_9_paracompact_partition_of_unity.context.md](engelking_5_1_9_paracompact_partition_of_unity.context.md)
 
 ## Statement
 

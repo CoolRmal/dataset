@@ -1,6 +1,6 @@
 # Criteria: engelking_5_1_38_tamano_theorem
 
-**Statement:** [engelking_5_1_38_tamano_theorem.md](engelking_5_1_38_tamano_theorem.md) · **Lean:** [engelking_5_1_38_tamano_theorem.lean](engelking_5_1_38_tamano_theorem.lean)
+**Statement:** [engelking_5_1_38_tamano_theorem.md](engelking_5_1_38_tamano_theorem.md) · **Lean:** [engelking_5_1_38_tamano_theorem.lean](engelking_5_1_38_tamano_theorem.lean) · **Context:** [engelking_5_1_38_tamano_theorem.context.md](engelking_5_1_38_tamano_theorem.context.md)
 
 ## What the theorem says
 
@@ -58,3 +58,34 @@ wrong, even if it compiles.
   Using `K : Type u` would make the equivalence literally correct at every instantiation.
 - The two `let` bindings in the goal are only there to keep the `List.TFAE` line readable; they do
   not change the statement.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[engelking_5_1_38_tamano_theorem.md](engelking_5_1_38_tamano_theorem.md) and the background in [engelking_5_1_38_tamano_theorem.context.md](engelking_5_1_38_tamano_theorem.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 5 or 6 with the quantifier over compactifications changed: (ii) is universal and (iv) existential.
+- Requirement 4 with "compactification" missing density or missing the Hausdorff condition.
+- Requirement 9 with Engelking's $T_1$ clause dropped from "normal".
+
+### Domain-specific pitfalls for this problem
+
+- Engelking's "normal", "compact" and "paracompact" all carry separation axioms that Mathlib's classes do not.
+- The product must carry the product topology; when the second factor's topology is a bound variable rather than an instance, the product topology has to be supplied explicitly.
+- Item (iii) is about $\beta X$ specifically, not about an arbitrary compactification.
+- A compactification is a dense *embedding*, not merely a continuous injection into a compact space.

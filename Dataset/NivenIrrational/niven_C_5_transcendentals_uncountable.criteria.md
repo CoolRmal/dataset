@@ -1,6 +1,6 @@
 # Criteria: niven_C_5_transcendentals_uncountable
 
-**Statement:** [niven_C_5_transcendentals_uncountable.md](niven_C_5_transcendentals_uncountable.md) · **Lean:** [niven_C_5_transcendentals_uncountable.lean](niven_C_5_transcendentals_uncountable.lean)
+**Statement:** [niven_C_5_transcendentals_uncountable.md](niven_C_5_transcendentals_uncountable.md) · **Lean:** [niven_C_5_transcendentals_uncountable.lean](niven_C_5_transcendentals_uncountable.lean) · **Context:** [niven_C_5_transcendentals_uncountable.context.md](niven_C_5_transcendentals_uncountable.context.md)
 
 ## What the theorem says
 
@@ -47,3 +47,32 @@ wrong, even if it compiles.
 - Honest assessment: Mathlib already has both halves — the countability of the algebraic numbers and
   the uncountability of `ℝ` — so this is a short consequence rather than a deep result. It is
   included because Niven states it as Theorem C.5.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[niven_C_5_transcendentals_uncountable.md](niven_C_5_transcendentals_uncountable.md) and the background in [niven_C_5_transcendentals_uncountable.context.md](niven_C_5_transcendentals_uncountable.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 5 rows, so each row is worth 10.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 4 with the claim made about the algebraic numbers or about all reals.
+- Requirement 3 with countability asserted rather than its negation.
+
+### Domain-specific pitfalls for this problem
+
+- The set is a subset of $\mathbb{R}$, cut out by transcendence over $\mathbb{Q}$.
+- "Uncountable" is the negation of `Set.Countable`.
+- The statement is unconditional.

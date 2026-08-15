@@ -1,6 +1,6 @@
 # Criteria: bogachev_4_6_3_nikodym_vitali_hahn_saks
 
-**Statement:** [bogachev_4_6_3_nikodym_vitali_hahn_saks.md](bogachev_4_6_3_nikodym_vitali_hahn_saks.md) · **Lean:** [bogachev_4_6_3_nikodym_vitali_hahn_saks.lean](bogachev_4_6_3_nikodym_vitali_hahn_saks.lean)
+**Statement:** [bogachev_4_6_3_nikodym_vitali_hahn_saks.md](bogachev_4_6_3_nikodym_vitali_hahn_saks.md) · **Lean:** [bogachev_4_6_3_nikodym_vitali_hahn_saks.lean](bogachev_4_6_3_nikodym_vitali_hahn_saks.lean) · **Context:** [bogachev_4_6_3_nikodym_vitali_hahn_saks.context.md](bogachev_4_6_3_nikodym_vitali_hahn_saks.context.md)
 
 ## What the theorem says
 
@@ -70,3 +70,35 @@ wrong, even if it compiles.
   two types.
 - Conclusions (2) and (3) sit inside the scope of the `∃ sLim` from conclusion (1) even though they
   do not mention `sLim`. This is only a nesting convenience and does not change what is asserted.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[bogachev_4_6_3_nikodym_vitali_hahn_saks.md](bogachev_4_6_3_nikodym_vitali_hahn_saks.md) and the background in [bogachev_4_6_3_nikodym_vitali_hahn_saks.context.md](bogachev_4_6_3_nikodym_vitali_hahn_saks.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 1: stating the theorem for nonnegative measures instead of signed ones. The Nikodym–Vitali–Hahn–Saks theorem is about real measures; the nonnegative case is materially different.
+- Requirement 2 strengthened by assuming $\sup_n \lVert\mu_n\rVert < \infty$: that is the theorem's own conclusion, and assuming it removes the content.
+- Requirement 5 with the boundedness of $\alpha$ dropped: the bound $|\mu_n(A)| \le \alpha(\nu(A))$ then says nothing and no uniform bound follows.
+
+### Domain-specific pitfalls for this problem
+
+- A `SignedMeasure` in Mathlib is a `VectorMeasure` into `ℝ`, hence automatically finite and of bounded variation — the right home for $\mathcal{M}(X,\mathcal{A})$. `Measure` (nonnegative, `ℝ≥0∞`-valued, possibly infinite) is not.
+- A signed measure applied to a non-measurable set returns `0` by definition, so every clause must be guarded by `MeasurableSet A`; without the guard some clauses are satisfied by that default rather than by mathematics.
+- Junk value — series: a tail sum $\sum_{i \ge n} \mu(A_i)$ written with `tsum` is `0` when the series is not summable, so a uniform-countable-additivity clause stated with `tsum` and no summability can be vacuously satisfied.
+- $\alpha(t) \to 0$ as $t \to 0$: taking the limit along the full neighbourhood filter of $0$ additionally forces $\alpha(0)=0$, whereas the book takes a one-sided limit. Here the two agree, because $\alpha \ge 0$ is nondecreasing, but the distinction is real in general.
+- The dominating measure $\lambda$ of part (3) belongs in the conclusion, universally quantified. Moving it into the theorem's hypotheses states a weaker result.

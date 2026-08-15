@@ -1,6 +1,6 @@
 # Criteria: lee_9_16_quotient_manifold_theorem
 
-**Statement:** [lee_9_16_quotient_manifold_theorem.md](lee_9_16_quotient_manifold_theorem.md) · **Lean:** [lee_9_16_quotient_manifold_theorem.lean](lee_9_16_quotient_manifold_theorem.lean)
+**Statement:** [lee_9_16_quotient_manifold_theorem.md](lee_9_16_quotient_manifold_theorem.md) · **Lean:** [lee_9_16_quotient_manifold_theorem.lean](lee_9_16_quotient_manifold_theorem.lean) · **Context:** [lee_9_16_quotient_manifold_theorem.context.md](lee_9_16_quotient_manifold_theorem.context.md)
 
 ## What the theorem says
 
@@ -28,7 +28,7 @@ row is incomplete.
 | 8 | A projection $\pi : M \to Q$ that is surjective and whose fibres are exactly the orbits. | ✅ `Surjective π` and `∀ x y, π x = π y ↔ ∃ a, act a x = y`. The `↔` is essential in both directions. |
 | 9 | $\pi$ is a smooth submersion. | ✅ `Manifold.IsSubmersion 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin (m - g) → ℝ) ∞ π`. |
 | 10 | Uniqueness of the smooth structure: any other $Q'$ with the same kind of structure and a projection $\pi'$ that is surjective, orbit-separating and a smooth submersion is related to $Q$ by a diffeomorphism $e$ with $e \circ \pi = \pi'$. | ✅ The whole trailing `∀ (Q' : Type v) …` block, concluding `∃ e : Diffeomorph … Q Q' ∞, e ∘ π = π'`. |
-| 11 | The quotient $M/G$ is Hausdorff (and second countable) — for Lee this is part of being a topological manifold, and separating orbits is the substantive job that properness does. | ⚠️ Missing. Only `TopologicalSpace Q`, `ChartedSpace` and `IsManifold` are produced. `T2Space Q` and `SecondCountableTopology Q` should be among the existentially produced instances, and correspondingly `[T2Space M]`, `[SecondCountableTopology M]` should be hypotheses — as it stands the theorem cannot even be asked to deliver them. |
+| 11 | The quotient $M/G$ is Hausdorff (and second countable) — for Lee this is part of being a topological manifold, and separating orbits is the substantive job that properness does. | ✅ `T2Space Q` and `SecondCountableTopology Q` are among the existentially produced instances, with `[T2Space M]` and `[SecondCountableTopology M]` as hypotheses. |
 
 ## Mistakes to check for
 
@@ -68,3 +68,35 @@ wrong, even if it compiles.
   Binding the instances as `∃ (_ : TopologicalSpace Q) …` makes them anonymous but still visible to
   instance search inside the body. Without a construction in Mathlib this chain of existentials is
   the only option; the statement is heavy but faithful.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[lee_9_16_quotient_manifold_theorem.md](lee_9_16_quotient_manifold_theorem.md) and the background in [lee_9_16_quotient_manifold_theorem.context.md](lee_9_16_quotient_manifold_theorem.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 11 rows, so each row is worth 4.5 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 6 with properness dropped or weakened: the orbit space need not be Hausdorff.
+- Requirement 10 with uniqueness of the smooth structure omitted.
+- Requirement 11 with the Hausdorff/second-countable conclusions about the quotient omitted.
+
+### Domain-specific pitfalls for this problem
+
+- Smoothness of the action is joint in $(a,x)$.
+- Properness is properness of $(a,x)\mapsto(a\cdot x,x)$, not of the action map itself.
+- The dimension of the quotient is $\dim M - \dim G$; in a formalization with natural-number dimensions, truncated subtraction must not be allowed to hide a degenerate case.
+- "Topological manifold" for Lee carries Hausdorffness and second countability, so those belong among the produced structures.
+- Uniqueness is up to a diffeomorphism commuting with the projections, not mere existence of some diffeomorphism.

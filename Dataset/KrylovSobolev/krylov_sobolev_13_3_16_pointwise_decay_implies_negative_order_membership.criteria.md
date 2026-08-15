@@ -1,6 +1,6 @@
 # Criteria: krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership
 
-**Statement:** [krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership.md](krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership.md) · **Lean:** [krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership.lean](krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership.lean)
+**Statement:** [krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership.md](krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership.md) · **Lean:** [krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership.lean](krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership.lean) · **Context:** [krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership.context.md](krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership.context.md)
 
 ## What the theorem says
 
@@ -48,3 +48,35 @@ wrong, even if it compiles.
 - The `hd : 0 < d` hypothesis was added after an adversarial review produced a compiling refutation of the $d = 0$ case; see `GROUND_TRUTH_ISSUES.md`.
 - $\|x\|^{-\nu}$ is `Real.rpow`, which is why the bound is stated for `x ≠ 0`.
 - In the second half `ContDiff ℝ n u` is assumed so that the derivatives $D^\alpha u$ the hypothesis talks about actually exist; `multiDeriv` would otherwise silently return $0$.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership.md](krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership.md) and the background in [krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership.context.md](krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 8 with $d = 0$ admitted: the second half is then false, since the decay and support hypotheses hold vacuously for every constant while the $H_p^\gamma$ norms of the constants are unbounded.
+- Requirement 4 with the "either/or" collapsed to one branch.
+- Requirement 6 with the bounding constant allowed to depend on $u$.
+
+### Domain-specific pitfalls for this problem
+
+- The bounding constant depends only on $d,p,\rho,\nu,\gamma,N_0$ (and $n$ in the second half); its quantifier position is the content.
+- The decay hypothesis in the second half is on *every* derivative of order $\le n$, not only on $u$.
+- $\gamma$ is a real number, negative in the first half and $\le n$ in the second.
+- Membership in $H_p^\gamma$ for $\gamma < 0$ is about a distribution, and the hypotheses deliberately do not give $u \in \mathcal{L}_p$.
+- Both halves are asserted.

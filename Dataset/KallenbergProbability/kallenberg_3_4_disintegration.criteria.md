@@ -1,6 +1,6 @@
 # Criteria: kallenberg_3_4_disintegration
 
-**Statement:** [kallenberg_3_4_disintegration.md](kallenberg_3_4_disintegration.md) · **Lean:** [kallenberg_3_4_disintegration.lean](kallenberg_3_4_disintegration.lean)
+**Statement:** [kallenberg_3_4_disintegration.md](kallenberg_3_4_disintegration.md) · **Lean:** [kallenberg_3_4_disintegration.lean](kallenberg_3_4_disintegration.lean) · **Context:** [kallenberg_3_4_disintegration.context.md](kallenberg_3_4_disintegration.context.md)
 
 ## What the theorem says
 
@@ -53,3 +53,35 @@ wrong, even if it compiles.
   are equivalent measures, the density really is almost everywhere strictly positive and finite, and
   without saying so the phrase "unique up to normalizations" is rendered more weakly than the text
   intends. A candidate that includes those bounds is better than the ground truth here.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[kallenberg_3_4_disintegration.md](kallenberg_3_4_disintegration.md) and the background in [kallenberg_3_4_disintegration.context.md](kallenberg_3_4_disintegration.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 with one-sided absolute continuity instead of equivalence of $\nu$ with the first marginal.
+- Requirement 4 with $\sigma$-finiteness of the kernel read as a per-$s$ exhaustion rather than Kallenberg's single global witness $f>0$.
+- Requirement 6 with uniqueness stated as literal equality rather than equality up to a density.
+
+### Domain-specific pitfalls for this problem
+
+- "Finite", "s-finite" and "$\sigma$-finite" are three different conditions on a kernel, and the theorem uses all three in different places.
+- The standard Borel hypothesis is on the *second* factor $T$; imposing it on $S$ narrows the theorem.
+- Part (ii)'s boundedness clause is an "iff", tying a.e.-finite fibres to $\sigma$-finiteness of the first marginal.
+- Part (iii) is a separate assertion: when the marginal is $\sigma$-finite one may take the kernel to be a *probability* kernel.
+- $\nu \otimes \mu$ is the composition-product of a measure with a kernel, not a product measure.
