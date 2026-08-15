@@ -4,6 +4,7 @@
 - **Domain:** Analysis
 - **Lean declaration:** `Dataset.Bogachev.hardy_average_and_tail_memLp` ([hardy_average_and_tail_memLp.lean](hardy_average_and_tail_memLp.lean))
 - **Criteria:** [hardy_average_and_tail_memLp.criteria.md](hardy_average_and_tail_memLp.criteria.md)
+- **Context:** [hardy_average_and_tail_memLp.context.md](hardy_average_and_tail_memLp.context.md)
 
 ## Statement
 

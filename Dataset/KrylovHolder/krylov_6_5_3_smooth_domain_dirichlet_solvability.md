@@ -4,6 +4,7 @@
 - **Domain:** PDE
 - **Lean declaration:** `Dataset.KrylovHolder.krylov_6_5_3_smooth_domain_dirichlet_solvability` ([krylov_6_5_3_smooth_domain_dirichlet_solvability.lean](krylov_6_5_3_smooth_domain_dirichlet_solvability.lean))
 - **Criteria:** [krylov_6_5_3_smooth_domain_dirichlet_solvability.criteria.md](krylov_6_5_3_smooth_domain_dirichlet_solvability.criteria.md)
+- **Context:** [krylov_6_5_3_smooth_domain_dirichlet_solvability.context.md](krylov_6_5_3_smooth_domain_dirichlet_solvability.context.md)
 
 ## Statement
 

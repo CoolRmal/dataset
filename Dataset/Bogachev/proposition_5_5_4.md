@@ -4,6 +4,7 @@
 - **Domain:** Analysis
 - **Lean declaration:** `Dataset.Bogachev.proposition_5_5_4` ([proposition_5_5_4.lean](proposition_5_5_4.lean))
 - **Criteria:** [proposition_5_5_4.criteria.md](proposition_5_5_4.criteria.md)
+- **Context:** [proposition_5_5_4.context.md](proposition_5_5_4.context.md)
 
 ## Statement
 

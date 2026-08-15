@@ -1,17 +1,87 @@
 # Criteria: engelking_4_4_8_bing_metrization
 
-**Statement:** [engelking_4_4_8_bing_metrization.md](engelking_4_4_8_bing_metrization.md) · **Lean:** [engelking_4_4_8_bing_metrization.lean](engelking_4_4_8_bing_metrization.lean)
+**Statement:** [engelking_4_4_8_bing_metrization.md](engelking_4_4_8_bing_metrization.md) · **Lean:** [engelking_4_4_8_bing_metrization.lean](engelking_4_4_8_bing_metrization.lean) · **Context:** [engelking_4_4_8_bing_metrization.context.md](engelking_4_4_8_bing_metrization.context.md)
 
-Bing's theorem is the $\sigma$-**discrete** counterpart of Nagata–Smirnov: metrizability of the given topology is equivalent to regularity (Engelking's regularity, i.e. with $T_1$) together with a base that splits into countably many *discrete* families. The formalization must therefore get three things right simultaneously: the $T_1$ axiom that mathlib's `RegularSpace` omits and without which the biconditional is false; the difference between *discrete* and *locally finite* families (using the latter turns this into the neighbouring theorem 4.4.7); and a metrizability side that pins down the given topology rather than merely asserting that some metric exists.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Bing's theorem characterizes metrizability the same way Nagata–Smirnov does, but with a stronger
+condition on the base. A space is metrizable exactly when it is regular in Engelking's sense
+(regular and $T_1$) and it has a base that splits into countably many *discrete* families — families
+in which every point of the space has a neighbourhood meeting at most one member. Both directions are
+asserted.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Separation axioms (the Engelking convention) | Engelking's "regular" bundles $T_1$; mathlib's `RegularSpace` does not, and the biconditional fails without it: the two-point indiscrete space is `RegularSpace`, and its base $\{X\}$ is a one-element — hence discrete — family, so the right-hand side holds while the space is not metrizable. | ✅ `[T1Space X]` is assumed, making `RegularSpace X` Engelking's notion. ❗ Predicted error: omitting $T_1$; `T3Space X` in place of `T1Space` + `RegularSpace` is an acceptable variant. |
-| 2 | Faithful encoding (discrete vs. locally finite) | A *discrete* family is one where every point has a neighbourhood meeting **at most one** member; this is strictly stronger than local finiteness. Substituting `LocallyFinite` for `IsDiscreteFamily` yields Nagata–Smirnov (4.4.7), a different theorem, and substituting pairwise disjointness yields a false characterization. | ✅ `HasSigmaDiscreteBase` uses `IsDiscreteFamily (B n)` for each layer, with `IsDiscreteFamily U := ∀ x, ∃ V ∈ 𝓝 x, {i \| (V ∩ U i).Nonempty}.Subsingleton`. ❗ Predicted errors: `LocallyFinite`, or `Pairwise (Disjoint on ·)`. |
-| 3 | Faithful encoding ($\sigma$-discrete base) | The countably many discrete families must be *layers of a base*: their union is required to be a topological base, not each layer separately. Also, the decomposition must be indexed by $\mathbb{N}$ (countably many layers). | ✅ `∃ (ι : ℕ → Type v) (B : ∀ n, ι n → Set X), IsTopologicalBasis {V \| ∃ n i, B n i = V} ∧ ∀ n, IsDiscreteFamily (B n)`; openness of the base members follows from `IsTopologicalBasis.eq_generateFrom`. |
-| 4 | Faithful encoding (metrizability) | "Metrizable" must mean the given topology is induced by a metric. Mathlib's `MetrizableSpace X` (= `PseudoMetrizableSpace X` + `T0Space X`) carries `u.toTopologicalSpace = t` in its unfolding, so it is the right notion; producing a `MetricSpace X` instance without asserting that its topology is the ambient one would state something vacuous. | ✅ `MetrizableSpace X` is the left-hand side of the `↔`. |
-| 5 | Conclusion completeness | Both directions of the `↔` and both right-hand conjuncts are required. Note the forward direction is genuinely Stone's theorem 4.4.1 in disguise (a metrizable space has a $\sigma$-discrete base), so a candidate that keeps only `←` loses half of the content. | ✅ `MetrizableSpace X ↔ RegularSpace X ∧ HasSigmaDiscreteBase X`. ❗ Predicted error: single-direction implication, or moving `RegularSpace X` into the instance binders. |
-| 6 | Mathlib conventions | Mathlib has neither `IsDiscreteFamily` nor Bing's theorem (checked), so the custom predicate is justified; everything else reuses mathlib (`IsTopologicalBasis`, `𝓝`, `Set.Subsingleton`, `MetrizableSpace`). Note `IsDiscreteFamily` is stated for an *indexed* family and its `Subsingleton` condition is on the set of indices met — the correct indexed analogue, since a discrete family cannot repeat a nonempty set. | ✅ Correct reuse; no notion re-implemented that mathlib already has. |
-| 7 | Universe hygiene | The layer index types `ι n : Type v` live in a free universe parameter, so the statement is implicitly universally quantified over `v`; at universes below that of `X` the right-hand side can be unsatisfiable for cardinality reasons. | ⚠️ Acceptable at the standard instantiation, but layers indexed by subtypes of `Set X` (`Type u`) would be unambiguous and equally readable. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The statement is a biconditional; both directions are claimed. | ✅ `MetrizableSpace X ↔ RegularSpace X ∧ HasSigmaDiscreteBase X`. |
+| 2 | The $T_1$ axiom is present, since Engelking's "regular" bundles it in. | ✅ `[T1Space X]` as an instance hypothesis, making `RegularSpace X` Engelking's notion. |
+| 3 | Regularity is a conjunct of the right-hand side, not a standing hypothesis. | ✅ `RegularSpace X` sits inside the `↔`. |
+| 4 | "Metrizable" means the given topology comes from a metric. | ✅ `MetrizableSpace X` (= `PseudoMetrizableSpace X` + `T0Space X`), whose unfolding carries `u.toTopologicalSpace = t`. |
+| 5 | The base splits into countably many layers, indexed by $\mathbb{N}$. | ✅ `∃ (ι : ℕ → Type v) (B : ∀ n, ι n → Set X), …`. |
+| 6 | It is the union of the layers that must be a base, not each layer individually. | ✅ `IsTopologicalBasis {V \| ∃ n i, B n i = V}`. |
+| 7 | Each layer is **discrete**: every point has a neighbourhood meeting at most one member of that layer. | ✅ `∀ n, IsDiscreteFamily (B n)`, with `IsDiscreteFamily U := ∀ x, ∃ V ∈ 𝓝 x, {i \| (V ∩ U i).Nonempty}.Subsingleton`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Using `LocallyFinite` for the layers instead of `IsDiscreteFamily`. | That is theorem 4.4.7 (Nagata–Smirnov), a different statement. Discreteness is strictly stronger than local finiteness. |
+| 2 | Defining "discrete" as pairwise disjoint. | Disjointness is weaker: the intervals $(1/(n+1),\,1/n)$ in $\mathbb{R}$ are pairwise disjoint, but every neighbourhood of $0$ meets infinitely many. The resulting characterization would be false. |
+| 3 | Omitting the $T_1$ hypothesis. | The biconditional fails: the two-point indiscrete space is `RegularSpace` in mathlib and its base $\{X\}$ is a one-element, hence discrete, family, yet it is not metrizable. |
+| 4 | Producing a `MetricSpace X` instance without asserting that its topology is the ambient one. | Says nothing — nearly any type carries some metric. The topology has to be pinned down. |
+| 5 | Keeping only the `←` direction. | The forward direction is Stone's theorem 4.4.1 in disguise (a metrizable space has a $\sigma$-discrete base) and carries half the content. |
+| 6 | Moving `RegularSpace X` into the instance binders. | Weaker: the forward direction no longer has to derive regularity from metrizability. |
+
+## Notes on the ground truth
+
+- `T3Space X` in place of `[T1Space X]` plus the `RegularSpace X` conjunct is an equally faithful
+  variant and should be accepted.
+- Openness of the base members is not stated separately; it follows from
+  `IsTopologicalBasis.eq_generateFrom`, so nothing is missing.
+- Mathlib has neither `IsDiscreteFamily` nor Bing's theorem, so the custom predicate is justified;
+  everything else reuses mathlib (`IsTopologicalBasis`, `𝓝`, `Set.Subsingleton`, `MetrizableSpace`).
+- `IsDiscreteFamily` is stated for an *indexed* family and its `Subsingleton` condition is on the set
+  of indices met. That is the right indexed analogue: a discrete family cannot list the same
+  nonempty set twice.
+- ⚠️ The layer index types `ι n : Type v` live in a free universe parameter, so the statement is
+  implicitly claimed for every `v`. At universes below that of `X` the right-hand side can be
+  unsatisfiable for size reasons. Indexing the layers by subtypes of `Set X` would be unambiguous and
+  just as readable.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[engelking_4_4_8_bing_metrization.md](engelking_4_4_8_bing_metrization.md) and the background in [engelking_4_4_8_bing_metrization.context.md](engelking_4_4_8_bing_metrization.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 7 rows, so each row is worth 7.1 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 6 with each layer required to be a base instead of the union.
+- Requirement 7 with "discrete" weakened to "locally finite", which states Nagata–Smirnov rather than Bing.
+- Requirement 1 stated as a single implication.
+
+### Domain-specific pitfalls for this problem
+
+- A discrete family is strictly stronger than a locally finite one; substituting the latter gives a different theorem.
+- Engelking's "regular" includes $T_1$.
+- It is the union of the countably many layers that must be a base.
+- "Metrizable" refers to the given topology.

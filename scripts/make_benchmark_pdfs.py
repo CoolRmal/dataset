@@ -1091,6 +1091,510 @@ KRYLOV_HOLDER = [
 ]
 
 
+KRYLOV_SOBOLEV = [
+    Entry(
+        1,
+        'Exercise 10.4.2. Let Ω = ℝ^d or Ω = ℝ^d_+ and assume that (2) holds for any u ∈ C_0^∞(Ω) and some k, m, p, q with a constant independent of u. Then prove that k ≥ m and (1) holds. Notation: The displays referred to are those of Lemma 10.4.1, where k ∈ {1, 2, ...}, p ∈ [1, ∞), m ∈ {0, ..., k} and q ∈ (0, ∞): k - (d)/(p) = m - (d)/(q) [u]_{W_q^m(Ω)} ≤ N[u]_{W_p^k(Ω)} Here [u]_{W_p^k(Ω)} = ∑_{|α| = k}‖D^α u‖_{L_p(Ω)} is the top-order seminorm — the sum runs over multi-indices of order exactly k — and ℝ^d_+ = {x ∈ ℝ^d : x^1 > 0}. In the exercise k, m, p, q are not assumed to satisfy any relation that they must is the point. For an integer k ≥ 0, C_0^k denotes the C^k functions on ℝ^d that vanish for |x| sufficiently large, and C_0^∞ the infinitely differentiable ones. Subscripts denote partial derivatives: u_{x^i} = D_iu and u_{x^ix^j} = D_{ij}u. Repeated indices are summed. L_p = L_p(ℝ^d) is taken with respect to Lebesgue measure.',
+        "PDE",
+        "Dataset/KrylovSobolev.lean",
+        "krylov_sobolev_10_4_2_seminorm_embedding_forces_scaling_relation",
+        ['partialDeriv', 'multiDeriv'],
+    ),
+    Entry(
+        2,
+        'Lemma 12.10.2. Let p ∈ (1, ∞] and let 0 < δ := γ - d/p < 1. Then there is a constant N such that, for any φ ∈ S and x, y ∈ ℝ^d, |φ(x)| ≤ N‖(1 - Δ)^{γ/2}φ‖_{L_p}, |φ(x) - φ(y)| ≤ N|x - y|^δ‖(1 - Δ)^{γ/2}φ‖_{L_p}. Notation: S is the Schwartz space. By Definition 12.9.1, (1 - Δ)^{γ/2} is the pseudo-differential operator with symbol (1 + |ξ|^2)^{γ/2}, that is (1-Δ)^{γ/2}φ = F^{-1}((1 + |ξ|^2)^{γ/2}Fφ), where F is the Fourier transform. At p = ∞ the convention is d/p = 0, so δ = γ.',
+        "PDE",
+        "Dataset/KrylovSobolev.lean",
+        "krylov_sobolev_12_10_2_bessel_potential_holder_embedding",
+        ['besselOp'],
+    ),
+    Entry(
+        3,
+        'Exercise 12.2.13. Prove that if the coefficients a^α of an mth order strongly elliptic differential operator are real and d ≥ 2, then m is even. Notation: From Definition 12.2.1: let m ≥ 1 be an integer and let a^α be some (complex) numbers given for any multi-indices α such that |α| ≤ m. The operator L = ∑_{|α| ≤ m}a^α D^α is called an mth order operator with constant coefficients. It is called (mth order) strongly elliptic if both ∑_{|α| = m}a^αξ^α ≠ 0 for ξ ∈ ℝ^d minus {0}, ∑_{|α| ≤ m}a^α i^{|α|}ξ^α ≠ 0 for ξ ∈ ℝ^d. The polynomial σ(ξ) = σ_L(ξ) = ∑_{|α| ≤ m}a^α i^{|α|}ξ^α is called the characteristic polynomial of L. Here ξ^α = (ξ^1)^{α_1}...(ξ^d)^{α_d}.',
+        "PDE",
+        "Dataset/KrylovSobolev.lean",
+        "krylov_sobolev_12_2_13_real_strongly_elliptic_order_even",
+        ['IsStronglyElliptic'],
+    ),
+    Entry(
+        4,
+        "Exercise 13.3.13. Prove that for any g ∈ H_p^{-1} there exist f_0, ..., f_d ∈ L_p such that g = f_0 + ∑_j D_jf_j and ∑_{j=0}^d‖f_j‖_{L_p} ≤ N‖g‖_{H_p^{-1}}, where the constant N is independent of g. Also prove that if (7) holds with f_0, ..., f_d ∈ L_p, then g ∈ H_p^{-1} and ‖g‖_{H_p^{-1}} ≤ N∑_{j=0}^d‖f_j‖_{L_p}, where the constant N is independent of the f_j's. Notation: Throughout Section 13.3, p ∈ (1, ∞). By Definition 13.3.1, H_p^γ = (1 - Δ)^{-γ/2}L_p and, for g ∈ H_p^γ, ‖g‖_{H_p^γ} = ‖(1 - Δ)^{γ/2}g‖_{L_p}. These are the spaces of Bessel potentials. In (7) the D_jf_j are distributional derivatives, so the identity is an identity of distributions, not of functions.",
+        "PDE",
+        "Dataset/KrylovSobolev.lean",
+        "krylov_sobolev_13_3_13_negative_order_divergence_decomposition",
+        ['sobolevNorm'],
+    ),
+    Entry(
+        5,
+        'Exercise 13.3.16. Sometimes it is hard to recognize whether a function u is in H_p^γ, for a γ < 0. Prove that if u has support in B_ρ, where ρ ∈ (0, ∞), and |u(x)| ≤ N_0|x|^{-ν}, ν < d, 0 < (ν + γ)p < d, γ < 0, then u ∈ H_p^γ and ‖u‖_{H_p^γ} is less than a constant depending only on d, p, ρ, ν, γ, N_0. Observe that generally such a u ∉ L_p, because one need not have ν p < d, and one cannot use the trivial embedding L_p ⊂ H_p^γ. By using Corollary 11 generalize the result and prove that if n ∈ {0, 1, ...}, γ ∈ ℝ, γ ≤ n, u has support in B_ρ, |D^α u(x)| ≤ N_0|x|^{-ν}, ∀|α| ≤ n, ν < d, and either γ < n and 0 < (ν + γ - n)p < d, or γ = n and ν p < d, then u ∈ H_p^γ and ‖u‖_{H_p^γ} is estimated by a constant depending only on d, p, ρ, ν, γ, n, N_0. Notation: Throughout Section 13.3, p ∈ (1, ∞), and H_p^γ with its norm is Definition 13.3.1: H_p^γ = (1 - Δ)^{-γ/2}L_p with ‖g‖_{H_p^γ} = ‖(1 - Δ)^{γ/2}g‖_{L_p}. B_ρ is the ball of radius ρ centered at the origin. For an integer k ≥ 0, C_0^k denotes the C^k functions on ℝ^d that vanish for |x| sufficiently large, and C_0^∞ the infinitely differentiable ones. Subscripts denote partial derivatives: u_{x^i} = D_iu and u_{x^ix^j} = D_{ij}u. Repeated indices are summed. L_p = L_p(ℝ^d) is taken with respect to Lebesgue measure.',
+        "PDE",
+        "Dataset/KrylovSobolev.lean",
+        "krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership",
+        ['partialDeriv', 'multiDeriv', 'sobolevNorm'],
+    ),
+    Entry(
+        6,
+        'Theorem 13.6.3. There exists a constant λ_0 > 0, depending only on d, p, κ, ω, and K, such that for any λ ≥ λ_0 and f^1, ..., f^d, g ∈ L_p there exists a unique u ∈ W_p^1 satisfying (1). Furthermore, for this solution λ^{1/2}‖u‖_{L_p} + ‖Du‖_{L_p} ≤ N(λ^{-1/2}‖g‖_{L_p} + ∑_{i=1}^d‖f^i‖_{L_p}), where N depends only on d, p, κ, and K. Notation: The standing setting of Section 13.6: p ∈ (1, ∞) is fixed and in ℝ^d we consider the equation Lu - λ u = D_if^i + g where Lu(x) = D_i(a^{ij}(x)D_ju(x) + a^i(x)u(x)) + b^i(x)D_iu(x) + c(x)u(x). All coefficients and f^i and g are real valued and, for some constant K, κ > 0 and all i, j, on ℝ^d |a^{ij}|, |a^i|, |b^i|, |c| ≤ K, a^{rk}ξ^rξ^k ≥ κ|ξ|^2, ∀ξ ∈ ℝ^d. There also exists a function ω(ε), ε > 0, such that ω(ε) → 0 as ε ↓ 0 and, for all i, j and x, y ∈ ℝ^d with |x - y| ≤ ε, |a^{ij}(x) - a^{ij}(y)| ≤ ω(ε). Solutions of (1) are sought in the class W_p^1 = H_p^1, and (1) is understood in the sense of distributions. For an integer k ≥ 0, C_0^k denotes the C^k functions on ℝ^d that vanish for |x| sufficiently large, and C_0^∞ the infinitely differentiable ones. Subscripts denote partial derivatives: u_{x^i} = D_iu and u_{x^ix^j} = D_{ij}u. Repeated indices are summed. L_p = L_p(ℝ^d) is taken with respect to Lebesgue measure.',
+        "PDE",
+        "Dataset/KrylovSobolev.lean",
+        "krylov_sobolev_13_6_3_divergence_form_solvability",
+        ['partialDeriv', 'HasWeakGradient', 'IsDivergenceFormSolution'],
+    ),
+    Entry(
+        7,
+        'Exercise 1.1.13. Let m ≥ 1 be an integer and let a^α be some (complex) numbers, not all of which are zero, given for any multi-indices α such that |α| ≤ m. Consider the operator L = ∑_{|α| ≤ m} a^α D^α and prove that the set LC_0^∞ is everywhere dense in L_p for any p ∈ [2, ∞). Notation: A multi-index is a d-tuple α = (α_1, ..., α_d) of non-negative integers, |α| = α_1 + ... + α_d, and D^α = D_1^{α_1}... D_d^{α_d}. The exponent range here is [2, ∞), not the [1, ∞) of Theorem 1.1.6 Remark 1.1.14 flags the restriction. For an integer k ≥ 0, C_0^k denotes the C^k functions on ℝ^d that vanish for |x| sufficiently large, and C_0^∞ the infinitely differentiable ones. Subscripts denote partial derivatives: u_{x^i} = D_iu and u_{x^ix^j} = D_{ij}u. Repeated indices are summed. L_p = L_p(ℝ^d) is taken with respect to Lebesgue measure.',
+        "PDE",
+        "Dataset/KrylovSobolev.lean",
+        "krylov_sobolev_1_1_13_const_coeff_operator_range_dense",
+        ['partialDeriv', 'multiDeriv'],
+    ),
+    Entry(
+        8,
+        'Exercise 1.3.23. (i) Let B be the open unit ball centered at the origin and let u be a twice continuously differentiable function on B-bar. Assume that u = 0 on ∂ B. Set f = Δ u and prove that ‖u‖^2_{L_2(B)} + ∑_i‖u_{x^i}‖^2_{L_2(B)} ≤ 4‖f‖^2_{L_2(B)}. (ii) Given an integer n, denote by P_n the set of polynomials of x of degree ≤ n and let A be the operator A : P_n → P_n given by the formula Ap = Δ[(1 - |x|^2)p]. Conclude from (i) that A is invertible. Notation: Part (iii) of the exercise, which needs W_2^2(B), is not formalized. Δ u = u_{x^1x^1} + ... + u_{x^dx^d} is the Laplacian, and "degree ≤ n" means total degree in the d variables. For an integer k ≥ 0, C_0^k denotes the C^k functions on ℝ^d that vanish for |x| sufficiently large, and C_0^∞ the infinitely differentiable ones. Subscripts denote partial derivatives: u_{x^i} = D_iu and u_{x^ix^j} = D_{ij}u. Repeated indices are summed. L_p = L_p(ℝ^d) is taken with respect to Lebesgue measure.',
+        "PDE",
+        "Dataset/KrylovSobolev.lean",
+        "krylov_sobolev_1_3_23_unit_ball_estimate_and_polynomial_operator_bijective",
+        ['partialDeriv'],
+    ),
+    Entry(
+        9,
+        'Exercise 1.4.8. Let d = 2, a^{ij}(x) be measurable functions on ℝ^2 satisfying a^{ij} = a^{ji} and condition (5) for all x, ξ ∈ ℝ^2, where μ > 0 and ν > 0 are some constants. For a λ > 0 define Lu = L_λ u = a^{ij}u_{x^ix^j} - λ(a^{11} + a^{22})u. Prove that, for any u ∈ C_0^2, λ^2‖u‖^2_{L_2} + 2λ∑_{j=1}^2‖u_{x^j}‖^2_{L_2} + ∑_{j,k=1}^2‖u_{x^jx^k}‖^2_{L_2} ≤ (ν^2)/(μ^4)‖Lu‖^2_{L_2}. Notation: Condition (5), from Exercise 1.4.7, is the two-sided ellipticity bound μ|ξ|^2 ≤ a^{ij}ξ^iξ^j ≤ ν|ξ|^2 for all ξ ∈ ℝ^2. For an integer k ≥ 0, C_0^k denotes the C^k functions on ℝ^d that vanish for |x| sufficiently large, and C_0^∞ the infinitely differentiable ones. Subscripts denote partial derivatives: u_{x^i} = D_iu and u_{x^ix^j} = D_{ij}u. Repeated indices are summed. L_p = L_p(ℝ^d) is taken with respect to Lebesgue measure.',
+        "PDE",
+        "Dataset/KrylovSobolev.lean",
+        "krylov_sobolev_1_4_8_two_dim_measurable_coeff_L2_estimate",
+        ['partialDeriv'],
+    ),
+    Entry(
+        10,
+        'Exercise 9.1.7. Prove that, if u ∈ L_2 and ∈t_0^1‖u^{(ε)} - u‖^2_{L_2} ε^{-3} dε ≤ M^2, then u ∈ W_2^1 and ‖u_x‖_{L_2} ≤ N(M + ‖u‖_{L_2}), where N is independent of M and u. Notation: The mollification (1.8.4) is u^{(ε)}(x) = ∈t_{ℝ^d}u(x - ε y)ζ(y) dy, and the standing assumption inherited from Exercise 9.1.6 is that ζ ∈ C_0^∞ is even and integrates to one. W_2^1 is the space of u ∈ L_2 whose generalized first derivatives u_{x^j} exist and lie in L_2 v is the generalized derivative D_ju when ∈t u D_jφ = -∈t v φ for every φ ∈ C_0^∞. ‖u_x‖_{L_2} is the summed first-order seminorm ∑_j‖u_{x^j}‖_{L_2}. For an integer k ≥ 0, C_0^k denotes the C^k functions on ℝ^d that vanish for |x| sufficiently large, and C_0^∞ the infinitely differentiable ones. Subscripts denote partial derivatives: u_{x^i} = D_iu and u_{x^ix^j} = D_{ij}u. Repeated indices are summed. L_p = L_p(ℝ^d) is taken with respect to Lebesgue measure.',
+        "PDE",
+        "Dataset/KrylovSobolev.lean",
+        "krylov_sobolev_9_1_7_mollification_rate_implies_weak_derivative",
+        ['partialDeriv', 'HasWeakGradient'],
+    ),
+]
+
+
+BOGACHEV_GAUSSIAN = [
+    Entry(
+        1,
+        "Theorem 1.9.2. A random vector ξ in R^n is centered Gaussian if and only if for every pair (ξ_1,ξ_2) of independent copies of ξ and every real number φ, the random vectors ξ_1sinφ + ξ_2cosφ, ξ_1cosφ - ξ_2sinφ are independent copies of ξ. Notation: \"Independent copies of ξ\" means a pair of independent random vectors each distributed as ξ; equivalently, the joint law of the pair is μ⊗μ, where μ is the law of ξ. A Borel probability measure on R^n is Gaussian if every continuous linear functional has a (possibly degenerate) Gaussian law, and centered if its mean vector is 0.",
+        "Probability",
+        "Dataset/BogachevGaussian.lean",
+        "bogachev_gaussian_1_9_2_rotation_characterization",
+        [],
+    ),
+    Entry(
+        2,
+        "Theorem 1.9.3. Let η and ξ be two independent random variables with a common symmetric distribution such that P(|{ξ+η}{sqrt{2}}| ≥ t) ≤ P(|ξ| ≥ t), ∀ t ≥ 0. Then these random variables are Gaussian. Notation: A distribution μ on the real line is *symmetric* if it is invariant under x ↦ -x. A measure on R is Gaussian when it is of the form N(a,σ^2), degenerate values σ = 0 (Dirac measures) included.",
+        "Probability",
+        "Dataset/BogachevGaussian.lean",
+        "bogachev_gaussian_1_9_3_symmetric_tail_characterization",
+        [],
+    ),
+    Entry(
+        3,
+        "Theorem 2.4.5. Let γ be a Gaussian measure on a locally convex space X. (i) Let h ∈ X be a vector such that |h|_{H(γ)} = sup{f(h) : f ∈ X^, R_γ(f)(f) ≤ 1} = ∞; then the measures γ_h and γ are mutually singular; (ii) if |h|_{H(γ)} < ∞, then the measures γ and γ_h are equivalent. In particular, H(γ) = {h ∈ X : γ_h ~ γ} = {h ∈ X : |h|_{H(γ)} < ∞} = X ∩ R_γ(X^). Notation: A Gaussian measure on a locally convex space X is a Borel probability measure γ all of whose one-dimensional projections f_{\\#}γ, f ∈ X^, are Gaussian measures on the real line. Write a_γ(f) = ∫_X f dγ and R_γ(f)(f) = ∫_X (f-a_γ(f))^2 dγ. Definition 2.4.1. The *Cameron–Martin space* of γ is H(γ) = {h ∈ X : |h|_{H(γ)} < ∞}, where |h|_{H(γ)} = sup{f(h) : f ∈ X^, R_γ(f)(f) ≤ 1}. For h ∈ X we write γ_h = γ( · - h) for the shift of γ by h; μ ~ ν means that μ and ν are equivalent (mutually absolutely continuous) and μ ⊥ ν that they are mutually singular.",
+        "Measure theory",
+        "Dataset/BogachevGaussian.lean",
+        "bogachev_gaussian_2_4_5_cameron_martin_dichotomy",
+        ["cameronMartinNorm", "cameronMartinSpace", "Equivalent"],
+    ),
+    Entry(
+        4,
+        "Theorem 2.5.2. Let γ be a Gaussian measure on a locally convex space X such that R_γ(X^) ⊂ X. Suppose that a set A ∈ E(X)_γ satisfies the condition γ(A + h) = γ(A), ∀ h ∈ R_γ(X^). Then either γ(A) = 1 or γ(A) = 0. In addition, if f is a γ-measurable function such that for every h ∈ R_γ(X^) one has f(x+h) = f(x) γ-a.e., then f coincides a.e. with a constant. Notation: A Gaussian measure on a locally convex space X is a Borel probability measure γ all of whose one-dimensional projections f_{\\#}γ, f ∈ X^, are Gaussian measures on the real line. Write a_γ(f) = ∫_X f dγ and R_γ(f)(f) = ∫_X (f-a_γ(f))^2 dγ. Definition 2.4.1. The *Cameron–Martin space* of γ is H(γ) = {h ∈ X : |h|_{H(γ)} < ∞}, where |h|_{H(γ)} = sup{f(h) : f ∈ X^, R_γ(f)(f) ≤ 1}. For h ∈ X we write γ_h = γ( · - h) for the shift of γ by h; μ ~ ν means that μ and ν are equivalent (mutually absolutely continuous) and μ ⊥ ν that they are mutually singular. Under the hypothesis R_γ(X^) ⊂ X one has H(γ) = R_γ(X^), so the shifts in the statement are exactly the shifts by Cameron–Martin vectors.",
+        "Measure theory",
+        "Dataset/BogachevGaussian.lean",
+        "bogachev_gaussian_2_5_2_zero_one_law",
+        ["cameronMartinSpace"],
+    ),
+    Entry(
+        5,
+        "Theorem 2.7.2. Any two Gaussian measures on one and the same locally convex space are either equivalent or mutually singular. Notation: A Gaussian measure on a locally convex space X is a Borel probability measure γ all of whose one-dimensional projections f_{\\#}γ, f ∈ X^, are Gaussian measures on the real line. Write a_γ(f) = ∫_X f dγ and R_γ(f)(f) = ∫_X (f-a_γ(f))^2 dγ. Definition 2.4.1. The *Cameron–Martin space* of γ is H(γ) = {h ∈ X : |h|_{H(γ)} < ∞}, where |h|_{H(γ)} = sup{f(h) : f ∈ X^, R_γ(f)(f) ≤ 1}. For h ∈ X we write γ_h = γ( · - h) for the shift of γ by h; μ ~ ν means that μ and ν are equivalent (mutually absolutely continuous) and μ ⊥ ν that they are mutually singular.",
+        "Measure theory",
+        "Dataset/BogachevGaussian.lean",
+        "bogachev_gaussian_2_7_2_feldman_hajek",
+        ["Equivalent"],
+    ),
+    Entry(
+        6,
+        "Theorem 2.8.10. Let γ be a centered Gaussian measure on a locally convex space X and let A ∈ E(X)_γ be an absolutely convex set. Then, for any a ∈ X such that A + a ∈ E(X)_γ, the following inequality holds true: γ(A+a) ≤ γ(A). More generally, if A + ta ∈ E(X)_γ for all t ∈ [0,1], then γ(A+a) ≤ γ(A+ta), ∀ t ∈ [0,1]. Notation: A Gaussian measure on a locally convex space X is a Borel probability measure γ all of whose one-dimensional projections f_{\\#}γ, f ∈ X^, are Gaussian measures on the real line. Write a_γ(f) = ∫_X f dγ and R_γ(f)(f) = ∫_X (f-a_γ(f))^2 dγ. Definition 2.4.1. The *Cameron–Martin space* of γ is H(γ) = {h ∈ X : |h|_{H(γ)} < ∞}, where |h|_{H(γ)} = sup{f(h) : f ∈ X^, R_γ(f)(f) ≤ 1}. For h ∈ X we write γ_h = γ( · - h) for the shift of γ by h; μ ~ ν means that μ and ν are equivalent (mutually absolutely continuous) and μ ⊥ ν that they are mutually singular. A set A is *absolutely convex* if it is convex and balanced, i.e. α A ⊂ A whenever |α| ≤ 1.",
+        "Measure theory",
+        "Dataset/BogachevGaussian.lean",
+        "bogachev_gaussian_2_8_10_anderson_inequality",
+        [],
+    ),
+    Entry(
+        7,
+        "Theorem 4.2.1. Let A and B be two convex sets in R^n. Then one has for all λ ∈ [0,1]: Φ^{-1}{γ_n(λ A + (1-λ)B)} ≥ λΦ^{-1}{γ_n(A)} + (1-λ)Φ^{-1}{γ_n(B)}. Notation: γ_n is the standard Gaussian measure on R^n, Φ is the standard normal distribution function Φ(x) = γ_1((-∞,x]), and Φ^{-1} is its inverse with the convention Φ^{-1}(0) = -∞ and Φ^{-1}(1) = +∞. λ A + (1-λ)B = {λ x + (1-λ)y : x ∈ A, y ∈ B} is the Minkowski combination of the two sets.",
+        "Measure theory",
+        "Dataset/BogachevGaussian.lean",
+        "bogachev_gaussian_4_2_1_ehrhard_inequality",
+        ["quantile"],
+    ),
+    Entry(
+        8,
+        "Theorem 4.3.1. Let γ_n be the standard Gaussian measure on R^n and let U be the closed unit ball in R^n centered at the origin. For every measurable set A ⊂ R^n, the following inequality holds true: Φ^{-1}(γ_n(A+rU)) ≥ Φ^{-1}(γ_n(A)) + r, ∀ r > 0. Notation: γ_n is the standard Gaussian measure on R^n, Φ is the standard normal distribution function Φ(x) = γ_1((-∞,x]), and Φ^{-1} is its inverse with the convention Φ^{-1}(0) = -∞ and Φ^{-1}(1) = +∞. A + rU = {z : dist(z,A) ≤ r} is the closed r-neighbourhood of A in the Euclidean metric.",
+        "Measure theory",
+        "Dataset/BogachevGaussian.lean",
+        "bogachev_gaussian_4_3_1_isoperimetric_inequality",
+        ["quantile"],
+    ),
+    Entry(
+        9,
+        "Example 4.5.8. Let f be a γ-measurable seminorm on X. Then it satisfies condition (4.5.4). Put χ(f) := sup{f(h) : |h|_{H(γ)} ≤ 1}, Ef := ∫ f dγ. Then one has γ{x : |f(x) - Ef| > t} ≤ 2exp(-(2)/(π^2χ(f)^2)t^2). Notation: A Gaussian measure on a locally convex space X is a Borel probability measure γ all of whose one-dimensional projections f_{\\#}γ, f ∈ X^, are Gaussian measures on the real line. Write a_γ(f) = ∫_X f dγ and R_γ(f)(f) = ∫_X (f-a_γ(f))^2 dγ. Definition 2.4.1. The *Cameron–Martin space* of γ is H(γ) = {h ∈ X : |h|_{H(γ)} < ∞}, where |h|_{H(γ)} = sup{f(h) : f ∈ X^, R_γ(f)(f) ≤ 1}. For h ∈ X we write γ_h = γ( · - h) for the shift of γ by h; μ ~ ν means that μ and ν are equivalent (mutually absolutely continuous) and μ ⊥ ν that they are mutually singular.",
+        "Measure theory",
+        "Dataset/BogachevGaussian.lean",
+        "bogachev_gaussian_4_5_8_seminorm_concentration",
+        ["cameronMartinGauge"],
+    ),
+    Entry(
+        10,
+        "Theorem 4.6.1. Let γ be a centered Gaussian measure on R^n. Then for every absolutely convex set A and every strip Π of the form Π = {x : |f(x)| ≤ c}, where f is a linear function and c ∈ R^1, one has γ(A ∩ Π) ≥ γ(A)γ(Π). Notation: A set A is *absolutely convex* if it is convex and balanced. A measure on R^n is centered Gaussian when every linear functional has a centered Gaussian law.",
+        "Measure theory",
+        "Dataset/BogachevGaussian.lean",
+        "bogachev_gaussian_4_6_1_correlation_convex_strip",
+        [],
+    ),
+]
+
+
+FOLLAND_HARMONIC = [
+    Entry(
+        1,
+        '1.18 Corollary. If f(e^{iθ}) = ∑ a_n e^{inθ} with ∑ |a_n| < ∞, and f never vanishes, then 1/f(e^{iθ}) = ∑ b_n e^{inθ} with ∑ |b_n| < ∞. Notation: the sums run over all n ∈ ℤ. The corollary is read off from Theorem 1.17, which identifies the Gelfand spectrum σ(l^1) of the convolution algebra l^1(ℤ) with the unit circle T so that the Gelfand transform becomes â(e^{iθ}) = ∑_{-∞}^{∞} a_n e^{inθ}.',
+        "Harmonic analysis",
+        "Dataset/FollandHarmonic.lean",
+        "folland_1_18_wiener_inverse_of_absolutely_convergent_series",
+        [],
+    ),
+    Entry(
+        2,
+        '2.29 Proposition. If G/[G,G] is compact, then G is unimodular. Notation: [G,G] denotes the smallest closed subgroup of G containing all elements of the form [x,y] = xyx^{-1}y^{-1}; it is called the commutator subgroup of G, and it is normal since z[x,y]z^{-1} = [zxz^{-1}, zyz^{-1}]. Notation: Throughout, G is a locally compact group with a fixed left Haar measure, L_yf(x) = f(y^{-1}x) and R_yf(x) = f(xy) are the left and right translates of f, and f*g(x) = ∫ f(y)g(y^{-1}x) dy is convolution. 𝓛^1(G) is a Banach algebra under convolution. The modular function Δ : G → (0,∞) is determined by λ(Ex) = Δ(x)λ(E) for a left Haar measure λ; G is unimodular when Δ ≡ 1.',
+        "Harmonic analysis",
+        "Dataset/FollandHarmonic.lean",
+        "folland_2_29_unimodular_of_compact_commutator_quotient",
+        [],
+    ),
+    Entry(
+        3,
+        "2.31 Theorem. If λ is a left Haar measure on G and Δ is the modular function of G, then for every f ∈ L^1(G) ∫_G f(x^{-1})Δ(x^{-1}) dλ(x) = ∫_G f(x) dλ(x). Notation: Throughout, G is a locally compact group with a fixed left Haar measure, L_yf(x) = f(y^{-1}x) and R_yf(x) = f(xy) are the left and right translates of f, and f*g(x) = ∫ f(y)g(y^{-1}x) dy is convolution. L^1(G) is a Banach algebra under convolution. The modular function Δ : G → (0,∞) is determined by λ(Ex) = Δ(x)λ(E) for a left Haar measure λ; it is a continuous homomorphism and is identically 1 exactly when G is unimodular.",
+        "Harmonic analysis",
+        "Dataset/FollandHarmonic.lean",
+        "folland_2_31_modular_inversion_formula",
+        [],
+    ),
+    Entry(
+        4,
+        '2.40 Proposition. Suppose 1 ≤ p ≤ ∞, f ∈ L^1(G), and g ∈ L^p(G). (a) The integrals in (2.36) converge absolutely for almost every x, and we have f*g ∈ L^p(G) and ‖f*g‖_p ≤ ‖f‖_1‖g‖_p. (b) If G is unimodular, the same conclusions hold with f*g replaced by g*f. (c) If G is not unimodular, we still have g*f ∈ L^p(G) when f has compact support. Notation: Throughout, G is a locally compact group with a fixed left Haar measure, L_yf(x) = f(y^{-1}x) and R_yf(x) = f(xy) are the left and right translates of f, and f*g(x) = ∫ f(y)g(y^{-1}x) dy is convolution. 𝓛^1(G) is a Banach algebra under convolution. The modular function Δ : G → (0,∞) is determined by λ(Ex) = Δ(x)λ(E) for a left Haar measure λ; G is unimodular when Δ ≡ 1.',
+        "Harmonic analysis",
+        "Dataset/FollandHarmonic.lean",
+        "folland_2_40_convolution_lp_bound",
+        ['groupConv'],
+    ),
+    Entry(
+        5,
+        '2.42 Proposition. If 1 ≤ p < ∞ and f ∈ L^p(G) then ‖L_yf - f‖_p and ‖R_yf - f‖_p tend to zero as y → 1. Notation: Throughout, G is a locally compact group with a fixed left Haar measure, L_yf(x) = f(y^{-1}x) and R_yf(x) = f(xy) are the left and right translates of f, and f*g(x) = ∫ f(y)g(y^{-1}x) dy is convolution. 𝓛^1(G) is a Banach algebra under convolution. The modular function Δ : G → (0,∞) is determined by λ(Ex) = Δ(x)λ(E) for a left Haar measure λ; G is unimodular when Δ ≡ 1.',
+        "Harmonic analysis",
+        "Dataset/FollandHarmonic.lean",
+        "folland_2_42_translation_continuity_lp",
+        ['leftTranslate', 'rightTranslate'],
+    ),
+    Entry(
+        6,
+        '2.44 Proposition. Let 𝒰 be a neighborhood base at 1 in G. For each U ∈ 𝒰, let ψ_U be a function such that (i) supp ψ_U is compact and contained in U, (ii) ψ_U ≥ 0 and ∫ ψ_U = 1. Then ‖ψ_U * f - f‖_p → 0 as U → {1} if 1 ≤ p < ∞ and f ∈ L^p, or if p = ∞ and f is left uniformly continuous. If, in addition, (iii) ψ_U(x^{-1}) = ψ_U(x) for all x, then ‖f * ψ_U - f‖_p → 0 as U → {1} if 1 ≤ p < ∞ and f ∈ L^p, or if p = ∞ and f is right uniformly continuous. A family {ψ_U} satisfying (i)–(iii) is called an approximate identity. Notation: Throughout, G is a locally compact group with a fixed left Haar measure, L_yf(x) = f(y^{-1}x) and R_yf(x) = f(xy) are the left and right translates of f, and f*g(x) = ∫ f(y)g(y^{-1}x) dy is convolution. 𝓛^1(G) is a Banach algebra under convolution. The modular function Δ : G → (0,∞) is determined by λ(Ex) = Δ(x)λ(E) for a left Haar measure λ; G is unimodular when Δ ≡ 1.',
+        "Harmonic analysis",
+        "Dataset/FollandHarmonic.lean",
+        "folland_2_44_approximate_identity",
+        ['groupConv'],
+    ),
+    Entry(
+        7,
+        "2.45 Theorem. Let I be a closed subspace of L^1(G). Then I is a left ideal if and only if it is closed under left translations, and I is a right ideal if and only if it is closed under right translations. Notation: Throughout, G is a locally compact group with a fixed left Haar measure, L_yf(x) = f(y^{-1}x) and R_yf(x) = f(xy) are the left and right translates of f, and f*g(x) = ∫ f(y)g(y^{-1}x) dy is convolution. L^1(G) is a Banach algebra under convolution.",
+        "Harmonic analysis",
+        "Dataset/FollandHarmonic.lean",
+        "folland_2_45_closed_ideals_are_translation_invariant",
+        ["leftTranslate", "rightTranslate", "groupConv", "IsLpClosed"],
+    ),
+    Entry(
+        8,
+        "2.51 Theorem. Suppose G is a locally compact group and H is a closed subgroup. There is a G-invariant Radon measure μ on G/H if and only if Δ_G|_H = Δ_H. In this case, μ is unique up to a constant factor, and if this factor is suitably chosen we have ∫_G f(x) dx = ∫_{G/H} Pf dμ = ∫_{G/H}∫_H f(xξ) dξ dμ(xH) for f ∈ C_c(G). Notation: Throughout, G is a locally compact group with a fixed left Haar measure, L_yf(x) = f(y^{-1}x) and R_yf(x) = f(xy) are the left and right translates of f, and f*g(x) = ∫ f(y)g(y^{-1}x) dy is convolution. L^1(G) is a Banach algebra under convolution. Pf(xH) = ∫_H f(xξ) dξ is the averaging map C_c(G) → C_c(G/H), and Δ_G, Δ_H are the modular functions of G and of H.",
+        "Harmonic analysis",
+        "Dataset/FollandHarmonic.lean",
+        "folland_2_51_invariant_measure_on_quotient",
+        [],
+    ),
+    Entry(
+        9,
+        "2.69 Theorem. On any locally compact group G we have L^1(G) L^p(G) = L^p(G) for 1 ≤ p < ∞. Moreover, L^1(G)*L^∞(G) = L^1(G)*C_{lu}(G) = C_{lu}(G) and L^∞(G)*L^1(G) = C_{ru}(G)*L^1(G) = C_{ru}(G). Notation: Throughout, G is a locally compact group with a fixed left Haar measure, L_yf(x) = f(y^{-1}x) and R_yf(x) = f(xy) are the left and right translates of f, and f*g(x) = ∫ f(y)g(y^{-1}x) dy is convolution. L^1(G) is a Banach algebra under convolution. C_{lu}(G) and C_{ru}(G) denote the bounded left- and right-uniformly continuous functions on G.",
+        "Harmonic analysis",
+        "Dataset/FollandHarmonic.lean",
+        "folland_2_69_convolution_factorization",
+        ["groupConv"],
+    ),
+    Entry(
+        10,
+        "4.81 Theorem. If f is a bounded continuous function on G, the following are equivalent: a. f is the restriction to G of a continuous function on bG. b. f is the uniform limit of linear combinations of characters on G. c. f is uniformly almost periodic. Notation: G is a locally compact abelian group, Ĝ its dual group of continuous characters ξ : G → T, and f̂(ξ) = ∫ f(x)conj(⟨ x,ξ⟩) dx the Fourier transform. For a closed ideal I ⊂ L^1(G), ν(I) = {ξ : f̂(ξ) = 0 for all f ∈ I} is its cospectrum (hull) and, for E ⊂ Ĝ, ι(E) = {f ∈ L^1(G) : f̂|_E = 0} is the kernel of E; ν(f) := ν({f}). bG is the Bohr compactification of G, and f is *uniformly almost periodic* when the set of its right translates {R_yf : y ∈ G} is totally bounded in the uniform norm.",
+        "Harmonic analysis",
+        "Dataset/FollandHarmonic.lean",
+        "folland_4_81_almost_periodic_characterization",
+        ["rightTranslate", "IsUniformlyAlmostPeriodic"],
+    ),
+]
+
+
+HAYMAN_MEROMORPHIC = [
+    Entry(
+        1,
+        "§2.0. The result [the second fundamental theorem] contains as a special case Picard's theorem that a transcendental meromorphic function assumes infinitely often all values in the plane except at most two. Notation: For a function f meromorphic in |z| < R_0, m(r,a), N(r,a) and T(r,f) = m(r,∞)+N(r,∞) are Nevanlinna's proximity, counting and characteristic functions; n(t,a) counts the roots of f(z)=a in |z| ≤ t with multiplicity and nbar(t,a) counts them without. Correspondingly Nbar(r,a) = ∫_0^r (nbar(t,a)-nbar(0,a))/(t) dt + nbar(0,a)log r. Assuming T(r,f)→∞ as r→ R_0, one sets δ(a) = liminf_{r→ R_0} (m(r,a))/(T(r)), Θ(a) = 1 - limsup_{r→ R_0}(Nbar(r,a))/(T(r)) and θ(a) = liminf_{r→ R_0}(N(r,a)-Nbar(r,a))/(T(r)). f is *admissible* in |z|<R_0 when R_0 = +∞ and f is not constant, or R_0<+∞ and (2.8) holds; S(r,f) denotes any quantity satisfying the conclusions of Theorem 2.2, so S(r,f)=o{T(r,f)}.",
+        "Complex analysis",
+        "Dataset/HaymanMeromorphic.lean",
+        "hayman_2_0_picard_theorem",
+        [],
+    ),
+    Entry(
+        2,
+        "Theorem 2.4. Suppose that f(z) is admissible in |z| < R_0. Then the set of values a for which Θ(a) > 0 is countable, and we have, on summing over all such values a ∑_a {δ(a)+θ(a)} ≤ ∑_a Θ(a) ≤ 2. Notation: For a function f meromorphic in |z| < R_0, m(r,a), N(r,a) and T(r,f) = m(r,∞)+N(r,∞) are Nevanlinna's proximity, counting and characteristic functions; n(t,a) counts the roots of f(z)=a in |z| ≤ t with multiplicity and nbar(t,a) counts them without. Correspondingly Nbar(r,a) = ∫_0^r (nbar(t,a)-nbar(0,a))/(t) dt + nbar(0,a)log r. Assuming T(r,f)→∞ as r→ R_0, one sets δ(a) = liminf_{r→ R_0} (m(r,a))/(T(r)), Θ(a) = 1 - limsup_{r→ R_0}(Nbar(r,a))/(T(r)) and θ(a) = liminf_{r→ R_0}(N(r,a)-Nbar(r,a))/(T(r)). f is *admissible* in |z|<R_0 when R_0 = +∞ and f is not constant, or R_0<+∞ and (2.8) holds; S(r,f) denotes any quantity satisfying the conclusions of Theorem 2.2, so S(r,f)=o{T(r,f)}.",
+        "Complex analysis",
+        "Dataset/HaymanMeromorphic.lean",
+        "hayman_2_4_deficiency_relation",
+        ["deficiency", "ramificationIndex", "nevanlinnaTheta"],
+    ),
+    Entry(
+        3,
+        "Theorem 2.5. If f(z) is meromorphic and admissible in |z| < R_0 and a_1(z), a_2(z), a_3(z) are distinct meromorphic functions satisfying for ν = 1, 2, and 3 T{r, a_ν(z)} = o{T(r,f)}, as r → R_0, then {1+o(1)}T(r,f) ≤ ∑_{ν=1}^{3} Nbar(r, (1)/(f-a_ν)) + S(r,f), as r → R_0, where S(r,f) satisfies the conclusions of Theorem 2.2. Notation: For a function f meromorphic in |z| < R_0, m(r,a), N(r,a) and T(r,f) = m(r,∞)+N(r,∞) are Nevanlinna's proximity, counting and characteristic functions; n(t,a) counts the roots of f(z)=a in |z| ≤ t with multiplicity and nbar(t,a) counts them without. Correspondingly Nbar(r,a) = ∫_0^r (nbar(t,a)-nbar(0,a))/(t) dt + nbar(0,a)log r. Assuming T(r,f)→∞ as r→ R_0, one sets δ(a) = liminf_{r→ R_0} (m(r,a))/(T(r)), Θ(a) = 1 - limsup_{r→ R_0}(Nbar(r,a))/(T(r)) and θ(a) = liminf_{r→ R_0}(N(r,a)-Nbar(r,a))/(T(r)). f is *admissible* in |z|<R_0 when R_0 = +∞ and f is not constant, or R_0<+∞ and (2.8) holds; S(r,f) denotes any quantity satisfying the conclusions of Theorem 2.2, so S(r,f)=o{T(r,f)}.",
+        "Complex analysis",
+        "Dataset/HaymanMeromorphic.lean",
+        "hayman_2_5_deficient_small_functions",
+        ["reducedLogCounting"],
+    ),
+    Entry(
+        4,
+        "Theorem 2.6. Suppose that f_1(z), f_2(z) are meromorphic in the plane and let E_j(a) be the set of points z such that f_j(z) = a (j = 1, 2). Then if E_1(a) = E_2(a) for five distinct values of a, f_1(z) ≡ f_2(z), or f_1, f_2 are both constant. Notation: For a function f meromorphic in |z| < R_0, m(r,a), N(r,a) and T(r,f) = m(r,∞)+N(r,∞) are Nevanlinna's proximity, counting and characteristic functions; n(t,a) counts the roots of f(z)=a in |z| ≤ t with multiplicity and nbar(t,a) counts them without. Correspondingly Nbar(r,a) = ∫_0^r (nbar(t,a)-nbar(0,a))/(t) dt + nbar(0,a)log r. Assuming T(r,f)→∞ as r→ R_0, one sets δ(a) = liminf_{r→ R_0} (m(r,a))/(T(r)), Θ(a) = 1 - limsup_{r→ R_0}(Nbar(r,a))/(T(r)) and θ(a) = liminf_{r→ R_0}(N(r,a)-Nbar(r,a))/(T(r)). f is *admissible* in |z|<R_0 when R_0 = +∞ and f is not constant, or R_0<+∞ and (2.8) holds; S(r,f) denotes any quantity satisfying the conclusions of Theorem 2.2, so S(r,f)=o{T(r,f)}.",
+        "Complex analysis",
+        "Dataset/HaymanMeromorphic.lean",
+        "hayman_2_6_five_value_theorem",
+        [],
+    ),
+    Entry(
+        5,
+        "Theorem 2.7. If f(z) is a transcendental integral function then f(z) possesses infinitely many fix-points of exact order n, except for at most one value of n. Notation: Let f(z) be an integral function. Set f_1(z) = f(z) and inductively f_{ν+1}(z) = f{f_ν(z)} for ν ≥ 1. The solutions of the equation f_ν(z) = z are called *fix-points of f(z) of order ν*. If ζ is a fix-point of f(z) of order ν, but of no lower order, then ζ is called a fix-point of *exact order* ν. An *integral function* is an entire function, and it is *transcendental* when it is not a polynomial.",
+        "Complex analysis",
+        "Dataset/HaymanMeromorphic.lean",
+        "hayman_2_7_fixpoints_of_entire_functions",
+        ["IsTranscendentalEntire"],
+    ),
+    Entry(
+        6,
+        "Theorem 2.9. Suppose that f(z), g(z) are integral functions and that φ(z) = g{f(z)} has finite order. Then either f(z) is a polynomial or g(z) has zero order. Notation: An *integral function* is an entire function. Writing M(r,f) = max_{|z|=r}|f(z)|, the function f has *finite order* when log M(r,f) = O(r^k) for some k, and *zero order* when log M(r,f) = O(r^ε) for every ε > 0.",
+        "Complex analysis",
+        "Dataset/HaymanMeromorphic.lean",
+        "hayman_2_9_polya_composition_order",
+        ["HasFiniteOrder", "HasZeroOrder"],
+    ),
+    Entry(
+        7,
+        "Theorem 3.4. Suppose that f(z) is a transcendental meromorphic function in the plane and ψ(z) = f^{(l)}(z). Then in the notation of Theorem 2.4 we have ∑_{a ≠ ∞} Θ(a,ψ) ≤ 1 + (1)/(l+1). In particular ψ(z) assumes every finite value with at most one exception infinitely often. Notation: For a function f meromorphic in |z| < R_0, m(r,a), N(r,a) and T(r,f) = m(r,∞)+N(r,∞) are Nevanlinna's proximity, counting and characteristic functions; n(t,a) counts the roots of f(z)=a in |z| ≤ t with multiplicity and nbar(t,a) counts them without. Correspondingly Nbar(r,a) = ∫_0^r (nbar(t,a)-nbar(0,a))/(t) dt + nbar(0,a)log r. Assuming T(r,f)→∞ as r→ R_0, one sets δ(a) = liminf_{r→ R_0} (m(r,a))/(T(r)), Θ(a) = 1 - limsup_{r→ R_0}(Nbar(r,a))/(T(r)) and θ(a) = liminf_{r→ R_0}(N(r,a)-Nbar(r,a))/(T(r)). f is *admissible* in |z|<R_0 when R_0 = +∞ and f is not constant, or R_0<+∞ and (2.8) holds; S(r,f) denotes any quantity satisfying the conclusions of Theorem 2.2, so S(r,f)=o{T(r,f)}.",
+        "Complex analysis",
+        "Dataset/HaymanMeromorphic.lean",
+        "hayman_3_4_derivative_deficiency_bound",
+        ["nevanlinnaTheta"],
+    ),
+    Entry(
+        8,
+        "Corollary. For all sufficiently large l, f^{(l)}(z) has zeros in every disk in which f(z) is meromorphic and has at least two distinct poles. Notation: For a function f meromorphic in |z| < R_0, m(r,a), N(r,a) and T(r,f) = m(r,∞)+N(r,∞) are Nevanlinna's proximity, counting and characteristic functions; n(t,a) counts the roots of f(z)=a in |z| ≤ t with multiplicity and nbar(t,a) counts them without. Correspondingly Nbar(r,a) = ∫_0^r (nbar(t,a)-nbar(0,a))/(t) dt + nbar(0,a)log r. Assuming T(r,f)→∞ as r→ R_0, one sets δ(a) = liminf_{r→ R_0} (m(r,a))/(T(r)), Θ(a) = 1 - limsup_{r→ R_0}(Nbar(r,a))/(T(r)) and θ(a) = liminf_{r→ R_0}(N(r,a)-Nbar(r,a))/(T(r)). f is *admissible* in |z|<R_0 when R_0 = +∞ and f is not constant, or R_0<+∞ and (2.8) holds; S(r,f) denotes any quantity satisfying the conclusions of Theorem 2.2, so S(r,f)=o{T(r,f)}.",
+        "Complex analysis",
+        "Dataset/HaymanMeromorphic.lean",
+        "hayman_3_6_corollary_derivative_zeros_in_disk",
+        [],
+    ),
+    Entry(
+        9,
+        "Theorem 3.6. Suppose that f(z) is meromorphic in |z-z_0| < R, where 0 < R ≤ ∞, and has at least two distinct poles there. Let r be the radius of the largest circle with centre z_0 containing no pole of f(z) in its interior. Then (i) if the circle |z-z_0| = r contains at least two distinct poles of f(z), then for every positive δ, the equation f^{(l)}(z) = 0 has roots in |z-z_0| < δ, when l is sufficiently large; (ii) if the circle |z-z_0| = r contains only one pole of f(z), then if δ is sufficiently small, f^{(l)}(z) → ∞ as l → ∞ uniformly in |z-z_0| ≤ δ. Notation: For a function f meromorphic in |z| < R_0, m(r,a), N(r,a) and T(r,f) = m(r,∞)+N(r,∞) are Nevanlinna's proximity, counting and characteristic functions; n(t,a) counts the roots of f(z)=a in |z| ≤ t with multiplicity and nbar(t,a) counts them without. Correspondingly Nbar(r,a) = ∫_0^r (nbar(t,a)-nbar(0,a))/(t) dt + nbar(0,a)log r. Assuming T(r,f)→∞ as r→ R_0, one sets δ(a) = liminf_{r→ R_0} (m(r,a))/(T(r)), Θ(a) = 1 - limsup_{r→ R_0}(Nbar(r,a))/(T(r)) and θ(a) = liminf_{r→ R_0}(N(r,a)-Nbar(r,a))/(T(r)). f is *admissible* in |z|<R_0 when R_0 = +∞ and f is not constant, or R_0<+∞ and (2.8) holds; S(r,f) denotes any quantity satisfying the conclusions of Theorem 2.2, so S(r,f)=o{T(r,f)}.",
+        "Complex analysis",
+        "Dataset/HaymanMeromorphic.lean",
+        "hayman_3_6_derivative_zeros_near_poles",
+        [],
+    ),
+    Entry(
+        10,
+        "Theorem 3.8. Suppose that f(z) is meromorphic and has only a finite number of poles in the plane, and that f(z), f^{(l)}(z) have only a finite number of zeros for some l ≥ 2. Then f(z) = (P_1(z))/(P_2(z))e^{P_3(z)}, where P_1, P_2, P_3 are polynomials. If, further, f(z) and f^{(l)}(z) have no zeros, then f(z) = e^{Az+B} or f(z) = (Az+B)^{-n}. Notation: For a function f meromorphic in |z| < R_0, m(r,a), N(r,a) and T(r,f) = m(r,∞)+N(r,∞) are Nevanlinna's proximity, counting and characteristic functions; n(t,a) counts the roots of f(z)=a in |z| ≤ t with multiplicity and nbar(t,a) counts them without. Correspondingly Nbar(r,a) = ∫_0^r (nbar(t,a)-nbar(0,a))/(t) dt + nbar(0,a)log r. Assuming T(r,f)→∞ as r→ R_0, one sets δ(a) = liminf_{r→ R_0} (m(r,a))/(T(r)), Θ(a) = 1 - limsup_{r→ R_0}(Nbar(r,a))/(T(r)) and θ(a) = liminf_{r→ R_0}(N(r,a)-Nbar(r,a))/(T(r)). f is *admissible* in |z|<R_0 when R_0 = +∞ and f is not constant, or R_0<+∞ and (2.8) holds; S(r,f) denotes any quantity satisfying the conclusions of Theorem 2.2, so S(r,f)=o{T(r,f)}.",
+        "Complex analysis",
+        "Dataset/HaymanMeromorphic.lean",
+        "hayman_3_8_tumura_clunie_form",
+        [],
+    ),
+]
+
+
+NIVEN_ZUCKERMAN = [
+    Entry(
+        1,
+        "Theorem 10.14. If p is a prime and 0 ≤ x < 1 then (φ(x^p))/(φ(x)^p) = 1 + p∑_{i=1}^{∞}a_ix^i where the a_i are integers. Notation: Here φ(x) = ∏_{n=1}^{∞}(1-x^n) is Euler's product, convergent for 0 ≤ x < 1, and p(n) denotes the number of partitions of n.",
+        "Number theory",
+        "Dataset/NivenZuckermanNumberTheory.lean",
+        "niven_zuckerman_10_14_euler_product_prime_power",
+        [],
+    ),
+    Entry(
+        2,
+        "Theorem 10.15. For 0 ≤ x < 1 we have xφ(x)^4 = ∑_{m=1}^{∞}b_mx^m where the b_m are integers and b_m ≡ 0 mod 5 if m ≡ 0 mod 5. Notation: Here φ(x) = ∏_{n=1}^{∞}(1-x^n) is Euler's product, convergent for 0 ≤ x < 1, and p(n) denotes the number of partitions of n.",
+        "Number theory",
+        "Dataset/NivenZuckermanNumberTheory.lean",
+        "niven_zuckerman_10_15_mod_five_coefficients",
+        [],
+    ),
+    Entry(
+        3,
+        "Theorem 10.16. We have p(5m + 4) ≡ 0 mod 5. Notation: Here φ(x) = ∏_{n=1}^{∞}(1-x^n) is Euler's product, convergent for 0 ≤ x < 1, and p(n) denotes the number of partitions of n.",
+        "Number theory",
+        "Dataset/NivenZuckermanNumberTheory.lean",
+        "niven_zuckerman_10_16_ramanujan_congruence",
+        ["partitionCount"],
+    ),
+    Entry(
+        4,
+        "Lemma 11.2. The function τ(n), representing the number of positive divisors of n, satisfies the inequality τ(n) ≤ 2sqrt{n} for n ≥ 1. Notation: τ(n) is the number of positive divisors of n.",
+        "Number theory",
+        "Dataset/NivenZuckermanNumberTheory.lean",
+        "niven_zuckerman_11_2_divisor_bound",
+        [],
+    ),
+    Entry(
+        5,
+        "Theorem 11.3. We have ∑_{n=1}^{∞}(μ(n))/(n^2)∑_{n=1}^{∞}(1)/(n^2) = 1. Notation: μ is the Möbius function.",
+        "Number theory",
+        "Dataset/NivenZuckermanNumberTheory.lean",
+        "niven_zuckerman_11_3_moebius_zeta_product",
+        [],
+    ),
+    Entry(
+        6,
+        "Corollary 11.4. We have ∑_{n=1}^{∞}(μ(n))/(n^2) = (6)/(π^2). Notation: μ is the Möbius function; the proof uses the classical evaluation ∑_{n=1}^{∞}1/n^2 = π^2/6.",
+        "Number theory",
+        "Dataset/NivenZuckermanNumberTheory.lean",
+        "niven_zuckerman_11_4_moebius_sum_eq_six_div_pi_sq",
+        [],
+    ),
+    Entry(
+        7,
+        "An integer is square-free if it is divisible by no perfect square a^2 > 1. Theorem 11.5. The set of square-free integers has natural density 6/π^2. Notation: Definition 11.1. If A is a set of positive integers and A(n) denotes the number of elements of A not exceeding n, the *asymptotic* (or natural) density of A is δ(A) = lim_{n→∞} A(n)/n when the limit exists. Definition 11.2. The *Schnirelmann density* d(A) of a set A of non-negative integers is d(A) = inf_{n≥1} A(n)/n. Definition 11.3. Assume 0 ∈ A and 0 ∈ B. The sum A + B is the collection of all integers of the form a + b where a ∈ A and b ∈ B.",
+        "Number theory",
+        "Dataset/NivenZuckermanNumberTheory.lean",
+        "niven_zuckerman_11_5_squarefree_density",
+        ["HasNaturalDensity"],
+    ),
+    Entry(
+        8,
+        "Lemma 11.6. Let ∑ c_j be a divergent series with 0 < c_j < 1 for j = 1, 2, .... Then, given any real number ε > 0, there is an integer N such that ∏_{j=1}^{n}(1-c_j) < ε for every integer n ≥ N. Notation: Divergence of ∑ c_j means that the partial sums tend to +∞; since all factors 1-c_j lie in (0,1) the partial products are decreasing, so the conclusion says exactly that they tend to 0.",
+        "Number theory",
+        "Dataset/NivenZuckermanNumberTheory.lean",
+        "niven_zuckerman_11_6_divergent_product_tendsto_zero",
+        [],
+    ),
+    Entry(
+        9,
+        "Theorem 11.8. Let k be a fixed positive integer. If each integer in a set A is divisible by k or fewer distinct prime factors, then δ(A) = 0. Notation: Definition 11.1. If A is a set of positive integers and A(n) denotes the number of elements of A not exceeding n, the *asymptotic* (or natural) density of A is δ(A) = lim_{n→∞} A(n)/n when the limit exists. Definition 11.2. The *Schnirelmann density* d(A) of a set A of non-negative integers is d(A) = inf_{n≥1} A(n)/n. Definition 11.3. Assume 0 ∈ A and 0 ∈ B. The sum A + B is the collection of all integers of the form a + b where a ∈ A and b ∈ B.",
+        "Number theory",
+        "Dataset/NivenZuckermanNumberTheory.lean",
+        "niven_zuckerman_11_8_few_prime_factors_density_zero",
+        ["HasNaturalDensity"],
+    ),
+    Entry(
+        10,
+        "The αβ theorem of H. B. Mann. If A and B are sets of non-negative integers, each containing 0, and if α, β, γ are the Schnirelmann densities of A, B, A+B, then γ ≥ min(1, α+β). In other words γ ≥ α + β unless α + β ≥ 1, in which case γ = 1. Notation: Definition 11.1. If A is a set of positive integers and A(n) denotes the number of elements of A not exceeding n, the *asymptotic* (or natural) density of A is δ(A) = lim_{n→∞} A(n)/n when the limit exists. Definition 11.2. The *Schnirelmann density* d(A) of a set A of non-negative integers is d(A) = inf_{n≥1} A(n)/n. Definition 11.3. Assume 0 ∈ A and 0 ∈ B. The sum A + B is the collection of all integers of the form a + b where a ∈ A and b ∈ B.",
+        "Number theory",
+        "Dataset/NivenZuckermanNumberTheory.lean",
+        "niven_zuckerman_11_mann_alpha_beta_theorem",
+        [],
+    ),
+]
+
+
+NIVEN_IRRATIONAL = [
+    Entry(
+        1,
+        'Any rational fraction a/b is expressible as a terminating decimal or an infinite periodic decimal; conversely, any decimal expansion which is either terminating or infinite periodic is equal to some rational number. (§2.4, with §2.5 "Terminating Decimals Written as Periodic Decimals".) Notation: the decimal expansion of x in [0,1) is the digit sequence d_k = floor(10^{k+1} x) mod 10; a terminating expansion is the eventually periodic one whose repeating digit is 0.',
+        "Number theory",
+        "Dataset/NivenIrrational.lean",
+        "niven_2_4_rational_iff_periodic_decimal",
+        ['decimalDigit', 'EventuallyPeriodic'],
+    ),
+    Entry(
+        2,
+        '§3.5. sqrt(2) + sqrt(3) is irrational.',
+        "Number theory",
+        "Dataset/NivenIrrational.lean",
+        "niven_3_5_sqrt_two_add_sqrt_three_irrational",
+        [],
+    ),
+    Entry(
+        3,
+        '§5.3, Example 3. Let c and d be two different non-negative integers. Prove that log(2^c 5^d) is irrational. Notation: all logarithms are to base 10, i.e. log y = k means 10^k = y.',
+        "Number theory",
+        "Dataset/NivenIrrational.lean",
+        "niven_5_3_log_two_pow_five_pow_irrational",
+        [],
+    ),
+    Entry(
+        4,
+        'Theorem on Geometric Constructions. Beginning with a line segment of unit length, any length that can be constructed by straightedge and compass methods is an algebraic number of degree 1, or 2, or 4, or 8, ..., i.e., in general, an algebraic number whose degree is a power of 2. Notation: a length is constructible when it can be obtained from a unit segment by straightedge and compass; algebraically these are the numbers reachable from the rationals by the field operations and by square roots of non-negative constructed quantities. The degree of an algebraic number is the degree of its minimal polynomial over the rationals.',
+        "Number theory",
+        "Dataset/NivenIrrational.lean",
+        "niven_5_5_constructible_degree_is_power_of_two",
+        ['IsConstructible'],
+    ),
+    Entry(
+        5,
+        '§5.5. The duplication of the cube amounts to constructing a line of length 2^{1/3} from a given unit length. Since 2^{1/3} is an algebraic number of degree 3, by the Theorem on Geometric Constructions it is not constructible. Hence it is impossible to duplicate the cube.',
+        "Number theory",
+        "Dataset/NivenIrrational.lean",
+        "niven_5_5_duplication_of_the_cube_impossible",
+        ['IsConstructible'],
+    ),
+    Entry(
+        6,
+        '§5.5. Squaring the circle amounts to constructing a square of area equal to that of a circle of unit radius, i.e. to constructing the length sqrt(pi). Granted that pi is a transcendental number, sqrt(pi) is not an algebraic number of degree a power of 2, so by the Theorem on Geometric Constructions it is not constructible.',
+        "Number theory",
+        "Dataset/NivenIrrational.lean",
+        "niven_5_5_squaring_the_circle_impossible",
+        ['IsConstructible'],
+    ),
+    Entry(
+        7,
+        '§5.5. To establish that the trisection of an angle is impossible, it is enough to show that a specific angle cannot be trisected by the prescribed methods. The specific angle that we take is 60 degrees. To trisect an angle of 60 degrees means the construction of a 20 degree angle, equivalently of the length cos 20 degrees, which is not constructible.',
+        "Number theory",
+        "Dataset/NivenIrrational.lean",
+        "niven_5_5_trisection_of_the_angle_impossible",
+        ['IsConstructible'],
+    ),
+    Entry(
+        8,
+        'Theorem 6.2. Corresponding to any irrational number alpha there is a unique integer m such that -1/2 < alpha - m < 1/2.',
+        "Number theory",
+        "Dataset/NivenIrrational.lean",
+        "niven_6_2_unique_nearest_integer",
+        [],
+    ),
+    Entry(
+        9,
+        '§7.5. The number e is transcendental. Notation: a real number is transcendental when it satisfies no polynomial equation with rational (equivalently, integer) coefficients, other than the zero polynomial.',
+        "Number theory",
+        "Dataset/NivenIrrational.lean",
+        "niven_7_5_transcendence_of_e",
+        [],
+    ),
+    Entry(
+        10,
+        'Theorem C.5. The set of real transcendental numbers is uncountable. Notation: a real number is algebraic when it is a root of a non-zero polynomial with rational coefficients, and transcendental otherwise.',
+        "Number theory",
+        "Dataset/NivenIrrational.lean",
+        "niven_C_5_transcendentals_uncountable",
+        [],
+    ),
+]
+
+
 KONG_ODE = [
     Entry(
         1,
@@ -1280,8 +1784,8 @@ MATTILA_GEOMETRY = [
 
 
 def main() -> None:
-    out_dir = ROOT / "reports"
-    out_dir.mkdir(exist_ok=True)
+    out_dir = ROOT / "build" / "benchmarks"
+    out_dir.mkdir(parents=True, exist_ok=True)
     for stale_tex in out_dir.glob("*.tex"):
         stale_tex.unlink()
     render_report(
@@ -1304,6 +1808,36 @@ def main() -> None:
         "Krylov Holder PDE Benchmark",
         out_dir / "Krylov_Holder_Benchmark.pdf",
         KRYLOV_HOLDER,
+    )
+    render_report(
+        "Krylov Sobolev PDE Benchmark",
+        out_dir / "Krylov_Sobolev_Benchmark.pdf",
+        KRYLOV_SOBOLEV,
+    )
+    render_report(
+        "Bogachev Gaussian Measures Benchmark",
+        out_dir / "Bogachev_Gaussian_Measures_Benchmark.pdf",
+        BOGACHEV_GAUSSIAN,
+    )
+    render_report(
+        "Folland Abstract Harmonic Analysis Benchmark",
+        out_dir / "Folland_Abstract_Harmonic_Analysis_Benchmark.pdf",
+        FOLLAND_HARMONIC,
+    )
+    render_report(
+        "Hayman Meromorphic Functions Benchmark",
+        out_dir / "Hayman_Meromorphic_Functions_Benchmark.pdf",
+        HAYMAN_MEROMORPHIC,
+    )
+    render_report(
+        "Niven Zuckerman Number Theory Benchmark",
+        out_dir / "Niven_Zuckerman_Number_Theory_Benchmark.pdf",
+        NIVEN_ZUCKERMAN,
+    )
+    render_report(
+        "Niven Rational and Irrational Benchmark",
+        out_dir / "Niven_Rational_and_Irrational_Benchmark.pdf",
+        NIVEN_IRRATIONAL,
     )
     render_report(
         "Kong ODE Benchmark",

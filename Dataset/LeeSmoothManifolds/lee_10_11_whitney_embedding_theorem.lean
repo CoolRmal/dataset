@@ -1,12 +1,7 @@
 module
 
-public import Mathlib.Geometry.Manifold.Algebra.LieGroup
-public import Mathlib.Geometry.Manifold.ContMDiffMFDeriv
-public import Mathlib.Geometry.Manifold.Immersion
-public import Mathlib.Geometry.Manifold.SmoothApprox
-public import Mathlib.Geometry.Manifold.Submersion
-public import Mathlib.Geometry.Manifold.WhitneyEmbedding
-public import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
+public import Mathlib.Geometry.Manifold.SmoothEmbedding
+public import Mathlib.Topology.Maps.Proper.Basic
 
 /-!
 # `lee_10_11_whitney_embedding_theorem`
@@ -18,21 +13,22 @@ Quality rubric: `lee_10_11_whitney_embedding_theorem.criteria.md`.
 
 @[expose] public section
 
-open Function MeasureTheory Set Topology
+open Function Manifold Set Topology
 open scoped ContDiff Manifold Topology
 
 namespace Dataset
 namespace LeeSmoothManifolds
 
-universe u v
+universe u
 
-/-- Lee 10.11, the weak Whitney embedding theorem. -/
+/-- Lee 10.11, the Whitney embedding theorem: every smooth `m`-manifold admits a proper smooth
+embedding into `ℝ^(2m+1)`. "Smooth embedding" is `IsSmoothEmbedding`, i.e. a `C^∞` immersion that
+is also a topological embedding; it already entails smoothness of the map. -/
 theorem lee_10_11_whitney_embedding_theorem
-    {m : ℕ} {M : Type u} [TopologicalSpace M] [ChartedSpace ((Fin m → ℝ)) M]
-    [IsManifold 𝓘(ℝ, (Fin m → ℝ)) ∞ M] [T2Space M] [SigmaCompactSpace M] :
+    {m : ℕ} {M : Type u} [TopologicalSpace M] [ChartedSpace (Fin m → ℝ) M]
+    [IsManifold 𝓘(ℝ, (Fin m → ℝ)) ∞ M] [T2Space M] [SecondCountableTopology M] :
     ∃ F : M → (Fin (2 * m + 1) → ℝ),
-      IsProperMap F ∧ IsEmbedding F ∧
-        ContMDiff 𝓘(ℝ, (Fin m → ℝ)) 𝓘(ℝ, (Fin (2 * m + 1) → ℝ)) ∞ F := by
+      IsSmoothEmbedding 𝓘(ℝ, (Fin m → ℝ)) 𝓘(ℝ, (Fin (2 * m + 1) → ℝ)) ∞ F ∧ IsProperMap F := by
   sorry
 
 end LeeSmoothManifolds

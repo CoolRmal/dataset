@@ -4,6 +4,7 @@
 - **Domain:** Probability
 - **Lean declaration:** `Dataset.KallenbergProbability.kallenberg_5_25_portmanteau` ([kallenberg_5_25_portmanteau.lean](kallenberg_5_25_portmanteau.lean))
 - **Criteria:** [kallenberg_5_25_portmanteau.criteria.md](kallenberg_5_25_portmanteau.criteria.md)
+- **Context:** [kallenberg_5_25_portmanteau.context.md](kallenberg_5_25_portmanteau.context.md)
 
 ## Statement
 

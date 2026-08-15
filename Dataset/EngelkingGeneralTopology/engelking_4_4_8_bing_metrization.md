@@ -4,6 +4,7 @@
 - **Domain:** Topology
 - **Lean declaration:** `Dataset.EngelkingGeneralTopology.engelking_4_4_8_bing_metrization` ([engelking_4_4_8_bing_metrization.lean](engelking_4_4_8_bing_metrization.lean))
 - **Criteria:** [engelking_4_4_8_bing_metrization.criteria.md](engelking_4_4_8_bing_metrization.criteria.md)
+- **Context:** [engelking_4_4_8_bing_metrization.context.md](engelking_4_4_8_bing_metrization.context.md)
 
 ## Statement
 

@@ -4,6 +4,7 @@
 - **Domain:** PDE
 - **Lean declaration:** `Dataset.KrylovHolder.krylov_4_5_1_variable_coefficient_global_solvability` ([krylov_4_5_1_variable_coefficient_global_solvability.lean](krylov_4_5_1_variable_coefficient_global_solvability.lean))
 - **Criteria:** [krylov_4_5_1_variable_coefficient_global_solvability.criteria.md](krylov_4_5_1_variable_coefficient_global_solvability.criteria.md)
+- **Context:** [krylov_4_5_1_variable_coefficient_global_solvability.context.md](krylov_4_5_1_variable_coefficient_global_solvability.context.md)
 
 ## Statement
 

@@ -14,6 +14,7 @@ statement-only dataset.
 
 | Statement | Repair |
 |---|---|
+| `KrylovSobolev/krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership` | Added `0 < d`. Without it the second half is false at `d = 0`: the space is a single point, so the support and decay hypotheses hold vacuously for every constant function while the bounding constant is fixed in advance, and the `H_p^γ` norms of the constants are unbounded. A machine-checked refutation was produced during review. |
 | `MattilaGeometry/mattila_8_8_frostman_lemma` | Scoped the quantitative conclusion under positive Hausdorff measure, made the witnessing measures finite and compactly supported in `B`, and restored the strict quantitative inequality. |
 | `ConwayFunctionalAnalysis/conway_IX_2_2_bounded_normal_spectral_theorem` | Conjugated the spectral integrand to account for Mathlib's conjugate-linearity in the first inner-product argument. |
 | `EngelkingGeneralTopology/engelking_5_1_9_paracompact_partition_of_unity` | Added the Hausdorff hypothesis implicit in Engelking's convention for paracompact spaces. |
@@ -65,6 +66,22 @@ statement-only dataset.
 | `GrafakosFourier/grafakos_2_2_14_fourier_identities_on_schwartz` | Restores the missing fifth Fourier identity involving the inverse transform. |
 | `KallenbergProbability/kallenberg_10_5_doob_meyer` | States decomposition and uniqueness by indistinguishability (`∀ᵐ ω, ∀ t`) rather than only per-time modification equality. |
 
+## Repairs made while adding the grading rubrics and context files
+
+| Statement | Repair |
+|---|---|
+| `LeeSmoothManifolds/lee_10_11_whitney_embedding_theorem` | Replaced `IsEmbedding F ∧ ContMDiff … F` by `Manifold.IsSmoothEmbedding`, which bundles the immersion condition the textbook's "smooth embedding" requires; the old form admitted `t ↦ t³`. Countability stated as `SecondCountableTopology`, the textbook's own hypothesis, in place of `SigmaCompactSpace`. |
+| `LeeSmoothManifolds/lee_10_16_whitney_approximation_theorem` | `SigmaCompactSpace` replaced by `SecondCountableTopology`, matching Lee's definition of "smooth manifold". |
+| `LeeSmoothManifolds/lee_10_19_tubular_neighborhood_theorem` | Added continuity of the radius function; without it the "disk bundle" need not be open in the normal bundle. |
+| `LeeSmoothManifolds/lee_7_8_rank_theorem`, `lee_7_13_rank_theorem_for_manifolds` | Added the centring conditions `φ p = 0` and `ψ (F p) = 0` that Lee's charts carry. |
+| `LeeSmoothManifolds/lee_9_16_quotient_manifold_theorem` | Added `[T2Space M]`, `[SecondCountableTopology M]` and made the quotient's Hausdorffness and second countability part of the produced structure, as Lee's "topological manifold" requires. |
+| `Bogachev/bogachev_4_5_9_de_la_vallee_poussin` | The uniform bound is now the printed supremum `⨆ i, ∫⁻ … < ∞` in `ℝ≥0∞` rather than an existentially bounded constant. |
+| `Bogachev/bogachev_8_6_2_prokhorov_signed_measures` | Restored separability as a hypothesis of the first claim only, so the second conjunct is the theorem's second claim rather than a repetition of the first. |
+| `Bogachev/bogachev_9_1_9_radon_preimage_from_compact_approximation` | Moved the compact exhaustion inside the first conjunct, so the compact-surjection corollary is not restated once per exhaustion. |
+| `FollandHarmonic/folland_2_51_invariant_measure_on_quotient` | Removed a free `[TopologicalSpace (G ⧸ H)]` instance that shadowed the quotient topology and made the statement quantify over arbitrary topologies. |
+| `GrafakosFourier/grafakos_5_6_6_vector_valued_maximal` | The unspecified constant `c(p,r)` is existentially quantified after `p` and `r` instead of being pinned to an invented closed formula, which would have asserted an unproved sharper bound. |
+| `KongODE/kong_3_2_3_characteristic_multiplier_stability` | Added the continuity of `A` that Kong's system (H-p) assumes. |
+
 ## Recurring regression checks
 
 1. In `WithTop ℕ∞`, `⊤` means real-analytic regularity (`ω`), while smoothness
@@ -78,3 +95,5 @@ statement-only dataset.
    the objects they control, existential sequences must not become implicit
    universal parameters, and uniqueness on a subdomain is `Set.EqOn` or a.e.
    equality rather than equality of arbitrary total representatives.
+5. Equivalent-but-different hypotheses are a defect even when the theorem is
+   unchanged: use the condition the textbook states.

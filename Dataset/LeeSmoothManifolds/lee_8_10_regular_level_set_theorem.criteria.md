@@ -1,18 +1,93 @@
 # Criteria: lee_8_10_regular_level_set_theorem
 
-**Statement:** [lee_8_10_regular_level_set_theorem.md](lee_8_10_regular_level_set_theorem.md) · **Lean:** [lee_8_10_regular_level_set_theorem.lean](lee_8_10_regular_level_set_theorem.lean)
+**Statement:** [lee_8_10_regular_level_set_theorem.md](lee_8_10_regular_level_set_theorem.md) · **Lean:** [lee_8_10_regular_level_set_theorem.lean](lee_8_10_regular_level_set_theorem.lean) · **Context:** [lee_8_10_regular_level_set_theorem.context.md](lee_8_10_regular_level_set_theorem.context.md)
 
-A faithful formalization must define "regular level set" correctly — *every* point of the level set is a regular point, i.e. $d\Phi_p \colon T_pM \to T_{\Phi(p)}N$ is **surjective** — and must give the codimension as $\dim N = n$, the dimension of the *range*, not the dimension $m - n$ of the level set. The delicate design choice is how to say "$d\Phi_p$ is surjective": the literal `Surjective (mfderiv … Φ p)` is junk-prone, because Mathlib's `mfderiv` is the zero map wherever $\Phi$ is not `MDifferentiableAt`. The ground truth instead uses Mathlib's chart-based `Manifold.IsSubmersionAt`, which is junk-free but is, as a formal hypothesis, not yet known in Mathlib to be equivalent to surjectivity of `mfderiv`.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Let $\Phi : M \to N$ be a smooth map between smooth manifolds and let $c$ be a *regular value*: at
+every point $p$ with $\Phi(p) = c$, the differential $d\Phi_p$ is surjective. Then the level set
+$\Phi^{-1}(c)$ is closed in $M$ and is an embedded submanifold whose codimension is $\dim N$ — the
+dimension of the target, not the dimension of the level set. This is the special case of the
+constant-rank level set theorem where the rank is full. Values that $\Phi$ never takes count as
+regular, and there the statement holds with nothing to check.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Junk values | "$c$ is a regular value" must not be encoded as `∀ p, Φ p = c → Function.Surjective (mfderiv 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin n → ℝ) Φ p)` without a differentiability side condition: `mfderiv` is `0` off the `MDifferentiableAt` locus, and for `n = 0` the zero map is surjective, so such a hypothesis can hold for entirely non-smooth `Φ`. | ✅ `RegularValue Φ c := ∀ p, Φ p = c → Manifold.IsSubmersionAt 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin n → ℝ) ∞ Φ p` sidesteps the junk entirely: `IsSubmersionAt` is defined by a chart normal form and already implies `ContMDiffAt`. ❗ Predicted error: the raw `mfderiv`-surjectivity version with `hΦ` dropped. |
-| 2 | Semantic closeness | Lee's "regular point" is exactly "$d\Phi_p$ surjective". Mathlib's `Manifold.IsSubmersionAt I J n f x` asks for charts in which $f$ reads $(u,v) \mapsto u$; `Mathlib/Geometry/Manifold/Submersion.lean` still lists "`mfderiv` surjective ⟹ `IsSubmersionAt` for finite-dimensional manifolds" as a **TODO**. | ⚠️ As a *hypothesis*, `IsSubmersionAt` is therefore formally stronger than Lee's condition and the Lean theorem is formally weaker. Mathematically the two agree (both manifolds are finite-dimensional), so this is acceptable; the literal alternative `MDifferentiableAt … Φ p ∧ Surjective (mfderiv … Φ p)` would be closer to the text and equally junk-free. |
-| 3 | Conclusion completeness | "codimension equal to the dimension of the range" = $\dim N = n$. | ✅ `EmbeddedSubmanifoldOfCodimension (m := m) {p \| Φ p = c} n` uses `n`, the model dimension of `N`. ❗ Predicted error: using `m - n` (the dimension of the level set) or the rank `k` from Theorem 8.8 instead of `n`. |
-| 4 | Conclusion completeness | "closed embedded submanifold" is two claims: `IsClosed {p \| Φ p = c}` and the slice condition, about the same set. | ✅ Both conjuncts present. `IsClosed` is provable without a separation typeclass on `N` because a `ChartedSpace (Fin n → ℝ) N` is automatically T1. |
-| 5 | Faithful encoding | "Embedded submanifold" via Lee's local slice condition (`EmbeddedSubmanifoldOfCodimension`: a chart in `IsManifold.maximalAtlas 𝓘(ℝ, Fin m → ℝ) ∞ M` carrying `S ∩ φ.source` onto `{x ∈ φ.target \| ∀ i, m - n ≤ i.1 → x i = 0}`). | ✅ ❗ Predicted error: producing an *immersed* submanifold (existence of a smooth structure on the subtype with injective-immersion inclusion), or asserting only `IsEmbedding (Subtype.val)`, neither of which is Lee's "embedded submanifold". |
-| 6 | Hypothesis completeness | Lee's "smooth map" is a global hypothesis, separate from regularity of the value. | ✅ `hΦ : ContMDiff 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin n → ℝ) ∞ Φ` is present alongside `hc`. Note it is not implied by `hc`: `RegularValue` says nothing at points off the level set. |
-| 7 | Quantifier structure | "Every regular level set": with `c` and the hypothesis `RegularValue Φ c` in the binder, the statement is universally quantified over regular values, which matches the text. The case of an *empty* level set (every $c$ not in the image is trivially regular) is correctly covered — both conjuncts hold vacuously. | ✅ ❗ Predicted error: adding a surjectivity or nonemptiness hypothesis on `Φ`, which Lee does not require. |
-| 8 | Mathlib conventions / typeclass stack | Lee's smooth manifolds are Hausdorff and second countable; `[ChartedSpace (Fin m → ℝ) M]` + `[IsManifold 𝓘(ℝ, Fin m → ℝ) ∞ M]` supplies neither `[T2Space M]` nor `[SecondCountableTopology M]`. | ⚠️ Harmless here (the statement is local plus T1), so the Lean version is more general and still true; but it is not a transcription of the book's hypotheses. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | $M$ is a smooth manifold of dimension $m$ without boundary, and $N$ one of dimension $n$. | ✅ `[ChartedSpace (Fin m → ℝ) M]` with `[IsManifold 𝓘(ℝ, Fin m → ℝ) ∞ M]`, and the same for `N` with `n`. |
+| 2 | $\Phi$ is smooth, as a hypothesis in its own right. | ✅ `hΦ : ContMDiff 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin n → ℝ) ∞ Φ`. It is not implied by regularity of $c$, which says nothing at points off the level set. |
+| 3 | "$c$ is a regular value": the condition is imposed at **every** point of the fibre $\Phi^{-1}(c)$, not at one point and not on all of $M$. | ✅ `hc : RegularValue Φ c`, which is `∀ p, Φ p = c → Manifold.IsSubmersionAt 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin n → ℝ) ∞ Φ p`. |
+| 4 | The regularity condition must be free of junk values: it must not be satisfiable by a map that has no derivative at all. | ✅ `Manifold.IsSubmersionAt` is defined by a chart normal form and already implies `ContMDiffAt`, so there is no default-value loophole. ⚠️ As a hypothesis it is formally stronger than Lee's "differential surjective" — see the notes. |
+| 5 | The level set is closed in $M$. | ✅ `IsClosed {p \| Φ p = c}`. |
+| 6 | The same level set is an embedded submanifold, expressed by Lee's local slice condition using a chart from the smooth structure. | ✅ `EmbeddedSubmanifoldOfCodimension (m := m) {p \| Φ p = c} n`, which requires for each point of the set a chart `φ ∈ IsManifold.maximalAtlas 𝓘(ℝ, Fin m → ℝ) ∞ M` with `φ '' (S ∩ φ.source) = {x ∈ φ.target \| ∀ i, m - n ≤ i.1 → x i = 0}`. |
+| 7 | The codimension is exactly $n = \dim N$. | ✅ The last argument is `n`, the model dimension of `N`. |
+| 8 | The statement holds for every regular value, so $c$ and its regularity hypothesis are universally quantified. | ✅ `{c : N}` and `hc` are binders, so the theorem reads "for every $c$ that is a regular value…". |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Writing regularity as `∀ p, Φ p = c → Function.Surjective (mfderiv 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin n → ℝ) Φ p)` with no differentiability side condition and no `hΦ`. | Mathlib's `mfderiv` is the zero map wherever $\Phi$ is not `MDifferentiableAt`. For $n = 0$ the zero map is surjective, so a completely non-smooth $\Phi$ can satisfy the hypothesis. Pairing the `mfderiv` version with `MDifferentiableAt … Φ p` fixes it. |
+| 2 | Giving the codimension as $m - n$. | That is the *dimension* of the level set, not its codimension. Lee's corollary says the codimension equals the dimension of the range. |
+| 3 | Reusing the rank $k$ from Theorem 8.8 as the codimension without tying it to $n$. | At a regular value the rank is full, so it is $n$; leaving it as a free $k$ states a different, unproven claim. |
+| 4 | Encoding "embedded submanifold" as an injective immersion from an abstract manifold, or as `IsEmbedding (Subtype.val)`. | The first gives an *immersed* submanifold, strictly weaker; the second is purely topological and says nothing about the smooth structure. Neither is Lee's notion. |
+| 5 | Dropping the `IsClosed` conjunct. | "Closed embedded submanifold" is two claims about the same set; only one of them is the slice condition. |
+| 6 | Adding a surjectivity or nonemptiness hypothesis on $\Phi$, or requiring $c$ to be in the image. | Lee requires neither. Every value outside the image is vacuously regular and the conclusion is true there; excluding those cases weakens the theorem. |
+| 7 | Dropping `hΦ` because `hc` looks like it already forces smoothness. | `hc` only constrains $\Phi$ at points of the fibre. Off the fibre $\Phi$ would be unconstrained, and the proof needs smoothness everywhere near the fibre. |
+
+## Notes on the ground truth
+
+- We render "$d\Phi_p$ is surjective" by Mathlib's `Manifold.IsSubmersionAt`, which asks for charts
+  in which $\Phi$ reads $(u,v) \mapsto u$. ⚠️ `Mathlib/Geometry/Manifold/Submersion.lean` still lists
+  "`mfderiv` surjective ⟹ `IsSubmersionAt` for finite-dimensional manifolds" as a TODO, so as a
+  *hypothesis* `IsSubmersionAt` is formally stronger than Lee's condition and our theorem is
+  formally weaker. Mathematically the two agree here since both manifolds are finite-dimensional.
+  The literal alternative `MDifferentiableAt … Φ p ∧ Surjective (mfderiv … Φ p)` would be closer to
+  the text and equally free of junk values; a candidate using it should be accepted.
+- `IsClosed` is provable with no separation typeclass on $N$: a `ChartedSpace (Fin n → ℝ) N` is
+  automatically T1, so `{c}` is closed and $\Phi$ is continuous.
+- ⚠️ Lee's smooth manifolds are Hausdorff and second countable; neither `[T2Space M]` nor
+  `[SecondCountableTopology M]` appears. Harmless here — the statement is local plus T1, so the Lean
+  version is more general and still true — but it is not a transcription of the book's hypotheses.
+- `m - n` inside `EmbeddedSubmanifoldOfCodimension` is truncated natural subtraction. Nothing in a
+  realizable situation reaches the truncated branch (a regular value forces $n \le m$ when the fibre
+  is nonempty), but it is worth checking in candidate statements.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[lee_8_10_regular_level_set_theorem.md](lee_8_10_regular_level_set_theorem.md) and the background in [lee_8_10_regular_level_set_theorem.context.md](lee_8_10_regular_level_set_theorem.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 8 rows, so each row is worth 6.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 with the regularity condition imposed at only one point, or on all of $M$.
+- Requirement 7 with a codimension other than $\dim N$.
+- Requirement 4 with the surjectivity condition stated about a differential that is not known to be genuine.
+
+### Domain-specific pitfalls for this problem
+
+- Regularity is surjectivity of the differential, at every point of the fibre.
+- "Embedded submanifold" is the local slice condition with charts from the smooth structure.
+- Junk value — `mfderiv`: the smoothness hypothesis must be present for the regularity condition to constrain anything.
+- Both conclusions — closedness and the submanifold structure — are asserted.
+- The statement is for every regular value, with $c$ quantified inside.

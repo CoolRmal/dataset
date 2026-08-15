@@ -4,6 +4,7 @@
 - **Domain:** Operator theory
 - **Lean declaration:** `Dataset.NikolskiOperators.nikolski_B_7_2_1_adamyan_arov_krein` ([nikolski_B_7_2_1_adamyan_arov_krein.lean](nikolski_B_7_2_1_adamyan_arov_krein.lean))
 - **Criteria:** [nikolski_B_7_2_1_adamyan_arov_krein.criteria.md](nikolski_B_7_2_1_adamyan_arov_krein.criteria.md)
+- **Context:** [nikolski_B_7_2_1_adamyan_arov_krein.context.md](nikolski_B_7_2_1_adamyan_arov_krein.context.md)
 
 ## Statement
 

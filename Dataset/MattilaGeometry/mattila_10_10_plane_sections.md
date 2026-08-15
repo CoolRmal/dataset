@@ -4,6 +4,7 @@
 - **Domain:** Geometric measure theory
 - **Lean declaration:** `Dataset.MattilaGeometry.mattila_10_10_plane_sections` ([mattila_10_10_plane_sections.lean](mattila_10_10_plane_sections.lean))
 - **Criteria:** [mattila_10_10_plane_sections.criteria.md](mattila_10_10_plane_sections.criteria.md)
+- **Context:** [mattila_10_10_plane_sections.context.md](mattila_10_10_plane_sections.context.md)
 
 ## Statement
 

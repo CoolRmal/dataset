@@ -4,6 +4,7 @@
 - **Domain:** Operator theory
 - **Lean declaration:** `Dataset.ConwayFunctionalAnalysis.conway_II_7_6_compact_normal_spectral_theorem` ([conway_II_7_6_compact_normal_spectral_theorem.lean](conway_II_7_6_compact_normal_spectral_theorem.lean))
 - **Criteria:** [conway_II_7_6_compact_normal_spectral_theorem.criteria.md](conway_II_7_6_compact_normal_spectral_theorem.criteria.md)
+- **Context:** [conway_II_7_6_compact_normal_spectral_theorem.context.md](conway_II_7_6_compact_normal_spectral_theorem.context.md)
 
 ## Statement
 

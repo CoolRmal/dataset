@@ -4,6 +4,7 @@
 - **Domain:** Functional analysis
 - **Lean declaration:** `Dataset.ConwayFunctionalAnalysis.conway_V_13_3_james` ([conway_V_13_3_james.lean](conway_V_13_3_james.lean))
 - **Criteria:** [conway_V_13_3_james.criteria.md](conway_V_13_3_james.criteria.md)
+- **Context:** [conway_V_13_3_james.context.md](conway_V_13_3_james.context.md)
 
 ## Statement
 

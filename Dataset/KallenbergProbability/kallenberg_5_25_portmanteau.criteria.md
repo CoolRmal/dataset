@@ -1,18 +1,89 @@
 # Criteria: kallenberg_5_25_portmanteau
 
-**Statement:** [kallenberg_5_25_portmanteau.md](kallenberg_5_25_portmanteau.md) · **Lean:** [kallenberg_5_25_portmanteau.lean](kallenberg_5_25_portmanteau.lean)
+**Statement:** [kallenberg_5_25_portmanteau.md](kallenberg_5_25_portmanteau.md) · **Lean:** [kallenberg_5_25_portmanteau.lean](kallenberg_5_25_portmanteau.lean) · **Context:** [kallenberg_5_25_portmanteau.context.md](kallenberg_5_25_portmanteau.context.md)
 
-A faithful formalization must state all four conditions as a single equivalence, with the right convergence mode in (i) (weak convergence of the *laws*, i.e. `Tendsto` in the `ProbabilityMeasure` topology — not a.s., in probability, or setwise convergence), the correct pairing of open sets with `liminf ≥` and closed sets with `limsup ≤`, and a $\xi$-continuity set in (iv) defined by $P\{\xi \in \partial B\} = 0$. The two places where fidelity is easily lost are (a) the direction of the inequalities in (ii)/(iii), which is what makes the theorem non-trivial, and (b) the continuity-set condition, where `μ' (ξ ⁻¹' frontier B) = 0` (the law of $\xi$ charges no boundary point of $B$) must not be replaced by `μ' (frontier (ξ ⁻¹' B)) = 0`, a topologically meaningless condition on the abstract sample space.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Let $\xi, \xi_1, \xi_2, \dots$ be random elements of a metric space $S$. The portmanteau theorem
+says that four conditions are equivalent: convergence in distribution of $\xi_n$ to $\xi$; for every
+open set $G$, that $\liminf_n P\{\xi_n \in G\}$ is at least $P\{\xi \in G\}$; for every closed set
+$F$, that $\limsup_n P\{\xi_n \in F\}$ is at most $P\{\xi \in F\}$; and, for every measurable set $B$
+whose boundary carries no mass under the law of $\xi$, that $P\{\xi_n \in B\}$ converges to
+$P\{\xi \in B\}$.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Conclusion completeness | All four conditions must appear in one equivalence, in the text's order. A chain of separate implications, or a two-way `↔` between only (i) and (iv), loses the theorem. | ✅ `List.TFAE [lawsConverge, openLowerBound, closedUpperBound, continuitySets]` with the four `let`-bound conditions matching (i)–(iv). |
-| 2 | Convergence mode | (i) is weak convergence of laws. `TendstoInDistribution ξn atTop ξ (fun _ ↦ μ) μ'` unfolds to `Tendsto` of `⟨μ.map (ξn n), _⟩` to `⟨μ'.map ξ, _⟩` in `ProbabilityMeasure S`, which carries the weak topology. | ✅ Correct notion. ❗ Trap: `Tendsto (fun n ↦ μ.map (ξn n)) atTop (𝓝 (μ'.map ξ))` inside `Measure S`, whose topology is *not* weak convergence; also `→ᵐ`/a.s. or `TendstoInMeasure`, which are strictly stronger and would break (ii)–(iv) ⇒ (i). |
-| 3 | Faithful encoding | (iv)'s index class $\mathcal{S}_\xi$ is `MeasurableSet B` together with `μ' (ξ ⁻¹' frontier B) = 0`: the *preimage of the frontier of $B$*, not the frontier of the preimage. | ✅ `∀ B : Set S, MeasurableSet B → μ' (ξ ⁻¹' frontier B) = 0 → Tendsto (fun n ↦ μ (ξn n ⁻¹' B)) atTop (𝓝 (μ' (ξ ⁻¹' B)))`. ❗ Trap: `frontier (ξ ⁻¹' B)` (ill-typed intent — `Ω'` has no topology, so a candidate doing this must have changed the setup), or dropping `MeasurableSet B`, which makes (iv) false. |
-| 4 | Semantic closeness | The inequality directions must be exactly: open $G$ with `μ' (ξ ⁻¹' G) ≤ liminf …`, closed $F$ with `limsup … ≤ μ' (ξ ⁻¹' F)`. Swapping open/closed or liminf/limsup produces a statement that is false. | ✅ `openLowerBound` and `closedUpperBound` are stated exactly so; note the text writes (ii) as `liminf ≥` and the Lean flips the sides of the same inequality. ❗ Trap: pairing `IsOpen` with `limsup ≤`. |
-| 5 | Junk values | `liminf`/`limsup` of `μ (ξn n ⁻¹' G)` are taken in `ℝ≥0∞`, where they are always defined and no `toReal` truncation occurs; using `μ.real` or `ENNReal.toReal` would introduce junk at $\infty$ (harmless here but fragile) and would need `IsProbabilityMeasure` to be sound. | ✅ Everything stays in `ℝ≥0∞`. |
-| 6 | Hypothesis completeness | Measurability of the random elements is *not* implied by (ii)–(iv), yet is needed for the implications back to (i); and $P$ must be a probability measure for (ii) ⟺ (iii) (complementation). | ✅ `hξn : ∀ n, AEMeasurable (ξn n) μ`, `hξ : AEMeasurable ξ μ'`, `[IsProbabilityMeasure μ]`, `[IsProbabilityMeasure μ']`. ❗ Trap: relying on the `AEMeasurable` fields bundled inside `TendstoInDistribution` and omitting the standalone hypotheses — the TFAE then fails, since conditions (ii)–(iv) alone cannot recover measurability. |
-| 7 | Faithful encoding | `ξn n` is only `AEMeasurable`, so `ξn n ⁻¹' G` need not be measurable; `μ` is applied to it as an outer measure. This is sound (for an a.e.-measurable map the outer measure of the preimage agrees with `(μ.map (ξn n)) G`), but it is a subtle reading. | ⚠️ Acceptable; `(μ.map (ξn n)) G` (or `Measurable` hypotheses instead of `AEMeasurable`) would make the intent transparent without changing the mathematics. |
-| 8 | Semantic closeness | The text allows $\xi, \xi_1, \xi_2, \dots$ to live on unrelated probability spaces; the ground truth places all `ξn` on a single `(Ω, μ)` and `ξ` on `(Ω', μ')`. | ⚠️ Harmless (weak convergence depends only on the laws, and `TendstoInDistribution` already supports a per-index space `μ : ι → Measure (Ω i)`), but the fully general form `μ : ℕ → Measure (Ω ·)` is closer to the text. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | $S$ is a metric space with its Borel measurable structure, and all measures involved are probability measures. | ✅ `[MetricSpace S] [MeasurableSpace S] [BorelSpace S]`, `[IsProbabilityMeasure μ] [IsProbabilityMeasure μ']`. |
+| 2 | The random elements are measurable maps into $S$. | ✅ `hξn : ∀ n, AEMeasurable (ξn n) μ` and `hξ : AEMeasurable ξ μ'`, stated as standalone hypotheses. |
+| 3 | Condition (i) is weak convergence of the laws. | ✅ `TendstoInDistribution ξn atTop ξ (fun _ ↦ μ) μ'`, which is `Tendsto` of the pushforward laws inside `ProbabilityMeasure S`, the space carrying the weak topology. |
+| 4 | Condition (ii): for every open $G$, the limit inferior of $P\{\xi_n \in G\}$ is at least $P\{\xi \in G\}$. | ✅ `∀ G : Set S, IsOpen G → μ' (ξ ⁻¹' G) ≤ liminf (fun n ↦ μ (ξn n ⁻¹' G)) atTop`. |
+| 5 | Condition (iii): for every closed $F$, the limit superior of $P\{\xi_n \in F\}$ is at most $P\{\xi \in F\}$. | ✅ `∀ F : Set S, IsClosed F → limsup (fun n ↦ μ (ξn n ⁻¹' F)) atTop ≤ μ' (ξ ⁻¹' F)`. |
+| 6 | Condition (iv) applies to measurable sets $B$ whose *boundary in $S$* is null for the law of $\xi$, and asserts full convergence of the probabilities. | ✅ `∀ B : Set S, MeasurableSet B → μ' (ξ ⁻¹' frontier B) = 0 → Tendsto (fun n ↦ μ (ξn n ⁻¹' B)) atTop (𝓝 (μ' (ξ ⁻¹' B)))`. |
+| 7 | All four conditions are asserted equivalent in one statement, in the order printed. | ✅ `List.TFAE [lawsConverge, openLowerBound, closedUpperBound, continuitySets]`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Pairing open sets with `limsup ≤` and closed sets with `liminf ≥`. | The directions are swapped and the resulting statement is false. Take $\xi_n$ a point mass at $1/n$ and $\xi$ a point mass at $0$, with $G = (0, \infty)$: $P\{\xi_n \in G\} = 1$ for every $n$ while $P\{\xi \in G\} = 0$. |
+| 2 | Replacing `μ' (ξ ⁻¹' frontier B)` by `μ' (frontier (ξ ⁻¹' B))`. | The sample space has no topology, so the boundary of a subset of it is not defined. The condition is about the boundary of $B$ inside $S$, pulled back through $\xi$. |
+| 3 | Dropping `MeasurableSet B` in condition (iv). | The text's class of $\xi$-continuity sets is a subclass of the Borel sets. Without measurability the two sides are outer measures rather than probabilities, condition (iv) is no longer implied by (i), and the equivalence breaks. |
+| 4 | Stating (i) as `Tendsto (fun n ↦ μ.map (ξn n)) atTop (𝓝 (μ'.map ξ))` inside `Measure S`. | The topology on `Measure S` is not the topology of weak convergence, so this is a different — and generally false — assertion. |
+| 5 | Replacing (i) by almost-sure convergence or convergence in measure. | Both are strictly stronger than convergence in distribution, so the implications from (ii)–(iv) back to (i) fail. They are also inexpressible when the $\xi_n$ and $\xi$ live on different spaces. |
+| 6 | Formalizing only a chain of implications, or only `(i) ↔ (iv)`. | The theorem asserts all four conditions equivalent; a partial chain loses content. |
+| 7 | Leaving out the measurability hypotheses and relying on those bundled inside `TendstoInDistribution`. | Conditions (ii)–(iv) on their own do not give measurability of the maps, so the implications back to (i) would not be provable and the equivalence would be false. |
+
+## Notes on the ground truth
+
+- The probabilities are `ℝ≥0∞`-valued throughout, so `liminf` and `limsup` always exist and no
+  conversion to real numbers can truncate at $\infty$. Using `μ.real` or `ENNReal.toReal` would work
+  here but would need `IsProbabilityMeasure` to be sound.
+- ⚠️ Because `ξn n` is only assumed `AEMeasurable`, the preimages `ξn n ⁻¹' G` need not be
+  measurable, and `μ` is being applied to them as an outer measure. This is sound — for an
+  almost-everywhere measurable map, the outer measure of the preimage agrees with the pushforward
+  law of the set — but it is a subtle reading. Writing `(μ.map (ξn n)) G`, or assuming `Measurable`
+  instead of `AEMeasurable`, would make the intent plain without changing the mathematics.
+- ⚠️ Kallenberg allows $\xi, \xi_1, \xi_2, \dots$ to live on unrelated probability spaces. The ground
+  truth puts all the $\xi_n$ on one space $(\Omega, \mu)$ and $\xi$ on another. This is harmless,
+  since weak convergence depends only on the laws, and `TendstoInDistribution` already supports a
+  different space per index, so the fully general form is closer to the text.
+- The text writes (ii) as `liminf ≥`; the Lean writes the same inequality with the sides exchanged.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[kallenberg_5_25_portmanteau.md](kallenberg_5_25_portmanteau.md) and the background in [kallenberg_5_25_portmanteau.context.md](kallenberg_5_25_portmanteau.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 7 rows, so each row is worth 7.1 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirements 4–5 with the $\liminf$/$\limsup$ or the inequality directions swapped.
+- Requirement 6 with condition (iv) asserted for all Borel sets rather than for $\xi$-continuity sets.
+- Requirement 7 with the four conditions strung as implications rather than a single equivalence.
+
+### Domain-specific pitfalls for this problem
+
+- Open sets pair with $\liminf \ge$, closed sets with $\limsup \le$; the asymmetry is the substance.
+- The boundary in condition (iv) is taken in the ambient space $S$, and the null condition is for the law of the limit $\xi$.
+- Convergence in distribution is about laws; the random elements need not share a probability space.
+- The measures of preimages live in `ℝ≥0∞`, where `liminf`/`limsup` are always defined — no boundedness side condition is needed.

@@ -1,0 +1,25 @@
+module
+
+public import Dataset.BogachevGaussian.Defs
+public import Dataset.BogachevGaussian.bogachev_gaussian_1_9_2_rotation_characterization
+public import Dataset.BogachevGaussian.bogachev_gaussian_1_9_3_symmetric_tail_characterization
+public import Dataset.BogachevGaussian.bogachev_gaussian_2_4_5_cameron_martin_dichotomy
+public import Dataset.BogachevGaussian.bogachev_gaussian_2_5_2_zero_one_law
+public import Dataset.BogachevGaussian.bogachev_gaussian_2_7_2_feldman_hajek
+public import Dataset.BogachevGaussian.bogachev_gaussian_2_8_10_anderson_inequality
+public import Dataset.BogachevGaussian.bogachev_gaussian_4_2_1_ehrhard_inequality
+public import Dataset.BogachevGaussian.bogachev_gaussian_4_3_1_isoperimetric_inequality
+public import Dataset.BogachevGaussian.bogachev_gaussian_4_5_8_seminorm_concentration
+public import Dataset.BogachevGaussian.bogachev_gaussian_4_6_1_correlation_convex_strip
+
+/-!
+# Hard Gaussian-measure statements from Bogachev
+
+Ten statement-only formalizations selected from V. I. Bogachev, *Gaussian Measures*.
+
+Each problem lives in `Dataset/BogachevGaussian/<declaration_name>.lean`,
+accompanied by `<declaration_name>.md` (the natural-language statement from
+the textbook) and `<declaration_name>.criteria.md` (a quality rubric for
+judging formalizations of that statement).
+Custom notions shared between problems are in `Dataset/BogachevGaussian/Defs.lean`.
+-/

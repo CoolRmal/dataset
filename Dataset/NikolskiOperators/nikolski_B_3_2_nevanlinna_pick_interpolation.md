@@ -4,6 +4,7 @@
 - **Domain:** Function theory
 - **Lean declaration:** `Dataset.NikolskiOperators.nikolski_B_3_2_nevanlinna_pick_interpolation` ([nikolski_B_3_2_nevanlinna_pick_interpolation.lean](nikolski_B_3_2_nevanlinna_pick_interpolation.lean))
 - **Criteria:** [nikolski_B_3_2_nevanlinna_pick_interpolation.criteria.md](nikolski_B_3_2_nevanlinna_pick_interpolation.criteria.md)
+- **Context:** [nikolski_B_3_2_nevanlinna_pick_interpolation.context.md](nikolski_B_3_2_nevanlinna_pick_interpolation.context.md)
 
 ## Statement
 

@@ -1,20 +1,97 @@
 # Criteria: nikolski_B_3_2_nevanlinna_pick_interpolation
 
-> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+**Statement:** [nikolski_B_3_2_nevanlinna_pick_interpolation.md](nikolski_B_3_2_nevanlinna_pick_interpolation.md) · **Lean:** [nikolski_B_3_2_nevanlinna_pick_interpolation.lean](nikolski_B_3_2_nevanlinna_pick_interpolation.lean) · **Context:** [nikolski_B_3_2_nevanlinna_pick_interpolation.context.md](nikolski_B_3_2_nevanlinna_pick_interpolation.context.md)
 
-**Statement:** [nikolski_B_3_2_nevanlinna_pick_interpolation.md](nikolski_B_3_2_nevanlinna_pick_interpolation.md) · **Lean:** [nikolski_B_3_2_nevanlinna_pick_interpolation.lean](nikolski_B_3_2_nevanlinna_pick_interpolation.lean)
+## What the theorem says
 
-A faithful formalization must state both halves of Pick's corollary: solvability of the interpolation problem $f \in H^\infty$, $\lVert f\rVert_\infty \le 1$, $f(\lambda_k) = w_k$ is equivalent to positive semidefiniteness of the Pick matrix $\big[\tfrac{1-w_i\bar w_j}{1-\lambda_i\bar\lambda_j}\big]$, **and** the solution is unique exactly when that matrix is degenerate. The trap is concentrated in the word "unique": the interpolants are analytic functions on $\mathbb{D}$, but in Lean they are *total* functions `ℂ → ℂ` whose values off the disc are unconstrained, so uniqueness can only mean "any two solutions agree on the disc". Additionally, the nodes $\lambda_1,\dots,\lambda_n$ are implicitly distinct in the book, and nothing forces that in Lean.
+Given finitely many distinct points $\lambda_1,\dots,\lambda_n$ of the open unit disc and target
+values $w_1,\dots,w_n$, Pick's theorem decides when there is an analytic function $f$ on the disc
+with $\lvert f\rvert \le 1$ and $f(\lambda_k) = w_k$ for every $k$. Such an $f$ exists exactly when
+the Pick matrix with entries $\frac{1 - w_i\bar w_j}{1 - \lambda_i\bar\lambda_j}$ is positive
+semidefinite. When a solution exists, it is unique exactly when that matrix is singular.
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+## What a correct formalization must contain
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Junk values / **falsity** | Uniqueness must be stated *modulo values outside the disc*: `SchurFunction f` constrains `f` only through `DifferentiableOn ℂ f (ball 0 1)`, `eLpNorm` of the circles $\lvert z\rvert = r < 1$, and `∀ z ∈ ball 0 1, ‖f z‖ ≤ 1` — all of which depend only on `f` restricted to the open unit disc. Hence the solution set, as a `Set (ℂ → ℂ)`, always contains infinitely many functions whenever it is nonempty. | ❗ **The second conjunct of the ground truth is false.** `solutions.Subsingleton` is unsatisfiable when `solutions.Nonempty`, so `solutions.Nonempty → (solutions.Subsingleton ↔ det (PickMatrix z w) = 0)` asserts that a solvable problem always has nonsingular Pick matrix. Counterexample: `n = 1`, `z 0 = 0`, `w 0 = 1`; then `f ≡ 1` is a solution, `PickMatrix = [(1-1)/(1-0)] = [0]`, so `det = 0` while `Subsingleton` fails. The correct clause is `∀ f ∈ solutions, ∀ g ∈ solutions, ∀ z ∈ ball 0 1, f z = g z`. |
-| 2 | Hypothesis completeness / **falsity** | The interpolation nodes must be **distinct**: $\lambda_1,\dots,\lambda_n$ pairwise different (repeated nodes would make the problem a Hermite/multiple-point interpolation, which is not what the Pick matrix above encodes). | ❗ `Function.Injective z` is missing. Even after repairing criterion 1, the uniqueness half stays false: take `n = 2`, `z = (0,0)`, `w = (0,0)`. Then `PickMatrix = ![![1,1],![1,1]]` has `det = 0` and is positive semidefinite, but `f = 0` and `f = id` are two solutions differing on the disc. ❗ Trap: models are likely to omit distinctness too. |
-| 3 | Faithful encoding (Pick matrix) | The entries must be $\frac{1 - w_i \bar w_j}{1 - \lambda_i \bar\lambda_j}$ with the conjugate on the *second* index, and the quadratic form must be the Hermitian one $\sum_{i,j} \bar c_i A_{ij} c_j \ge 0$ (the text writes $\sum a_i \bar a_j (1-w_i\bar w_j)/(1-\lambda_i\bar\lambda_j) \ge 0$, the transposed but equivalent convention). | ✅ `PickMatrix z w i j = (1 - w i * star (w j)) / (1 - z i * star (z j))` and `PositiveSemidefiniteMatrix A = ∀ c, 0 ≤ (∑ i, ∑ j, star (c i) * A i j * c j).re`. Since the Pick matrix is Hermitian, the two index conventions define the same condition. The denominator never vanishes because `hz` puts the nodes in the open disc. |
-| 4 | Mathlib conventions | Mathlib has `Matrix.PosSemidef` (`IsHermitian` together with nonnegativity of the quadratic form) and `Matrix.det`. A hand-rolled predicate that asks only `0 ≤ re (…)` without Hermitianness is strictly weaker for a general matrix. | ⚠️ `PositiveSemidefiniteMatrix` omits the Hermitian conjunct. Harmless *here* (the Pick matrix is Hermitian by construction), but `Matrix.PosSemidef (PickMatrix z w)` would be the idiomatic and safer statement; `Matrix.det` is used correctly. |
-| 5 | Faithful encoding (Schur class) | "$f \in H^\infty$ with $\lVert f\rVert_\infty \le 1$" is the Schur class: analytic on $\mathbb{D}$ with $\lvert f\rvert \le 1$ there. The bound must be a pointwise bound on the *disc*, not an essential bound on the circle (which would need boundary values). | ✅ `SchurFunction f = HardyClass ⊤ f ∧ ∀ z ∈ Metric.ball (0 : ℂ) 1, ‖f z‖ ≤ 1`. The `HardyClass ⊤` conjunct is redundant given the pointwise bound except for the analyticity it carries, which is essential. |
-| 6 | Semantic closeness (degeneracy) | "the matrix $I - WW^*$ is degenerated, i.e. $\partial = \operatorname{rank}(I - WW^*) < n$" is exactly singularity, so `det = 0` is the right rendering; using `Matrix.rank < n` would be equally faithful. | ✅ `Matrix.det (PickMatrix z w) = 0`. ❗ Trap: `¬ (PickMatrix z w).PosDef`, which is *not* equivalent under the standing assumption of positive semidefiniteness only if one forgets the PSD hypothesis. |
-| 7 | Conclusion completeness | Both halves must be present, and the uniqueness half must be conditioned on solvability (with no solutions, "the solution is unique" is meaningless — or vacuously true — and the Pick matrix need not be singular). | ✅ The statement is a conjunction: `(solutions.Nonempty ↔ PositiveSemidefiniteMatrix (PickMatrix z w)) ∧ (solutions.Nonempty → (… ↔ det … = 0))`. The conditioning is right; only the encoding of "unique" (criterion 1) is wrong. |
-| 8 | Hypothesis completeness | The nodes must lie in the open unit disc (otherwise the Pick kernel's denominator vanishes or changes sign); the target values $w_k$ need no hypothesis, since $\lvert w_k\rvert \le 1$ follows from solvability and is encoded in the Pick condition. | ✅ `hz : ∀ i : Fin n, z i ∈ Metric.ball (0 : ℂ) 1` present; no spurious hypothesis on `w`. The `Fin n` indexing matches "$k = 1,\dots,n$" and correctly allows `n = 0` (empty data, `PickMatrix` the empty matrix, both sides true). |
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The interpolation nodes lie in the open unit disc. | ✅ `hz : ∀ i : Fin n, z i ∈ Metric.ball (0 : ℂ) 1`. |
+| 2 | The nodes are pairwise distinct. | ✅ `hz_injective : Function.Injective z`. |
+| 3 | The competitors are Schur functions: analytic on the disc with modulus at most $1$ there. | ✅ `SchurFunction f` = `HardyClass ⊤ f ∧ ∀ z ∈ Metric.ball (0 : ℂ) 1, ‖f z‖ ≤ 1`. |
+| 4 | The interpolation conditions hold at every node. | ✅ `∀ i : Fin n, f (z i) = w i`, inside the definition of `solutions`. |
+| 5 | Solvability is equivalent to positive semidefiniteness of the Pick matrix. | ✅ `solutions.Nonempty ↔ PositiveSemidefiniteMatrix (PickMatrix z w)`. |
+| 6 | The Pick matrix has entries $\frac{1 - w_i\bar w_j}{1 - \lambda_i\bar\lambda_j}$, with the conjugate on the second index. | ✅ `PickMatrix z w i j = (1 - w i * star (w j)) / (1 - z i * star (z j))`. |
+| 7 | Positive semidefiniteness is the Hermitian quadratic form condition $\sum_{i,j}\bar c_i A_{ij} c_j \ge 0$ for every coefficient vector. | ✅ `PositiveSemidefiniteMatrix A = ∀ c, 0 ≤ Complex.re (∑ i, ∑ j, star (c i) * A i j * c j)`. |
+| 8 | The uniqueness half is conditioned on solvability. | ✅ `solutions.Nonempty → (… ↔ …)`. |
+| 9 | Uniqueness means that any two solutions agree **on the disc**. | ✅ `∀ f ∈ solutions, ∀ g ∈ solutions, Set.EqOn f g (Metric.ball (0 : ℂ) 1)`. |
+| 10 | Degeneracy of the Pick matrix is singularity. | ✅ `Matrix.det (PickMatrix z w) = 0`; `Matrix.rank < n` would be equally faithful. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Stating uniqueness as `solutions.Subsingleton`, or as `∃!`. | The competitors are total functions `ℂ → ℂ`, and every condition on them constrains only the restriction to the disc. So whenever there is one solution there are infinitely many, and the clause is unsatisfiable. Take $n = 1$, $\lambda_1 = 0$, $w_1 = 1$: the constant $1$ solves the problem, the Pick matrix is $[0]$ with determinant $0$, and yet the solution set is not a subsingleton — the equivalence would be false. |
+| 2 | Dropping the assumption that the nodes are distinct. | The uniqueness half goes false. Take $n = 2$, both nodes $0$, both targets $0$: the Pick matrix is all ones, so it is positive semidefinite with determinant $0$, but $f = 0$ and $f(z) = z$ are two solutions that differ on the disc. |
+| 3 | Reading $\lVert f\rVert_\infty \le 1$ as an essential bound on boundary values. | That requires boundary values to exist before they have been produced. The direct reading is the pointwise bound on the open disc. |
+| 4 | Omitting a conjugate, or conjugating the first index instead of the second, in the Pick entries. | The resulting matrix is not Hermitian and the positivity condition is a different one. |
+| 5 | Stating the uniqueness half without conditioning on solvability. | With no solutions, "the solution is unique" is meaningless, and the Pick matrix need not be singular, so the unconditioned biconditional is false. |
+| 6 | Encoding degeneracy as "not positive definite" without carrying the standing semidefiniteness. | For a general matrix that is not the same as singularity; the equivalence is only available under the positive semidefiniteness already established. |
+| 7 | Allowing nodes on or outside the unit circle. | The denominator $1 - \lambda_i\bar\lambda_j$ vanishes or changes sign, so the Pick kernel is not defined and the criterion breaks. |
+
+## Notes on the ground truth
+
+- Interpolants are total functions `ℂ → ℂ`, so uniqueness can only be uniqueness on the disc, and
+  `Set.EqOn f g (Metric.ball (0 : ℂ) 1)` is exactly that reading. An earlier version of this file
+  used `solutions.Subsingleton` and was false for that reason; Mistake 1 records the defect. The
+  distinctness hypothesis `hz_injective` was also added later; Mistake 2 records its absence.
+- `PositiveSemidefiniteMatrix` asks only for nonnegativity of the quadratic form and omits the
+  Hermitian conjunct that mathlib's `Matrix.PosSemidef` carries. Harmless here, since the Pick
+  matrix is Hermitian by construction, but `Matrix.PosSemidef` would be the idiomatic and safer
+  statement.
+- The text writes the condition as $\sum_{i,j} a_i\bar a_j \frac{1 - w_i\bar w_j}{1 - \lambda_i
+  \bar\lambda_j} \ge 0$, which is the transposed convention. For a Hermitian matrix the two
+  conventions define the same condition.
+- The denominators never vanish, because `hz` places every node in the open disc.
+- The `Fin n` indexing matches "$k = 1,\dots,n$" and allows $n = 0$: the data is empty, the Pick
+  matrix is the empty matrix with determinant $1$, and both halves come out correctly.
+- Inside `SchurFunction`, the `HardyClass ⊤` conjunct is redundant given the pointwise bound,
+  except for the analyticity it carries, which is essential.
+- No hypothesis is placed on the targets $w_k$, and none is needed: $\lvert w_k\rvert \le 1$ follows
+  from solvability and is already encoded in the Pick condition.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[nikolski_B_3_2_nevanlinna_pick_interpolation.md](nikolski_B_3_2_nevanlinna_pick_interpolation.md) and the background in [nikolski_B_3_2_nevanlinna_pick_interpolation.context.md](nikolski_B_3_2_nevanlinna_pick_interpolation.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 2 with the nodes not required distinct.
+- Requirement 8 with the uniqueness clause asserted unconditionally rather than under solvability.
+- Requirement 9 with uniqueness compared outside the disc.
+
+### Domain-specific pitfalls for this problem
+
+- The competitors are Schur functions: analytic on the disc with modulus $\le 1$ **there**, not merely bounded.
+- The Pick matrix's denominators are nonzero because the nodes are inside the disc; a node on the circle would make them junk.
+- Positive semidefiniteness is the Hermitian quadratic form condition, with conjugates in the right places.
+- Degeneracy means singularity of $I - WW^*$, i.e. rank $< n$.
+- Uniqueness is equality of functions restricted to the disc.

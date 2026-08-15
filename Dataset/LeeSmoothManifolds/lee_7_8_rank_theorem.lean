@@ -40,6 +40,7 @@ theorem lee_7_8_rank_theorem
       ∃ (sourceTarget : Set (Fin m → ℝ)) (targetTarget : Set (Fin n → ℝ))
         (φ : SmoothDiffeomorphismOn U₀ sourceTarget)
         (ψ : SmoothDiffeomorphismOn V₀ targetTarget),
+        φ.toFun p = 0 ∧ ψ.toFun (F p) = 0 ∧
         ∀ x ∈ φ.toFun '' U₀, ψ.toFun (F (φ.invFun x)) =
           fun i ↦ if h : i.1 < k ∧ i.1 < m then x ⟨i.1, h.2⟩ else 0 := by
   sorry

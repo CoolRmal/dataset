@@ -1,17 +1,88 @@
 # Criteria: hasLusinPropertyN_iff_maps_nullMeasurableSet
 
-**Statement:** [hasLusinPropertyN_iff_maps_nullMeasurableSet.md](hasLusinPropertyN_iff_maps_nullMeasurableSet.md) · **Lean:** [hasLusinPropertyN_iff_maps_nullMeasurableSet.lean](hasLusinPropertyN_iff_maps_nullMeasurableSet.lean)
+**Statement:** [hasLusinPropertyN_iff_maps_nullMeasurableSet.md](hasLusinPropertyN_iff_maps_nullMeasurableSet.md) · **Lean:** [hasLusinPropertyN_iff_maps_nullMeasurableSet.lean](hasLusinPropertyN_iff_maps_nullMeasurableSet.lean) · **Context:** [hasLusinPropertyN_iff_maps_nullMeasurableSet.context.md](hasLusinPropertyN_iff_maps_nullMeasurableSet.context.md)
 
-The whole content of this theorem lives in the distinction between *Lebesgue* measurability (the completed σ-algebra) and *Borel* measurability. A formalization that silently replaces Lebesgue-measurable by Borel-measurable anywhere — in the hypothesis on $F$, in the sets quantified over, or in the conclusion about images — states a different (and for the images, generally false or vacuous) theorem, because images of Borel sets under measurable maps are analytic, not Borel.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+A map $F$ of $\mathbb{R}^n$ to itself has Lusin's property (N) when it sends every set of Lebesgue
+measure zero to a set of Lebesgue measure zero. Theorem 3.6.9 says that, for a Lebesgue measurable
+$F$, this happens exactly when $F$ sends every Lebesgue measurable set to a Lebesgue measurable set.
+Everything here is about the Lebesgue $\sigma$-algebra — the completion — and not about Borel sets:
+images of Borel sets under measurable maps are generally analytic and not Borel, so the Borel
+version of the right-hand side would be a different claim.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Faithful encoding | “Lebesgue measurable mapping” must be measurability with respect to the *completed* σ-algebra. In Mathlib this is `NullMeasurable F volume`; the stronger `Measurable F` (Borel measurability) restricts the hypothesis and changes the theorem. | ✅ `hF : NullMeasurable F volume`. ❗ Trap: candidates writing `Measurable F` formalize a strictly narrower statement. |
-| 2 | Faithful encoding | “Takes all Lebesgue measurable sets to Lebesgue measurable sets” must quantify over `NullMeasurableSet A volume` and conclude `NullMeasurableSet (F '' A) volume`. Using `MeasurableSet` for the image side is essentially never true (images are analytic sets) and would make the right-hand side of the iff wrong. | ✅ Both sides use `NullMeasurableSet _ volume`. |
-| 3 | Faithful encoding | Lusin's property (N) quantifies over null sets of the Lebesgue σ-algebra: `∀ A, NullMeasurableSet A μ → μ A = 0 → ν (F '' A) = 0`. Note `ν` applied to the (possibly non-measurable) image is the *outer* measure — exactly the textbook reading, with no measurability assumption smuggled into the conclusion. | ✅ `HasLusinPropertyN` in `Defs.lean` matches Definition 3.6.8; since `volume` is Borel, sub-null-sets are handled correctly via `NullMeasurableSet`. |
-| 4 | Domain encoding | $\mathbb{R}^n$ should be a Mathlib-idiomatic Euclidean model with its Lebesgue measure: `Fin n → ℝ` with `volume` (or `EuclideanSpace ℝ (Fin n)`); the measure-theoretic statement is insensitive to the choice of norm, so either is acceptable. | ✅ `(Fin n → ℝ)` with `volume` (the pi Lebesgue measure). |
-| 5 | Conclusion structure | The statement is a biconditional (“precisely when”); both directions must be present. | ✅ Stated as `↔`. |
-| 6 | Mathlib conventions | The auxiliary notion is introduced as a named reusable definition (`HasLusinPropertyN F μ ν`) with the general two-measure form of Definition 3.6.8, specialised to `volume, volume` in the theorem — rather than inlining an ad-hoc formula. | ✅ Definition in `Defs.lean`, general `(μ, ν)` version, theorem instantiates both to `volume`. |
-| 7 | Trap | Generality of `n`: the theorem is about arbitrary finite dimension. Fixing `n = 1` (or stating it for `ℝ`) loses the general statement. | ✅ `{n : ℕ}` is universally quantified. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The dimension $n$ is arbitrary, and both the source and the target are $\mathbb{R}^n$ with Lebesgue measure. | ✅ `{n : ℕ}` and `F : (Fin n → ℝ) → (Fin n → ℝ)` with `volume`. |
+| 2 | $F$ is Lebesgue measurable, i.e. measurable for the completed $\sigma$-algebra — not Borel measurable. | ✅ `hF : NullMeasurable F volume`. |
+| 3 | Property (N) says: every Lebesgue-null set has null image. | ✅ `HasLusinPropertyN F volume volume`, defined as `∀ A, NullMeasurableSet A μ → μ A = 0 → ν (F '' A) = 0`. |
+| 4 | The image in property (N) is measured without assuming it is measurable. | ✅ `ν (F '' A)`; Mathlib measures apply to any set as outer measures. |
+| 5 | The other side of the equivalence quantifies over all Lebesgue measurable sets $A$. | ✅ `∀ A : Set (Fin n → ℝ), NullMeasurableSet A volume → …`. |
+| 6 | Its conclusion is that the image $F(A)$ is again Lebesgue measurable. | ✅ `NullMeasurableSet (F '' A) volume`. |
+| 7 | The statement is a biconditional — "precisely when" — so both directions are asserted. | ✅ Stated with `↔`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Assuming `Measurable F`, i.e. Borel measurability. | Strictly narrower than the book's Lebesgue measurable, so the theorem proved is a special case. |
+| 2 | Concluding that $F(A)$ is a Borel set (`MeasurableSet (F '' A)`). | Almost never true: images of Borel sets under Borel maps are analytic, and there are analytic sets that are not Borel. The right-hand side of the equivalence would then be false in cases where the theorem says it holds. |
+| 3 | Quantifying the left-hand side over Borel null sets only. | The definition of property (N) is about null sets of the completed $\sigma$-algebra, which include all subsets of Borel null sets. Restricting to Borel sets weakens property (N) and breaks the equivalence. |
+| 4 | Adding a measurability hypothesis on $F(A)$ inside property (N). | Property (N) is a statement about outer measure and assumes nothing about the image. Adding the hypothesis makes the condition weaker for free. |
+| 5 | Stating only one direction of the equivalence. | The book says "precisely when". |
+| 6 | Fixing $n = 1$ or working on $\mathbb{R}$ instead of $\mathbb{R}^n$. | Loses the general statement. |
+| 7 | Formalizing property (N) for the restriction of $F$ to a set, or for a different pair of measures. | Theorem 3.6.9 is about property (N) with respect to the pair (Lebesgue, Lebesgue) on all of $\mathbb{R}^n$. |
+
+## Notes on the ground truth
+
+- `HasLusinPropertyN` is defined in `Defs.lean` in the general two-measure form of Definition 3.6.8
+  and the theorem instantiates both measures to `volume`, so the definition is reusable (problem
+  5.5.4 uses the relative version `HasLusinPropertyNOn`).
+- $\mathbb{R}^n$ is modelled as `Fin n → ℝ` with `volume`, the product Lebesgue measure.
+  `EuclideanSpace ℝ (Fin n)` would give the same measure space, and the statement does not mention
+  norms, so either is fine.
+- In `HasLusinPropertyN`, the clause `NullMeasurableSet A μ` is redundant next to `μ A = 0`: any set
+  of outer measure zero is already null-measurable. Keeping it does no harm and mirrors the book's
+  "for every set $A \in \mathcal{A}$ with $\mu(A) = 0$".
+- Lebesgue measurability of a *set* is `NullMeasurableSet A volume`, which says $A$ differs from a
+  Borel set by a null set — the standard description of the completed $\sigma$-algebra. Lebesgue
+  measurability of the *map* is `NullMeasurable F volume`.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[hasLusinPropertyN_iff_maps_nullMeasurableSet.md](hasLusinPropertyN_iff_maps_nullMeasurableSet.md) and the background in [hasLusinPropertyN_iff_maps_nullMeasurableSet.context.md](hasLusinPropertyN_iff_maps_nullMeasurableSet.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 7 rows, so each row is worth 7.1 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 2: assuming Borel measurability of $F$ instead of Lebesgue measurability, which proves a strictly narrower theorem.
+- Requirement 6 strengthened to `MeasurableSet (F '' A)` (Borel): almost never true, and the equivalence becomes false.
+- Requirement 4: adding a measurability hypothesis on $F(A)$ inside property (N), which makes the left-hand condition weaker for free.
+
+### Domain-specific pitfalls for this problem
+
+- `Measurable` (Borel) versus `NullMeasurable` (Lebesgue) is the whole difficulty of this statement, on both sides of the equivalence and in the hypothesis on $F$.
+- $\nu(F(A))$ is an outer measure applied to a possibly non-measurable set. Mathlib measures are defined on all sets, so this is meaningful without any extra hypothesis.
+- Property (N) is about *null* sets, quantified over the completed σ-algebra: restricting to Borel null sets misses the subsets of Borel null sets, which is exactly where the counterexamples live.
+- The theorem is about the pair (Lebesgue, Lebesgue) on all of $\mathbb{R}^n$; a version relativised to a subset, or with a different pair of measures, is a different statement.

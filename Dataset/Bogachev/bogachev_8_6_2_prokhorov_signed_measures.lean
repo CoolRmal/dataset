@@ -30,18 +30,23 @@ open scoped BoundedContinuousFunction ENNReal MeasureTheory NNReal ProbabilityTh
 namespace Dataset
 namespace Bogachev
 
-/-- Bogachev 8.6.2, Prokhorov compactness for finite signed measures. -/
+/-- Bogachev 8.6.2, Prokhorov compactness for finite signed Borel measures.
+
+Two claims with different hypotheses on `X`, which is why separability appears as an explicit
+hypothesis of the first conjunct rather than as an instance on the theorem: for a *complete
+separable* metric space the equivalence holds for every family, while for a merely complete
+metric space it holds for families of tight measures. -/
 theorem bogachev_8_6_2_prokhorov_signed_measures
     {X : Type*} [MetricSpace X] [CompleteSpace X]
     [MeasurableSpace X] [BorelSpace X] (S : Set (SignedMeasure X)) :
-    (SecondCountableTopology X →
+    (∀ _ : SecondCountableTopology X,
+      relatively_sequentially_weakly_compact_signed S ↔
+        IsTightMeasureSet ((fun s : SignedMeasure X ↦ s.totalVariation) '' S) ∧
+          UniformlyBoundedInTotalVariation S) ∧
+    ((∀ s ∈ S, IsTightMeasureSet {s.totalVariation}) →
       (relatively_sequentially_weakly_compact_signed S ↔
         IsTightMeasureSet ((fun s : SignedMeasure X ↦ s.totalVariation) '' S) ∧
-          UniformlyBoundedInTotalVariation S)) ∧
-      ((∀ s ∈ S, IsTightMeasureSet {s.totalVariation}) →
-        (relatively_sequentially_weakly_compact_signed S ↔
-          IsTightMeasureSet ((fun s : SignedMeasure X ↦ s.totalVariation) '' S) ∧
-            UniformlyBoundedInTotalVariation S)) := by
+          UniformlyBoundedInTotalVariation S)) := by
   sorry
 
 end Bogachev

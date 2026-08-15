@@ -4,6 +4,7 @@
 - **Domain:** PDE
 - **Lean declaration:** `Dataset.KrylovHolder.krylov_2_9_2_bounded_maximum_principle_resolvent` ([krylov_2_9_2_bounded_maximum_principle_resolvent.lean](krylov_2_9_2_bounded_maximum_principle_resolvent.lean))
 - **Criteria:** [krylov_2_9_2_bounded_maximum_principle_resolvent.criteria.md](krylov_2_9_2_bounded_maximum_principle_resolvent.criteria.md)
+- **Context:** [krylov_2_9_2_bounded_maximum_principle_resolvent.context.md](krylov_2_9_2_bounded_maximum_principle_resolvent.context.md)
 
 ## Statement
 

@@ -4,6 +4,7 @@
 - **Domain:** Topology
 - **Lean declaration:** `Dataset.EngelkingGeneralTopology.engelking_4_4_1_stone_open_refinement` ([engelking_4_4_1_stone_open_refinement.lean](engelking_4_4_1_stone_open_refinement.lean))
 - **Criteria:** [engelking_4_4_1_stone_open_refinement.criteria.md](engelking_4_4_1_stone_open_refinement.criteria.md)
+- **Context:** [engelking_4_4_1_stone_open_refinement.context.md](engelking_4_4_1_stone_open_refinement.context.md)
 
 ## Statement
 

@@ -33,9 +33,10 @@ theorem lee_9_16_quotient_manifold_theorem
     [TopologicalSpace G] [ChartedSpace ((Fin g → ℝ)) G]
     [LieGroup 𝓘(ℝ, (Fin g → ℝ)) ∞ G]
     [TopologicalSpace M] [ChartedSpace ((Fin m → ℝ)) M]
-    [IsManifold 𝓘(ℝ, (Fin m → ℝ)) ∞ M]
+    [IsManifold 𝓘(ℝ, (Fin m → ℝ)) ∞ M] [T2Space M] [SecondCountableTopology M]
     {act : G → M → M} (haction : SmoothFreeProperAction (g := g) (m := m) act) :
-    ∃ (Q : Type v) (_ : TopologicalSpace Q) (_ : ChartedSpace (Fin (m - g) → ℝ) Q)
+    ∃ (Q : Type v) (_ : TopologicalSpace Q) (_ : T2Space Q) (_ : SecondCountableTopology Q)
+      (_ : ChartedSpace (Fin (m - g) → ℝ) Q)
       (_ : IsManifold 𝓘(ℝ, (Fin (m - g) → ℝ)) ∞ Q) (π : M → Q),
       Surjective π ∧ (∀ x y, π x = π y ↔ ∃ a, act a x = y) ∧
       Manifold.IsSubmersion 𝓘(ℝ, (Fin m → ℝ)) 𝓘(ℝ, (Fin (m - g) → ℝ)) ∞ π ∧

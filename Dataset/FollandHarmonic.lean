@@ -1,0 +1,26 @@
+module
+
+public import Dataset.FollandHarmonic.Defs
+public import Dataset.FollandHarmonic.folland_1_18_wiener_inverse_of_absolutely_convergent_series
+public import Dataset.FollandHarmonic.folland_2_29_unimodular_of_compact_commutator_quotient
+public import Dataset.FollandHarmonic.folland_2_31_modular_inversion_formula
+public import Dataset.FollandHarmonic.folland_2_40_convolution_lp_bound
+public import Dataset.FollandHarmonic.folland_2_42_translation_continuity_lp
+public import Dataset.FollandHarmonic.folland_2_44_approximate_identity
+public import Dataset.FollandHarmonic.folland_2_45_closed_ideals_are_translation_invariant
+public import Dataset.FollandHarmonic.folland_2_51_invariant_measure_on_quotient
+public import Dataset.FollandHarmonic.folland_2_69_convolution_factorization
+public import Dataset.FollandHarmonic.folland_4_81_almost_periodic_characterization
+
+
+/-!
+# Hard abstract-harmonic-analysis statements from Folland
+
+Ten statement-only formalizations selected from G. B. Folland, *A Course in Abstract Harmonic Analysis*, Second Edition.
+
+Each problem lives in `Dataset/FollandHarmonic/<declaration_name>.lean`,
+accompanied by `<declaration_name>.md` (the natural-language statement from
+the textbook) and `<declaration_name>.criteria.md` (a quality rubric for
+judging formalizations of that statement).
+Custom notions shared between problems are in `Dataset/FollandHarmonic/Defs.lean`.
+-/

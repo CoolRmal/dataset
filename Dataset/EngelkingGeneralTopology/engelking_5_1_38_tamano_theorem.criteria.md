@@ -1,17 +1,91 @@
 # Criteria: engelking_5_1_38_tamano_theorem
 
-**Statement:** [engelking_5_1_38_tamano_theorem.md](engelking_5_1_38_tamano_theorem.md) · **Lean:** [engelking_5_1_38_tamano_theorem.lean](engelking_5_1_38_tamano_theorem.lean)
+**Statement:** [engelking_5_1_38_tamano_theorem.md](engelking_5_1_38_tamano_theorem.md) · **Lean:** [engelking_5_1_38_tamano_theorem.lean](engelking_5_1_38_tamano_theorem.lean) · **Context:** [engelking_5_1_38_tamano_theorem.context.md](engelking_5_1_38_tamano_theorem.context.md)
 
-Tamano's theorem characterizes paracompactness of a Tychonoff space by normality of its products with compactifications, and a faithful formalization must keep all four items — including the quantifier alternation that makes them non-trivial: (ii) is a statement about **every** compactification, (iii) about the specific compactification $\beta X$, and (iv) about **some** compactification, so the chain (i) $\Rightarrow$ (ii) $\Rightarrow$ (iii) $\Rightarrow$ (iv) $\Rightarrow$ (i) is where the content lies. The delicate points are Engelking's conventions — "compactification" means a dense embedding into a *compact Hausdorff* space, and "normal" means normal $+\ T_1$ — and the fact that a compactification's topology cannot be an instance, which forces explicit product-topology bookkeeping.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+A *compactification* of a space $X$ is a compact Hausdorff space containing a dense homeomorphic copy
+of $X$. Tamano's theorem says that for a Tychonoff space $X$, being paracompact is the same as the
+product $X \times cX$ being normal, for compactifications $cX$. Four conditions are equivalent:
+$X$ is paracompact; $X \times cX$ is normal for **every** compactification; $X \times \beta X$ is
+normal for the Čech–Stone compactification specifically; and $X \times cX$ is normal for **some**
+compactification. The alternation between "every", "the particular one", and "some" is where the
+content lies.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Separation axioms (the Engelking convention) | Engelking's "paracompact" includes Hausdorff, which mathlib's `ParacompactSpace` omits — but here the ambient hypothesis `[T35Space X]` (= `T0Space` + `CompletelyRegularSpace`, i.e. exactly Tychonoff) already supplies Hausdorffness, so item (i) as `ParacompactSpace X` **is** Engelking's paracompactness. Contrast 5.1.9, where the same omission is fatal. Similarly, Engelking's "normal" in (ii)–(iv) includes $T_1$, which is automatic for $X \times cX$ here. | ✅ `[T35Space X]` plus `ParacompactSpace X`; the `T1Space (X × K)` conjunct is stated explicitly in (ii)–(iv) even though it is derivable, which is harmless and faithful. ❗ Predicted error: weakening `[T35Space X]` to `[RegularSpace X]`/`[CompletelyRegularSpace X]`, which breaks (iii) since `stoneCechUnit` is then no longer an embedding. |
-| 2 | Faithful encoding (compactification) | `IsCompactification e` must be: `IsEmbedding e`, `DenseRange e`, the target compact **and Hausdorff** (Engelking's "compact" includes Hausdorff). Dropping `T2Space K` changes the theorem in both directions at once — it enlarges the class quantified over in (ii) (making (i) $\Rightarrow$ (ii) harder, plausibly false) while also enlarging the witnesses allowed in (iv) (making (iv) $\Rightarrow$ (i) harder). | ✅ `IsEmbedding e ∧ DenseRange e ∧ IsCompact (univ : Set K) ∧ T2Space K`. ⚠️ `IsCompact (univ : Set K)` is equivalent to `CompactSpace K`; the latter is the idiomatic spelling but cannot be used as an instance for a bound `tK`, so the `Prop`-level form is a reasonable choice. |
-| 3 | Faithful encoding ($\beta X$) | Item (iii) is about the **Čech–Stone** compactification. Mathlib's `StoneCech X` is the right object, and under `[T35Space X]` `stoneCechUnit` is a dense embedding (`isEmbedding_stoneCechUnit`, `denseRange_stoneCechUnit`), so `X × StoneCech X` really is $X \times \beta X$. A candidate that replaces (iii) by "the one-point compactification" or by `X × K` for an unspecified `K` loses the sharpness of the item. | ✅ `NormalSpace (X × StoneCech X) ∧ T1Space (X × StoneCech X)`. |
-| 4 | Conclusion completeness | All four items, in Engelking's order, and in particular both (ii) (universally quantified over compactifications) and (iv) (existentially quantified). Keeping only (i) ⟺ (iii), or only (i) ⟺ (ii), discards the strongest implication (iv) $\Rightarrow$ (i), which is the substance of Tamano's theorem. | ✅ `List.TFAE [ParacompactSpace X, everyCompactification, NormalSpace (X × StoneCech X) ∧ T1Space (X × StoneCech X), someCompactification]`. ❗ Predicted error: collapsing (ii) and (iv) into a single item. |
-| 5 | Faithful encoding (product topology) | `X × cX` must carry the product topology. Since `tK : TopologicalSpace K` is a bound variable, the product instance must be produced by hand: `tX.induced Prod.fst ⊓ tK.induced Prod.snd` is definitionally mathlib's `instTopologicalSpaceProd`. An error here (e.g. `⊔` instead of `⊓`, or `induced` with the wrong projection) would silently state a theorem about the box/coarser topology. | ✅ Correct: `@NormalSpace (X × K) (tX.induced Prod.fst ⊓ tK.induced Prod.snd)`. ⚠️ The neighbouring conjunct `T1Space (X × K)` is written *without* `@`, relying on `tK` being picked up as a local instance; the two spellings agree definitionally but the inconsistency is fragile — `letI := tK` (or an instance-implicit binder `[tK : TopologicalSpace K]`) would be cleaner. |
-| 6 | Semantic closeness (quantifier alternation) | (ii) must be `∀ K tK e, IsCompactification e → normal …` and (iv) must be `∃ K tK e, IsCompactification e ∧ normal …`; swapping the two makes (ii) trivially implied by (iii) and destroys the equivalence. | ✅ `everyCompactification` uses `∀ … →`, `someCompactification` uses `∃ … ∧`, each with the correct connective after the compactification hypothesis. |
-| 7 | Universe hygiene | Items (ii) and (iv) quantify compactifications over `K : Type v` for a free universe `v`, while item (iii) supplies `StoneCech X : Type u`. At `v ≠ u` the implication (iii) $\Rightarrow$ (iv) cannot be witnessed by $\beta X$ (there is no `Type v` copy of it when `v < u`), so the four items are only genuinely comparable at `v = u`. | ⚠️ Acceptable at the intended instantiation `u = v`, but `K : Type u` would make the TFAE literally correct in all instantiations. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | $X$ is Tychonoff (completely regular and $T_1$). | ✅ `[T35Space X]`, mathlib's `T0Space` + `CompletelyRegularSpace`. |
+| 2 | All four items are present, in Engelking's order, as one equivalence. | ✅ `List.TFAE [ParacompactSpace X, everyCompactification, NormalSpace (X × StoneCech X) ∧ T1Space (X × StoneCech X), someCompactification]`. |
+| 3 | Item (i) is paracompactness. Engelking's paracompactness includes Hausdorff, which the ambient `[T35Space X]` already supplies. | ✅ `ParacompactSpace X`; combined with `[T35Space X]` this is exactly Engelking's notion. |
+| 4 | "Compactification" is a dense embedding into a compact **Hausdorff** space. | ✅ `IsCompactification e := IsEmbedding e ∧ DenseRange e ∧ IsCompact (univ : Set K) ∧ T2Space K`. |
+| 5 | Item (ii) is universally quantified over compactifications. | ✅ `everyCompactification := ∀ K tK e, IsCompactification e → …`, with `→` after the hypothesis. |
+| 6 | Item (iv) is existentially quantified over compactifications. | ✅ `someCompactification := ∃ K tK e, IsCompactification e ∧ …`, with `∧` after the hypothesis. |
+| 7 | Item (iii) names the Čech–Stone compactification specifically. | ✅ `NormalSpace (X × StoneCech X)`; under `[T35Space X]`, `stoneCechUnit` is a dense embedding (`isEmbedding_stoneCechUnit`, `denseRange_stoneCechUnit`), so this really is $X \times \beta X$. |
+| 8 | The product $X \times cX$ carries the **product** topology. | ✅ `@NormalSpace (X × K) (tX.induced Prod.fst ⊓ tK.induced Prod.snd)`, which is definitionally mathlib's `instTopologicalSpaceProd`. |
+| 9 | Engelking's "normal" includes $T_1$, so the products must be $T_1$ as well as normal. | ✅ `T1Space (X × K)` is stated explicitly alongside `NormalSpace` in items (ii)–(iv), even though it follows from `[T35Space X]` and Hausdorffness of $K$. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Weakening `[T35Space X]` to `[RegularSpace X]` or `[CompletelyRegularSpace X]`. | Item (iii) breaks: without $T_0$, `stoneCechUnit` is no longer an embedding, so $X \times \beta X$ is not the product Engelking means. |
+| 2 | Dropping `T2Space K` from the definition of a compactification. | It damages the theorem twice over. It enlarges the class quantified over in (ii), making (i) $\Rightarrow$ (ii) harder and plausibly false, and it enlarges the witnesses allowed in (iv), making (iv) $\Rightarrow$ (i) harder. |
+| 3 | Collapsing items (ii) and (iv) into a single item, or keeping only (i) ⟺ (iii). | Discards the implication (iv) $\Rightarrow$ (i), which is the substance of Tamano's theorem: one normal product already forces paracompactness. |
+| 4 | Swapping the quantifiers, making (ii) existential and (iv) universal. | Then (ii) follows trivially from (iii) and the equivalence loses all content. |
+| 5 | Replacing $\beta X$ in item (iii) by the one-point compactification, or by an unspecified $K$. | The one-point compactification only exists as a Hausdorff space when $X$ is locally compact, and an unspecified $K$ just repeats item (iv). Item (iii) is sharp about which compactification is used. |
+| 6 | Writing the product topology as `tX.induced Prod.fst ⊔ tK.induced Prod.snd`, or using the wrong projections. | `⊔` gives a strictly finer topology than the product, so the statement would be about a different space. |
+
+## Notes on the ground truth
+
+- ⚠️ `IsCompact (univ : Set K)` is equivalent to `CompactSpace K`; the latter is the idiomatic
+  spelling but cannot be produced as an instance for a bound `tK`, so the `Prop`-level form is a
+  reasonable choice here.
+- ⚠️ Inside items (ii) and (iv), `NormalSpace` is applied with an explicit `@` and a hand-written
+  product topology while the neighbouring `T1Space (X × K)` is written without `@`, relying on `tK`
+  being picked up as a local instance. The two spellings agree definitionally, but the inconsistency
+  is fragile; `letI := tK`, or instance-implicit binders, would be cleaner.
+- ⚠️ Items (ii) and (iv) quantify compactifications over `K : Type v` for a free universe `v`, while
+  item (iii) supplies `StoneCech X : Type u`. When `v ≠ u`, the implication (iii) $\Rightarrow$ (iv)
+  cannot be witnessed by $\beta X$, so the four items are only genuinely comparable at `v = u`.
+  Using `K : Type u` would make the equivalence literally correct at every instantiation.
+- The two `let` bindings in the goal are only there to keep the `List.TFAE` line readable; they do
+  not change the statement.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[engelking_5_1_38_tamano_theorem.md](engelking_5_1_38_tamano_theorem.md) and the background in [engelking_5_1_38_tamano_theorem.context.md](engelking_5_1_38_tamano_theorem.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 5 or 6 with the quantifier over compactifications changed: (ii) is universal and (iv) existential.
+- Requirement 4 with "compactification" missing density or missing the Hausdorff condition.
+- Requirement 9 with Engelking's $T_1$ clause dropped from "normal".
+
+### Domain-specific pitfalls for this problem
+
+- Engelking's "normal", "compact" and "paracompact" all carry separation axioms that Mathlib's classes do not.
+- The product must carry the product topology; when the second factor's topology is a bound variable rather than an instance, the product topology has to be supplied explicitly.
+- Item (iii) is about $\beta X$ specifically, not about an arbitrary compactification.
+- A compactification is a dense *embedding*, not merely a continuous injection into a compact space.

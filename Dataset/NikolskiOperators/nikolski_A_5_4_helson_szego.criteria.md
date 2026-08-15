@@ -1,20 +1,106 @@
 # Criteria: nikolski_A_5_4_helson_szego
 
-> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+**Statement:** [nikolski_A_5_4_helson_szego.md](nikolski_A_5_4_helson_szego.md) · **Lean:** [nikolski_A_5_4_helson_szego.lean](nikolski_A_5_4_helson_szego.lean) · **Context:** [nikolski_A_5_4_helson_szego.context.md](nikolski_A_5_4_helson_szego.context.md)
 
-**Statement:** [nikolski_A_5_4_helson_szego.md](nikolski_A_5_4_helson_szego.md) · **Lean:** [nikolski_A_5_4_helson_szego.lean](nikolski_A_5_4_helson_szego.lean)
+## What the theorem says
 
-A faithful formalization must be a genuine five-way equivalence starting from an *arbitrary finite Borel measure* $\mu$ on $\mathbb{T}$ — absolute continuity $d\mu = w\,dm$ is part of the conclusion, not a hypothesis — and each of the five items must be encoded at full strength: the basis property of $(z^n)_{n\in\mathbb{Z}}$, boundedness of the Riesz projection $P_+$, a positive angle between $\mathrm{Pol}_+$ and $\mathrm{Pol}_-$, the outer-function condition $\operatorname{dist}(\bar h/h, H^\infty) < 1$ with its **strict** inequality, and the Helson–Szegő representation $w = e^{u+\tilde v}$ with $\lVert v\rVert_\infty < \pi/2$. Dropping any item is a materially weaker theorem. The critical technical object is the conjugate function $\tilde v$: it is a Fourier *multiplier*, not a convergent series, and encoding it as a `tsum` is where this formalization breaks.
+Fix a weight $w$ on the unit circle and look at the space of functions that are square integrable
+against $w$. Five conditions on $w$ are equivalent: the exponentials $(z^n)_{n\in\mathbb{Z}}$ form a
+basis of that space; the Riesz projection onto the nonnegative frequencies is bounded there; the
+analytic and the strictly coanalytic polynomials make a positive angle with one another; $w$ is the
+squared modulus of the boundary values of an outer function $h$ with $\operatorname{dist}(\bar h/h,
+H^\infty) < 1$; and $w = e^{u + \tilde v}$ with $u, v$ real and bounded and
+$\lVert v\rVert_\infty < \pi/2$. Here $\tilde v$ is the harmonic conjugate of $v$. The last
+condition is the Helson–Szegő condition (HS).
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+## What a correct formalization must contain
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Junk values / **falsity** | $\tilde v$ (the harmonic conjugate / circle Hilbert transform) is the multiplier $\hat v(k) \mapsto -i\,\mathrm{sgn}(k)\hat v(k)$, defined on $L^2$ or $L^\infty \to \mathrm{BMO}$; it is **not** given by a pointwise convergent series. `circleHilbertTransform v t` is `Complex.re (∑' k : ℤ, …)`, and in `ℂ` unconditional summability is absolute summability, so the `tsum` is mathlib's junk `0` unless $\hat v \in \ell^1$ — in which case the sum is a *continuous* function. Either way $\tilde v$ is bounded, so item (5) as written implies $w$ is essentially bounded above and below. | ❗ **This makes the ground-truth TFAE false.** Counterexample: $w(\zeta) = \lvert 1 - \zeta\rvert^{1/2}$ is an $A_2$ weight, so items (1)–(4) hold, but $w$ vanishes at $\zeta = 1$, so no representation $w = \exp(u + \tilde v)$ with `u` essentially bounded and `circleHilbertTransform v` bounded can exist. A faithful encoding would define $\tilde v$ by its $L^2$/$L^p$ multiplier property (or as an a.e. limit of conjugate Poisson integrals), not by a `tsum`. |
-| 2 | Hypothesis completeness | The book starts from a finite Borel measure $\mu$ on $\mathbb{T}$; the implications (1)–(3) $\Rightarrow$ (4)/(5) *include* the assertion that $\mu$ is absolutely continuous (no singular part). Assuming $d\mu = w\,dm$ from the outset removes that content. | ⚠️/❗ The ground truth assumes a weight `w` with `hwmeas`, `hwpos : ∀ᵐ t, 0 < w`, `hwint : IntegrableOn w`, and never considers a singular part. This is a real weakening of the theorem; a faithful version would quantify over `μ : Measure Circle` with `[IsFiniteMeasure μ]` and state $d\mu = w\,dm$ inside items (4) and (5). |
-| 3 | Conclusion completeness | All five items must appear, in a `List.TFAE` (or a chain of `↔`s) that really connects each to every other. | ✅ `List.TFAE [basis, boundedProjection, positiveAngle, outerDistance, helsonSzego]` — five entries matching (1)–(5) in order. ❗ Trap: formalizing only the famous (2) ⟺ (5) pair, or a chain of one-directional implications. |
-| 4 | Faithful encoding (item 4) | "$\operatorname{dist}(\bar h/h, H^\infty) < 1$" is a **strict** inequality on an infimum. Encoding it as "there exists $q \in H^\infty$ with $\lVert \bar h/h - q\rVert_\infty < 1$" is equivalent and avoids any `sInf` junk; encoding it with `≤ 1` would be a different (and false) condition. | ✅ `outerDistance` is `∃ h q, OuterFunction 2 h ∧ HardyClass ⊤ q ∧ (∀ᵐ t, w = ‖boundaryValue h‖ ^ 2) ∧ eLpNorm (…− boundaryValue q) ∞ … < 1`, with the strict `< 1` and $d\mu = \lvert h\rvert^2 dm$ stated a.e. ⚠️ `star (boundaryValue h) / boundaryValue h` divides by a boundary value that may vanish on a null set (division by zero is `0` in Lean); harmless inside an `eLpNorm ∞`, but worth an explicit a.e.-nonvanishing remark. |
-| 5 | Faithful encoding (item 1) | "$(z^n)_{n \in \mathbb{Z}}$ is a basis of $L^2(\mu)$" is standardly rendered as *Riesz basis*: two-sided frame bounds on finitely supported coefficient sequences **plus** completeness of the system. Omitting completeness leaves a Riesz sequence, which is strictly weaker. | ✅ `basis` is the conjunction of `∃ A B, 0 < A ∧ A ≤ B ∧ ∀ c, c.support.Finite → A * ∑'‖c k‖² ≤ ‖∑ c_k z^k‖²_{L²(w)} ≤ B * ∑'‖c k‖²` with `complete` (every $f \in L^2(\mu)$ orthogonal to all $z^k$ vanishes a.e.). ⚠️ "Symmetric or non-symmetric basis" (a Schauder basis for some ordering) is not literally the Riesz-basis condition, though the two coincide here. |
-| 6 | Faithful encoding (items 2, 3) | $P_+$ is the Riesz projection onto nonnegative frequencies (index $0$ included); "$\sin(\mathrm{Pol}_+,\mathrm{Pol}_-) > 0$" is $\exists \delta > 0$ with $\lVert p + q\rVert \ge \delta\lVert p\rVert$ for all analytic $p$ and coanalytic $q$. | ✅ `analyticFourierPart c k = if 0 ≤ k then c k else 0` includes $k = 0$; `positiveAngle` is `∃ δ > 0, ∀ plus minus` with the correct support conditions (`0 ≤ k` resp. `k < 0`) and `δ * ‖plus‖² ≤ ‖plus + minus‖²` — a squared-norm form of the angle condition, equivalent up to $\delta \mapsto \delta^2$. ❗ Trap: excluding $k = 0$ from $P_+$, or overlapping supports. |
-| 7 | Junk values (integrals) | `weightedL2NormSq w c = ∫ t, ‖trigonometricPolynomial c t‖^2 * w` is a Bochner integral (junk `0` if non-integrable), and `trigonometricPolynomial c t = ∑' k : ℤ, c k * exp (I k t)` is a `tsum` (junk `0` if non-summable). Both must be shielded. | ✅ Every use is guarded by `c.support.Finite`, so the `tsum` is a genuine finite sum and the integrand is bounded; `hwint` makes it integrable. This is exactly what makes hypothesis `hwint` load-bearing rather than cosmetic. |
-| 8 | Mathlib conventions / semantic closeness | The circle is modelled by `{z : ℂ // ‖z‖ = 1}` with `volume.restrict (Ioc 0 (2π))` rather than by mathlib's `Circle` with normalized Haar measure; and item (1) is phrased over functions `ℝ → ℂ` while items (2)–(3) are phrased over coefficient sequences `ℤ → ℂ`. | ⚠️ Both are sound (the $2\pi$ normalization cancels in every scale-invariant clause and the two models are isometric), but mixing the function model and the coefficient model inside one `TFAE` costs readability. `AddCircle.haarAddCircle`/`fourierCoeff` would give the literal $m$ and $\hat f(k)$ of the text. |
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The weight is measurable, positive almost everywhere, and integrable, so that the weighted space is a genuine finite-measure $L^2$. | ✅ `hwmeas`, `hwpos`, `hwint`. |
+| 2 | Item (1), first half: two-sided bounds $A\sum\lvert c_k\rvert^2 \le \lVert\sum c_k z^k\rVert^2 \le B\sum\lvert c_k\rvert^2$ with $0 < A \le B$, for all finitely supported coefficient sequences. | ✅ Inside `basis`: `∃ A B, 0 < A ∧ A ≤ B ∧ ∀ c, c.support.Finite → …`. |
+| 3 | Item (1), second half: the system is complete — a weighted-$L^2$ function orthogonal to every $z^k$ is zero. | ✅ `complete`, conjoined into `basis`. |
+| 4 | Item (2): the projection onto the nonnegative frequencies, **including** $k = 0$, is bounded. | ✅ `boundedProjection` with `analyticFourierPart c k = if 0 ≤ k then c k else 0`. |
+| 5 | Item (3): there is $\delta > 0$ with $\delta\lVert p\rVert^2 \le \lVert p + q\rVert^2$ for all analytic $p$ (frequencies $\ge 0$) and coanalytic $q$ (frequencies $< 0$). | ✅ `positiveAngle`, with the support conditions `∀ k, plus k ≠ 0 → 0 ≤ k` and `∀ k, minus k ≠ 0 → k < 0`. |
+| 6 | Item (4): $w$ is the squared modulus of the boundary values of an outer $h \in H^2$, and there is a bounded analytic $q$ with $\lVert \bar h/h - q\rVert_\infty$ **strictly** below $1$. | ✅ `outerDistance`: `OuterFunction 2 h`, `HardyClass ⊤ q`, the a.e. identity for `w`, and `eLpNorm … ∞ … < 1`. |
+| 7 | Item (5): $w = \exp(u + \tilde v)$ almost everywhere, with $u$ essentially bounded and $\lVert v\rVert_\infty$ **strictly** below $\pi/2$. | ✅ `helsonSzego`, with `circleHilbertTransform v t` playing the role of $\tilde v$. |
+| 8 | All five items appear in one genuine equivalence. | ✅ `List.TFAE [basis, boundedProjection, positiveAngle, outerDistance, helsonSzego]`, in the printed order. |
+| 9 | The coefficient sequences appearing in items (1)–(3) are finitely supported, so the trigonometric sums are ordinary finite sums. | ✅ `c.support.Finite` guards every use of `weightedL2NormSq`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Defining the harmonic conjugate $\tilde v$ as a `tsum` over $k \in \mathbb{Z}$. | An infinite sum of complex numbers in Lean requires absolute convergence, so the value is the junk $0$ unless the Fourier coefficients of $v$ are absolutely summable — and when they are, the sum is a *continuous* function. Item (5) would then force $w$ to be bounded above and below. Counterexample: $w(\zeta) = \lvert 1 - \zeta\rvert^{1/2}$ satisfies items (1)–(4), but it vanishes at $\zeta = 1$, so no such representation exists and the equivalence fails. |
+| 2 | Stating the frame bounds of item (1) without the completeness clause. | That gives a Riesz *sequence*, not a basis. Deleting one exponential leaves the two-sided bounds intact, so completeness carries real content. |
+| 3 | Excluding $k = 0$ from the analytic part, or letting the analytic and coanalytic frequency ranges overlap. | A different projection and a different pair of subspaces; the angle condition then no longer matches the Riesz projection. |
+| 4 | Writing $\operatorname{dist}(\bar h/h, H^\infty) \le 1$ in item (4). | Since $\lvert \bar h/h\rvert = 1$ almost everywhere, that distance is always at most $1$. The non-strict version is true for every weight and destroys the equivalence. |
+| 5 | Writing $\lVert v\rVert_\infty \le \pi/2$ in item (5). | Strictness is exactly what makes (HS) equivalent to the other four items; at $\pi/2$ the condition is satisfied by weights for which the Riesz projection is unbounded. |
+| 6 | Dropping the finite-support restriction on the coefficient sequences. | `trigonometricPolynomial` is a `tsum` (junk value $0$ for non-summable coefficients) and `weightedL2NormSq` is a Bochner integral (junk value $0$ when the integrand is not integrable). The frame bounds could then be met by junk values rather than by real norms. |
+| 7 | Formalizing only the famous pair (2) $\Leftrightarrow$ (5). | Each of the five items is part of the theorem; three of them would be missing. |
+| 8 | Attaching the $\pi/2$ bound to $\tilde v$ rather than to $v$. | The conjugate of a bounded function is typically unbounded, so bounding $\tilde v$ changes the class of weights entirely. |
+
+## Notes on the ground truth
+
+- The book starts from an arbitrary finite Borel measure $\mu$ on $\mathbb{T}$, and the implications
+  from items (1)–(3) to (4)/(5) *include* the assertion that $\mu$ has no singular part. The ground
+  truth instead assumes from the outset that the measure is $w\,dm$ with $w$ positive almost
+  everywhere and integrable, so that content is lost. A faithful version would quantify over a
+  finite measure and put "$d\mu = w\,dm$" inside items (4) and (5).
+- `circleHilbertTransform v t` is the limit of the symmetric partial sums
+  $\sum_{\lvert k\rvert \le N} (-i\,\mathrm{sgn}\,k)\,\hat v(k)e^{ikt}$. For $v \in L^\infty$, hence
+  in $L^2$, these partial sums converge almost everywhere, so the definition gives the honest
+  conjugate function off a null set. An earlier version of this file used a `tsum` instead, which
+  made the whole equivalence false; Mistake 1 records that defect.
+- Item (4) divides by `boundaryValue h`, which may vanish on a null set. Division by zero is $0$ in
+  Lean, and this sits inside an essential supremum, so it cannot affect the value; still, an
+  explicit remark that $h$ is nonzero almost everywhere would be clearer.
+- "Symmetric or non-symmetric basis" in the text means a Schauder basis for some ordering of
+  $\mathbb{Z}$. The ground truth renders it as the Riesz-basis condition. The two coincide for this
+  system, but they are not literally the same words.
+- Item (1) is phrased over functions `ℝ → ℂ` while items (2) and (3) are phrased over coefficient
+  sequences `ℤ → ℂ`. Both models are isometric here, but mixing them inside one `TFAE` costs
+  readability.
+- The circle is modelled by `Ioc 0 (2π)` with unnormalized `volume` rather than by mathlib's
+  `Circle` with normalized Haar measure; the $2\pi$ cancels in every scale-invariant clause.
+- `u` and `v` in item (5) carry no measurability hypothesis. `eLpNorm … ∞` is still meaningful for
+  a non-measurable function, so nothing breaks, but adding `AEStronglyMeasurable` would match the
+  intent of "$u, v$ are bounded real functions on $\mathbb{T}$".
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[nikolski_A_5_4_helson_szego.md](nikolski_A_5_4_helson_szego.md) and the background in [nikolski_A_5_4_helson_szego.context.md](nikolski_A_5_4_helson_szego.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 with the completeness half of item (1) dropped.
+- Requirement 7 with the bound $\pi/2$ attached to the wrong function, or with $\tilde v$ read as a complex conjugate.
+- Requirement 8 with the five items given as implications rather than one equivalence.
+
+### Domain-specific pitfalls for this problem
+
+- $\tilde v$ is the harmonic conjugate (Hilbert transform), not complex conjugation; $\bar h$ in item (4) *is* complex conjugation. Both symbols occur in the same theorem.
+- The Riesz projection includes the zero frequency.
+- All the inequalities involving $\operatorname{dist}$ and $\|v\|_\infty$ are strict.
+- Item (1)'s coefficient sequences are finitely supported, so the sums are finite and no convergence question arises.
+- $h$ in item (4) must be **outer**, not merely in $H^2$.

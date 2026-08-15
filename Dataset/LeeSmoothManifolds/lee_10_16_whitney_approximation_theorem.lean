@@ -29,7 +29,7 @@ universe u v
 /-- Lee 10.16, the relative Whitney approximation theorem. -/
 theorem lee_10_16_whitney_approximation_theorem
     {m k : ℕ} {M : Type u} [TopologicalSpace M] [ChartedSpace ((Fin m → ℝ)) M]
-    [IsManifold 𝓘(ℝ, (Fin m → ℝ)) ∞ M] [T2Space M] [SigmaCompactSpace M]
+    [IsManifold 𝓘(ℝ, (Fin m → ℝ)) ∞ M] [T2Space M] [SecondCountableTopology M]
     {F : M → (Fin k → ℝ)} {δ : M → ℝ} {A : Set M}
     (hF : Continuous F) (hδ : Continuous δ) (hδpos : ∀ x, 0 < δ x)
     (hA : IsClosed A) (hFsmoothOnA : ∃ U ∈ 𝓝ˢ A,

@@ -1,0 +1,26 @@
+module
+
+public import Dataset.NivenIrrational.Defs
+public import Dataset.NivenIrrational.niven_2_4_rational_iff_periodic_decimal
+public import Dataset.NivenIrrational.niven_3_5_sqrt_two_add_sqrt_three_irrational
+public import Dataset.NivenIrrational.niven_5_3_log_two_pow_five_pow_irrational
+public import Dataset.NivenIrrational.niven_5_5_constructible_degree_is_power_of_two
+public import Dataset.NivenIrrational.niven_5_5_duplication_of_the_cube_impossible
+public import Dataset.NivenIrrational.niven_5_5_squaring_the_circle_impossible
+public import Dataset.NivenIrrational.niven_5_5_trisection_of_the_angle_impossible
+public import Dataset.NivenIrrational.niven_6_2_unique_nearest_integer
+public import Dataset.NivenIrrational.niven_7_5_transcendence_of_e
+public import Dataset.NivenIrrational.niven_C_5_transcendentals_uncountable
+
+/-!
+# Hard statements on irrationality and transcendence from Niven
+
+Ten statement-only formalizations selected from I. Niven, *Numbers: Rational and
+Irrational*.
+
+Each problem lives in `Dataset/NivenIrrational/<declaration_name>.lean`,
+accompanied by `<declaration_name>.md` (the natural-language statement from
+the textbook) and `<declaration_name>.criteria.md` (a quality rubric for
+judging formalizations of that statement).
+Custom notions shared between problems are in `Dataset/NivenIrrational/Defs.lean`.
+-/

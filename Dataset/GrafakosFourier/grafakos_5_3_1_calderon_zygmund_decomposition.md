@@ -4,6 +4,7 @@
 - **Domain:** Fourier analysis
 - **Lean declaration:** `Dataset.GrafakosFourier.grafakos_5_3_1_calderon_zygmund_decomposition` ([grafakos_5_3_1_calderon_zygmund_decomposition.lean](grafakos_5_3_1_calderon_zygmund_decomposition.lean))
 - **Criteria:** [grafakos_5_3_1_calderon_zygmund_decomposition.criteria.md](grafakos_5_3_1_calderon_zygmund_decomposition.criteria.md)
+- **Context:** [grafakos_5_3_1_calderon_zygmund_decomposition.context.md](grafakos_5_3_1_calderon_zygmund_decomposition.context.md)
 
 ## Statement
 

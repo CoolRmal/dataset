@@ -4,6 +4,7 @@
 - **Domain:** PDE
 - **Lean declaration:** `Dataset.KrylovHolder.krylov_8_7_3_shifted_heat_holder_solvability` ([krylov_8_7_3_shifted_heat_holder_solvability.lean](krylov_8_7_3_shifted_heat_holder_solvability.lean))
 - **Criteria:** [krylov_8_7_3_shifted_heat_holder_solvability.criteria.md](krylov_8_7_3_shifted_heat_holder_solvability.criteria.md)
+- **Context:** [krylov_8_7_3_shifted_heat_holder_solvability.context.md](krylov_8_7_3_shifted_heat_holder_solvability.context.md)
 
 ## Statement
 

@@ -4,6 +4,7 @@
 - **Domain:** Harmonic analysis
 - **Lean declaration:** `Dataset.NikolskiOperators.nikolski_A_5_4_helson_szego` ([nikolski_A_5_4_helson_szego.lean](nikolski_A_5_4_helson_szego.lean))
 - **Criteria:** [nikolski_A_5_4_helson_szego.criteria.md](nikolski_A_5_4_helson_szego.criteria.md)
+- **Context:** [nikolski_A_5_4_helson_szego.context.md](nikolski_A_5_4_helson_szego.context.md)
 
 ## Statement
 

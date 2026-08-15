@@ -4,6 +4,7 @@
 - **Domain:** Geometric measure theory
 - **Lean declaration:** `Dataset.MattilaGeometry.mattila_14_10_marstrand_density_integer` ([mattila_14_10_marstrand_density_integer.lean](mattila_14_10_marstrand_density_integer.lean))
 - **Criteria:** [mattila_14_10_marstrand_density_integer.criteria.md](mattila_14_10_marstrand_density_integer.criteria.md)
+- **Context:** [mattila_14_10_marstrand_density_integer.context.md](mattila_14_10_marstrand_density_integer.context.md)
 
 ## Statement
 

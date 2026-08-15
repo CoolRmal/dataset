@@ -4,6 +4,7 @@
 - **Domain:** Operator theory
 - **Lean declaration:** `Dataset.NikolskiOperators.nikolski_B_2_2_hartman_compact_hankel` ([nikolski_B_2_2_hartman_compact_hankel.lean](nikolski_B_2_2_hartman_compact_hankel.lean))
 - **Criteria:** [nikolski_B_2_2_hartman_compact_hankel.criteria.md](nikolski_B_2_2_hartman_compact_hankel.criteria.md)
+- **Context:** [nikolski_B_2_2_hartman_compact_hankel.context.md](nikolski_B_2_2_hartman_compact_hankel.context.md)
 
 ## Statement
 

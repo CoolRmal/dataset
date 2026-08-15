@@ -1,19 +1,88 @@
 # Criteria: kong_1_3_3_nth_order_scalar_ivp
 
-> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+**Statement:** [kong_1_3_3_nth_order_scalar_ivp.md](kong_1_3_3_nth_order_scalar_ivp.md) · **Lean:** [kong_1_3_3_nth_order_scalar_ivp.lean](kong_1_3_3_nth_order_scalar_ivp.lean) · **Context:** [kong_1_3_3_nth_order_scalar_ivp.context.md](kong_1_3_3_nth_order_scalar_ivp.context.md)
 
-**Statement:** [kong_1_3_3_nth_order_scalar_ivp.md](kong_1_3_3_nth_order_scalar_ivp.md) · **Lean:** [kong_1_3_3_nth_order_scalar_ivp.lean](kong_1_3_3_nth_order_scalar_ivp.lean)
+## What the theorem says
 
-A faithful formalization must state two separate theorems about the *$n$-th order scalar* IVP (1.3.10): under joint continuity of $g$ on the open set $D$, existence (Peano) of at least one solution on the symmetric closed interval $\lvert t - t_0\rvert \le \gamma$ for some $\gamma > 0$ depending on the data; and, additionally under local Lipschitz dependence on $(y_1,\dots,y_n)$, existence *and* uniqueness (Picard–Lindelöf). The two places where junk creeps in are the solution concept (`deriv y t = …` is satisfied vacuously wherever $y$ is not differentiable) and the domain guard: $g$ is a total Lean function whose values outside $D$ are completely unconstrained, so both the solution and every competitor in the uniqueness clause must be required to stay in $D$.
+Take the scalar equation of order $n$, $y^{(n)} = g(t, y, y', \dots, y^{(n-1)})$, with the $n$ initial
+values $y(t_0) = a_1$, $y'(t_0) = a_2$, and so on. The data live on an open set $D$ in
+$\mathbb{R} \times \mathbb{R}^n$ containing the initial point. Part (a) says: if $g$ is continuous on
+$D$, the problem has at least one solution on some closed time interval
+$\lvert t - t_0\rvert \le \gamma$ around $t_0$. Part (b) says: if $g$ is in addition locally
+Lipschitz in the $n$ state variables, that solution is the only one. The usual way to make sense of
+this is to rewrite the scalar equation as a first-order system in the vector
+$(y, y', \dots, y^{(n-1)})$, and that rewriting is part of what the theorem asserts.
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+## What a correct formalization must contain
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Solution concept | The solution must be characterized by `HasDerivAt`, never by `deriv y t = companionField g t (y t)`: `deriv` is junk `0` off the differentiability set, so the latter is satisfiable by nowhere-differentiable garbage whenever the field vanishes. | ✅ `IsTrajectoryOn I (companionField g) y` unfolds to `∀ t ∈ I, HasDerivAt y (companionField g t (y t)) t`. ⚠️ On the *closed* interval `Icc (t₀-γ) (t₀+γ)` the literal reading of "solution on $\lvert t-t_0\rvert \le \gamma$" is `HasDerivWithinAt … (Icc …) t` (what mathlib's `IsPicardLindelof.exists_forall_mem_closedBall_eq_forall_mem_Icc_hasDerivWithinAt` produces); demanding a two-sided `HasDerivAt` at the two endpoints is harmless for existence (shrink $\gamma$) but restricts the competitors $z$ in the uniqueness clause. |
-| 2 | Faithful encoding | Theorem 1.3.3 is about the scalar equation $y^{(n)} = g(t,y,\dots,y^{(n-1)})$, not about a general first-order system; the equivalence with the companion system is the content being formalized. | ✅ `g : ℝ → (Fin n → ℝ) → ℝ` is scalar-valued and `companionField g t y i = if h : i.1+1 < n then y ⟨i.1+1, h⟩ else g t y` is exactly $y_i' = y_{i+1}$, $y_n' = g(t,y)$, with the IC `y t₀ = a` giving $y^{(i-1)}(t_0) = a_i$. ❗ Trap: reading the transcription's "$g \in C(D,\mathbb{R}^n)$" literally and formalizing $x' = g(t,x)$ for a *vector* $g$ — a different (and much weaker) theorem that loses the reduction of order. |
-| 3 | Hypothesis completeness | "Locally Lipschitz in $(y_1,\dots,y_n)$ on $D$" must be Lipschitz in the state only, with a constant uniform in $t$ on a neighborhood of each point of $D$ — this is precisely what Picard–Lindelöf consumes. | ✅ `LocallyLipschitzInState D (companionField g)` gives `∀ p ∈ D, ∃ U ∈ 𝓝 p, ∃ K : ℝ≥0, ∀ t, LipschitzOnWith K (f t) {x \| (t,x) ∈ U ∩ D}`: one `K` for all `t`, on the $t$-slices of a neighborhood. Applying it to `companionField g` rather than to `g` is equivalent, since the shift block is $1$-Lipschitz in the sup norm on `Fin n → ℝ`. ❗ Traps: `LipschitzWith K` (global), a `K` depending on `t`, or Lipschitz in the pair $(t,x)$. |
-| 4 | Conclusion completeness | Part (a) and part (b) are different statements and both must appear; part (b) must assert existence **and** uniqueness, not uniqueness alone. Neither $\gamma$ may be fixed in advance. | ✅ Two implications conjoined, each concluding `∃ γ, 0 < γ ∧ … ∃ y, …`; part (b) adds the uniqueness conjunct after re-asserting existence. ❗ Trap: dropping part (a) because mathlib has **no** Peano theorem (only Picard–Lindelöf via `IsPicardLindelof`, which bundles a Lipschitz constant), and silently upgrading (a) to a Lipschitz hypothesis. |
-| 5 | Junk values / faithful encoding | Because `g` is total, its values off `D` are arbitrary. The uniqueness clause must restrict competitors to solutions that stay in `D`; without `(∀ t ∈ I, (t, z t) ∈ D)` the clause is **false** — a competitor may leave `D` and be driven by the unconstrained values of `g` there, while $y$ stays inside. | ✅ Both `(∀ t ∈ I, (t, y t) ∈ D)` for the produced solution and the same guard as a hypothesis on `z`. ❗ Trap: dropping either guard. |
-| 6 | Semantic closeness | The interval must be the symmetric closed one, $\lvert t - t_0\rvert \le \gamma$, and $\gamma$ existentially quantified *after* $D$, $t_0$, $a$. Uniqueness is "any competing solution agrees with $y$ on $I$", not "there is at most one solution on every interval". | ✅ `let I := Set.Icc (t₀ - γ) (t₀ + γ)` and `Set.EqOn z y I`. ❗ Traps: an open interval `Ioo`, a one-sided `Icc t₀ (t₀+γ)`, or `∀ γ > 0`. |
-| 7 | Mathlib conventions | $g \in C(D, \cdot)$ is *joint* continuity on `D`, i.e. `ContinuousOn` of the uncurried map on `D ⊆ ℝ × (Fin n → ℝ)`. Separate continuity in `t` and in `x` is strictly weaker and does not give Peano. | ✅ `ContinuousOn (fun p : ℝ × (Fin n → ℝ) ↦ g p.1 p.2) D`. ✅ `hD : IsOpen D` and `hpoint : (t₀, a) ∈ D` are both present, as the text requires. ❗ Trap: `∀ t, ContinuousOn (g t) …` together with `∀ x, ContinuousOn (g · x) …`. |
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | $D$ is an open subset of $\mathbb{R} \times \mathbb{R}^n$, and the initial point $(t_0, a)$ lies in it. | ✅ `hD : IsOpen D` and `hpoint : (t₀, a) ∈ D`. |
+| 2 | The equation is the **scalar** one of order $n$: the right-hand side takes $n$ real state variables and returns one real number. | ✅ `g : ℝ → (Fin n → ℝ) → ℝ`. |
+| 3 | The scalar equation is turned into the first-order system $y_1' = y_2, \dots, y_{n-1}' = y_n, y_n' = g(t, y)$. | ✅ `companionField g t y i = if h : i.1 + 1 < n then y ⟨i.1 + 1, h⟩ else g t y`. |
+| 4 | The $n$ initial values $y^{(i-1)}(t_0) = a_i$ are imposed together, as one vector condition. | ✅ `y t₀ = a` with `a : Fin n → ℝ`. |
+| 5 | Part (a): continuity of $g$ on $D$ alone yields some $\gamma > 0$ and at least one solution. $\gamma$ is chosen after $D$, $t_0$, $a$, never fixed in advance. | ✅ The first conjunct, `ContinuousOn … D → ∃ γ, 0 < γ ∧ … ∃ y, …`. |
+| 6 | "$g \in C(D, \cdot)$" is joint continuity in $(t, y)$ on $D$, not continuity in each variable separately. | ✅ `ContinuousOn (fun p : ℝ × (Fin n → ℝ) ↦ g p.1 p.2) D` on the uncurried map. |
+| 7 | Part (b) adds local Lipschitz dependence on the state only, with one constant that works for every $t$ near the point. | ✅ `LocallyLipschitzInState D (companionField g)`, which gives `∀ p ∈ D, ∃ U ∈ 𝓝 p, ∃ K : ℝ≥0, ∀ t, LipschitzOnWith K (f t) …` — the `K` is bound before the `t`. |
+| 8 | Part (b) asserts existence **and** uniqueness, not uniqueness alone. | ✅ The second conjunct re-states existence and then adds the uniqueness clause. |
+| 9 | The time interval is the symmetric closed one $\lvert t - t_0\rvert \le \gamma$. | ✅ `let I := Set.Icc (t₀ - γ) (t₀ + γ)`. |
+| 10 | A solution means a genuinely differentiable function whose derivative equals the field at every time of $I$. | ✅ `IsTrajectoryOn I (companionField g) y`, i.e. `∀ t ∈ I, HasDerivWithinAt y (companionField g t (y t)) I t`. |
+| 11 | Both the produced solution and every competitor in the uniqueness clause must stay inside $D$. | ✅ `(∀ t ∈ I, (t, y t) ∈ D)` for the solution and the same guard as a hypothesis on `z`. |
+| 12 | Uniqueness means any competing solution with the same initial data agrees with $y$ throughout $I$. | ✅ `Set.EqOn z y I`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Writing the equation as `deriv y t = companionField g t (y t)`. | Lean's `deriv` returns `0` wherever the function is not differentiable. So a nowhere-differentiable function satisfies the equation at every time where the field happens to vanish. The statement must use `HasDerivAt` or `HasDerivWithinAt`, which carry differentiability with them. |
+| 2 | Reading "$g \in C(D,\mathbb{R}^n)$" in the transcription literally and formalizing the general first-order system $x' = g(t,x)$ with a vector-valued $g$. | That is a different, weaker theorem. The content here is the scalar equation of order $n$ and its reduction to a system; a general system loses it entirely. |
+| 3 | Dropping the requirement that the competitor `z` stays in $D$. | Then uniqueness is false. `g` is a total Lean function, so its values outside $D$ are completely unconstrained; a competitor can leave $D$, be driven by those arbitrary values, and come back somewhere else, while `y` stays inside. |
+| 4 | Dropping the requirement that the produced solution stays in $D$. | Without it the statement does not say the solution is a solution *of Kong's problem*, since only the values of `g` on `D` are hypothesised about. |
+| 5 | Dropping part (a), or quietly adding a Lipschitz hypothesis to it. | Part (a) is Peano's theorem: existence from continuity alone. Mathlib has no Peano theorem — only Picard–Lindelöf, which needs a Lipschitz constant — so this is a tempting shortcut that changes the theorem. |
+| 6 | Using `LipschitzWith K` (globally), or letting the constant `K` depend on `t`, or asking for a Lipschitz bound in the pair $(t,x)$. | The first is much stronger than "locally Lipschitz". The second and third are the wrong hypothesis: Picard–Lindelöf needs one constant valid for all times in the neighborhood, and needs no regularity in $t$ beyond continuity. |
+| 7 | Assuming continuity in $t$ for each fixed $x$ and in $x$ for each fixed $t$, instead of joint continuity. | Separate continuity is strictly weaker and does not give existence. |
+| 8 | Using an open interval `Ioo`, a one-sided interval `Icc t₀ (t₀ + γ)`, or asserting the conclusion for every $\gamma > 0$. | The printed statement is the two-sided closed interval $\lvert t - t_0\rvert \le \gamma$ with $\gamma$ existentially quantified. "For every $\gamma$" is false — solutions can blow up. |
+
+## Notes on the ground truth
+
+- Local Lipschitz dependence is asked of `companionField g` rather than of `g` itself. The two are equivalent, because the shift part of the companion field is $1$-Lipschitz in the supremum norm on `Fin n → ℝ`, so a Lipschitz bound for one gives a Lipschitz bound for the other.
+- On a closed interval the literal reading of "solution on $\lvert t-t_0\rvert \le \gamma$" is a one-sided derivative at the two endpoints. `IsTrajectoryOn` uses `HasDerivWithinAt … I t`, which is exactly that, and matches what mathlib's Picard–Lindelöf API produces. An earlier version demanded the two-sided `HasDerivAt` everywhere; that was harmless for existence (shrink $\gamma$) but silently narrowed the class of competitors in the uniqueness clause, making uniqueness easier to satisfy than it should be.
+- The two parts are stated as two implications conjoined in one theorem rather than as two declarations, so that the shared hypotheses `hD` and `hpoint` are written once.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[kong_1_3_3_nth_order_scalar_ivp.md](kong_1_3_3_nth_order_scalar_ivp.md) and the background in [kong_1_3_3_nth_order_scalar_ivp.context.md](kong_1_3_3_nth_order_scalar_ivp.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 12 rows, so each row is worth 4.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 7 with a Lipschitz condition imposed in $t$ as well, or with a global instead of a local one.
+- Requirement 8 with part (b) asserting uniqueness without existence.
+- Requirement 11 dropped, so solutions are not required to remain in $D$ where the field is defined.
+
+### Domain-specific pitfalls for this problem
+
+- $C(D,\cdot)$ is joint continuity; separate continuity is weaker.
+- A solution must be asserted differentiable, not merely to satisfy an identity between derivative values — `deriv` of a non-differentiable function is the junk value $0$.
+- The Lipschitz hypothesis is on the state variables only and is local.
+- The $n$-th order scalar problem carries $n$ scalar initial conditions; the companion system is a faithful reformulation but must reproduce all of them.
+- Both the produced solution and every competitor in the uniqueness clause must stay inside $D$.

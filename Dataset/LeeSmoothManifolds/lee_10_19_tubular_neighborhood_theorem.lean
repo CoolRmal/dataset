@@ -32,7 +32,7 @@ theorem lee_10_19_tubular_neighborhood_theorem
     {n codim : ℕ} {M : Set ((Fin n → ℝ))}
     (hM : EmbeddedSubmanifoldOfCodimension (m := n) M codim) :
     ∃ (radius : M → ℝ) (U : Set (Fin n → ℝ)),
-      (∀ x, 0 < radius x) ∧ IsOpen U ∧ M ⊆ U ∧
+      (∀ x, 0 < radius x) ∧ Continuous radius ∧ IsOpen U ∧ M ⊆ U ∧
       ∃ inverse : (Fin n → ℝ) → M × (Fin n → ℝ),
         Set.BijOn (fun p : M × (Fin n → ℝ) ↦ (p.1 : (Fin n → ℝ)) + p.2)
           (NormalDiskBundle M radius) U ∧

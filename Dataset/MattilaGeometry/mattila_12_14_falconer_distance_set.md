@@ -4,6 +4,7 @@
 - **Domain:** Geometric measure theory
 - **Lean declaration:** `Dataset.MattilaGeometry.mattila_12_14_falconer_distance_set` ([mattila_12_14_falconer_distance_set.lean](mattila_12_14_falconer_distance_set.lean))
 - **Criteria:** [mattila_12_14_falconer_distance_set.criteria.md](mattila_12_14_falconer_distance_set.criteria.md)
+- **Context:** [mattila_12_14_falconer_distance_set.context.md](mattila_12_14_falconer_distance_set.context.md)
 
 ## Statement
 

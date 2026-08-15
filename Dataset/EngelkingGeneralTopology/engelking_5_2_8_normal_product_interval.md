@@ -4,6 +4,7 @@
 - **Domain:** Topology
 - **Lean declaration:** `Dataset.EngelkingGeneralTopology.engelking_5_2_8_normal_product_interval` ([engelking_5_2_8_normal_product_interval.lean](engelking_5_2_8_normal_product_interval.lean))
 - **Criteria:** [engelking_5_2_8_normal_product_interval.criteria.md](engelking_5_2_8_normal_product_interval.criteria.md)
+- **Context:** [engelking_5_2_8_normal_product_interval.context.md](engelking_5_2_8_normal_product_interval.context.md)
 
 ## Statement
 

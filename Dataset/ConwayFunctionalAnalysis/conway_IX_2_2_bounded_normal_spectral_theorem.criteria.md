@@ -1,20 +1,96 @@
 # Criteria: conway_IX_2_2_bounded_normal_spectral_theorem
 
-> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+**Statement:** [conway_IX_2_2_bounded_normal_spectral_theorem.md](conway_IX_2_2_bounded_normal_spectral_theorem.md) · **Lean:** [conway_IX_2_2_bounded_normal_spectral_theorem.lean](conway_IX_2_2_bounded_normal_spectral_theorem.lean) · **Context:** [conway_IX_2_2_bounded_normal_spectral_theorem.context.md](conway_IX_2_2_bounded_normal_spectral_theorem.context.md)
 
-**Statement:** [conway_IX_2_2_bounded_normal_spectral_theorem.md](conway_IX_2_2_bounded_normal_spectral_theorem.md) · **Lean:** [conway_IX_2_2_bounded_normal_spectral_theorem.lean](conway_IX_2_2_bounded_normal_spectral_theorem.lean)
+## What the theorem says
 
-A faithful formalization must assert **existence and uniqueness** of a spectral measure $E$ on the Borel subsets of $\sigma(N)$ satisfying all three properties (a), (b), (c). Mathlib has no projection-valued-measure API, so the object is hand-rolled in `Defs.lean` as `ProjectionValuedMeasure`, and two design points carry the fidelity: "on the Borel subsets of $\sigma(N)$" is encoded as a measure on all of $\mathbb{C}$ pinned by `E.toFun (spectrum ℂ T) = id`, and the operator integral $N = \int z\,dE(z)$ is encoded weakly, through the complex scalar measures $\langle E(\cdot)x, y\rangle$. The second of these is where the ground truth goes wrong: because Mathlib's inner product is conjugate-linear in its **first** argument, the identity as written says $\int z\,dE = N^*$, and combined with the support condition it is unsatisfiable for a normal operator whose spectrum is not closed under conjugation (see row 4 — this is a genuine fidelity defect, not a stylistic one).
+Let $N$ be a bounded normal operator on a complex Hilbert space. There is exactly one spectral
+measure $E$ — an assignment of an orthogonal projection to each Borel subset of the spectrum
+$\sigma(N)$, countably additive in the strong sense — with three properties. First, $N$ is recovered
+by integrating the coordinate function against $E$: $N = \int z\,dE(z)$. Second, $E$ does not vanish
+on any nonempty piece of $\sigma(N)$ that is open relative to $\sigma(N)$. Third, a bounded operator
+$A$ commutes with $N$ and with $N^*$ exactly when it commutes with every projection $E(\Delta)$.
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+## What a correct formalization must contain
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Hypothesis completeness | The only hypothesis is normality of $N$ on a complex Hilbert space; there is no separability, no self-adjointness, no compactness. | ✅ `hnormal : T.adjoint.comp T = T.comp T.adjoint` over `[NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]`. ⚠️ Mathlib's `IsStarNormal T` is the idiomatic spelling of the same equation. |
-| 2 | Conclusion completeness | "there is a **unique** spectral measure" must be `∃!`, not `∃`. Crucially, `∃!` is only defensible because `ProjectionValuedMeasure` has the field `nonmeasurable : ∀ B, ¬MeasurableSet B → toFun B = 0`: without it two spectral measures could differ on non-Borel sets and uniqueness would be false. | ✅ `∃! E : ProjectionValuedMeasure H, …`, and the `nonmeasurable` field makes it coherent. ❗ Predicted error: a candidate defining a PVM as an arbitrary `Set ℂ → H →L[ℂ] H` with conditions only on measurable sets, then claiming `∃!` — a false statement. |
-| 3 | Faithful encoding | "on the Borel subsets of $\sigma(N)$" is rendered as a PVM on all of $\mathbb{C}$ together with the support condition `E.toFun (spectrum ℂ T) = ContinuousLinearMap.id ℂ H` (legitimate: $\sigma(N)$ is compact, hence Borel). Dropping the support condition destroys uniqueness; indexing by `Set (spectrum ℂ T)` instead would also be acceptable, with `E.univ = id` then playing the same role. | ✅ Support condition present. ❗ Predicted error: omitting it, leaving `E.univ = id` as the only normalization. |
-| 4 | Faithful encoding | **(a) is encoded with the wrong conjugation.** `scalarMeasure x y B = inner ℂ (E.toFun B x) y` and `inner ℂ (T x) y = ∫ᵛ z, z ∂[ContinuousLinearMap.mul ℝ ℂ; scalarMeasure x y]`. Mathlib's inner product is conjugate-linear in the *first* argument (`inner_smul_left : ⟪r • x, y⟫ = conj r * ⟪x, y⟫`), so approximating $T$ by $\sum_k z_k E(B_k)$ gives $\langle Tx,y\rangle = \int \bar z\,dE_{x,y}$; the stated identity therefore says $T = \int \bar z\,dE$, i.e. that $E$ is the spectral measure of $N^*$, which is supported on $\overline{\sigma(N)}$ rather than $\sigma(N)$. With the support condition of row 3 this is unsatisfiable unless $\sigma(N)$ happens to be conjugation-symmetric. Concretely, $H = \mathbb{C}$, $T = i\cdot\mathrm{id}$: the axioms force $E = \delta_{\{i\}}$, and the identity reduces to $-i\,\bar x y = i\,\bar x y$. | ⚠️ **Former fidelity defect; repaired.** The old theorem was false. The faithful readings are `inner ℂ (T x) y = ∫ᵛ z, starRingEnd ℂ z ∂[…]`, or keeping the integrand `z` and defining `scalarMeasure x y B = inner ℂ x (E.toFun B y)`. ❗ This is exactly the trap to check in candidate statements — the same pattern in `conway_XI_2_3` item (g) and in `conway_X_5_6` is *harmless* only because those spectral measures are supported on the reals. |
-| 5 | Conclusion completeness | (b) must be present: `∀ G : Set ℂ, G.Nonempty → (∃ O : Set ℂ, IsOpen O ∧ G = O ∩ spectrum ℂ T) → E.toFun G ≠ 0`. This is the statement that the support of $E$ is *all* of $\sigma(N)$, and it is what makes the spectral measure canonical; models often drop it as "technical". | ✅ Present, with "relatively open" correctly rendered as an intersection with an open subset of `ℂ`. ❗ Predicted error: requiring `IsOpen G` in `ℂ` (then `G ∩ σ(N)` can be empty and the item is false as stated). |
-| 6 | Conclusion completeness | (c) must be the full biconditional with **both** commutation identities on the left: `(A.comp T = T.comp A ∧ A.comp T.adjoint = T.adjoint.comp A) ↔ ∀ Δ, MeasurableSet Δ → A.comp (E.toFun Δ) = (E.toFun Δ).comp A`. Keeping only $AN = NA$ would state Fuglede's theorem by accident, and keeping only one direction of the `↔` loses half the item. | ✅ Both identities, both directions, quantified over all `A : H →L[ℂ] H`. ❗ Predicted error: `AN = NA ↔ AE(Δ) = E(Δ)A`. |
-| 7 | Junk values | The `∫ᵛ` of `VectorMeasure.integral` returns `0` for non-integrable integrands (`VectorMeasure.integral_undef`), so the identity would be vacuous if the integrand could fail to be integrable. Here the scalar measures are concentrated on the compact `spectrum ℂ T` and have finite variation, so `z ↦ z` is integrable and no junk value can be exploited — provided `scalarMeasure x y B = inner ℂ (E.toFun B x) y` is imposed on *every* measurable `B`, as it is. | ✅ Junk-free. ❗ Predicted error: pinning `scalarMeasure` only on a generating family of sets, leaving the rest free. |
-| 8 | Semantic closeness | The property list is a single conjunction inside the `∃!` body, so the unique $E$ is the one satisfying support + (a) + (b) + (c) simultaneously — matching "there is a unique spectral measure $E$ … such that: (a); (b); (c)". Splitting into three separate existence claims would be wrong. | ✅ One `∃!` with a four-fold conjunction. |
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The only hypothesis is that $N$ is a bounded normal operator on a complex Hilbert space — no separability, no self-adjointness, no compactness. | ✅ `hnormal : T.adjoint.comp T = T.comp T.adjoint` over `[NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]`. ⚠️ Mathlib's `IsStarNormal T` is the idiomatic spelling of the same equation. |
+| 2 | There is a projection-valued measure: each Borel set gets an orthogonal projection, the empty set gets $0$, disjoint sets get projections whose product is $0$, and countable disjoint unions add up in the strong topology. | ✅ The structure `ProjectionValuedMeasure H` from `Defs.lean` carries `empty`, `univ`, `projection`, `orthogonal` and `countablyAdditive`. |
+| 3 | The measure is **unique**, not merely existent. | ✅ `∃! E : ProjectionValuedMeasure H, …`. |
+| 4 | Uniqueness has to be made coherent: the value of $E$ on non-Borel sets must be pinned down, or two spectral measures could differ off the Borel sets and uniqueness would be false. | ✅ The `nonmeasurable : ∀ B, ¬MeasurableSet B → toFun B = 0` field of `ProjectionValuedMeasure`. |
+| 5 | $E$ lives on $\sigma(N)$, i.e. the whole space is assigned to the spectrum. | ✅ `E.toFun (spectrum ℂ T) = ContinuousLinearMap.id ℂ H`. This is legitimate because $\sigma(N)$ is compact, hence Borel. Without it, uniqueness fails. |
+| 6 | Property (a): $N = \int z\,dE(z)$, read weakly against the complex scalar measures $\langle E(\cdot)x, y\rangle$. | ✅ `∃ scalarMeasure : H → H → ComplexMeasure ℂ` with `scalarMeasure x y B = inner ℂ (E.toFun B x) y` and `inner ℂ (T x) y = ∫ᵛ z, star z ∂[…]`. |
+| 7 | The scalar measures must be pinned on **every** measurable set, not just on a generating family. | ✅ `∀ x y : H, ∀ B : Set ℂ, MeasurableSet B → scalarMeasure x y B = …`. This is what keeps property (a) from being satisfiable by a badly behaved auxiliary measure (see Mistake 4). |
+| 8 | Property (b): $E(G) \ne 0$ for every nonempty $G$ that is open *relative to* $\sigma(N)$. | ✅ `∀ G : Set ℂ, G.Nonempty → (∃ O : Set ℂ, IsOpen O ∧ G = O ∩ spectrum ℂ T) → E.toFun G ≠ 0`. |
+| 9 | Property (c): the full two-way equivalence, with **both** commutation identities $AN = NA$ and $AN^* = N^*A$ on the left, quantified over all bounded $A$. | ✅ `∀ A : H →L[ℂ] H, (A.comp T = T.comp A ∧ A.comp T.adjoint = T.adjoint.comp A) ↔ ∀ Δ : Set ℂ, MeasurableSet Δ → A.comp (E.toFun Δ) = (E.toFun Δ).comp A`. |
+| 10 | The three properties plus the support condition sit inside a single `∃!`, so the unique $E$ is the one satisfying all of them at once. | ✅ One `∃!` with a four-fold conjunction. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Writing the integral as `inner ℂ (T x) y = ∫ᵛ z, z ∂[…]` with `scalarMeasure x y B = inner ℂ (E.toFun B x) y`. | Mathlib's inner product is conjugate-linear in its **first** argument, so approximating $N$ by $\sum_k z_k E(B_k)$ gives $\langle Nx,y\rangle = \int \bar z\,dE_{x,y}$. The un-conjugated version therefore says $N = \int \bar z\,dE$, i.e. that $E$ is the spectral measure of $N^*$, supported on $\overline{\sigma(N)}$. Combined with the support condition it becomes unsatisfiable whenever $\sigma(N)$ is not closed under conjugation. Concretely, take $H = \mathbb{C}$ and $N = i\cdot\mathrm{id}$: the axioms force $E = \delta_{\{i\}}$ and the identity reduces to $-i\,\bar x y = i\,\bar x y$. |
+| 2 | Defining a spectral measure as an arbitrary function `Set ℂ → H →L[ℂ] H` with conditions imposed only on measurable sets, and then claiming `∃!`. | Two such functions can differ on a non-Borel set while satisfying every condition, so the uniqueness claim is false as stated. |
+| 3 | Dropping the support condition `E (σ(N)) = id` and keeping only `E univ = id`. | Uniqueness is lost: the measure could put mass outside the spectrum and still satisfy the rest. |
+| 4 | Constraining `scalarMeasure` only on a convenient subfamily of sets. | Mathlib's vector-measure integral `∫ᵛ` returns $0$ when the integrand is not integrable. With `scalarMeasure` left free elsewhere, a candidate could pick a measure making $z$ non-integrable and satisfy property (a) for free. |
+| 5 | Requiring `IsOpen G` in $\mathbb{C}$ in property (b). | Relatively open means open in $\sigma(N)$. A genuinely open subset of $\mathbb{C}$ meeting $\sigma(N)$ in a nonempty set is a different family, and the item as rewritten no longer says that the support of $E$ is all of $\sigma(N)$. |
+| 6 | Writing property (c) with only $AN = NA$ on the left. | That version asserts Fuglede's theorem by accident: it would say that commuting with $N$ alone already forces commuting with $N^*$. That is true but is a separate, harder result and not what IX.2.2 states. |
+| 7 | Keeping only one direction of the `↔` in property (c). | Half the item is lost; both implications are asserted in the text. |
+| 8 | Splitting the theorem into three separate existence claims, one per property. | The text asserts a single $E$ satisfying (a), (b) and (c) simultaneously. |
+
+## Notes on the ground truth
+
+- Mathlib has no projection-valued-measure API, so `ProjectionValuedMeasure` is hand-rolled in
+  `Defs.lean`. Its `nonmeasurable` field is not decoration — it is what makes the `∃!` defensible.
+- "On the Borel subsets of $\sigma(N)$" is rendered as a measure on all of $\mathbb{C}$ plus the
+  support condition of row 5. Indexing by `Set (spectrum ℂ T)` instead would be equally acceptable,
+  with the `univ` field then playing the role of the support condition.
+- The integrand `star z` in property (a) is deliberate and repairs an earlier version of this file
+  that wrote `z`. See Mistake 1 for why the un-conjugated form is a false statement. An equally
+  faithful alternative is to keep the integrand `z` and define
+  `scalarMeasure x y B = inner ℂ x (E.toFun B y)` instead.
+- Because the scalar measures are concentrated on the compact set $\sigma(N)$ and have finite
+  variation, $z \mapsto z$ really is integrable here, so the junk value $0$ of `∫ᵛ` cannot be
+  exploited.
+- The same missing-conjugation pattern appears harmlessly in `conway_XI_2_3` item (g) and in
+  `conway_X_5_6`, because there the spectral measure sits on the reals where $\bar z = z$. It is
+  only fatal when the spectrum is genuinely complex, as here.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[conway_IX_2_2_bounded_normal_spectral_theorem.md](conway_IX_2_2_bounded_normal_spectral_theorem.md) and the background in [conway_IX_2_2_bounded_normal_spectral_theorem.context.md](conway_IX_2_2_bounded_normal_spectral_theorem.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3: existence only, without uniqueness.
+- Requirement 8 with "open in $\mathbb{C}$" instead of "relatively open in $\sigma(N)$": a strictly weaker support condition.
+- Requirement 9 with only one of the two commutation identities, or with the equivalence turned into a single implication.
+
+### Domain-specific pitfalls for this problem
+
+- Countable additivity of a projection-valued measure is in the *strong* topology (pointwise on vectors), not in operator norm.
+- The projections must be orthogonal (self-adjoint idempotents), not merely idempotent.
+- $\int z \, dE(z)$ is a weak integral against the complex measures $\langle E(\cdot)x,y\rangle$; those measures must be pinned on *every* measurable set, not merely on a generating family.
+- Mathlib's inner product is conjugate-linear in the **first** argument, so transcribing $\langle E(\Delta)x,y\rangle$ or the integrand without accounting for the conjugation silently states the adjoint identity.
+- Uniqueness requires the behaviour on non-Borel sets to be fixed; otherwise the `∃!` is comparing objects that are not determined by the stated conditions.

@@ -28,7 +28,7 @@ theorem grafakos_2_2_14_fourier_identities_on_schwartz
     {n : ℕ} (f g h : 𝓢(EuclideanSpace ℝ (Fin n), ℂ)) :
     ((∫ x, f x * 𝓕 g x) = ∫ x, 𝓕 f x * g x) ∧
       𝓕⁻ (𝓕 f) = f ∧ 𝓕 (𝓕⁻ f) = f ∧
-      (∫ x, star (𝓕 f x) * 𝓕 g x) = ∫ x, star (f x) * g x ∧
+      (∫ x, f x * star (h x)) = (∫ x, 𝓕 f x * star (𝓕 h x)) ∧
       eLpNorm (fun x ↦ 𝓕 f x) 2 volume = eLpNorm f 2 volume ∧
       eLpNorm (fun x ↦ 𝓕⁻ f x) 2 volume = eLpNorm f 2 volume ∧
       (∫ x, f x * h x) = ∫ x, 𝓕 f x * 𝓕⁻ h x := by

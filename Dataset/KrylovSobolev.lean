@@ -1,0 +1,27 @@
+module
+
+public import Dataset.KrylovSobolev.Defs
+public import Dataset.KrylovSobolev.krylov_sobolev_10_4_2_seminorm_embedding_forces_scaling_relation
+public import Dataset.KrylovSobolev.krylov_sobolev_12_10_2_bessel_potential_holder_embedding
+public import Dataset.KrylovSobolev.krylov_sobolev_12_2_13_real_strongly_elliptic_order_even
+public import Dataset.KrylovSobolev.krylov_sobolev_13_3_13_negative_order_divergence_decomposition
+public import Dataset.KrylovSobolev.krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership
+public import Dataset.KrylovSobolev.krylov_sobolev_13_6_3_divergence_form_solvability
+public import Dataset.KrylovSobolev.krylov_sobolev_1_1_13_const_coeff_operator_range_dense
+public import Dataset.KrylovSobolev.krylov_sobolev_1_3_23_unit_ball_estimate_and_polynomial_operator_bijective
+public import Dataset.KrylovSobolev.krylov_sobolev_1_4_8_two_dim_measurable_coeff_L2_estimate
+public import Dataset.KrylovSobolev.krylov_sobolev_9_1_7_mollification_rate_implies_weak_derivative
+
+
+/-!
+# Hard Sobolev-space and elliptic-equation statements from Krylov
+
+Ten statement-only formalizations selected from N. V. Krylov,
+*Lectures on Elliptic and Parabolic Equations in Sobolev Spaces*.
+
+Each problem lives in `Dataset/KrylovSobolev/<declaration_name>.lean`,
+accompanied by `<declaration_name>.md` (the natural-language statement from
+the textbook) and `<declaration_name>.criteria.md` (a quality rubric for
+judging formalizations of that statement).
+Custom notions shared between problems are in `Dataset/KrylovSobolev/Defs.lean`.
+-/

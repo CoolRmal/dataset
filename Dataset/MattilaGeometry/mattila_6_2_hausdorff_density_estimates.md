@@ -4,6 +4,7 @@
 - **Domain:** Geometric measure theory
 - **Lean declaration:** `Dataset.MattilaGeometry.mattila_6_2_hausdorff_density_estimates` ([mattila_6_2_hausdorff_density_estimates.lean](mattila_6_2_hausdorff_density_estimates.lean))
 - **Criteria:** [mattila_6_2_hausdorff_density_estimates.criteria.md](mattila_6_2_hausdorff_density_estimates.criteria.md)
+- **Context:** [mattila_6_2_hausdorff_density_estimates.context.md](mattila_6_2_hausdorff_density_estimates.context.md)
 
 ## Statement
 

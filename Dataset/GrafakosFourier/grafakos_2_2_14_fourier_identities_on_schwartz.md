@@ -4,6 +4,7 @@
 - **Domain:** Fourier analysis
 - **Lean declaration:** `Dataset.GrafakosFourier.grafakos_2_2_14_fourier_identities_on_schwartz` ([grafakos_2_2_14_fourier_identities_on_schwartz.lean](grafakos_2_2_14_fourier_identities_on_schwartz.lean))
 - **Criteria:** [grafakos_2_2_14_fourier_identities_on_schwartz.criteria.md](grafakos_2_2_14_fourier_identities_on_schwartz.criteria.md)
+- **Context:** [grafakos_2_2_14_fourier_identities_on_schwartz.context.md](grafakos_2_2_14_fourier_identities_on_schwartz.context.md)
 
 ## Statement
 

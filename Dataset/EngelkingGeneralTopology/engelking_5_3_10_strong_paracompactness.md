@@ -4,6 +4,7 @@
 - **Domain:** Topology
 - **Lean declaration:** `Dataset.EngelkingGeneralTopology.engelking_5_3_10_strong_paracompactness` ([engelking_5_3_10_strong_paracompactness.lean](engelking_5_3_10_strong_paracompactness.lean))
 - **Criteria:** [engelking_5_3_10_strong_paracompactness.criteria.md](engelking_5_3_10_strong_paracompactness.criteria.md)
+- **Context:** [engelking_5_3_10_strong_paracompactness.context.md](engelking_5_3_10_strong_paracompactness.context.md)
 
 ## Statement
 

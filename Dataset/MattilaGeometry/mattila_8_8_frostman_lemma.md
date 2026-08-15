@@ -4,6 +4,7 @@
 - **Domain:** Geometric measure theory
 - **Lean declaration:** `Dataset.MattilaGeometry.mattila_8_8_frostman_lemma` ([mattila_8_8_frostman_lemma.lean](mattila_8_8_frostman_lemma.lean))
 - **Criteria:** [mattila_8_8_frostman_lemma.criteria.md](mattila_8_8_frostman_lemma.criteria.md)
+- **Context:** [mattila_8_8_frostman_lemma.context.md](mattila_8_8_frostman_lemma.context.md)
 
 ## Statement
 

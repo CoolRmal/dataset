@@ -4,6 +4,7 @@
 - **Domain:** ODE
 - **Lean declaration:** `Dataset.KongODE.kong_3_2_3_characteristic_multiplier_stability` ([kong_3_2_3_characteristic_multiplier_stability.lean](kong_3_2_3_characteristic_multiplier_stability.lean))
 - **Criteria:** [kong_3_2_3_characteristic_multiplier_stability.criteria.md](kong_3_2_3_characteristic_multiplier_stability.criteria.md)
+- **Context:** [kong_3_2_3_characteristic_multiplier_stability.context.md](kong_3_2_3_characteristic_multiplier_stability.context.md)
 
 ## Statement
 

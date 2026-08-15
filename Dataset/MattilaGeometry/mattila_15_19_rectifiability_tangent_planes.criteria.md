@@ -1,18 +1,103 @@
 # Criteria: mattila_15_19_rectifiability_tangent_planes
 
-**Statement:** [mattila_15_19_rectifiability_tangent_planes.md](mattila_15_19_rectifiability_tangent_planes.md) · **Lean:** [mattila_15_19_rectifiability_tangent_planes.lean](mattila_15_19_rectifiability_tangent_planes.lean)
+**Statement:** [mattila_15_19_rectifiability_tangent_planes.md](mattila_15_19_rectifiability_tangent_planes.md) · **Lean:** [mattila_15_19_rectifiability_tangent_planes.lean](mattila_15_19_rectifiability_tangent_planes.lean) · **Context:** [mattila_15_19_rectifiability_tangent_planes.context.md](mattila_15_19_rectifiability_tangent_planes.context.md)
 
-A faithful formalization must present a four-way equivalence for an $\mathcal H^m$ measurable set of finite measure, and each of the four items has to be transcribed clause by clause: countable rectifiability (15.3), linear approximability (15.7, with its interlocking $\eta$, $r_0$, $\lambda$ and affine $m$-plane), and the *unique* versus *some* approximate tangent plane conditions (15.17), where the tangent plane is defined by a positive upper density together with a vanishing conical-complement density. The hazards are the "for $\mathcal H^m$ almost all $a \in E$" quantifier (which is only correctly encoded by `Measure.restrict` because $E$ is assumed measurable), the geometry of the cone $X(a,V,s)$ and of the slab $W(\eta r)$, and preserving the distinction between items (3) and (4).
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+Let $E \subset \mathbb{R}^n$ be measurable with $\mathcal{H}^m(E) < \infty$. The theorem says four
+descriptions of $E$ are equivalent. The first is that $E$ is $m$-rectifiable: countably many
+Lipschitz images of $\mathbb{R}^m$ cover all of $E$ except an $\mathcal{H}^m$-null set. The second is
+that $E$ is linearly approximable: near almost every point of $E$, and at every small scale, $E$
+looks close to an $m$-plane — it fills that plane densely and almost none of it strays far from the
+plane. The third is that at almost every point of $E$ there is a *unique* approximate tangent
+$m$-plane, and the fourth that there is *some* approximate tangent $m$-plane. An approximate tangent
+plane at $a$ is a subspace $V$ such that $E$ has positive upper $m$-density at $a$ and the part of
+$E$ near $a$ lying outside every cone around $V$ is negligible at small scales.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Conclusion completeness | All four conditions, in an equivalence — not a chain of implications and not a subset of them. Items (3) and (4) must remain distinct: `∃!` versus `∃` approximate tangent plane. Collapsing them loses the a.e. uniqueness, which is a substantive part of 15.19. | ✅ `List.TFAE [RectifiableSet n m E, LinearlyApproximableSet n m E, ∀ᵐ a …, ∃! V …, ∀ᵐ a …, ∃ V …]` — mathlib's idiomatic `TFAE`, with `∃!` in item 3 and `∃` in item 4. ❗ Predicted error: dropping item (3), or writing `∃` in both. |
-| 2 | Faithful encoding | 15.3: `RectifiableSet n m E := ∃ f : ℕ → ℝᵐ → ℝⁿ, (∀ j, ∃ K : ℝ≥0, LipschitzWith K (f j)) ∧ μH[(m:ℝ)] (E \ ⋃ j, range (f j)) = 0` — a countable family, each map with its own Lipschitz constant, covering $E$ up to an $\mathcal H^m$-null set. | ✅ Matches verbatim. ❗ Predicted error: a single shared Lipschitz constant, or requiring literal containment $E \subseteq \bigcup_i f_i(\mathbb{R}^m)$. |
-| 3 | Faithful encoding | 15.7, clause by clause: the affine $m$-plane $W \ni a$ becomes `∃ V : Grassmannian n m` with membership `x - a ∈ V.1`; "$\mathcal H^m(E \cap B(x,\eta r)) \ge \lambda r^m$ for $x \in W \cap B(a,r)$" becomes `∀ x, x - a ∈ V.1 → x ∈ closedBall a r → ENNReal.ofReal (c * r^m) ≤ μH[(m:ℝ)] (E ∩ closedBall x (η*r))`; and "$\mathcal H^m(E \cap B(a,r) \setminus W(\eta r)) < \eta r^m$" becomes a bound on `μH[(m:ℝ)] (E ∩ closedBall a r ∩ {x \| η*r ≤ infDist (x - a) V.1})`. The quantifier order matters: $V$, $r_0$ and $\lambda$ all depend on $\eta$. | ✅ `∀ η > 0, ∃ V, ∃ r₀ c, …` — the correct dependence, and both inequalities present. ⚠️ The slab complement uses `η*r ≤ infDist …`, i.e. the complement of the *open* $\eta r$-neighbourhood of $W$; the book's $W(\eta r)$ read as closed would give `<`. Immaterial to the equivalence (since $\eta$ is universally quantified) but not literal. |
-| 4 | Faithful encoding | 15.17: `IsApproximateTangentPlane E a V := 0 < upperHausdorffDensity (m:ℝ) E a ∧ ∀ s ∈ (0,1), Tendsto (fun r ↦ μH[(m:ℝ)] (E ∩ closedBall a r ∩ {x \| s * dist x a ≤ infDist (x - a) V.1}) / ENNReal.ofReal (r ^ (m:ℝ))) (𝓝[>] 0) (𝓝 0)`. The set complementary to the cone $X(a,V,s) = \{x : d(x-a, V) < s\lvert x-a\rvert \}$ is exactly `{x \| s * dist x a ≤ infDist (x - a) V.1}`, and $\Theta^{*m}(E,a) > 0$ is the upper density. | ✅ Exact match on both conjuncts, including the `(2r)^{-m}` normalization hidden in `upperHausdorffDensity` and the separate `r^{-m}` normalization in the cone condition (the text uses `r^{-m}` there). ❗ Predicted error: dropping the density-positivity conjunct, which would make every $V$ a tangent plane at points where $E$ is thin. |
-| 5 | Faithful encoding / a.e. quantifier | "For $\mathcal H^m$ almost all $a \in E$" is `∀ᵐ a ∂μH[(m:ℝ)].restrict E`. This reading is correct **only because** `hEmeas : MeasurableSet E` is assumed: `Measure.restrict_apply'` needs measurability of `E` to give `(μ.restrict E) S = μ (S ∩ E)`. The same `.restrict E` appears inside `LinearlyApproximableSet`, so items (2)–(4) all lean on that hypothesis. | ✅ Consistent use of `μH[(m:ℝ)].restrict E`, with `hEmeas` present. ❗ Predicted error: `.restrict E` with `E` not assumed measurable (compare `mattila_6_2`, where the guarded form `∀ᵐ x ∂μH[s], x ∈ A → …` is the correct choice for exactly this reason). |
-| 6 | Semantic closeness | "$E$ is an $\mathcal H^m$ measurable subset" is Carathéodory measurability, i.e. `NullMeasurableSet E μH[(m:ℝ)]`; Borel `MeasurableSet E` is strictly stronger and therefore gives a weaker theorem (a TFAE with a narrowed hypothesis). | ⚠️ Ground truth uses `MeasurableSet E`. Note the tension with row 5: the `.restrict E` encoding is what makes Borel measurability convenient, so a fully literal version would need to switch to guarded a.e. statements as well. |
-| 7 | Semantic closeness | The Grassmannian appears here only *pointwise* (`∃ V`, `∃! V`), with no measure on $G(n,m)$ — so the σ-algebra gap that affects `mattila_9_7`, `mattila_10_10` and `mattila_18_1` does **not** affect this statement. `Grassmannian n m` is a subtype of `Submodule ℝ (EuclideanSpace ℝ (Fin n))`, so `∃!` is uniqueness of the subspace, as intended. | ✅ No measure-theoretic scaffolding is invoked; `Grassmannian` is used purely as an index of $m$-dimensional subspaces. |
-| 8 | Hypothesis completeness / junk values | `μH[(m:ℝ)] E < ∞` is essential (all four conditions can decouple for sets of infinite measure). All the quotients are `ℝ≥0∞`-valued with denominators `ENNReal.ofReal (r ^ (m:ℝ))` positive and finite for `r > 0`, and the limits are along `𝓝[>] 0`, so the junk values of `Real.rpow` at nonpositive base are never seen. | ✅ `hEfinite` present; all normalizations guarded by `r > 0`. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The hypotheses: $E$ is $\mathcal{H}^m$ measurable and $\mathcal{H}^m(E) < \infty$. | ✅ `hEmeas : MeasurableSet E`, `hEfinite : μH[(m : ℝ)] E < ∞`. ⚠️ The book means Carathéodory $\mathcal{H}^m$-measurable, i.e. `NullMeasurableSet E μH[(m:ℝ)]`; Borel `MeasurableSet` is stronger, so our version is a slightly narrower theorem. |
+| 2 | All four conditions are asserted equivalent, as one equivalence rather than a chain of implications. | ✅ `List.TFAE [ … ]` with four entries. |
+| 3 | Rectifiability (15.3): countably many Lipschitz maps $\mathbb{R}^m \to \mathbb{R}^n$, **each with its own** Lipschitz constant, whose ranges cover $E$ up to an $\mathcal{H}^m$-null set. | ✅ `RectifiableSet n m E = ∃ f : ℕ → …, (∀ j, ∃ K : ℝ≥0, LipschitzWith K (f j)) ∧ μH[(m:ℝ)] (E \ ⋃ j, range (f j)) = 0`. |
+| 4 | Linear approximability (15.7): for almost every $a \in E$ and **every** $\eta > 0$ there are a plane, a scale $r_0$ and a constant $c$ — all allowed to depend on $\eta$ — such that both displayed inequalities hold for all $0 < r < r_0$. | ✅ `LinearlyApproximableSet`: `∀ᵐ a ∂μH[(m:ℝ)].restrict E, ∀ η, 0 < η → ∃ V, ∃ r₀ c, 0 < r₀ ∧ 0 < c ∧ ∀ r, 0 < r → r < r₀ → …`. |
+| 5 | The first inequality of 15.7: $\mathcal{H}^m(E \cap B(x,\eta r)) \ge c\,r^m$ for every $x$ in the plane through $a$ within distance $r$ of $a$. | ✅ `∀ x, x - a ∈ V.1 → x ∈ closedBall a r → ENNReal.ofReal (c * r ^ m) ≤ μH[(m:ℝ)] (E ∩ closedBall x (η * r))`. |
+| 6 | The second inequality of 15.7: the part of $E$ near $a$ that lies at distance at least $\eta r$ from the plane has measure less than $\eta r^m$. | ✅ `μH[(m:ℝ)] (E ∩ closedBall a r ∩ {x \| η * r ≤ infDist (x - a) V.1}) < ENNReal.ofReal (η * r ^ m)`. |
+| 7 | An approximate tangent plane (15.17) requires **both** positive upper $m$-density at $a$ **and** the vanishing cone-complement density for every $0 < s < 1$. | ✅ `IsApproximateTangentPlane E a V = 0 < upperHausdorffDensity (m:ℝ) E a ∧ ∀ s, 0 < s → s < 1 → Tendsto (fun r ↦ μH[(m:ℝ)] (E ∩ closedBall a r ∩ {x \| s * dist x a ≤ infDist (x - a) V.1}) / ENNReal.ofReal (r ^ (m:ℝ))) (𝓝[>] 0) (𝓝 0)`. |
+| 8 | Items (3) and (4) must stay distinct: uniqueness of the tangent plane versus mere existence. | ✅ `∃! V : Grassmannian n m, …` in item 3 and `∃ V : Grassmannian n m, …` in item 4. |
+| 9 | "For $\mathcal{H}^m$ almost all $a \in E$" in items (2), (3), (4) must restrict the measure to $E$. | ✅ `∀ᵐ a ∂μH[(m:ℝ)].restrict E` in all three places; this reading is correct precisely because `hEmeas` is assumed. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Dropping item (3), or writing `∃` in both items (3) and (4). | Almost-everywhere *uniqueness* of the tangent plane is a substantive part of 15.19; collapsing the two items loses it. |
+| 2 | Requiring a single Lipschitz constant for the whole family of maps. | Definition 15.3 allows each $f_i$ its own constant. A common constant is a strictly stronger requirement, so the rectifiability condition would be the wrong one. |
+| 3 | Requiring literal containment $E \subseteq \bigcup_i f_i(\mathbb{R}^m)$. | The definition only asks for containment up to an $\mathcal{H}^m$-null set. Exact containment is strictly stronger and would break the equivalence. |
+| 4 | Dropping the positive-upper-density conjunct from the tangent plane definition. | Without it, at any point where $E$ is thin every subspace satisfies the cone condition, so "there is a tangent plane" would become almost vacuous and item (4) would no longer characterize rectifiability. |
+| 5 | Using `μH[(m:ℝ)].restrict E` while not assuming $E$ measurable. | `Measure.restrict` only computes as `μ (S ∩ E)` for measurable `E`; without that hypothesis the a.e. statements are not the intended ones. (Compare `mattila_6_2`, where the guarded form `∀ᵐ x ∂μH[s], x ∈ A → …` is used for exactly this reason.) |
+| 6 | Letting the plane, $r_0$ and $c$ in 15.7 be chosen before $\eta$. | The definition allows all three to depend on $\eta$; hoisting them out changes the condition into a stronger one. |
+| 7 | Replacing the equivalence by a chain of implications, or listing only some of the four items. | The theorem asserts all four are equivalent. |
+| 8 | Dropping $\mathcal{H}^m(E) < \infty$. | For sets of infinite measure the four conditions come apart, so the equivalence fails. |
+
+## Notes on the ground truth
+
+- The Grassmannian appears here only pointwise, through `∃ V` and `∃! V`. No measure on $G(n,m)$ is
+  involved, so the measurable-structure issue that affects `mattila_9_7`, `mattila_10_10` and
+  `mattila_18_1` does not arise. `Grassmannian n m` is a subtype of
+  `Submodule ℝ (EuclideanSpace ℝ (Fin n))`, so `∃!` really is uniqueness of the subspace.
+- An affine $m$-plane through $a$ is rendered by a linear subspace `V` together with the membership
+  test `x - a ∈ V.1`. The cone complement $\mathbb{R}^n \setminus X(a,V,s)$ is
+  `{x | s * dist x a ≤ infDist (x - a) V.1}`, exactly the complement of
+  $\{x : d(x-a, V) < s\lvert x - a\rvert\}$.
+- The two normalizations differ on purpose and match the book: `upperHausdorffDensity` divides by
+  $(2r)^m$, while the cone condition in 15.17 divides by $r^m$.
+- ⚠️ The slab complement in 15.7 uses `η * r ≤ infDist …`, i.e. the complement of the *open*
+  $\eta r$-neighbourhood of the plane. Reading the book's $W(\eta r)$ as closed would give a strict
+  `<` there instead. This does not affect the equivalence, since $\eta$ is universally quantified,
+  but it is not literal.
+- ⚠️ `MeasurableSet E` rather than `NullMeasurableSet E μH[(m:ℝ)]`; note the tension with the
+  `.restrict E` encoding — a fully literal version would have to switch to guarded a.e. statements
+  as well.
+- All quotients are `ℝ≥0∞`-valued with denominators `ENNReal.ofReal (r ^ (m:ℝ))`, which are positive
+  and finite for `r > 0`, and all limits are along `𝓝[>] 0`, so the junk values of `Real.rpow` at
+  nonpositive base are never seen.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[mattila_15_19_rectifiability_tangent_planes.md](mattila_15_19_rectifiability_tangent_planes.md) and the background in [mattila_15_19_rectifiability_tangent_planes.context.md](mattila_15_19_rectifiability_tangent_planes.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 5 or 6 with either inequality of linear approximability dropped.
+- Requirement 7 with an approximate tangent plane defined by the cone condition alone, without positive upper density.
+- Requirement 2 with the four conditions given as a chain of implications rather than one equivalence.
+
+### Domain-specific pitfalls for this problem
+
+- Rectifiability uses countably many Lipschitz maps defined on all of $\mathbb{R}^m$, with a null exceptional set.
+- Linear approximability has two inequalities and a specific quantifier order: almost every $a$, then every $\eta$, then some $r_0,\lambda,W$, then every $r < r_0$.
+- An approximate tangent plane is a two-part condition; positive density is one half of it.
+- "Almost every $a \in E$" restricts the Hausdorff measure to $E$.
+- The uniqueness item and the existence item are different conditions.

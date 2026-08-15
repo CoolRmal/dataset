@@ -4,6 +4,7 @@
 - **Domain:** Fourier analysis
 - **Lean declaration:** `Dataset.GrafakosFourier.grafakos_3_2_8_poisson_summation` ([grafakos_3_2_8_poisson_summation.lean](grafakos_3_2_8_poisson_summation.lean))
 - **Criteria:** [grafakos_3_2_8_poisson_summation.criteria.md](grafakos_3_2_8_poisson_summation.criteria.md)
+- **Context:** [grafakos_3_2_8_poisson_summation.context.md](grafakos_3_2_8_poisson_summation.context.md)
 
 ## Statement
 

@@ -1,19 +1,85 @@
 # Criteria: kong_3_5_2_lasalle_invariance_stability
 
-> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+**Statement:** [kong_3_5_2_lasalle_invariance_stability.md](kong_3_5_2_lasalle_invariance_stability.md) · **Lean:** [kong_3_5_2_lasalle_invariance_stability.lean](kong_3_5_2_lasalle_invariance_stability.lean) · **Context:** [kong_3_5_2_lasalle_invariance_stability.context.md](kong_3_5_2_lasalle_invariance_stability.context.md)
 
-**Statement:** [kong_3_5_2_lasalle_invariance_stability.md](kong_3_5_2_lasalle_invariance_stability.md) · **Lean:** [kong_3_5_2_lasalle_invariance_stability.lean](kong_3_5_2_lasalle_invariance_stability.lean)
+## What the theorem says
 
-A faithful formalization must combine three hypotheses — $V \in C^1$ and positive definite on the closed ball of radius $l$, the orbital derivative $\dot V = \nabla V \cdot f$ nonpositive there, and the invariance condition that $D_0 = \{x \in D : \dot V(x) = 0\}$ contains no nontrivial orbit — and conclude *both* uniform stability and asymptotic stability of the zero solution of the autonomous system $x' = f(x)$. The orbital derivative is the delicate object: it must be $\nabla V(x)\cdot f(x)$ (not $\frac{d}{dt}V(x(t))$ written with `deriv`), and since $V$ is only assumed $C^1$ *on the closed ball*, the ambient `fderiv` used to express it is junk `0` on the bounding sphere. The invariance hypothesis is also the only thing standing between this statement and a false one — and, as stated, it is not enough, because no regularity whatsoever is assumed of $f$.
+Consider the autonomous system $x' = f(x)$ with $f(0) = 0$, and a function $V$ defined on the closed
+ball of radius $l$ around the origin. Suppose $V$ is $C^1$, vanishes at the origin, is strictly
+positive elsewhere in the ball, and never increases along solutions — that is, its orbital
+derivative $\dot V(x) = \nabla V(x)\cdot f(x)$ is $\le 0$ throughout the ball. Ordinarily this gives
+stability but not convergence. LaSalle's addition is: if the set where $\dot V$ vanishes contains no
+nontrivial orbit, then the origin is not merely stable but asymptotically stable — nearby solutions
+actually tend to it.
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+## What a correct formalization must contain
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Hypothesis completeness | LaSalle's invariance principle needs Kong's standing hypothesis $f \in C(D,\mathbb{R}^n)$ for Eq. (A): the proof identifies the $\omega$-limit set of a bounded trajectory as an invariant subset of $D_0$, which requires solutions to exist through its points. `F : (Fin n → ℝ) → (Fin n → ℝ)` is assumed nothing at all. | ❗ **False as stated.** Sketch: in the plane take $V(x) = \lVert x\rVert_2^2$ and, in polar form, $r' = -\sin^2(\pi/r)$ with a purely tangential component whose speed on each circle $r = 1/k$ is a $\{1,2\}$-valued function of $\theta$. Then `LyapunovFunctionOnBall` holds ($\dot V = -2r\sin^2(\pi/r) \le 0$), and no trajectory can lie on a circle $r = 1/k$ (a derivative has the intermediate value property, so $\theta' = \tau(\theta)$ with $\tau$ two-valued is unsolvable), so `NoNontrivialOrbitInZeroDerivativeSet` holds; yet trajectories started between two consecutive circles decrease to the inner circle and do **not** tend to $0$, for arbitrarily small initial data. |
-| 2 | Faithful encoding | "$V$ positive definite on $D$" is $V(0) = 0$ together with $V(x) > 0$ for $x \in D \setminus \{0\}$, and "$\dot V$ negative semi-definite" is $\dot V(x) \le 0$ on $D$, where $\dot V(x) = \nabla V(x)\cdot f(x)$ is the *orbital* derivative. | ✅ `LyapunovFunctionOnBall l V F := ContDiffOn ℝ 1 V (closedBall 0 l) ∧ V 0 = 0 ∧ (∀ x ∈ closedBall 0 l, x ≠ 0 → 0 < V x) ∧ ∀ x ∈ closedBall 0 l, fderiv ℝ V x (F x) ≤ 0`. ❗ Trap: writing $\dot V$ as `deriv (fun t ↦ V (x t)) t ≤ 0` along solutions — junk `0` where the composite is not differentiable, and it changes the hypothesis from a pointwise condition on $D$ to a condition along trajectories. |
-| 3 | Junk values | The orbital derivative uses the *ambient* `fderiv ℝ V x`, but `V` is only `ContDiffOn` the closed ball. At interior points `fderiv` and `fderivWithin … (closedBall 0 l)` agree; on the sphere $\lVert x\rVert = l$, `fderiv ℝ V x` may be junk `0`. | ⚠️ Consequence: on the sphere the hypothesis `fderiv ℝ V x (F x) ≤ 0` reads `0 ≤ 0` and is vacuous, and the same points are wrongly counted as lying in $D_0$ in `NoNontrivialOrbitInZeroDerivativeSet`. Harmless for the proof (which only uses sublevel sets strictly inside the ball) but semantically off; `fderivWithin ℝ V (closedBall 0 l) x` would be exact. |
-| 4 | Faithful encoding | "$D_0$ contains no nontrivial orbit of (A)" means: every solution of (A) whose whole orbit lies in $D_0$ is the trivial one. | ✅ `NoNontrivialOrbitInZeroDerivativeSet l V F := ∀ x, IsAutonomousTrajectory F x → (∀ t, x t ∈ closedBall 0 l ∧ fderiv ℝ V (x t) (F (x t)) = 0) → x = 0`, with `x = 0` the zero *function*. ⚠️ Quantifying only over trajectories defined on all of `ℝ` weakens the hypothesis (Kong's orbits are those of maximal solutions), which formally strengthens the theorem. |
-| 5 | Conclusion completeness | Both conclusions are asserted: uniform stability **and** asymptotic stability. | ✅ `AsymptoticallyStableZeroSolution (fun _ x ↦ F x)` unfolds to `UniformlyStableZeroSolution … ∧ ∃ δ > 0, ∀ t₀ x, IsTrajectory … → ‖x t₀‖ < δ → Tendsto x atTop (𝓝 0)`. ❗ Trap: concluding attraction only, dropping the uniform-stability conjunct. |
-| 6 | Semantic closeness | The attraction radius $\delta$ must be a single radius, independent of $t_0$ and of the solution; and the convergence is $x(t) \to 0$ as $t \to +\infty$. | ✅ `∃ δ, 0 < δ ∧ ∀ t₀ x, …` with `Tendsto x atTop (𝓝 0)`. ✅ Applying the nonautonomous predicate to `fun _ x ↦ F x` and quantifying `t₀` over all of `ℝ` is harmless here by time-translation invariance of the autonomous system. |
-| 7 | Solution concept | Trajectories are `IsAutonomousTrajectory F x := ∀ t, HasDerivAt x (F (x t)) t`, i.e. genuine solutions on all of `ℝ`. | ✅ `HasDerivAt`, never `deriv`. ⚠️ Requiring global existence excludes solutions that only exist forward in time, so the conclusion is weaker than Kong's; for the trajectories at issue (which stay in a compact ball) this is a mild restriction, but it is a restriction. |
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The ball has positive radius. | ✅ `hl : 0 < l`. |
+| 2 | The vector field is regular enough that solutions exist through the points the proof needs. | ⚠️ `hF : ContDiff ℝ 1 F` is stronger than Kong's standing hypothesis that $f$ is merely continuous, so our version is weaker than the printed one. Some regularity is essential (see mistake 1); $C^1$ is a convenient over-assumption. |
+| 3 | The origin is an equilibrium, so that $x \equiv 0$ really is a solution. | ✅ `hF0 : F 0 = 0`. |
+| 4 | $V$ is $C^1$ on the closed ball. | ✅ First conjunct of `LyapunovFunctionOnBall l V F`: `ContDiffOn ℝ 1 V (Metric.closedBall 0 l)`. |
+| 5 | $V$ is positive definite: $V(0) = 0$ and $V(x) > 0$ for every other point of the ball. | ✅ `V 0 = 0 ∧ ∀ x ∈ Metric.closedBall 0 l, x ≠ 0 → 0 < V x`. |
+| 6 | The orbital derivative $\nabla V(x)\cdot f(x)$ is $\le 0$ at every point of the ball, as a pointwise condition on the ball rather than a condition along solutions. | ✅ `∀ x ∈ Metric.closedBall 0 l, fderivWithin ℝ V (Metric.closedBall 0 l) x (F x) ≤ 0`. |
+| 7 | The derivative of $V$ is taken **within** the ball, matching "$V \in C^1(D)$". | ✅ `fderivWithin ℝ V (Metric.closedBall 0 l) x` everywhere it appears, including in the invariance hypothesis. |
+| 8 | The invariance hypothesis: any solution whose whole orbit lies in the ball with orbital derivative $0$ throughout is the zero solution. | ✅ `NoNontrivialOrbitInZeroDerivativeSet l V F`, whose conclusion is `x = 0` as an equality of *functions*. |
+| 9 | The conclusion asserts uniform stability **and** asymptotic convergence. | ✅ `AsymptoticallyStableZeroSolution (fun _ x ↦ F x)`, which unfolds to `UniformlyStableZeroSolution … ∧ ∃ δ > 0, …`. |
+| 10 | The attraction radius is one number, independent of the initial time and of the solution, and the convergence is as $t \to +\infty$. | ✅ `∃ δ, 0 < δ ∧ ∀ t₀ x, …` with `Tendsto x atTop (𝓝 0)`. |
+| 11 | Solutions are genuine solutions of the autonomous system. | ✅ `IsAutonomousTrajectory F x := ∀ t, HasDerivAt x (F (x t)) t`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Assuming nothing at all about the vector field $f$. | The theorem then becomes false. Sketch: in the plane take $V(x) = \lVert x\rVert^2$ and, in polar coordinates, $r' = -\sin^2(\pi/r)$, with a purely tangential component whose speed on each circle $r = 1/k$ is a function of $\theta$ taking only the values $1$ and $2$. Then $\dot V = -2r\sin^2(\pi/r) \le 0$, so the Lyapunov hypotheses hold; and no solution can lie on a circle $r = 1/k$, because a derivative has the intermediate value property and $\theta' = \tau(\theta)$ with $\tau$ two-valued has no solution — so the invariance hypothesis holds too. Yet solutions starting between two consecutive circles decrease only to the inner circle and do not tend to $0$, for arbitrarily small initial data. |
+| 2 | Omitting $f(0) = 0$. | Then the origin need not be an equilibrium and "the zero solution" is not a solution at all. |
+| 3 | Writing the orbital derivative as `deriv (fun t ↦ V (x t)) t ≤ 0` along solutions. | Two things break. `deriv` returns `0` where the composite is not differentiable, so the condition can be met by accident; and it turns a pointwise hypothesis on the ball into a hypothesis along trajectories, which is a different assumption. |
+| 4 | Using the ambient `fderiv ℝ V x` while $V$ is only assumed $C^1$ on the closed ball. | On the bounding sphere $\lVert x\rVert = l$ the ambient derivative can be the junk value $0$. The hypothesis then reads $0 \le 0$ there, saying nothing, and those same sphere points get wrongly counted as belonging to the zero-orbital-derivative set, weakening the invariance hypothesis. |
+| 5 | Concluding only that solutions tend to the origin. | The theorem concludes uniform stability as well. Convergence alone permits large excursions before the return. |
+| 6 | Dropping the invariance hypothesis. | Without it only stability follows, not asymptotic stability. That hypothesis is the entire point of LaSalle's refinement. |
+| 7 | Writing positive definiteness as $V(x) > 0$ for all $x$ in the ball, or omitting $V(0) = 0$. | $V(0) > 0$ is impossible together with $V(0) = 0$; and if $V(0) = 0$ is dropped, the sublevel sets no longer shrink to the origin and the argument gives nothing. |
+
+## Notes on the ground truth
+
+- The invariance hypothesis quantifies only over trajectories defined on all of $\mathbb{R}$, whereas Kong's orbits are those of maximal solutions. That makes our hypothesis weaker, hence the theorem formally stronger — an honest divergence from the text.
+- In the same way, the conclusion speaks only about solutions defined on all of $\mathbb{R}$, so it is weaker than Kong's, which also covers solutions that exist only forward in time. For the trajectories at issue here, which stay in a compact ball, the restriction is mild but it is real.
+- The autonomous field is fed to the time-dependent stability predicate as `fun _ x ↦ F x`. Quantifying the initial time over $[0,\infty)$ rather than a single instant is harmless because the system is invariant under time translation.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[kong_3_5_2_lasalle_invariance_stability.md](kong_3_5_2_lasalle_invariance_stability.md) and the background in [kong_3_5_2_lasalle_invariance_stability.context.md](kong_3_5_2_lasalle_invariance_stability.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 11 rows, so each row is worth 4.5 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 8 with the invariance hypothesis dropped: only stability follows, not asymptotic stability.
+- Requirement 6 with $\dot V$ required negative *definite*, which is a strictly stronger hypothesis and a weaker theorem.
+- Requirement 3 with the equilibrium condition $f(0)=0$ dropped, so $x \equiv 0$ need not be a solution.
+
+### Domain-specific pitfalls for this problem
+
+- The orbital derivative is $\nabla V \cdot f$, a function of $x$ alone.
+- Positive definiteness of $V$ is strict off the origin; negative semi-definiteness of $\dot V$ is not strict.
+- "Nontrivial orbit" excludes the constant solution at the origin; the hypothesis is that no other whole orbit stays in $D_0$.
+- The derivative of $V$ is taken within the closed ball, matching $V \in C^1(D)$.
+- The conclusion is a conjunction of the two stability properties, with radii independent of the initial time.

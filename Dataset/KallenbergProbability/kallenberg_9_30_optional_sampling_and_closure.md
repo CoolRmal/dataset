@@ -4,6 +4,7 @@
 - **Domain:** Martingales
 - **Lean declaration:** `Dataset.KallenbergProbability.kallenberg_9_30_optional_sampling_and_closure` ([kallenberg_9_30_optional_sampling_and_closure.lean](kallenberg_9_30_optional_sampling_and_closure.lean))
 - **Criteria:** [kallenberg_9_30_optional_sampling_and_closure.criteria.md](kallenberg_9_30_optional_sampling_and_closure.criteria.md)
+- **Context:** [kallenberg_9_30_optional_sampling_and_closure.context.md](kallenberg_9_30_optional_sampling_and_closure.context.md)
 
 ## Statement
 

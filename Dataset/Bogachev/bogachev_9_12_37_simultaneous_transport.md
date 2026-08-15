@@ -4,6 +4,7 @@
 - **Domain:** Measure theory
 - **Lean declaration:** `Dataset.Bogachev.bogachev_9_12_37_simultaneous_transport` ([bogachev_9_12_37_simultaneous_transport.lean](bogachev_9_12_37_simultaneous_transport.lean))
 - **Criteria:** [bogachev_9_12_37_simultaneous_transport.criteria.md](bogachev_9_12_37_simultaneous_transport.criteria.md)
+- **Context:** [bogachev_9_12_37_simultaneous_transport.context.md](bogachev_9_12_37_simultaneous_transport.context.md)
 
 ## Statement
 

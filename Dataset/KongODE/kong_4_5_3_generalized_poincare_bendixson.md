@@ -4,6 +4,7 @@
 - **Domain:** ODE
 - **Lean declaration:** `Dataset.KongODE.kong_4_5_3_generalized_poincare_bendixson` ([kong_4_5_3_generalized_poincare_bendixson.lean](kong_4_5_3_generalized_poincare_bendixson.lean))
 - **Criteria:** [kong_4_5_3_generalized_poincare_bendixson.criteria.md](kong_4_5_3_generalized_poincare_bendixson.criteria.md)
+- **Context:** [kong_4_5_3_generalized_poincare_bendixson.context.md](kong_4_5_3_generalized_poincare_bendixson.context.md)
 
 ## Statement
 

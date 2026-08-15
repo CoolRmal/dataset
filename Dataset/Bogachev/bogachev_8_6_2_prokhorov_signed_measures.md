@@ -4,6 +4,7 @@
 - **Domain:** Measure theory
 - **Lean declaration:** `Dataset.Bogachev.bogachev_8_6_2_prokhorov_signed_measures` ([bogachev_8_6_2_prokhorov_signed_measures.lean](bogachev_8_6_2_prokhorov_signed_measures.lean))
 - **Criteria:** [bogachev_8_6_2_prokhorov_signed_measures.criteria.md](bogachev_8_6_2_prokhorov_signed_measures.criteria.md)
+- **Context:** [bogachev_8_6_2_prokhorov_signed_measures.context.md](bogachev_8_6_2_prokhorov_signed_measures.context.md)
 
 ## Statement
 

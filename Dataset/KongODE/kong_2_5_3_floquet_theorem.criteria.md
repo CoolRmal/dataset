@@ -1,19 +1,82 @@
 # Criteria: kong_2_5_3_floquet_theorem
 
-> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+**Statement:** [kong_2_5_3_floquet_theorem.md](kong_2_5_3_floquet_theorem.md) · **Lean:** [kong_2_5_3_floquet_theorem.lean](kong_2_5_3_floquet_theorem.lean) · **Context:** [kong_2_5_3_floquet_theorem.context.md](kong_2_5_3_floquet_theorem.context.md)
 
-**Statement:** [kong_2_5_3_floquet_theorem.md](kong_2_5_3_floquet_theorem.md) · **Lean:** [kong_2_5_3_floquet_theorem.lean](kong_2_5_3_floquet_theorem.lean)
+## What the theorem says
 
-A faithful formalization must produce a *complex* constant matrix $R$ and a *complex* matrix function $P$ that is $C^1$, $\omega$-periodic and nonsingular at every $t$, with the real fundamental matrix $X$, complexified, factoring as $X(t) = P(t)e^{Rt}$ — in that order, since matrices do not commute. Everything hinges on the regularity bookkeeping: since $e^{tR}$ is invertible and analytic, $P(t) = X(t)e^{-tR}$ is *forced*, so the claim "$P \in C^1$" is equivalent to "$X \in C^1$", i.e. to continuity of $A = X'X^{-1}$ — which the Lean hypotheses never assume.
+Consider $x' = A(t)x$ where $A$ is continuous and repeats itself every $\omega$ units of time. Let
+$X(t)$ be a fundamental matrix solution — a matrix-valued solution that is invertible at every time.
+Floquet's theorem says that $X$ factors as $X(t) = P(t)e^{Rt}$, where $R$ is a constant matrix and
+$P$ is a continuously differentiable, invertible, $\omega$-periodic matrix function. In words: up to
+a periodic change of variables, the periodic system behaves like a constant-coefficient one. The
+matrices $R$ and $P$ have to be allowed complex entries even though $A$ and $X$ are real.
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+## What a correct formalization must contain
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Hypothesis completeness | Kong's Eq. (H-p) carries the standing assumption $A \in C(\mathbb{R}, \mathbb{R}^{n\times n})$; only `PeriodicLinearEquation ω A` (pure periodicity) and existence of a fundamental matrix solution are assumed here. | ❗ **The conclusion is false without continuity of `A`.** Because $P(t) = X(t)e^{-tR}$ is determined by $R$, `∀ i j, ContDiff ℝ 1 fun t ↦ P t i j` forces $X \in C^1$, hence $A = X'X^{-1}$ continuous. Counterexample: `n = 1`; let $\psi$ be differentiable with $\psi \equiv 0$ near $1$, $\psi(t) = t^2\sin(1/t)$ near $0$, $\psi(0)=0$, and let $h$ be the $1$-periodic-increment primitive obtained by pasting $\psi$ on each $[k,k+1]$. Then $A := h'$ is $1$-periodic and discontinuous at the integers, $X := e^{h}$ satisfies `FundamentalMatrixSolution univ A X`, and no $C^1$ factorization exists. |
-| 2 | Faithful encoding | $R$ and $P$ must be complex even though $X$ is real: the real matrix $X(\omega)X^{-1}(0)$ generally has no real logarithm (e.g. a negative eigenvalue), so a purely real statement is false. The real $X$ must therefore be coerced into $\mathbb{C}^{n\times n}$. | ✅ `R P : Matrix (Fin n) (Fin n) ℂ` and `(X t).map (algebraMap ℝ ℂ)` on the left-hand side. ❗ Trap: stating $X(t) = P(t)e^{Rt}$ over `ℝ` — false in general (Kong's book states the real version only with period $2\omega$). |
-| 3 | Conclusion completeness | All four properties of $P$ are part of the theorem: $C^1$, $\omega$-periodicity, nonsingularity at every $t$, and the factorization. Dropping nonsingularity or periodicity trivializes the statement (take $R = 0$, $P = X$). | ✅ `(∀ i j, ContDiff ℝ 1 fun t ↦ P t i j) ∧ (∀ t, P (t + ω) = P t) ∧ (∀ t, IsUnit (P t)) ∧ ∀ t, …`. |
-| 4 | Faithful encoding | The factorization order is $P(t)\,e^{Rt}$, not $e^{Rt}P(t)$, and the exponent is $tR$ with the *real* scalar $t$ acting on the complex matrix $R$. | ✅ `(X t).map (algebraMap ℝ ℂ) = P t * NormedSpace.exp (t • R)`. ❗ Trap: `NormedSpace.exp (R * t)` with `t` coerced, or swapping the factors. |
-| 5 | Mathlib conventions | The matrix exponential in current mathlib is `NormedSpace.exp` specialized to `Matrix`; `Mathlib/Analysis/Normed/Algebra/MatrixExponential.lean` states the matrix-specific lemmas for it. The definition is via the norm-independent series, so no norm instance needs to be chosen in the statement. | ✅ `NormedSpace.exp (t • R)`. |
-| 6 | Mathlib conventions | Regularity of a matrix-valued curve is cleanest as `ContDiff ℝ 1 P` into the finite-dimensional space `Matrix (Fin n) (Fin n) ℂ`. | ⚠️ The entrywise form `∀ i j, ContDiff ℝ 1 fun t ↦ P t i j` is equivalent (finite product topology) but noisier; `ContDiff ℝ 1 P` would be preferable. |
-| 7 | Hypothesis completeness | The period must be positive and the periodicity must hold for all $t \in \mathbb{R}$; the fundamental matrix must be defined on all of $\mathbb{R}$ (not on a subinterval), since the conclusion is global. | ✅ `hω : 0 < ω`, `PeriodicLinearEquation ω A := ∀ t, A (t + ω) = A t`, and `FundamentalMatrixSolution univ A X`. |
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The period is positive. | ✅ `hω : 0 < ω`. |
+| 2 | $A$ repeats with period $\omega$ at every real time. | ✅ `PeriodicLinearEquation ω A`, which is `∀ t, A (t + ω) = A t`. |
+| 3 | $A$ is continuous. | ✅ `hA : Continuous A`. |
+| 4 | $X$ is a fundamental matrix solution on **all** of $\mathbb{R}$: it solves $X' = A(t)X$ and is invertible at every time. | ✅ `FundamentalMatrixSolution univ A X`. |
+| 5 | The produced $R$ is a constant matrix with complex entries. | ✅ `∃ R : Matrix (Fin n) (Fin n) ℂ`. |
+| 6 | The produced $P$ is a complex matrix-valued function of $t$ and is $C^1$. | ✅ `∃ P : ℝ → Matrix (Fin n) (Fin n) ℂ` with `∀ i j, ContDiff ℝ 1 fun t ↦ P t i j`. |
+| 7 | $P$ has the same period $\omega$. | ✅ `∀ t, P (t + ω) = P t`. |
+| 8 | $P$ is invertible at every time. | ✅ `∀ t, IsUnit (P t)`. |
+| 9 | The factorization holds at every $t$, in the order $P(t)$ then $e^{tR}$, with the real matrix $X$ pushed into the complex ones. | ✅ `∀ t, (X t).map (algebraMap ℝ ℂ) = P t * NormedSpace.exp (t • R)`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Stating the factorization over $\mathbb{R}$, with $R$ and $P$ real. | False in general. The factorization needs a logarithm of the real matrix $X(\omega)X^{-1}(0)$, and a real matrix with a negative eigenvalue has no real logarithm. Kong's real version only holds with period $2\omega$. |
+| 2 | Writing $e^{Rt}P(t)$ instead of $P(t)e^{Rt}$. | Matrices do not commute, so this is a different claim. |
+| 3 | Omitting the requirement that $P(t)$ is invertible. | The statement collapses: take $R = 0$ and $P = X$ and it holds trivially. |
+| 4 | Omitting the periodicity of $P$. | Same collapse, for the same reason. Periodicity of $P$ is the whole content. |
+| 5 | Omitting the continuity of $A$. | The conclusion becomes false. Since $e^{tR}$ is invertible, $P(t) = X(t)e^{-tR}$ is forced, so demanding $P \in C^1$ demands $X \in C^1$, hence $A = X'X^{-1}$ continuous. Counterexample: take $n = 1$; let $\psi$ be differentiable with $\psi \equiv 0$ near $1$ and $\psi(t) = t^2\sin(1/t)$ near $0$, $\psi(0) = 0$; paste copies of $\psi$ on each $[k, k+1]$ to get a function $h$ with $1$-periodic increments. Then $A := h'$ is $1$-periodic and discontinuous at the integers, $X := e^{h}$ is a fundamental matrix solution, and no $C^1$ factorization exists. |
+| 6 | Assuming $X$ is a fundamental matrix solution only on a bounded interval. | The conclusion is a statement about all of $\mathbb{R}$, so the hypothesis has to be global too. |
+| 7 | Dropping the $C^1$ requirement on $P$ and asking only for continuity or measurability. | The theorem asserts $P \in C^1(\mathbb{R}, \mathbb{C}^{n\times n})$; the regularity is part of what makes the change of variables usable. |
+
+## Notes on the ground truth
+
+- The regularity of $P$ is written entrywise, `∀ i j, ContDiff ℝ 1 fun t ↦ P t i j`. That is equivalent to `ContDiff ℝ 1 P` into the finite-dimensional matrix space, but noisier; the packaged form would read better.
+- `NormedSpace.exp` is mathlib's matrix exponential, defined by the norm-independent series, so no norm instance has to be chosen in the statement. The exponent is written `t • R` with the real scalar $t$ acting on the complex matrix $R$.
+- The real fundamental matrix is coerced entrywise with `(X t).map (algebraMap ℝ ℂ)`, which is the only place the real/complex boundary is crossed.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[kong_2_5_3_floquet_theorem.md](kong_2_5_3_floquet_theorem.md) and the background in [kong_2_5_3_floquet_theorem.context.md](kong_2_5_3_floquet_theorem.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 5 or 6 with $R$ or $P$ required real: the theorem is then false.
+- Requirement 8 with the invertibility of $P$ dropped.
+- Requirement 7 with the periodicity of $P$ dropped or given a different period.
+
+### Domain-specific pitfalls for this problem
+
+- Complex entries are essential: a real periodic factorization exists only after doubling the period.
+- $P$ must be nonsingular at every $t$, not merely at one point.
+- The factor order $P(t)e^{Rt}$ matters.
+- $X$ is a fundamental matrix solution on all of $\mathbb{R}$, so its invertibility is global.
+- The matrix exponential is of $tR$, with the real scalar multiplying the complex matrix.

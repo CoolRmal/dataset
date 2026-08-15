@@ -1,19 +1,93 @@
 # Criteria: lee_7_8_rank_theorem
 
-> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+**Statement:** [lee_7_8_rank_theorem.md](lee_7_8_rank_theorem.md) · **Lean:** [lee_7_8_rank_theorem.lean](lee_7_8_rank_theorem.lean) · **Context:** [lee_7_8_rank_theorem.context.md](lee_7_8_rank_theorem.context.md)
 
-**Statement:** [lee_7_8_rank_theorem.md](lee_7_8_rank_theorem.md) · **Lean:** [lee_7_8_rank_theorem.lean](lee_7_8_rank_theorem.lean)
+## What the theorem says
 
-A faithful formalization must carry three things: the hypothesis that $DF$ has rank **exactly $k$ at every point of $U$** (not just at $p$), the existence of *coordinate charts* — smooth diffeomorphisms of a neighborhood $U_0 \ni p$ and of a neighborhood $V_0 \ni F(p)$ with $F(U_0) \subset V_0$ — and the exact normal form $\psi \circ F \circ \varphi^{-1}(x) = (x^1,\dots,x^k,0,\dots,0)$. The mathematical work is entirely in the normal form, so the index arithmetic in the Lean equation between elements of `Fin n → ℝ` must be checked coordinate by coordinate. The junk-value risk is `fderiv` in the rank hypothesis, and the smoothness index `⊤` in Mathlib's `ContDiff` scope is `ω`, not `∞`.
+Let $U \subseteq \mathbb{R}^m$ and $V \subseteq \mathbb{R}^n$ be open and let $F : U \to V$ be
+smooth. Suppose the derivative $DF(x)$ has the *same* rank $k$ at every point of $U$. Then near any
+chosen point $p$ you can change coordinates on both sides so that $F$ becomes as simple as possible:
+in the new coordinates it copies the first $k$ inputs and sends the rest to zero, i.e.
+$(x^1,\dots,x^m) \mapsto (x^1,\dots,x^k,0,\dots,0)$. The change of coordinates is by smooth
+diffeomorphisms $\varphi$ on a neighbourhood $U_0$ of $p$ and $\psi$ on a neighbourhood $V_0$ of
+$F(p)$, with $F(U_0) \subseteq V_0$.
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+## What a correct formalization must contain
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Hypothesis completeness / junk values | `EuclideanConstantRank U F k` unfolds to `∀ x ∈ U, Module.finrank ℝ (LinearMap.range (fderiv ℝ F x).toLinearMap) = k` — the rank is pinned on **all of `U`**, which is what "constant rank $k$" means and what the theorem needs. `fderiv` is `0` off the differentiability locus, so this is only the honest rank because `hU : IsOpen U` and `hF.2 : ContDiffOn ℝ _ F U` are present. | ✅ Both the "on all of `U`" quantifier and the differentiability side conditions are there. ❗ Predicted error: imposing the rank condition only at the single point `p` (that is the constant-rank *hypothesis* degraded to a pointwise one, and the normal-form conclusion is then false), or dropping `ContDiffOn` so that `fderiv` is junk and `k = 0` is forced. |
-| 2 | Smoothness class | `ContDiffOn ℝ ⊤ F U` elaborates to `ContDiffOn ℝ ω F U` (real-analytic), and the same `⊤` sits in `SmoothDiffeomorphismOn.smooth`/`.smooth_inv` for `φ` and `ψ`. Lee's map and charts are $C^\infty$; `∞` is the correct notation. | ⚠️ The statement obtained is the analytic rank theorem — true, but with both the hypothesis and the produced charts strengthened from $C^\infty$ to $C^\omega$. Replacing every `⊤` by `∞` (here and in `Defs.lean`) would be faithful. |
-| 3 | Conclusion completeness | The normal form must send $(x^1,\dots,x^m)$ to $(x^1,\dots,x^k,0,\dots,0) \in \mathbb{R}^n$. Lean: `ψ.toFun (F (φ.invFun x)) = fun i ↦ if h : i.1 < k ∧ i.1 < m then x ⟨i.1, h.2⟩ else 0` for `i : Fin n` — coordinate `i` of the output is `x i` when `i < k`, and `0` for the remaining $n-k$ coordinates. | ✅ Correct coordinate by coordinate. The redundant `i.1 < m` conjunct is only there to build the `Fin m` index and is implied by `i.1 < k` together with `hk.1`. |
-| 4 | Conclusion completeness | Lee's charts are **centered** at $p$ and at $F(p)$, i.e. $\varphi(p) = 0$ and $\psi(F(p)) = 0$. | ⚠️ `φ.toFun p = 0` and `ψ.toFun (F p) = 0` are absent, so the conclusion is weaker than the text. (Note that once $\varphi(p)=0$ is imposed, the normal form already forces $\psi(F(p))=0$, so a single extra conjunct suffices.) |
-| 5 | Conclusion completeness | The containments $U_0 \subset U$, $F(U_0) \subset V_0 \subset V$ and $p \in U_0$, $F(p) \in V_0$ must all appear, otherwise $\psi \circ F \circ \varphi^{-1}$ is not defined where the normal form is asserted. | ✅ `U₀ ⊆ U`, `MapsTo F U₀ V₀`, `V₀ ⊆ V`, `p ∈ U₀`, `F p ∈ V₀`, plus `IsOpen`/`IsConnected` for both. Connectedness is not demanded by Lee's 7.8 (it is in 7.6) but only strengthens the conclusion, so it is harmless. |
-| 6 | Faithful encoding | `φ : SmoothDiffeomorphismOn U₀ sourceTarget` with `sourceTarget` existentially quantified is "a smooth chart on $U_0$": `mapsTo` together with `rightInvOn` forces `φ.toFun '' U₀ = sourceTarget`, so asserting the normal form for `x ∈ φ.toFun '' U₀` is the same as asserting it on all of `sourceTarget`. | ✅ for the quantifier, ⚠️ for the packaging: nothing requires `IsOpen sourceTarget` or `IsOpen targetTarget`, and `ContDiffOn` on a non-open set is a weaker condition than smoothness of a chart, so the produced "charts" are formally weaker than Lee's coordinate charts. Adding `IsOpen sourceTarget ∧ IsOpen targetTarget` would close the gap. |
-| 7 | Hypothesis completeness | `hk : k ≤ m ∧ k ≤ n` is redundant: the rank of a linear map $\mathbb{R}^m \to \mathbb{R}^n$ is at most $\min(m,n)$, and `hp : p ∈ U` makes `hrank` non-vacuous, so `hk` follows. | ⚠️ Harmless but noise; a candidate that *omits* `hk` has produced a (very slightly) stronger and equally faithful statement and should not be penalized. |
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | $U \subseteq \mathbb{R}^m$ and $V \subseteq \mathbb{R}^n$ are open, and $F$ maps $U$ into $V$. | ✅ `hU : IsOpen U`, `hV : IsOpen V`, `hF.1 : MapsTo F U V`. |
+| 2 | $F$ is $C^\infty$ on $U$. | ✅ `hF.2 : ContDiffOn ℝ ∞ F U`, using `∞` for $C^\infty$. |
+| 3 | The rank is exactly $k$ at **every** point of $U$, not only at $p$. | ✅ `hrank : EuclideanConstantRank U F k`, which unfolds to `∀ x ∈ U, Module.finrank ℝ (LinearMap.range (fderiv ℝ F x).toLinearMap) = k`. |
+| 4 | The hypotheses must make `fderiv` the honest derivative, otherwise the rank condition is about a junk zero map. | ✅ `hU : IsOpen U` and `hF.2 : ContDiffOn ℝ ∞ F U` supply this; on an open set the derivative within the set is the ordinary derivative. |
+| 5 | The base point lies in $U$. | ✅ `hp : p ∈ U`. |
+| 6 | The conclusion produces $U_0$ open with $p \in U_0 \subseteq U$, and $V_0$ open with $F(p) \in V_0 \subseteq V$. | ✅ `(IsOpen U₀ ∧ IsConnected U₀ ∧ p ∈ U₀ ∧ U₀ ⊆ U)` and the mirror clause for `V₀`. Connectedness is extra (Lee asks for it in 7.6, not 7.8) but only strengthens the conclusion. |
+| 7 | $F(U_0) \subseteq V_0$, so that $\psi \circ F \circ \varphi^{-1}$ is defined where the normal form is claimed. | ✅ `MapsTo F U₀ V₀`. |
+| 8 | Smooth coordinate changes: a smooth diffeomorphism $\varphi$ defined on $U_0$ and a smooth diffeomorphism $\psi$ defined on $V_0$, each with a smooth inverse. | ✅ `φ : SmoothDiffeomorphismOn U₀ sourceTarget` and `ψ : SmoothDiffeomorphismOn V₀ targetTarget`, with the two image sets existentially quantified. |
+| 9 | The normal form: for every $x$ in the image $\varphi(U_0)$, coordinate $i$ of $\psi(F(\varphi^{-1}(x)))$ is $x^i$ when $i < k$ and $0$ otherwise, with $i$ ranging over all $n$ output coordinates. | ✅ `∀ x ∈ φ.toFun '' U₀, ψ.toFun (F (φ.invFun x)) = fun i ↦ if h : i.1 < k ∧ i.1 < m then x ⟨i.1, h.2⟩ else 0`. Checked coordinate by coordinate this is $(x^1,\dots,x^k,0,\dots,0)$. |
+| 10 | Lee's charts are **centred**: $\varphi(p) = 0$ and $\psi(F(p)) = 0$. | ✅ `φ.toFun p = 0 ∧ ψ.toFun (F p) = 0`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Assuming the rank is $k$ only at the single point $p$. | That is the hypothesis of the inverse/immersion/submersion theorems, not the rank theorem. With rank pinned only at $p$ the normal-form conclusion is false — the rank can jump nearby and no coordinate change flattens $F$. |
+| 2 | Dropping `ContDiffOn ℝ ∞ F U` while keeping the rank hypothesis. | `fderiv ℝ F x` is the zero map wherever $F$ is not differentiable, so the rank condition would be satisfied by pathological $F$ with $k = 0$, and the conclusion asserted for them is false. |
+| 3 | Writing the smoothness index as `⊤` under `open scoped ContDiff`. | That elaborates to `ω`, real-analytic. Both the hypothesis on $F$ and the smoothness of the produced charts get strengthened from $C^\infty$ to $C^\omega$, giving the analytic rank theorem rather than Lee 7.8. Our file previously had this and it was repaired to `∞`. |
+| 4 | Making the normal form copy the first $k$ coordinates but forgetting to force the other $n - k$ output coordinates to zero (for instance, asserting the equation only for $i < k$). | The whole content is that the map dies in the remaining directions; without that clause $\psi \circ F \circ \varphi^{-1}$ is barely constrained. |
+| 5 | Omitting `MapsTo F U₀ V₀`, or omitting $U_0 \subseteq U$ / $V_0 \subseteq V$. | Then $F(\varphi^{-1}(x))$ can fall outside the domain of $\psi$, where a partial map returns a junk value, and the equation asserted is meaningless. |
+| 6 | Asserting the normal form only at the single point $x = \varphi(p)$ rather than for all $x$ in $\varphi(U_0)$. | A single-point equation is nearly vacuous; the theorem is about the coordinate representation on a whole neighbourhood. |
+
+## Notes on the ground truth
+
+- `sourceTarget` and `targetTarget` are existentially quantified sets. Because
+  `SmoothDiffeomorphismOn` bundles `mapsTo` together with `rightInvOn`, they are forced to equal
+  `φ.toFun '' U₀` and `ψ.toFun '' V₀`, so asserting the normal form for `x ∈ φ.toFun '' U₀` is the
+  same as asserting it on all of `sourceTarget`.
+- ⚠️ Nothing requires `IsOpen sourceTarget` or `IsOpen targetTarget`, and `ContDiffOn` on a set that
+  is not open is weaker than smoothness of a genuine chart. Adding
+  `IsOpen sourceTarget ∧ IsOpen targetTarget` would close that gap.
+- The `i.1 < m` conjunct inside the `if` is only there so a `Fin m` index can be built; it follows
+  from `i.1 < k` together with `hk.1`.
+- `hk : k ≤ m ∧ k ≤ n` is redundant: the rank of a linear map $\mathbb{R}^m \to \mathbb{R}^n$ is at
+  most $\min(m,n)$, and `hp : p ∈ U` makes the rank hypothesis non-empty. A candidate that omits
+  `hk` has produced a slightly stronger, equally faithful statement and should not be penalised.
+- The centring conditions $\varphi(p) = 0$, $\psi(F(p)) = 0$ are absent; see requirement row 10.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[lee_7_8_rank_theorem.md](lee_7_8_rank_theorem.md) and the background in [lee_7_8_rank_theorem.context.md](lee_7_8_rank_theorem.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 with the rank condition imposed only at $p$.
+- Requirement 10 with the charts not centred.
+- Requirement 8 with coordinate changes that are smooth bijections rather than diffeomorphisms.
+
+### Domain-specific pitfalls for this problem
+
+- Constant rank holds throughout $U$.
+- The coordinate changes must be diffeomorphisms — smooth with smooth inverse.
+- Junk value — `fderiv`: the smoothness hypothesis is what makes the rank condition meaningful.
+- $F(U_0)\subseteq V_0$ is part of the conclusion, so that the composite normal form is defined.
+- The charts are centred at $p$ and $F(p)$.

@@ -1,20 +1,99 @@
 # Criteria: lee_10_19_tubular_neighborhood_theorem
 
-> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+**Statement:** [lee_10_19_tubular_neighborhood_theorem.md](lee_10_19_tubular_neighborhood_theorem.md) · **Lean:** [lee_10_19_tubular_neighborhood_theorem.lean](lee_10_19_tubular_neighborhood_theorem.lean) · **Context:** [lee_10_19_tubular_neighborhood_theorem.context.md](lee_10_19_tubular_neighborhood_theorem.context.md)
 
-**Statement:** [lee_10_19_tubular_neighborhood_theorem.md](lee_10_19_tubular_neighborhood_theorem.md) · **Lean:** [lee_10_19_tubular_neighborhood_theorem.lean](lee_10_19_tubular_neighborhood_theorem.lean)
+## What the theorem says
 
-The one-line textbook statement hides a definition, and the whole quality of the formalization lies in unpacking it: a *tubular neighborhood* of $M \subset \mathbb{R}^n$ is an open set $U \supseteq M$ which is the **diffeomorphic** image, under $E(x,v) = x + v$, of a variable-radius normal disk bundle $V = \{(x,v) : v \perp T_xM,\ \lvert v\rvert < \delta(x)\}$ for some **positive continuous** $\delta \colon M \to \mathbb{R}$. Mathlib has no normal-bundle API whatsoever, so the tangent/normal condition, the bundle, and the diffeomorphism must all be hand-rolled — and each is a place where a candidate can silently state something weaker or false. The one genuine trap in the ground truth is the smoothness index `⊤`, which in Mathlib's `ContDiff` scope is `ω`, not `∞`.
+The one printed line hides a definition. A *tubular neighbourhood* of an embedded submanifold
+$M \subseteq \mathbb{R}^n$ is an open set $U$ containing $M$ that looks exactly like a thickened
+copy of $M$ in the directions perpendicular to it: pick for each $x \in M$ a radius $\delta(x) > 0$,
+form the set of pairs $(x,v)$ with $v$ perpendicular to $M$ at $x$ and $\lvert v\rvert < \delta(x)$,
+and require that the map $(x,v) \mapsto x + v$ takes that set one-to-one onto $U$ with a smooth
+inverse. The theorem says every embedded submanifold of $\mathbb{R}^n$ has one. The radius must be
+allowed to vary from point to point, because $M$ need not be closed.
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+## What a correct formalization must contain
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Faithful encoding | "$v$ is normal to $M$ at $x$" without a tangent-bundle API. `IsNormalVector M x v` says `x ∈ M` and, for every `γ : ℝ → (Fin n → ℝ)` with `γ 0 = x`, `∀ᶠ t in 𝓝 0, γ t ∈ M` and `HasDerivAt γ velocity 0`, that `∑ i, v i * velocity i = 0`. For a $C^\infty$ embedded submanifold the set of such velocities is exactly $T_xM$, so this is a faithful and junk-free rendering of $v \perp T_xM$. | ✅ Note `∑ i, v i * velocity i` is the genuine Euclidean inner product, correct even though `Fin n → ℝ` carries the sup norm. ❗ Predicted error: quantifying only over *smooth* curves (harmless, same tangent space) is fine, but defining the normal space as the orthogonal complement of an *ad hoc* span, or via `mfderiv` of an unnamed parametrization, invites junk values. |
-| 2 | Conclusion completeness | Lee's tubular neighborhood requires the radius function $\delta$ to be **positive and continuous**; without continuity the "disk bundle" need not even be open in $NM$, and the notion of tubular neighborhood is not the book's. | ⚠️ Genuine gap: the ground truth asserts only `∀ x, 0 < radius x` and never `Continuous radius`. This weakens the conclusion. A candidate that adds `Continuous radius` (or `ContinuousOn`/smoothness of `radius`) is strictly better than the ground truth. |
-| 3 | Smoothness class | `ContDiffOn ℝ ⊤ f U` elaborates, with `open scoped ContDiff`, to `ContDiffOn ℝ ω f U` — real-analytic. Here this sits in the **conclusion** (smoothness of the two components of `inverse`). | ⚠️ **Genuine defect, not merely an improvement.** The hypothesis `EmbeddedSubmanifoldOfCodimension` only makes `M` a $C^\infty$ submanifold (its charts come from `IsManifold.maximalAtlas … ∞`), and the tubular-neighborhood retraction of a $C^\infty$ non-analytic submanifold — e.g. a graph of a smooth non-analytic function in $\mathbb{R}^2$ — is $C^\infty$ but not $C^\omega$. So the statement demands more than is true. Replacing `⊤` by `∞` repairs it. |
-| 4 | Faithful encoding | "$U$ is the diffeomorphic image of the disk bundle under $E(x,v) = x+v$": needs `IsOpen U`, `M ⊆ U`, bijectivity of `E` from the bundle onto `U`, and smoothness of the inverse (forward smoothness of `E` is automatic — it is addition). | ✅ `Set.BijOn (fun p : M × (Fin n → ℝ) ↦ (p.1 : Fin n → ℝ) + p.2) (NormalDiskBundle M radius) U`, plus `ContinuousOn inverse U`, `ContDiffOn` for both components of `inverse` on `U`, and `∀ p ∈ NormalDiskBundle M radius, inverse (↑p.1 + p.2) = p`. Note no separate "`inverse` lands in the bundle" clause is needed: it follows from `BijOn` surjectivity together with the left-inverse clause. |
-| 5 | Faithful encoding | The fiber condition `‖p.2‖ < radius p.1` uses the norm of `Fin n → ℝ`, which is the **sup** norm — so the fibers are cubes, not Euclidean disks. | ⚠️ Because `radius` is existentially chosen and unconstrained, the cube version and the Euclidean-disk version are equivalent statements; `EuclideanSpace ℝ (Fin n)` would be literal and is Mathlib's convention for $\mathbb{R}^n$. |
-| 6 | Hypothesis completeness | "Embedded submanifold of $\mathbb{R}^n$": `EmbeddedSubmanifoldOfCodimension (m := n) M codim` with `codim` universally quantified — i.e. `M` satisfies Lee's local slice condition inside the ambient smooth manifold `Fin n → ℝ`, with charts drawn from `IsManifold.maximalAtlas 𝓘(ℝ, Fin n → ℝ) ∞`, so they are smooth charts and not mere homeomorphisms. | ✅ Faithful, and quantifying over `codim` covers submanifolds of every dimension. ❗ Predicted error: encoding "embedded submanifold" as the image of an injective immersion — that is an **immersed** submanifold, for which the theorem is false (an immersed figure-eight has no tubular neighborhood). |
-| 7 | Hypothesis completeness | Lee's theorem holds for *every* embedded submanifold, not only closed/properly embedded ones — this is precisely why the radius must be allowed to vary. | ✅ No `IsClosed M`, compactness or properness hypothesis is imposed. ❗ Predicted error: adding `IsClosed M` (or `CompactSpace`), which reduces the statement to the easier uniform-radius case. |
-| 8 | Faithful encoding | Index arithmetic: `EmbeddedSubmanifoldOfCodimension` uses the truncated `n - codim` for the slice dimension, so `codim > n` silently reads as `codim = n`. | ⚠️ Harmless in substance (only `codim ≤ n` is realizable), but it is a truncation trap worth checking in candidate statements that reintroduce a dimension parameter. |
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | $M$ is an embedded submanifold of $\mathbb{R}^n$, expressed by Lee's local slice condition with charts drawn from the *smooth* structure. | ✅ `hM : EmbeddedSubmanifoldOfCodimension (m := n) M codim`, whose charts are required to lie in `IsManifold.maximalAtlas 𝓘(ℝ, Fin n → ℝ) ∞`, so they are smooth charts and not mere homeomorphisms. `codim` is universally quantified, covering submanifolds of every dimension. |
+| 2 | No closedness, compactness or properness is assumed of $M$. | ✅ None of these appears. Lee's theorem holds for every embedded submanifold. |
+| 3 | A radius function on $M$ that is strictly positive at every point. | ✅ `radius : M → ℝ` with `∀ x, 0 < radius x`. |
+| 4 | The radius is allowed to vary from point to point rather than being a single constant. | ✅ It is a function on `M`, not a real number. |
+| 5 | "$v$ is perpendicular to $M$ at $x$" has to be defined by hand, since Mathlib has no normal-bundle API. | ✅ `IsNormalVector M x v` (in `Defs.lean`): `x ∈ M`, and for every curve `γ : ℝ → (Fin n → ℝ)` with `γ 0 = x` that stays in `M` near $0$ and has derivative `velocity` at $0$, one has `∑ i, v i * velocity i = 0`. For a $C^\infty$ embedded submanifold the set of such velocities is exactly the tangent space, so this is faithful. |
+| 6 | The disk bundle: pairs $(x,v)$ with $v$ normal at $x$ and $\lvert v\rvert < \delta(x)$. | ✅ `NormalDiskBundle M radius = {p \| IsNormalVector M p.1 p.2 ∧ ‖p.2‖ < radius p.1}`. |
+| 7 | $U$ is open and contains $M$. | ✅ `IsOpen U ∧ M ⊆ U`. |
+| 8 | The map $(x,v) \mapsto x + v$ carries the disk bundle one-to-one **onto** $U$. | ✅ `Set.BijOn (fun p : M × (Fin n → ℝ) ↦ (p.1 : Fin n → ℝ) + p.2) (NormalDiskBundle M radius) U`. |
+| 9 | The inverse of that map is smooth, in both of its components. | ✅ `ContinuousOn inverse U`, `ContDiffOn ℝ ∞ (fun z ↦ ((inverse z).1 : Fin n → ℝ)) U` and `ContDiffOn ℝ ∞ (fun z ↦ (inverse z).2) U`, with `∞` meaning $C^\infty$. |
+| 10 | `inverse` really is the inverse of $(x,v) \mapsto x+v$ on the bundle. | ✅ `∀ p ∈ NormalDiskBundle M radius, inverse ((p.1 : Fin n → ℝ) + p.2) = p`. No separate "`inverse` lands in the bundle" clause is needed: that follows from surjectivity in `BijOn` together with this left-inverse clause. |
+| 11 | The radius function is **continuous**. | ✅ `Continuous radius`, alongside positivity. Without it the "disk bundle" need not be open inside the normal bundle and the object produced would not be the book's tubular neighbourhood. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Encoding "embedded submanifold" as the image of an injective immersion. | That is an *immersed* submanifold, and the theorem is false for those: the immersed figure-eight in the plane has no tubular neighbourhood, because the two branches through the crossing point force overlapping normal disks. |
+| 2 | Adding `IsClosed M` or a compactness hypothesis. | This reduces the theorem to the much easier uniform-radius case. Lee's statement covers every embedded submanifold, and the variable radius exists precisely to handle the non-closed ones. |
+| 3 | Using a single constant radius $\varepsilon > 0$ for all of $M$. | False as stated. An open interval embedded in the plane as a spiral accumulating on itself admits no uniform tube. |
+| 4 | Writing the smoothness class as `⊤` under `open scoped ContDiff`. | That elaborates to `ω`, real-analytic. Here it sits in the *conclusion*, so the statement would demand more than is true: `EmbeddedSubmanifoldOfCodimension` only makes $M$ a $C^\infty$ submanifold, and the tubular retraction of a smooth non-analytic submanifold — the graph of a smooth non-analytic function in $\mathbb{R}^2$ — is $C^\infty$ but not $C^\omega$. Our file had this defect and it was repaired to `∞`. |
+| 5 | Defining the normal directions as the orthogonal complement of an ad hoc span, or through `mfderiv` of an unnamed parametrization. | Both invite default values: `mfderiv` is the zero map where the parametrization is not differentiable, and an ad hoc span may not be the tangent space, so the "normal" set can come out too big or too small. |
+| 6 | Asserting only that $(x,v) \mapsto x+v$ is injective on the bundle, without surjectivity onto $U$. | Then $U$ is not identified with the tube; it could be all of $\mathbb{R}^n$ and the statement would say almost nothing. |
+| 7 | Asserting only that $(x,v) \mapsto x+v$ is a homeomorphism onto $U$. | A tubular neighbourhood is a *diffeomorphism*. The smooth inverse is what lets one build the smooth retraction $U \to M$, which is the whole use of the theorem. |
+| 8 | Omitting `M ⊆ U` or `IsOpen U`. | Without them $U$ is not a neighbourhood of $M$ at all, and the word "neighbourhood" in the statement is unfulfilled. |
+
+## Notes on the ground truth
+
+- ⚠️ Continuity of `radius` is genuinely absent (requirement row 11). This is the one substantive gap
+  in the file.
+- `∑ i, v i * velocity i` is the genuine Euclidean inner product, which is the right notion of
+  perpendicularity even though `Fin n → ℝ` carries the sup norm.
+- ⚠️ The fibre condition `‖p.2‖ < radius p.1` uses the sup norm of `Fin n → ℝ`, so the fibres are
+  cubes rather than Euclidean disks. Since `radius` is existentially chosen and otherwise
+  unconstrained, the two versions are equivalent statements; `EuclideanSpace ℝ (Fin n)` would be the
+  literal reading and is Mathlib's convention for $\mathbb{R}^n$.
+- Quantifying only over curves that are smooth, rather than merely differentiable at $0$, would give
+  the same tangent space and is an acceptable variant.
+- ⚠️ `EmbeddedSubmanifoldOfCodimension` uses the truncated natural subtraction `n - codim` for the
+  slice dimension, so `codim > n` would silently read as `codim = n`. Harmless in substance — only
+  `codim ≤ n` is realizable — but worth checking in candidates that reintroduce a dimension
+  parameter.
+- `IsNormalVector M x v` includes the conjunct `x ∈ M`. Inside `NormalDiskBundle` the first
+  component already has type `↥M`, so that conjunct is automatically satisfied there and adds
+  nothing.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[lee_10_19_tubular_neighborhood_theorem.md](lee_10_19_tubular_neighborhood_theorem.md) and the background in [lee_10_19_tubular_neighborhood_theorem.context.md](lee_10_19_tubular_neighborhood_theorem.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 11 rows, so each row is worth 4.5 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 11 with the radius not required continuous.
+- Requirement 4 with a single constant radius.
+- Requirement 8 or 9 with the bijection or the smoothness of its inverse dropped.
+
+### Domain-specific pitfalls for this problem
+
+- The radius is a positive **continuous** function on $M$, varying from point to point.
+- Normality is orthogonality to the tangent space, which has to be spelled out since the ambient library has no normal-bundle API.
+- The identification map is $(x,v)\mapsto x+v$ and must be a bijection onto the open set $U$, with smooth inverse in both components.
+- No closedness or compactness of $M$ is assumed.

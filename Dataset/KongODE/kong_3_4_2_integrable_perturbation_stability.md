@@ -4,6 +4,7 @@
 - **Domain:** ODE
 - **Lean declaration:** `Dataset.KongODE.kong_3_4_2_integrable_perturbation_stability` ([kong_3_4_2_integrable_perturbation_stability.lean](kong_3_4_2_integrable_perturbation_stability.lean))
 - **Criteria:** [kong_3_4_2_integrable_perturbation_stability.criteria.md](kong_3_4_2_integrable_perturbation_stability.criteria.md)
+- **Context:** [kong_3_4_2_integrable_perturbation_stability.context.md](kong_3_4_2_integrable_perturbation_stability.context.md)
 
 ## Statement
 

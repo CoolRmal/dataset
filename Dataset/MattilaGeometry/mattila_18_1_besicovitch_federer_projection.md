@@ -4,6 +4,7 @@
 - **Domain:** Geometric measure theory
 - **Lean declaration:** `Dataset.MattilaGeometry.mattila_18_1_besicovitch_federer_projection` ([mattila_18_1_besicovitch_federer_projection.lean](mattila_18_1_besicovitch_federer_projection.lean))
 - **Criteria:** [mattila_18_1_besicovitch_federer_projection.criteria.md](mattila_18_1_besicovitch_federer_projection.criteria.md)
+- **Context:** [mattila_18_1_besicovitch_federer_projection.context.md](mattila_18_1_besicovitch_federer_projection.context.md)
 
 ## Statement
 

@@ -4,6 +4,7 @@
 - **Domain:** Measure theory
 - **Lean declaration:** `Dataset.Bogachev.bogachev_10_5_4_lifting` ([bogachev_10_5_4_lifting.lean](bogachev_10_5_4_lifting.lean))
 - **Criteria:** [bogachev_10_5_4_lifting.criteria.md](bogachev_10_5_4_lifting.criteria.md)
+- **Context:** [bogachev_10_5_4_lifting.context.md](bogachev_10_5_4_lifting.context.md)
 
 ## Statement
 

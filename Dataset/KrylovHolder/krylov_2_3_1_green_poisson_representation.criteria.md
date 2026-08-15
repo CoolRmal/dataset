@@ -1,20 +1,85 @@
 # Criteria: krylov_2_3_1_green_poisson_representation
 
-> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+**Statement:** [krylov_2_3_1_green_poisson_representation.md](krylov_2_3_1_green_poisson_representation.md) · **Lean:** [krylov_2_3_1_green_poisson_representation.lean](krylov_2_3_1_green_poisson_representation.lean) · **Context:** [krylov_2_3_1_green_poisson_representation.context.md](krylov_2_3_1_green_poisson_representation.context.md)
 
-**Statement:** [krylov_2_3_1_green_poisson_representation.md](krylov_2_3_1_green_poisson_representation.md) · **Lean:** [krylov_2_3_1_green_poisson_representation.lean](krylov_2_3_1_green_poisson_representation.lean)
+## What the theorem says
 
-A faithful formalization has to carry four things that the prose hides in its notation: that $K$ is the *fundamental solution* of the Laplacian (this is what puts the $\delta_x$ into the representation formula and is the only reason the identity is not trivial), that $h(x,\cdot)$ is the harmonic corrector with boundary values $K(x,\cdot)$, that $u$ is a genuine classical solution of $\Delta u = f$, $u|_{\partial\Omega} = g$ — continuous up to the boundary — and that the second integral is against the $(d-1)$-dimensional *surface* measure of $\partial\Omega$ with $H$ the inward-limit normal derivative $-\partial G/\partial n_y$. The junk-value risk is concentrated in three places: `fderiv` is $0$ off the differentiability locus, so both the Poisson kernel (a normal derivative taken *at a boundary point*) and the barrier condition inside `RegularBoundedDomain` can be satisfied vacuously; Bochner `∫` is $0$ for non-integrable integrands; and `μH[·]` on `Fin d → ℝ` is Hausdorff measure for the **sup** metric, not for the Euclidean one.
+Take a bounded domain $\Omega$ that is regular enough that every boundary point has a barrier. Start
+from $K$, the fundamental solution of the Laplacian, and for each $x \in \Omega$ correct it by a
+harmonic function $h(x,\cdot)$ that agrees with $K(x,\cdot)$ on the boundary. The difference
+$G = K - h$ is the Green's function: harmonic away from $x$ and zero on the boundary. The theorem
+says that any classical solution of $\Delta u = f$ in $\Omega$ with $u = g$ on $\partial\Omega$ can
+be written down explicitly: a volume integral of $G$ against $f$, plus a surface integral of the
+Poisson kernel $H = -\partial G/\partial n$ against $g$.
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+## What a correct formalization must contain
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Hypothesis completeness | $K$ must be pinned down as the fundamental solution ($\Delta_y K(x,\cdot) = \delta_x$, e.g. as an explicit multiple of $\lvert x-y\rvert ^{2-d}$, or via a mean-value/normalization hypothesis). Without it the pair $(K,h)$ carries no information and the representation formula is empty. | ❗ **Genuine defect: the ground truth is false as stated.** `{K h G H : (Fin d → ℝ) → (Fin d → ℝ) → ℝ}` are free variables and *no* hypothesis constrains `K`. Take $\Omega$ = unit ball (a `RegularBoundedDomain`, barrier $b(y) = 1 - z\cdot y$ at $z$), `K = h = G = H = 0`: `hharmonic`, `hboundary`, `hgreen`, `hgreenHarmonic`, `hgreenBoundary`, `hpoisson`, `hGintegrable`, `hHintegrable` all hold. With $f = 0$, $g = 1$, $u \equiv 1$ we have `LaplaceDirichletSolution Ω f g u`, yet the conclusion asserts $u(x) = 0 + 0 = 0$ for $x \in \Omega$. |
-| 2 | Faithful encoding / mathlib conventions | $dS_y$ is the Euclidean surface measure on $\partial\Omega$. `μH[(d:ℝ) - 1]` is the $(d-1)$-Hausdorff measure of the *ambient metric*, and `Fin d → ℝ` carries the sup norm (`Pi.norm_def`), not the Euclidean one — this is exactly why mathlib can prove `hausdorffMeasure_pi_real : μH[card ι] = volume` on `ι → ℝ`. On a hypersurface the $\ell^\infty$- and $\ell^2$-Hausdorff measures are not even proportional (the segment from $(0,0)$ to $(1,1)$ has $\ell^\infty$-length $1$, Euclidean length $\sqrt2$, while a coordinate segment has the same length in both), so this is a different measure, not a rescaling. | ❗ `hmeasure : boundaryMeasure = μH[((d : ℝ) - 1)].restrict (frontier Ω)` is the sup-metric surface measure. Using `EuclideanSpace ℝ (Fin d)` throughout would make `μH[d-1]` the genuine surface measure and would simultaneously fix the ellipticity/Hölder norms in the sibling files. |
-| 3 | Junk values / derivative junk | The Poisson kernel $H(x,y) = -\partial_{n_y}G(x,y)$ is a normal derivative at $y \in \partial\Omega$, computed as a limit *from inside* $\Omega$. `fderiv ℝ (G x) y` is the full Fréchet derivative of the globally-defined function `G x` at a boundary point; `G x` is only assumed harmonic *inside* $\Omega \setminus \{x\}$, so at $y \in$ `frontier Ω` it is typically not differentiable and `fderiv` returns `0`, making `hpoisson` say $H \equiv 0$. | ❗ `hpoisson : ∀ x ∈ Ω, ∀ y ∈ frontier Ω, H x y = -fderiv ℝ (G x) y (normal y)` is junk-valued at exactly the points where it is used. A one-sided derivative (`fderivWithin ℝ (G x) (closure Ω) y`, or an explicit limit along $y - \varepsilon n_y$) is the faithful encoding. |
-| 4 | Junk values / hypothesis strength | `RegularBoundedDomain` is meant to say "at each boundary point there is a barrier". Its barrier clause asks only for `ContinuousOn barrier (closure Ω)`, `barrier z = 0`, positivity off $z$, and `∀ x ∈ Ω, laplacian barrier x ≤ 0` — with **no** differentiability hypothesis on `barrier`. Since `laplacian` is built from `fderiv`, a nowhere-differentiable barrier has `laplacian barrier x = 0 ≤ 0` for free. | ❗ Take $b(y) = \|y - z\|\,(1 + W(y))$ with $W$ a Weierstrass-type nowhere-differentiable function valued in $(0,1)$: $b$ is continuous, vanishes exactly at $z$, is positive elsewhere, and is nowhere differentiable near $\Omega$, so `fderiv b ≡ 0` and `laplacian b x = 0`. Hence `RegularBoundedDomain Ω` reduces to "Ω open, bounded, nonempty" and imports none of Krylov's boundary regularity. Adding `ContDiffOn ℝ 2 barrier Ω` repairs it. Compare `HarmonicIn`, which *does* carry `ContDiffOn ℝ 2`. |
-| 5 | Solution concept | "$C^2(\Omega)$-solution of the Dirichlet problem" means classical: twice differentiable and solving the equation inside, continuous up to $\bar\Omega$, attaining $g$ on $\partial\Omega$. Dropping the continuity link makes the boundary condition a statement about an unrelated value. | ✅ `LaplaceDirichletSolution` = `ContDiffOn ℝ 2 u Ω ∧ ContinuousOn u (closure Ω) ∧ (∀ x ∈ Ω, laplacian u x = f x) ∧ ∀ x ∈ frontier Ω, u x = g x` — all four clauses present. (Contrast `EllipticDirichletSolution`/`ParabolicDirichletSolution` in the sibling files, which omit the continuity clause.) |
-| 6 | Junk values / integrals | Both integrals must actually converge: $G(x,\cdot)f$ has a $\lvert x-y\rvert ^{2-d}$ singularity and mathlib's Bochner `∫` silently returns `0` for non-integrable integrands, which would make the conclusion a comparison of junk. | ✅ `hGintegrable : ∀ x ∈ Ω, IntegrableOn (fun y ↦ G x y * f y) Ω` and `hHintegrable : ∀ x ∈ Ω, Integrable (fun y ↦ H x y * g y) boundaryMeasure` are assumed. ⚠️ They are extra hypotheses not in the text (they follow there from $K$ being the fundamental solution); harmless, but they only become meaningful once criterion 1 is fixed. |
-| 7 | Hypothesis completeness | The normal must be the *outward* unit normal, uniquely determined by $\partial\Omega$; otherwise $H$ is a derivative in an arbitrary transversal direction. | ⚠️ `IsOutwardUnitNormal` requires only $\|n_y\| = 1$ together with *some* $\varepsilon > 0$ with $y - \varepsilon n_y \in \Omega$ and $y + \varepsilon n_y \notin \bar\Omega$. For the unit ball and $y = e_1$ this is satisfied by every unit vector $n$ with $n \cdot y > 0$, not just $n = y$, so the "normal" is not pinned down even for smooth domains. |
-| 8 | Semantic closeness / mathlib conventions | The hypotheses transcribe the text clause by clause: $h(x,\cdot) \in C^2$ harmonic, $h = K$ on $\partial\Omega$, $G = K - h$, $\Delta_y G = 0$ off $x$, $G = 0$ on $\partial\Omega$. | ✅ `hharmonic`, `hboundary`, `hgreen`, `hgreenHarmonic`, `hgreenBoundary` mirror the text; the last two are consequences of the others in the text ("so that, in particular") but assuming them is harmless. ⚠️ `laplacian`/`multiDerivative` are hand-rolled from `directionalDerivativeList`; on the open set $\Omega$ they agree with the classical derivatives, but `iteratedFDeriv`/`fderivWithin` would interact better with mathlib's calculus API and avoid the boundary junk of row 3. |
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The dimension is at least $1$, so that $\partial\Omega$ and the surface measure make sense. | ✅ `hd : 0 < d`. |
+| 2 | $\Omega$ is open, bounded, nonempty, and every boundary point carries a barrier: a function that is continuous on $\bar\Omega$, twice differentiable inside, zero at that point, positive elsewhere, and with $\Delta b \le 0$ in $\Omega$. | ✅ `hΩ : RegularBoundedDomain Ω`, whose barrier clause includes `ContDiffOn ℝ 2 barrier Ω`. |
+| 3 | $K$ is genuinely the fundamental solution of the Laplacian, not an arbitrary two-variable function. | ✅ `hK : IsLaplaceFundamentalSolution K`, i.e. $\int K(x,y)\,\Delta\varphi(y)\,dy = \varphi(x)$ for every smooth compactly supported $\varphi$ with integrable integrand. |
+| 4 | For each $x \in \Omega$ the corrector $h(x,\cdot)$ is $C^2$ and harmonic in $\Omega$, and equals $K(x,\cdot)$ on $\partial\Omega$. | ✅ `hharmonic : ∀ x ∈ Ω, HarmonicIn Ω (h x)` and `hboundary`. |
+| 5 | $G = K - h$, and $G(x,\cdot)$ is harmonic on $\Omega \setminus \{x\}$ and vanishes on $\partial\Omega$. | ✅ `hgreen`, `hgreenHarmonic`, `hgreenBoundary`. |
+| 6 | The Poisson kernel is minus the normal derivative of $G$ at a boundary point, taken as a one-sided derivative from inside the domain. | ✅ `hpoisson` uses `fderivWithin ℝ (G x) (closure Ω) y (normal y)`, not the plain `fderiv`. |
+| 7 | The direction differentiated along is the outward unit normal to $\partial\Omega$. | ⚠️ `hnormal : IsOutwardUnitNormal Ω normal` asks for length $1$, orthogonality to the velocity of every curve that stays in $\partial\Omega$, and some $\varepsilon > 0$ with $y - \varepsilon n \in \Omega$ and $y + \varepsilon n \notin \bar\Omega$. On a smooth boundary that determines $n$ exactly; on a rough boundary carrying no differentiable curves the orthogonality clause is empty, and then only the sign is fixed. |
+| 8 | $u$ is a classical solution: twice continuously differentiable in $\Omega$, continuous on $\bar\Omega$, solving $\Delta u = f$ inside and equal to $g$ on $\partial\Omega$. | ✅ `hu : LaplaceDirichletSolution Ω f g u`, which is the conjunction of all four clauses. |
+| 9 | The conclusion holds at every interior point and is the sum of two integrals: $G(x,\cdot)f$ over $\Omega$ against Lebesgue measure, and $H(x,\cdot)g$ over $\partial\Omega$ against the $(d-1)$-dimensional surface measure. | ✅ `∀ x ∈ Ω, u x = ∫ y in Ω, G x y * f y + ∫ y, H x y * g y ∂boundaryMeasure` with `hmeasure : boundaryMeasure = μH[((d : ℝ) - 1)].restrict (frontier Ω)`. |
+| 10 | Both integrals must actually converge. | ✅ `hGintegrable` and `hHintegrable`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Leaving $K$ as a free variable with no hypothesis attached. | Then the pair $(K,h)$ carries no information and the theorem is false. Let $\Omega$ be the unit ball and set $K = h = G = H = 0$; every remaining hypothesis holds. With $f = 0$, $g = 1$, $u \equiv 1$ the conclusion claims $1 = 0$. |
+| 2 | Writing the Poisson kernel with the plain `fderiv ℝ (G x) y`. | $y$ is a boundary point and $G(x,\cdot)$ is only controlled inside $\Omega$, so it is usually not differentiable there. Lean's `fderiv` returns $0$ at such points, which would silently force $H \equiv 0$ and make the boundary integral disappear. |
+| 3 | Defining "regular domain" with a barrier that is only assumed continuous. | `laplacian` is assembled from `fderiv`, which is $0$ wherever the function is not differentiable. A nowhere-differentiable barrier such as $b(y) = \lVert y - z\rVert\,(1 + W(y))$ with $W$ a Weierstrass function then satisfies $\Delta b = 0 \le 0$ for free, so the regularity assumption would say nothing beyond "open, bounded, nonempty". |
+| 4 | Working in `Fin d → ℝ` instead of `EuclideanSpace ℝ (Fin d)`. | `Fin d → ℝ` carries the sup norm, so `μH[d-1]` would be Hausdorff measure for the $\ell^\infty$ metric. On a hypersurface that is not even proportional to the Euclidean surface measure: the segment from $(0,0)$ to $(1,1)$ has $\ell^\infty$-length $1$ but Euclidean length $\sqrt{2}$, while a coordinate segment has the same length in both. |
+| 5 | Dropping `ContinuousOn u (closure Ω)` from the solution concept. | A Lean function is defined everywhere, so its value at a boundary point is unrelated to its behaviour inside unless continuity links them. Without that clause "$u = g$ on $\partial\Omega$" constrains nothing. |
+| 6 | Omitting the integrability hypotheses. | $G(x,\cdot)$ has a $\lvert x-y\rvert^{2-d}$ singularity. Lean's Bochner integral returns $0$ for a non-integrable integrand, so the identity would compare a real number against junk. |
+| 7 | Integrating the second term against Lebesgue measure, or over $\bar\Omega$ instead of $\partial\Omega$. | The Poisson term is a surface integral. Lebesgue measure of $\partial\Omega$ is $0$, so the term would vanish and the formula would be false. |
+
+## Notes on the ground truth
+
+- The integrability hypotheses are extra: in the text they follow from $K$ being the fundamental solution. Assuming them is harmless and keeps the Bochner integral honest.
+- `hgreenHarmonic` and `hgreenBoundary` are consequences of the earlier hypotheses in the text ("so that, in particular"); assuming them explicitly is harmless.
+- `laplacian` and `multiDerivative` are hand-rolled from repeated `fderiv` along coordinate directions rather than built on mathlib's `iteratedFDeriv`. On the open set $\Omega$ they agree with the classical derivatives, but they interact less well with mathlib's calculus API.
+- `IsOutwardUnitNormal` is the weakest point of the encoding (row 7): it constrains the direction rather than determining it.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[krylov_2_3_1_green_poisson_representation.md](krylov_2_3_1_green_poisson_representation.md) and the background in [krylov_2_3_1_green_poisson_representation.context.md](krylov_2_3_1_green_poisson_representation.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 3 with $K$ an arbitrary two-variable kernel rather than the fundamental solution of the Laplacian.
+- Requirement 6 or 7 with the sign of $H$ or the direction of the normal wrong.
+- Requirement 5 with $G$ not required to vanish on the boundary.
+
+### Domain-specific pitfalls for this problem
+
+- The normal derivative is in the *second* variable and along the *outward* normal, and the Poisson kernel carries an explicit minus sign.
+- The corrector is harmonic in $y$ for each fixed $x$ and matches $K$ on the boundary; both clauses are needed.
+- Regularity of the domain (existence of barriers) is what makes the hypothesis on $h$ satisfiable.
+- Both integrals must be asserted to converge; a Bochner integral of a non-integrable function is the junk value $0$.
+- $u$ is a classical solution — $C^2$ inside and continuous up to the boundary.

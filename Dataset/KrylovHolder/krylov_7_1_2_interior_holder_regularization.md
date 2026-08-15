@@ -4,6 +4,7 @@
 - **Domain:** PDE
 - **Lean declaration:** `Dataset.KrylovHolder.krylov_7_1_2_interior_holder_regularization` ([krylov_7_1_2_interior_holder_regularization.lean](krylov_7_1_2_interior_holder_regularization.lean))
 - **Criteria:** [krylov_7_1_2_interior_holder_regularization.criteria.md](krylov_7_1_2_interior_holder_regularization.criteria.md)
+- **Context:** [krylov_7_1_2_interior_holder_regularization.context.md](krylov_7_1_2_interior_holder_regularization.context.md)
 
 ## Statement
 

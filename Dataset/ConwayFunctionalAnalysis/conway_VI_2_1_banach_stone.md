@@ -4,6 +4,7 @@
 - **Domain:** Functional analysis
 - **Lean declaration:** `Dataset.ConwayFunctionalAnalysis.conway_VI_2_1_banach_stone` ([conway_VI_2_1_banach_stone.lean](conway_VI_2_1_banach_stone.lean))
 - **Criteria:** [conway_VI_2_1_banach_stone.criteria.md](conway_VI_2_1_banach_stone.criteria.md)
+- **Context:** [conway_VI_2_1_banach_stone.context.md](conway_VI_2_1_banach_stone.context.md)
 
 ## Statement
 

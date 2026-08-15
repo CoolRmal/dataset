@@ -1,18 +1,90 @@
 # Criteria: grafakos_2_1_6_hardy_littlewood_maximal
 
-**Statement:** [grafakos_2_1_6_hardy_littlewood_maximal.md](grafakos_2_1_6_hardy_littlewood_maximal.md) · **Lean:** [grafakos_2_1_6_hardy_littlewood_maximal.lean](grafakos_2_1_6_hardy_littlewood_maximal.lean)
+**Statement:** [grafakos_2_1_6_hardy_littlewood_maximal.md](grafakos_2_1_6_hardy_littlewood_maximal.md) · **Lean:** [grafakos_2_1_6_hardy_littlewood_maximal.lean](grafakos_2_1_6_hardy_littlewood_maximal.lean) · **Context:** [grafakos_2_1_6_hardy_littlewood_maximal.context.md](grafakos_2_1_6_hardy_littlewood_maximal.context.md)
 
-Three claims have to survive: the weak $(1,1)$ bound with constant $3^n$, the strong $(p,p)$ bound with the explicit constant $3^{n/p}p(p-1)^{-1}$, and the sharper local estimate $|\{Mf>\alpha\}| \le 3^n\alpha^{-1}\int_{\{Mf>\alpha\}}|f|$ — each for **both** the uncentered $M$ and the centered $M^c$. Because $Mf$ takes the value $+\infty$ on genuinely large sets, every quantity in sight must live in `ℝ≥0∞`: a Bochner-integral definition of the averages $\frac{1}{|B|}\int_B|f|$ would return the junk value `0` wherever $f$ fails to be integrable on $B$, and an `∫` on the right-hand side of the local estimate would do the same. The other fidelity question is geometric: "balls" must be Euclidean balls, and the uncentered operator must range over all balls *containing* $x$, not balls centred at $x$.
+## What the theorem says
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+The Hardy–Littlewood maximal function of $f$ at a point $x$ is the largest average of $\lvert f\rvert$
+over a ball. There are two versions: the *uncentered* $M$, which takes the supremum over all balls
+containing $x$, and the *centered* $M^c$, which uses only balls with centre $x$. The theorem says
+both operators are bounded from $L^1$ into weak-$L^1$ with constant $3^n$, and bounded on $L^p$ for
+$1 < p < \infty$ with constant $3^{n/p}p/(p-1)$. It also records a sharper local statement: the
+measure of the set where $Mf$ exceeds $\alpha$ is at most $3^n/\alpha$ times the integral of
+$\lvert f\rvert$ *over that same set*.
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Faithful encoding (the two operators) | The theorem is about *both* $M$ (uncentered: sup over balls $B \ni x$) and $M^c$ (centered: sup over balls $B(x,r)$). Their definitions differ, and only $M$ is dominated by the covering-lemma argument directly. | ✅ `hardyLittlewoodMaximal n f x = ⨆ y, ⨆ r : {r : ℝ // 0 < r}, ⨆ (_ : x ∈ ball y r), (∫⁻ z in ball y r, ‖f z‖ₑ) / volume (ball y r)` (the `⨆ (_ : x ∈ ball y r)` guard contributes `⊥ = 0` when `x ∉ ball y r`, exactly "sup over balls containing `x`") and `hardyLittlewoodCenteredMaximal n f x = ⨆ r : {r // 0 < r}, (∫⁻ z in ball x r, ‖f z‖ₑ) / volume (ball x r)`. ❗ Trap: formalizing only the centered operator, or defining the uncentered one as a sup over *cubes*. |
-| 2 | Junk values | The averages must be `∫⁻ … ‖f z‖ₑ` divided by `volume (ball …)` in `ℝ≥0∞`: `volume (ball y r)` is finite and nonzero for `0 < r`, so the `ℝ≥0∞`-division is honest, and the numerator is defined for every `f`. A Bochner `∫ z in ball y r, ‖f z‖` with a `.toReal` denominator is `0` whenever the restriction is non-integrable and would make $Mf$ wrong precisely where it matters. | ✅ Everything is `ℝ≥0∞`-valued; `‖f z‖ₑ` is the enorm, `∫⁻` is total. |
-| 3 | Conclusion completeness | All three assertions of the text must appear. The local estimate implies the weak $(1,1)$ bound (bound $\int_{\{Mf>\alpha\}}\lvert f\rvert$ by $\|f\|_1$), so stating it alone is logically sufficient but drops the explicitly named "$M$ maps $L^1 \to L^{1,\infty}$ with constant $3^n$" claim. | ⚠️ The first conjunct is the local estimate `volume {x \| ENNReal.ofReal α < M f x} ≤ ENNReal.ofReal (3 ^ n / α) * ∫⁻ x in {x \| ENNReal.ofReal α < M f x}, ‖f x‖ₑ`; the standalone weak-type statement $\alpha\,\lvert\{Mf>\alpha\}\rvert \le 3^n\|f\|_1$ is only implied, never written. Adding it as a third conjunct would match the text; a candidate stating both should be preferred. |
-| 4 | Conclusion completeness (constants) | Both constants are explicit: $3^n$ (weak type) and $3^{n/p}p(p-1)^{-1}$ (strong type). Replacing them by `∃ C` loses the point of Theorem 2.1.6, which is quantitative. | ✅ `ENNReal.ofReal (3 ^ n / α)` and `ENNReal.ofReal (3 ^ ((n : ℝ) / p) * p / (p - 1))` — note the exponent `(n : ℝ)/p` is a real `rpow`, correctly giving $3^{n/p}$ rather than $(3^n)^{1/p}$-by-accident issues, and `p - 1 ≠ 0` by `1 < p`. ❗ Trap: `3 ^ n * p / (p - 1)` (i.e. $3^n$ instead of $3^{n/p}$), or the Marcinkiewicz-derived constant $2\big(\tfrac{p}{p-1}\big)^{1/p}3^{n/p}$. |
-| 5 | Faithful encoding ($L^p$ norm of an `ℝ≥0∞`-valued function) | $\|Mf\|_{L^p}$ has to be formed for a function into `ℝ≥0∞`, so `(∫⁻ x, (M f x) ^ p) ^ (1/p)` is the direct reading. | ✅ `ENNReal.rpow (∫⁻ x, ENNReal.rpow (M f x) p) (1 / p) ≤ … * eLpNorm f (ENNReal.ofReal p) volume`. ⚠️ Mathlib has an `ENorm ℝ≥0∞` instance with `‖x‖ₑ = x`, so `eLpNorm (M f) (ENNReal.ofReal p) volume` is *definitionally the same thing* and would be the more idiomatic left-hand side; the explicit `∫⁻` form is equally correct. |
-| 6 | Hypothesis completeness | The weak estimate is stated for $f \in L^1$, the strong one for $f \in L^p$ with $1 < p < \infty$; the maximal operator is not claimed to be $L^1$-bounded (it is not). | ✅ `MemLp f 1 volume` in the first conjunct, `MemLp f (ENNReal.ofReal p) volume` with `1 < p` in the second. ❗ Trap: asserting a strong $(1,1)$ bound, or allowing `p = 1` in the second conjunct — both false. |
-| 7 | Mathlib conventions | This Mathlib has no Hardy–Littlewood maximal operator (no `maximalFunction`/`hardyLittlewood*` declarations), so the `Defs.lean` definitions are justified. The ambient space must be `EuclideanSpace ℝ (Fin n)` so that `Metric.ball` is a Euclidean ball and `volume` is $n$-dimensional Lebesgue measure. | ✅ `EuclideanSpace ℝ (Fin n)` with `Metric.ball` and `volume`. ❗ Trap: `Fin n → ℝ` (the sup-norm `PiLp ∞` product), where `ball` is a cube — a different, if equivalent-up-to-constants, operator, and the stated constant $3^n$ is then no longer the textbook one. |
-| 8 | Semantic closeness (quantifier structure) | "Both operators satisfy …" is a conjunction over a two-element family; the level sets use the strict inequality $\{Mf > \alpha\}$, and $\alpha$ ranges over the positive reals. | ✅ `let operators := ({hardyLittlewoodMaximal n, hardyLittlewoodCenteredMaximal n} : Set _)` with `∀ M ∈ operators, …` in both conjuncts, and `ENNReal.ofReal α < M f x` with `0 < α`. ⚠️ The `Set`-membership device is compact but unusual; two explicit conjunctions (or two theorems) would read better and unfold without `Set.mem_insert_iff`. |
+## What a correct formalization must contain
+
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The uncentered operator is the supremum of the averages over all balls that *contain* $x$, not just balls centred at $x$. | ✅ `hardyLittlewoodMaximal n f x = ⨆ y, ⨆ r : {r : ℝ // 0 < r}, ⨆ (_ : x ∈ ball y r), (∫⁻ z in ball y r, ‖f z‖ₑ) / volume (ball y r)`; the `⨆ (_ : x ∈ ball y r)` guard contributes `0` when `x ∉ ball y r`, so only balls containing `x` count. |
+| 2 | The centered operator is the supremum of the averages over balls centred at $x$. | ✅ `hardyLittlewoodCenteredMaximal n f x = ⨆ r : {r : ℝ // 0 < r}, (∫⁻ z in ball x r, ‖f z‖ₑ) / volume (ball x r)`. |
+| 3 | Every claim is made for *both* operators. | ✅ `let operators := ({hardyLittlewoodMaximal n, hardyLittlewoodCenteredMaximal n} : Set _)` together with `∀ M ∈ operators, …` in both conjuncts. |
+| 4 | The maximal function is defined for every $f$, with no integrability side condition, and is allowed to take the value $+\infty$. | ✅ Averages are `(∫⁻ z in ball y r, ‖f z‖ₑ) / volume (ball y r)` in `ℝ≥0∞`; the lower Lebesgue integral is defined for any $f$, and `volume (ball y r)` is finite and nonzero for $r > 0$, so the division is honest. |
+| 5 | The local estimate: for $f \in L^1$ and every $\alpha > 0$, the measure of the set where $Mf$ is strictly above $\alpha$ is at most $3^n/\alpha$ times the integral of $\lvert f\rvert$ over that set. | ✅ `volume {x \| ENNReal.ofReal α < M f x} ≤ ENNReal.ofReal (3 ^ n / α) * ∫⁻ x in {x \| ENNReal.ofReal α < M f x}, ‖f x‖ₑ`, under `MemLp f 1 volume` and `0 < α`. |
+| 6 | The strong bound: for $1 < p < \infty$ and $f \in L^p$, the $L^p$ norm of $Mf$ is at most $3^{n/p}\,p/(p-1)$ times $\|f\|_p$. | ✅ `ENNReal.rpow (∫⁻ x, ENNReal.rpow (M f x) p) (1 / p) ≤ ENNReal.ofReal (3 ^ ((n : ℝ) / p) * p / (p - 1)) * eLpNorm f (ENNReal.ofReal p) volume`, with `1 < p` so `p - 1 ≠ 0`. |
+| 7 | The named weak $(1,1)$ bound, $\alpha\,\lvert\{Mf>\alpha\}\rvert \le 3^n\|f\|_1$. | ⚠️ Not written down. It follows from the local estimate by bounding the integral over the level set by the integral over all of $\mathbb{R}^n$, so the ground truth is logically sufficient, but the text names this claim separately and a candidate stating both is better. |
+| 8 | The constants are the explicit ones, $3^n$ and $3^{n/p}p/(p-1)$, not unspecified constants. | ✅ `ENNReal.ofReal (3 ^ n / α)` and `ENNReal.ofReal (3 ^ ((n : ℝ) / p) * p / (p - 1))`; the exponent `(n : ℝ) / p` is a real power, correctly giving $3^{n/p}$. |
+| 9 | "Ball" means a Euclidean ball and the measure is $n$-dimensional Lebesgue measure. | ✅ The space is `EuclideanSpace ℝ (Fin n)`, so `Metric.ball` is a round ball and `volume` is Lebesgue measure. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Formalizing only one of the two operators. | The theorem is stated for both, and the covering argument applies directly only to the uncentered one; the centered case is deduced. Stating one leaves out half the result. |
+| 2 | Defining the uncentered operator with balls centred at $x$, or with cubes. | Those are different operators. The cube version is comparable but the constant $3^n$ is then no longer the printed one. |
+| 3 | Defining the averages with a Bochner integral, e.g. `(∫ z in ball y r, ‖f z‖) / (volume (ball y r)).toReal`. | Lean gives a Bochner integral of a non-integrable function the value `0`. So the average would read as `0` on exactly the balls where $f$ is large, which is where the maximal function gets its value. |
+| 4 | Using constant $3^n$ in the strong bound instead of $3^{n/p}$. | A different, larger constant for $p$ close to $1$ and smaller for large $p$; either way it is not the printed inequality. The Marcinkiewicz-derived constant $2\big(\tfrac{p}{p-1}\big)^{1/p}3^{n/p}$ is likewise not what 2.1.6 claims. |
+| 5 | Allowing $p = 1$ in the strong bound, or asserting a strong $(1,1)$ bound. | False. For $f$ integrable and not zero, $Mf$ decays like $\lvert x\rvert^{-n}$ at infinity and is never integrable. |
+| 6 | Replacing the constants by `∃ C, …`. | Theorem 2.1.6 is quantitative; the named constants are what is being asserted. |
+| 7 | Writing the level set with `≤`, as $\{Mf \ge \alpha\}$. | Grafakos's distribution function uses the strict inequality. The closed set is larger, so the inequality asserted is stronger than the printed one. |
+| 8 | Working on `Fin n → ℝ` instead of `EuclideanSpace ℝ (Fin n)`. | On `Fin n → ℝ` Mathlib's `Metric.ball` is a sup-norm ball, i.e. a cube. The operator is comparable but not equal, and the constant $3^n$ is tied to round balls. |
+
+## Notes on the ground truth
+
+- This Mathlib has no Hardy–Littlewood maximal operator, so both maximal functions are defined in
+  `Defs.lean`. That is justified rather than a pointless wrapper.
+- The $L^p$ norm on the left of the strong bound is written out as
+  `(∫⁻ x, (M f x) ^ p) ^ (1/p)` because $Mf$ takes values in `ℝ≥0∞`. Mathlib has an `ENorm ℝ≥0∞`
+  instance with `‖x‖ₑ = x`, so `eLpNorm (M f) (ENNReal.ofReal p) volume` is the same thing and is
+  more idiomatic; both should be accepted.
+- Collecting the two operators into a two-element `Set` and quantifying with `∀ M ∈ operators` is
+  compact but unusual. Two separate conjunctions, or two theorems, would read better and would not
+  need `Set.mem_insert_iff` to unfold.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[grafakos_2_1_6_hardy_littlewood_maximal.md](grafakos_2_1_6_hardy_littlewood_maximal.md) and the background in [grafakos_2_1_6_hardy_littlewood_maximal.context.md](grafakos_2_1_6_hardy_littlewood_maximal.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 1 or 2 with the two operators confused, or with the claims made for only one of them.
+- Requirement 8 with the explicit constants replaced by unspecified ones.
+- Requirement 4 with an integrability side condition imposed so that the maximal function is defined only for good $f$.
+
+### Domain-specific pitfalls for this problem
+
+- Junk value — supremum: the maximal function must take values in `ℝ≥0∞`. A real-valued `sSup` over an unbounded family is `0`, which would make $Mf$ vanish exactly where it is largest.
+- The uncentred operator ranges over balls *containing* $x$, not centred at $x$; conflating the two loses one of the two claims.
+- The averages are $\frac{1}{|B|}\int_B|f|$, so the division is in `ℝ≥0∞`; the ball has positive finite measure for $r>0$, so no division by $0$ or $\infty$ occurs.
+- The displayed local estimate integrates $|f|$ only over the level set $\{Mf>\alpha\}$ and is strictly stronger than weak $(1,1)$; both are printed.
+- "Ball" is the Euclidean ball, so the ambient space must carry the Euclidean norm.

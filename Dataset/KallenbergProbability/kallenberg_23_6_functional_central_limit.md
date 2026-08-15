@@ -4,6 +4,7 @@
 - **Domain:** Stochastic processes
 - **Lean declaration:** `Dataset.KallenbergProbability.kallenberg_23_6_functional_central_limit` ([kallenberg_23_6_functional_central_limit.lean](kallenberg_23_6_functional_central_limit.lean))
 - **Criteria:** [kallenberg_23_6_functional_central_limit.criteria.md](kallenberg_23_6_functional_central_limit.criteria.md)
+- **Context:** [kallenberg_23_6_functional_central_limit.context.md](kallenberg_23_6_functional_central_limit.context.md)
 
 ## Statement
 

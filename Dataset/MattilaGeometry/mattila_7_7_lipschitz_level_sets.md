@@ -4,6 +4,7 @@
 - **Domain:** Geometric measure theory
 - **Lean declaration:** `Dataset.MattilaGeometry.mattila_7_7_lipschitz_level_sets` ([mattila_7_7_lipschitz_level_sets.lean](mattila_7_7_lipschitz_level_sets.lean))
 - **Criteria:** [mattila_7_7_lipschitz_level_sets.criteria.md](mattila_7_7_lipschitz_level_sets.criteria.md)
+- **Context:** [mattila_7_7_lipschitz_level_sets.context.md](mattila_7_7_lipschitz_level_sets.context.md)
 
 ## Statement
 

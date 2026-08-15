@@ -4,6 +4,7 @@
 - **Domain:** ODE
 - **Lean declaration:** `Dataset.KongODE.kong_6_6_4_periodic_sturm_liouville_coupling` ([kong_6_6_4_periodic_sturm_liouville_coupling.lean](kong_6_6_4_periodic_sturm_liouville_coupling.lean))
 - **Criteria:** [kong_6_6_4_periodic_sturm_liouville_coupling.criteria.md](kong_6_6_4_periodic_sturm_liouville_coupling.criteria.md)
+- **Context:** [kong_6_6_4_periodic_sturm_liouville_coupling.context.md](kong_6_6_4_periodic_sturm_liouville_coupling.context.md)
 
 ## Statement
 

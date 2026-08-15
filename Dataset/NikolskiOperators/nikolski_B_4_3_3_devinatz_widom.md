@@ -4,6 +4,7 @@
 - **Domain:** Operator theory
 - **Lean declaration:** `Dataset.NikolskiOperators.nikolski_B_4_3_3_devinatz_widom` ([nikolski_B_4_3_3_devinatz_widom.lean](nikolski_B_4_3_3_devinatz_widom.lean))
 - **Criteria:** [nikolski_B_4_3_3_devinatz_widom.criteria.md](nikolski_B_4_3_3_devinatz_widom.criteria.md)
+- **Context:** [nikolski_B_4_3_3_devinatz_widom.context.md](nikolski_B_4_3_3_devinatz_widom.context.md)
 
 ## Statement
 

@@ -1,20 +1,106 @@
 # Criteria: nikolski_B_7_2_1_adamyan_arov_krein
 
-> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+**Statement:** [nikolski_B_7_2_1_adamyan_arov_krein.md](nikolski_B_7_2_1_adamyan_arov_krein.md) · **Lean:** [nikolski_B_7_2_1_adamyan_arov_krein.lean](nikolski_B_7_2_1_adamyan_arov_krein.lean) · **Context:** [nikolski_B_7_2_1_adamyan_arov_krein.context.md](nikolski_B_7_2_1_adamyan_arov_krein.context.md)
 
-**Statement:** [nikolski_B_7_2_1_adamyan_arov_krein.md](nikolski_B_7_2_1_adamyan_arov_krein.md) · **Lean:** [nikolski_B_7_2_1_adamyan_arov_krein.lean](nikolski_B_7_2_1_adamyan_arov_krein.lean)
+## What the theorem says
 
-A faithful formalization must state the whole four-term chain: the $n$-th singular value $s_n(H_\varphi)$ equals the best approximation of $H_\varphi$ by Hankel operators of rank $\le n$, equals $\operatorname{dist}_{L^\infty}(\varphi, R_n + H^\infty)$, and equals $\min\{\lVert H_{\bar B\varphi}\rVert : \deg B \le n\}$ over finite Blaschke products. The striking content is precisely that a *singular value* — a priori the distance to arbitrary operators of rank $\le n$ — is attained by a **Hankel** approximant; dropping $s_n$ removes it. Every term is a `min` (attained) over a class defined by multiplicity bookkeeping: total pole multiplicity $\le n$ for $R_n$, matrix rank $\le n$, and zeros counted with multiplicity for $\deg B \le n$; the encoding of $R_n$ is where the ground truth breaks at the edge case $n = 0$.
+Take a Hankel operator $H_\varphi$ with symbol $\varphi$. Adamyan, Arov and Krein prove that four
+numbers coincide. The first is $s_n(H_\varphi)$, the $n$-th singular value, which is the distance
+from $H_\varphi$ to arbitrary operators of rank at most $n$. The second is the distance to
+*Hankel* operators of rank at most $n$. The third is the distance in $L^\infty$ from $\varphi$ to
+$R_n + H^\infty$, where $R_n$ is the set of rational functions vanishing at infinity whose poles
+all lie in the disc and have total multiplicity at most $n$. The fourth is the smallest norm of the
+Hankel operators with symbol $\bar B\varphi$, over finite Blaschke products $B$ of degree at most
+$n$. The striking part is that the first two agree: restricting the approximants to be Hankel costs
+nothing.
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+## What a correct formalization must contain
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Junk values / **falsity** at $n = 0$ | $R_n$ is the set of rational functions vanishing at $\infty$ with all poles in $\mathbb{D}$ of total multiplicity $\le n$; for $n = 0$ this is $\{0\}$ and the chain degenerates to Nehari's theorem $\lVert H_\varphi\rVert = \operatorname{dist}(\varphi, H^\infty)$. The encoding must therefore contain the zero function. | ❗ **The ground truth is false for `n = 0`.** `RationalVanishingAtInfinityDegreeLE 0 ψ` requires `numerator.natDegree < denominator.natDegree ≤ 0`, which is unsatisfiable in `ℕ`, so the defining set of `rationalPlusHInfinityDistance φ 0` is empty and `sInf ∅ = ⊤`. Meanwhile `hankelRankApproximationDistance a 0` is the honest `‖H_a‖` (`b = 0` is a rank-`0` Hankel matrix) and `finiteBlaschkeHankelDistance φ 0` is `‖H_φ‖` (`m = 0` gives a unimodular constant `B`). Counterexample: `φ = 0`, `a = 0`, `n = 0` gives `0 = ⊤` and `⊤ = 0`. Fix: allow `numerator = 0` with a nonzero constant denominator, or hypothesize `0 < n`. |
-| 2 | Conclusion completeness ($s_n$) | The chain starts at $s_n(H_\varphi)$, the $n$-th singular value of the Hankel operator (equivalently the distance to *all* operators of rank $\le n$). Its identification with the Hankel-restricted distance is the theorem's punchline. | ❗ Missing: the ground truth relates only the three later terms. The $s_n$ term needs the operator as a `ContinuousLinearMap` (mathlib's singular values / approximation numbers, or `sInf {‖T − F‖ : rank F ≤ n}`), so it was avoidable only at the cost of the theorem's headline. |
-| 3 | Semantic closeness (`min` vs `inf`) | The text asserts `min` twice — the infima are **attained** (by an AAK optimal Hankel approximant, and by an optimal Blaschke product). An `sInf` states only the value, not attainment. | ⚠️ Both `hankelRankApproximationDistance` and `finiteBlaschkeHankelDistance` are `sInf`s. Acceptable as a first-order reading (the values are the ones asserted equal), but a stronger formalization would add `∃ b, HankelMatrixRankLE n b ∧ ‖H_a − H_b‖ = …` and likewise for `B`. |
-| 4 | Faithful encoding (rank $\le n$) | "$\operatorname{rank} H_\psi \le n$" for an infinite matrix is best expressed by a factorization through an $n$-dimensional space; and the approximant must itself be **Hankel** (constant along antidiagonals), not an arbitrary rank-$\le n$ operator. | ✅ `HankelMatrixRankLE n b = ∃ u v : Fin n → ℕ → ℂ, (∀ q, HardySquareSummable (u q) ∧ HardySquareSummable (v q)) ∧ ∀ i j, b (i + j) = ∑ q, u q i * v q j` — the approximant is indexed by a single sequence `b`, so Hankel structure is built in, and the factorization through `Fin n` is the right rank bound. ⚠️ The extra $\ell^2$ requirement on the factors is not part of "rank $\le n$", though it is automatic for bounded finite-rank Hankel operators. |
-| 5 | Faithful encoding ($R_n$) | Three conditions: rational, tending to $0$ at $\infty$ (numerator degree strictly below denominator degree), all poles in $\mathbb{D}$, total pole multiplicity $\le n$. | ✅ (for $n \ge 1$) `numerator.natDegree < denominator.natDegree`, `denominator.natDegree ≤ n`, `denominator ≠ 0`, `∀ z, denominator.IsRoot z → z ∈ Metric.ball 0 1`, and $\psi = \mathrm{num}/\mathrm{den}$ pointwise on the circle. Bounding `denominator.natDegree` is the correct proxy for total multiplicity (every element of $R_n$ has a reduced representation with $\deg\mathrm{den} = $ total pole multiplicity). ❗ Trap: forgetting `deg num < deg den` (which encodes "tending to $0$ at infinity") or allowing poles on/outside $\mathbb{T}$. |
-| 6 | Degree conventions (Blaschke) | $\deg B \le n$ means $B$ is a finite Blaschke product with at most $n$ zeros **counting multiplicities**; degree $0$ must be allowed (a unimodular constant). | ✅ `FiniteBlaschkeProductDegreeLE n B = ∃ m ≤ n, ∃ a : Fin m → ℂ, ∃ c, ‖c‖ = 1 ∧ (∀ i, a i ∈ ball 0 1) ∧ InnerFunction B ∧ ∀ z ∈ ball 0 1, B z = c * ∏ i, (z − a i)/(1 − conj (a i) * z)`. `a : Fin m → ℂ` may repeat values, so multiplicities are counted; `m = 0` gives the empty product `B = c`. The factors differ from the textbook $b_\lambda$ by a unimodular constant, absorbed into `c`. |
-| 7 | Junk values (`sInf` in `ℝ≥0∞`) | All three distances are infima over possibly empty sets; in `ℝ` `sInf ∅ = 0` would make the equalities trivially provable in degenerate cases, whereas in `ℝ≥0∞` the empty infimum is `⊤`. | ✅ All three live in `ℝ≥0∞`. This is what exposes the $n = 0$ bug (criterion 1) as `⊤` rather than hiding it as `0` — the right design choice even though the statement is wrong there. ⚠️ `hankelRankApproximationDistance` guards its set with `C < ∞` (needed because `C.toReal` is used) while `rationalPlusHInfinityDistance` does not (it compares with `≤ C` in `ℝ≥0∞` directly); the asymmetry is sound but inconsistent. |
-| 8 | Hypothesis completeness | The matrix data and the symbol must be tied together: $a$ must be the sequence of negative Fourier coefficients of $\varphi$, and $\varphi$ must be in $L^\infty$ — otherwise the two sides of each equality refer to unrelated objects. | ✅ The single hypothesis `HasBoundedHankelSymbol a φ` supplies a.e.-measurability, `eLpNorm … ∞ < ∞`, and `∀ n, circleFourierCoefficient φ (−(n+1)) = a n`. ❗ Trap: stating the equalities for an arbitrary pair `(a, φ)`, which is false. |
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The matrix data and the symbol are tied together: $\varphi$ is essentially bounded and $\hat\varphi(-n-1) = a_n$. | ✅ The single hypothesis `HasBoundedHankelSymbol a φ`. |
+| 2 | The first quantity is the $n$-th approximation number: the distance to arbitrary matrices of rank at most $n$. | ✅ `hankelApproximationNumber a n`, whose competitors satisfy `MatrixRankLE n B`. |
+| 3 | The second quantity is the distance to *Hankel* matrices of rank at most $n$. | ✅ `hankelRankApproximationDistance a n`; its competitors are given by a single sequence `b` used as `b (i + j)`, so the Hankel structure is built in. |
+| 4 | "Rank at most $n$" is expressed as a factorization through an $n$-dimensional space. | ✅ `∃ u v : Fin n → ℕ → ℂ, … ∧ ∀ i j, b (i + j) = ∑ q, u q i * v q j`. |
+| 5 | The third quantity is the $L^\infty$ distance from $\varphi$ to $R_n + H^\infty$. | ✅ `rationalPlusHInfinityDistance φ n`, an infimum over `ψ` in $R_n$ and `h` in $H^\infty$ of `eLpNorm (φ - ψ - boundaryValue h) ∞`. |
+| 6 | $R_n$ is: rational, tending to $0$ at infinity (numerator degree strictly below denominator degree), all poles inside the disc, total pole multiplicity at most $n$ — and it contains the zero function. | ✅ `RationalVanishingAtInfinityDegreeLE n ψ` = `ψ = 0 ∨ (numerator.natDegree < denominator.natDegree ∧ denominator.natDegree ≤ n ∧ denominator ≠ 0 ∧ all roots in the ball ∧ ψ = num/den)`. |
+| 7 | The fourth quantity ranges over finite Blaschke products of degree at most $n$, with zeros counted with multiplicity and degree $0$ allowed. | ✅ `FiniteBlaschkeProductDegreeLE n B` uses `∃ m ≤ n, ∃ a : Fin m → ℂ`, so entries may repeat and `m = 0` gives a unimodular constant. |
+| 8 | The fourth quantity is the norm of the Hankel operator with symbol $\bar B\varphi$. | ✅ `finiteBlaschkeHankelDistance φ n` takes the infimum of `hankelFormNorm b` over `b` with `HasBoundedHankelSymbol b (fun ζ ↦ star (boundaryValue B ζ) * φ ζ)`. |
+| 9 | All four quantities are asserted equal. | ✅ Three conjoined equalities chaining the four terms. |
+| 10 | All four quantities live in $[0,\infty]$, so that degenerate cases are not silently rounded to $0$. | ✅ Every one of the four is an `sInf` over a subset of `ℝ≥0∞`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Encoding $R_n$ so that the zero function is excluded — for instance by demanding a numerator degree strictly below a denominator degree of at most $n$ with no separate case for $\psi = 0$. | For $n = 0$ that is unsatisfiable in $\mathbb{N}$, so the class is empty and its distance is the empty infimum $\infty$, while the other three terms are $\lVert H_\varphi\rVert$. With $\varphi = 0$ the chain then asserts $0 = \infty$. $R_0$ is $\{0\}$ and the theorem must degenerate to Nehari's identity. |
+| 2 | Letting the approximant in the second term be an arbitrary matrix of rank at most $n$. | That collapses the second term into the first and throws away the theorem's content, which is precisely that a Hankel approximant achieves the same distance. |
+| 3 | Dropping the singular-value term $s_n(H_\varphi)$ and relating only the last three quantities. | The headline of the theorem is that a singular value — defined by approximation with arbitrary operators — is attained among Hankel operators. |
+| 4 | Forgetting the requirement that the numerator degree is strictly below the denominator degree. | That requirement is what encodes "tending to $0$ at infinity". Without it, $R_n$ contains constants and polynomials and the distance changes. |
+| 5 | Allowing poles on or outside the unit circle. | Poles off the disc contribute nothing new modulo $H^\infty$, and poles on the circle leave $L^\infty$; either way the class is wrong. |
+| 6 | Taking the infima over sets of real numbers. | The infimum of an empty set of reals is $0$, which would make degenerate cases silently equal instead of exposing them. |
+| 7 | Requiring the Blaschke degree to be exactly $n$, or forbidding the empty product. | Degree $0$ (a unimodular constant) has to be admissible, and repeated zeros have to be admissible, or the fourth infimum is over the wrong class. |
+| 8 | Stating the equalities for an arbitrary pair (matrix data, symbol) with no relation between them. | The two sides then describe unrelated objects and the statement is false. |
+
+## Notes on the ground truth
+
+- The text says "min" twice: the infima are *attained*, by an optimal Hankel approximant and by an
+  optimal Blaschke product. All four quantities here are infima, so attainment is not asserted. A
+  stronger formalization would add clauses such as "there is a `b` with `HankelMatrixRankLE n b`
+  achieving the value", and likewise for $B$.
+- An earlier version of this file had no `ψ = 0` case in $R_n$ and no singular-value term. Both are
+  now present; Mistakes 1 and 3 record the former defects.
+- `MatrixRankLE` and `HankelMatrixRankLE` also require the factorizing sequences to be square
+  summable. That is not part of "rank at most $n$", though it is automatic for bounded finite-rank
+  Hankel operators.
+- `hankelApproximationNumber` and `hankelRankApproximationDistance` guard their defining sets with
+  `C < ∞`, which is needed because the bound is stated with `C.toReal` and Lean sends $\infty$ to
+  $0$ under that conversion. `rationalPlusHInfinityDistance` compares in $[0,\infty]$ directly and
+  needs no guard. The asymmetry is sound but inconsistent.
+- Bounding `denominator.natDegree` is the right proxy for total pole multiplicity, since every
+  element of $R_n$ has a reduced representation in which the denominator degree is exactly the
+  total pole multiplicity.
+- The Blaschke factors $\frac{z - a_i}{1 - \bar a_i z}$ differ from the textbook's $b_{\lambda}$ by
+  a unimodular constant, which is absorbed into the leading constant `c`.
+- `finiteBlaschkeHankelDistance` uses `boundaryValue B`, whose junk value lives on a null set and
+  is invisible to the integral definitions inside `HasBoundedHankelSymbol`; `InnerFunction B`,
+  required by `FiniteBlaschkeProductDegreeLE`, already asserts that the radial limits exist almost
+  everywhere.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[nikolski_B_7_2_1_adamyan_arov_krein.md](nikolski_B_7_2_1_adamyan_arov_krein.md) and the background in [nikolski_B_7_2_1_adamyan_arov_krein.context.md](nikolski_B_7_2_1_adamyan_arov_krein.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 6 with $R_n$ not containing the zero function, or with the degree condition on the rational functions wrong.
+- Requirement 3 with the second quantity taken over arbitrary rather than Hankel operators, collapsing it into the first.
+- Requirement 9 with fewer than all four quantities asserted equal.
+
+### Domain-specific pitfalls for this problem
+
+- Rank at most $n$ should be expressed by a factorization through an $n$-dimensional space, not by a `rank` function that could return a default.
+- $R_n$ consists of rational functions tending to $0$ at infinity with poles inside the disc; the zero function is a member, with degree $0$.
+- The degree of an inner function is the number of zeros of the corresponding finite Blaschke product, counted with multiplicity, and $\infty$ otherwise.
+- All four quantities are infima or minima and belong in $[0,\infty]$.
+- The symbol $\bar B\varphi$ carries a complex conjugate on the Blaschke product, not a harmonic conjugate.

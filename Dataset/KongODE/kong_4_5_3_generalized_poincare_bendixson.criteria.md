@@ -1,20 +1,87 @@
 # Criteria: kong_4_5_3_generalized_poincare_bendixson
 
-> **Ground-truth status (repaired):** The current Lean declaration incorporates the recorded ground-truth repair. Any row that describes the ground truth as false, junk-valued, or divergent documents the former declaration and is retained as a regression check; other flagged improvement suggestions may still apply.
+**Statement:** [kong_4_5_3_generalized_poincare_bendixson.md](kong_4_5_3_generalized_poincare_bendixson.md) · **Lean:** [kong_4_5_3_generalized_poincare_bendixson.lean](kong_4_5_3_generalized_poincare_bendixson.lean) · **Context:** [kong_4_5_3_generalized_poincare_bendixson.context.md](kong_4_5_3_generalized_poincare_bendixson.context.md)
 
-**Statement:** [kong_4_5_3_generalized_poincare_bendixson.md](kong_4_5_3_generalized_poincare_bendixson.md) · **Lean:** [kong_4_5_3_generalized_poincare_bendixson.lean](kong_4_5_3_generalized_poincare_bendixson.lean)
+## What the theorem says
 
-A faithful formalization must fix a planar autonomous system and one of its solutions, assume the positive semi-orbit is contained in a compact set carrying only finitely many equilibria, and conclude a four-way disjunction in which two clauses are about the $\omega$-limit set and one is about the orbit $\Gamma$ itself — and then repeat the whole thing for the negative semi-orbit and the $\alpha$-limit set. The traps are conflating $\Gamma$ with $\Omega(\Gamma^+)$ in cases (b) and (c), and the encoding of "graphic". The statement also inherits everything from the definition of the limit sets, and — decisively — it assumes no regularity of the vector field, which the Poincaré–Bendixson theory cannot do without.
+Take a planar autonomous system $x' = f(x)$ and one of its solutions. Suppose the forward half of
+its orbit stays inside a compact set $E$ that contains only finitely many equilibria. Then the
+$\omega$-limit set — the set of points the solution keeps returning near as $t \to +\infty$ — must be
+one of four things: a single equilibrium; or the orbit of the solution is itself a closed orbit; or
+the limit set is a closed orbit; or the limit set is a graphic, meaning a connected union of
+finitely many equilibria together with orbits joining them. The same list applies backwards in time,
+with the negative half-orbit and the $\alpha$-limit set.
 
-Legend: ✅ ground truth satisfies the criterion · ⚠️ ground truth acceptable but improvable · ❗ trap — known/likely model error to check in candidate statements.
+## What a correct formalization must contain
 
-| # | Category | Criterion / potential error | Assessment of ground truth |
-|---|----------|-----------------------------|----------------------------|
-| 1 | Hypothesis completeness | System (A-2) carries Kong's standing hypothesis that $f$ is continuous (in the text's setting, $C^1$, so that solutions are unique). Nothing is assumed about `F : (Fin 2 → ℝ) → (Fin 2 → ℝ)`. | ❗ **False as stated.** Sketch: in polar form let $r' = -h(r)$ with $h \ge 0$ continuous vanishing to second order exactly at $r = 1$ and $r = 2$, and let the tangential speed on the circle $r = 1$ be a $\{1,2\}$-valued function of $\theta$ (so, by the intermediate value property of derivatives, no solution lies on that circle). A trajectory started at $r = 1.5$ is global, satisfies `∀ t, x t ∈ E` for the compact `E = closedBall 0 2`, has no equilibria in `E` other than the origin, and its `omegaLimitSet` is the unit circle — which is not a singleton equilibrium (a), not a closed orbit (b), (c), and not a `GraphicForPlanarSystem` (d) (a graphic would need an equilibrium on it). |
-| 2 | Faithful encoding | The $\omega$- and $\alpha$-limit sets must be the sets of subsequential limits along times tending to $+\infty$ / $-\infty$. | ✅ `omegaLimitSet x := {y \| ∃ t : ℕ → ℝ, Tendsto t atTop atTop ∧ Tendsto (fun j ↦ x (t j)) atTop (𝓝 y)}` and the mirror image with `atBot` for `alphaLimitSet` — the standard sequential definition, correct in a metric space. ✅ Mathlib's `omegaLimit` (`Mathlib/Dynamics/OmegaLimit.lean`) is defined for a flow `ϕ : τ → α → β` acting on a set, not for a single trajectory, so a hand-rolled definition is the right call here. |
-| 3 | Conclusion completeness | The disjunction must distinguish (b), a statement about the *orbit of $x$ itself*, from (c), a statement about the *limit set*. Collapsing them (e.g. stating (c) twice) loses the case where $x$ is periodic and $\Omega(\Gamma^+) = \Gamma$. | ✅ (b) is `IsClosedOrbit F x` (the given trajectory) and (c) is `∃ y, IsClosedOrbit F y ∧ limitSet = range y`. |
-| 4 | Faithful encoding | "Closed orbit" is the orbit of a *nonconstant* periodic solution; without nonconstancy every equilibrium is a closed orbit and cases (b), (c) become trivial. | ✅ `IsClosedOrbit F x := IsAutonomousTrajectory F x ∧ (∃ t, x t ≠ x 0) ∧ ∃ T, 0 < T ∧ ∀ t, x (t + T) = x t`. ❗ Trap: `Function.Periodic x T` with `T` possibly `0`, or omitting nonconstancy. |
-| 5 | Semantic closeness | Case (a) is the standard "the $\omega$-limit set is a single equilibrium". | ✅ `∃ e, limitSet = {e} ∧ F e = 0`. ⚠️ The text's wording "contains only one equilibrium" could be read literally as "there is exactly one equilibrium in $\Omega(\Gamma^+)$, possibly among other points"; that reading is not the standard Poincaré–Bendixson alternative and would make the case list wrong. The chosen reading is the intended one. |
-| 6 | Hypothesis completeness | Both hypotheses of the text must appear: $\Gamma^+ \subset E$ with $E$ compact, and finitely many equilibria *in $E$*; and the "same conclusion" for $\Gamma^-$ must be stated with its own semi-orbit hypothesis. | ✅ `hcompact : IsCompact E`, `hfinite : {x ∈ E \| F x = 0}.Finite`, and the two implications `(∀ t, 0 ≤ t → x t ∈ E) → classify (omegaLimitSet x)` and `(∀ t, t ≤ 0 → x t ∈ E) → classify (alphaLimitSet x)`. ⚠️ In `{x ∈ E \| F x = 0}` the set-builder binder `x` shadows the trajectory `x : ℝ → (Fin 2 → ℝ)`; it elaborates correctly (the equilibria in `E`) but is a readability hazard and an easy place to misread the statement. |
-| 7 | Faithful encoding | A graphic is a connected set that is the union of finitely many equilibria and of orbits each of which limits onto equilibria of the set at $t \to \pm\infty$. | ⚠️ `GraphicForPlanarSystem F Γ` requires `IsConnected Γ` (hence nonempty, which forces `m ≥ 1`), equilibria `e : Fin m → …` with `F (e i) = 0`, complete orbits `x i` with `Tendsto (x i) atBot (𝓝 (e j))` and `atTop (𝓝 (e k))`, and `Γ = range e ∪ ⋃ i, range (x i)` — a reasonable encoding, but it permits *constant* connecting orbits, so a single equilibrium counts as a graphic and case (d) subsumes case (a). Harmless in a disjunction; it does mean the four cases are not mutually exclusive. |
-| 8 | Solution concept | The trajectory and all orbits inside the graphic must be genuine solutions of the autonomous system on all of `ℝ`. | ✅ `IsAutonomousTrajectory F x := ∀ t, HasDerivAt x (F (x t)) t` throughout — no `deriv`. ⚠️ Requiring global (two-sided) existence is stronger than Kong's setting, where the forward-bounded solution is only known to exist on its maximal interval. |
+Each row is one thing the Lean statement has to say. A formalization that is missing any
+row is incomplete.
+
+| # | Requirement | Does the ground truth have it? |
+|---|-------------|-------------------------------|
+| 1 | The system is planar. | ✅ Everything is indexed by `Fin 2`. |
+| 2 | The vector field is regular enough for the Poincaré–Bendixson machinery. | ⚠️ `hF : ContDiff ℝ 1 F` is stronger than Kong's standing continuity assumption, so our version is weaker than the printed one; but some regularity is essential (see mistake 1), and $C^1$ is what the text's setting really uses, since it needs uniqueness of solutions. |
+| 3 | $x$ is a genuine solution of the autonomous system. | ✅ `horbit : IsAutonomousTrajectory F x`, i.e. `∀ t, HasDerivAt x (F (x t)) t`. |
+| 4 | $E$ is compact. | ✅ `hcompact : IsCompact E`. |
+| 5 | The system has only finitely many equilibria **in $E$**. | ✅ `hfinite : {x ∈ E \| F x = 0}.Finite`. |
+| 6 | The forward statement is conditional on the positive semi-orbit staying in $E$; the backward statement on the negative semi-orbit staying in $E$. | ✅ `(∀ t, 0 ≤ t → x t ∈ E) → classify (omegaLimitSet x)` and `(∀ t, t ≤ 0 → x t ∈ E) → classify (alphaLimitSet x)`. |
+| 7 | Both halves are asserted — the $\omega$-limit conclusion and the $\alpha$-limit conclusion. | ✅ The two implications are conjoined. |
+| 8 | The limit sets are the sets of subsequential limits along times going to $+\infty$ (resp. $-\infty$). | ✅ `omegaLimitSet x := {y \| ∃ t : ℕ → ℝ, Tendsto t atTop atTop ∧ Tendsto (fun j ↦ x (t j)) atTop (𝓝 y)}`, and the mirror image with `atBot` for `alphaLimitSet`. |
+| 9 | Case (a): the limit set is exactly one point, and that point is an equilibrium. | ✅ `∃ e, limitSet = {e} ∧ F e = 0`. |
+| 10 | Cases (b) and (c) are different: (b) says the given orbit is closed, (c) says the limit set is a closed orbit. | ✅ `IsClosedOrbit F x` for (b) and `∃ y, IsClosedOrbit F y ∧ limitSet = range y` for (c). |
+| 11 | A closed orbit is the orbit of a **nonconstant** periodic solution, with a strictly positive period. | ✅ `IsClosedOrbit F x := IsAutonomousTrajectory F x ∧ (∃ t, x t ≠ x 0) ∧ ∃ T, 0 < T ∧ ∀ t, x (t + T) = x t`. |
+| 12 | Case (d): the limit set is a graphic — connected, built from finitely many equilibria together with complete orbits each converging to equilibria of the set in both time directions. | ✅ `GraphicForPlanarSystem F limitSet`. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
+| # | Mistake | Why it is wrong |
+|---|---------|-----------------|
+| 1 | Assuming nothing about the vector field. | The four-way disjunction is then false. Sketch: in polar coordinates let $r' = -h(r)$ with $h \ge 0$ continuous, vanishing to second order exactly at $r = 1$ and $r = 2$, and let the tangential speed on the circle $r = 1$ be a function of $\theta$ taking only the values $1$ and $2$ — so, since derivatives have the intermediate value property, no solution lies on that circle. A solution starting at $r = 1.5$ is global, stays in $E = \overline{B}(0,2)$, and the only equilibrium in $E$ is the origin; but its $\omega$-limit set is the unit circle, which is not a single equilibrium, not a closed orbit, and not a graphic (a graphic would have to contain an equilibrium). |
+| 2 | Stating case (b) as a second claim about the limit set, so that (b) and (c) say the same thing. | This loses the case where the solution is itself periodic: then $\Omega(\Gamma^+) = \Gamma$ and (b) is what applies. Case (b) is about the orbit, not the limit set. |
+| 3 | Defining "closed orbit" as a periodic solution without requiring it to be nonconstant, or allowing period $0$. | Every equilibrium is then a closed orbit, and cases (b) and (c) become trivially available, gutting the theorem. |
+| 4 | Reading case (a) as "the limit set contains exactly one equilibrium, possibly alongside other points". | That is a different claim and makes the list of alternatives wrong — the intended alternative is that the limit set *is* a single equilibrium. |
+| 5 | Stating only the forward half and omitting the $\alpha$-limit statement. | Kong explicitly asserts both, each with its own semi-orbit hypothesis. |
+| 6 | Dropping the compactness of $E$ or the finiteness of the equilibria in $E$. | Both are needed. An unbounded orbit can have empty limit set, and with infinitely many equilibria the limit set can be a continuum of them. |
+| 7 | Describing the trajectory with `deriv`. | `deriv` is `0` where the function is not differentiable, so the hypothesis would admit non-solutions wherever the field vanishes. |
+
+## Notes on the ground truth
+
+- Mathlib's `omegaLimit` is defined for a flow acting on a set, not for a single trajectory, so the limit sets are defined by hand with the sequential characterisation, which is correct in a metric space.
+- `GraphicForPlanarSystem` permits *constant* connecting orbits. As a result a single equilibrium counts as a graphic, so case (d) already covers case (a) and the four alternatives are not mutually exclusive. This is harmless inside a disjunction but is a divergence from the intended reading.
+- In the hypothesis `{x ∈ E \| F x = 0}` the set-builder binder `x` shadows the trajectory `x : ℝ → (Fin 2 → ℝ)`. It elaborates to the set of equilibria in $E$, which is what is meant, but it is easy to misread.
+- Requiring the trajectory to exist for all real times, forwards and backwards, is stronger than Kong's setting, where the forward-bounded solution is only known to exist on its maximal interval.
+
+## Grading (out of 100)
+
+Grade a candidate Lean statement of this problem against the textbook statement in
+[kong_4_5_3_generalized_poincare_bendixson.md](kong_4_5_3_generalized_poincare_bendixson.md) and the background in [kong_4_5_3_generalized_poincare_bendixson.context.md](kong_4_5_3_generalized_poincare_bendixson.context.md),
+not against the ground-truth Lean file: a candidate spelled differently but
+mathematically equivalent to the text loses nothing. The scale is defined in
+[GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.
+
+| Band | Points | This problem |
+|---|---|---|
+| A. Completeness | 50 | The requirement table above has 12 rows, so each row is worth 4.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
+| C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
+| D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
+| E. Hygiene | 5 | No needless definitions, redundant conjuncts or unused hypotheses. |
+
+**Every row of the *Mistakes to check for* table above is a defect.** Charge each one to the band it belongs to and deduct there.
+
+### Fatal — any of these caps the total at 25
+
+- Requirement 11 with "closed orbit" allowed to be an equilibrium, or with the period not required positive.
+- Requirement 12 omitted, dropping the graphic case: the four alternatives are then not exhaustive.
+- Requirement 7 with only the $\omega$-limit half stated.
+
+### Domain-specific pitfalls for this problem
+
+- The limit sets are sets of subsequential limits along times going to $\pm\infty$.
+- Case (b) is about the given orbit; case (c) about the limit set. They are different alternatives.
+- A closed orbit comes from a nonconstant periodic solution with strictly positive period.
+- Finiteness of the equilibria is required only inside $E$.
+- The system is planar; the theorem is false in higher dimension.

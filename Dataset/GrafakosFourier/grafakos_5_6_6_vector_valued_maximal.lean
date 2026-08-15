@@ -25,20 +25,19 @@ namespace GrafakosFourier
 universe u v
 
 /-- Grafakos 5.6.6, the Fefferman-Stein vector-valued maximal inequalities. -/
-theorem grafakos_5_6_6_vector_valued_maximal
-    {n : ℕ} {p r : ℝ} (hp : 1 < p) (hr : 1 < r) :
-    let ellNorm := fun (f : ℕ → EuclideanSpace ℝ (Fin n) → ℂ) x ↦
+theorem grafakos_5_6_6_vector_valued_maximal {n : ℕ} :
+    let ellNorm := fun (r : ℝ) (f : ℕ → EuclideanSpace ℝ (Fin n) → ℂ) x ↦
       ENNReal.rpow (∑' j, ENNReal.rpow ‖f j x‖ₑ r) (1 / r)
-    let maximalNorm := fun (f : ℕ → EuclideanSpace ℝ (Fin n) → ℂ) x ↦
+    let maximalNorm := fun (r : ℝ) (f : ℕ → EuclideanSpace ℝ (Fin n) → ℂ) x ↦
       ENNReal.rpow (∑' j, ENNReal.rpow (hardyLittlewoodMaximal n (f j) x) r) (1 / r)
-    ∃ Cn Cp : ℝ≥0∞, Cn < ∞ ∧ Cp < ∞ ∧
+    ∃ Cn : ℝ≥0∞, Cn < ∞ ∧ ∀ p r : ℝ, 1 < p → 1 < r →
       (∀ f : ℕ → EuclideanSpace ℝ (Fin n) → ℂ, ∀ α : ℝ, 0 < α →
-        volume {x | ENNReal.ofReal α < maximalNorm f x} ≤
+        volume {x | ENNReal.ofReal α < maximalNorm r f x} ≤
           Cn * ENNReal.ofReal (1 + 1 / (r - 1)) / ENNReal.ofReal α *
-            ENNReal.rpow (∫⁻ x, ellNorm f x) 1) ∧
-      ∀ f : ℕ → EuclideanSpace ℝ (Fin n) → ℂ,
-        ENNReal.rpow (∫⁻ x, ENNReal.rpow (maximalNorm f x) p) (1 / p) ≤
-          Cp * ENNReal.rpow (∫⁻ x, ENNReal.rpow (ellNorm f x) p) (1 / p) := by
+            ∫⁻ x, ellNorm r f x) ∧
+      ∃ c : ℝ≥0∞, c < ∞ ∧ ∀ f : ℕ → EuclideanSpace ℝ (Fin n) → ℂ,
+        ENNReal.rpow (∫⁻ x, ENNReal.rpow (maximalNorm r f x) p) (1 / p) ≤
+          Cn * c * ENNReal.rpow (∫⁻ x, ENNReal.rpow (ellNorm r f x) p) (1 / p) := by
   sorry
 
 end GrafakosFourier

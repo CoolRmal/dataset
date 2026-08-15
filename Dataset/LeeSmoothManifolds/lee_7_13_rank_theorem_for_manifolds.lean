@@ -41,6 +41,7 @@ theorem lee_7_13_rank_theorem_for_manifolds
       φ ∈ IsManifold.maximalAtlas 𝓘(ℝ, (Fin m → ℝ)) ∞ M ∧
       ψ ∈ IsManifold.maximalAtlas 𝓘(ℝ, (Fin n → ℝ)) ∞ N ∧
       p ∈ φ.source ∧ F p ∈ ψ.source ∧ MapsTo F φ.source ψ.source ∧
+      φ p = 0 ∧ ψ (F p) = 0 ∧
       ∀ x ∈ φ.target, ψ (F (φ.symm x)) =
         fun i ↦ if h : i.1 < k ∧ i.1 < m then x ⟨i.1, h.2⟩ else 0 := by
   sorry

@@ -4,6 +4,7 @@
 - **Domain:** PDE
 - **Lean declaration:** `Dataset.KrylovHolder.krylov_4_2_1_better_regular_data_better_regular_solution` ([krylov_4_2_1_better_regular_data_better_regular_solution.lean](krylov_4_2_1_better_regular_data_better_regular_solution.lean))
 - **Criteria:** [krylov_4_2_1_better_regular_data_better_regular_solution.criteria.md](krylov_4_2_1_better_regular_data_better_regular_solution.criteria.md)
+- **Context:** [krylov_4_2_1_better_regular_data_better_regular_solution.context.md](krylov_4_2_1_better_regular_data_better_regular_solution.context.md)
 
 ## Statement
 

@@ -4,6 +4,7 @@
 - **Domain:** Geometric measure theory
 - **Lean declaration:** `Dataset.MattilaGeometry.mattila_15_19_rectifiability_tangent_planes` ([mattila_15_19_rectifiability_tangent_planes.lean](mattila_15_19_rectifiability_tangent_planes.lean))
 - **Criteria:** [mattila_15_19_rectifiability_tangent_planes.criteria.md](mattila_15_19_rectifiability_tangent_planes.criteria.md)
+- **Context:** [mattila_15_19_rectifiability_tangent_planes.context.md](mattila_15_19_rectifiability_tangent_planes.context.md)
 
 ## Statement
 
