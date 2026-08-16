@@ -65,10 +65,9 @@ wrong, even if it compiles.
 - $E[0,\delta]$ becomes `E.toFun (Metric.closedBall (0 : ℂ) δ)`, a disc in $\mathbb{C}$. This is
   legitimate because the anchoring condition forces $E$ to sit on $\sigma(\text{modulus}) \subseteq
   [0,\infty)$, where the disc meets the support exactly in the interval $[0,\delta]$.
-- **Deliberate departure.** `H →L[ℂ] H` *is* a `CStarAlgebra` in Mathlib, so `CFC.sqrt (A⋆ * A)` from the continuous
-  functional calculus would name the modulus directly instead of characterizing it by three
-  equations. Similarly `modulus.adjoint = modulus` would read better as `IsSelfAdjoint modulus`, and
-  `∀ x, 0 ≤ (inner ℂ (modulus x) x).re` as `modulus.IsPositive`.
+- In item (g) the modulus is characterised by `modulus.comp modulus = A.adjoint.comp A` together
+  with `modulus.IsPositive`, Mathlib's predicate for a positive operator, which already carries
+  symmetry — so no separate self-adjointness conjunct is needed.
 - Item (h) types the compact perturbation as `H →L[ℂ] K` so that `A + C` is well formed. Conway
   writes "$K \in \mathcal{B}_0(\mathcal{H})$", which is loose; the Lean tightens it to the only
   reading that makes sense.

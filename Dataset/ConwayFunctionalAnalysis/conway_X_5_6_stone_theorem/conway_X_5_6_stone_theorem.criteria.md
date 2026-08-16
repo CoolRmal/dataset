@@ -61,12 +61,11 @@ wrong, even if it compiles.
   replace $A$ by $-A$ — but the generator it produces is the negative of the textbook one. Inserting
   `starRingEnd ℂ` in the exponential integrand, or swapping the inner-product arguments, would match
   $U(t) = \exp(itA)$ literally.
-- **Deliberate departure.** The transcribed X.5.6 asserts only existence ("there is a self-adjoint operator $A$"); the Lean
-  asserts `∃!`. Uniqueness of the generator is a true part of Stone's theorem, and `∃!` over
-  `DenselyDefinedOperator H` correctly means equality of both the domain and the map. A candidate
-  stating plain `∃` matches the text exactly and should not be marked unfaithful.
-- **Deliberate departure.** `IsUnitaryOperator` is spelled out as a pair of adjoint identities. Mathlib's
-  `U ∈ unitary (H →L[ℂ] H)` (with `unitary.mem_iff`) is the same pair and is the idiomatic spelling.
+- The statement asserts `∃!`. Uniqueness of the generator is a true part of Stone's theorem and
+  `∃!` over `DenselyDefinedOperator H` means equality of both domain and map, so this is a
+  strengthening; a candidate stating plain `∃` matches the text and is equally acceptable.
+- `IsUnitaryOperator U` is `U ∈ unitary (H →L[ℂ] H)`, Mathlib's predicate, which unfolds to the
+  same pair of adjoint identities.
 - The projection-valued measure is hand-rolled in `Defs.lean` because Mathlib has none.
 
 ## Grading (out of 100)

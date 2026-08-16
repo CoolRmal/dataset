@@ -1,4 +1,5 @@
 import Dataset.ConwayFunctionalAnalysis.Defs
+import Mathlib.Analysis.InnerProductSpace.Positive
 
 /-!
 # `conway_XI_2_3_left_semi_fredholm_characterizations` — XI.2.3
@@ -34,8 +35,7 @@ theorem conway_XI_2_3_left_semi_fredholm_characterizations
     let f := ∃ δ : ℝ, 0 < δ ∧ ∀ M : Submodule ℂ H,
       (∀ x : M, ‖A x‖ ≤ δ * ‖(x : H)‖) → FiniteDimensional ℂ M
     let g := ∃ modulus : H →L[ℂ] H,
-      modulus.comp modulus = A.adjoint.comp A ∧ modulus.adjoint = modulus ∧
-        (∀ x : H, 0 ≤ (inner ℂ (modulus x) x).re) ∧
+      modulus.comp modulus = A.adjoint.comp A ∧ modulus.IsPositive ∧
           ∃ E : ProjectionValuedMeasure H,
             E.toFun (spectrum ℂ modulus) = ContinuousLinearMap.id ℂ H ∧
             (∃ scalarMeasure : H → H → ComplexMeasure ℂ,

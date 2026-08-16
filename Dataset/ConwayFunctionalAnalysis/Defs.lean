@@ -62,8 +62,7 @@ def IsSelfAdjointUnbounded {H : Type*} [NormedAddCommGroup H]
 /-- A unitary bounded operator. -/
 def IsUnitaryOperator {H : Type*} [NormedAddCommGroup H]
     [InnerProductSpace ℂ H] [CompleteSpace H] (U : H →L[ℂ] H) : Prop :=
-  U.adjoint.comp U = ContinuousLinearMap.id ℂ H ∧
-    U.comp U.adjoint = ContinuousLinearMap.id ℂ H
+  U ∈ unitary (H →L[ℂ] H)
 
 /-- A strongly continuous one-parameter unitary group. -/
 def StronglyContinuousUnitaryGroup {H : Type*} [NormedAddCommGroup H]
