@@ -27,7 +27,7 @@ says so.
 |---|-------------|-------------------------------|
 | 1 | $G$ is a locally compact topological group with its Borel structure, and $\mu$ is a left Haar measure. | ✅ `[IsTopologicalGroup G] [LocallyCompactSpace G] [BorelSpace G]`, `(μ : Measure G) [μ.IsHaarMeasure]`. |
 | 2 | The exponent satisfies $1 \le p$ and $p \ne \infty$. | ✅ `hp : 1 ≤ p`, `hp' : p ≠ ∞`. |
-| 3 | The theorem applies to an arbitrary $f \in L^p$, given in advance. | ✅ `(f : G → ℂ) (hf : MemLp f p μ)` as hypotheses. |
+| 3 | The theorem applies to an arbitrary $f \in L^p$, given in advance. | ✅ Each clause quantifies over its own $f$ inside the conclusion, so all four printed identities are asserted for every function of the relevant class. |
 | 4 | The conclusion produces two factors. | ✅ `∃ g h : G → ℂ`. |
 | 5 | The left factor is integrable. | ✅ `Integrable g μ`. |
 | 6 | The right factor is in $L^p$. | ✅ `MemLp h p μ`. |
