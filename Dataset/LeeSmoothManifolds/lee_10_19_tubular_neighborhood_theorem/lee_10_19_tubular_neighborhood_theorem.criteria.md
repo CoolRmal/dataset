@@ -53,8 +53,8 @@ wrong, even if it compiles.
 
 ## Notes on the ground truth
 
-- **Deliberate departure.** Continuity of `radius` is genuinely absent (requirement row 11). This is the one substantive gap
-  in the file.
+- `Continuous radius` is asserted alongside positivity, so the disk bundle is open in the normal
+  bundle and the object produced really is a tubular neighbourhood.
 - `∑ i, v i * velocity i` is the genuine Euclidean inner product, which is the right notion of
   perpendicularity even though `Fin n → ℝ` carries the sup norm.
 - **Deliberate departure.** The fibre condition `‖p.2‖ < radius p.1` uses the sup norm of `Fin n → ℝ`, so the fibres are

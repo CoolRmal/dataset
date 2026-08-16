@@ -25,8 +25,8 @@ theorem kallenberg_4_23_moments_and_holder_continuity
         ENNReal.ofReal (C * ‖s - t‖ ^ ((d : ℝ) + b))) :
     ∃ Y : (Fin d → ℝ) → Ω → S,
       (∀ t, X t =ᵐ[μ] Y t) ∧
-        ∀ p : ℝ, ∀ hp : p ∈ Ioo 0 (b / a),
-          ∀ᵐ ω ∂μ, IsLocallyHolder ⟨p, hp.1.le⟩ (fun t ↦ Y t ω) := by
+        ∀ᵐ ω ∂μ, ∀ p : ℝ, ∀ hp : p ∈ Ioo 0 (b / a),
+          IsLocallyHolder ⟨p, hp.1.le⟩ (fun t ↦ Y t ω) := by
   sorry
 
 end KallenbergProbability

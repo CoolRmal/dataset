@@ -55,10 +55,7 @@ wrong, even if it compiles.
 
 - An earlier version left the measurable structure on the Grassmannian as an unconstrained instance
   argument; that defect has been repaired in `Defs.lean` and survives above as Mistake 1.
-- **Deliberate departure.** `MeasurableSet` is used both for $A$ and for the test sets $B$, where the book means
-  $\mathcal{H}^m$ measurability. On $A$ this weakens the theorem; on $B$ it shrinks the family of
-  test sets, which weakens the forward direction of part (1) and strengthens the reverse one.
-  `NullMeasurableSet · μH[(m:ℝ)]` would be the literal rendering.
+- Measurability of $A$ is Carathéodory measurability for $\mathcal{H}^m$, matching the book.
 - **Deliberate departure.** `hm : 0 < m` and `hmn : m < n` are our additions. They exclude the degenerate cases the text
   nominally covers: at $m = n$ the Grassmannian is a single point and $P_V$ is the identity. Harmless
   but a narrowing.

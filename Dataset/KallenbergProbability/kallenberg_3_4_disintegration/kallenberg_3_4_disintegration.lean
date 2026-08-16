@@ -25,7 +25,7 @@ theorem kallenberg_3_4_disintegration
       ν ≪ ρ.fst → ρ.fst ≪ ν → ν ⊗ₘ κ = ρ →
       SigmaFinite ν' → IsSFiniteKernel κ' → IsSigmaFiniteKernel κ' →
       ν' ≪ ρ.fst → ρ.fst ≪ ν' → ν' ⊗ₘ κ' = ρ →
-      ∃ c : S → ℝ≥0∞, Measurable c ∧ ν' = ν.withDensity c ∧
+      ∃ c : S → ℝ≥0∞, Measurable c ∧ (∀ᵐ s ∂ν, 0 < c s ∧ c s < ∞) ∧ ν' = ν.withDensity c ∧
         ∀ᵐ s ∂ν, κ s = c s • κ' s) ∧
     ((∃ (ν : Measure S) (κ : Kernel S T), SigmaFinite ν ∧ IsSFiniteKernel κ ∧
       IsSigmaFiniteKernel κ ∧ ν ≪ ρ.fst ∧ ρ.fst ≪ ν ∧ ν ⊗ₘ κ = ρ ∧

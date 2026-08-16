@@ -50,13 +50,8 @@ wrong, even if it compiles.
 
 ## Notes on the ground truth
 
-- **Deliberate departure.** Lee's "$F$ is smooth on a subset $A$" means: each $p \in A$ has a neighbourhood $W$ and a smooth
-  $\tilde F$ on $W$ with $\tilde F = F$ on $W \cap A$. That is weaker than what we assume — $F$
-  itself need not be smooth near $A$ (take $M = \mathbb{R}$, $A = \{0\}$, $F = \lvert\cdot\rvert$).
-  Our hypothesis is therefore strictly stronger and our theorem strictly weaker. It is the accepted
-  Mathlib idiom (`Continuous.exists_contMDiff_approx_and_eqOn` makes the identical choice: `hU : U ∈
-  𝓝ˢ S`, plus smoothness of `f` on `U`), so it is acceptable — but a candidate encoding Lee's
-  extension-based definition is strictly more faithful.
+- "$F$ is smooth on $A$" is Lee's notion: each $p \in A$ has a neighbourhood and a smooth map
+  agreeing with $F$ on the intersection with $A$.
 - Lee states the unconditional approximation first and the relative version as a refinement; we merge
   them into one theorem with a mandatory $A$. No content is lost: taking $A = \emptyset$ recovers the
   unconditional case, using `isClosed_empty`, `mem_nhdsSet_empty`, `contMDiffOn_empty` and the fact

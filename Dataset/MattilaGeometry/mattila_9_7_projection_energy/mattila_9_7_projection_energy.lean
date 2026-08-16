@@ -30,7 +30,7 @@ theorem mattila_9_7_projection_energy
       ∃ density : ∀ V : Grassmannian n m, V.1 → ℝ≥0∞,
         (∀ᵐ V ∂γ, Measure.map (fun x ↦ V.1.orthogonalProjectionOnto x) μ =
           μH[(m : ℝ)].withDensity (density V)) ∧
-        ∫⁻ V, ∫⁻ x, density V x ^ (2 : ℝ) ∂μH[(m : ℝ)] ∂γ ≤
+        ∫⁻ V, ∫⁻ x, density V x ^ (2 : ℝ) ∂μH[(m : ℝ)] ∂γ <
           c * rieszEnergy (m : ℝ) μ := by
   sorry
 

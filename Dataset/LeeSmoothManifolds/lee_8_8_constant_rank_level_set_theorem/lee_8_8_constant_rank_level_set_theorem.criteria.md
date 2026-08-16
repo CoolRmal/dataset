@@ -63,9 +63,8 @@ wrong, even if it compiles.
 - `IsClosed` is genuinely provable here with no separation typeclass on $N$: a
   `ChartedSpace (Fin n → ℝ) N` is automatically T1, so singletons are closed and $\Phi$ is
   continuous. A candidate that adds `[T2Space N]` for this purpose is harmless but unnecessary.
-- **Deliberate departure.** Lee's smooth manifolds are Hausdorff and second countable, and neither `[T2Space M]` nor
-  `[SecondCountableTopology M]` is assumed. Not needed for the truth of this statement (it is local
-  plus T1), so the Lean version is more general — but it does not transcribe the book's hypotheses.
+- Hausdorffness and second countability are assumed of both manifolds, as Lee's definition of a
+  smooth manifold requires.
 
 ## Grading (out of 100)
 

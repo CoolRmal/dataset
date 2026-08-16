@@ -54,9 +54,8 @@ wrong, even if it compiles.
   `SmoothDiffeomorphismOn` bundles `mapsTo` together with `rightInvOn`, they are forced to equal
   `φ.toFun '' U₀` and `ψ.toFun '' V₀`, so asserting the normal form for `x ∈ φ.toFun '' U₀` is the
   same as asserting it on all of `sourceTarget`.
-- **Deliberate departure.** Nothing requires `IsOpen sourceTarget` or `IsOpen targetTarget`, and `ContDiffOn` on a set that
-  is not open is weaker than smoothness of a genuine chart. Adding
-  `IsOpen sourceTarget ∧ IsOpen targetTarget` would close that gap.
+- `IsOpen sourceTarget` and `IsOpen targetTarget` are asserted, so the `ContDiffOn` conditions on
+  the coordinate images say what they should.
 - The `i.1 < m` conjunct inside the `if` is only there so a `Fin m` index can be built; it follows
   from `i.1 < k` together with `hk.1`.
 - `hk : k ≤ m ∧ k ≤ n` is redundant: the rank of a linear map $\mathbb{R}^m \to \mathbb{R}^n$ is at

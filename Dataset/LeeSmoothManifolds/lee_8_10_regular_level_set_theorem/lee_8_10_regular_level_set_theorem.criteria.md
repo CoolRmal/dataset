@@ -57,9 +57,8 @@ wrong, even if it compiles.
   the text and equally free of junk values; a candidate using it should be accepted.
 - `IsClosed` is provable with no separation typeclass on $N$: a `ChartedSpace (Fin n → ℝ) N` is
   automatically T1, so `{c}` is closed and $\Phi$ is continuous.
-- **Deliberate departure.** Lee's smooth manifolds are Hausdorff and second countable; neither `[T2Space M]` nor
-  `[SecondCountableTopology M]` appears. Harmless here — the statement is local plus T1, so the Lean
-  version is more general and still true — but it is not a transcription of the book's hypotheses.
+- Hausdorffness and second countability are assumed of both manifolds, as Lee's definition of a
+  smooth manifold requires.
 - `m - n` inside `EmbeddedSubmanifoldOfCodimension` is truncated natural subtraction. Nothing in a
   realizable situation reaches the truncated branch (a regular value forces $n \le m$ when the fibre
   is nonempty), but it is worth checking in candidate statements.

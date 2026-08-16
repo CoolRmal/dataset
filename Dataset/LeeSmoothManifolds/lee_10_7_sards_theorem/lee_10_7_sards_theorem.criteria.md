@@ -58,9 +58,8 @@ wrong, even if it compiles.
   `let` in a benchmark statement is awkward: it has to be introduced or unfolded before use, and it
   obscures the logical shape. Inlining the set, or naming it as a top-level definition in
   `Defs.lean` alongside `RegularValue`, would read better.
-- **Deliberate departure.** Neither `[T2Space M]` nor `[T2Space N]` is assumed, although Lee's manifolds are Hausdorff.
-  Unlike second countability, Hausdorffness is not needed for the truth of this statement, so its
-  absence only generalizes the result; a candidate that includes it is equally acceptable.
+- `[T2Space M]`, `[T2Space N]` and second countability are assumed, matching Lee's definition of a
+  smooth manifold.
 - `[SecondCountableTopology N]` is also assumed. It is not needed for the truth of the statement,
   but it is part of Lee's definition of a smooth manifold, so keeping it is faithful.
 - This file does not import `Defs.lean`; it uses only Mathlib notions.

@@ -60,8 +60,7 @@ wrong, even if it compiles.
   positive real.
 - **Deliberate departure.** `hs : 0 < s` is our addition; the text does not state it. It is a harmless narrowing (at
   $s = 0$ the bounds read $1 \le \Theta \le 1$ for counting measure), but it is not in the source.
-- **Deliberate departure.** Part (2) uses Borel `MeasurableSet A` rather than $\mathcal{H}^s$-measurability; see
-  Requirement 7.
+- Part (2) uses Carathéodory $\mathcal{H}^s$-measurability, matching the book.
 
 ## Grading (out of 100)
 

@@ -66,8 +66,7 @@ wrong, even if it compiles.
   in another way: the chosen `density` is not required to be measurable, and `∫⁻` of a
   non-measurable function is the supremum over measurable functions below it, so the left-hand side
   could come out smaller than the intended $L^2$ integral.
-- **Deliberate departure.** The bound is stated with `≤` where the book writes `<`. Immaterial given that `c` is
-  unspecified, but not literal.
+- The bound is stated with the strict `<` the book writes.
 - **Deliberate departure.** `IsFiniteMeasureOnCompacts` and `Measure.InnerRegular` are classes; since `μ` is universally
   quantified here, instance binders would be more idiomatic than plain implications.
 - No hypothesis $m \le n$ is imposed. When $m > n$ the Grassmannian is empty, no probability measure

@@ -21,11 +21,18 @@ theorem engelking_8_4_13_smirnov_proximity_compactification
         ∃ p : Proximity X, @IsAssignedProximity X K _ tK e p) ∧
     (∀ p : Proximity X, ∃ (K : Type v) (_ : TopologicalSpace K) (e : X → K),
       IsCompactification e ∧ IsAssignedProximity e p) ∧
-    ∀ (K L : Type v) (_ : TopologicalSpace K) (_ : TopologicalSpace L)
+    (∀ (K L : Type v) (_ : TopologicalSpace K) (_ : TopologicalSpace L)
       (e : X → K) (f : X → L) (p : Proximity X),
         IsCompactification e → IsCompactification f →
         IsAssignedProximity e p → IsAssignedProximity f p →
-        EquivalentCompactifications e f := by
+        EquivalentCompactifications e f) ∧
+    -- and conversely: equivalent compactifications induce the same proximity
+    ∀ (K L : Type v) (_ : TopologicalSpace K) (_ : TopologicalSpace L)
+      (e : X → K) (f : X → L) (p q : Proximity X),
+        IsCompactification e → IsCompactification f →
+        EquivalentCompactifications e f →
+        IsAssignedProximity e p → IsAssignedProximity f q →
+        ∀ A B : Set X, p.close A B ↔ q.close A B := by
   sorry
 
 end EngelkingGeneralTopology

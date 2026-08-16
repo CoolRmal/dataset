@@ -58,10 +58,8 @@ wrong, even if it compiles.
   `Fin d → ℝ`, and the constant `C` is chosen after the radius `R`, as it must be. `HolderOnWith C p f s`
   means `edist (f x) (f y) ≤ C * edist x y ^ p` for `x, y ∈ s`, a uniform bound on the ball; on a
   bounded set this is equivalent to Kallenberg's asymptotic condition $w_f(r) \lesssim r^p$.
-- **Deliberate departure.** The conclusion is written `∀ p, ∀ᵐ ω, …`, which allows the null set to depend on $p$. The
-  theorem actually gives one null set outside of which the path of $Y$ is locally Hölder of every
-  order $p < b/a$ at once, i.e. `∀ᵐ ω ∂μ, ∀ p ∈ Ioo 0 (b/a), …`. That form is true, stronger, and
-  closer to the intended content; a candidate stating it should be scored at least as highly.
+- The conclusion is `∀ᵐ ω ∂μ, ∀ p ∈ Ioo 0 (b/a), …`: one null set serves every Hölder exponent, so
+  a single modification of `X` is Hölder of every admissible order.
 - "Version" is per-time almost-sure equality, `∀ t, X t =ᵐ[μ] Y t`, not indistinguishability. That
   is the correct reading of Kallenberg's word here.
 

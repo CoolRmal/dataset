@@ -53,10 +53,9 @@ wrong, even if it compiles.
 - Kallenberg's "$T$ is Borel" means standard Borel, which is what `[StandardBorelSpace T]` says.
 - The fibre integrals in `IsSigmaFiniteKernel` are lower Lebesgue integrals `∫⁻` valued in
   `ℝ≥0∞`, so no integrability side condition is needed and no default value can arise.
-- **Deliberate departure.** The uniqueness clause should also conclude `∀ᵐ s ∂ν, 0 < c s ∧ c s < ∞`. Since $\nu$ and $\nu'$
-  are equivalent measures, the density really is almost everywhere strictly positive and finite, and
-  without saying so the phrase "unique up to normalizations" is rendered more weakly than the text
-  intends. A candidate that includes those bounds is better than the ground truth here.
+- The uniqueness clause concludes `∀ᵐ s ∂ν, 0 < c s ∧ c s < ∞` as well as the density identity, so
+  the two disintegrations are genuinely proportional rather than related by a density that may
+  vanish or blow up.
 
 ## Grading (out of 100)
 

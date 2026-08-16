@@ -19,9 +19,9 @@ universe u v
 theorem lee_8_10_regular_level_set_theorem
     {m n : ℕ} {M : Type u} {N : Type v}
     [TopologicalSpace M] [ChartedSpace ((Fin m → ℝ)) M]
-    [IsManifold 𝓘(ℝ, (Fin m → ℝ)) ∞ M]
+    [IsManifold 𝓘(ℝ, (Fin m → ℝ)) ∞ M] [T2Space M] [SecondCountableTopology M]
     [TopologicalSpace N] [ChartedSpace ((Fin n → ℝ)) N]
-    [IsManifold 𝓘(ℝ, (Fin n → ℝ)) ∞ N]
+    [IsManifold 𝓘(ℝ, (Fin n → ℝ)) ∞ N] [T2Space N] [SecondCountableTopology N]
     {Φ : M → N} {c : N}
     (hΦ : ContMDiff 𝓘(ℝ, (Fin m → ℝ)) 𝓘(ℝ, (Fin n → ℝ)) ∞ Φ)
     (hc : RegularValue (m := m) (n := n) Φ c) :

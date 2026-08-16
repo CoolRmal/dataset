@@ -67,9 +67,7 @@ wrong, even if it compiles.
   $\eta r$-neighbourhood of the plane. Reading the book's $W(\eta r)$ as closed would give a strict
   `<` there instead. This does not affect the equivalence, since $\eta$ is universally quantified,
   but it is not literal.
-- **Deliberate departure.** `MeasurableSet E` rather than `NullMeasurableSet E μH[(m:ℝ)]`; note the tension with the
-  `.restrict E` encoding — a fully literal version would have to switch to guarded a.e. statements
-  as well.
+- Measurability of `E` is Carathéodory measurability for $\mathcal{H}^m$, matching the book.
 - All quotients are `ℝ≥0∞`-valued with denominators `ENNReal.ofReal (r ^ (m:ℝ))`, which are positive
   and finite for `r > 0`, and all limits are along `𝓝[>] 0`, so the junk values of `Real.rpow` at
   nonpositive base are never seen.

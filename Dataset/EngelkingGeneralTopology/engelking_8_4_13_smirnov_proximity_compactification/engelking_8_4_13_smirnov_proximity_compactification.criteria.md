@@ -55,11 +55,8 @@ wrong, even if it compiles.
   decision is how to unfold it. The ground truth unfolds it as the three conjuncts (a), (b), (c).
 - Uniqueness of the proximity in clause (a) needs no separate conjunct: `IsAssignedProximity e p`
   determines `p.close` completely, and two `Proximity` values with equal `close` fields are equal.
-- **Deliberate departure.** The converse of clause (c) — equivalent compactifications get the same proximity — is not
-  asserted. It is the easy direction (transport the closures along $h$), but adding
-  `IsCompactification e → IsCompactification f → EquivalentCompactifications e f → IsAssignedProximity e p → IsAssignedProximity f p`
-  would make the statement a complete rendering of "one-to-one correspondence between classes". A
-  candidate that includes it is more faithful, not less.
+- The converse of clause (c) is stated as well: equivalent compactifications induce the same
+  proximity, so the correspondence is one-to-one in both directions.
 - Mathlib has no proximity spaces and no Smirnov theorem, so the `Proximity` structure and the
   compactification predicates are hand-rolled; `Homeomorph`, `IsEmbedding`, `DenseRange`, `closure`
   and `Set.Nonempty` are the correct mathlib primitives. `union_left` is stated on the left only,

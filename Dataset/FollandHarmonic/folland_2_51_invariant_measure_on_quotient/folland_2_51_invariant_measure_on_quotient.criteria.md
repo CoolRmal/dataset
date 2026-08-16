@@ -55,16 +55,15 @@ wrong, even if it compiles.
 
 ## Notes on the ground truth
 
-- **Deliberate departure.** Uniqueness of $\mu$ up to a positive constant is part of Folland's statement and is **not**
-  formalized here. A candidate that adds it is closer to the printed theorem.
+- Uniqueness of $\mu$ up to a positive constant is part of the left-hand side: any other nonzero
+  invariant measure on the quotient is `c • ρ` for some `0 < c < ∞`.
 - The "suitably chosen constant factor" is absorbed into the existential over `ρ`: the statement
   asks for *some* nonzero invariant measure that makes (2.52) hold, which is the honest reading.
 - **Deliberate departure.** The inner integral is written `∫ y : H, f (Quotient.out q * y) ∂ν`, using `Quotient.out` to
   pick a representative of the coset $q$. The value does not depend on the choice, because $\nu$ is
   left invariant on $H$, but `Quotient.out` is not a measurable section in general, so this is a
   place where a formulation built on Mathlib's quotient-measure machinery would be cleaner.
-- **Deliberate departure.** "Radon" in Folland's statement means inner and outer regular. The Lean statement asks only for
-  a nonzero invariant Borel measure satisfying (2.52); regularity is not imposed.
+- "Radon" means inner **and** outer regular, and both are asserted of the measure produced.
 - **Deliberate departure.** The topology, measurable space and Borel structure on `G ⧸ H` are taken as instance arguments
   rather than being the quotient structures. A cleaner version would use Mathlib's quotient topology
   instance directly.
