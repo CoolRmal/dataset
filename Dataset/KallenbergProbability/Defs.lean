@@ -1,15 +1,7 @@
 import Mathlib.MeasureTheory.Function.ConvergenceInDistribution
-import Mathlib.MeasureTheory.Function.UniformIntegrable
-import Mathlib.MeasureTheory.Measure.Prokhorov
 import Mathlib.Probability.BrownianMotion.Basic
-import Mathlib.Probability.Distributions.Gaussian.Real
 import Mathlib.Probability.Kernel.Disintegration.StandardBorel
-import Mathlib.Probability.Martingale.Basic
-import Mathlib.Probability.Moments.Variance
-import Mathlib.Probability.Process.Predictable
-import Mathlib.Probability.Process.Stopping
 import Mathlib.Topology.MetricSpace.HolderNorm
-import Mathlib.Tactic.TFAE
 
 /-!
 # Shared definitions for the KallenbergProbability problems
@@ -19,8 +11,8 @@ not already supplied by Mathlib. Each problem file that needs them imports
 this module.
 -/
 
-open Filter MeasureTheory ProbabilityTheory Set Topology
-open scoped ENNReal MeasureTheory NNReal ProbabilityTheory Topology
+open Filter MeasureTheory ProbabilityTheory Set
+open scoped ENNReal NNReal
 
 namespace Dataset
 namespace KallenbergProbability

@@ -1,12 +1,7 @@
 import Mathlib.Analysis.CStarAlgebra.GelfandNaimarkSegal
-import Mathlib.Analysis.Calculus.Deriv.Basic
-import Mathlib.Analysis.InnerProductSpace.Adjoint
 import Mathlib.Analysis.Normed.Operator.Compact.Basic
 import Mathlib.MeasureTheory.Measure.Complex
 import Mathlib.MeasureTheory.VectorMeasure.Integral
-import Mathlib.Topology.Algebra.Module.Spaces.WeakDual
-import Mathlib.Topology.ContinuousMap.Bounded.Basic
-import Mathlib.Tactic.TFAE
 
 /-!
 # Shared definitions for the ConwayFunctionalAnalysis problems
@@ -16,8 +11,8 @@ not already supplied by Mathlib. Each problem file that needs them imports
 this module.
 -/
 
-open Filter MeasureTheory Set Topology
-open scoped BoundedContinuousFunction Topology
+open Filter MeasureTheory Set
+open scoped Topology
 
 namespace Dataset
 namespace ConwayFunctionalAnalysis

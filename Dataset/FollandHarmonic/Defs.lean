@@ -1,6 +1,4 @@
-import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
 import Mathlib.MeasureTheory.Integral.Bochner.Basic
-import Mathlib.MeasureTheory.Measure.Haar.Basic
 import Mathlib.Topology.Algebra.PontryaginDual
 
 /-!
@@ -14,8 +12,8 @@ convolution of two functions on a locally compact group, closedness of a family
 of functions in `𝓛ᵖ`, and uniform almost periodicity.
 -/
 
-open Filter MeasureTheory Set Topology
-open scoped ENNReal NNReal Topology
+open MeasureTheory
+open scoped ENNReal
 
 namespace Dataset
 namespace FollandHarmonic

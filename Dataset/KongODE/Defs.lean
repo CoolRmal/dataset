@@ -1,9 +1,5 @@
-import Mathlib.Analysis.Calculus.ContDiff.Defs
 import Mathlib.Analysis.ODE.PicardLindelof
-import Mathlib.Analysis.Normed.Algebra.MatrixExponential
-import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
 import Mathlib.LinearAlgebra.Matrix.Charpoly.Basic
-import Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic
 
 /-!
 # Shared definitions for the KongODE problems
@@ -13,8 +9,8 @@ not already supplied by Mathlib. Each problem file that needs them imports
 this module.
 -/
 
-open Filter Function MeasureTheory Set Topology
-open scoped ENNReal Matrix NNReal Topology
+open Filter MeasureTheory Set
+open scoped Matrix Topology
 
 namespace Dataset
 namespace KongODE

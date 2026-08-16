@@ -1,9 +1,6 @@
 import Mathlib.Combinatorics.Enumerative.Partition.Basic
-import Mathlib.Combinatorics.Schnirelmann
 import Mathlib.NumberTheory.ArithmeticFunction.Moebius
 import Mathlib.Analysis.SpecialFunctions.Pow.NNReal
-import Mathlib.SetTheory.Cardinal.Finite
-import Mathlib.Topology.Algebra.InfiniteSum.Basic
 
 /-!
 # Shared definitions for the NivenZuckermanNumberTheory problems

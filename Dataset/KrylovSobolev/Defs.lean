@@ -1,8 +1,4 @@
 import Mathlib.Analysis.Distribution.Sobolev
-import Mathlib.Analysis.Distribution.FourierMultiplier
-import Mathlib.MeasureTheory.Integral.Bochner.Basic
-import Mathlib.Analysis.InnerProductSpace.PiL2
-import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
 import Mathlib.RingTheory.MvPolynomial.Homogeneous
 
 /-!

@@ -1,7 +1,4 @@
 import Mathlib.Analysis.Distribution.SchwartzSpace.Fourier
-import Mathlib.Analysis.Fourier.AddCircle
-import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
-import Mathlib.MeasureTheory.Integral.Bochner.Basic
 
 /-!
 # Shared definitions for the GrafakosFourier problems
@@ -11,7 +8,7 @@ not already supplied by Mathlib. Each problem file that needs them imports
 this module.
 -/
 
-open Filter Function MeasureTheory Metric Set
+open Filter MeasureTheory Metric
 open scoped ENNReal FourierTransform SchwartzMap Topology
 
 namespace Dataset

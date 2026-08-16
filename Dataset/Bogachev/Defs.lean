@@ -1,14 +1,7 @@
 import Mathlib.Analysis.Calculus.ContDiff.Basic
-import Mathlib.Analysis.Convex.Function
-import Mathlib.Analysis.Normed.Module.FiniteDimension
-import Mathlib.MeasureTheory.Constructions.Polish.Basic
-import Mathlib.MeasureTheory.Function.UniformIntegrable
 import Mathlib.MeasureTheory.Integral.Prod
-import Mathlib.MeasureTheory.Measure.NullMeasurable
 import Mathlib.MeasureTheory.Measure.ProbabilityMeasure
-import Mathlib.MeasureTheory.Measure.Regular
 import Mathlib.MeasureTheory.Measure.Tight
-import Mathlib.MeasureTheory.VectorMeasure.Basic
 import Mathlib.MeasureTheory.VectorMeasure.Decomposition.Jordan
 
 /-!
@@ -19,8 +12,8 @@ not already supplied by Mathlib. Each problem file that needs them imports
 this module.
 -/
 
-open Filter MeasureTheory ProbabilityTheory Set Topology
-open scoped BoundedContinuousFunction ENNReal MeasureTheory NNReal ProbabilityTheory Topology
+open Filter MeasureTheory Set
+open scoped BoundedContinuousFunction ENNReal Topology
 
 namespace Dataset
 namespace Bogachev

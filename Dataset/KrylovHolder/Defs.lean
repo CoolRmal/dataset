@@ -1,7 +1,4 @@
-import Mathlib.Analysis.Calculus.ContDiff.Basic
 import Mathlib.Analysis.Calculus.IteratedDeriv.Defs
-import Mathlib.Analysis.InnerProductSpace.PiL2
-import Mathlib.MeasureTheory.Integral.Bochner.Basic
 import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
 import Mathlib.MeasureTheory.Measure.Hausdorff
 
@@ -13,7 +10,7 @@ not already supplied by Mathlib. Each problem file that needs them imports
 this module.
 -/
 
-open Filter Function MeasureTheory Set Topology
+open MeasureTheory Set
 open scoped ContDiff ENNReal Topology
 
 namespace Dataset

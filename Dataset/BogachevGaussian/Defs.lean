@@ -1,10 +1,5 @@
-import Mathlib.Analysis.InnerProductSpace.PiL2
-import Mathlib.Analysis.LocallyConvex.WithSeminorms
-import Mathlib.MeasureTheory.Measure.MutuallySingular
 import Mathlib.Probability.CDF
-import Mathlib.Probability.Distributions.Gaussian.Basic
 import Mathlib.Probability.Distributions.Gaussian.Multivariate
-import Mathlib.Probability.Moments.Variance
 
 /-!
 # Shared definitions for the BogachevGaussian problems
@@ -14,8 +9,8 @@ not already supplied by Mathlib. Each problem file that needs them imports
 this module.
 -/
 
-open MeasureTheory ProbabilityTheory Set
-open scoped ENNReal NNReal
+open MeasureTheory ProbabilityTheory
+open scoped ENNReal
 
 namespace Dataset
 namespace BogachevGaussian

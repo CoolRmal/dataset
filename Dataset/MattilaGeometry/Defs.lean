@@ -1,11 +1,6 @@
-import Mathlib.Analysis.InnerProductSpace.Projection.Submodule
-import Mathlib.MeasureTheory.Measure.Hausdorff
-import Mathlib.MeasureTheory.Measure.Decomposition.Lebesgue
 import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
-import Mathlib.MeasureTheory.Measure.Regular
 import Mathlib.MeasureTheory.Measure.Support
 import Mathlib.Topology.MetricSpace.HausdorffDimension
-import Mathlib.Tactic.TFAE
 
 /-!
 # Shared definitions for the MattilaGeometry problems
@@ -15,8 +10,8 @@ not already supplied by Mathlib. Each problem file that needs them imports
 this module.
 -/
 
-open Filter Function MeasureTheory Metric Set Topology
-open scoped ENNReal MeasureTheory NNReal Topology
+open Filter MeasureTheory Metric Set
+open scoped ENNReal Topology
 
 namespace Dataset
 namespace MattilaGeometry
