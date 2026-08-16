@@ -1,5 +1,4 @@
 import Dataset.BogachevGaussian.Defs
-import Mathlib.Probability.Distributions.Gaussian.Multivariate
 
 /-!
 # `bogachev_gaussian_4_3_1_isoperimetric_inequality`

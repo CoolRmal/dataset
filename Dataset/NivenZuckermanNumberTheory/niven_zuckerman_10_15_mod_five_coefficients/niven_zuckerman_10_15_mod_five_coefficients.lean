@@ -8,9 +8,6 @@ Natural-language statement: `niven_zuckerman_10_15_mod_five_coefficients.md`.
 Quality rubric: `niven_zuckerman_10_15_mod_five_coefficients.criteria.md`.
 -/
 
-open Filter
-open scoped Topology
-
 namespace Dataset
 namespace NivenZuckermanNumberTheory
 

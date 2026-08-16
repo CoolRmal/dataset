@@ -8,9 +8,6 @@ Natural-language statement: `niven_zuckerman_10_14_euler_product_prime_power.md`
 Quality rubric: `niven_zuckerman_10_14_euler_product_prime_power.criteria.md`.
 -/
 
-open Filter
-open scoped Topology
-
 namespace Dataset
 namespace NivenZuckermanNumberTheory
 

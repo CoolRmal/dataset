@@ -1,5 +1,4 @@
 import Dataset.NivenIrrational.Defs
-import Mathlib.NumberTheory.Real.Irrational
 
 /-!
 # `niven_5_5_squaring_the_circle_impossible`

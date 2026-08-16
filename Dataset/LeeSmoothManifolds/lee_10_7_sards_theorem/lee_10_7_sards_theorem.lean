@@ -1,5 +1,3 @@
-import Mathlib.Geometry.Manifold.SmoothApprox
-import Mathlib.Geometry.Manifold.Submersion
 import Dataset.LeeSmoothManifolds.Defs
 
 /-!

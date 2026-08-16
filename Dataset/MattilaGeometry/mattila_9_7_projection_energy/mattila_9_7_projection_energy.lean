@@ -1,5 +1,4 @@
 import Dataset.MattilaGeometry.Defs
-import Mathlib.MeasureTheory.Measure.Support
 
 /-!
 # `mattila_9_7_projection_energy` — 9.7

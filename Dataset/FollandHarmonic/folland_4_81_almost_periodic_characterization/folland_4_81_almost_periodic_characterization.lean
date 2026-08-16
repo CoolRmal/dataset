@@ -1,5 +1,4 @@
 import Dataset.FollandHarmonic.Defs
-import Mathlib.Topology.Algebra.PontryaginDual
 
 /-!
 # `folland_4_81_almost_periodic_characterization`

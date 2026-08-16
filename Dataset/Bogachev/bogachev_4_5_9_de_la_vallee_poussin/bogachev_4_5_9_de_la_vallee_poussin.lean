@@ -1,5 +1,4 @@
 import Mathlib.MeasureTheory.Function.UniformIntegrable
-import Mathlib.MeasureTheory.Integral.Prod
 
 /-!
 # `bogachev_4_5_9_de_la_vallee_poussin` — 4.5.9

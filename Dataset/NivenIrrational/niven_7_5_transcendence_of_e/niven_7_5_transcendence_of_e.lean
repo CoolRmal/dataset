@@ -1,5 +1,4 @@
 import Dataset.NivenIrrational.Defs
-import Mathlib.NumberTheory.Real.Irrational
 
 /-!
 # `niven_7_5_transcendence_of_e`

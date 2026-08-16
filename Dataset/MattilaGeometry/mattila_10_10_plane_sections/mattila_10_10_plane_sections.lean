@@ -1,5 +1,4 @@
 import Dataset.MattilaGeometry.Defs
-import Mathlib.Topology.MetricSpace.HausdorffDimension
 
 /-!
 # `mattila_10_10_plane_sections` — 10.10

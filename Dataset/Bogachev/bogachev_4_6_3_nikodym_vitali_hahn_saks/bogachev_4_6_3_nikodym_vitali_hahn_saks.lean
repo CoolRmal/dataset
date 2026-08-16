@@ -1,5 +1,4 @@
 import Dataset.Bogachev.Defs
-import Mathlib.MeasureTheory.Measure.ProbabilityMeasure
 
 /-!
 # `bogachev_4_6_3_nikodym_vitali_hahn_saks` — 4.6.3

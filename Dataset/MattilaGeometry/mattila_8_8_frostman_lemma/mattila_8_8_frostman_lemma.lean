@@ -1,5 +1,4 @@
 import Dataset.MattilaGeometry.Defs
-import Mathlib.MeasureTheory.Measure.Support
 
 /-!
 # `mattila_8_8_frostman_lemma` — 8.8

@@ -1,6 +1,4 @@
 import Dataset.KallenbergProbability.Defs
-import Mathlib.MeasureTheory.Function.ConvergenceInDistribution
-import Mathlib.Order.Filter.AtTopBot.Basic
 
 /-!
 # `kallenberg_23_6_functional_central_limit`

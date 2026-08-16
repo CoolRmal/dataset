@@ -1,5 +1,4 @@
 import Dataset.NivenZuckermanNumberTheory.Defs
-import Mathlib.NumberTheory.ArithmeticFunction.Moebius
 
 /-!
 # `niven_zuckerman_11_3_moebius_zeta_product`

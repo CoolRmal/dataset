@@ -1,5 +1,4 @@
 import Dataset.BogachevGaussian.Defs
-import Mathlib.Probability.Distributions.Gaussian.Multivariate
 
 /-!
 # `bogachev_gaussian_4_2_1_ehrhard_inequality`

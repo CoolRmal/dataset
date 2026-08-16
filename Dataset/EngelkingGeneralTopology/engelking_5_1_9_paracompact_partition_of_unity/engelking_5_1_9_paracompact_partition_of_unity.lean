@@ -1,5 +1,4 @@
 import Dataset.EngelkingGeneralTopology.Defs
-import Mathlib.Topology.PartitionOfUnity
 
 /-!
 # `engelking_5_1_9_paracompact_partition_of_unity` — 5.1.9

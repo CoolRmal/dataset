@@ -1,5 +1,4 @@
 import Dataset.KongODE.Defs
-import Mathlib.Analysis.Calculus.ContDiff.Basic
 
 /-!
 # `kong_5_4_2_hopf_friedrich_dichotomy`

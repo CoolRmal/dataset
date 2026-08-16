@@ -1,5 +1,3 @@
-import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
-import Mathlib.Topology.MetricSpace.HausdorffDimension
 import Dataset.MattilaGeometry.Defs
 
 /-!

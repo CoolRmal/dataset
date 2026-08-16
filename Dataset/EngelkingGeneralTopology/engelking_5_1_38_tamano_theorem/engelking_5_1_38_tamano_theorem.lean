@@ -1,5 +1,4 @@
 import Dataset.EngelkingGeneralTopology.Defs
-import Mathlib.Topology.Compactness.Paracompact
 
 /-!
 # `engelking_5_1_38_tamano_theorem` — 5.1.38

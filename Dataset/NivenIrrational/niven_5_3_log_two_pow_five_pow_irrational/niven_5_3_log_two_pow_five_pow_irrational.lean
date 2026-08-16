@@ -1,5 +1,4 @@
 import Dataset.NivenIrrational.Defs
-import Mathlib.NumberTheory.Real.Irrational
 
 /-!
 # `niven_5_3_log_two_pow_five_pow_irrational`

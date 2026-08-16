@@ -1,5 +1,4 @@
 import Dataset.Bogachev.Defs
-import Mathlib.MeasureTheory.Measure.Tight
 
 /-!
 # `bogachev_8_6_2_prokhorov_signed_measures` — 8.6.2

@@ -1,5 +1,4 @@
 import Dataset.Bogachev.Defs
-import Mathlib.Analysis.Calculus.ContDiff.Basic
 
 /-!
 # `proposition_5_5_4` — 5.5.4
