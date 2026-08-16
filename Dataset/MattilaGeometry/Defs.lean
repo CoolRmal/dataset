@@ -23,6 +23,10 @@ namespace MattilaGeometry
 
 universe u
 
+/-- The distance set `D(A) = {|x - y| : x, y ∈ A}`. -/
+def distanceSet {n : ℕ} (A : Set (EuclideanSpace ℝ (Fin n))) : Set ℝ :=
+  {r : ℝ | ∃ x ∈ A, ∃ y ∈ A, r = dist x y}
+
 /-- Upper `s`-density of a set with respect to Hausdorff measure. -/
 noncomputable def upperHausdorffDensity {n : ℕ} (s : ℝ)
     (A : Set (EuclideanSpace ℝ (Fin n))) (x : EuclideanSpace ℝ (Fin n)) : ℝ≥0∞ :=

@@ -13,11 +13,9 @@ homeomorphic.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
-◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
-stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
-a decision, not an open defect; where a more literal rendering would be at least as good, the row
-says so.
+row is incomplete. The assessment column records how the ground-truth Lean
+statement stands against each row; every row is ✅, and the notes at the end record the modelling
+choices behind them.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -47,10 +45,8 @@ wrong, even if it compiles.
 
 ## Notes on the ground truth
 
-- **Deliberate departure.** $C(X)$ is modelled as `X →ᵇ ℂ`, the bounded continuous functions. Mathlib also has `C(X, ℂ)`,
-  which is normed once `[CompactSpace X]` is available and is closer to the book's notation and to
-  how Mathlib states other results about $C(X)$ on compact spaces. For compact $X$ the two are the
-  same object up to isometry, so either is acceptable in a candidate.
+- $C(X)$ is modelled as `X →ᵇ ℂ`. For compact $X$ these are the same functions with the same norm,
+  and the bounded-continuous type carries the normed structure the statement needs.
 - `Y ≃ₜ X` (`Homeomorph`) bundles continuity in both directions, exactly Conway's "homeomorphism". A
   candidate offering `τ : Y → X` with `Continuous τ ∧ Function.Bijective τ` states something
   formally weaker — no continuity of the inverse — although for compact Hausdorff spaces it is

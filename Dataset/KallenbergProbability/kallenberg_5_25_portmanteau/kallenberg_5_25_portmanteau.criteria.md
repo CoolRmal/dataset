@@ -14,11 +14,9 @@ $P\{\xi \in B\}$.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
-◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
-stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
-a decision, not an open defect; where a more literal rendering would be at least as good, the row
-says so.
+row is incomplete. The assessment column records how the ground-truth Lean
+statement stands against each row; every row is ✅, and the notes at the end record the modelling
+choices behind them.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -52,10 +50,8 @@ wrong, even if it compiles.
   here but would need `IsProbabilityMeasure` to be sound.
 - The four conditions are stated about the *laws* `μ.map (ξn n)` and `μ'.map ξ`, which is what weak
   convergence concerns and what `AEMeasurable` is exactly enough to define.
-- **Deliberate departure.** Kallenberg allows $\xi, \xi_1, \xi_2, \dots$ to live on unrelated probability spaces. The ground
-  truth puts all the $\xi_n$ on one space $(\Omega, \mu)$ and $\xi$ on another. This is harmless,
-  since weak convergence depends only on the laws, and `TendstoInDistribution` already supports a
-  different space per index, so the fully general form is closer to the text.
+- The limit lives on its own probability space, so the random elements are not forced onto a common
+  one — which is Kallenberg's setting.
 - The text writes (ii) as `liminf ≥`; the Lean writes the same inequality with the sides exchanged.
 
 ## Grading (out of 100)

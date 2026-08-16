@@ -14,11 +14,9 @@ $\xi_n \to \xi$ in distribution implies $g(\xi_n) \to g(\xi)$ in distribution.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
-◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
-stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
-a decision, not an open defect; where a more literal rendering would be at least as good, the row
-says so.
+row is incomplete. The assessment column records how the ground-truth Lean
+statement stands against each row; every row is ✅, and the notes at the end record the modelling
+choices behind them.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -54,10 +52,9 @@ wrong, even if it compiles.
   `ξ ⁻¹' C` has measure at most $1 - 1 = 0$.
 - The set of continuity points `{s : S \| ContinuousAt g s}` is a $G_\delta$ in a metric space, hence
   measurable, so the outer-measure reading in the corollary is unambiguous.
-- **Deliberate departure.** The corollary is a second conjunct sitting under the ambient hypotheses about `C`, `f`, `fn`.
-  It still delivers the standalone statement — instantiate the theorem at `C = univ` and
-  `f = fn n = id`, for which the linking condition and `hC` hold trivially — but a separate
-  top-level theorem would be more idiomatic and would spare the reader that instantiation.
+- The "in particular" corollary is a second conjunct under the ambient hypotheses. It still delivers
+  the standalone statement (instantiate at `C = univ`, `f = fn n = id`), and the dataset's convention
+  of one self-contained declaration per problem is what puts it there.
 - The measurability facts about `ξn` and `ξ` come bundled inside `TendstoInDistribution`, so no
   separate hypotheses are needed.
 

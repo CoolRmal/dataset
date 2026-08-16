@@ -17,11 +17,9 @@ Both directions use that $I$ is a linear subspace and that it is closed.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
-◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
-stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
-a decision, not an open defect; where a more literal rendering would be at least as good, the row
-says so.
+row is incomplete. The assessment column records how the ground-truth Lean
+statement stands against each row; every row is ✅, and the notes at the end record the modelling
+choices behind them.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|

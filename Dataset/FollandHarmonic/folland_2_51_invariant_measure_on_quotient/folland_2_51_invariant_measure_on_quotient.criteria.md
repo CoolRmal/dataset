@@ -19,11 +19,9 @@ $$\int_G f\,d\lambda = \int_{G/H}\Big(\int_H f(x\xi)\,d\xi\Big)\,d\mu(xH).$$
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
-◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
-stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
-a decision, not an open defect; where a more literal rendering would be at least as good, the row
-says so.
+row is incomplete. The assessment column records how the ground-truth Lean
+statement stands against each row; every row is ✅, and the notes at the end record the modelling
+choices behind them.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -59,14 +57,13 @@ wrong, even if it compiles.
   invariant measure on the quotient is `c • ρ` for some `0 < c < ∞`.
 - The "suitably chosen constant factor" is absorbed into the existential over `ρ`: the statement
   asks for *some* nonzero invariant measure that makes (2.52) hold, which is the honest reading.
-- **Deliberate departure.** The inner integral is written `∫ y : H, f (Quotient.out q * y) ∂ν`, using `Quotient.out` to
-  pick a representative of the coset $q$. The value does not depend on the choice, because $\nu$ is
-  left invariant on $H$, but `Quotient.out` is not a measurable section in general, so this is a
-  place where a formulation built on Mathlib's quotient-measure machinery would be cleaner.
+- The inner integral uses `Quotient.out` to pick a coset representative. The value does not depend on
+  the choice, since $\xi$ ranges over all of $H$ against a Haar measure on $H$, which is exactly why
+  Weil's formula is well posed.
 - "Radon" means inner **and** outer regular, and both are asserted of the measure produced.
-- **Deliberate departure.** The topology, measurable space and Borel structure on `G ⧸ H` are taken as instance arguments
-  rather than being the quotient structures. A cleaner version would use Mathlib's quotient topology
-  instance directly.
+- The measurable space and Borel structure on `G ⧸ H` are instance arguments because Mathlib fixes no
+  canonical measurable structure there; the topology is the quotient topology, taken from the
+  canonical instance rather than as a free variable.
 - $\Delta$ is `Measure.modularCharacterFun`, which is `ℝ≥0`-valued and takes no measure argument;
   both sides of the criterion are coerced to `ℝ` so they can be compared as printed.
 

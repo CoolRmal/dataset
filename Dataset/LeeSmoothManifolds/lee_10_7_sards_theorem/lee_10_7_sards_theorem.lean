@@ -1,5 +1,6 @@
 import Mathlib.Geometry.Manifold.SmoothApprox
 import Mathlib.Geometry.Manifold.Submersion
+import Dataset.LeeSmoothManifolds.Defs
 
 /-!
 # `lee_10_7_sards_theorem`
@@ -25,11 +26,9 @@ theorem lee_10_7_sards_theorem
     [TopologicalSpace N] [ChartedSpace ((Fin n → ℝ)) N]
     [IsManifold 𝓘(ℝ, (Fin n → ℝ)) ∞ N] [T2Space N] [SecondCountableTopology N]
     {F : M → N} (hF : ContMDiff 𝓘(ℝ, (Fin m → ℝ)) 𝓘(ℝ, (Fin n → ℝ)) ∞ F) :
-    let critical := {p : M |
-      ¬Manifold.IsSubmersionAt 𝓘(ℝ, (Fin m → ℝ)) 𝓘(ℝ, (Fin n → ℝ)) ∞ F p}
     ∀ ψ : OpenPartialHomeomorph N (Fin n → ℝ),
       ψ ∈ IsManifold.maximalAtlas 𝓘(ℝ, (Fin n → ℝ)) ∞ N →
-        volume (ψ '' (F '' critical ∩ ψ.source)) = 0 := by
+        volume (ψ '' (F '' CriticalSet (m := m) (n := n) F ∩ ψ.source)) = 0 := by
   sorry
 
 end LeeSmoothManifolds

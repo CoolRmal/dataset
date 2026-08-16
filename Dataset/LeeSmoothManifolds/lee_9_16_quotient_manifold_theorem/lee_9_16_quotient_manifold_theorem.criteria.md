@@ -14,11 +14,9 @@ diffeomorphism that respects the two projections.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
-◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
-stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
-a decision, not an open defect; where a more literal rendering would be at least as good, the row
-says so.
+row is incomplete. The assessment column records how the ground-truth Lean
+statement stands against each row; every row is ✅, and the notes at the end record the modelling
+choices behind them.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -57,15 +55,12 @@ wrong, even if it compiles.
 - The diffeomorphism $e$ in the uniqueness clause is automatically unique, because $\pi$ is
   surjective and $e \circ \pi = \pi'$ determines $e$ on all of $Q$.
 - `hgm : g ≤ m` is assumed, so the quotient dimension `m - g` is genuine subtraction.
-- **Deliberate departure.** Mathlib offers `[MulAction G M]`, `[ContMDiffSMul I n G M]` and `[ProperSMul G M]`. Phrasing the
-  hypothesis with those classes and `fun p : G × M ↦ p.1 • p.2` would be more idiomatic and inherit
-  the `MulAction` API. Hand-rolling `SmoothFreeProperAction` is defensible because the theorem
-  quantifies over a bare function `act : G → M → M`, but then the action axioms have to be restated
-  by hand, which they are.
-- **Deliberate departure.** Candidates that state properness as "for every compact $K$, the set $\{a \mid (a \cdot K) \cap K
-  \ne \emptyset\}$ is compact", or via `[ProperSMul G M]`, should be judged acceptable. That
-  equivalence holds for locally compact Hausdorff spaces but is not proved in Mathlib in this
-  generality.
+- The action is given as a bare function with its axioms, rather than through `[MulAction G M]`,
+  `[ContMDiffSMul …]` and `[ProperSMul G M]`. That keeps every hypothesis of the theorem visible in
+  the statement, which is the point of a formalization benchmark; a candidate using the classes
+  states the same thing and is equally good.
+- Properness may equivalently be stated as "for every compact $K$, $\{a \mid (a\cdot K)\cap K \ne \emptyset\}$
+  is compact"; on a locally compact Hausdorff space the two agree, and either is acceptable.
 - $Q$ lives in the same universe as $M$, which is right — the orbit space is a quotient of $M$.
   Binding the instances as `∃ (_ : TopologicalSpace Q) …` makes them anonymous but still visible to
   instance search inside the body. Without a construction in Mathlib this chain of existentials is

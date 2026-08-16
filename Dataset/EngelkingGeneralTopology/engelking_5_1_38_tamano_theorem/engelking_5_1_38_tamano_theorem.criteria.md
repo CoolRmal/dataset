@@ -15,11 +15,9 @@ content lies.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
-◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
-stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
-a decision, not an open defect; where a more literal rendering would be at least as good, the row
-says so.
+row is incomplete. The assessment column records how the ground-truth Lean
+statement stands against each row; every row is ✅, and the notes at the end record the modelling
+choices behind them.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -50,10 +48,9 @@ wrong, even if it compiles.
 ## Notes on the ground truth
 
 - Compactness of a compactification is `CompactSpace K`, the idiomatic class.
-- **Deliberate departure.** Inside items (ii) and (iv), `NormalSpace` is applied with an explicit `@` and a hand-written
-  product topology while the neighbouring `T1Space (X × K)` is written without `@`, relying on `tK`
-  being picked up as a local instance. The two spellings agree definitionally, but the inconsistency
-  is fragile; `letI := tK`, or instance-implicit binders, would be cleaner.
+- Items (ii) and (iv) bring the bound topology into scope with `letI := tK`, so `IsCompactification`,
+  `NormalSpace` and `T1Space` are all written uniformly, with the product carrying its canonical
+  topology rather than a hand-written meet of induced topologies.
 - Every index type quantified in the statement lives in `X`'s own universe. That costs no
   generality — a cover of `X` can always be re-indexed by its image in `Set X` — and it removes
   the free universe parameter, so the statement is about all covers rather than about covers in

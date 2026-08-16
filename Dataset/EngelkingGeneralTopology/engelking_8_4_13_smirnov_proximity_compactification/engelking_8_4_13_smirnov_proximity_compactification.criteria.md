@@ -15,11 +15,9 @@ copies of $X$.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
-◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
-stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
-a decision, not an open defect; where a more literal rendering would be at least as good, the row
-says so.
+row is incomplete. The assessment column records how the ground-truth Lean
+statement stands against each row; every row is ✅, and the notes at the end record the modelling
+choices behind them.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -61,8 +59,8 @@ wrong, even if it compiles.
   compactification predicates are hand-rolled; `Homeomorph`, `IsEmbedding`, `DenseRange`, `closure`
   and `Set.Nonempty` are the correct mathlib primitives. `union_left` is stated on the left only,
   which suffices given `symmetric`.
-- **Deliberate departure.** `T2Space K` and `IsCompact univ` appear as `Prop`-conjuncts rather than instances. This is
-  forced by `tK` being a bound variable and is acceptable.
+- `IsCompactification` bundles `CompactSpace K` and `T2Space K` as `Prop`-conjuncts, which is forced
+  because the topology on `K` is a bound variable rather than an instance.
 - Every index type quantified in the statement lives in `X`'s own universe. That costs no
   generality — a cover of `X` can always be re-indexed by its image in `Set X` — and it removes
   the free universe parameter, so the statement is about all covers rather than about covers in

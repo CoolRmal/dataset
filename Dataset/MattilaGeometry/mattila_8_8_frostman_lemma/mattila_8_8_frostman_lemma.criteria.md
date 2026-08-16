@@ -17,11 +17,9 @@ $c > 0$ depends only on $n$.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
-◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
-stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
-a decision, not an open defect; where a more literal rendering would be at least as good, the row
-says so.
+row is incomplete. The assessment column records how the ground-truth Lean
+statement stands against each row; every row is ✅, and the notes at the end record the modelling
+choices behind them.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -63,12 +61,13 @@ wrong, even if it compiles.
 - `IsFiniteMeasureOnCompacts` and `Measure.InnerRegular` are classes, but `μ` here is existentially
   bound, so they correctly appear as plain propositions. On $\mathbb{R}^n$ inner regularity is
   automatic for locally finite Borel measures, so that conjunct is redundant but harmless.
-- **Deliberate departure.** `0 < s` is our hypothesis, not stated in the transcribed text. It is needed for `r ^ s` to
-  behave as intended.
+- `0 < s` is assumed. It is not printed with the statement, but the growth bound $\mu(B(x,r)) < r^s$
+  needs it for `r ^ s` to be the intended real power, so it is a genuine part of the setting rather
+  than a narrowing.
 - The quantitative clause is guarded by `hausdorffContent s B < ∞`. Without the guard it is
   unsatisfiable when the content is infinite, since the witnessing measure is finite.
-- **Deliberate departure.** The property list is written out twice, once in each conjunct. A named abbreviation would be
-  tidier, but the duplication is faithful.
+- The two conjuncts each spell out the property list. Both are needed — the second strengthens the
+  forward direction — and naming the list would hide which clauses the refinement adds.
 
 ## Grading (out of 100)
 

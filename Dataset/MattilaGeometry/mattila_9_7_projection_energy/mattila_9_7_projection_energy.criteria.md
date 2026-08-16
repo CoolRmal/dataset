@@ -16,11 +16,9 @@ on $n$ and $m$.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
-◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
-stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
-a decision, not an open defect; where a more literal rendering would be at least as good, the row
-says so.
+row is incomplete. The assessment column records how the ground-truth Lean
+statement stands against each row; every row is ✅, and the notes at the end record the modelling
+choices behind them.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -61,11 +59,9 @@ wrong, even if it compiles.
   almost every `V`, rather than canonically. This is sound: the values of `density V` are pinned
   $\mathcal{H}^m$-almost everywhere for almost every `V`, and both integrals ignore null-set
   ambiguity.
-- **Deliberate departure.** Using `(Measure.map (fun x ↦ V.1.orthogonalProjectionOnto x) μ).rnDeriv μH[(m:ℝ)]` would be
-  canonical and would avoid the existential altogether. The existential form is also slightly loose
-  in another way: the chosen `density` is not required to be measurable, and `∫⁻` of a
-  non-measurable function is the supremum over measurable functions below it, so the left-hand side
-  could come out smaller than the intended $L^2$ integral.
+- The density is existentially bound and pinned by `Measure.map … μ = μH[m].withDensity (density V)`,
+  which is the defining property of a Radon–Nikodym derivative and avoids depending on Mathlib's
+  particular `rnDeriv` normalisation on the null set where it is not determined.
 - The bound is stated with the strict `<` the book writes.
 - Radon-ness is carried by instance binders `[IsFiniteMeasureOnCompacts μ] [Measure.InnerRegular μ]`,
   which is what these classes are for.

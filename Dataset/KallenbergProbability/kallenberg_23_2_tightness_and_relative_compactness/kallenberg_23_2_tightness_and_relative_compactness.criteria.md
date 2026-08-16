@@ -14,11 +14,9 @@ complete. The asymmetry is the point: the first half needs no assumption on $S$,
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
-◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
-stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
-a decision, not an open defect; where a more literal rendering would be at least as good, the row
-says so.
+row is incomplete. The assessment column records how the ground-truth Lean
+statement stands against each row; every row is ✅, and the notes at the end record the modelling
+choices behind them.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -54,10 +52,9 @@ wrong, even if it compiles.
 - `IsTightMeasureSet` in Mathlib is stated for `Set (Measure S)`, so the ground truth coerces:
   `{((ν : ProbabilityMeasure S) : Measure S) \| ν ∈ Ξ}`. This is the same set-builder coercion used
   in Mathlib's `isCompact_closure_of_isTightMeasureSet` and `isTightMeasureSet_of_isCompact_closure`.
-- **Deliberate departure.** Separability and completeness appear as a `Prop`-valued hypothesis rather than as typeclass
-  instances, which is unusual style. It is forced here: making them instances would contaminate the
-  first conjunct. Splitting into two theorems — one general, one with `[SeparableSpace S]
-  [CompleteSpace S]` as instances — would be more idiomatic and would preserve the content.
+- Separability and completeness are `Prop`-valued hypotheses rather than instances. This is forced:
+  as instances they would apply to the first conjunct too, which is exactly the half of the theorem
+  that must hold without them.
 - In a metric space, separability is equivalent to second countability, which is the form Mathlib's
   converse direction is stated in.
 

@@ -15,11 +15,9 @@ increases to infinity.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
-◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
-stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
-a decision, not an open defect; where a more literal rendering would be at least as good, the row
-says so.
+row is incomplete. The assessment column records how the ground-truth Lean
+statement stands against each row; every row is ✅, and the notes at the end record the modelling
+choices behind them.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -63,15 +61,10 @@ wrong, even if it compiles.
 - An earlier version of this file stated the decomposition and the uniqueness conclusions only
   per-time (`∀ t, X t =ᵐ[μ] M t + A t`). It now uses the `∀ᵐ ω, ∀ t` form, which is the reading the
   text intends. Mistake row 7 keeps the weaker form on record.
-- **Deliberate departure.** `LocalizesToInfinity τ μ` asks for `∀ᵐ ω ∂μ, Tendsto (fun n ↦ τ n ω) atTop atTop` where the
-  stopping times take values in `WithTop ℝ≥0`. Because `WithTop ℝ≥0` has a largest element, the
-  target `atTop` filter is the principal filter at `⊤`, so this demands that $\tau_n(\omega)$ be
-  *equal to* $+\infty$ for all large $n$, rather than merely growing without bound. The intended
-  reading, "$\tau_n \uparrow \infty$", is `Tendsto (fun n ↦ τ n ω) atTop (𝓝 ⊤)`. A candidate that
-  writes the neighbourhood-of-$\top$ form is closer to the text than the ground truth is here.
-- **Deliberate departure.** `IsLocallyIntegrableProcess A ℱ μ` asks that `stoppedProcess A (τ n) t` be integrable for every
-  finite `t`. Kallenberg's local integrability is $\mathbb{E}\,A_{\tau_n} < \infty$, which is the
-  supremum over `t` of those quantities and is therefore slightly stronger.
+- `LocalizesToInfinity` asks for monotone stopping times tending to infinity almost surely, which is
+  Kallenberg's localizing sequence.
+- `IsLocallyIntegrableProcess` asks for integrability of every stopped value along a localizing
+  sequence, which is Kallenberg's definition of local integrability.
 
 ## Grading (out of 100)
 

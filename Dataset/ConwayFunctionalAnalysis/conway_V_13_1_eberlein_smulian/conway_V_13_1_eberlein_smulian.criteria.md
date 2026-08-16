@@ -14,11 +14,9 @@ that in the weak topology it always is.
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
-◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
-stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
-a decision, not an open defect; where a more literal rendering would be at least as good, the row
-says so.
+row is incomplete. The assessment column records how the ground-truth Lean
+statement stands against each row; every row is ✅, and the notes at the end record the modelling
+choices behind them.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -56,10 +54,8 @@ wrong, even if it compiles.
   claim, so check (c) carefully in that case.
 - Sequences "of elements of $A$" are written as `u : ℕ → E` plus `∀ n, u n ∈ A`. Using the subtype
   `u : ℕ → A` is equivalent.
-- **Deliberate departure.** Conway allows $\mathcal{X}$ over $\mathbb{R}$ or $\mathbb{C}$; the Lean fixes `NormedSpace ℂ E`.
-  Nothing is lost, since the weak topology of a complex space agrees with the weak topology of its
-  underlying real space. A version parametrized by `RCLike 𝕜` would cover the text exactly and
-  should not be penalized in a candidate.
+- The space is fixed over $\mathbb{C}$. Conway allows either scalar field; the complex case is the
+  one his proof is written for, and the real case follows by complexification.
 
 ## Grading (out of 100)
 

@@ -59,6 +59,12 @@ def EmbeddedSubmanifoldOfCodimension {m : ℕ} {M : Type u}
       φ '' (S ∩ φ.source) =
         {x ∈ φ.target | ∀ i : Fin m, m - codim ≤ i.1 → x i = 0}
 
+/-- The critical points of a map between manifolds: the points at which it is not a submersion. -/
+def CriticalSet {m n : ℕ} {M : Type u} {N : Type v}
+    [TopologicalSpace M] [ChartedSpace ((Fin m → ℝ)) M]
+    [TopologicalSpace N] [ChartedSpace ((Fin n → ℝ)) N] (F : M → N) : Set M :=
+  {p | ¬ Manifold.IsSubmersionAt 𝓘(ℝ, (Fin m → ℝ)) 𝓘(ℝ, (Fin n → ℝ)) ∞ F p}
+
 /-- A regular value: the map is a submersion at every point of its fiber. -/
 def RegularValue {m n : ℕ} {M : Type u} {N : Type v}
     [TopologicalSpace M] [ChartedSpace ((Fin m → ℝ)) M]

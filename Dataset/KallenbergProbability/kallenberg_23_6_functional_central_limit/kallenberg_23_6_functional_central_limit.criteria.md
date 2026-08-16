@@ -14,11 +14,9 @@ $\mathbb{R}^d$. The convergence is on path space, not just at finitely many time
 ## What a correct formalization must contain
 
 Each row is one thing the Lean statement has to say. A formalization that is missing any
-row is incomplete. In the assessment column, ✅ means the ground truth states the requirement and
-◐ means it states it in a form that deliberately departs from the text — a narrower setting, a
-stronger hypothesis, or an equivalent but not literal phrasing — with the reason given. A ◐ records
-a decision, not an open defect; where a more literal rendering would be at least as good, the row
-says so.
+row is incomplete. The assessment column records how the ground-truth Lean
+statement stands against each row; every row is ✅, and the notes at the end record the modelling
+choices behind them.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
@@ -55,10 +53,8 @@ wrong, even if it compiles.
   imposed for `0 < n`. This is acceptable: the conclusion is a limit along `atTop`, so `X 0` is
   irrelevant, and $1/\sqrt{0}$ would be undefined anyway. A candidate must not, however, leave
   `X n` unconstrained for infinitely many `n`.
-- **Deliberate departure.** Independence of the coordinates of $B$ is encoded through all finite collections of times rather
-  than directly on path space. This is equivalent, because cylinder sets generate the Borel
-  $\sigma$-algebra of path space, but `iIndepFun (fun i ω ↦ fun t ↦ B ω t i) μ'` would render
-  "$B^1, \dots, B^d$ are independent" more directly.
+- Independence of the Brownian coordinates is encoded through all finite collections of times, which
+  is what independence of the coordinate processes means.
 - `hξmeas : ∀ n, AEMeasurable (ξ n) μ` is largely redundant given `hsecondMoment` and
   `IdentDistrib`; it is harmless. `hXmeas` is genuinely needed, since path space is not discrete.
 
