@@ -4,13 +4,6 @@
 
 Background needed to read the statement correctly. Natural language only: no Lean, and no hint at how to formalize it.
 
-## Uncountability of the transcendentals
+## Notation
 
-**The set** is $\{x \in \mathbb{R} : x$ is transcendental over $\mathbb{Q}\}$ — the **real** transcendental
-numbers, not the complex ones and not the algebraic ones.
-
-**Uncountable** means not countable: there is no injection into $\mathbb{N}$, equivalently no surjection
-from $\mathbb{N}$ onto it. The proof is the classical counting argument — the algebraic numbers are
-countable and $\mathbb{R}$ is not — so the statement is about the complement of a countable set.
-
-**Transcendence is over $\mathbb{Q}$**, and the statement is unconditional.
+The set is the **real** transcendental numbers, transcendence being over $\mathbb{Q}$. "Uncountable" is the negation of countable.
