@@ -1,13 +1,5 @@
 import Dataset.EngelkingGeneralTopology.Defs
-import Mathlib.Topology.Compactness.Compact
 import Mathlib.Topology.Compactness.Paracompact
-import Mathlib.Topology.ContinuousMap.Compact
-import Mathlib.Topology.LocallyFinite
-import Mathlib.Topology.Metrizable.Basic
-import Mathlib.Topology.PartitionOfUnity
-import Mathlib.Topology.Compactification.StoneCech
-import Mathlib.Topology.Separation.CompletelyRegular
-import Mathlib.Tactic.TFAE
 
 /-!
 # `engelking_5_1_38_tamano_theorem` — 5.1.38
@@ -16,8 +8,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `engelking_5_1_38_tamano_theorem.md`.
 Quality rubric: `engelking_5_1_38_tamano_theorem.criteria.md`.
 -/
-
-open Function Set TopologicalSpace Topology
 
 namespace Dataset
 namespace EngelkingGeneralTopology

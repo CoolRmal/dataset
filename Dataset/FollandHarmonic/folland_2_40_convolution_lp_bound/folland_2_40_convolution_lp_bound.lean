@@ -9,8 +9,8 @@ Natural-language statement: `folland_2_40_convolution_lp_bound.md`.
 Quality rubric: `folland_2_40_convolution_lp_bound.criteria.md`.
 -/
 
-open Filter MeasureTheory Set Topology
-open scoped ENNReal NNReal Topology
+open MeasureTheory
+open scoped ENNReal
 
 namespace Dataset
 namespace FollandHarmonic

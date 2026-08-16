@@ -1,8 +1,4 @@
 import Dataset.GrafakosFourier.Defs
-import Mathlib.Analysis.Distribution.SchwartzSpace.Fourier
-import Mathlib.Analysis.Fourier.AddCircle
-import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
-import Mathlib.MeasureTheory.Integral.Bochner.Basic
 
 /-!
 # `grafakos_1_3_2_marcinkiewicz_interpolation`
@@ -12,8 +8,8 @@ Natural-language statement: `grafakos_1_3_2_marcinkiewicz_interpolation.md`.
 Quality rubric: `grafakos_1_3_2_marcinkiewicz_interpolation.criteria.md`.
 -/
 
-open Filter Function MeasureTheory Metric Set
-open scoped ENNReal FourierTransform SchwartzMap Topology
+open MeasureTheory
+open scoped ENNReal
 
 namespace Dataset
 namespace GrafakosFourier

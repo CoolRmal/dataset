@@ -8,8 +8,7 @@ Natural-language statement: `hayman_2_4_deficiency_relation.md`.
 Quality rubric: `hayman_2_4_deficiency_relation.criteria.md`.
 -/
 
-open Filter MeasureTheory Set ValueDistribution
-open scoped Topology
+open Filter ValueDistribution
 
 namespace Dataset
 namespace HaymanMeromorphic

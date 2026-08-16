@@ -1,6 +1,4 @@
 import Dataset.BogachevGaussian.Defs
-import Mathlib.Analysis.LocallyConvex.WithSeminorms
-import Mathlib.MeasureTheory.Measure.MutuallySingular
 
 /-!
 # `bogachev_gaussian_2_7_2_feldman_hajek`
@@ -10,8 +8,7 @@ Natural-language statement: `bogachev_gaussian_2_7_2_feldman_hajek.md`.
 Quality rubric: `bogachev_gaussian_2_7_2_feldman_hajek.criteria.md`.
 -/
 
-open MeasureTheory ProbabilityTheory Set
-open scoped ENNReal NNReal
+open MeasureTheory ProbabilityTheory
 
 namespace Dataset
 namespace BogachevGaussian

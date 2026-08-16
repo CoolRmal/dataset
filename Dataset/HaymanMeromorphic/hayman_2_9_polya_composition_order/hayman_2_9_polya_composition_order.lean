@@ -8,9 +8,6 @@ Natural-language statement: `hayman_2_9_polya_composition_order.md`.
 Quality rubric: `hayman_2_9_polya_composition_order.criteria.md`.
 -/
 
-open Filter MeasureTheory Set ValueDistribution
-open scoped Topology
-
 namespace Dataset
 namespace HaymanMeromorphic
 

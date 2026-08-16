@@ -1,15 +1,4 @@
-import Mathlib.Analysis.Calculus.ContDiff.Basic
-import Mathlib.Analysis.Convex.Function
-import Mathlib.Analysis.Normed.Module.FiniteDimension
-import Mathlib.MeasureTheory.Constructions.Polish.Basic
-import Mathlib.MeasureTheory.Function.UniformIntegrable
 import Mathlib.MeasureTheory.Integral.Prod
-import Mathlib.MeasureTheory.Measure.NullMeasurable
-import Mathlib.MeasureTheory.Measure.ProbabilityMeasure
-import Mathlib.MeasureTheory.Measure.Regular
-import Mathlib.MeasureTheory.Measure.Tight
-import Mathlib.MeasureTheory.VectorMeasure.Basic
-import Mathlib.MeasureTheory.VectorMeasure.Decomposition.Jordan
 
 /-!
 # `hardy_average_and_tail_memLp` — 4.7.75
@@ -19,8 +8,7 @@ Natural-language statement: `hardy_average_and_tail_memLp.md`.
 Quality rubric: `hardy_average_and_tail_memLp.criteria.md`.
 -/
 
-open Filter MeasureTheory ProbabilityTheory Set Topology
-open scoped BoundedContinuousFunction ENNReal MeasureTheory NNReal ProbabilityTheory Topology
+open MeasureTheory Set
 
 namespace Dataset
 namespace Bogachev

@@ -1,9 +1,4 @@
 import Dataset.KrylovHolder.Defs
-import Mathlib.Analysis.Calculus.ContDiff.Basic
-import Mathlib.Analysis.Calculus.IteratedDeriv.Defs
-import Mathlib.MeasureTheory.Integral.Bochner.Basic
-import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
-import Mathlib.MeasureTheory.Measure.Hausdorff
 
 /-!
 # `krylov_4_2_1_better_regular_data_better_regular_solution`
@@ -13,8 +8,8 @@ Natural-language statement: `krylov_4_2_1_better_regular_data_better_regular_sol
 Quality rubric: `krylov_4_2_1_better_regular_data_better_regular_solution.criteria.md`.
 -/
 
-open Filter Function MeasureTheory Set Topology
-open scoped ENNReal Topology
+open Set
+open scoped ENNReal
 
 namespace Dataset
 namespace KrylovHolder

@@ -9,9 +9,6 @@ Natural-language statement: `folland_4_81_almost_periodic_characterization.md`.
 Quality rubric: `folland_4_81_almost_periodic_characterization.criteria.md`.
 -/
 
-open Filter MeasureTheory Set Topology
-open scoped ENNReal NNReal Topology
-
 namespace Dataset
 namespace FollandHarmonic
 

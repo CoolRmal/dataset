@@ -1,7 +1,4 @@
 import Dataset.KrylovSobolev.Defs
-import Mathlib.Analysis.Calculus.ContDiff.Basic
-import Mathlib.MeasureTheory.Measure.Haar.OfBasis
-import Mathlib.Topology.Algebra.Support
 
 /-!
 # `krylov_sobolev_1_4_8_two_dim_measurable_coeff_L2_estimate`
@@ -11,8 +8,7 @@ Natural-language statement: `krylov_sobolev_1_4_8_two_dim_measurable_coeff_L2_es
 Quality rubric: `krylov_sobolev_1_4_8_two_dim_measurable_coeff_L2_estimate.criteria.md`.
 -/
 
-open Filter Function MeasureTheory Set Topology
-open scoped ContDiff ENNReal Laplacian NNReal SchwartzMap Topology
+open MeasureTheory
 
 namespace Dataset
 namespace KrylovSobolev

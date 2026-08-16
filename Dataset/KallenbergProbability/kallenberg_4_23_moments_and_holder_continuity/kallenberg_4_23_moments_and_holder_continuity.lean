@@ -1,16 +1,4 @@
 import Dataset.KallenbergProbability.Defs
-import Mathlib.MeasureTheory.Function.ConvergenceInDistribution
-import Mathlib.MeasureTheory.Function.UniformIntegrable
-import Mathlib.MeasureTheory.Measure.Prokhorov
-import Mathlib.Probability.BrownianMotion.Basic
-import Mathlib.Probability.Distributions.Gaussian.Real
-import Mathlib.Probability.Kernel.Disintegration.StandardBorel
-import Mathlib.Probability.Martingale.Basic
-import Mathlib.Probability.Moments.Variance
-import Mathlib.Probability.Process.Predictable
-import Mathlib.Probability.Process.Stopping
-import Mathlib.Topology.MetricSpace.HolderNorm
-import Mathlib.Tactic.TFAE
 
 /-!
 # `kallenberg_4_23_moments_and_holder_continuity`
@@ -20,8 +8,7 @@ Natural-language statement: `kallenberg_4_23_moments_and_holder_continuity.md`.
 Quality rubric: `kallenberg_4_23_moments_and_holder_continuity.criteria.md`.
 -/
 
-open Filter MeasureTheory ProbabilityTheory Set Topology
-open scoped ENNReal MeasureTheory NNReal ProbabilityTheory Topology
+open MeasureTheory Set
 
 namespace Dataset
 namespace KallenbergProbability

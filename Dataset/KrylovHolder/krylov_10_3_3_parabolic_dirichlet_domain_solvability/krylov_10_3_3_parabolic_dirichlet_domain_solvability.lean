@@ -1,9 +1,4 @@
 import Dataset.KrylovHolder.Defs
-import Mathlib.Analysis.Calculus.ContDiff.Basic
-import Mathlib.Analysis.Calculus.IteratedDeriv.Defs
-import Mathlib.MeasureTheory.Integral.Bochner.Basic
-import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
-import Mathlib.MeasureTheory.Measure.Hausdorff
 
 /-!
 # `krylov_10_3_3_parabolic_dirichlet_domain_solvability`
@@ -12,9 +7,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `krylov_10_3_3_parabolic_dirichlet_domain_solvability.md`.
 Quality rubric: `krylov_10_3_3_parabolic_dirichlet_domain_solvability.criteria.md`.
 -/
-
-open Filter Function MeasureTheory Set Topology
-open scoped ENNReal Topology
 
 namespace Dataset
 namespace KrylovHolder

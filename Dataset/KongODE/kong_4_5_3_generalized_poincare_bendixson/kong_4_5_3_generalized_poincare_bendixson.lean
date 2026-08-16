@@ -1,10 +1,4 @@
 import Dataset.KongODE.Defs
-import Mathlib.Analysis.Calculus.ContDiff.Defs
-import Mathlib.Analysis.ODE.PicardLindelof
-import Mathlib.Analysis.Normed.Algebra.MatrixExponential
-import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
-import Mathlib.LinearAlgebra.Matrix.Charpoly.Basic
-import Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic
 
 /-!
 # `kong_4_5_3_generalized_poincare_bendixson`
@@ -14,8 +8,7 @@ Natural-language statement: `kong_4_5_3_generalized_poincare_bendixson.md`.
 Quality rubric: `kong_4_5_3_generalized_poincare_bendixson.criteria.md`.
 -/
 
-open Filter Function MeasureTheory Set Topology
-open scoped ENNReal Matrix NNReal Topology
+open Set
 
 namespace Dataset
 namespace KongODE

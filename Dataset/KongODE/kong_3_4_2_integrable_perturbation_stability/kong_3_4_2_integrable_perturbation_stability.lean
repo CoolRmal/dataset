@@ -1,10 +1,4 @@
 import Dataset.KongODE.Defs
-import Mathlib.Analysis.Calculus.ContDiff.Defs
-import Mathlib.Analysis.ODE.PicardLindelof
-import Mathlib.Analysis.Normed.Algebra.MatrixExponential
-import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
-import Mathlib.LinearAlgebra.Matrix.Charpoly.Basic
-import Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic
 
 /-!
 # `kong_3_4_2_integrable_perturbation_stability`
@@ -14,8 +8,7 @@ Natural-language statement: `kong_3_4_2_integrable_perturbation_stability.md`.
 Quality rubric: `kong_3_4_2_integrable_perturbation_stability.criteria.md`.
 -/
 
-open Filter Function MeasureTheory Set Topology
-open scoped ENNReal Matrix NNReal Topology
+open scoped Matrix
 
 namespace Dataset
 namespace KongODE

@@ -8,9 +8,6 @@ Natural-language statement: `hayman_3_8_tumura_clunie_form.md`.
 Quality rubric: `hayman_3_8_tumura_clunie_form.criteria.md`.
 -/
 
-open Filter MeasureTheory Set ValueDistribution
-open scoped Topology
-
 namespace Dataset
 namespace HaymanMeromorphic
 

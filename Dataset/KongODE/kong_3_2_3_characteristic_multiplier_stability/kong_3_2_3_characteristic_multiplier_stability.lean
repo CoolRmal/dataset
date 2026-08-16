@@ -1,10 +1,4 @@
 import Dataset.KongODE.Defs
-import Mathlib.Analysis.Calculus.ContDiff.Defs
-import Mathlib.Analysis.ODE.PicardLindelof
-import Mathlib.Analysis.Normed.Algebra.MatrixExponential
-import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
-import Mathlib.LinearAlgebra.Matrix.Charpoly.Basic
-import Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic
 
 /-!
 # `kong_3_2_3_characteristic_multiplier_stability`
@@ -13,9 +7,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `kong_3_2_3_characteristic_multiplier_stability.md`.
 Quality rubric: `kong_3_2_3_characteristic_multiplier_stability.criteria.md`.
 -/
-
-open Filter Function MeasureTheory Set Topology
-open scoped ENNReal Matrix NNReal Topology
 
 namespace Dataset
 namespace KongODE

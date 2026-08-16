@@ -1,16 +1,4 @@
 import Dataset.KallenbergProbability.Defs
-import Mathlib.MeasureTheory.Function.ConvergenceInDistribution
-import Mathlib.MeasureTheory.Function.UniformIntegrable
-import Mathlib.MeasureTheory.Measure.Prokhorov
-import Mathlib.Probability.BrownianMotion.Basic
-import Mathlib.Probability.Distributions.Gaussian.Real
-import Mathlib.Probability.Kernel.Disintegration.StandardBorel
-import Mathlib.Probability.Martingale.Basic
-import Mathlib.Probability.Moments.Variance
-import Mathlib.Probability.Process.Predictable
-import Mathlib.Probability.Process.Stopping
-import Mathlib.Topology.MetricSpace.HolderNorm
-import Mathlib.Tactic.TFAE
 
 /-!
 # `kallenberg_9_30_optional_sampling_and_closure`
@@ -20,8 +8,8 @@ Natural-language statement: `kallenberg_9_30_optional_sampling_and_closure.md`.
 Quality rubric: `kallenberg_9_30_optional_sampling_and_closure.criteria.md`.
 -/
 
-open Filter MeasureTheory ProbabilityTheory Set Topology
-open scoped ENNReal MeasureTheory NNReal ProbabilityTheory Topology
+open Filter MeasureTheory Set
+open scoped NNReal Topology
 
 namespace Dataset
 namespace KallenbergProbability

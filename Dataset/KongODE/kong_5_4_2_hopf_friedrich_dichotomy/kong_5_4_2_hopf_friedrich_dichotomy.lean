@@ -1,10 +1,5 @@
 import Dataset.KongODE.Defs
-import Mathlib.Analysis.Calculus.ContDiff.Defs
-import Mathlib.Analysis.ODE.PicardLindelof
-import Mathlib.Analysis.Normed.Algebra.MatrixExponential
-import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
-import Mathlib.LinearAlgebra.Matrix.Charpoly.Basic
-import Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic
+import Mathlib.Analysis.Calculus.ContDiff.Basic
 
 /-!
 # `kong_5_4_2_hopf_friedrich_dichotomy`
@@ -14,8 +9,8 @@ Natural-language statement: `kong_5_4_2_hopf_friedrich_dichotomy.md`.
 Quality rubric: `kong_5_4_2_hopf_friedrich_dichotomy.criteria.md`.
 -/
 
-open Filter Function MeasureTheory Set Topology
-open scoped ContDiff ENNReal Matrix NNReal Topology
+open Filter Set
+open scoped Topology ContDiff
 
 namespace Dataset
 namespace KongODE

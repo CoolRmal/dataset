@@ -1,13 +1,4 @@
 import Dataset.ConwayFunctionalAnalysis.Defs
-import Mathlib.Analysis.CStarAlgebra.GelfandNaimarkSegal
-import Mathlib.Analysis.Calculus.Deriv.Basic
-import Mathlib.Analysis.InnerProductSpace.Adjoint
-import Mathlib.Analysis.Normed.Operator.Compact.Basic
-import Mathlib.MeasureTheory.Measure.Complex
-import Mathlib.MeasureTheory.VectorMeasure.Integral
-import Mathlib.Topology.Algebra.Module.Spaces.WeakDual
-import Mathlib.Topology.ContinuousMap.Bounded.Basic
-import Mathlib.Tactic.TFAE
 
 /-!
 # `conway_XI_2_3_left_semi_fredholm_characterizations` — XI.2.3
@@ -17,8 +8,8 @@ Natural-language statement: `conway_XI_2_3_left_semi_fredholm_characterizations.
 Quality rubric: `conway_XI_2_3_left_semi_fredholm_characterizations.criteria.md`.
 -/
 
-open Filter MeasureTheory Set Topology
-open scoped BoundedContinuousFunction Topology
+open Filter MeasureTheory Set
+open scoped Topology
 
 namespace Dataset
 namespace ConwayFunctionalAnalysis

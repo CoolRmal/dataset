@@ -1,8 +1,4 @@
 import Dataset.GrafakosFourier.Defs
-import Mathlib.Analysis.Distribution.SchwartzSpace.Fourier
-import Mathlib.Analysis.Fourier.AddCircle
-import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
-import Mathlib.MeasureTheory.Integral.Bochner.Basic
 
 /-!
 # `grafakos_4_3_15_carleson_hunt_line`
@@ -12,8 +8,8 @@ Natural-language statement: `grafakos_4_3_15_carleson_hunt_line.md`.
 Quality rubric: `grafakos_4_3_15_carleson_hunt_line.criteria.md`.
 -/
 
-open Filter Function MeasureTheory Metric Set
-open scoped ENNReal FourierTransform SchwartzMap Topology
+open MeasureTheory
+open scoped ENNReal SchwartzMap
 
 namespace Dataset
 namespace GrafakosFourier

@@ -8,8 +8,8 @@ Natural-language statement: `krylov_sobolev_13_3_13_negative_order_divergence_de
 Quality rubric: `krylov_sobolev_13_3_13_negative_order_divergence_decomposition.criteria.md`.
 -/
 
-open Filter Function MeasureTheory Set TemperedDistribution Topology
-open scoped ContDiff ENNReal Laplacian LineDeriv NNReal SchwartzMap Topology
+open MeasureTheory TemperedDistribution
+open scoped ENNReal LineDeriv NNReal SchwartzMap
 
 namespace Dataset
 namespace KrylovSobolev

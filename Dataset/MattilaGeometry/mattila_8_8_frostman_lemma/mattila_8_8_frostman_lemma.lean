@@ -1,12 +1,5 @@
 import Dataset.MattilaGeometry.Defs
-import Mathlib.Analysis.InnerProductSpace.Projection.Submodule
-import Mathlib.MeasureTheory.Measure.Hausdorff
-import Mathlib.MeasureTheory.Measure.Decomposition.Lebesgue
-import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
-import Mathlib.MeasureTheory.Measure.Regular
 import Mathlib.MeasureTheory.Measure.Support
-import Mathlib.Topology.MetricSpace.HausdorffDimension
-import Mathlib.Tactic.TFAE
 
 /-!
 # `mattila_8_8_frostman_lemma` — 8.8
@@ -16,8 +9,8 @@ Natural-language statement: `mattila_8_8_frostman_lemma.md`.
 Quality rubric: `mattila_8_8_frostman_lemma.criteria.md`.
 -/
 
-open Filter Function MeasureTheory Metric Set Topology
-open scoped ENNReal MeasureTheory NNReal Topology
+open MeasureTheory Metric
+open scoped ENNReal
 
 namespace Dataset
 namespace MattilaGeometry

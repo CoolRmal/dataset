@@ -8,9 +8,6 @@ Natural-language statement: `niven_zuckerman_10_16_ramanujan_congruence.md`.
 Quality rubric: `niven_zuckerman_10_16_ramanujan_congruence.criteria.md`.
 -/
 
-open Filter
-open scoped Topology
-
 namespace Dataset
 namespace NivenZuckermanNumberTheory
 

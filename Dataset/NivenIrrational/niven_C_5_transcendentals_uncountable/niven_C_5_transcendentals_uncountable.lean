@@ -1,4 +1,4 @@
-import Dataset.NivenIrrational.Defs
+import Mathlib.NumberTheory.Real.Irrational
 
 /-!
 # `niven_C_5_transcendentals_uncountable`
@@ -7,8 +7,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `niven_C_5_transcendentals_uncountable.md`.
 Quality rubric: `niven_C_5_transcendentals_uncountable.criteria.md`.
 -/
-
-open Set
 
 namespace Dataset
 namespace NivenIrrational

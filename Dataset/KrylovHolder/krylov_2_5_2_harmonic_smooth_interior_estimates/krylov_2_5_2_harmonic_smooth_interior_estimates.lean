@@ -1,9 +1,4 @@
 import Dataset.KrylovHolder.Defs
-import Mathlib.Analysis.Calculus.ContDiff.Basic
-import Mathlib.Analysis.Calculus.IteratedDeriv.Defs
-import Mathlib.MeasureTheory.Integral.Bochner.Basic
-import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
-import Mathlib.MeasureTheory.Measure.Hausdorff
 
 /-!
 # `krylov_2_5_2_harmonic_smooth_interior_estimates`
@@ -13,8 +8,7 @@ Natural-language statement: `krylov_2_5_2_harmonic_smooth_interior_estimates.md`
 Quality rubric: `krylov_2_5_2_harmonic_smooth_interior_estimates.criteria.md`.
 -/
 
-open Filter Function MeasureTheory Set Topology
-open scoped ContDiff ENNReal Topology
+open scoped ContDiff
 
 namespace Dataset
 namespace KrylovHolder

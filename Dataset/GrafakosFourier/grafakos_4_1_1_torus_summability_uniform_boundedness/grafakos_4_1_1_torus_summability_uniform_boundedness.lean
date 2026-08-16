@@ -1,8 +1,4 @@
 import Dataset.GrafakosFourier.Defs
-import Mathlib.Analysis.Distribution.SchwartzSpace.Fourier
-import Mathlib.Analysis.Fourier.AddCircle
-import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
-import Mathlib.MeasureTheory.Integral.Bochner.Basic
 
 /-!
 # `grafakos_4_1_1_torus_summability_uniform_boundedness`
@@ -12,8 +8,8 @@ Natural-language statement: `grafakos_4_1_1_torus_summability_uniform_boundednes
 Quality rubric: `grafakos_4_1_1_torus_summability_uniform_boundedness.criteria.md`.
 -/
 
-open Filter Function MeasureTheory Metric Set
-open scoped ENNReal FourierTransform SchwartzMap Topology
+open Filter MeasureTheory
+open scoped ENNReal Topology
 
 namespace Dataset
 namespace GrafakosFourier

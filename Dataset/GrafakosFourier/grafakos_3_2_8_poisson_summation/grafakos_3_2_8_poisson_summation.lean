@@ -1,7 +1,4 @@
 import Mathlib.Analysis.Distribution.SchwartzSpace.Fourier
-import Mathlib.Analysis.Fourier.AddCircle
-import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
-import Mathlib.MeasureTheory.Integral.Bochner.Basic
 
 /-!
 # `grafakos_3_2_8_poisson_summation`
@@ -11,8 +8,8 @@ Natural-language statement: `grafakos_3_2_8_poisson_summation.md`.
 Quality rubric: `grafakos_3_2_8_poisson_summation.criteria.md`.
 -/
 
-open Filter Function MeasureTheory Metric Set
-open scoped ENNReal FourierTransform SchwartzMap Topology
+open MeasureTheory
+open scoped FourierTransform
 
 namespace Dataset
 namespace GrafakosFourier

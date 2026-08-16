@@ -1,4 +1,5 @@
 import Dataset.NivenIrrational.Defs
+import Mathlib.NumberTheory.Real.Irrational
 
 /-!
 # `niven_5_3_log_two_pow_five_pow_irrational`
@@ -7,8 +8,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `niven_5_3_log_two_pow_five_pow_irrational.md`.
 Quality rubric: `niven_5_3_log_two_pow_five_pow_irrational.criteria.md`.
 -/
-
-open Set
 
 namespace Dataset
 namespace NivenIrrational

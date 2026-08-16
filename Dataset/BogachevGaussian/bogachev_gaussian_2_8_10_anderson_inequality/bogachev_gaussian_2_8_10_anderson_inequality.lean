@@ -1,6 +1,4 @@
 import Dataset.BogachevGaussian.Defs
-import Mathlib.Analysis.LocallyConvex.WithSeminorms
-import Mathlib.Analysis.LocallyConvex.Basic
 
 /-!
 # `bogachev_gaussian_2_8_10_anderson_inequality`
@@ -11,7 +9,6 @@ Quality rubric: `bogachev_gaussian_2_8_10_anderson_inequality.criteria.md`.
 -/
 
 open MeasureTheory ProbabilityTheory Set
-open scoped ENNReal NNReal
 
 namespace Dataset
 namespace BogachevGaussian

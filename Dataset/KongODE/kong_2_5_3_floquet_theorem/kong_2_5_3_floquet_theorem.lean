@@ -1,10 +1,6 @@
 import Dataset.KongODE.Defs
-import Mathlib.Analysis.Calculus.ContDiff.Defs
-import Mathlib.Analysis.ODE.PicardLindelof
-import Mathlib.Analysis.Normed.Algebra.MatrixExponential
-import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
-import Mathlib.LinearAlgebra.Matrix.Charpoly.Basic
-import Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic
+
+open Set
 
 /-!
 # `kong_2_5_3_floquet_theorem`
@@ -13,9 +9,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `kong_2_5_3_floquet_theorem.md`.
 Quality rubric: `kong_2_5_3_floquet_theorem.criteria.md`.
 -/
-
-open Filter Function MeasureTheory Set Topology
-open scoped ENNReal Matrix NNReal Topology
 
 namespace Dataset
 namespace KongODE

@@ -1,8 +1,4 @@
 import Dataset.GrafakosFourier.Defs
-import Mathlib.Analysis.Distribution.SchwartzSpace.Fourier
-import Mathlib.Analysis.Fourier.AddCircle
-import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
-import Mathlib.MeasureTheory.Integral.Bochner.Basic
 
 /-!
 # `grafakos_5_3_1_calderon_zygmund_decomposition`
@@ -12,8 +8,8 @@ Natural-language statement: `grafakos_5_3_1_calderon_zygmund_decomposition.md`.
 Quality rubric: `grafakos_5_3_1_calderon_zygmund_decomposition.criteria.md`.
 -/
 
-open Filter Function MeasureTheory Metric Set
-open scoped ENNReal FourierTransform SchwartzMap Topology
+open Filter MeasureTheory
+open scoped ENNReal Topology
 
 namespace Dataset
 namespace GrafakosFourier

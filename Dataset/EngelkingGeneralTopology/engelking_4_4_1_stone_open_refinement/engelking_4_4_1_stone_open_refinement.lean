@@ -1,13 +1,4 @@
 import Dataset.EngelkingGeneralTopology.Defs
-import Mathlib.Topology.Compactness.Compact
-import Mathlib.Topology.Compactness.Paracompact
-import Mathlib.Topology.ContinuousMap.Compact
-import Mathlib.Topology.LocallyFinite
-import Mathlib.Topology.Metrizable.Basic
-import Mathlib.Topology.PartitionOfUnity
-import Mathlib.Topology.Compactification.StoneCech
-import Mathlib.Topology.Separation.CompletelyRegular
-import Mathlib.Tactic.TFAE
 
 /-!
 # `engelking_4_4_1_stone_open_refinement` — 4.4.1
@@ -17,7 +8,7 @@ Natural-language statement: `engelking_4_4_1_stone_open_refinement.md`.
 Quality rubric: `engelking_4_4_1_stone_open_refinement.criteria.md`.
 -/
 
-open Function Set TopologicalSpace Topology
+open TopologicalSpace
 
 namespace Dataset
 namespace EngelkingGeneralTopology

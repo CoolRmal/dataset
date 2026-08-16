@@ -1,6 +1,4 @@
 import Dataset.BogachevGaussian.Defs
-import Mathlib.Analysis.LocallyConvex.WithSeminorms
-import Mathlib.MeasureTheory.Measure.MutuallySingular
 
 /-!
 # `bogachev_gaussian_2_5_2_zero_one_law`
@@ -10,8 +8,7 @@ Natural-language statement: `bogachev_gaussian_2_5_2_zero_one_law.md`.
 Quality rubric: `bogachev_gaussian_2_5_2_zero_one_law.criteria.md`.
 -/
 
-open MeasureTheory ProbabilityTheory Set
-open scoped ENNReal NNReal
+open MeasureTheory ProbabilityTheory
 
 namespace Dataset
 namespace BogachevGaussian

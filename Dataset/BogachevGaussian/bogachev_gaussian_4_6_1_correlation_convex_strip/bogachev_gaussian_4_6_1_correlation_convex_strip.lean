@@ -1,5 +1,4 @@
 import Dataset.BogachevGaussian.Defs
-import Mathlib.Analysis.LocallyConvex.Basic
 
 /-!
 # `bogachev_gaussian_4_6_1_correlation_convex_strip`
@@ -9,8 +8,7 @@ Natural-language statement: `bogachev_gaussian_4_6_1_correlation_convex_strip.md
 Quality rubric: `bogachev_gaussian_4_6_1_correlation_convex_strip.criteria.md`.
 -/
 
-open MeasureTheory ProbabilityTheory Set
-open scoped ENNReal NNReal
+open MeasureTheory ProbabilityTheory
 
 namespace Dataset
 namespace BogachevGaussian

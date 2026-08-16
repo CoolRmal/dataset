@@ -8,9 +8,6 @@ Natural-language statement: `hayman_2_7_fixpoints_of_entire_functions.md`.
 Quality rubric: `hayman_2_7_fixpoints_of_entire_functions.criteria.md`.
 -/
 
-open Filter MeasureTheory Set ValueDistribution
-open scoped Topology
-
 namespace Dataset
 namespace HaymanMeromorphic
 

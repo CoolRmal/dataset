@@ -1,15 +1,4 @@
 import Mathlib.MeasureTheory.Function.ConvergenceInDistribution
-import Mathlib.MeasureTheory.Function.UniformIntegrable
-import Mathlib.MeasureTheory.Measure.Prokhorov
-import Mathlib.Probability.BrownianMotion.Basic
-import Mathlib.Probability.Distributions.Gaussian.Real
-import Mathlib.Probability.Kernel.Disintegration.StandardBorel
-import Mathlib.Probability.Martingale.Basic
-import Mathlib.Probability.Moments.Variance
-import Mathlib.Probability.Process.Predictable
-import Mathlib.Probability.Process.Stopping
-import Mathlib.Topology.MetricSpace.HolderNorm
-import Mathlib.Tactic.TFAE
 
 /-!
 # `kallenberg_23_2_tightness_and_relative_compactness`
@@ -19,8 +8,7 @@ Natural-language statement: `kallenberg_23_2_tightness_and_relative_compactness.
 Quality rubric: `kallenberg_23_2_tightness_and_relative_compactness.criteria.md`.
 -/
 
-open Filter MeasureTheory ProbabilityTheory Set Topology
-open scoped ENNReal MeasureTheory NNReal ProbabilityTheory Topology
+open MeasureTheory
 
 namespace Dataset
 namespace KallenbergProbability

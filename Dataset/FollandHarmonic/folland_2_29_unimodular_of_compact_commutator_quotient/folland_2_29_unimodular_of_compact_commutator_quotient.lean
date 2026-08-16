@@ -1,7 +1,4 @@
-import Dataset.FollandHarmonic.Defs
 import Mathlib.MeasureTheory.Group.ModularCharacter
-import Mathlib.GroupTheory.Commutator.Basic
-import Mathlib.Topology.Algebra.Group.Basic
 
 /-!
 # `folland_2_29_unimodular_of_compact_commutator_quotient`
@@ -11,8 +8,7 @@ Natural-language statement: `folland_2_29_unimodular_of_compact_commutator_quoti
 Quality rubric: `folland_2_29_unimodular_of_compact_commutator_quotient.criteria.md`.
 -/
 
-open Filter MeasureTheory Set Topology
-open scoped ENNReal NNReal Topology
+open MeasureTheory
 
 namespace Dataset
 namespace FollandHarmonic

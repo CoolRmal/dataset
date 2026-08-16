@@ -1,10 +1,4 @@
 import Dataset.KongODE.Defs
-import Mathlib.Analysis.Calculus.ContDiff.Defs
-import Mathlib.Analysis.ODE.PicardLindelof
-import Mathlib.Analysis.Normed.Algebra.MatrixExponential
-import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
-import Mathlib.LinearAlgebra.Matrix.Charpoly.Basic
-import Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic
 
 /-!
 # `kong_1_3_3_nth_order_scalar_ivp`
@@ -13,9 +7,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `kong_1_3_3_nth_order_scalar_ivp.md`.
 Quality rubric: `kong_1_3_3_nth_order_scalar_ivp.criteria.md`.
 -/
-
-open Filter Function MeasureTheory Set Topology
-open scoped ENNReal Matrix NNReal Topology
 
 namespace Dataset
 namespace KongODE

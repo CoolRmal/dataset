@@ -10,8 +10,8 @@ Quality rubric:
 `krylov_sobolev_13_3_16_pointwise_decay_implies_negative_order_membership.criteria.md`.
 -/
 
-open Filter Function MeasureTheory Set TemperedDistribution Topology
-open scoped ContDiff ENNReal Laplacian NNReal SchwartzMap Topology
+open Function MeasureTheory TemperedDistribution
+open scoped ENNReal SchwartzMap
 
 namespace Dataset
 namespace KrylovSobolev

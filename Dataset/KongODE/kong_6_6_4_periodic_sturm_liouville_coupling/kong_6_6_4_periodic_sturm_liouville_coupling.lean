@@ -1,10 +1,4 @@
 import Dataset.KongODE.Defs
-import Mathlib.Analysis.Calculus.ContDiff.Defs
-import Mathlib.Analysis.ODE.PicardLindelof
-import Mathlib.Analysis.Normed.Algebra.MatrixExponential
-import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
-import Mathlib.LinearAlgebra.Matrix.Charpoly.Basic
-import Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic
 
 /-!
 # `kong_6_6_4_periodic_sturm_liouville_coupling`
@@ -14,8 +8,7 @@ Natural-language statement: `kong_6_6_4_periodic_sturm_liouville_coupling.md`.
 Quality rubric: `kong_6_6_4_periodic_sturm_liouville_coupling.criteria.md`.
 -/
 
-open Filter Function MeasureTheory Set Topology
-open scoped ENNReal Matrix NNReal Topology
+open Filter
 
 namespace Dataset
 namespace KongODE

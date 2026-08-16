@@ -1,16 +1,6 @@
 import Dataset.KallenbergProbability.Defs
 import Mathlib.MeasureTheory.Function.ConvergenceInDistribution
-import Mathlib.MeasureTheory.Function.UniformIntegrable
-import Mathlib.MeasureTheory.Measure.Prokhorov
-import Mathlib.Probability.BrownianMotion.Basic
-import Mathlib.Probability.Distributions.Gaussian.Real
-import Mathlib.Probability.Kernel.Disintegration.StandardBorel
-import Mathlib.Probability.Martingale.Basic
-import Mathlib.Probability.Moments.Variance
-import Mathlib.Probability.Process.Predictable
-import Mathlib.Probability.Process.Stopping
-import Mathlib.Topology.MetricSpace.HolderNorm
-import Mathlib.Tactic.TFAE
+import Mathlib.Order.Filter.AtTopBot.Basic
 
 /-!
 # `kallenberg_23_6_functional_central_limit`
@@ -20,8 +10,8 @@ Natural-language statement: `kallenberg_23_6_functional_central_limit.md`.
 Quality rubric: `kallenberg_23_6_functional_central_limit.criteria.md`.
 -/
 
-open Filter MeasureTheory ProbabilityTheory Set Topology
-open scoped ENNReal MeasureTheory NNReal ProbabilityTheory Topology
+open MeasureTheory ProbabilityTheory Filter
+open scoped NNReal
 
 namespace Dataset
 namespace KallenbergProbability

@@ -1,7 +1,5 @@
 import Dataset.BogachevGaussian.Defs
-import Mathlib.Algebra.Group.Pointwise.Set.Basic
-import Mathlib.Algebra.Group.Pointwise.Set.Scalar
-import Mathlib.Analysis.Convex.Basic
+import Mathlib.Probability.Distributions.Gaussian.Multivariate
 
 /-!
 # `bogachev_gaussian_4_2_1_ehrhard_inequality`
@@ -11,8 +9,8 @@ Natural-language statement: `bogachev_gaussian_4_2_1_ehrhard_inequality.md`.
 Quality rubric: `bogachev_gaussian_4_2_1_ehrhard_inequality.criteria.md`.
 -/
 
-open MeasureTheory ProbabilityTheory Set
-open scoped ENNReal NNReal Pointwise
+open ProbabilityTheory Set
+open scoped Pointwise
 
 namespace Dataset
 namespace BogachevGaussian

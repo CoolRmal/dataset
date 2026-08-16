@@ -1,9 +1,4 @@
 import Dataset.KrylovHolder.Defs
-import Mathlib.Analysis.Calculus.ContDiff.Basic
-import Mathlib.Analysis.Calculus.IteratedDeriv.Defs
-import Mathlib.MeasureTheory.Integral.Bochner.Basic
-import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
-import Mathlib.MeasureTheory.Measure.Hausdorff
 
 /-!
 # `krylov_2_9_2_bounded_maximum_principle_resolvent`
@@ -12,9 +7,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `krylov_2_9_2_bounded_maximum_principle_resolvent.md`.
 Quality rubric: `krylov_2_9_2_bounded_maximum_principle_resolvent.criteria.md`.
 -/
-
-open Filter Function MeasureTheory Set Topology
-open scoped ENNReal Topology
 
 namespace Dataset
 namespace KrylovHolder

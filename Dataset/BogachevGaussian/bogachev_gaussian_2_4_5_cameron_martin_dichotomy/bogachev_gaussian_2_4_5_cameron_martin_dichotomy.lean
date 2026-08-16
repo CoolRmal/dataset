@@ -1,6 +1,4 @@
 import Dataset.BogachevGaussian.Defs
-import Mathlib.Analysis.LocallyConvex.WithSeminorms
-import Mathlib.MeasureTheory.Measure.MutuallySingular
 
 /-!
 # `bogachev_gaussian_2_4_5_cameron_martin_dichotomy`
@@ -10,8 +8,8 @@ Natural-language statement: `bogachev_gaussian_2_4_5_cameron_martin_dichotomy.md
 Quality rubric: `bogachev_gaussian_2_4_5_cameron_martin_dichotomy.criteria.md`.
 -/
 
-open MeasureTheory ProbabilityTheory Set
-open scoped ENNReal NNReal
+open MeasureTheory ProbabilityTheory
+open scoped ENNReal
 
 namespace Dataset
 namespace BogachevGaussian

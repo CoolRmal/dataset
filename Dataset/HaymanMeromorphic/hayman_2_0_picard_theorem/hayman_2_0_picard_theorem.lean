@@ -8,9 +8,6 @@ Natural-language statement: `hayman_2_0_picard_theorem.md`.
 Quality rubric: `hayman_2_0_picard_theorem.criteria.md`.
 -/
 
-open Filter MeasureTheory Set ValueDistribution
-open scoped Topology
-
 namespace Dataset
 namespace HaymanMeromorphic
 

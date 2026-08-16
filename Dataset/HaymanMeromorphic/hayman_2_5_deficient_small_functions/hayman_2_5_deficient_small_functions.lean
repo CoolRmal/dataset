@@ -8,7 +8,7 @@ Natural-language statement: `hayman_2_5_deficient_small_functions.md`.
 Quality rubric: `hayman_2_5_deficient_small_functions.criteria.md`.
 -/
 
-open Filter MeasureTheory Set ValueDistribution
+open Filter ValueDistribution
 open scoped Topology
 
 namespace Dataset

@@ -1,12 +1,4 @@
 import Mathlib.Analysis.CStarAlgebra.GelfandNaimarkSegal
-import Mathlib.Analysis.Calculus.Deriv.Basic
-import Mathlib.Analysis.InnerProductSpace.Adjoint
-import Mathlib.Analysis.Normed.Operator.Compact.Basic
-import Mathlib.MeasureTheory.Measure.Complex
-import Mathlib.MeasureTheory.VectorMeasure.Integral
-import Mathlib.Topology.Algebra.Module.Spaces.WeakDual
-import Mathlib.Topology.ContinuousMap.Bounded.Basic
-import Mathlib.Tactic.TFAE
 
 /-!
 # `conway_VI_2_1_banach_stone` — VI.2.1
@@ -16,8 +8,7 @@ Natural-language statement: `conway_VI_2_1_banach_stone.md`.
 Quality rubric: `conway_VI_2_1_banach_stone.criteria.md`.
 -/
 
-open Filter MeasureTheory Set Topology
-open scoped BoundedContinuousFunction Topology
+open scoped BoundedContinuousFunction
 
 namespace Dataset
 namespace ConwayFunctionalAnalysis

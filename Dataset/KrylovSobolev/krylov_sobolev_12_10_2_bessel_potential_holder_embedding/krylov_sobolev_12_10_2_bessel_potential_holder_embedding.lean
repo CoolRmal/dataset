@@ -8,8 +8,8 @@ Natural-language statement: `krylov_sobolev_12_10_2_bessel_potential_holder_embe
 Quality rubric: `krylov_sobolev_12_10_2_bessel_potential_holder_embedding.criteria.md`.
 -/
 
-open Filter Function MeasureTheory Set Topology
-open scoped ContDiff ENNReal Laplacian NNReal SchwartzMap Topology
+open MeasureTheory
+open scoped ENNReal SchwartzMap
 
 namespace Dataset
 namespace KrylovSobolev

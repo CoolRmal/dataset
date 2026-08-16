@@ -1,4 +1,4 @@
-import Dataset.NivenIrrational.Defs
+import Mathlib.NumberTheory.Real.Irrational
 
 /-!
 # `niven_6_2_unique_nearest_integer`
@@ -7,8 +7,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `niven_6_2_unique_nearest_integer.md`.
 Quality rubric: `niven_6_2_unique_nearest_integer.criteria.md`.
 -/
-
-open Set
 
 namespace Dataset
 namespace NivenIrrational

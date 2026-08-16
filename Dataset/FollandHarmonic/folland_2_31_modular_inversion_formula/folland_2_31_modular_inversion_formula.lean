@@ -1,5 +1,3 @@
-import Dataset.FollandHarmonic.Defs
-import Mathlib.MeasureTheory.Group.ModularCharacter
 import Mathlib.MeasureTheory.Group.ModularCharacter
 
 /-!
@@ -10,8 +8,8 @@ Natural-language statement: `folland_2_31_modular_inversion_formula.md`.
 Quality rubric: `folland_2_31_modular_inversion_formula.criteria.md`.
 -/
 
-open Filter MeasureTheory Set Topology
-open scoped ENNReal NNReal Topology
+open MeasureTheory
+open scoped NNReal
 
 namespace Dataset
 namespace FollandHarmonic

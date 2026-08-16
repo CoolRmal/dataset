@@ -1,11 +1,4 @@
 import Dataset.LeeSmoothManifolds.Defs
-import Mathlib.Geometry.Manifold.Algebra.LieGroup
-import Mathlib.Geometry.Manifold.ContMDiffMFDeriv
-import Mathlib.Geometry.Manifold.Immersion
-import Mathlib.Geometry.Manifold.SmoothApprox
-import Mathlib.Geometry.Manifold.Submersion
-import Mathlib.Geometry.Manifold.WhitneyEmbedding
-import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
 
 /-!
 # `lee_7_13_rank_theorem_for_manifolds`
@@ -15,8 +8,8 @@ Natural-language statement: `lee_7_13_rank_theorem_for_manifolds.md`.
 Quality rubric: `lee_7_13_rank_theorem_for_manifolds.criteria.md`.
 -/
 
-open Function MeasureTheory Set Topology
-open scoped ContDiff Manifold Topology
+open Set
+open scoped ContDiff Manifold
 
 namespace Dataset
 namespace LeeSmoothManifolds

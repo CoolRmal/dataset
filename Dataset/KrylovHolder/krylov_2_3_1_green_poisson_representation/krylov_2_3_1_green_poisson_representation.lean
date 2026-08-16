@@ -1,9 +1,4 @@
 import Dataset.KrylovHolder.Defs
-import Mathlib.Analysis.Calculus.ContDiff.Basic
-import Mathlib.Analysis.Calculus.IteratedDeriv.Defs
-import Mathlib.MeasureTheory.Integral.Bochner.Basic
-import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
-import Mathlib.MeasureTheory.Measure.Hausdorff
 
 /-!
 # `krylov_2_3_1_green_poisson_representation`
@@ -13,8 +8,7 @@ Natural-language statement: `krylov_2_3_1_green_poisson_representation.md`.
 Quality rubric: `krylov_2_3_1_green_poisson_representation.criteria.md`.
 -/
 
-open Filter Function MeasureTheory Set Topology
-open scoped ENNReal Topology
+open MeasureTheory
 
 namespace Dataset
 namespace KrylovHolder

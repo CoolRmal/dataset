@@ -1,6 +1,4 @@
 import Dataset.BogachevGaussian.Defs
-import Mathlib.Analysis.LocallyConvex.WithSeminorms
-import Mathlib.Analysis.Seminorm
 
 /-!
 # `bogachev_gaussian_4_5_8_seminorm_concentration`
@@ -10,8 +8,7 @@ Natural-language statement: `bogachev_gaussian_4_5_8_seminorm_concentration.md`.
 Quality rubric: `bogachev_gaussian_4_5_8_seminorm_concentration.criteria.md`.
 -/
 
-open MeasureTheory ProbabilityTheory Set
-open scoped ENNReal NNReal
+open MeasureTheory ProbabilityTheory
 
 namespace Dataset
 namespace BogachevGaussian

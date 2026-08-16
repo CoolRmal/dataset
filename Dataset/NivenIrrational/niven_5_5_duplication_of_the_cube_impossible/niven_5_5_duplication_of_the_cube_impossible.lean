@@ -8,8 +8,6 @@ Natural-language statement: `niven_5_5_duplication_of_the_cube_impossible.md`.
 Quality rubric: `niven_5_5_duplication_of_the_cube_impossible.criteria.md`.
 -/
 
-open Set
-
 namespace Dataset
 namespace NivenIrrational
 

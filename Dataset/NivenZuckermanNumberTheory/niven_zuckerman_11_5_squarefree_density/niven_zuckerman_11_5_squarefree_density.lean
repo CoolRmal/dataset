@@ -1,4 +1,5 @@
 import Dataset.NivenZuckermanNumberTheory.Defs
+import Mathlib.NumberTheory.ArithmeticFunction.Moebius
 
 /-!
 # `niven_zuckerman_11_5_squarefree_density`
@@ -7,9 +8,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `niven_zuckerman_11_5_squarefree_density.md`.
 Quality rubric: `niven_zuckerman_11_5_squarefree_density.criteria.md`.
 -/
-
-open Filter
-open scoped Topology
 
 namespace Dataset
 namespace NivenZuckermanNumberTheory

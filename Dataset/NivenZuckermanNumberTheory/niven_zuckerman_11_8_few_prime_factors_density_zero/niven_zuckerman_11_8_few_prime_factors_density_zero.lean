@@ -8,9 +8,6 @@ Natural-language statement: `niven_zuckerman_11_8_few_prime_factors_density_zero
 Quality rubric: `niven_zuckerman_11_8_few_prime_factors_density_zero.criteria.md`.
 -/
 
-open Filter
-open scoped Topology
-
 namespace Dataset
 namespace NivenZuckermanNumberTheory
 

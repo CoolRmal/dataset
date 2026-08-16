@@ -8,8 +8,6 @@ Natural-language statement: `niven_2_4_rational_iff_periodic_decimal.md`.
 Quality rubric: `niven_2_4_rational_iff_periodic_decimal.criteria.md`.
 -/
 
-open Set
-
 namespace Dataset
 namespace NivenIrrational
 

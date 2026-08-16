@@ -1,5 +1,5 @@
 import Dataset.NivenIrrational.Defs
-import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
+import Mathlib.NumberTheory.Real.Irrational
 
 /-!
 # `niven_5_5_squaring_the_circle_impossible`
@@ -8,8 +8,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `niven_5_5_squaring_the_circle_impossible.md`.
 Quality rubric: `niven_5_5_squaring_the_circle_impossible.criteria.md`.
 -/
-
-open Set
 
 namespace Dataset
 namespace NivenIrrational

@@ -1,5 +1,5 @@
 import Dataset.NivenIrrational.Defs
-import Mathlib.Analysis.SpecialFunctions.Exp
+import Mathlib.NumberTheory.Real.Irrational
 
 /-!
 # `niven_7_5_transcendence_of_e`
@@ -8,8 +8,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `niven_7_5_transcendence_of_e.md`.
 Quality rubric: `niven_7_5_transcendence_of_e.criteria.md`.
 -/
-
-open Set
 
 namespace Dataset
 namespace NivenIrrational

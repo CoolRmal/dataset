@@ -1,12 +1,4 @@
 import Dataset.MattilaGeometry.Defs
-import Mathlib.Analysis.InnerProductSpace.Projection.Submodule
-import Mathlib.MeasureTheory.Measure.Hausdorff
-import Mathlib.MeasureTheory.Measure.Decomposition.Lebesgue
-import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
-import Mathlib.MeasureTheory.Measure.Regular
-import Mathlib.MeasureTheory.Measure.Support
-import Mathlib.Topology.MetricSpace.HausdorffDimension
-import Mathlib.Tactic.TFAE
 
 /-!
 # `mattila_18_1_besicovitch_federer_projection` — 18.1
@@ -16,8 +8,8 @@ Natural-language statement: `mattila_18_1_besicovitch_federer_projection.md`.
 Quality rubric: `mattila_18_1_besicovitch_federer_projection.criteria.md`.
 -/
 
-open Filter Function MeasureTheory Metric Set Topology
-open scoped ENNReal MeasureTheory NNReal Topology
+open MeasureTheory
+open scoped ENNReal
 
 namespace Dataset
 namespace MattilaGeometry

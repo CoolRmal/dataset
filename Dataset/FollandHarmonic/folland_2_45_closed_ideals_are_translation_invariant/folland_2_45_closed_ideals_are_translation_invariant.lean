@@ -8,8 +8,7 @@ Natural-language statement: `folland_2_45_closed_ideals_are_translation_invarian
 Quality rubric: `folland_2_45_closed_ideals_are_translation_invariant.criteria.md`.
 -/
 
-open Filter MeasureTheory Set Topology
-open scoped ENNReal NNReal Topology
+open MeasureTheory
 
 namespace Dataset
 namespace FollandHarmonic

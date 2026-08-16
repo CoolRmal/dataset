@@ -8,8 +8,8 @@ Natural-language statement: `krylov_sobolev_13_6_3_divergence_form_solvability.m
 Quality rubric: `krylov_sobolev_13_6_3_divergence_form_solvability.criteria.md`.
 -/
 
-open Filter Function MeasureTheory Set Topology
-open scoped ContDiff ENNReal Laplacian NNReal SchwartzMap Topology
+open Filter MeasureTheory
+open scoped ENNReal Topology
 
 namespace Dataset
 namespace KrylovSobolev

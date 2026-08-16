@@ -1,16 +1,4 @@
 import Dataset.Bogachev.Defs
-import Mathlib.Analysis.Calculus.ContDiff.Basic
-import Mathlib.Analysis.Convex.Function
-import Mathlib.Analysis.Normed.Module.FiniteDimension
-import Mathlib.MeasureTheory.Constructions.Polish.Basic
-import Mathlib.MeasureTheory.Function.UniformIntegrable
-import Mathlib.MeasureTheory.Integral.Prod
-import Mathlib.MeasureTheory.Measure.NullMeasurable
-import Mathlib.MeasureTheory.Measure.ProbabilityMeasure
-import Mathlib.MeasureTheory.Measure.Regular
-import Mathlib.MeasureTheory.Measure.Tight
-import Mathlib.MeasureTheory.VectorMeasure.Basic
-import Mathlib.MeasureTheory.VectorMeasure.Decomposition.Jordan
 
 /-!
 # `hasLusinPropertyN_iff_maps_nullMeasurableSet` — 3.6.9
@@ -20,8 +8,7 @@ Natural-language statement: `hasLusinPropertyN_iff_maps_nullMeasurableSet.md`.
 Quality rubric: `hasLusinPropertyN_iff_maps_nullMeasurableSet.criteria.md`.
 -/
 
-open Filter MeasureTheory ProbabilityTheory Set Topology
-open scoped BoundedContinuousFunction ENNReal MeasureTheory NNReal ProbabilityTheory Topology
+open MeasureTheory
 
 namespace Dataset
 namespace Bogachev

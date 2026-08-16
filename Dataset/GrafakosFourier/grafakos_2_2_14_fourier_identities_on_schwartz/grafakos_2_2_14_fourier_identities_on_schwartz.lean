@@ -1,7 +1,4 @@
 import Mathlib.Analysis.Distribution.SchwartzSpace.Fourier
-import Mathlib.Analysis.Fourier.AddCircle
-import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
-import Mathlib.MeasureTheory.Integral.Bochner.Basic
 
 /-!
 # `grafakos_2_2_14_fourier_identities_on_schwartz`
@@ -11,8 +8,8 @@ Natural-language statement: `grafakos_2_2_14_fourier_identities_on_schwartz.md`.
 Quality rubric: `grafakos_2_2_14_fourier_identities_on_schwartz.criteria.md`.
 -/
 
-open Filter Function MeasureTheory Metric Set
-open scoped ENNReal FourierTransform SchwartzMap Topology
+open MeasureTheory
+open scoped FourierTransform SchwartzMap
 
 namespace Dataset
 namespace GrafakosFourier

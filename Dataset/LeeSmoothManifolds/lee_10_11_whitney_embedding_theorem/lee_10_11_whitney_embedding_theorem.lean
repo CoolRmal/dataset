@@ -1,5 +1,4 @@
 import Mathlib.Geometry.Manifold.SmoothEmbedding
-import Mathlib.Topology.Maps.Proper.Basic
 
 /-!
 # `lee_10_11_whitney_embedding_theorem`
@@ -9,8 +8,8 @@ Natural-language statement: `lee_10_11_whitney_embedding_theorem.md`.
 Quality rubric: `lee_10_11_whitney_embedding_theorem.criteria.md`.
 -/
 
-open Function Manifold Set Topology
-open scoped ContDiff Manifold Topology
+open Manifold
+open scoped ContDiff
 
 namespace Dataset
 namespace LeeSmoothManifolds

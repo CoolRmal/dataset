@@ -1,11 +1,4 @@
-import Mathlib.Analysis.InnerProductSpace.Projection.Submodule
-import Mathlib.MeasureTheory.Measure.Hausdorff
-import Mathlib.MeasureTheory.Measure.Decomposition.Lebesgue
 import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
-import Mathlib.MeasureTheory.Measure.Regular
-import Mathlib.MeasureTheory.Measure.Support
-import Mathlib.Topology.MetricSpace.HausdorffDimension
-import Mathlib.Tactic.TFAE
 
 /-!
 # `mattila_14_10_marstrand_density_integer` — 14.10
@@ -15,8 +8,8 @@ Natural-language statement: `mattila_14_10_marstrand_density_integer.md`.
 Quality rubric: `mattila_14_10_marstrand_density_integer.criteria.md`.
 -/
 
-open Filter Function MeasureTheory Metric Set Topology
-open scoped ENNReal MeasureTheory NNReal Topology
+open Filter MeasureTheory Metric
+open scoped ENNReal Topology
 
 namespace Dataset
 namespace MattilaGeometry

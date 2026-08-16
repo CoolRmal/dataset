@@ -1,13 +1,4 @@
 import Dataset.EngelkingGeneralTopology.Defs
-import Mathlib.Topology.Compactness.Compact
-import Mathlib.Topology.Compactness.Paracompact
-import Mathlib.Topology.ContinuousMap.Compact
-import Mathlib.Topology.LocallyFinite
-import Mathlib.Topology.Metrizable.Basic
-import Mathlib.Topology.PartitionOfUnity
-import Mathlib.Topology.Compactification.StoneCech
-import Mathlib.Topology.Separation.CompletelyRegular
-import Mathlib.Tactic.TFAE
 
 /-!
 # `engelking_3_11_16_hewitt_realcompactification` — 3.11.16
@@ -17,7 +8,7 @@ Natural-language statement: `engelking_3_11_16_hewitt_realcompactification.md`.
 Quality rubric: `engelking_3_11_16_hewitt_realcompactification.criteria.md`.
 -/
 
-open Function Set TopologicalSpace Topology
+open Set Topology
 
 namespace Dataset
 namespace EngelkingGeneralTopology

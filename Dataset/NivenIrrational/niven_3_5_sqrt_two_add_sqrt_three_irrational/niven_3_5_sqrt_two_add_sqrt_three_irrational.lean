@@ -1,4 +1,4 @@
-import Dataset.NivenIrrational.Defs
+import Mathlib.NumberTheory.Real.Irrational
 
 /-!
 # `niven_3_5_sqrt_two_add_sqrt_three_irrational`

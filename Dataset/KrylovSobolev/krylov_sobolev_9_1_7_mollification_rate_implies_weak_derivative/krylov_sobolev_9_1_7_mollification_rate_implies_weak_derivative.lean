@@ -8,8 +8,8 @@ Natural-language statement: `krylov_sobolev_9_1_7_mollification_rate_implies_wea
 Quality rubric: `krylov_sobolev_9_1_7_mollification_rate_implies_weak_derivative.criteria.md`.
 -/
 
-open Filter Function MeasureTheory Set Topology
-open scoped ContDiff ENNReal Laplacian NNReal SchwartzMap Topology
+open MeasureTheory Set
+open scoped ContDiff ENNReal NNReal
 
 namespace Dataset
 namespace KrylovSobolev

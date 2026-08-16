@@ -1,16 +1,5 @@
 import Dataset.Bogachev.Defs
-import Mathlib.Analysis.Calculus.ContDiff.Basic
-import Mathlib.Analysis.Convex.Function
-import Mathlib.Analysis.Normed.Module.FiniteDimension
-import Mathlib.MeasureTheory.Constructions.Polish.Basic
-import Mathlib.MeasureTheory.Function.UniformIntegrable
-import Mathlib.MeasureTheory.Integral.Prod
-import Mathlib.MeasureTheory.Measure.NullMeasurable
-import Mathlib.MeasureTheory.Measure.ProbabilityMeasure
-import Mathlib.MeasureTheory.Measure.Regular
 import Mathlib.MeasureTheory.Measure.Tight
-import Mathlib.MeasureTheory.VectorMeasure.Basic
-import Mathlib.MeasureTheory.VectorMeasure.Decomposition.Jordan
 
 /-!
 # `bogachev_8_6_2_prokhorov_signed_measures` — 8.6.2
@@ -20,8 +9,7 @@ Natural-language statement: `bogachev_8_6_2_prokhorov_signed_measures.md`.
 Quality rubric: `bogachev_8_6_2_prokhorov_signed_measures.criteria.md`.
 -/
 
-open Filter MeasureTheory ProbabilityTheory Set Topology
-open scoped BoundedContinuousFunction ENNReal MeasureTheory NNReal ProbabilityTheory Topology
+open MeasureTheory
 
 namespace Dataset
 namespace Bogachev

@@ -1,5 +1,4 @@
 import Dataset.BogachevGaussian.Defs
-import Mathlib.MeasureTheory.Measure.Prod
 
 /-!
 # `bogachev_gaussian_1_9_3_symmetric_tail_characterization`
@@ -9,8 +8,7 @@ Natural-language statement: `bogachev_gaussian_1_9_3_symmetric_tail_characteriza
 Quality rubric: `bogachev_gaussian_1_9_3_symmetric_tail_characterization.criteria.md`.
 -/
 
-open MeasureTheory ProbabilityTheory Set
-open scoped ENNReal NNReal
+open MeasureTheory ProbabilityTheory
 
 namespace Dataset
 namespace BogachevGaussian

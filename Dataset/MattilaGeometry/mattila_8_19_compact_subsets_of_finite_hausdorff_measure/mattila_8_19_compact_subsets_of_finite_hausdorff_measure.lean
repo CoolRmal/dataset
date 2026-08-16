@@ -1,11 +1,4 @@
-import Mathlib.Analysis.InnerProductSpace.Projection.Submodule
 import Mathlib.MeasureTheory.Measure.Hausdorff
-import Mathlib.MeasureTheory.Measure.Decomposition.Lebesgue
-import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
-import Mathlib.MeasureTheory.Measure.Regular
-import Mathlib.MeasureTheory.Measure.Support
-import Mathlib.Topology.MetricSpace.HausdorffDimension
-import Mathlib.Tactic.TFAE
 
 /-!
 # `mattila_8_19_compact_subsets_of_finite_hausdorff_measure` — 8.19
@@ -15,8 +8,7 @@ Natural-language statement: `mattila_8_19_compact_subsets_of_finite_hausdorff_me
 Quality rubric: `mattila_8_19_compact_subsets_of_finite_hausdorff_measure.criteria.md`.
 -/
 
-open Filter Function MeasureTheory Metric Set Topology
-open scoped ENNReal MeasureTheory NNReal Topology
+open scoped ENNReal MeasureTheory
 
 namespace Dataset
 namespace MattilaGeometry

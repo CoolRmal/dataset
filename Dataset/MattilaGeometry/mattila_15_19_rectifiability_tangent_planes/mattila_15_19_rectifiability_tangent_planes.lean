@@ -1,12 +1,4 @@
 import Dataset.MattilaGeometry.Defs
-import Mathlib.Analysis.InnerProductSpace.Projection.Submodule
-import Mathlib.MeasureTheory.Measure.Hausdorff
-import Mathlib.MeasureTheory.Measure.Decomposition.Lebesgue
-import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
-import Mathlib.MeasureTheory.Measure.Regular
-import Mathlib.MeasureTheory.Measure.Support
-import Mathlib.Topology.MetricSpace.HausdorffDimension
-import Mathlib.Tactic.TFAE
 
 /-!
 # `mattila_15_19_rectifiability_tangent_planes` — 15.19
@@ -16,8 +8,8 @@ Natural-language statement: `mattila_15_19_rectifiability_tangent_planes.md`.
 Quality rubric: `mattila_15_19_rectifiability_tangent_planes.criteria.md`.
 -/
 
-open Filter Function MeasureTheory Metric Set Topology
-open scoped ENNReal MeasureTheory NNReal Topology
+open MeasureTheory
+open scoped ENNReal
 
 namespace Dataset
 namespace MattilaGeometry

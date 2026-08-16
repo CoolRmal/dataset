@@ -1,8 +1,4 @@
 import Dataset.GrafakosFourier.Defs
-import Mathlib.Analysis.Distribution.SchwartzSpace.Fourier
-import Mathlib.Analysis.Fourier.AddCircle
-import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
-import Mathlib.MeasureTheory.Integral.Bochner.Basic
 
 /-!
 # `grafakos_2_2_16_hausdorff_young`
@@ -12,8 +8,8 @@ Natural-language statement: `grafakos_2_2_16_hausdorff_young.md`.
 Quality rubric: `grafakos_2_2_16_hausdorff_young.criteria.md`.
 -/
 
-open Filter Function MeasureTheory Metric Set
-open scoped ENNReal FourierTransform SchwartzMap Topology
+open MeasureTheory
+open scoped ENNReal
 
 namespace Dataset
 namespace GrafakosFourier

@@ -8,7 +8,7 @@ Natural-language statement: `hayman_3_6_derivative_zeros_near_poles.md`.
 Quality rubric: `hayman_3_6_derivative_zeros_near_poles.criteria.md`.
 -/
 
-open Filter MeasureTheory Set ValueDistribution
+open Filter
 open scoped Topology
 
 namespace Dataset

@@ -8,9 +8,6 @@ Natural-language statement: `hayman_3_4_derivative_deficiency_bound.md`.
 Quality rubric: `hayman_3_4_derivative_deficiency_bound.criteria.md`.
 -/
 
-open Filter MeasureTheory Set ValueDistribution
-open scoped Topology
-
 namespace Dataset
 namespace HaymanMeromorphic
 

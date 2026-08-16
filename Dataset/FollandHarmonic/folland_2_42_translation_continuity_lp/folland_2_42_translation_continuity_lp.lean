@@ -8,8 +8,8 @@ Natural-language statement: `folland_2_42_translation_continuity_lp.md`.
 Quality rubric: `folland_2_42_translation_continuity_lp.criteria.md`.
 -/
 
-open Filter MeasureTheory Set Topology
-open scoped ENNReal NNReal Topology
+open Filter MeasureTheory
+open scoped ENNReal Topology
 
 namespace Dataset
 namespace FollandHarmonic

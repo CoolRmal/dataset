@@ -8,9 +8,6 @@ Natural-language statement: `niven_zuckerman_11_2_divisor_bound.md`.
 Quality rubric: `niven_zuckerman_11_2_divisor_bound.criteria.md`.
 -/
 
-open Filter
-open scoped Topology
-
 namespace Dataset
 namespace NivenZuckermanNumberTheory
 

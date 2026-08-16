@@ -8,8 +8,8 @@ Natural-language statement: `folland_2_44_approximate_identity.md`.
 Quality rubric: `folland_2_44_approximate_identity.criteria.md`.
 -/
 
-open Filter MeasureTheory Set Topology
-open scoped ENNReal NNReal Topology
+open MeasureTheory
+open scoped ENNReal Topology
 
 namespace Dataset
 namespace FollandHarmonic

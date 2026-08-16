@@ -8,9 +8,6 @@ Natural-language statement: `krylov_sobolev_12_2_13_real_strongly_elliptic_order
 Quality rubric: `krylov_sobolev_12_2_13_real_strongly_elliptic_order_even.criteria.md`.
 -/
 
-open Filter Function MeasureTheory Set Topology
-open scoped ContDiff ENNReal Laplacian NNReal SchwartzMap Topology
-
 namespace Dataset
 namespace KrylovSobolev
 

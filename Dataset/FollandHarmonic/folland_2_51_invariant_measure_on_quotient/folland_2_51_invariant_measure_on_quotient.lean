@@ -1,6 +1,3 @@
-import Dataset.FollandHarmonic.Defs
-import Mathlib.MeasureTheory.Group.ModularCharacter
-import Mathlib.Topology.Algebra.Group.Basic
 import Mathlib.MeasureTheory.Group.ModularCharacter
 
 /-!
@@ -11,8 +8,8 @@ Natural-language statement: `folland_2_51_invariant_measure_on_quotient.md`.
 Quality rubric: `folland_2_51_invariant_measure_on_quotient.criteria.md`.
 -/
 
-open Filter MeasureTheory Set Topology
-open scoped ENNReal NNReal Topology
+open MeasureTheory
+open scoped NNReal
 
 namespace Dataset
 namespace FollandHarmonic

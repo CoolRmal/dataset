@@ -1,4 +1,7 @@
 import Dataset.NivenIrrational.Defs
+import Mathlib.RingTheory.Algebraic.Defs
+import Mathlib.LinearAlgebra.Dimension.Finrank
+import Mathlib.RingTheory.Adjoin.Basic
 
 /-!
 # `niven_5_5_constructible_degree_is_power_of_two`
@@ -7,8 +10,6 @@ Statement-only formalization; the proof is intentionally `sorry`.
 Natural-language statement: `niven_5_5_constructible_degree_is_power_of_two.md`.
 Quality rubric: `niven_5_5_constructible_degree_is_power_of_two.criteria.md`.
 -/
-
-open Set
 
 namespace Dataset
 namespace NivenIrrational

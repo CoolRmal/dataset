@@ -1,9 +1,4 @@
 import Dataset.KrylovHolder.Defs
-import Mathlib.Analysis.Calculus.ContDiff.Basic
-import Mathlib.Analysis.Calculus.IteratedDeriv.Defs
-import Mathlib.MeasureTheory.Integral.Bochner.Basic
-import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
-import Mathlib.MeasureTheory.Measure.Hausdorff
 
 /-!
 # `krylov_3_7_2_constant_coefficient_holder_solvability`
@@ -13,8 +8,7 @@ Natural-language statement: `krylov_3_7_2_constant_coefficient_holder_solvabilit
 Quality rubric: `krylov_3_7_2_constant_coefficient_holder_solvability.criteria.md`.
 -/
 
-open Filter Function MeasureTheory Set Topology
-open scoped ENNReal Topology
+open Set
 
 namespace Dataset
 namespace KrylovHolder
