@@ -40,15 +40,34 @@ noncomputable def laplacian {d : ℕ} (u : EuclideanSpace ℝ (Fin d) → ℝ)
     (x : EuclideanSpace ℝ (Fin d)) : ℝ :=
   ∑ i, directionalDerivativeList [i, i] u x
 
-/-- A quantitative `C^{k,δ}` gauge: derivative suprema plus the top-order Holder quotient. -/
+/-- The iterated directional derivative taken **within** a set. On an open set this agrees with
+`directionalDerivativeList`; on a set with boundary, such as `closure Ω`, it is the version that
+still says something at the boundary points, where the global `fderiv` is typically the junk
+value `0`. -/
+noncomputable def directionalDerivativeListWithin {d : ℕ}
+    (Ω : Set (EuclideanSpace ℝ (Fin d))) :
+    List (Fin d) → (EuclideanSpace ℝ (Fin d) → ℝ) → EuclideanSpace ℝ (Fin d) → ℝ
+  | [], u => u
+  | i :: indices, u => fun x ↦
+      fderivWithin ℝ (directionalDerivativeListWithin Ω indices u) Ω x
+        (EuclideanSpace.single i 1)
+
+/-- `D^α u` taken within a set, for use in Hölder gauges on non-open domains. -/
+noncomputable def multiDerivativeWithin {d : ℕ} (Ω : Set (EuclideanSpace ℝ (Fin d)))
+    (α : (Fin d → ℕ)) (u : EuclideanSpace ℝ (Fin d) → ℝ) :
+    EuclideanSpace ℝ (Fin d) → ℝ :=
+  directionalDerivativeListWithin Ω (multiIndexDirections α) u
+
+/-- A quantitative `C^{k,δ}` gauge: derivative suprema plus the top-order Holder quotient,
+with all derivatives taken within `Ω`. -/
 noncomputable def holderGauge {d : ℕ} (k : ℕ) (δ : ℝ)
     (Ω : Set (EuclideanSpace ℝ (Fin d))) (u : EuclideanSpace ℝ (Fin d) → ℝ) : ℝ≥0∞ :=
   (⨆ α : {α : (Fin d → ℕ) // ∑ i, α i ≤ k},
-      ⨆ x : Ω, ENNReal.ofReal |multiDerivative α u x|) ⊔
+      ⨆ x : Ω, ENNReal.ofReal |multiDerivativeWithin Ω α u x|) ⊔
     ⨆ α : {α : (Fin d → ℕ) // ∑ i, α i = k},
       ⨆ x : Ω, ⨆ y : Ω, ⨆ (_ : (x : EuclideanSpace ℝ (Fin d)) ≠ y),
         ENNReal.ofReal
-          (|multiDerivative α u x - multiDerivative α u y| /
+          (|multiDerivativeWithin Ω α u x - multiDerivativeWithin Ω α u y| /
             ‖(x : EuclideanSpace ℝ (Fin d)) - y‖ ^ δ)
 
 /-- Local `C^r` Holder regularity, including all derivatives through `⌊r⌋`. -/

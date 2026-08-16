@@ -37,8 +37,10 @@ theorem kong_5_4_2_hopf_friedrich_dichotomy
             (∀ t, orbit μ (t + period μ) = orbit μ t) ∧
             ∀ y, IsClosedOrbit (fun z ↦ F z μ) y → ‖y 0‖ < ε →
               range y = range (orbit μ)) ∧
-        Tendsto (fun μ ↦ ‖orbit μ 0‖) (𝓝[≠] 0) (𝓝 0) ∧
-        Tendsto period (𝓝[≠] 0) (𝓝 (2 * Real.pi / β))
+        Tendsto (fun μ ↦ ⨆ t : ℝ, ‖orbit μ t‖)
+          (if positiveSide then 𝓝[>] 0 else 𝓝[<] 0) (𝓝 0) ∧
+        Tendsto period (if positiveSide then 𝓝[>] 0 else 𝓝[<] 0)
+          (𝓝 (2 * Real.pi / β))
     center ∨ hopf true ∨ hopf false := by
   sorry
 

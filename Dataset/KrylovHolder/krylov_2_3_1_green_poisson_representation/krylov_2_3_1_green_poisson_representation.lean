@@ -18,7 +18,7 @@ theorem krylov_2_3_1_green_poisson_representation
     {d : ℕ} {Ω : Set (EuclideanSpace ℝ (Fin d))}
     {K h G H : EuclideanSpace ℝ (Fin d) → EuclideanSpace ℝ (Fin d) → ℝ}
     {f g u : EuclideanSpace ℝ (Fin d) → ℝ}
-    (hd : 0 < d) (hΩ : RegularBoundedDomain Ω)
+    (hd : 0 < d) (hΩ : RegularBoundedDomain Ω) (hΩsmooth : SmoothBoundedDomain Ω)
     (hK : IsLaplaceFundamentalSolution K)
     (boundaryMeasure : Measure (EuclideanSpace ℝ (Fin d)))
     (hmeasure : boundaryMeasure = μH[((d : ℝ) - 1)].restrict (frontier Ω))

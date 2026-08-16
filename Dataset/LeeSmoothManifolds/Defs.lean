@@ -65,7 +65,8 @@ def RegularValue {m n : ℕ} {M : Type u} {N : Type v}
     [TopologicalSpace N] [ChartedSpace ((Fin n → ℝ)) N]
     (F : M → N) (c : N) : Prop :=
   ∀ p, F p = c →
-    Manifold.IsSubmersionAt 𝓘(ℝ, (Fin m → ℝ)) 𝓘(ℝ, (Fin n → ℝ)) ∞ F p
+    ContMDiffAt 𝓘(ℝ, (Fin m → ℝ)) 𝓘(ℝ, (Fin n → ℝ)) ∞ F p ∧
+      Function.Surjective (mfderiv 𝓘(ℝ, (Fin m → ℝ)) 𝓘(ℝ, (Fin n → ℝ)) F p)
 
 /-- A smooth free proper action, including the group-action laws. -/
 def SmoothFreeProperAction {g m : ℕ} {G : Type u} {M : Type v}

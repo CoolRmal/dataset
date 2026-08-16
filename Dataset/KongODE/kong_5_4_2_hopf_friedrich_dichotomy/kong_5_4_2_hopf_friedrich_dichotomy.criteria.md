@@ -35,7 +35,7 @@ says so.
 | 9 | The centre case has two conjuncts: every nearby nonconstant orbit at $\mu = 0$ is closed, **and** for small $\mu \ne 0$ there are no nearby closed orbits. | ✅ Both, with the first restricted to nonconstant trajectories with $\lVert x(0)\rVert < \varepsilon$ and the second as `∀ μ, 0 < abs μ → abs μ < ε → ¬∃ x, IsClosedOrbit (fun y ↦ F y μ) x ∧ ‖x 0‖ < ε`. |
 | 10 | In the cycle case, for every small $\mu$ on the chosen side there is a closed orbit with a positive period. | ✅ `IsClosedOrbit (fun y ↦ F y μ) (orbit μ) ∧ 0 < period μ ∧ ∀ t, orbit μ (t + period μ) = orbit μ t`. |
 | 11 | That cycle is **unique** among nearby closed orbits, as a set of points rather than as a parametrized curve. | ✅ `∀ y, IsClosedOrbit (fun z ↦ F z μ) y → ‖y 0‖ < ε → range y = range (orbit μ)`. |
-| 12 | The cycle shrinks to the origin and its period tends to $2\pi/\beta$ as $\mu \to 0$. | ◐ `Tendsto (fun μ ↦ ‖orbit μ 0‖) (𝓝[≠] 0) (𝓝 0)` and `Tendsto period (𝓝[≠] 0) (𝓝 (2 * Real.pi / β))`. Both are stated, but see the notes: only the base point of the cycle is tracked, and the filter is two-sided. |
+| 12 | The cycle shrinks to the origin and its period tends to $2\pi/\beta$ as $\mu \to 0$. | ✅ `Tendsto (fun μ ↦ ⨆ t, ‖orbit μ t‖) …` — the supremum over the whole cycle, not just its base point — with both limits taken along the one-sided filter `𝓝[>] 0` or `𝓝[<] 0` matching the side on which the cycle exists. |
 
 ## Mistakes to check for
 
