@@ -83,7 +83,7 @@ def grading_section(decl: str, n_req: int, fatal: list[str], pitfalls: list[str]
 
 
 def add_grading(decl_dir: str, decl: str, fatal: list[str], pitfalls: list[str]) -> None:
-    path = ROOT / "Dataset" / decl_dir / f"{decl}.criteria.md"
+    path = ROOT / "Dataset" / decl_dir / decl / f"{decl}.criteria.md"
     text = path.read_text()
     n_req = count_requirement_rows(text)
     section = grading_section(decl, n_req, fatal, pitfalls)
@@ -94,7 +94,7 @@ def add_grading(decl_dir: str, decl: str, fatal: list[str], pitfalls: list[str])
 
 
 def write_context(decl_dir: str, decl: str, title: str, body: str) -> None:
-    path = ROOT / "Dataset" / decl_dir / f"{decl}.context.md"
+    path = ROOT / "Dataset" / decl_dir / decl / f"{decl}.context.md"
     header = (
         f"# Context: {decl}\n\n"
         f"**Statement:** [{decl}.md]({decl}.md) · "

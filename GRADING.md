@@ -124,6 +124,15 @@ merely shares a name. Recurring traps:
   which already implies it).
 - No unused hypothesis, no `autoImplicit` reliance, binders and names follow Mathlib
   convention, `variable` used where it belongs.
+- **No redundant guards.** Lean's totality conventions often already give the intended
+  value, and writing a guard anyway only complicates the statement. Arithmetic functions
+  send `0` to `0`, and `x / 0 = 0`, so a term like `μ n / n ^ 2` already vanishes at
+  `n = 0`: an `if n = 0 then 0 else …` around it earns a deduction here. Likewise, do not
+  ascribe coercions Lean inserts on its own — write `μ n * x ^ n`, not
+  `(μ n : ℝ) * x ^ n`, when the expected type already forces the cast.
+- Data the statement can define should not be a universally quantified argument carrying
+  its own defining hypothesis. Euler's product is a function of `x`; passing it as
+  `(φ : ℝ → ℝ)` with `hφ : … Tendsto …` is weaker and harder to read than defining it.
 
 ## Reading the rubrics' assessment column
 

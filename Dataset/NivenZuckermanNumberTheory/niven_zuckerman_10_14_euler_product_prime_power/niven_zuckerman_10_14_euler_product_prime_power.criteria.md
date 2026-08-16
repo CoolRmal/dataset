@@ -21,7 +21,7 @@ choices behind them.
 |---|-------------|-------------------------------|
 | 1 | $p$ is a prime. | ✅ `hp : p.Prime`. |
 | 2 | The identity is claimed for every real $x$ with $0 \le x < 1$ — the range where Euler's product converges. | ✅ `∀ x : ℝ, 0 ≤ x → x < 1 → …`, and the same range appears in the hypothesis on `φ`. |
-| 3 | $\phi$ is the Euler product $\prod_{n\ge 1}(1-x^n)$, not an arbitrary function. | ✅ `hφ` says the partial products `∏ n ∈ Finset.Icc 1 m, (1 - x ^ n)` converge to `φ x` as `m → ∞`. |
+| 3 | $\phi$ is the Euler product $\prod_{n\ge1}(1-x^n)$, not an arbitrary function. | ✅ `eulerProduct`, defined in `Defs.lean` as `∏' n : ℕ, (1 - x ^ (n + 1))`. Passing $\phi$ in as a universally quantified function with a defining hypothesis would be weaker and less readable. |
 | 4 | The left side is $\phi(x^p)$ divided by $\phi(x)^p$: the $p$-th power is on the bottom, the substitution $x \mapsto x^p$ on the top. | ✅ `φ (x ^ p) / φ x ^ p`. |
 | 5 | The coefficients are integers. | ✅ `∃ a : ℕ → ℤ`, cast to `ℝ` only where the series is formed. |
 | 6 | The factor $p$ multiplying the series is explicit, and the constant term is exactly $1$. | ✅ `1 + p * ∑' i : ℕ, …`. |

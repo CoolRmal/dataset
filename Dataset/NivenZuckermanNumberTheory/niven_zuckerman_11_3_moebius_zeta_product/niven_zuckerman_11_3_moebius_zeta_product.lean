@@ -15,8 +15,8 @@ namespace NivenZuckermanNumberTheory
 /-- Niven–Zuckerman 11.3: the Dirichlet series of the Möbius function at `2` is the reciprocal
 of `∑ 1/n²`. -/
 theorem niven_zuckerman_11_3_moebius_zeta_product :
-    (∑' n : ℕ, if n = 0 then 0 else (ArithmeticFunction.moebius n : ℝ) / (n : ℝ) ^ 2) *
-      (∑' n : ℕ, if n = 0 then 0 else 1 / (n : ℝ) ^ 2) = 1 := by
+    (∑' n : ℕ, (ArithmeticFunction.moebius n : ℝ) / n ^ 2) *
+      (∑' n : ℕ, 1 / (n : ℝ) ^ 2) = 1 := by
   sorry
 
 end NivenZuckermanNumberTheory

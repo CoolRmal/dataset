@@ -10,4 +10,4 @@
 
 **Theorem 10.15.** For $0 \le x < 1$ we have $x\phi(x)^4 = \sum_{m=1}^{\infty}b_mx^m$ where the $b_m$ are integers and $b_m \equiv 0 \pmod 5$ if $m \equiv 0 \pmod 5$.
 
-**Notation.** Here $\phi(x) = \prod_{n=1}^{\infty}(1-x^n)$ is Euler's product, convergent for $0 \le x < 1$, and $p(n)$ denotes the number of partitions of $n$.
+**Notation.** Here $\phi(x) = \prod_{n=1}^{\infty}(1-x^n)$ is Euler's product, convergent for $0 \le x < 1$.

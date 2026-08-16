@@ -14,4 +14,4 @@ $$\frac{\phi(x^p)}{\phi(x)^p} = 1 + p\sum_{i=1}^{\infty}a_ix^i$$
 
 where the $a_i$ are integers.
 
-**Notation.** Here $\phi(x) = \prod_{n=1}^{\infty}(1-x^n)$ is Euler's product, convergent for $0 \le x < 1$, and $p(n)$ denotes the number of partitions of $n$.
+**Notation.** Here $\phi(x) = \prod_{n=1}^{\infty}(1-x^n)$ is Euler's product, convergent for $0 \le x < 1$.

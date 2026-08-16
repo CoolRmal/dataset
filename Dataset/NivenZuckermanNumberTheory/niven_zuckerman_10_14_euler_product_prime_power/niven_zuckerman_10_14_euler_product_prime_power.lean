@@ -16,11 +16,10 @@ namespace NivenZuckermanNumberTheory
 
 /-- Niven–Zuckerman 10.14: for a prime `p` the ratio `φ(xᵖ)/φ(x)ᵖ` of Euler products is
 `1 + p ∑ aᵢ xⁱ` with integer coefficients `aᵢ`. -/
-theorem niven_zuckerman_10_14_euler_product_prime_power (p : ℕ) (hp : p.Prime)
-    (φ : ℝ → ℝ) (hφ : ∀ x : ℝ, 0 ≤ x → x < 1 →
-      Tendsto (fun m ↦ ∏ n ∈ Finset.Icc 1 m, (1 - x ^ n)) atTop (𝓝 (φ x))) :
+theorem niven_zuckerman_10_14_euler_product_prime_power (p : ℕ) (hp : p.Prime) :
     ∃ a : ℕ → ℤ, ∀ x : ℝ, 0 ≤ x → x < 1 →
-      φ (x ^ p) / φ x ^ p = 1 + p * ∑' i : ℕ, (a (i + 1) : ℝ) * x ^ (i + 1) := by
+      eulerProduct (x ^ p) / eulerProduct x ^ p =
+        1 + p * ∑' i : ℕ, a (i + 1) * x ^ (i + 1) := by
   sorry
 
 end NivenZuckermanNumberTheory

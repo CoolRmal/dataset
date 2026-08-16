@@ -21,7 +21,7 @@ choices behind them.
 |---|-------------|-------------------------------|
 | 1 | $p(n)$ is the number of partitions of $n$ — all partitions, with repeats allowed among the parts. | ✅ `partitionCount n`, defined in `Defs.lean` as `Nat.card (Nat.Partition n)`, mathlib's type of partitions of `n`. |
 | 2 | The claim is about the arithmetic progression $5m+4$. | ✅ `partitionCount (5 * m + 4)`. |
-| 3 | The conclusion is divisibility by $5$. | ✅ `… % 5 = 0`. |
+| 3 | The conclusion is divisibility by $5$. | ✅ `partitionCount (5 * m + 4) ≡ 0 [MOD 5]`, using `Nat.ModEq`, which is the textbook's congruence notation. |
 | 4 | It holds for every natural number $m$, with no side condition — including $m = 0$, the case $p(4) = 5$. | ✅ `(m : ℕ)` is a bare universally quantified variable. |
 
 ## Mistakes to check for

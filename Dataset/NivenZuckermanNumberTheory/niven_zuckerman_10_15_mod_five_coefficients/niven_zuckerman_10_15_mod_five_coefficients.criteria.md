@@ -19,7 +19,7 @@ choices behind them.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
-| 1 | $\phi$ is Euler's product $\prod_{n\ge1}(1-x^n)$, not an arbitrary function. | ✅ `hφ` says the partial products `∏ n ∈ Finset.Icc 1 m, (1 - x ^ n)` converge to `φ x`. |
+| 1 | $\phi$ is Euler's product $\prod_{n\ge1}(1-x^n)$, not an arbitrary function. | ✅ `eulerProduct`, defined in `Defs.lean` by an infinite product. |
 | 2 | The claim is made for every real $x$ with $0 \le x < 1$, where the product converges. | ✅ `∀ x : ℝ, 0 ≤ x → x < 1 → …`. |
 | 3 | The function being expanded is $x\,\phi(x)^4$: the leading factor $x$ and the exponent $4$ are both part of it. | ✅ `x * φ x ^ 4`. |
 | 4 | The coefficients are integers. | ✅ `∃ b : ℕ → ℤ`, cast to `ℝ` only inside the series. |

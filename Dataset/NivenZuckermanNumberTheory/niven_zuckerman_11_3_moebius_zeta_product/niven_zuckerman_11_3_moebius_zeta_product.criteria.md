@@ -21,7 +21,7 @@ choices behind them.
 |---|-------------|-------------------------------|
 | 1 | The first series is $\sum \mu(n)/n^2$ with $\mu$ the Möbius function. | ✅ `(ArithmeticFunction.moebius n : ℝ) / (n : ℝ) ^ 2`. |
 | 2 | The second series is $\sum 1/n^2$. | ✅ `1 / (n : ℝ) ^ 2`. |
-| 3 | Both series start at $n = 1$; the $n = 0$ term must be excluded, not just left to Lean's conventions. | ✅ Each summand is wrapped in `if n = 0 then 0 else …`. |
+| 3 | Both series start at $n = 1$; the $n = 0$ term must be excluded, not just left to Lean's conventions. | ✅ Automatic: `ArithmeticFunction.moebius 0 = 0` and division by zero is `0`, so both $n=0$ terms vanish without a guard. |
 | 4 | The assertion is that the *product of the two sums* equals $1$. | ✅ `(∑' …) * (∑' …) = 1`, a single equation. |
 | 5 | The Möbius function is integer-valued and must be cast into $\mathbb{R}$ before dividing. | ✅ `(ArithmeticFunction.moebius n : ℝ)`. |
 | 6 | The exponent is $2$ in both series. | ✅ `^ 2` in both. |
@@ -39,6 +39,8 @@ wrong, even if it compiles.
 | 4 | Using an exponent other than $2$, or a general complex $s$. | The printed statement is the single case $s = 2$; a general-$s$ version is a different (harder) claim about a half-plane of convergence. |
 | 5 | Replacing $\mu(n)$ by $\lvert \mu(n)\rvert$ or by the Liouville function. | $\sum \lvert\mu(n)\rvert/n^2 = \zeta(2)/\zeta(4)$, so the product is not $1$. |
 | 6 | Writing the claim as $\sum \mu(n)/n^2 = 1 / \sum 1/n^2$ without knowing the denominator is nonzero. | Lean makes division by zero equal $0$, so this form quietly depends on $\zeta(2) \ne 0$; the product form avoids the issue. |
+
+| 8 | Guarding the $n = 0$ term with an `if … then 0 else …`. | Unnecessary and it complicates the expression: arithmetic functions send $0$ to $0$ and division by zero is $0$ in Lean, so the $n = 0$ term already vanishes. Charge this under Band E (hygiene). |
 
 ## Notes on the ground truth
 

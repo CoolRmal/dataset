@@ -19,7 +19,7 @@ choices behind them.
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
 | 1 | The summand is $\mu(n)/n^2$, with $\mu$ the Möbius function cast from $\mathbb{Z}$ to $\mathbb{R}$. | ✅ `(ArithmeticFunction.moebius n : ℝ) / (n : ℝ) ^ 2`. |
-| 2 | The sum runs over $n \ge 1$, with $n = 0$ excluded explicitly. | ✅ `if n = 0 then 0 else …` inside the `∑'`. |
+| 2 | The sum runs over $n \ge 1$, with $n = 0$ excluded explicitly. | ✅ No guard is needed: $\mu(0)=0$ and $x/0=0$, so the $n=0$ term of $\mu(n)/n^2$ is already $0$, and likewise for $1/n^2$. |
 | 3 | The value is exactly $6/\pi^2$ — a named number, not an unspecified constant. | ✅ `= 6 / Real.pi ^ 2`. |
 | 4 | The equation is between real numbers. | ✅ Everything is `ℝ`-valued; `Real.pi` is the real $\pi$. |
 | 5 | It is $6/\pi^2$, not $\pi^2/6$: the sum is less than $1$. | ✅ `6 / Real.pi ^ 2` in that order. |
@@ -37,6 +37,8 @@ wrong, even if it compiles.
 | 4 | Dropping the `n = 0` guard. | The first term becomes $\mu(0)/0$. Lean's division by zero returns $0$, so the total is unchanged — but the statement then relies on that convention instead of saying the sum starts at $1$. |
 | 5 | Replacing $\mu(n)$ by $\lvert\mu(n)\rvert$. | That series equals $\zeta(2)/\zeta(4) = 15/\pi^2$, a different number. |
 | 6 | Using an exponent other than $2$. | $\sum \mu(n)/n^s = 1/\zeta(s)$ in general; only $s=2$ gives $6/\pi^2$. |
+
+| 8 | Guarding the $n = 0$ term with an `if … then 0 else …`. | Unnecessary and it complicates the expression: arithmetic functions send $0$ to $0$ and division by zero is $0$ in Lean, so the $n = 0$ term already vanishes. Charge this under Band E (hygiene). |
 
 ## Notes on the ground truth
 

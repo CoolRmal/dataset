@@ -10,4 +10,4 @@
 
 **Theorem 10.16.** We have $p(5m + 4) \equiv 0 \pmod 5$.
 
-**Notation.** Here $\phi(x) = \prod_{n=1}^{\infty}(1-x^n)$ is Euler's product, convergent for $0 \le x < 1$, and $p(n)$ denotes the number of partitions of $n$.
+**Notation.** $p(n)$ denotes the number of partitions of $n$.

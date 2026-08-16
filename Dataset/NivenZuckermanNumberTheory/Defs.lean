@@ -30,6 +30,9 @@ noncomputable def countingFunction (A : Set ℕ) (n : ℕ) : ℕ :=
 def HasNaturalDensity (A : Set ℕ) (d : ℝ) : Prop :=
   Tendsto (fun n : ℕ ↦ (countingFunction A n : ℝ) / n) atTop (𝓝 d)
 
+/-- Euler's product `φ(x) = ∏_{n ≥ 1} (1 - xⁿ)`, convergent for `0 ≤ x < 1`. -/
+noncomputable def eulerProduct (x : ℝ) : ℝ := ∏' n : ℕ, (1 - x ^ (n + 1))
+
 /-- `p n`, the number of partitions of `n`. -/
 noncomputable def partitionCount (n : ℕ) : ℕ := Nat.card (Nat.Partition n)
 

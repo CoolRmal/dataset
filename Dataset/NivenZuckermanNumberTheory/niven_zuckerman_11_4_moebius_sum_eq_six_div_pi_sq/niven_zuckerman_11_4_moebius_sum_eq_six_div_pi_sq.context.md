@@ -4,13 +4,6 @@
 
 Background needed to read the statement correctly. Natural language only: no Lean, and no hint at how to formalize it.
 
-## The value $\sum\mu(n)/n^2 = 6/\pi^2$
+## Notation
 
-**The summand** is $\mu(n)/n^2$ with the Möbius function cast to $\mathbb{R}$, summed over $n \ge 1$; the
-$n = 0$ term is excluded explicitly rather than by relying on $1/0 = 0$.
-
-**The value is $6/\pi^2$**, a specific named number — the reciprocal of $\zeta(2) = \pi^2/6$. The
-orientation matters: the sum is less than $1$, so it is $6/\pi^2 \approx 0.6079$, not $\pi^2/6 \approx
-1.6449$.
-
-**The equation is between real numbers**, with $\pi$ the real constant.
+$\mu$ is the Möbius function. The value is $6/\pi^2$, the reciprocal of $\zeta(2) = \pi^2/6$; note the orientation, since the sum is less than $1$.
