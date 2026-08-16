@@ -28,7 +28,7 @@ says so.
 | 1 | $G$ is a locally compact abelian topological group. | ✅ `[CommGroup G] [TopologicalSpace G] [IsTopologicalGroup G] [LocallyCompactSpace G]`. |
 | 2 | $f$ is continuous. | ✅ `hf : Continuous f`. |
 | 3 | $f$ is bounded. | ✅ `hbdd : ∃ C : ℝ, ∀ x, ‖f x‖ ≤ C`. |
-| 4 | The statement is an equivalence between the two conditions, not an implication. | ✅ The conclusion is an `↔`. |
+| 4 | All three of Folland's conditions are asserted equivalent. | ✅ `List.TFAE [extendsToBohr, uniformLimitOfCharacters, IsUniformlyAlmostPeriodic f]`. |
 | 5 | Side (b): for every $\varepsilon > 0$ there is an approximating combination. | ✅ `∀ ε : ℝ, 0 < ε → ∃ …`. |
 | 6 | The combination is a **finite** sum over characters, with arbitrary complex coefficients. | ✅ `∃ (s : Finset (PontryaginDual G)) (c : PontryaginDual G → ℂ), … ∑ ξ ∈ s, c ξ * (ξ x : ℂ)`. |
 | 7 | The approximation is uniform in $x$: one choice of sum works for all $x$ at once. | ✅ The `∀ x` sits **inside** the `∃ s, ∃ c`, so `s` and `c` do not depend on `x`. |
@@ -53,10 +53,10 @@ wrong, even if it compiles.
 
 ## Notes on the ground truth
 
-- **Deliberate departure.** Only the equivalence (b) $\Leftrightarrow$ (c) is formalized. Clause (a), that $f$ extends to a
-  continuous function on the Bohr compactification $bG$, is omitted because Mathlib has no Bohr
-  compactification. A candidate that also formalizes (a) — for instance by quantifying over a
-  compact group containing a dense continuous image of $G$ — is closer to the printed theorem.
+- All three of Folland's items are stated, as a `List.TFAE`. Clause (a) is expressed by exhibiting
+  a compact Hausdorff group `K` with a continuous dense-range homomorphism `ι : G →* K` through
+  which every character of `G` factors — conditions that characterise the Bohr compactification
+  `bG` — together with a continuous `F : K → ℂ` restricting to `f` along `ι`.
 - `IsUniformlyAlmostPeriodic` is written out in `Defs.lean` as an explicit finite $\varepsilon$-net
   in the supremum norm, precisely to avoid Mathlib's pointwise uniformity on `G → ℂ`. An earlier
   version of the statement used `TotallyBounded` and was satisfied by every bounded function; that

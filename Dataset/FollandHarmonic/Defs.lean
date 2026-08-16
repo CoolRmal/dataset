@@ -1,6 +1,7 @@
 import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
 import Mathlib.MeasureTheory.Integral.Bochner.Basic
 import Mathlib.MeasureTheory.Measure.Haar.Basic
+import Mathlib.Topology.Algebra.PontryaginDual
 
 /-!
 # Shared definitions for the FollandHarmonic problems
@@ -35,6 +36,16 @@ noncomputable def groupConv (μ : Measure G) (f g : G → ℂ) : G → ℂ :=
 def IsLpClosed (p : ℝ≥0∞) (μ : Measure G) (I : Set (G → ℂ)) : Prop :=
   ∀ f : G → ℂ, MemLp f p μ →
     (∀ ε : ℝ≥0∞, 0 < ε → ∃ g ∈ I, MemLp g p μ ∧ eLpNorm (f - g) p μ < ε) → f ∈ I
+
+/-- `ι` exhibits `K` as the Bohr compactification `bG` of `G`: `K` is a compact Hausdorff
+topological group, `ι` is a continuous homomorphism with dense range, and every continuous
+character of `G` factors through `ι`. Those conditions characterise `bG` among compactifications
+of `G` by groups. -/
+def IsBohrCompactification {G K : Type*} [CommGroup G] [TopologicalSpace G]
+    [CommGroup K] [TopologicalSpace K] [IsTopologicalGroup K] [CompactSpace K] [T2Space K]
+    (ι : G →* K) : Prop :=
+  Continuous ι ∧ DenseRange ι ∧
+    ∀ χ : PontryaginDual G, ∃ ψ : PontryaginDual K, ∀ x : G, ψ (ι x) = χ x
 
 /-- `C_lu(G)`: the bounded, **left** uniformly continuous functions —
 `‖L_y f - f‖_∞ → 0` as `y → 1`. -/
