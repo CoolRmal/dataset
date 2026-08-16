@@ -50,11 +50,8 @@ wrong, even if it compiles.
 - The probabilities are `ℝ≥0∞`-valued throughout, so `liminf` and `limsup` always exist and no
   conversion to real numbers can truncate at $\infty$. Using `μ.real` or `ENNReal.toReal` would work
   here but would need `IsProbabilityMeasure` to be sound.
-- **Deliberate departure.** Because `ξn n` is only assumed `AEMeasurable`, the preimages `ξn n ⁻¹' G` need not be
-  measurable, and `μ` is being applied to them as an outer measure. This is sound — for an
-  almost-everywhere measurable map, the outer measure of the preimage agrees with the pushforward
-  law of the set — but it is a subtle reading. Writing `(μ.map (ξn n)) G`, or assuming `Measurable`
-  instead of `AEMeasurable`, would make the intent plain without changing the mathematics.
+- The four conditions are stated about the *laws* `μ.map (ξn n)` and `μ'.map ξ`, which is what weak
+  convergence concerns and what `AEMeasurable` is exactly enough to define.
 - **Deliberate departure.** Kallenberg allows $\xi, \xi_1, \xi_2, \dots$ to live on unrelated probability spaces. The ground
   truth puts all the $\xi_n$ on one space $(\Omega, \mu)$ and $\xi$ on another. This is harmless,
   since weak convergence depends only on the laws, and `TendstoInDistribution` already supports a

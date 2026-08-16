@@ -19,7 +19,7 @@ universe u
 /-- Mattila 14.10, Marstrand's density theorem. -/
 theorem mattila_14_10_marstrand_density_integer
     {n : ℕ} {s : ℝ} {μ : Measure (EuclideanSpace ℝ (Fin n))}
-    (hs : 0 < s) (hμ : IsFiniteMeasureOnCompacts μ ∧ Measure.InnerRegular μ)
+    (hs : 0 < s) [IsFiniteMeasureOnCompacts μ] [Measure.InnerRegular μ]
     (hdensity : ∃ E : Set (EuclideanSpace ℝ (Fin n)), 0 < μ E ∧ ∀ x ∈ E,
       ∃ θ : ℝ≥0∞, 0 < θ ∧ θ < ∞ ∧
         Tendsto (fun r : ℝ ↦ μ (closedBall x r) / ENNReal.ofReal ((2 * r) ^ s))

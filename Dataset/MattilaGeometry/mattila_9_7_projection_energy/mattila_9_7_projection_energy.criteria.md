@@ -67,8 +67,8 @@ wrong, even if it compiles.
   non-measurable function is the supremum over measurable functions below it, so the left-hand side
   could come out smaller than the intended $L^2$ integral.
 - The bound is stated with the strict `<` the book writes.
-- **Deliberate departure.** `IsFiniteMeasureOnCompacts` and `Measure.InnerRegular` are classes; since `μ` is universally
-  quantified here, instance binders would be more idiomatic than plain implications.
+- Radon-ness is carried by instance binders `[IsFiniteMeasureOnCompacts μ] [Measure.InnerRegular μ]`,
+  which is what these classes are for.
 - No hypothesis $m \le n$ is imposed. When $m > n$ the Grassmannian is empty, no probability measure
   exists on it, and the theorem is empty of content — harmless, but worth knowing.
 

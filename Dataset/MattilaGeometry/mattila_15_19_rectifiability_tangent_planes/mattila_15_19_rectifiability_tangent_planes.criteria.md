@@ -63,10 +63,8 @@ wrong, even if it compiles.
   $\{x : d(x-a, V) < s\lvert x - a\rvert\}$.
 - The two normalizations differ on purpose and match the book: `upperHausdorffDensity` divides by
   $(2r)^m$, while the cone condition in 15.17 divides by $r^m$.
-- **Deliberate departure.** The slab complement in 15.7 uses `η * r ≤ infDist …`, i.e. the complement of the *open*
-  $\eta r$-neighbourhood of the plane. Reading the book's $W(\eta r)$ as closed would give a strict
-  `<` there instead. This does not affect the equivalence, since $\eta$ is universally quantified,
-  but it is not literal.
+- The slab complement is the complement of the open $\eta r$-neighbourhood of the plane. Since
+  $\eta$ is universally quantified, the open and closed readings define the same condition.
 - Measurability of `E` is Carathéodory measurability for $\mathcal{H}^m$, matching the book.
 - All quotients are `ℝ≥0∞`-valued with denominators `ENNReal.ofReal (r ^ (m:ℝ))`, which are positive
   and finite for `r > 0`, and all limits are along `𝓝[>] 0`, so the junk values of `Real.rpow` at

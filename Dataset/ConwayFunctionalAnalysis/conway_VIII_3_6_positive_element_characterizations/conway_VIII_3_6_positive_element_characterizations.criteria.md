@@ -53,9 +53,8 @@ wrong, even if it compiles.
   content.
 - A spectral spelling of item (a) — `IsSelfAdjoint a ∧ ∀ z ∈ spectrum ℝ a, 0 ≤ z` — is equally
   faithful to Conway and should be accepted in a candidate.
-- **Deliberate departure.** The scalar in (d) and (e) is written `algebraMap ℂ A (t : ℂ)` with `t : ℝ`, a slightly indirect
-  round trip through $\mathbb{C}$. `(t : ℝ) • (1 : A)` reads closer to the book's "$t - a$". The
-  meaning is the same, and the guard $\lVert a\rVert \le t$ already forces $t \ge 0$.
+- The scalar in (d) and (e) is `(t : ℝ) • (1 : A)`: a real multiple of the unit, which is what
+  `t - a` means in the text.
 - The items are `let`-bound propositions combined with `List.TFAE`, matching how the other
   multi-part equivalences in this book's files are written.
 

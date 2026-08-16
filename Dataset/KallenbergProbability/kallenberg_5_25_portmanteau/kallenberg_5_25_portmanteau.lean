@@ -23,11 +23,11 @@ theorem kallenberg_5_25_portmanteau
     (hξn : ∀ n, AEMeasurable (ξn n) μ) (hξ : AEMeasurable ξ μ') :
     let lawsConverge := TendstoInDistribution ξn atTop ξ (fun _ ↦ μ) μ'
     let openLowerBound := ∀ G : Set S, IsOpen G →
-      μ' (ξ ⁻¹' G) ≤ liminf (fun n ↦ μ (ξn n ⁻¹' G)) atTop
+      (μ'.map ξ) G ≤ liminf (fun n ↦ (μ.map (ξn n)) G) atTop
     let closedUpperBound := ∀ F : Set S, IsClosed F →
-      limsup (fun n ↦ μ (ξn n ⁻¹' F)) atTop ≤ μ' (ξ ⁻¹' F)
-    let continuitySets := ∀ B : Set S, MeasurableSet B → μ' (ξ ⁻¹' frontier B) = 0 →
-      Tendsto (fun n ↦ μ (ξn n ⁻¹' B)) atTop (𝓝 (μ' (ξ ⁻¹' B)))
+      limsup (fun n ↦ (μ.map (ξn n)) F) atTop ≤ (μ'.map ξ) F
+    let continuitySets := ∀ B : Set S, MeasurableSet B → (μ'.map ξ) (frontier B) = 0 →
+      Tendsto (fun n ↦ (μ.map (ξn n)) B) atTop (𝓝 ((μ'.map ξ) B))
     List.TFAE [lawsConverge, openLowerBound, closedUpperBound, continuitySets] := by
   sorry
 

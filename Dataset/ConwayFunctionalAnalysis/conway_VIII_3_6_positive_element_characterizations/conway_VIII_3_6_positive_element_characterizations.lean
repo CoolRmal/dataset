@@ -19,9 +19,9 @@ theorem conway_VIII_3_6_positive_element_characterizations
     let hermitianSquare := ∃ b : A, IsSelfAdjoint b ∧ a = b ^ 2
     let starSquare := ∃ x : A, a = star x * x
     let normBoundForAll := IsSelfAdjoint a ∧ ∀ t : ℝ, ‖a‖ ≤ t →
-      ‖algebraMap ℂ A (t : ℂ) - a‖ ≤ t
+      ‖(t : ℝ) • (1 : A) - a‖ ≤ t
     let normBoundForSome := IsSelfAdjoint a ∧ ∃ t : ℝ, ‖a‖ ≤ t ∧
-      ‖algebraMap ℂ A (t : ℂ) - a‖ ≤ t
+      ‖(t : ℝ) • (1 : A) - a‖ ≤ t
     List.TFAE [0 ≤ a, hermitianSquare, starSquare, normBoundForAll,
       normBoundForSome] := by
   sorry

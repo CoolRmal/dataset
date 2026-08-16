@@ -55,10 +55,8 @@ wrong, even if it compiles.
   choice between $(2r)^s$ and $r^s$ only rescales the density by $2^s$ and changes nothing about
   "positive and finite". A candidate dividing by `r ^ s` is still faithful.
 - `μ ≠ 0` is not assumed; it follows from `0 < μ E`.
-- **Deliberate departure.** `IsFiniteMeasureOnCompacts` and `Measure.InnerRegular` are classes, so instance binders
-  `[IsFiniteMeasureOnCompacts μ] [μ.InnerRegular]` would be more idiomatic than the conjunction
-  `hμ`. On $\mathbb{R}^n$ inner regularity is automatic for locally finite Borel measures, so that
-  component carries no content here.
+- Radon-ness is carried by instance binders `[IsFiniteMeasureOnCompacts μ] [Measure.InnerRegular μ]`,
+  which is what these classes are for.
 - "$s$ is an integer" is `∃ m : ℤ, s = m`, the literal rendering.
 
 ## Grading (out of 100)

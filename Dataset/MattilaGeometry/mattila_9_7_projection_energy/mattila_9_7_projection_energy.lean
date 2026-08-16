@@ -23,7 +23,7 @@ theorem mattila_9_7_projection_energy
     (γ : Measure (Grassmannian n m)) (hγ : IsInvariantGrassmannianMeasure γ) :
     ∃ c : ℝ≥0∞, c < ∞ ∧
       ∀ μ : Measure (EuclideanSpace ℝ (Fin n)),
-      IsFiniteMeasureOnCompacts μ → Measure.InnerRegular μ → IsCompact μ.support →
+      ∀ _ : IsFiniteMeasureOnCompacts μ, ∀ _ : Measure.InnerRegular μ, IsCompact μ.support →
       rieszEnergy (m : ℝ) μ < ∞ →
       (∀ᵐ V ∂γ,
         Measure.map (fun x ↦ V.1.orthogonalProjectionOnto x) μ ≪ μH[(m : ℝ)]) ∧
