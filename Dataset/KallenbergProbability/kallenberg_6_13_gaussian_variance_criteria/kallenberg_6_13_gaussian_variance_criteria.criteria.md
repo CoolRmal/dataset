@@ -52,10 +52,9 @@ wrong, even if it compiles.
 
 ## Notes on the ground truth
 
-- **Deliberate departure.** The Lindeberg integrals are written as a Bochner integral of $\xi^2$ times an indicator
-  composed with $\xi$. The idiomatic Mathlib spelling is a set integral,
-  `∫ ω in {ω \| ε < \|ξ n j ω\|}, (ξ n j ω) ^ 2 ∂μ`. The two are equal; the indicator form is
-  correct but roundabout.
+- The Lindeberg truncated second moments are lower Lebesgue integrals into `ℝ≥0∞`: the integrand is
+  non-negative and may a priori fail to be integrable, where a Bochner integral would silently
+  return `0` and make the condition hold for the wrong reason.
 - **Deliberate departure.** Rows have length `k n + 1` rather than `k n`. The `+ 1` exists only so that each row is
   nonempty and `Finset.sup'` can be applied. Using `Fin (k n)` with a supremum that tolerates empty
   rows would be marginally more faithful.

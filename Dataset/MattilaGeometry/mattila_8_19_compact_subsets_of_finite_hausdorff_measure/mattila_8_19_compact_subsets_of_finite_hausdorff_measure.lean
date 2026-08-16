@@ -18,7 +18,7 @@ universe u
 /-- Mattila 8.19, finite-measure compact subsets approximate Hausdorff measure. -/
 theorem mattila_8_19_compact_subsets_of_finite_hausdorff_measure
     {X : Type u} [MetricSpace X] [CompactSpace X] [MeasurableSpace X] [BorelSpace X]
-    {s : ℝ} (hs : 0 < s) :
+    {s : ℝ} :
     μH[s] (Set.univ : Set X) =
       ⨆ C : Set X, ⨆ (_ : IsCompact C), ⨆ (_ : μH[s] C < ∞), μH[s] C := by
   sorry

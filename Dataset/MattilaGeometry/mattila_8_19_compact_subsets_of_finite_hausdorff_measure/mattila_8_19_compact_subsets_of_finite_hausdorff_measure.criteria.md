@@ -56,10 +56,7 @@ wrong, even if it compiles.
   content.
 - The statement is universe-polymorphic in `X`, which keeps the book's generality. Specializing to
   `EuclideanSpace ℝ (Fin n)` would not be unfaithful, just narrower.
-- **Deliberate departure.** `hs : 0 < s` is our addition; it is not in the textbook statement and is not used anywhere else
-  in the statement. It is a harmless restriction (for $s = 0$ the identity still holds, with
-  $\mathcal{H}^0$ the counting measure), but `0 ≤ s`, or no restriction at all, would be closer to
-  the text.
+- No positivity of `s` is assumed, matching the printed statement.
 
 ## Grading (out of 100)
 

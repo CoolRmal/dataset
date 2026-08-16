@@ -58,8 +58,7 @@ wrong, even if it compiles.
   the same `limsup` value, but it is a needless departure from the text.
 - `2 ^ (-s)` is `Real.rpow`, moved into `ℝ≥0∞` by `ENNReal.ofReal`, the correct coercion of a
   positive real.
-- **Deliberate departure.** `hs : 0 < s` is our addition; the text does not state it. It is a harmless narrowing (at
-  $s = 0$ the bounds read $1 \le \Theta \le 1$ for counting measure), but it is not in the source.
+- No positivity of `s` is assumed; the text states none and the proof needs none.
 - Part (2) uses Carathéodory $\mathcal{H}^s$-measurability, matching the book.
 
 ## Grading (out of 100)

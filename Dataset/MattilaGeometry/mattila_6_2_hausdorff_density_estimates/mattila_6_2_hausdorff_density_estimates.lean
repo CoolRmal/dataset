@@ -18,7 +18,7 @@ universe u
 
 /-- Mattila 6.2, upper Hausdorff-density estimates. -/
 theorem mattila_6_2_hausdorff_density_estimates
-    {n : ℕ} {s : ℝ} {A : Set (EuclideanSpace ℝ (Fin n))} (hs : 0 < s)
+    {n : ℕ} {s : ℝ} {A : Set (EuclideanSpace ℝ (Fin n))}
     (hA : μH[s] A < ∞) :
     (∀ᵐ x ∂μH[s], x ∈ A →
       ENNReal.ofReal (2 ^ (-s)) ≤ upperHausdorffDensity s A x ∧

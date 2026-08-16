@@ -10,7 +10,7 @@ Quality rubric: `kallenberg_6_13_gaussian_variance_criteria.criteria.md`.
 -/
 
 open Filter MeasureTheory ProbabilityTheory
-open scoped Topology
+open scoped Topology ENNReal
 
 namespace Dataset
 namespace KallenbergProbability
@@ -32,9 +32,11 @@ theorem kallenberg_6_13_gaussian_variance_criteria
     let maximalVarianceVanishes := Tendsto
       (fun n ↦ Finset.univ.sup' (Finset.univ_nonempty_iff.mpr inferInstance)
         fun j ↦ variance (ξ n j) μ) atTop (𝓝 0)
+    -- truncated second moments as lower Lebesgue integrals: the integrand is non-negative and
+    -- may a priori be non-integrable, where a Bochner integral would silently return 0
     let lindeberg := ∀ ε : ℝ, 0 < ε → Tendsto
-      (fun n ↦ ∑ j, ∫ ω, (ξ n j ω) ^ 2 * (Set.indicator
-        {x : ℝ | ε < |x|} (fun _ ↦ (1 : ℝ))) (ξ n j ω) ∂μ) atTop (𝓝 0)
+      (fun n ↦ ∑ j, ∫⁻ ω, ENNReal.ofReal ((ξ n j ω) ^ 2) *
+        Set.indicator {x : ℝ | ε < |x|} (fun _ ↦ (1 : ℝ≥0∞)) (ξ n j ω) ∂μ) atTop (𝓝 0)
     (sumConverges ∧ maximalVarianceVanishes) ↔ lindeberg := by
   sorry
 
