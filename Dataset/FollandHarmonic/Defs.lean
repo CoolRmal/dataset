@@ -36,6 +36,18 @@ def IsLpClosed (p : ℝ≥0∞) (μ : Measure G) (I : Set (G → ℂ)) : Prop :=
   ∀ f : G → ℂ, MemLp f p μ →
     (∀ ε : ℝ≥0∞, 0 < ε → ∃ g ∈ I, MemLp g p μ ∧ eLpNorm (f - g) p μ < ε) → f ∈ I
 
+/-- `C_lu(G)`: the bounded, **left** uniformly continuous functions —
+`‖L_y f - f‖_∞ → 0` as `y → 1`. -/
+def IsLeftUniformlyContinuous (f : G → ℂ) : Prop :=
+  (∃ C : ℝ, ∀ x, ‖f x‖ ≤ C) ∧
+    ∀ ε : ℝ, 0 < ε → ∃ U ∈ nhds (1 : G), ∀ y ∈ U, ∀ x, ‖leftTranslate y f x - f x‖ < ε
+
+/-- `C_ru(G)`: the bounded, **right** uniformly continuous functions —
+`‖R_y f - f‖_∞ → 0` as `y → 1`. -/
+def IsRightUniformlyContinuous (f : G → ℂ) : Prop :=
+  (∃ C : ℝ, ∀ x, ‖f x‖ ≤ C) ∧
+    ∀ ε : ℝ, 0 < ε → ∃ U ∈ nhds (1 : G), ∀ y ∈ U, ∀ x, ‖rightTranslate y f x - f x‖ < ε
+
 /-- `f` is uniformly almost periodic: its right translates are totally bounded for the uniform
 norm, i.e. finitely many of them approximate all the others uniformly on `G`. -/
 def IsUniformlyAlmostPeriodic (f : G → ℂ) : Prop :=

@@ -50,14 +50,10 @@ wrong, even if it compiles.
 
 ## Notes on the ground truth
 
-- **Deliberate departure.** Only the $L^p$ clause of the theorem is formalized. Folland also states
-  $L^1 * L^\infty = L^1 * C_{lu} = C_{lu}$ and $L^\infty * L^1 = C_{ru} * L^1 = C_{ru}$. Those need
-  $C_{lu}$ and $C_{ru}$, which Mathlib does not supply; they are recorded in the `.md` but not in
-  Lean.
-- **Deliberate departure.** Only the surjectivity half of the set equality is formalized. The inclusion
-  $L^1 * L^p \subseteq L^p$ is the content of `folland_2_40_convolution_lp_bound`, which appears
-  separately in this book, so nothing is lost across the dataset — but a candidate that states both
-  halves is closer to the printed sentence.
+- All four printed identities are stated: $L^1 * L^p = L^p$, $L^1 * L^\infty = L^1 * C_{lu} = C_{lu}$
+  and $L^\infty * L^1 = C_{ru} * L^1 = C_{ru}$, using `IsLeftUniformlyContinuous` and
+  `IsRightUniformlyContinuous` added to `Defs.lean` for $C_{lu}$ and $C_{ru}$.
+- Both halves of each set equality are stated: the factorization and the inclusion.
 - `groupConv μ g h x` takes the value `0` wherever its defining integral diverges. The statement
   does not separately assert that the integral converges almost everywhere; it does not need to,
   because that follows from `Integrable g μ` and `MemLp h p μ` by Folland 2.40(a), and because

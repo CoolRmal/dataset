@@ -20,8 +20,27 @@ theorem folland_2_69_convolution_factorization {G : Type*} [Group G]
     [TopologicalSpace G] [IsTopologicalGroup G]
     [LocallyCompactSpace G] [MeasurableSpace G] [BorelSpace G]
     (μ : Measure G) [μ.IsHaarMeasure]
-    (p : ℝ≥0∞) (hp : 1 ≤ p) (hp' : p ≠ ∞) (f : G → ℂ) (hf : MemLp f p μ) :
-    ∃ g h : G → ℂ, Integrable g μ ∧ MemLp h p μ ∧ ∀ᵐ x ∂μ, groupConv μ g h x = f x := by
+    (p : ℝ≥0∞) (hp : 1 ≤ p) (hp' : p ≠ ∞) :
+    -- L¹ * Lᵖ = Lᵖ : both inclusions
+    (∀ f : G → ℂ, MemLp f p μ →
+        ∃ g h : G → ℂ, Integrable g μ ∧ MemLp h p μ ∧ ∀ᵐ x ∂μ, groupConv μ g h x = f x) ∧
+      (∀ g h : G → ℂ, Integrable g μ → MemLp h p μ → MemLp (groupConv μ g h) p μ) ∧
+    -- L¹ * L^∞ = L¹ * C_lu = C_lu
+    (∀ f : G → ℂ, IsLeftUniformlyContinuous f →
+        ∃ g h : G → ℂ, Integrable g μ ∧ MemLp h ∞ μ ∧ ∀ x, groupConv μ g h x = f x) ∧
+      (∀ g h : G → ℂ, Integrable g μ → MemLp h ∞ μ →
+        IsLeftUniformlyContinuous (groupConv μ g h)) ∧
+      (∀ f : G → ℂ, IsLeftUniformlyContinuous f →
+        ∃ g h : G → ℂ, Integrable g μ ∧ IsLeftUniformlyContinuous h ∧
+          ∀ x, groupConv μ g h x = f x) ∧
+    -- L^∞ * L¹ = C_ru * L¹ = C_ru
+    (∀ f : G → ℂ, IsRightUniformlyContinuous f →
+        ∃ g h : G → ℂ, MemLp g ∞ μ ∧ Integrable h μ ∧ ∀ x, groupConv μ g h x = f x) ∧
+      (∀ g h : G → ℂ, MemLp g ∞ μ → Integrable h μ →
+        IsRightUniformlyContinuous (groupConv μ g h)) ∧
+      (∀ f : G → ℂ, IsRightUniformlyContinuous f →
+        ∃ g h : G → ℂ, IsRightUniformlyContinuous g ∧ Integrable h μ ∧
+          ∀ x, groupConv μ g h x = f x) := by
   sorry
 
 end FollandHarmonic
