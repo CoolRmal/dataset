@@ -59,8 +59,7 @@ wrong, even if it compiles.
 - An earlier version of this file used `stoppedValue` throughout, including inside the closure
   clause, where it compared arbitrary default values instead of $X_\infty$. Mistake row 1 keeps that
   defect on record.
-- **Deliberate departure.** `hτbounded` is an almost-sure bound where the text says simply "bounded". This makes the theorem
-  formally stronger and is harmless; `∀ ω, τ ω ≤ u` is the literal reading.
+- `hτbounded` is a genuine bound, `∃ u, ∀ ω, τ ω ≤ u`, as the text says.
 - Mathlib's `UniformIntegrable` bundles almost-everywhere strong measurability and a uniform $L^1$
   bound alongside the uniform-integrability condition. Both hold automatically for the positive part
   of a submartingale, so nothing beyond the text is being assumed.

@@ -21,9 +21,9 @@ theorem mattila_7_7_lipschitz_level_sets
     {n m : ℕ} :
     ∃ c : ℝ≥0∞, c < ∞ ∧ ∀ (s : ℝ) (A : Set (EuclideanSpace ℝ (Fin n)))
       (f : EuclideanSpace ℝ (Fin n) → EuclideanSpace ℝ (Fin m)) (K : NNReal),
-        (m : ℝ) < s ∧ s < n → LipschitzOnWith K f A →
+        (m : ℝ) < s → s < n → LipschitzOnWith K f A →
           upperIntegral volume (fun y ↦ μH[s - m] (A ∩ f ⁻¹' {y})) ≤
-            c * (K : ℝ≥0∞) ^ (m : ℝ) * μH[s] A := by
+            c * (K : ℝ≥0∞) ^ m * μH[s] A := by
   sorry
 
 end MattilaGeometry

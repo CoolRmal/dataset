@@ -23,7 +23,7 @@ theorem kallenberg_9_30_optional_sampling_and_closure
     (hXright : ∀ᵐ ω ∂μ, ∀ t,
       ContinuousWithinAt (fun s ↦ X s ω) (Ici t) t)
     (σ τ : Ω → WithTop ℝ≥0) (hσ : IsStoppingTime ℱ σ) (hτ : IsStoppingTime ℱ τ)
-    (hτbounded : ∃ u : ℝ≥0, ∀ᵐ ω ∂μ, τ ω ≤ u) :
+    (hτbounded : ∃ u : ℝ≥0, ∀ ω, τ ω ≤ u) :
     Integrable (stoppedValue X τ) μ ∧
       stoppedValue X (fun ω ↦ min (σ ω) (τ ω)) ≤ᵐ[μ]
         μ[stoppedValue X τ | hσ.measurableSpace] ∧

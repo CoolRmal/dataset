@@ -24,7 +24,7 @@ theorem mattila_14_10_marstrand_density_integer
       ∃ θ : ℝ≥0∞, 0 < θ ∧ θ < ∞ ∧
         Tendsto (fun r : ℝ ↦ μ (closedBall x r) / ENNReal.ofReal ((2 * r) ^ s))
           (𝓝[>] 0) (𝓝 θ)) :
-    ∃ m : ℕ, s = m := by
+    ∃ m : ℤ, s = m := by
   sorry
 
 end MattilaGeometry

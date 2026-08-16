@@ -18,7 +18,7 @@ universe u
 
 /-- Mattila 18.1, the Besicovitch--Federer projection theorem. -/
 theorem mattila_18_1_besicovitch_federer_projection
-    {n m : ℕ} (hm : 0 < m) (hmn : m < n)
+    {n m : ℕ}
     (γ : Measure (Grassmannian n m)) (hγ : IsInvariantGrassmannianMeasure γ)
     {A : Set (EuclideanSpace ℝ (Fin n))} (hA : NullMeasurableSet A μH[(m : ℝ)]) (hAfin : μH[(m : ℝ)] A < ∞) :
     (RectifiableSet n m A ↔ ∀ B : Set (EuclideanSpace ℝ (Fin n)),

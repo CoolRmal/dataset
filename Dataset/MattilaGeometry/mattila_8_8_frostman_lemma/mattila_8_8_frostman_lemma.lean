@@ -33,7 +33,7 @@ theorem mattila_8_8_frostman_lemma
               μ ≠ 0 ∧ IsCompact μ.support ∧ μ.support ⊆ B ∧
               (∀ x : EuclideanSpace ℝ (Fin n), ∀ r : ℝ, 0 < r →
                 μ (closedBall x r) < ENNReal.ofReal (r ^ s)) ∧
-              c * hausdorffContent s B < μ B) := by
+              (hausdorffContent s B < ∞ → c * hausdorffContent s B < μ B)) := by
   sorry
 
 end MattilaGeometry

@@ -57,16 +57,12 @@ wrong, even if it compiles.
   bundle and the object produced really is a tubular neighbourhood.
 - `∑ i, v i * velocity i` is the genuine Euclidean inner product, which is the right notion of
   perpendicularity even though `Fin n → ℝ` carries the sup norm.
-- **Deliberate departure.** The fibre condition `‖p.2‖ < radius p.1` uses the sup norm of `Fin n → ℝ`, so the fibres are
-  cubes rather than Euclidean disks. Since `radius` is existentially chosen and otherwise
-  unconstrained, the two versions are equivalent statements; `EuclideanSpace ℝ (Fin n)` would be the
-  literal reading and is Mathlib's convention for $\mathbb{R}^n$.
+- The fibre condition is `∑ i, (p.2 i)^2 < (radius p.1)^2`, so the fibres are Euclidean balls
+  rather than sup-norm boxes.
 - Quantifying only over curves that are smooth, rather than merely differentiable at $0$, would give
   the same tangent space and is an acceptable variant.
-- **Deliberate departure.** `EmbeddedSubmanifoldOfCodimension` uses the truncated natural subtraction `n - codim` for the
-  slice dimension, so `codim > n` would silently read as `codim = n`. Harmless in substance — only
-  `codim ≤ n` is realizable — but worth checking in candidates that reintroduce a dimension
-  parameter.
+- `EmbeddedSubmanifoldOfCodimension` carries `codim ≤ m`, so the slice condition cannot be read
+  through a truncated subtraction.
 - `IsNormalVector M x v` includes the conjunct `x ∈ M`. Inside `NormalDiskBundle` the first
   component already has type `↥M`, so that conjunct is automatically satisfied there and adds
   nothing.

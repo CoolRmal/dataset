@@ -51,17 +51,11 @@ wrong, even if it compiles.
 - Mathlib has no covering dimension, so `CoveringDimensionLE` and `CoverOrderLE` are hand-rolled in
   `Defs.lean` and must be read literally. `Fin m`-indexed finite families, `IsOpen`, `IsClosed` and
   `Finset.card` are the right primitives.
-- **Deliberate departure.** `CoverOrderLE` counts *indices*, so a refinement that lists the same set twice is penalized.
-  This is harmless here because the refinement is existentially quantified and can be indexed
-  injectively, but a formulation using `{i | x ∈ V i}.Finite` and `ncard` would be cleaner.
-- **Deliberate departure.** Engelking's "normal space" includes $T_1$ — he develops dimension theory only for $T_4$ spaces —
-  while the ground truth assumes only mathlib's `[NormalSpace X]`. This *generalizes* the statement
-  rather than falsifying it, since the classical proof uses normality only, via extension of covers.
-  Still, `[T1Space X]` or `[T4Space X]` is the faithful transcription, and a candidate that includes
-  $T_1$ should not be penalized.
-- **Deliberate departure.** The closed cover is delivered as a single existential hypothesis `hcover : ∃ F, …`. This is
-  logically the same as taking `F` and its properties as explicit binders, which would be the
-  idiomatic mathlib shape and easier to apply. The existential packaging is acceptable.
+- `CoverOrderLE` counts *distinct sets*, so a refinement that lists the same set twice is not
+  penalised; the order of a cover is about how many members contain a point.
+- Engelking's "normal space" includes $T_1$, and `[T1Space X]` is assumed alongside `[NormalSpace X]`.
+- The closed cover is supplied as data with its three properties as separate hypotheses, so the
+  theorem reads as Engelking states it.
 
 ## Grading (out of 100)
 

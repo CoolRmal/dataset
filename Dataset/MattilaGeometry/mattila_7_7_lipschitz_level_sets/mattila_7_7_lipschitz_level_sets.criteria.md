@@ -59,9 +59,8 @@ wrong, even if it compiles.
 - $d\mathcal{L}^m y$ is Lebesgue measure on $\mathbb{R}^m$. Using `μH[(m:ℝ)]` on the target instead
   would change the bound only by a dimensional constant, which `c` could absorb, but it is farther
   from the text.
-- **Deliberate departure.** `(K : ℝ≥0∞) ^ (m : ℝ)` is `rpow`; the simpler natural power `^ m` would read better.
-- **Deliberate departure.** The range condition is packaged as one conjunction `(m : ℝ) < s ∧ s < n`; two separate
-  hypotheses would be more idiomatic.
+- The Lipschitz constant is raised to the natural power `^ m`.
+- The range condition is two separate hypotheses, `(m : ℝ) < s` and `s < n`.
 - The constant is only required to be finite, not positive. A smaller `c` gives a stronger claim, so
   no lower bound on `c` is needed.
 

@@ -56,9 +56,7 @@ wrong, even if it compiles.
   continuous and open, hence a quotient map, so the topology on $Q$ is pinned down.
 - The diffeomorphism $e$ in the uniqueness clause is automatically unique, because $\pi$ is
   surjective and $e \circ \pi = \pi'$ determines $e$ on all of $Q$.
-- **Deliberate departure.** `m - g` is truncated natural subtraction. No falsehood is introduced — a free proper action of a
-  $g$-dimensional Lie group on a nonempty $m$-manifold forces $g \le m$, and for $M = \emptyset$ any
-  dimension works — but a candidate that guards with a hypothesis `g ≤ m` is being more careful.
+- `hgm : g ≤ m` is assumed, so the quotient dimension `m - g` is genuine subtraction.
 - **Deliberate departure.** Mathlib offers `[MulAction G M]`, `[ContMDiffSMul I n G M]` and `[ProperSMul G M]`. Phrasing the
   hypothesis with those classes and `fun p : G × M ↦ p.1 • p.2` would be more idiomatic and inherit
   the `MulAction` API. Hand-rolling `SmoothFreeProperAction` is defensible because the theorem

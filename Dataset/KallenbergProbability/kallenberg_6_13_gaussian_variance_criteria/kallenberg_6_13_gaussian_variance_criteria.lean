@@ -20,7 +20,7 @@ theorem kallenberg_6_13_gaussian_variance_criteria
     {Ω Ω' : Type*} [MeasurableSpace Ω] [MeasurableSpace Ω']
     (μ : Measure Ω) (μ' : Measure Ω') [IsProbabilityMeasure μ]
     [IsProbabilityMeasure μ'] (k : ℕ → ℕ)
-    (ξ : (n : ℕ) → Fin (k n + 1) → Ω → ℝ) (ζ : Ω' → ℝ)
+    (ξ : (n : ℕ) → Fin (k n) → Ω → ℝ) (hk : ∀ n, 0 < k n) (ζ : Ω' → ℝ)
     (hξmeas : ∀ n j, AEMeasurable (ξ n j) μ)
     (hξsq : ∀ n j, MemLp (ξ n j) 2 μ)
     (hcentered : ∀ n j, ∫ ω, ξ n j ω ∂μ = 0)
@@ -30,7 +30,7 @@ theorem kallenberg_6_13_gaussian_variance_criteria
     let sumConverges := TendstoInDistribution (fun n ω ↦ ∑ j, ξ n j ω) atTop ζ
       (fun _ ↦ μ) μ'
     let maximalVarianceVanishes := Tendsto
-      (fun n ↦ Finset.univ.sup' (Finset.univ_nonempty_iff.mpr inferInstance)
+      (fun n ↦ Finset.univ.sup' (Finset.univ_nonempty_iff.mpr ⟨⟨0, hk n⟩⟩)
         fun j ↦ variance (ξ n j) μ) atTop (𝓝 0)
     -- truncated second moments as lower Lebesgue integrals: the integrand is non-negative and
     -- may a priori be non-integrable, where a Bochner integral would silently return 0

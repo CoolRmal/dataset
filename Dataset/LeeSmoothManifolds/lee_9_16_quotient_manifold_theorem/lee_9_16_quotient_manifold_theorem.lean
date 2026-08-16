@@ -18,7 +18,7 @@ universe u v
 
 /-- Lee 9.16, the quotient-manifold theorem. -/
 theorem lee_9_16_quotient_manifold_theorem
-    {g m : ℕ} {G : Type u} {M : Type v} [Group G]
+    {g m : ℕ} (hgm : g ≤ m) {G : Type u} {M : Type v} [Group G]
     [TopologicalSpace G] [ChartedSpace ((Fin g → ℝ)) G]
     [LieGroup 𝓘(ℝ, (Fin g → ℝ)) ∞ G]
     [TopologicalSpace M] [ChartedSpace ((Fin m → ℝ)) M]

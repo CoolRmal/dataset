@@ -49,9 +49,7 @@ wrong, even if it compiles.
 
 ## Notes on the ground truth
 
-- **Deliberate departure.** `IsCompact (univ : Set K)` is equivalent to `CompactSpace K`; the latter is the idiomatic
-  spelling but cannot be produced as an instance for a bound `tK`, so the `Prop`-level form is a
-  reasonable choice here.
+- Compactness of a compactification is `CompactSpace K`, the idiomatic class.
 - **Deliberate departure.** Inside items (ii) and (iv), `NormalSpace` is applied with an explicit `@` and a hand-written
   product topology while the neighbouring `T1Space (X × K)` is written without `@`, relying on `tK`
   being picked up as a local instance. The two spellings agree definitionally, but the inconsistency

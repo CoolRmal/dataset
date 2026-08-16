@@ -56,11 +56,8 @@ wrong, even if it compiles.
   them into one theorem with a mandatory $A$. No content is lost: taking $A = \emptyset$ recovers the
   unconditional case, using `isClosed_empty`, `mem_nhdsSet_empty`, `contMDiffOn_empty` and the fact
   that `EqOn` on the empty set is trivial — exactly how Mathlib derives its unconditional version.
-- **Deliberate departure.** `dist` on `Fin k → ℝ` is the **sup** metric of the Pi instance, not the Euclidean one, whereas
-  Lee's $\delta$-closeness is in the Euclidean norm. Because $\delta$ is an arbitrary positive
-  continuous function, the two versions are equivalent (rescale $\delta$ by $\sqrt{k}$, which
-  preserves positivity and continuity), so no strength is lost; `EuclideanSpace ℝ (Fin k)` would be
-  the literal reading and is Mathlib's usual convention.
+- The target is `EuclideanSpace ℝ (Fin k)`, so $\delta$-closeness is measured in the Euclidean
+  metric Lee intends, not the sup metric of the plain function space.
 - Mathlib's `Continuous.exists_contMDiff_approx_and_eqOn` returns a bundled smooth map and adds the
   extra conclusion `support g ⊆ support f`; it is also stated for an arbitrary normed target and
   `n : ℕ∞`. Using a plain function plus `ContMDiff … ∞` is cleaner for a benchmark and matches Lee;

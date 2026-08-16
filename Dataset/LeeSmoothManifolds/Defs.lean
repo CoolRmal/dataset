@@ -53,7 +53,7 @@ def ConstantRank {m n : ℕ} {M : Type u} {N : Type v}
 def EmbeddedSubmanifoldOfCodimension {m : ℕ} {M : Type u}
     [TopologicalSpace M] [ChartedSpace ((Fin m → ℝ)) M]
     (S : Set M) (codim : ℕ) : Prop :=
-  ∀ p ∈ S,
+  codim ≤ m ∧ ∀ p ∈ S,
     ∃ φ : OpenPartialHomeomorph M ((Fin m → ℝ)),
       φ ∈ IsManifold.maximalAtlas 𝓘(ℝ, (Fin m → ℝ)) ∞ M ∧ p ∈ φ.source ∧
       φ '' (S ∩ φ.source) =
@@ -89,7 +89,7 @@ def IsNormalVector {n : ℕ} (M : Set ((Fin n → ℝ)))
 /-- The variable-radius normal disk bundle of an embedded (Fin submanifold → ℝ). -/
 def NormalDiskBundle {n : ℕ} (M : Set ((Fin n → ℝ)))
     (radius : M → ℝ) : Set (M × (Fin n → ℝ)) :=
-  {p | IsNormalVector M p.1 p.2 ∧ ‖p.2‖ < radius p.1}
+  {p | IsNormalVector M p.1 p.2 ∧ ∑ i, (p.2 i) ^ 2 < (radius p.1) ^ 2}
 
 end LeeSmoothManifolds
 end Dataset

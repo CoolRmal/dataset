@@ -26,7 +26,7 @@ universe u v w
 /-- A concrete compactification: an embedding with dense image into a compact space. -/
 def IsCompactification {X : Type u} {K : Type v} [TopologicalSpace X]
     [TopologicalSpace K] (e : X → K) : Prop :=
-  IsEmbedding e ∧ DenseRange e ∧ IsCompact (univ : Set K) ∧ T2Space K
+  IsEmbedding e ∧ DenseRange e ∧ CompactSpace K ∧ T2Space K
 
 /-- Two compactifications are equivalent when a homeomorphism commutes with their embeddings. -/
 def EquivalentCompactifications {X : Type u} {K L : Type v} [TopologicalSpace X]
@@ -65,11 +65,11 @@ def IsClosedCover {X : Type u} [TopologicalSpace X] {ι : Type v}
 
 /-- A family is star-finite when each member meets only finitely many members. -/
 def IsStarFiniteFamily {X : Type u} {ι : Type v} (A : ι → Set X) : Prop :=
-  ∀ i, {j | (A i ∩ A j).Nonempty}.Finite
+  ∀ i, {B : Set X | (∃ j, A j = B) ∧ (A i ∩ B).Nonempty}.Finite
 
 /-- A family is star-countable when each member meets only countably many members. -/
 def IsStarCountableFamily {X : Type u} {ι : Type v} (A : ι → Set X) : Prop :=
-  ∀ i, {j | (A i ∩ A j).Nonempty}.Countable
+  ∀ i, {B : Set X | (∃ j, A j = B) ∧ (A i ∩ B).Nonempty}.Countable
 
 /-- Engelking's definition of countable paracompactness. -/
 def IsCountablyParacompact (X : Type u) [TopologicalSpace X] : Prop :=
@@ -98,7 +98,8 @@ def HasSigmaDiscreteBase (X : Type u) [TopologicalSpace X] : Prop :=
 
 /-- At most `n + 1` members of a cover contain any one point. -/
 def CoverOrderLE {X : Type u} {ι : Type v} (U : ι → Set X) (n : ℕ) : Prop :=
-  ∀ x : X, ∀ s : Finset ι, (∀ i ∈ s, x ∈ U i) → s.card ≤ n + 1
+  ∀ x : X, ∀ s : Finset (Set X),
+    (∀ B ∈ s, (∃ i, U i = B) ∧ x ∈ B) → s.card ≤ n + 1
 
 /-- Covering dimension at most `n`, stated using finite open refinements. -/
 def CoveringDimensionLE (X : Type u) [TopologicalSpace X] (n : ℕ) : Prop :=

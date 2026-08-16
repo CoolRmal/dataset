@@ -55,9 +55,7 @@ wrong, even if it compiles.
 - The Lindeberg truncated second moments are lower Lebesgue integrals into `ℝ≥0∞`: the integrand is
   non-negative and may a priori fail to be integrable, where a Bochner integral would silently
   return `0` and make the condition hold for the wrong reason.
-- **Deliberate departure.** Rows have length `k n + 1` rather than `k n`. The `+ 1` exists only so that each row is
-  nonempty and `Finset.sup'` can be applied. Using `Fin (k n)` with a supremum that tolerates empty
-  rows would be marginally more faithful.
+- Rows have length `k n`, with `0 < k n` assumed so that the row maximum is over a nonempty family.
 - `hξmeas : ∀ n j, AEMeasurable (ξ n j) μ` is redundant given `hξsq`, since `MemLp` already carries
   almost-everywhere strong measurability. It is harmless.
 - `HasLaw ζ (gaussianReal 0 1) μ'` also supplies measurability of `ζ`, so no separate hypothesis is

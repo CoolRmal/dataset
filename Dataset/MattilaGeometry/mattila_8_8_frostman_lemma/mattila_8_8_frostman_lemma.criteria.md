@@ -65,11 +65,8 @@ wrong, even if it compiles.
   automatic for locally finite Borel measures, so that conjunct is redundant but harmless.
 - **Deliberate departure.** `0 < s` is our hypothesis, not stated in the transcribed text. It is needed for `r ^ s` to
   behave as intended.
-- **Deliberate departure.** Honest weakness: when $\mathcal{H}^s_\infty(B) = \infty$ — for example $B = \mathbb{R}^n$ with
-  $s = n$ — the refinement demands `c * ∞ < μ B` for a finite measure `μ`, which is impossible, so
-  our second conjunct is false for such $B$. Mattila's "moreover" is only meaningful for sets of
-  finite content (in particular for bounded ones); a faithful repair would restrict $B$ to be
-  bounded, or require `hausdorffContent s B < ∞`.
+- The quantitative clause is guarded by `hausdorffContent s B < ∞`. Without the guard it is
+  unsatisfiable when the content is infinite, since the witnessing measure is finite.
 - **Deliberate departure.** The property list is written out twice, once in each conjunct. A named abbreviation would be
   tidier, but the duplication is faithful.
 

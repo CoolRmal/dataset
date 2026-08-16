@@ -59,8 +59,7 @@ wrong, even if it compiles.
   `[IsFiniteMeasureOnCompacts μ] [μ.InnerRegular]` would be more idiomatic than the conjunction
   `hμ`. On $\mathbb{R}^n$ inner regularity is automatic for locally finite Borel measures, so that
   component carries no content here.
-- **Deliberate departure.** `∃ m : ℤ, s = m` is the literal rendering of "$s$ is an integer". The `ℕ` form used here is
-  equivalent under `0 < s`, but it quietly restates positivity.
+- "$s$ is an integer" is `∃ m : ℤ, s = m`, the literal rendering.
 
 ## Grading (out of 100)
 

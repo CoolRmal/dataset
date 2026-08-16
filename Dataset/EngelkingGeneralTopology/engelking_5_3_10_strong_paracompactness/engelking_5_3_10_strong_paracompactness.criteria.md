@@ -56,9 +56,8 @@ wrong, even if it compiles.
 - The `T2Space` conjunct inside `IsStronglyParacompact` is redundant given `[RegularSpace X]` and
   `[T1Space X]`, but it keeps the definition faithful when it is reused elsewhere.
 - A candidate writing `[T3Space X]` in place of `[RegularSpace X] [T1Space X]` is equally faithful.
-- **Deliberate departure.** `IsStarFiniteFamily` and `IsStarCountableFamily` count *indices*, not distinct sets, so a family
-  that lists the same set twice is judged more harshly. For the existentially produced refinements in
-  items (i)–(iv) this is harmless — re-index injectively — and it is the stronger reading.
+- `IsStarFiniteFamily` and `IsStarCountableFamily` count *distinct sets*, so a family that lists the
+  same set twice is not penalised — which is Engelking's reading.
 - **Deliberate departure.** All cover index types live in a single free universe `v` (and `IsStronglyParacompact` binds its
   own, separately). Fixing everything at `Type u` — every cover can be re-indexed by a subfamily of
   `Set X` — would make the four items line up exactly.

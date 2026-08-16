@@ -17,8 +17,9 @@ universe u v w
 
 /-- Engelking 7.2.1, the countable sum theorem for covering dimension. -/
 theorem engelking_7_2_1_countable_sum_theorem
-    {X : Type u} [TopologicalSpace X] [NormalSpace X] {n : ℕ}
-    (hcover : ∃ F : ℕ → Set X, (∀ j, IsClosed (F j)) ∧ ⋃ j, F j = univ ∧
+    {X : Type u} [TopologicalSpace X] [NormalSpace X] [T1Space X] {n : ℕ}
+    (F : ℕ → Set X) (hclosed : ∀ j, IsClosed (F j)) (hunion : ⋃ j, F j = univ)
+    (hdim :
       ∀ j, CoveringDimensionLE (F j) n) :
     CoveringDimensionLE X n := by
   sorry

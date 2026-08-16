@@ -56,9 +56,7 @@ wrong, even if it compiles.
 - An earlier version left the measurable structure on the Grassmannian as an unconstrained instance
   argument; that defect has been repaired in `Defs.lean` and survives above as Mistake 1.
 - Measurability of $A$ is Carathéodory measurability for $\mathcal{H}^m$, matching the book.
-- **Deliberate departure.** `hm : 0 < m` and `hmn : m < n` are our additions. They exclude the degenerate cases the text
-  nominally covers: at $m = n$ the Grassmannian is a single point and $P_V$ is the identity. Harmless
-  but a narrowing.
+- No dimension hypotheses beyond those in the text; the degenerate cases are admitted as printed.
 - The Hausdorff exponent is the real cast `(m : ℝ)` of the natural number `m` throughout, and the
   comparisons `0 < μH[(m:ℝ)] B` and `μH[(m:ℝ)] (…) = 0` are made in `ℝ≥0∞`, where they are the right
   junk-free readings for a possibly infinite measure.
