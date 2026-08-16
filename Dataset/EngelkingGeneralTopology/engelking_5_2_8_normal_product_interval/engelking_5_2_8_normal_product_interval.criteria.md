@@ -54,10 +54,11 @@ wrong, even if it compiles.
 - The `T2Space X` conjunct inside `IsCountablyParacompact` is not redundant on its own, but under the
   ambient `[T1Space X]` together with `NormalSpace X` it follows anyway (normal + $T_1$ implies
   Hausdorff). Keeping it makes the definition faithful when reused elsewhere.
-- **Deliberate departure.** `IsCountablyParacompact` quantifies covers over `ι : Type v` for a free universe `v`, and the
-  refinement index `κ` over the same `v`. Since only countable covers occur, an equivalent and
-  cleaner formulation indexes them by `ℕ`, removing the universe parameter; candidates using
-  `U : ℕ → Set X` should be accepted as faithful.
+- Every index type quantified in the statement lives in `X`'s own universe. That costs no
+  generality — a cover of `X` can always be re-indexed by its image in `Set X` — and it removes
+  the free universe parameter, so the statement is about all covers rather than about covers in
+  one arbitrary universe. The generic family predicates in `Defs.lean` stay polymorphic in their
+  index type, as they should.
 
 ## Grading (out of 100)
 

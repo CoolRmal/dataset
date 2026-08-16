@@ -54,10 +54,11 @@ wrong, even if it compiles.
   product topology while the neighbouring `T1Space (X × K)` is written without `@`, relying on `tK`
   being picked up as a local instance. The two spellings agree definitionally, but the inconsistency
   is fragile; `letI := tK`, or instance-implicit binders, would be cleaner.
-- **Deliberate departure.** Items (ii) and (iv) quantify compactifications over `K : Type v` for a free universe `v`, while
-  item (iii) supplies `StoneCech X : Type u`. When `v ≠ u`, the implication (iii) $\Rightarrow$ (iv)
-  cannot be witnessed by $\beta X$, so the four items are only genuinely comparable at `v = u`.
-  Using `K : Type u` would make the equivalence literally correct at every instantiation.
+- Every index type quantified in the statement lives in `X`'s own universe. That costs no
+  generality — a cover of `X` can always be re-indexed by its image in `Set X` — and it removes
+  the free universe parameter, so the statement is about all covers rather than about covers in
+  one arbitrary universe. The generic family predicates in `Defs.lean` stay polymorphic in their
+  index type, as they should.
 - The two `let` bindings in the goal are only there to keep the `List.TFAE` line readable; they do
   not change the statement.
 

@@ -58,9 +58,11 @@ wrong, even if it compiles.
 - A candidate writing `[T3Space X]` in place of `[RegularSpace X] [T1Space X]` is equally faithful.
 - `IsStarFiniteFamily` and `IsStarCountableFamily` count *distinct sets*, so a family that lists the
   same set twice is not penalised — which is Engelking's reading.
-- **Deliberate departure.** All cover index types live in a single free universe `v` (and `IsStronglyParacompact` binds its
-  own, separately). Fixing everything at `Type u` — every cover can be re-indexed by a subfamily of
-  `Set X` — would make the four items line up exactly.
+- Every index type quantified in the statement lives in `X`'s own universe. That costs no
+  generality — a cover of `X` can always be re-indexed by its image in `Set X` — and it removes
+  the free universe parameter, so the statement is about all covers rather than about covers in
+  one arbitrary universe. The generic family predicates in `Defs.lean` stay polymorphic in their
+  index type, as they should.
 
 ## Grading (out of 100)
 

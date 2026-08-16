@@ -51,16 +51,16 @@ wrong, even if it compiles.
 
 - Assuming `[MetricSpace X]` instead of `[MetrizableSpace X]` is acceptable — every metrizable space
   can be given a compatible metric — so a candidate doing that should not be penalized.
-- **Deliberate departure.** The $\sigma$-decomposition is carried by an existential index type `κ` together with a separate
-  `level : κ → ℕ`. Stone's proof actually gives a refinement indexed by `ι × ℕ` with
-  $V_{(i,n)} \subseteq U_i$ and layer $n$ discrete. A candidate returning that concrete
-  `ι × ℕ`-indexed family is stating something stronger, which is fine but not required; it would also
-  make the layering visible without the auxiliary `level` function.
-- **Deliberate departure.** The refinement's index type is `κ : Type w` for a universe `w` that is free, so the theorem
-  claims a refinement exists in *every* universe, including universes too small to index a family of
-  subsets of `X`. Harmless at the usual instantiation `u = v = w`, but `κ : Type v` or `Type u` is
-  the correct choice, since the refinement can always be indexed by `ι × ℕ` or by a subfamily of
-  `Set X`.
+- Every index type quantified in the statement lives in `X`'s own universe. That costs no
+  generality — a cover of `X` can always be re-indexed by its image in `Set X` — and it removes
+  the free universe parameter, so the statement is about all covers rather than about covers in
+  one arbitrary universe. The generic family predicates in `Defs.lean` stay polymorphic in their
+  index type, as they should.
+- Every index type quantified in the statement lives in `X`'s own universe. That costs no
+  generality — a cover of `X` can always be re-indexed by its image in `Set X` — and it removes
+  the free universe parameter, so the statement is about all covers rather than about covers in
+  one arbitrary universe. The generic family predicates in `Defs.lean` stay polymorphic in their
+  index type, as they should.
 - `IsDiscreteFamily` counts *indices* that are met, not distinct sets. For an existentially produced
   refinement this is harmless, since the index type can be chosen injectively.
 

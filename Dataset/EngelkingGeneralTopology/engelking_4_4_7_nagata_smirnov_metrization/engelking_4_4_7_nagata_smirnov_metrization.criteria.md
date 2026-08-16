@@ -53,11 +53,11 @@ wrong, even if it compiles.
 - Mathlib has no $\sigma$-locally finite base predicate and no Nagata–Smirnov theorem, so the custom
   definition is justified. Everything else is mathlib's: `IsTopologicalBasis` for "base",
   `LocallyFinite` for local finiteness, `MetrizableSpace` for metrizability.
-- **Deliberate departure.** Each layer is indexed by `ι n : Type v` with `v` a free universe parameter, so the biconditional
-  is implicitly claimed for every universe `v`. For `v` below the universe of `X`, the right-to-left
-  direction may be unsatisfiable simply because there are not enough index values. Indexing the
-  layers by subtypes of `Set X`, or stating the base as a `Set (Set X)` with a decomposition
-  `Set X → ℕ`, removes the ambiguity.
+- Every index type quantified in the statement lives in `X`'s own universe. That costs no
+  generality — a cover of `X` can always be re-indexed by its image in `Set X` — and it removes
+  the free universe parameter, so the statement is about all covers rather than about covers in
+  one arbitrary universe. The generic family predicates in `Defs.lean` stay polymorphic in their
+  index type, as they should.
 
 ## Grading (out of 100)
 

@@ -74,25 +74,25 @@ def IsStarCountableFamily {X : Type u} {ι : Type v} (A : ι → Set X) : Prop :
 /-- Engelking's definition of countable paracompactness. -/
 def IsCountablyParacompact (X : Type u) [TopologicalSpace X] : Prop :=
   T2Space X ∧
-    ∀ (ι : Type v) (_ : Countable ι) (U : ι → Set X), IsOpenCover U →
-      ∃ (κ : Type v) (V : κ → Set X), IsOpenCover V ∧ Refines V U ∧ LocallyFinite V
+    ∀ (ι : Type u) (_ : Countable ι) (U : ι → Set X), IsOpenCover U →
+      ∃ (κ : Type u) (V : κ → Set X), IsOpenCover V ∧ Refines V U ∧ LocallyFinite V
 
 /-- Engelking's definition of strong paracompactness. -/
 def IsStronglyParacompact (X : Type u) [TopologicalSpace X] : Prop :=
   T2Space X ∧
-    ∀ (ι : Type v) (U : ι → Set X), IsOpenCover U →
-      ∃ (κ : Type v) (V : κ → Set X),
+    ∀ (ι : Type u) (U : ι → Set X), IsOpenCover U →
+      ∃ (κ : Type u) (V : κ → Set X),
         IsOpenCover V ∧ Refines V U ∧ IsStarFiniteFamily V
 
 /-- A base which is the union of countably many locally finite families. -/
 def HasSigmaLocallyFiniteBase (X : Type u) [TopologicalSpace X] : Prop :=
-  ∃ (ι : ℕ → Type v) (B : ∀ n, ι n → Set X),
+  ∃ (ι : ℕ → Type u) (B : ∀ n, ι n → Set X),
     IsTopologicalBasis {V : Set X | ∃ n i, B n i = V} ∧
       ∀ n, LocallyFinite (B n)
 
 /-- A base which is the union of countably many discrete families. -/
 def HasSigmaDiscreteBase (X : Type u) [TopologicalSpace X] : Prop :=
-  ∃ (ι : ℕ → Type v) (B : ∀ n, ι n → Set X),
+  ∃ (ι : ℕ → Type u) (B : ∀ n, ι n → Set X),
     IsTopologicalBasis {V : Set X | ∃ n i, B n i = V} ∧
       ∀ n, IsDiscreteFamily (B n)
 

@@ -63,10 +63,11 @@ wrong, even if it compiles.
   which suffices given `symmetric`.
 - **Deliberate departure.** `T2Space K` and `IsCompact univ` appear as `Prop`-conjuncts rather than instances. This is
   forced by `tK` being a bound variable and is acceptable.
-- **Deliberate departure.** Compactifications are quantified over `K L : Type v` with `v` free, whereas the compactification
-  constructed in clause (b) naturally lives in `Type u` (a quotient of a space built from
-  `Set (Set X)`). For `v` below `u`, clause (b) may be unsatisfiable for size reasons, so `Type u`
-  (or `Type (max u v)`) would be the safe choice.
+- Every index type quantified in the statement lives in `X`'s own universe. That costs no
+  generality — a cover of `X` can always be re-indexed by its image in `Set X` — and it removes
+  the free universe parameter, so the statement is about all covers rather than about covers in
+  one arbitrary universe. The generic family predicates in `Defs.lean` stay polymorphic in their
+  index type, as they should.
 
 ## Grading (out of 100)
 

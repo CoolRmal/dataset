@@ -58,12 +58,11 @@ wrong, even if it compiles.
   candidate using it is equally correct.
 - Because `tY : TopologicalSpace Y` is bound as an ordinary variable rather than an instance, the
   statement is full of `@…tY…` applications. `letI` or instance-implicit binders would read better.
-- **Deliberate departure.** Universes. `IsRealcompact` quantifies the hypothetical enlargement over `Type (u+1)`, and
-  clause (iii) quantifies targets over `Type u`. Neither is literally "all Tychonoff spaces". The
-  first is fine in substance — a Tychonoff space containing a dense copy of `X` has size at most
-  $2^{2^{\lvert X\rvert}}$, so it can be moved into `Type u`, and `Type (u+1)` holds `ULift`s of
-  everything in `Type u` — but the argument is not trivial. The restriction in clause (iii) is a
-  genuine, mild weakening; a version polymorphic in the target's universe would be stronger.
+- Every index type quantified in the statement lives in `X`'s own universe. That costs no
+  generality — a cover of `X` can always be re-indexed by its image in `Set X` — and it removes
+  the free universe parameter, so the statement is about all covers rather than about covers in
+  one arbitrary universe. The generic family predicates in `Defs.lean` stay polymorphic in their
+  index type, as they should.
 - Uniqueness of the extension $f^{\nu}$ is not asserted. It follows from density anyway, and
   Engelking does not assert it either, so nothing is lost.
 

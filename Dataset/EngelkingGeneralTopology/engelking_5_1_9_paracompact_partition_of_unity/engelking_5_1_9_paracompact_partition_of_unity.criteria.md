@@ -61,10 +61,11 @@ wrong, even if it compiles.
   otherwise not mean what he means.
 - Subordination is `∀ i, tsupport (ρ i) ⊆ U i`, the closed-support form. It implies Engelking's
   condition that the sets $\{\rho_i \ne 0\}$ refine the cover, and is the standard rendering.
-- **Deliberate departure.** Items (ii) and (iii) quantify covers over `ι : Type v` with `v` free, while mathlib's
-  `ParacompactSpace X` quantifies only over index types in `X`'s own universe. Harmless — any cover
-  can be re-indexed by its range inside `Set X` — but taking `ι : Type u` throughout would make the
-  three items literally comparable.
+- Every index type quantified in the statement lives in `X`'s own universe. That costs no
+  generality — a cover of `X` can always be re-indexed by its image in `Set X` — and it removes
+  the free universe parameter, so the statement is about all covers rather than about covers in
+  one arbitrary universe. The generic family predicates in `Defs.lean` stay polymorphic in their
+  index type, as they should.
 
 ## Grading (out of 100)
 

@@ -17,15 +17,15 @@ universe u v w
 theorem engelking_5_3_10_strong_paracompactness
     {X : Type u} [TopologicalSpace X] [RegularSpace X] [T1Space X] :
     let closedLocallyFiniteStarFinite :=
-      ∀ (ι : Type v) (U : ι → Set X), IsOpenCover U →
-        ∃ (κ : Type v) (F : κ → Set X),
+      ∀ (ι : Type u) (U : ι → Set X), IsOpenCover U →
+        ∃ (κ : Type u) (F : κ → Set X),
           IsClosedCover F ∧ Refines F U ∧ LocallyFinite F ∧ IsStarFiniteFamily F
     let closedLocallyFiniteStarCountable :=
-      ∀ (ι : Type v) (U : ι → Set X), IsOpenCover U →
-        ∃ (κ : Type v) (F : κ → Set X),
+      ∀ (ι : Type u) (U : ι → Set X), IsOpenCover U →
+        ∃ (κ : Type u) (F : κ → Set X),
           IsClosedCover F ∧ Refines F U ∧ LocallyFinite F ∧ IsStarCountableFamily F
-    let starCountableOpen := ∀ (ι : Type v) (U : ι → Set X), IsOpenCover U →
-      ∃ (κ : Type v) (V : κ → Set X),
+    let starCountableOpen := ∀ (ι : Type u) (U : ι → Set X), IsOpenCover U →
+      ∃ (κ : Type u) (V : κ → Set X),
         IsOpenCover V ∧ Refines V U ∧ IsStarCountableFamily V
     List.TFAE [IsStronglyParacompact X, closedLocallyFiniteStarFinite,
       closedLocallyFiniteStarCountable, starCountableOpen] := by

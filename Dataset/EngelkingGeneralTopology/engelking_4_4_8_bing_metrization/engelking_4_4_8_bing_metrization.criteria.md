@@ -54,10 +54,11 @@ wrong, even if it compiles.
 - `IsDiscreteFamily` is stated for an *indexed* family and its `Subsingleton` condition is on the set
   of indices met. That is the right indexed analogue: a discrete family cannot list the same
   nonempty set twice.
-- **Deliberate departure.** The layer index types `ι n : Type v` live in a free universe parameter, so the statement is
-  implicitly claimed for every `v`. At universes below that of `X` the right-hand side can be
-  unsatisfiable for size reasons. Indexing the layers by subtypes of `Set X` would be unambiguous and
-  just as readable.
+- Every index type quantified in the statement lives in `X`'s own universe. That costs no
+  generality — a cover of `X` can always be re-indexed by its image in `Set X` — and it removes
+  the free universe parameter, so the statement is about all covers rather than about covers in
+  one arbitrary universe. The generic family predicates in `Defs.lean` stay polymorphic in their
+  index type, as they should.
 
 ## Grading (out of 100)
 
