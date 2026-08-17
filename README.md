@@ -1,8 +1,15 @@
 # dataset
 
-Lean statement dataset for hard autoformalization targets, using the local
-mathlib checkout as dependency. The whole dataset elaborates under
-`lake build`: 160 statement files, 160 `sorry` warnings, no errors.
+Lean statement dataset for hard autoformalization targets. Mathlib is a pinned
+git dependency (see `lakefile.lean`), so a fresh clone builds on its own:
+
+```
+lake exe cache get
+lake build
+```
+
+The whole dataset elaborates under `lake build`: 160 statement files,
+160 `sorry` warnings, no errors.
 
 ## Layout
 
