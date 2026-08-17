@@ -8,8 +8,8 @@ For a Borel set $A \subset \mathbb{R}^n$, its distance set $D(A)$ is the set of 
 $\lvert x-y\rvert$ realized by pairs of points of $A$; it is a subset of the real line. Falconer's
 theorem gives two lower bounds on how large $D(A)$ is, in terms of the Hausdorff dimension of $A$. If
 $\dim A$ exceeds $(n+1)/2$, then $D(A)$ has positive Lebesgue measure on the line. If $\dim A$ lies
-in the intermediate range between $(n-1)/2$ and $(n+1)/2$, then $D(A)$ still has dimension strictly
-bigger than $\dim A - (n-1)/2$.
+in the intermediate range between $(n-1)/2$ and $(n+1)/2$, then $D(A)$ still has dimension at least
+$\dim A - (n-1)/2$.
 
 ## What a correct formalization must contain
 
@@ -42,7 +42,7 @@ wrong, even if it compiles.
 | 5 | Dropping the upper bound $\dim A < (n+1)/2$ from part (2). | In that larger range part (1) already gives the stronger conclusion; asserting the dimension gain there is not what the text says. |
 | 6 | Formalizing only part (1). | Both conclusions are part of the theorem. |
 | 7 | Writing the conclusion of part (2) so that truncated `ℝ≥0∞` subtraction can bite — for example dropping the hypothesis that keeps $\dim A - (n-1)/2$ genuine. | Subtraction in `ℝ≥0∞` is truncated at `0`, so the conclusion would silently degrade to `0 < dimH D`, which is far weaker than the printed gain. |
-| 8 | Replacing the strict inequalities by `≤` anywhere. | Every inequality in 12.14, in hypotheses and conclusions alike, is strict. |
+| 8 | Relaxing the strict hypothesis inequalities to `≤`, or strengthening part (2)'s conclusion to `<`. | The dimension thresholds in the hypotheses of both parts are strict, while part (2)'s conclusion is the non-strict $\dim D(A) \ge \dim A - (n-1)/2$ — Falconer's proof gives no more. |
 
 ## Notes on the ground truth
 
@@ -68,7 +68,7 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 
 | Band | Points | This problem |
 |---|---|---|
-| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| A. Completeness | 50 | The requirement table above has 7 rows, so each row is worth 7.1 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
 | B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
 | C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
 | D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |

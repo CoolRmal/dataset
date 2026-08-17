@@ -56,11 +56,15 @@ wrong, even if it compiles.
   candidate using it is equally correct.
 - Because `tY : TopologicalSpace Y` is bound as an ordinary variable rather than an instance, the
   statement is full of `@…tY…` applications. `letI` or instance-implicit binders would read better.
-- Every index type quantified in the statement lives in `X`'s own universe. That costs no
-  generality — a cover of `X` can always be re-indexed by its image in `Set X` — and it removes
-  the free universe parameter, so the statement is about all covers rather than about covers in
-  one arbitrary universe. The generic family predicates in `Defs.lean` stay polymorphic in their
-  index type, as they should.
+- The realcompact target spaces `Z` — in the extension property (iii) and in the uniqueness
+  clause — are quantified at `X`'s own universe, `Type u`. For quantified *spaces* this needs a
+  genuine argument, and it has one: a continuous map from `X` into a realcompact `Z` factors
+  through the closure of its image, which is again realcompact (a closed subspace of a realcompact
+  space is realcompact) and carries a dense continuous image of `X`, so — being Tychonoff, hence
+  Hausdorff — it has cardinality at most $2^{2^{|X|}}$ and a homeomorphic copy of it lives in
+  `Type u`; likewise any `Z` as in the uniqueness clause contains a dense copy of `X` and is of
+  the same bounded cardinality. So nothing is lost, and a candidate quantifying `Z` over an
+  arbitrary universe is equally correct.
 - Uniqueness of the extension $f^{\nu}$ is not asserted. It follows from density anyway, and
   Engelking does not assert it either, so nothing is lost.
 

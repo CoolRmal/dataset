@@ -24,7 +24,7 @@ choices behind them.
 | 3 | $M$ satisfies Lee's countability requirement. | ✅ `[SecondCountableTopology M]`, the condition Lee actually states. For a locally Euclidean Hausdorff space it is equivalent to $\sigma$-compactness, but the textbook's own hypothesis is second countability, so that is what the ground truth uses. |
 | 4 | The conclusion produces a single map $F$ carrying all the required properties at once, not several unrelated existence claims. | ✅ One `∃ F : M → (Fin (2 * m + 1) → ℝ)` followed by a conjunction. |
 | 5 | The target dimension is exactly $2m+1$. | ✅ `F : M → (Fin (2 * m + 1) → ℝ)`, with the dimension written out rather than existentially quantified. |
-| 6 | $F$ is smooth. | ✅ Implied by `IsSmoothEmbedding …`, whose `isImmersion` field already gives `CMDiff ∞ F`; asserting `ContMDiff` as a separate conjunct would be redundant. |
+| 6 | $F$ is smooth. | ✅ Implied by `IsSmoothEmbedding …`, whose `isImmersion` field already gives `ContMDiff … ∞ F`; asserting `ContMDiff` as a separate conjunct would be redundant. |
 | 7 | $F$ is a topological embedding: injective, and a homeomorphism onto its image. | ✅ The `isEmbedding` field of `Manifold.IsSmoothEmbedding`. |
 | 8 | $F$ is proper. | ✅ `IsProperMap F`. Mathlib's `IsProperMap` is universal closedness, which for these spaces is the same as "preimages of compact sets are compact". |
 | 9 | $F$ is an **immersion**: its differential is injective at every point. | ✅ The `isImmersion` field of `Manifold.IsSmoothEmbedding`. This is exactly why the Mathlib notion, and not "`ContMDiff` + `IsEmbedding`", is the right rendering of "smooth embedding". |

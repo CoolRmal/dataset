@@ -22,7 +22,7 @@ choices behind them.
 | 1 | Both halves are asserted. | ✅ The statement is a conjunction of the $\gamma < 0$ case and the general order-$n$ case. |
 | 2 | First half: support in $B_\rho$, $\lvert u(x)\rvert \le N_0\lvert x\rvert ^{-\nu}$, and the three exponent conditions $\nu < d$, $0 < (\nu+\gamma)p < d$, $\gamma < 0$. | ✅ All present as hypotheses. |
 | 3 | Second half: $\lvert D^\alpha u(x)\rvert \le N_0\lvert x\rvert ^{-\nu}$ for every $\lvert \alpha\rvert \le n$, plus $\nu < d$ and $\gamma \le n$. | ✅ `∀ α, (∑ i, α i) ≤ n → ∀ x ≠ 0, ‖multiDeriv α u x‖ ≤ N₀ * ‖x‖ ^ (-ν)`. |
-| 4 | Second half: the "either … or …" condition on the exponents. | ✅ A disjunction: `(γ < n ∧ 0 < (ν+γ-n)*p ∧ (ν+γ-n)*p < d) ∨ (γ = n ∧ ν*p < d)`. |
+| 4 | Second half: the "either … or …" condition on the exponents. | ✅ A disjunction: `(γ < n ∧ 0 < (ν + γ - n) * p.toReal ∧ (ν + γ - n) * p.toReal < d) ∨ (γ = n ∧ ν * p.toReal < d)`. |
 | 5 | The conclusion is membership in $H_p^\gamma$ together with a bound on $\|u\|_{H_p^\gamma}$. | ✅ `MemSobolev γ p …` and `sobolevNorm γ p … ≤ C`. |
 | 6 | The bounding constant depends only on the listed data and not on $u$. | ✅ `∃ C, C ≠ ⊤ ∧ ∀ u, …` — `C` is chosen before `u`, after $d, p, \rho, \nu, \gamma, N_0$ (and $n$). |
 | 7 | $p \in (1,\infty)$. | ✅ `hp₁` and `hp₂`. |

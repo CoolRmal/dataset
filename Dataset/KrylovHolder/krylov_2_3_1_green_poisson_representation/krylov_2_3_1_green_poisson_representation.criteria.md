@@ -22,14 +22,14 @@ choices behind them.
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
 | 1 | The dimension is at least $1$, so that $\partial\Omega$ and the surface measure make sense. | ✅ `hd : 0 < d`. |
-| 2 | $\Omega$ is open, bounded, nonempty, and every boundary point carries a barrier: a function that is continuous on $\bar\Omega$, twice differentiable inside, zero at that point, positive elsewhere, and with $\Delta b \le 0$ in $\Omega$. | ✅ `hΩ : RegularBoundedDomain Ω`, whose barrier clause includes `ContDiffOn ℝ 2 barrier Ω`. |
+| 2 | $\Omega$ is open, bounded, nonempty, and every boundary point carries a barrier: a function that is continuous on $\bar\Omega$, twice differentiable inside, zero at that point, positive elsewhere, and with $\Delta b \le 0$ in $\Omega$. | ✅ `hΩsmooth : SmoothBoundedDomain Ω`, whose first component is `RegularBoundedDomain Ω`; its barrier clause includes `ContDiffOn ℝ 2 barrier Ω`. |
 | 3 | $K$ is genuinely the fundamental solution of the Laplacian, not an arbitrary two-variable function. | ✅ `hK : IsLaplaceFundamentalSolution K`, i.e. $\int K(x,y)\,\Delta\varphi(y)\,dy = \varphi(x)$ for every smooth compactly supported $\varphi$ with integrable integrand. |
-| 4 | For each $x \in \Omega$ the corrector $h(x,\cdot)$ is $C^2$ and harmonic in $\Omega$, and equals $K(x,\cdot)$ on $\partial\Omega$. | ✅ `hharmonic : ∀ x ∈ Ω, HarmonicIn Ω (h x)` and `hboundary`. |
+| 4 | For each $x \in \Omega$ the corrector $h(x,\cdot)$ is $C^2$ and harmonic in $\Omega$, continuous up to $\bar\Omega$, and equals $K(x,\cdot)$ on $\partial\Omega$. | ✅ `hharmonic : ∀ x ∈ Ω, HarmonicIn Ω (h x)`, `hcorrectorContinuous : ∀ x ∈ Ω, ContinuousOn (h x) (closure Ω)`, and `hboundary`. |
 | 5 | $G = K - h$, and $G(x,\cdot)$ is harmonic on $\Omega \setminus \{x\}$ and vanishes on $\partial\Omega$. | ✅ `hgreen`, `hgreenHarmonic`, `hgreenBoundary`. |
 | 6 | The Poisson kernel is minus the normal derivative of $G$ at a boundary point, taken as a one-sided derivative from inside the domain. | ✅ `hpoisson` uses `fderivWithin ℝ (G x) (closure Ω) y (normal y)`, not the plain `fderiv`. |
 | 7 | The direction differentiated along is the outward unit normal to $\partial\Omega$. | ✅ `hnormal : IsOutwardUnitNormal Ω normal` together with `hΩsmooth : SmoothBoundedDomain Ω`. Smoothness of the boundary is what makes the orthogonality clause non-vacuous and pins the normal down; on a rough boundary carrying no differentiable curves only the sign would be fixed, and the Poisson kernel would not be well defined. |
 | 8 | $u$ is a classical solution: twice continuously differentiable in $\Omega$, continuous on $\bar\Omega$, solving $\Delta u = f$ inside and equal to $g$ on $\partial\Omega$. | ✅ `hu : LaplaceDirichletSolution Ω f g u`, which is the conjunction of all four clauses. |
-| 9 | The conclusion holds at every interior point and is the sum of two integrals: $G(x,\cdot)f$ over $\Omega$ against Lebesgue measure, and $H(x,\cdot)g$ over $\partial\Omega$ against the $(d-1)$-dimensional surface measure. | ✅ `∀ x ∈ Ω, u x = ∫ y in Ω, G x y * f y + ∫ y, H x y * g y ∂boundaryMeasure` with `hmeasure : boundaryMeasure = μH[((d : ℝ) - 1)].restrict (frontier Ω)`. |
+| 9 | The conclusion holds at every interior point and is the sum of two integrals: $G(x,\cdot)f$ over $\Omega$ against Lebesgue measure, and $H(x,\cdot)g$ over $\partial\Omega$ against the $(d-1)$-dimensional surface measure. | ✅ `∀ x ∈ Ω, u x = (∫ y in Ω, G x y * f y) + ∫ y, H x y * g y ∂boundaryMeasure` with `hmeasure : boundaryMeasure = μH[((d : ℝ) - 1)].restrict (frontier Ω)`; the parentheses keep the two integrals separate summands. |
 | 10 | Both integrals must actually converge. | ✅ `hGintegrable` and `hHintegrable`. |
 
 ## Mistakes to check for
@@ -46,12 +46,15 @@ wrong, even if it compiles.
 | 5 | Dropping `ContinuousOn u (closure Ω)` from the solution concept. | A Lean function is defined everywhere, so its value at a boundary point is unrelated to its behaviour inside unless continuity links them. Without that clause "$u = g$ on $\partial\Omega$" constrains nothing. |
 | 6 | Omitting the integrability hypotheses. | $G(x,\cdot)$ has a $\lvert x-y\rvert^{2-d}$ singularity. Lean's Bochner integral returns $0$ for a non-integrable integrand, so the identity would compare a real number against junk. |
 | 7 | Integrating the second term against Lebesgue measure, or over $\bar\Omega$ instead of $\partial\Omega$. | The Poisson term is a surface integral. Lebesgue measure of $\partial\Omega$ is $0$, so the term would vanish and the formula would be false. |
+| 8 | Omitting the continuity of the corrector up to $\bar\Omega$, so that $h(x,\cdot)$ is only harmonic inside and prescribed on the frontier. | A total function's frontier values are then decoupled from its interior behaviour, and the theorem becomes false: replace $h$ by $h + \mathbf{1}_\Omega$ — still harmonic in $\Omega$, still equal to $K$ on $\partial\Omega$ — which makes $G$ discontinuous at the boundary, forces $H \equiv 0$ through the `fderivWithin` junk value, and defeats the conclusion at $f = 0$, $g = 1$, $u \equiv 1$. An earlier version of the ground truth had this gap; the current statement carries `hcorrectorContinuous`. |
+| 9 | Writing the conclusion's sum of integrals without parenthesizing the volume integral. | `∫ y in Ω, G x y * f y + ∫ y, H x y * g y ∂boundaryMeasure` parses the boundary integral into the *body* of the volume integral, asserting $u(x) = \int_\Omega Gf\,dy + \mathrm{vol}(\Omega)\int_{\partial\Omega} Hg\,dS$ — wrong whenever $\mathrm{vol}(\Omega) \ne 1$. The ground truth writes `(∫ y in Ω, G x y * f y) + ∫ y, H x y * g y ∂boundaryMeasure`; an earlier version had the mis-parse. |
 
 ## Notes on the ground truth
 
 - The integrability hypotheses are extra: in the text they follow from $K$ being the fundamental solution. Assuming them is harmless and keeps the Bochner integral honest.
 - `hgreenHarmonic` and `hgreenBoundary` are consequences of the earlier hypotheses in the text ("so that, in particular"); assuming them explicitly is harmless.
-- `laplacian` and `multiDerivative` are hand-rolled from repeated `fderiv` along coordinate directions rather than built on mathlib's `iteratedFDeriv`. On the open set $\Omega$ they agree with the classical derivatives, but they interact less well with mathlib's calculus API.
+- `laplacian` and `multiDerivative` are hand-rolled from repeated `fderiv` along coordinate directions rather than built on mathlib's `iteratedFDeriv`. On the open set $\Omega$ they agree with the classical derivatives, but they interact less well with mathlib's calculus API. In fact current mathlib provides `InnerProductSpace.laplacian` / `laplacianWithin` (with `Δ` notation) and `HarmonicAt` / `HarmonicOnNhd`; the hand-rolled `laplacian` and `HarmonicIn` duplicate those notions rather than reusing them.
+- `SmoothBoundedDomain Ω` is by definition `RegularBoundedDomain Ω ∧ (defining-function clause)`, so the single hypothesis `hΩsmooth` already carries the barrier regularity; a separate `RegularBoundedDomain` hypothesis would be redundant (an earlier version stated one).
 - `IsOutwardUnitNormal` is the weakest point of the encoding (row 7): it constrains the direction rather than determining it.
 
 ## Grading (out of 100)
@@ -81,7 +84,7 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 ### Domain-specific pitfalls for this problem
 
 - The normal derivative is in the *second* variable and along the *outward* normal, and the Poisson kernel carries an explicit minus sign.
-- The corrector is harmonic in $y$ for each fixed $x$ and matches $K$ on the boundary; both clauses are needed.
+- The corrector is harmonic in $y$ for each fixed $x$, continuous up to the boundary, and matches $K$ on the boundary; all three clauses are needed.
 - Regularity of the domain (existence of barriers) is what makes the hypothesis on $h$ satisfiable.
 - Both integrals must be asserted to converge; a Bochner integral of a non-integrable function is the junk value $0$.
 - $u$ is a classical solution — $C^2$ inside and continuous up to the boundary.

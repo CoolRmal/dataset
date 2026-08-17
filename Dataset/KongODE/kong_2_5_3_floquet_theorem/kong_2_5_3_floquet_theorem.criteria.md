@@ -21,7 +21,7 @@ choices behind them.
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
 | 1 | The period is positive. | ✅ `hω : 0 < ω`. |
-| 2 | $A$ repeats with period $\omega$ at every real time. | ✅ `PeriodicLinearEquation ω A`, which is `∀ t, A (t + ω) = A t`. |
+| 2 | $A$ repeats with period $\omega$ at every real time. | ✅ `hper : Function.Periodic A ω`, mathlib's predicate, definitionally `∀ t, A (t + ω) = A t`. |
 | 3 | $A$ is continuous. | ✅ `hA : Continuous A`. |
 | 4 | $X$ is a fundamental matrix solution on **all** of $\mathbb{R}$: it solves $X' = A(t)X$ and is invertible at every time. | ✅ `FundamentalMatrixSolution univ A X`. |
 | 5 | The produced $R$ is a constant matrix with complex entries. | ✅ `∃ R : Matrix (Fin n) (Fin n) ℂ`. |

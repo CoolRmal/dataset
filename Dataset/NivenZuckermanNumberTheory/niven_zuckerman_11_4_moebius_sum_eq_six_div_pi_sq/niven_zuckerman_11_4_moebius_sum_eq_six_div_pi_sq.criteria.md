@@ -18,8 +18,8 @@ choices behind them.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
-| 1 | The summand is $\mu(n)/n^2$, with $\mu$ the Möbius function cast from $\mathbb{Z}$ to $\mathbb{R}$. | ✅ `(ArithmeticFunction.moebius n : ℝ) / (n : ℝ) ^ 2`. |
-| 2 | The sum runs over $n \ge 1$, with $n = 0$ excluded explicitly. | ✅ No guard is needed: $\mu(0)=0$ and $x/0=0$, so the $n=0$ term of $\mu(n)/n^2$ is already $0$, and likewise for $1/n^2$. |
+| 1 | The summand is $\mu(n)/n^2$, with $\mu$ the Möbius function cast from $\mathbb{Z}$ to $\mathbb{R}$. | ✅ `(ArithmeticFunction.moebius n : ℝ) / n ^ 2` — the divisor `n ^ 2` is elaborated in `ℝ`, with no written ascription. |
+| 2 | The sum runs over $n \ge 1$: the $n = 0$ term must contribute nothing. | ✅ No guard is needed: $\mu(0)=0$ and $x/0=0$ in Lean, so the $n=0$ term of $\mu(n)/n^2$ is already $0$. |
 | 3 | The value is exactly $6/\pi^2$ — a named number, not an unspecified constant. | ✅ `= 6 / Real.pi ^ 2`. |
 | 4 | The equation is between real numbers. | ✅ Everything is `ℝ`-valued; `Real.pi` is the real $\pi$. |
 | 5 | It is $6/\pi^2$, not $\pi^2/6$: the sum is less than $1$. | ✅ `6 / Real.pi ^ 2` in that order. |
@@ -34,11 +34,10 @@ wrong, even if it compiles.
 | 1 | Stating $\sum 1/n^2 = \pi^2/6$ instead. | That is the Basel problem, an ingredient of the proof and already in mathlib (`basel_sum`). It is not the corollary being asked for. |
 | 2 | Writing the conclusion as "there is a constant $c$ with $\sum \mu(n)/n^2 = c$". | Says only that the series converges. The point is the value. |
 | 3 | Inverting the value to $\pi^2/6$. | Off by a factor of $(\pi^2/6)^2 \approx 2.7$; the sum is about $0.608$, not $1.645$. |
-| 4 | Dropping the `n = 0` guard. | The first term becomes $\mu(0)/0$. Lean's division by zero returns $0$, so the total is unchanged — but the statement then relies on that convention instead of saying the sum starts at $1$. |
+| 4 | Summing with an $n = 0$ term that does not vanish — e.g. an index shift that lands a nonzero value on $n = 0$. | The ground truth's unguarded sum over `ℕ` is faithful because $\mu(0)/0^2$ is provably $0$ ($\mu(0) = 0$, and $x/0 = 0$ in Lean); a nonvanishing $n = 0$ term changes the value of the sum. |
 | 5 | Replacing $\mu(n)$ by $\lvert\mu(n)\rvert$. | That series equals $\zeta(2)/\zeta(4) = 15/\pi^2$, a different number. |
 | 6 | Using an exponent other than $2$. | $\sum \mu(n)/n^s = 1/\zeta(s)$ in general; only $s=2$ gives $6/\pi^2$. |
-
-| 8 | Guarding the $n = 0$ term with an `if … then 0 else …`. | Unnecessary and it complicates the expression: arithmetic functions send $0$ to $0$ and division by zero is $0$ in Lean, so the $n = 0$ term already vanishes. Charge this under Band E (hygiene). |
+| 7 | Guarding the $n = 0$ term with an `if … then 0 else …`. | Unnecessary and it complicates the expression: arithmetic functions send $0$ to $0$ and division by zero is $0$ in Lean, so the $n = 0$ term already vanishes. Charge this under Band E (hygiene). |
 
 ## Notes on the ground truth
 
@@ -48,7 +47,11 @@ wrong, even if it compiles.
 - This corollary is Theorem 11.3 combined with the Basel evaluation. Both ingredients being
   available in mathlib is fine — a candidate may derive it any way it likes, as long as the
   statement it writes down is the one above.
-- Summing over `ℕ+` or over `{n : ℕ // 0 < n}` is an equally faithful way to start at $n = 1$.
+- The ground truth sums over all of `ℕ` with no guard: the $n = 0$ term provably vanishes, so the
+  sum is exactly the book's $\sum_{n\ge1}$. Summing over `ℕ+` or over `{n : ℕ // 0 < n}` is an
+  equally faithful way to start at $n = 1$. An earlier revision of the ground truth wrapped the
+  summand in `if n = 0 then 0 else …`; the current file incorporates the removal of that redundant
+  guard, and a candidate writing it is charged under Band E (mistake row 7).
 
 ## Grading (out of 100)
 
@@ -71,12 +74,12 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 ### Fatal — any of these caps the total at 25
 
 - Requirement 5 with $\pi^2/6$ in place of $6/\pi^2$.
-- Requirement 2 with the $n = 0$ term not excluded.
+- Requirement 2 with a nonvanishing $n = 0$ term contributing to the sum.
 - Requirement 3 with an unspecified constant.
 
 ### Domain-specific pitfalls for this problem
 
-- Junk value — division: the $n=0$ term must be excluded explicitly.
+- Junk value — division: $1/0 = 0$ in Lean; together with $\mu(0) = 0$ this makes the $n = 0$ term vanish on its own, so an unguarded sum over `ℕ` is faithful and a redundant guard costs hygiene points.
 - $6/\pi^2$ is less than $1$; $\pi^2/6$ is greater than $1$.
 - The Möbius function needs a cast into $\mathbb{R}$.
 - Summability is part of what the equation asserts.

@@ -23,12 +23,12 @@ choices behind them.
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
 | 1 | The constant depends on $n$ and $m$ only, so it must be quantified before $s$, $A$, $f$ and the Lipschitz constant, and it must be finite. | ✅ `∃ c : ℝ≥0∞, c < ∞ ∧ ∀ (s : ℝ) (A) (f) (K : ℝ≥0), …`, with `n m` implicit in the theorem's binders. |
-| 2 | Both halves of the range condition $m < s < n$. | ✅ `(m : ℝ) < s ∧ s < n` as a hypothesis of the inner implication. |
+| 2 | Both halves of the range condition $m < s < n$. | ✅ `(m : ℝ) < s → s < n → …`, two separate hypotheses of the inner implication. |
 | 3 | $f$ is Lipschitz **on $A$**, not on all of $\mathbb{R}^n$. | ✅ `LipschitzOnWith K f A`, with `K` universally quantified so that every admissible Lipschitz constant gives a bound. |
 | 4 | The integrand is the $(s-m)$-dimensional Hausdorff measure of the slice $A \cap f^{-1}\{y\}$, with $s-m$ the real difference. | ✅ `μH[s - m] (A ∩ f ⁻¹' {y})`. |
 | 5 | The integral over $y$ is the **upper** integral $\int^{*}$: the infimum of $\int g$ over measurable functions $g$ lying above the integrand. | ✅ `upperIntegral volume (fun y ↦ …)`, where `upperIntegral μ f = ⨅ g, ⨅ (_ : Measurable g), ⨅ (_ : f ≤ g), ∫⁻ x, g x ∂μ` in `Defs.lean`. |
 | 6 | The integration is against Lebesgue measure on $\mathbb{R}^m$. | ✅ `volume` on `EuclideanSpace ℝ (Fin m)`, which is Lebesgue measure there. |
-| 7 | The right-hand side is (constant) $\times$ (Lipschitz constant)$^m$ $\times$ $\mathcal{H}^s(A)$. | ✅ `c * (K : ℝ≥0∞) ^ (m : ℝ) * μH[s] A`. |
+| 7 | The right-hand side is (constant) $\times$ (Lipschitz constant)$^m$ $\times$ $\mathcal{H}^s(A)$. | ✅ `c * (K : ℝ≥0∞) ^ m * μH[s] A`, with the natural power `^ m`. |
 | 8 | Nothing is assumed about the measurability of $A$; the text allows an arbitrary subset of $\mathbb{R}^n$. | ✅ `A : Set (EuclideanSpace ℝ (Fin n))` with no side condition; `μH[·]` is an outer measure, defined on all sets. |
 | 9 | Everything is `ℝ≥0∞`-valued, since both the slice measures and $\mathcal{H}^s(A)$ can be $\infty$. | ✅ `upperIntegral`, `μH[s - m]`, `μH[s]` and `c` all live in `ℝ≥0∞`. |
 

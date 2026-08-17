@@ -21,7 +21,7 @@ choices behind them.
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
 | 1 | The only hypothesis is that $N$ is a bounded normal operator on a complex Hilbert space — no separability, no self-adjointness, no compactness. | ✅ `hnormal : IsStarNormal T` over `[NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]`. |
-| 2 | There is a projection-valued measure: each Borel set gets an orthogonal projection, the empty set gets $0$, disjoint sets get projections whose product is $0$, and countable disjoint unions add up in the strong topology. | ✅ The structure `ProjectionValuedMeasure H` from `Defs.lean` carries `empty`, `univ`, `projection`, `orthogonal` and `countablyAdditive`. |
+| 2 | There is a projection-valued measure: each Borel set gets an orthogonal projection, the empty set gets $0$, disjoint sets get projections whose product is $0$, and countable disjoint unions add up in the strong topology. | ✅ The structure `ProjectionValuedMeasure H` from `Defs.lean` carries `projection`, `univ`, `orthogonal` and `countablyAdditive`. $E(\emptyset) = 0$ is not a separate field but is derivable: `orthogonal` on the self-disjoint pair $(\emptyset, \emptyset)$ gives $E(\emptyset)E(\emptyset) = 0$, and `projection` makes $E(\emptyset)$ idempotent, so $E(\emptyset) = E(\emptyset)^2 = 0$. A candidate may state it either way. |
 | 3 | The measure is **unique**, not merely existent. | ✅ `∃! E : ProjectionValuedMeasure H, …`. |
 | 4 | Uniqueness has to be made coherent: the value of $E$ on non-Borel sets must be pinned down, or two spectral measures could differ off the Borel sets and uniqueness would be false. | ✅ The `nonmeasurable : ∀ B, ¬MeasurableSet B → toFun B = 0` field of `ProjectionValuedMeasure`. |
 | 5 | $E$ lives on $\sigma(N)$, i.e. the whole space is assigned to the spectrum. | ✅ `E.toFun (spectrum ℂ T) = ContinuousLinearMap.id ℂ H`. This is legitimate because $\sigma(N)$ is compact, hence Borel. Without it, uniqueness fails. |
@@ -61,9 +61,12 @@ wrong, even if it compiles.
 - Because the scalar measures are concentrated on the compact set $\sigma(N)$ and have finite
   variation, $z \mapsto z$ really is integrable here, so the junk value $0$ of `∫ᵛ` cannot be
   exploited.
-- The same missing-conjugation pattern appears harmlessly in `conway_XI_2_3` item (g) and in
-  `conway_X_5_6`, because there the spectral measure sits on the reals where $\bar z = z$. It is
-  only fatal when the spectrum is genuinely complex, as here.
+- The same convention question arises in `conway_XI_2_3` item (g) and in `conway_X_5_6`. In
+  `conway_XI_2_3` it is harmless: the integrand is `z` and the measure sits on
+  $\sigma(\text{modulus}) \subseteq [0,\infty)$, where $\bar z = z$. In `conway_X_5_6` the linear
+  integrand is likewise unaffected, but the *exponential* integrand is not
+  ($\overline{e^{itz}} = e^{-itz}$ even for real $z$), which is why that file negates its exponent
+  to `Complex.exp (-(Complex.I * t * z))`.
 
 ## Grading (out of 100)
 

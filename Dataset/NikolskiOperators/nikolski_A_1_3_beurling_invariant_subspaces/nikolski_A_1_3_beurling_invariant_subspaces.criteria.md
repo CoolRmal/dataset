@@ -38,7 +38,7 @@ wrong, even if it compiles.
 
 | # | Mistake | Why it is wrong |
 |---|---------|-----------------|
-| 1 | Writing $zE \subseteq E$ (or just a `ShiftInvariant`-style predicate) instead of the strict $zE \subsetneq E$. | Plain invariance admits $E = \{0\}$, and it also admits the doubly invariant subspaces $\chi_\sigma L^2$. Neither is of the form $\Theta H^2$, so the theorem becomes false. |
+| 1 | Writing $zE \subseteq E$ (or any predicate asserting mere shift invariance) instead of the strict $zE \subsetneq E$. | Plain invariance admits $E = \{0\}$, and it also admits the doubly invariant subspaces $\chi_\sigma L^2$. Neither is of the form $\Theta H^2$, so the theorem becomes false. |
 | 2 | Dropping the closedness hypothesis. | Shift-invariant subspaces that are not closed exist (for instance the polynomial multiples of a $\Theta$) and are not equal to $\Theta H^2$. |
 | 3 | Omitting the uniqueness clause, or replacing it with `∃!`. | Uniqueness is half the theorem. `∃!` is outright false: if $\Theta$ works then so does $c\Theta$ for every $\lvert c\rvert = 1$. |
 | 4 | Formalizing the $H^2$ version instead — coefficient sequences in $\ell^2(\mathbb{N})$ with an *inner* $\Theta$. | That is Beurling's theorem, which is narrower than the printed statement. Here $E$ lives in $L^2$ with two-sided frequencies and $\Theta$ is only asserted measurable and unimodular, not analytic. |
@@ -56,11 +56,12 @@ wrong, even if it compiles.
 - Subspace-hood is hand-rolled as `IsCircleL2Subspace` on `Set (ℝ → ℂ)` rather than being a
   `Submodule ℂ` of an $L^2$ space. This is faithful but verbose, and it forces the closedness
   hypothesis to be phrased with approximating sequences rather than with `IsClosed`.
-- `ShiftInvariant` is defined in `Defs.lean` but is not used here: properness (`⊂`) already
+- No separate shift-invariance conjunct appears in the hypotheses: properness (`⊂`) already
   contains invariance.
 - An earlier version of this file used the coefficient model (`M : Set (ℕ → ℂ)`, Cauchy products,
   an inner generator). That statement was true but formalized Beurling's $H^2$ theorem rather than
-  the printed Beurling–Helson theorem in $L^2$; the current file uses the $L^2$ model. Mistake 4
+  the printed Beurling–Helson theorem in $L^2$; the current file uses the $L^2$ model, and the
+  coefficient-model definitions have since been removed from `Defs.lean`. Mistake 4
   records the defect.
 
 ## Grading (out of 100)

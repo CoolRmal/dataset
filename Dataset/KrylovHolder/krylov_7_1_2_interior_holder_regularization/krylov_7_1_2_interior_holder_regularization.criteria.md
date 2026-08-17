@@ -21,7 +21,7 @@ choices behind them.
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
 | 1 | $0 < \delta < 1$, with $k \ge 0$ and $m$ integers. | ✅ `hδ : 0 < δ ∧ δ < 1`, `k m : ℕ`. |
-| 2 | $\Omega$ is open. | ✅ `hΩ : IsOpen Ω`, which is what makes the derivatives inside `multiDerivative` genuine. |
+| 2 | $\Omega$ is open. | ✅ `hΩ : IsOpen Ω`, which is what makes the within-set derivatives in the Hölder clauses agree with the genuine classical ones on the interior. |
 | 3 | $L$ is a uniformly elliptic operator of order $m$, given by coefficients times derivatives. | ✅ `hL : VariableCoefficientEllipticOperator m L`, supplying `order_le`, `formula`, `principalSymbol` and a positive ellipticity constant. |
 | 4 | The coefficients are $C^{k+\delta}$ — the same $k$ as the datum. | ✅ `hcoeff : OperatorCoefficientsHolder m (k + δ) L`. |
 | 5 | $u$ is $C^{m+\delta}$ on the domain, as genuine membership rather than a finite gauge alone. | ✅ `hu : HolderLocallyOn (m + δ) Ω u`; each `HolderOn` carries a `ContDiffOn` clause next to the finite gauge. |
@@ -43,13 +43,13 @@ wrong, even if it compiles.
 | 4 | Bolting a Schauder estimate with a constant onto the conclusion. | The text asserts membership only. An estimate would need the constant to be quantified before $u$ and, taken over $\Omega$ rather than over compact subsets, would be false for the same reason as mistake 1. |
 | 5 | Concluding $C^{k+\delta}$ or $C^{m+\delta}$. | Those are the hypotheses. The point of the theorem is the gain to $k+m+\delta$. |
 | 6 | Using a second Hölder exponent somewhere instead of the same $\delta$ throughout. | The bookkeeping is exact: $m+\delta$ in, $k+\delta$ for the right-hand side, $k+m+\delta$ out, all with one $\delta$. |
-| 7 | Encoding the memberships as gauge finiteness only. | `multiDerivative` is built from `fderiv`, which is $0$ off the differentiability locus, so a bounded nowhere-differentiable function would satisfy a finiteness-only hypothesis and the conclusion would be false. |
+| 7 | Encoding the memberships as gauge finiteness only. | The gauge's `multiDerivativeWithin` is built from `fderivWithin`, which is $0$ off the differentiability locus, so a bounded nowhere-differentiable function would satisfy a finiteness-only hypothesis and the conclusion would be false. |
 
 ## Notes on the ground truth
 
 - `hL` and `hcoeff` are global: `principalSymbol` quantifies over all $x \in \mathbb{R}^d$, and `OperatorCoefficientsHolder` asks for Hölder regularity on `univ`. The text only needs these inside $\Omega$. Assuming more only restricts the theorem, so it stays sound.
-- `HolderLocallyOn` quantifies over all compact $K \subseteq \Omega$. Its `HolderOn` clause pairs a `ContDiffOn ℝ k' u K` smoothness condition (built on `fderivWithin K`) with a gauge built on the global `fderiv`. Since $\Omega$ is open and $K$ ranges over closed balls inside it, this still pins down the classical derivatives, but the mismatch is worth noting.
-- `holderGauge` hand-rolls the top-order difference quotient where mathlib's `HolderOnWith`/`eHolderNorm` would serve, and uses `multiDerivative` (repeated directional `fderiv` along a fixed list of coordinates) instead of `iteratedFDeriv`. Both are sound on open sets — mixed partials of a $C^k$ function commute, so the arbitrary order chosen by `multiIndexDirections` is harmless — but they are further from mathlib's API than necessary.
+- `HolderLocallyOn` quantifies over all compact $K \subseteq \Omega$. Its `HolderOn` clause pairs a `ContDiffOn ℝ k' u K` smoothness condition with a gauge measuring `multiDerivativeWithin K` — both built on `fderivWithin K`, so the smoothness clause and the gauge see the same objects. Since $\Omega$ is open and $K$ ranges over closed balls inside it, these within-derivatives pin down the classical ones at interior points.
+- `holderGauge` hand-rolls the top-order difference quotient where mathlib's `HolderOnWith`/`eHolderNorm` would serve, and uses `multiDerivativeWithin` (repeated directional `fderivWithin` along a fixed list of coordinates) instead of `iteratedFDerivWithin`. Both are sound here — mixed partials of a $C^k$ function commute, so the arbitrary order chosen by `multiIndexDirections` is harmless — but they are further from mathlib's API than necessary.
 - `holderGauge` takes a maximum where Krylov's norm takes a sum; equivalent up to a factor depending on $d$ and $k$, and invisible in a statement with no constants.
 
 ## Grading (out of 100)

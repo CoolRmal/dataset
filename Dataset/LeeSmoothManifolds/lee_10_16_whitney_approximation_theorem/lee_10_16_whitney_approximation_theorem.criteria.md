@@ -26,8 +26,8 @@ choices behind them.
 | 5 | $\delta$ is strictly positive at every point. | ✅ `hδpos : ∀ x, 0 < δ x`. |
 | 6 | $A$ is closed. | ✅ `hA : IsClosed A`. |
 | 7 | Some form of "$F$ is smooth on $A$". | ✅ `∀ p ∈ A, ∃ U ∈ 𝓝 p, ∃ G, ContMDiff … G ∧ EqOn G F (U ∩ A)` — Lee's definition of smoothness on an arbitrary subset: a local smooth extension near each point, not one smooth extension over a neighbourhood of all of $A$. |
-| 8 | One single $F'$ carrying all the conclusions, not two separate existence claims. | ✅ A single `∃ Fsmooth : M → (Fin k → ℝ)` followed by a three-way conjunction. |
-| 9 | $F'$ is smooth on all of $M$. | ✅ `ContMDiff 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin k → ℝ) ∞ Fsmooth`. |
+| 8 | One single $F'$ carrying all the conclusions, not two separate existence claims. | ✅ A single `∃ Fsmooth : M → (EuclideanSpace ℝ (Fin k))` followed by a three-way conjunction. |
+| 9 | $F'$ is smooth on all of $M$. | ✅ `ContMDiff 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, EuclideanSpace ℝ (Fin k)) ∞ Fsmooth`. |
 | 10 | $F'$ is within $\delta$ of $F$ at every point, with a strict inequality. | ✅ `∀ x, dist (Fsmooth x) (F x) < δ x`. |
 | 11 | $F'$ agrees with $F$ on $A$. | ✅ `EqOn Fsmooth F A`. |
 
@@ -60,8 +60,8 @@ wrong, even if it compiles.
   extra conclusion `support g ⊆ support f`; it is also stated for an arbitrary normed target and
   `n : ℕ∞`. Using a plain function plus `ContMDiff … ∞` is cleaner for a benchmark and matches Lee;
   omitting the support clause is faithful, since it is not in the book. A candidate that generalizes
-  the target from `Fin k → ℝ` to an arbitrary finite-dimensional normed space has strengthened the
-  statement and should be accepted.
+  the target from `EuclideanSpace ℝ (Fin k)` to an arbitrary finite-dimensional normed space has
+  strengthened the statement and should be accepted.
 - This file does not import `Defs.lean`; everything it uses is in Mathlib.
 
 ## Grading (out of 100)

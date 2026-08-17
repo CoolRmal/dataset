@@ -23,12 +23,12 @@ choices behind them.
 |---|-------------|-------------------------------|
 | 1 | The domain measure space is $\sigma$-finite; the target measure space is arbitrary. | ✅ `[SigmaFinite μ]` on the domain, and `ν : Measure Y` carries no extra instance. |
 | 2 | $T$ is sublinear: it kills the zero function, the size of $T(f+g)$ is at most the sum of the sizes, and scalars come out in absolute value. | ✅ `hT : IsSublinearOperator T`, which is `T 0 = 0 ∧ (∀ f g x, ‖T (f + g) x‖ ≤ ‖T f x‖ + ‖T g x‖) ∧ ∀ c f x, ‖T (c • f) x‖ = ‖c‖ * ‖T f x‖`. |
-| 3 | A weak-type bound at $p_0$ with constant $A_0$ and one at $p_1$ with constant $A_1$. Each says: for every $f$ in that $L^{p_j}$ and every $\alpha > 0$, the measure of the set where $\lvert Tf\rvert$ is *strictly* above $\alpha$ is at most $(A_j\|f\|_{p_j}/\alpha)^{p_j}$. | ✅ `h₀ : HasWeakType μ ν T p₀ A₀` and `h₁ : HasWeakType μ ν T p₁ A₁`, unfolding to `∀ f, MemLp f (ENNReal.ofReal p) μ → ∀ α, 0 < α → ν {y \| ENNReal.ofReal α < ‖T f y‖ₑ} ≤ ENNReal.rpow (C * eLpNorm f (ENNReal.ofReal p) μ / ENNReal.ofReal α) p`. |
+| 3 | A weak-type bound at $p_0$ with constant $A_0$ and one at $p_1$ with constant $A_1$. Each says: for every $f$ in that $L^{p_j}$ and every $\alpha > 0$, the measure of the set where $\lvert Tf\rvert$ is *strictly* above $\alpha$ is at most $(A_j\|f\|_{p_j}/\alpha)^{p_j}$. | ✅ `h₀ : HasWeakType μ ν T p₀ A₀` and `h₁ : HasWeakType μ ν T p₁ A₁`, with `p : ℝ≥0∞`. For `p ≠ ∞` the definition unfolds to `∀ f, MemLp f p μ → ∀ α : ℝ≥0∞, 0 < α → ν {y \| α < ‖T f y‖ₑ} ≤ ENNReal.rpow (C * eLpNorm f p μ / α) p.toReal`; for `p = ∞` it says `∀ f, MemLp f ∞ μ → eLpNorm (T f) ∞ ν ≤ C * eLpNorm f ∞ μ` (weak $L^\infty$ is $L^\infty$). |
 | 4 | Both endpoint constants are finite. | ✅ `hA₀ : A₀ < ∞` and `hA₁ : A₁ < ∞`. |
 | 5 | The exponents satisfy $0 < p_0 < p < p_1 \le \infty$, with $p_1 = \infty$ admitted. | ✅ `{p₀ p₁ p : ℝ≥0∞}` with `0 < p₀`, `p₀ < p`, `p < p₁`; `p₁ = ∞` is allowed, and `HasWeakType` spells out the $L^\infty$ endpoint separately (weak $L^\infty$ is $L^\infty$). The conclusion is stated in two cases, the printed constant for $p_1 < \infty$ and its limiting form $2(r/(r-r_0))^{1/r}A_0^{r_0/r}A_1^{1-r_0/r}$ for $p_1 = \infty$ — the case used for the Hardy–Littlewood maximal operator. |
 | 6 | $T$ turns measurable functions into measurable functions — the text's "taking values in the space of measurable functions on $Y$". | ✅ `hmeas : ∀ f, AEStronglyMeasurable f μ → AEStronglyMeasurable (T f) ν`. |
-| 7 | The conclusion has two halves: for $f \in L^p$, $Tf$ is again in $L^p$, and its norm is bounded by the constant times $\|f\|_p$. | ✅ `HasStrongType μ ν T (ENNReal.ofReal p) (ENNReal.ofReal p) A`, which unfolds to `MemLp (T f) _ ν ∧ eLpNorm (T f) _ ν ≤ A * eLpNorm f _ μ`. |
-| 8 | The constant is the printed closed formula, built only from $p, p_0, p_1, A_0, A_1$ — so it is the same for every $f$. | ✅ `2 * ENNReal.rpow (ENNReal.ofReal (p / (p - p₀) + p / (p₁ - p))) (1 / p) * ENNReal.rpow A₀ ((p₀ / p) * ((p₁ - p) / (p₁ - p₀))) * ENNReal.rpow A₁ ((p₁ / p) * ((p - p₀) / (p₁ - p₀)))`. Every denominator is nonzero by `hp`, and the binders for the constants precede the `∀ f` hidden inside `HasStrongType`. |
+| 7 | The conclusion has two halves: for $f \in L^p$, $Tf$ is again in $L^p$, and its norm is bounded by the constant times $\|f\|_p$. | ✅ `HasStrongType μ ν T p p _` in each case of the conclusion, which unfolds to `MemLp (T f) p ν ∧ eLpNorm (T f) p ν ≤ _ * eLpNorm f p μ`. |
+| 8 | The constant is the printed closed formula, built only from $p, p_0, p_1, A_0, A_1$ — so it is the same for every $f$. | ✅ With the local abbreviations `r₀ := p₀.toReal`, `r := p.toReal`, `r₁ := p₁.toReal`, the `p₁ ≠ ∞` case uses `2 * ENNReal.rpow (ENNReal.ofReal (r / (r - r₀) + r / (r₁ - r))) (1 / r) * ENNReal.rpow A₀ ((r₀ / r) * ((r₁ - r) / (r₁ - r₀))) * ENNReal.rpow A₁ ((r₁ / r) * ((r - r₀) / (r₁ - r₀)))`, and the `p₁ = ∞` case its limiting form `2 * ENNReal.rpow (ENNReal.ofReal (r / (r - r₀))) (1 / r) * ENNReal.rpow A₀ (r₀ / r) * ENNReal.rpow A₁ (1 - r₀ / r)`. Every denominator is nonzero by `hp₀`, `hp₀p` and `hpp₁`, and the binders for the constants precede the `∀ f` hidden inside `HasStrongType`. |
 
 ## Mistakes to check for
 
@@ -57,8 +57,11 @@ wrong, even if it compiles.
   to `MemLp` functions is closer to the text and should not be penalized.
 - The `T 0 = 0` conjunct of `IsSublinearOperator` is redundant — it is the $c = 0$ case of the
   homogeneity clause.
-- Using `p : ℝ` and lifting with `ENNReal.ofReal` is safe only because `hp` supplies $0 < p_0$:
-  `ENNReal.ofReal` sends every non-positive real to `0`, and `eLpNorm f 0 μ = 0`.
+- The exponents `p₀ p₁ p` live in `ℝ≥0∞` throughout, so `p₁ = ∞` needs no separate encoding of the
+  hypotheses. The closed-form constant, however, is real arithmetic, so it is written through the
+  local abbreviations `r₀ := p₀.toReal`, `r := p.toReal`, `r₁ := p₁.toReal`; since `∞.toReal = 0`,
+  the conclusion is split into a `p₁ ≠ ∞` case with the printed constant and a `p₁ = ∞` case with
+  its limiting form.
 - An alternative design drops the `MemLp (T f)` conjunct and states only the `eLpNorm` inequality.
   That needs no measurability hypothesis, because the lower Lebesgue integral behind `eLpNorm` is
   defined for arbitrary functions. The ground truth keeps both conjuncts and pays for it with

@@ -23,7 +23,7 @@ choices behind them.
 | 2 | The $T_1$ axiom is present, since Engelking's "regular" bundles it in. | ✅ `[T1Space X]` as an instance hypothesis, making `RegularSpace X` Engelking's notion. |
 | 3 | Regularity is a conjunct of the right-hand side, not a standing hypothesis. | ✅ `RegularSpace X` sits inside the `↔`. |
 | 4 | "Metrizable" means the given topology comes from a metric. | ✅ `MetrizableSpace X` (= `PseudoMetrizableSpace X` + `T0Space X`), whose unfolding carries `u.toTopologicalSpace = t`. |
-| 5 | The base splits into countably many layers, indexed by $\mathbb{N}$. | ✅ `∃ (ι : ℕ → Type v) (B : ∀ n, ι n → Set X), …`. |
+| 5 | The base splits into countably many layers, indexed by $\mathbb{N}$. | ✅ `∃ (ι : ℕ → Type u) (B : ∀ n, ι n → Set X), …`. |
 | 6 | It is the union of the layers that must be a base, not each layer individually. | ✅ `IsTopologicalBasis {V \| ∃ n i, B n i = V}`. |
 | 7 | Each layer is **discrete**: every point has a neighbourhood meeting at most one member of that layer. | ✅ `∀ n, IsDiscreteFamily (B n)`, with `IsDiscreteFamily U := ∀ x, ∃ V ∈ 𝓝 x, {i \| (V ∩ U i).Nonempty}.Subsingleton`. |
 

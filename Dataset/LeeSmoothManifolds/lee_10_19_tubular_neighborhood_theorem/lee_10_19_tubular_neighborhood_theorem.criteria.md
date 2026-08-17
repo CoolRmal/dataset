@@ -26,11 +26,11 @@ choices behind them.
 | 3 | A radius function on $M$ that is strictly positive at every point. | ✅ `radius : M → ℝ` with `∀ x, 0 < radius x`. |
 | 4 | The radius is allowed to vary from point to point rather than being a single constant. | ✅ It is a function on `M`, not a real number. |
 | 5 | "$v$ is perpendicular to $M$ at $x$" has to be defined by hand, since Mathlib has no normal-bundle API. | ✅ `IsNormalVector M x v` (in `Defs.lean`): `x ∈ M`, and for every curve `γ : ℝ → (Fin n → ℝ)` with `γ 0 = x` that stays in `M` near $0$ and has derivative `velocity` at $0$, one has `∑ i, v i * velocity i = 0`. For a $C^\infty$ embedded submanifold the set of such velocities is exactly the tangent space, so this is faithful. |
-| 6 | The disk bundle: pairs $(x,v)$ with $v$ normal at $x$ and $\lvert v\rvert < \delta(x)$. | ✅ `NormalDiskBundle M radius = {p \| IsNormalVector M p.1 p.2 ∧ ‖p.2‖ < radius p.1}`. |
+| 6 | The disk bundle: pairs $(x,v)$ with $v$ normal at $x$ and $\lvert v\rvert < \delta(x)$. | ✅ `normalDiskBundle M radius = {p \| IsNormalVector M p.1 p.2 ∧ ∑ i, (p.2 i) ^ 2 < (radius p.1) ^ 2}`, the norm bound written with the Euclidean square sum. |
 | 7 | $U$ is open and contains $M$. | ✅ `IsOpen U ∧ M ⊆ U`. |
-| 8 | The map $(x,v) \mapsto x + v$ carries the disk bundle one-to-one **onto** $U$. | ✅ `Set.BijOn (fun p : M × (Fin n → ℝ) ↦ (p.1 : Fin n → ℝ) + p.2) (NormalDiskBundle M radius) U`. |
-| 9 | The inverse of that map is smooth, in both of its components. | ✅ `ContinuousOn inverse U`, `ContDiffOn ℝ ∞ (fun z ↦ ((inverse z).1 : Fin n → ℝ)) U` and `ContDiffOn ℝ ∞ (fun z ↦ (inverse z).2) U`, with `∞` meaning $C^\infty$. |
-| 10 | `inverse` really is the inverse of $(x,v) \mapsto x+v$ on the bundle. | ✅ `∀ p ∈ NormalDiskBundle M radius, inverse ((p.1 : Fin n → ℝ) + p.2) = p`. No separate "`inverse` lands in the bundle" clause is needed: that follows from surjectivity in `BijOn` together with this left-inverse clause. |
+| 8 | The map $(x,v) \mapsto x + v$ carries the disk bundle one-to-one **onto** $U$. | ✅ `Set.BijOn (fun p : M × (Fin n → ℝ) ↦ (p.1 : Fin n → ℝ) + p.2) (normalDiskBundle M radius) U`. |
+| 9 | The inverse of that map is smooth, in both of its components. | ✅ `ContDiffOn ℝ ∞ (fun z ↦ ((inverse z).1 : Fin n → ℝ)) U` and `ContDiffOn ℝ ∞ (fun z ↦ (inverse z).2) U`, with `∞` meaning $C^\infty$. Continuity of `inverse` into `M × (Fin n → ℝ)` follows from these two conjuncts, so no separate `ContinuousOn` clause is carried. |
+| 10 | `inverse` really is the inverse of $(x,v) \mapsto x+v$ on the bundle. | ✅ `∀ p ∈ normalDiskBundle M radius, inverse ((p.1 : Fin n → ℝ) + p.2) = p`. No separate "`inverse` lands in the bundle" clause is needed: that follows from surjectivity in `BijOn` together with this left-inverse clause. |
 | 11 | The radius function is **continuous**. | ✅ `Continuous radius`, alongside positivity. Without it the "disk bundle" need not be open inside the normal bundle and the object produced would not be the book's tubular neighbourhood. |
 
 ## Mistakes to check for
@@ -59,9 +59,11 @@ wrong, even if it compiles.
   rather than sup-norm boxes.
 - Quantifying only over curves that are smooth, rather than merely differentiable at $0$, would give
   the same tangent space and is an acceptable variant.
-- `EmbeddedSubmanifoldOfCodimension` carries `codim ≤ m`, so the slice condition cannot be read
-  through a truncated subtraction.
-- `IsNormalVector M x v` includes the conjunct `x ∈ M`. Inside `NormalDiskBundle` the first
+- `EmbeddedSubmanifoldOfCodimension` carries the guarded bound `S.Nonempty → codim ≤ m` (with
+  `m := n` here), so at every point of a nonempty `M` the slice condition cannot be read through a
+  truncated subtraction. The guard admits the empty `M` with arbitrary `codim`, where the
+  tubular-neighbourhood conclusion holds trivially (take `U = ∅`), so the theorem is unaffected.
+- `IsNormalVector M x v` includes the conjunct `x ∈ M`. Inside `normalDiskBundle` the first
   component already has type `↥M`, so that conjunct is automatically satisfied there and adds
   nothing.
 

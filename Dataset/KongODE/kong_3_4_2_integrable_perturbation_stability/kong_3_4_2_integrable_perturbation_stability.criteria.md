@@ -4,7 +4,8 @@
 
 ## What the theorem says
 
-Start with the linear system $x' = A(t)x$ and perturb it to $x' = A(t)x + r(t,x)$. Suppose the
+Start with the linear system $x' = A(t)x$, with $A$ continuous, and perturb it to
+$x' = A(t)x + r(t,x)$. Suppose the
 perturbation is small near the origin in a controlled way: there is a continuous nonnegative
 function $p$ on $[0,\infty)$ with finite total integral such that
 $\lvert r(t,x)\rvert \le p(t)\lvert x\rvert$ for all $t \ge 0$ and all sufficiently small $x$. Then
@@ -30,7 +31,8 @@ choices behind them.
 | 7 | Part (b): uniform **and** asymptotic stability of the linear system implies uniform and asymptotic stability of the perturbed one; both hypotheses appear. | ✅ `UniformlyStableLinearEquation A → AsymptoticallyStableLinearEquation A → AsymptoticallyStableZeroSolution …`, and `AsymptoticallyStableZeroSolution` has uniform stability as its first conjunct. |
 | 8 | The stability notions range over initial times $t_0 \ge 0$, matching the half-line on which the perturbation is controlled. | ✅ `UniformlyStableZeroSolution` and `AsymptoticallyStableZeroSolution` both carry the hypothesis `0 ≤ t₀`. |
 | 9 | The attraction radius and the stability radius are single numbers, independent of $t_0$. | ✅ `∃ δ, 0 < δ ∧ ∀ t₀ x, …` in both definitions, with `δ` bound before `t₀`. |
-| 10 | Solutions are genuine solutions on the whole line. | ✅ `IsTrajectory F x := ∀ t, HasDerivAt x (F t (x t)) t`. |
+| 10 | Solutions are genuine forward solutions on the half-line from the initial time. | ✅ The stability predicates quantify over `IsTrajectoryOn (Set.Ici t₀) F x`, i.e. `∀ t ∈ Set.Ici t₀, HasDerivWithinAt x (F t (x t)) (Set.Ici t₀) t` — differentiability is carried by the predicate, and only forward behaviour is constrained. |
+| 11 | The coefficient matrix $A$ is continuous — Kong's standing hypothesis for the linear system. | ✅ `hA : Continuous A`. This is load-bearing, not decoration: see mistake 8. |
 
 ## Mistakes to check for
 
@@ -46,11 +48,12 @@ wrong, even if it compiles.
 | 5 | Concluding only asymptotic attraction in part (b), dropping the uniform-stability half. | The text says "uniformly stable and asymptotically stable"; both conclusions are asserted. |
 | 6 | Passing the hypothesis of part (a) but not that of part (b), or stating part (b) with the asymptotic hypothesis alone. | Kong's part (b) assumes both. |
 | 7 | Describing solutions with `deriv`. | `deriv` is `0` where the function is not differentiable, so non-solutions would be admitted wherever the field vanishes. |
+| 8 | Dropping the continuity of $A$. | Both parts then become provably false: $A$ can be chosen so pathological that the linear system has no solutions at all through the relevant points, making `UniformlyStableLinearEquation A` and `AsymptoticallyStableLinearEquation A` vacuously true, while the perturbed field $A(t)x + r(t,x)$ still admits a solution violating stability of zero. The ground truth incorporates the repair as `hA : Continuous A`. |
 
 ## Notes on the ground truth
 
-- Kong's standing assumptions for the two systems include continuity of $A$ and of $r$, and $r(t,0) = 0$ so that $x \equiv 0$ really is a solution. We assume none of these. Without them the perturbed system may simply have no solutions through a given point, in which case the conclusion holds because there is nothing to check rather than for a mathematical reason. The condition $r(t,0) = 0$ does follow for $t \ge 0$ from the bound at $x = 0$: $\lVert r(t,0)\rVert \le p(t)\cdot 0 = 0$.
-- `IsTrajectory` asks for a solution defined on all of $\mathbb{R}$, including backwards in time, whereas Kong's solutions only need to exist on their maximal interval. This narrows the class of solutions the conclusion speaks about, so our version is weaker than the printed one. It is also the design choice that made the counterexample in mistake 1 possible before the initial time was restricted to $t_0 \ge 0$.
+- Kong's standing assumptions for the two systems include continuity of $A$ and of $r$, and $r(t,0) = 0$ so that $x \equiv 0$ really is a solution. Continuity of $A$ **is** assumed (`hA : Continuous A`) — it is required, not optional: an earlier version omitted it, and with a sufficiently pathological $A$ the linear stability hypotheses hold vacuously (the linear system need have no solutions at all) while the perturbed system keeps a stability-violating solution, making both parts provably false (mistake 8 records the trap). With $A$ continuous, linear solutions exist through every point and the vacuity gap closes. The omissions of continuity of $r$ and of $r(t,0) = 0$ remain harmless: without them the perturbed system may merely have fewer solutions to check, and $r(t,0) = 0$ does follow for $t \ge 0$ from the bound at $x = 0$: $\lVert r(t,0)\rVert \le p(t)\cdot 0 = 0$.
+- The stability predicates quantify over forward solutions defined on the whole half-line $[t_0,\infty)$ (`IsTrajectoryOn (Set.Ici t₀)`), whereas Kong's solutions only need to exist on their maximal interval. A perturbed solution blowing up in finite forward time is therefore not spoken about — a mild narrowing — and nothing at all is asked of solutions before their initial time. The restriction of the initial time to $t_0 \ge 0$ is what blocks the counterexample in mistake 1.
 
 ## Grading (out of 100)
 
@@ -62,7 +65,7 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 
 | Band | Points | This problem |
 |---|---|---|
-| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| A. Completeness | 50 | The requirement table above has 11 rows, so each row is worth 4.5 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
 | B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
 | C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
 | D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |

@@ -21,7 +21,7 @@ choices behind them.
 | 1 | $\tau(n)$ is the *number* of positive divisors of $n$. | ✅ `n.divisors.card`, the size of mathlib's finset of positive divisors. |
 | 2 | The hypothesis $n \ge 1$. | ✅ `hn : 1 ≤ n`. |
 | 3 | The bound is $2\sqrt n$, with the constant $2$ written out. | ✅ `2 * Real.sqrt n`. |
-| 4 | The square root is the real one, so the comparison happens in $\mathbb{R}$ and the divisor count is cast. | ✅ `(n.divisors.card : ℝ) ≤ 2 * Real.sqrt n`. |
+| 4 | The square root is the real one, so the comparison happens in $\mathbb{R}$ and the divisor count is cast. | ✅ `n.divisors.card ≤ 2 * Real.sqrt n`, elaborated in `ℝ` — the cast of the count is inserted by Lean, with no written ascription. |
 | 5 | The inequality is non-strict and holds for every such $n$. | ✅ `≤`, with `n` universally quantified. |
 
 ## Mistakes to check for

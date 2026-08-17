@@ -45,6 +45,7 @@ wrong, even if it compiles.
 | 4 | Allowing $p = \infty$. | Folland's $p = \infty$ clause has a *different* conclusion: $L^1 * L^\infty = C_{lu}(G)$, the bounded left uniformly continuous functions, not $L^\infty$. Keeping the $L^p$ conclusion at $p = \infty$ states something false. |
 | 5 | Putting the $L^p$ factor on the left, $h * g$. | That is the right-handed statement, which on a non-unimodular group is a genuinely different assertion (Folland states it separately, with $C_{ru}$). |
 | 6 | Dropping `Integrable g μ` or `MemLp h p μ`. | The factorization is only interesting because the factors live in the stated spaces. Without those constraints the statement is about arbitrary functions and loses its meaning. |
+| 7 | Asserting the inclusion $L^\infty * L^1 \subseteq C_{ru}$ for arbitrary $g \in L^\infty$ and $h \in L^1$ of the *left* Haar measure. | On a non-unimodular group $\int \lvert h(y^{-1}x)\rvert\,d\mu(y) = \int \lvert h\rvert\,\Delta^{-1}\,d\mu$ can be infinite, so the defining integral of $g*h$ can diverge and the junk-completed convolution need not be right uniformly continuous — the clause then asserts something the book's set equation does not. The clause needs $h$ integrable for the *right* Haar measure as well. An earlier version of the ground truth omitted this guard; the current ground truth incorporates the repair. |
 
 ## Notes on the ground truth
 
@@ -58,6 +59,17 @@ wrong, even if it compiles.
   the a.e. equality with `f` is an honest claim either way.
 - `groupConv` is defined in `Defs.lean` because Mathlib's `MeasureTheory.convolution` is set up for
   additive groups and does not cover a general multiplicative locally compact group.
+- The three $C_{ru}$ clauses carry the extra conjunct `Integrable (fun y ↦ h y⁻¹) μ`, which says
+  $\int \lvert h\rvert\,\Delta^{-1}\,d\mu < \infty$ — $h \in L^1$ of the right Haar measure — without
+  needing the modular function in `Defs.lean`. On the inclusion clause it is a hypothesis: it is
+  exactly the condition under which the defining integral of $g*h$ converges absolutely for every
+  $x$ and every bounded $g$, and without it the clause would overstate the book (and is likely
+  false on non-unimodular groups). On the two factorization clauses it is a produced property of
+  the witness $h$, a harmless strengthening of the existential (the constructed $h$ can be taken
+  compactly supported). An earlier version of the ground truth asserted the inclusion unguarded;
+  the current ground truth incorporates the repair. On the $C_{lu}$ side no such guard is needed:
+  there the finiteness of $\int \lvert g(y) h(y^{-1}x)\rvert\,d\mu(y)$ already follows from
+  `Integrable g μ` and boundedness of `h`.
 
 ## Grading (out of 100)
 
@@ -89,3 +101,4 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 - Junk value — convolution: `groupConv` returns `0` where its defining integral diverges, so the a.e. equality with $f$ must be read together with the integrability of the factors.
 - Convolution is not commutative; the side of the $L^1$ factor is part of the claim.
 - Folland's sentence also covers $L^\infty$, $C_{lu}$ and $C_{ru}$; a candidate that formalizes only the $L^p$ clause has stated part of the theorem.
+- In the $L^\infty * L^1$ direction the defining integral converges only when $h$ is integrable for the *right* Haar measure too; the ground truth encodes this as `Integrable (fun y ↦ h y⁻¹) μ`.

@@ -21,7 +21,7 @@ theorem hayman_3_6_derivative_zeros_near_poles (f : ℂ → ℂ) (z₀ : ℂ) (R
     (hf : ∀ z ∈ Metric.ball z₀ R, MeromorphicAt f z)
     (P : Set ℂ) (hP : P = {z ∈ Metric.ball z₀ R | meromorphicOrderAt f z < 0})
     (hfa : ∀ z ∈ Metric.ball z₀ R, z ∉ P → AnalyticAt ℂ f z)
-    (htwo : ∃ p ∈ P, ∃ q ∈ P, p ≠ q) (r : ℝ) (hr : 0 < r)
+    (htwo : ∃ p ∈ P, ∃ q ∈ P, p ≠ q) (r : ℝ)
     (hrmax : IsGreatest {t : ℝ | 0 < t ∧ ∀ z ∈ P, ¬ ‖z - z₀‖ < t} r) :
     ((∃ p ∈ P, ∃ q ∈ P, p ≠ q ∧ ‖p - z₀‖ = r ∧ ‖q - z₀‖ = r) →
         ∀ δ : ℝ, 0 < δ → ∀ᶠ l in atTop,

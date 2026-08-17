@@ -26,7 +26,7 @@ choices behind them.
 | 1 | The constant $c$ depends only on $n$: it is quantified before $s$ and $B$, and it is both positive and finite. | ✅ `∃ c : ℝ≥0∞, 0 < c ∧ c < ∞ ∧ ∀ (s : ℝ) (B), …`, with `n` implicit in the theorem's binders. |
 | 2 | $B$ is a Borel set. | ✅ `MeasurableSet B`; the `MeasurableSpace` instance on `EuclideanSpace ℝ (Fin n)` is the Borel $\sigma$-algebra. |
 | 3 | The main assertion is a biconditional with $\mathcal{H}^s(B) > 0$ — the Hausdorff **measure**, not the content — on the left. | ✅ `0 < μH[s] B ↔ ∃ μ, …`. |
-| 4 | The witnessing measure belongs to $\mathcal{M}(B)$: it is nonzero, finite, Radon (finite on compacts and inner regular), and its support is compact and contained in $B$. | ✅ `IsFiniteMeasure μ ∧ IsFiniteMeasureOnCompacts μ ∧ Measure.InnerRegular μ ∧ μ ≠ 0 ∧ IsCompact μ.support ∧ μ.support ⊆ B`. |
+| 4 | The witnessing measure belongs to $\mathcal{M}(B)$: it is nonzero, finite, Radon (finite on compacts and inner regular), and its support is compact and contained in $B$. | ✅ `IsFiniteMeasure μ ∧ Measure.InnerRegular μ ∧ μ ≠ 0 ∧ IsCompact μ.support ∧ μ.support ⊆ B`; finiteness on compacts needs no separate conjunct, since `IsFiniteMeasure μ` bounds every set, compacts included. |
 | 5 | The growth bound is the strict inequality $\mu(\bar B(x,r)) < r^s$, for **every** $x \in \mathbb{R}^n$ (not only $x \in B$) and **every** $r > 0$ (no small-radius restriction). | ✅ `∀ x, ∀ r : ℝ, 0 < r → μ (closedBall x r) < ENNReal.ofReal (r ^ s)`. |
 | 6 | The quantitative refinement is a strengthening of the forward direction, so it must be stated under the assumption $\mathcal{H}^s(B) > 0$, not as a free-standing claim. | ✅ `(0 < μH[s] B → ∃ μ, … ∧ c * hausdorffContent s B < μ B)`. |
 | 7 | The refinement's measure must satisfy the same growth bound and support conditions, plus the mass lower bound, with the book's strict `<`. | ✅ The full property list is repeated inside the second conjunct, ending in `c * hausdorffContent s B < μ B`. |
@@ -58,12 +58,17 @@ wrong, even if it compiles.
 - "$\mu$ lives on $B$" can be read either as `μ Bᶜ = 0` (concentrated on $B$) or as
   `μ.support ⊆ B`. For Borel $B$ these genuinely differ, since the support is closed. We take the
   literal reading from the book, `IsCompact μ.support ∧ μ.support ⊆ B`.
-- `IsFiniteMeasureOnCompacts` and `Measure.InnerRegular` are classes, but `μ` here is existentially
-  bound, so they correctly appear as plain propositions. On $\mathbb{R}^n$ inner regularity is
+- `IsFiniteMeasure` and `Measure.InnerRegular` are classes, but `μ` here is existentially
+  bound, so they correctly appear as plain propositions. An earlier version also carried an
+  `IsFiniteMeasureOnCompacts μ` conjunct; it was dropped as redundant, because a finite measure is
+  finite on every set, compacts included. On $\mathbb{R}^n$ inner regularity is
   automatic for locally finite Borel measures, so that conjunct is redundant but harmless.
 - `0 < s` is assumed. It is not printed with the statement, but the growth bound $\mu(B(x,r)) < r^s$
   needs it for `r ^ s` to be the intended real power, so it is a genuine part of the setting rather
-  than a narrowing.
+  than a narrowing. It also keeps `hausdorffContent` meaningful: at `s = 0` the `ℕ`-indexed covers
+  would give every coverable set content `∞`, since each covering set — even the empty one —
+  contributes `ediam ^ 0 = 1`; the docstring in `Defs.lean` records that the definition is intended
+  for `0 < s`.
 - The quantitative clause is guarded by `hausdorffContent s B < ∞`. Without the guard it is
   unsatisfiable when the content is infinite, since the witnessing measure is finite.
 - The two conjuncts each spell out the property list. Both are needed — the second strengthens the

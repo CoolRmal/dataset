@@ -25,7 +25,7 @@ choices behind them.
 | 3 | $A$ is measurable. | ✅ `hA : MeasurableSet A`. |
 | 4 | $A$ is convex. | ✅ `hconv : Convex ℝ A`. |
 | 5 | $A$ is balanced, i.e. $\alpha A \subseteq A$ for $\lvert\alpha\rvert \le 1$. | ✅ `hbal : Balanced ℝ A`. |
-| 6 | The second set is a symmetric strip cut out by a **linear** functional: $\{x : \lvert f(x)\rvert \le c\}$. | ✅ `f : EuclideanSpace ℝ (Fin n) →L[ℝ] ℝ` and the set `{x | ‖f x‖ ≤ c}`. Continuity is automatic in finite dimensions, but stating it makes the strip manifestly closed and the statement transferable. |
+| 6 | The second set is a symmetric strip cut out by a **linear** functional: $\{x : \lvert f(x)\rvert \le c\}$. | ✅ `f : EuclideanSpace ℝ (Fin n) →L[ℝ] ℝ` and the set `{x \| \|f x\| ≤ c}`. Continuity is automatic in finite dimensions, but stating it makes the strip manifestly closed and the statement transferable. |
 | 7 | $c$ is an arbitrary real number, with no positivity assumed. | ✅ `(c : ℝ)` unconstrained; for $c < 0$ the strip is empty and the inequality is trivially true, matching the text. |
 | 8 | The conclusion is the product inequality $\gamma(A)\gamma(\Pi) \le \gamma(A \cap \Pi)$, with the intersection on the larger side. | ✅ `γ A * γ {x \| \|f x\| ≤ c} ≤ γ (A ∩ {x \| \|f x\| ≤ c})`. |
 
@@ -47,7 +47,7 @@ wrong, even if it compiles.
 ## Notes on the ground truth
 
 - `Balanced ℝ A` together with `Convex ℝ A` is Mathlib's rendering of "absolutely convex".
-- $f$ is a plain linear map `→ₗ[ℝ]` rather than a continuous linear map. In finite dimensions every linear map is continuous, so this is adequate and matches Bogachev's "linear function". On an infinite-dimensional space one would need `→L[ℝ]`.
+- $f$ is a continuous linear map `→L[ℝ]`. In finite dimensions every linear map is continuous, so a candidate using a plain `→ₗ[ℝ]` is equally faithful to Bogachev's "linear function"; the continuous form makes the strip manifestly closed and the statement transferable beyond finite dimensions.
 - The centering hypothesis is a Bochner integral, `∫ x, x ∂γ = 0`. Lean disables the Bochner integral on incomplete spaces (returning $0$), which would make such a hypothesis hold for free; here the space is `EuclideanSpace ℝ (Fin n)`, which is complete, so the condition is genuine.
 - All four quantities are values of a probability measure and so lie in $[0,1]$. `ℝ≥0∞` multiplication has the special rule $0 \cdot \infty = 0$, but no infinite value can arise here, so nothing is truncated.
 - The inequality is written with the smaller side on the left, reversing the book's `≥` orientation without changing the content.

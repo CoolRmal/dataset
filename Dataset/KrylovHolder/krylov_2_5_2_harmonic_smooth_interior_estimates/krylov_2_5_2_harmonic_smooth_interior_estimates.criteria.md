@@ -53,6 +53,7 @@ wrong, even if it compiles.
 - `Ω.Nonempty` is redundant next to `IsConnected Ω`, since mathlib's `IsConnected` already includes nonemptiness. Harmless duplication.
 - The `sSup` is real-valued rather than `ℝ≥0∞`-valued. It is safe here only because `HarmonicIn` gives continuity on the compact ball, so the set is nonempty and bounded. A `⨆ y : Metric.closedBall x R, ENNReal.ofReal \|u y\|` (the `functionSupNorm` style used elsewhere in this book) would be safe by construction.
 - The text's extra "$\cap\, C(\Omega)$" is already implied by `ContDiffOn ℝ 2`.
+- The hand-rolled `laplacian` (a sum of repeated coordinate `fderiv`s) and `HarmonicIn` duplicate notions that current mathlib provides as `InnerProductSpace.laplacian` / `laplacianWithin` (with `Δ` notation) and `HarmonicAt` / `HarmonicOnNhd`. On an open $\Omega$ the two agree, but the custom versions interact less well with mathlib's API.
 
 ## Grading (out of 100)
 

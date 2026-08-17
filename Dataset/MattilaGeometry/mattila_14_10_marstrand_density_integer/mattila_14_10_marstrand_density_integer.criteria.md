@@ -21,13 +21,13 @@ choices behind them.
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
 | 1 | $s$ is a positive real. | ✅ `hs : 0 < s`. |
-| 2 | $\mu$ is a Radon measure on $\mathbb{R}^n$: finite on compact sets and inner regular. | ✅ `hμ : IsFiniteMeasureOnCompacts μ ∧ Measure.InnerRegular μ`. |
+| 2 | $\mu$ is a Radon measure on $\mathbb{R}^n$: finite on compact sets and inner regular. | ✅ The instance binders `[IsFiniteMeasureOnCompacts μ] [Measure.InnerRegular μ]`. |
 | 3 | There is a set $E$ of positive $\mu$ measure on which the density condition holds, and $E$ is not required to be measurable. | ✅ `∃ E : Set (EuclideanSpace ℝ (Fin n)), 0 < μ E ∧ ∀ x ∈ E, …`, with no measurability side condition — mathlib measures are outer measures, defined on every set. |
 | 4 | At each point of $E$ the density is a genuine limit as $r \downarrow 0$, not merely an upper limit. | ✅ `Tendsto (fun r : ℝ ↦ μ (closedBall x r) / ENNReal.ofReal ((2 * r) ^ s)) (𝓝[>] 0) (𝓝 θ)`. |
 | 5 | The limit value is strictly positive and strictly finite. | ✅ `0 < θ ∧ θ < ∞`, with `θ : ℝ≥0∞`. |
 | 6 | The limit value is allowed to vary from point to point. | ✅ `∀ x ∈ E, ∃ θ, …` — the existential sits inside the quantifier over points. |
 | 7 | The density is normalized by $(2r)^s$, matching Mattila's diameter convention. | ✅ `ENNReal.ofReal ((2 * r) ^ s)` in the denominator. |
-| 8 | The conclusion is that $s$ is an integer. | ✅ `∃ m : ℕ, s = m`. |
+| 8 | The conclusion is that $s$ is an integer. | ✅ `∃ m : ℤ, s = m`. |
 
 ## Mistakes to check for
 
@@ -42,7 +42,7 @@ wrong, even if it compiles.
 | 4 | Making the density real-valued, e.g. via `ENNReal.toReal`. | `toReal` sends `∞` to `0`, so "the density is finite" could no longer be stated, and points with infinite density would masquerade as points with density $0$. |
 | 5 | Adding `[IsFiniteMeasure μ]`, compact support, or any other convenience hypothesis on $\mu$. | Marstrand's theorem assumes only that $\mu$ is Radon. Extra hypotheses narrow it. |
 | 6 | Dropping `0 < θ` or `θ < ∞`. | With $\theta = 0$ allowed, any measure works and the conclusion fails; with $\theta = \infty$ allowed, likewise. Both bounds are hypotheses. |
-| 7 | Dropping `0 < s`. | It is the text's standing assumption and is what makes the conclusion meaningful together with the `∃ m : ℕ` form. |
+| 7 | Dropping `0 < s`. | It is the text's standing assumption; together with the conclusion `∃ m : ℤ, s = m` it is also what forces the integer to be positive. |
 
 ## Notes on the ground truth
 

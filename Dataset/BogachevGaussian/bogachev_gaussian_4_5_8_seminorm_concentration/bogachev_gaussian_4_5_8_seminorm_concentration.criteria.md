@@ -20,7 +20,7 @@ choices behind them.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
-| 1 | $\gamma$ is a Gaussian measure on the ambient space. | ✅ `(γ : Measure E) [IsGaussian γ]` with a normed and Borel structure on `E`. |
+| 1 | $\gamma$ is a Gaussian measure on the ambient space. | ✅ `(γ : Measure E) [IsGaussian γ]` with Bogachev's locally convex structure (`[AddCommGroup E] [Module ℝ E] [TopologicalSpace E] [IsTopologicalAddGroup E] [ContinuousSMul ℝ E] [LocallyConvexSpace ℝ E]`) and a Borel structure on `E`. |
 | 2 | $f$ is a seminorm: subadditive and absolutely homogeneous. | ✅ `f : Seminorm ℝ E`, Mathlib's bundled structure. |
 | 3 | $f$ is measurable. In infinite dimensions this is not automatic. | ✅ `hf : Measurable f`. |
 | 4 | $\chi(f)$ is the supremum of $f$ over the *Cameron–Martin* unit ball $\{h : \lvert h\rvert_{H(\gamma)} \le 1\}$. | ✅ `cameronMartinGauge γ f = ⨆ h : {h // cameronMartinNorm γ h ≤ 1}, ENNReal.ofReal (f h)`. |
@@ -52,6 +52,7 @@ wrong, even if it compiles.
 - `hgauge` together with `hc : 0 < c` implicitly rules out $\chi(f) = \infty$. That is the only case the printed inequality does not cover in a meaningful way, so nothing is lost.
 - `∫ y, f y ∂γ` would be Lean's default value $0$ if $f$ were not integrable. That does not create a loophole: a seminorm with $\chi(f) < \infty$ is $\gamma$-integrable by Fernique's theorem, so the hypothesis `hgauge` already guarantees the mean is the real one. Bogachev makes the same point when he says $f$ satisfies condition (4.5.4).
 - Bogachev's "$\gamma$-measurable seminorm" is only required to be defined almost everywhere. We use a genuine everywhere-defined `Seminorm ℝ E` together with a measurability hypothesis, which is a mild strengthening of the setup.
+- The `.md`'s opening sub-conclusion that $f$ "satisfies condition (4.5.4)" is deliberately omitted from the Lean statement: condition (4.5.4) is not defined in the transcription, so it cannot be stated faithfully, and the concentration inequality is the assertion the problem carries. A candidate is not expected to render it and must not be penalised for omitting it.
 - The right-hand side is written in `ℝ≥0∞` via `ENNReal.ofReal`, matching the left-hand side's measure value, so no finiteness is presupposed anywhere.
 
 ## Grading (out of 100)

@@ -26,7 +26,7 @@ choices behind them.
 | 3 | $\delta(a) = \liminf_{r\to\infty} m(r,a)/T(r,f)$, using a lower limit. | ✅ `deficiency`, defined in `Defs.lean` as `liminf (fun r ↦ proximity f a r / characteristic f ⊤ r) atTop`. |
 | 4 | $\Theta(a) = 1 - \limsup_{r\to\infty} \bar N(r,a)/T(r,f)$, using the *reduced* counting function and an upper limit. | ✅ `nevanlinnaTheta`, built on `reducedLogCounting`. |
 | 5 | $\theta(a) = \liminf_{r\to\infty}\bigl(N(r,a) - \bar N(r,a)\bigr)/T(r,f)$. | ✅ `ramificationIndex`, the difference of `logCounting` and `reducedLogCounting`. |
-| 6 | $\bar N$ counts each $a$-point once, however high its multiplicity, and is $\int_0^r \frac{\bar n(t,a)-\bar n(0,a)}{t}\,dt + \bar n(0,a)\log r$. | ✅ `reducedLogCounting` in `Defs.lean`, built from `distinctCount`, the number of *distinct* roots in $\lVert z\rVert \le t$. |
+| 6 | $\bar N$ counts each $a$-point once, however high its multiplicity, and is $\int_0^r \frac{\bar n(t,a)-\bar n(0,a)}{t}\,dt + \bar n(0,a)\log r$. | ✅ `reducedLogCounting` in `Defs.lean`, built from `distinctCount`, which counts the *distinct* $a$-points in $\lVert z\rVert \le t$ — membership is `0 < meromorphicOrderAt (fun w ↦ f w - a) z`, the representative-independent statement "`z` is an $a$-point of `f`". |
 | 7 | The set of $a$ with $\Theta(a) > 0$ is countable. | ✅ `{a : ℂ \| 0 < nevanlinnaTheta f a}.Countable`, the first conjunct. |
 | 8 | The chain of two inequalities $\sum(\delta+\theta) \le \sum\Theta \le 2$, both parts asserted. | ✅ Two inequalities conjoined inside `∀ s : Finset ℂ`. |
 | 9 | The sum ranges over a possibly infinite set of values, so it must be given a meaning that does not presuppose convergence. | ✅ Rendered as: *every* finite set `s` of values satisfies both inequalities. For nonnegative terms this is equivalent to the sum bound. |
@@ -45,13 +45,17 @@ wrong, even if it compiles.
 | 5 | Defining $\delta(a)$ as $1 - \limsup N(r,a)/T(r)$. | This equals $\liminf m(r,a)/T(r)$ only because of the first fundamental theorem, which is a separate result. Writing it this way assumes what the book proves elsewhere and is not the printed definition. |
 | 6 | Using $N$ instead of $\bar N$ in $\Theta$. | With multiplicities counted, $1 - \limsup N/T$ is $\delta$-like, not $\Theta$. The whole point of $\Theta$ is that it ignores multiplicity, and $\Theta \ge \delta + \theta$ depends on that. |
 | 7 | Writing the sum as a `tsum` without saying anything about summability. | `tsum` returns $0$ when the family is not summable, so an unsummable family would satisfy the bound for free. A `tsum` version is acceptable only if summability is part of the claim. |
+| 8 | Building $\bar n(t,a)$ from the literal solution set `{z \| ‖z‖ ≤ t ∧ f z = a}`. | Mathlib's `Meromorphic` does not pin the values of `f` on discrete sets, so a re-valued representative can hide the $a$-points of several values at once, driving their $\Theta$ to $1$ while $T(r,f)$ is unchanged and refuting $\sum \Theta \le 2$. An earlier version of the ground truth had exactly this defect; the current `distinctCount` incorporates the repair by testing membership with `0 < meromorphicOrderAt (fun w ↦ f w - a) z`, which depends only on the meromorphic germ. |
 
 ## Notes on the ground truth
 
 - Mathlib supplies $m$, $N$ and $T$ as `ValueDistribution.proximity`, `logCounting` and
   `characteristic`, with the target value living in `WithTop ℂ` and `⊤` playing the role of $\infty$.
   Only $\bar N$ had to be added, in `Defs.lean`; $\delta$, $\theta$ and $\Theta$ are then defined
-  there in terms of it.
+  there in terms of it. Its point count `distinctCount` tests membership by positive
+  `meromorphicOrderAt` — the same divisor-based reading Mathlib's `logCounting` uses — so $\bar N$
+  is representative-independent and consistent with $N$; poles and junk values are never counted as
+  $a$-points.
 - Both sums range over `s : Finset ℂ`, so only finite values $a$ are summed. Hayman sums over all
   values, including $a = \infty$. Ours is therefore slightly weaker than the printed statement. A
   candidate that sums over `WithTop ℂ` is closer to the book and should not be penalised.
@@ -96,3 +100,4 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 - Junk value — `tsum`: an unordered sum over an uncountable index set is `0` unless summability is established. Quantifying over all finite subsums is the safe equivalent.
 - The countability claim is part of the theorem, not a hypothesis.
 - Admissibility in the plane must be stated ($T(r,f) \to \infty$); without it the ratios defining $\delta,\Theta,\theta$ are meaningless.
+- Junk value — representatives: a meromorphic function is a total function whose values on discrete sets carry no meaning, so $\bar n(t,a)$ must count $a$-points through the germ (positive order of $f - a$), not through the literal equation $f(z) = a$.

@@ -22,10 +22,10 @@ choices behind them.
 | 1 | $M$ is a smooth manifold of dimension $m$ without boundary, and $N$ one of dimension $n$. | ✅ `[ChartedSpace (Fin m → ℝ) M]` with `[IsManifold 𝓘(ℝ, Fin m → ℝ) ∞ M]`, and the same for `N` with `n`. |
 | 2 | $M$ is second countable. Lee builds this into "smooth manifold"; Mathlib does not, and the theorem is false without it. | ✅ `[SecondCountableTopology M]`. `[SigmaCompactSpace M]` or Lindelöfness would do as well. |
 | 3 | $F$ is $C^\infty$. | ✅ `hF : ContMDiff 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin n → ℝ) ∞ F`, with `∞` meaning $C^\infty$ (not `ω`). |
-| 4 | The critical set is the set of points where the differential is *not* surjective. | ✅ `critical := {p : M \| ¬ Manifold.IsSubmersionAt 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin n → ℝ) ∞ F p}`. |
-| 5 | The conclusion is about the **image** $F(\text{critical})$, the critical values, not the critical set itself. | ✅ `F '' critical` appears inside the measure. |
+| 4 | The critical set is the set of points where the differential is *not* surjective. | ✅ `criticalSet F` from `Defs.lean`, which is `{p \| ¬ Manifold.IsSubmersionAt 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin n → ℝ) ∞ F p}`. |
+| 5 | The conclusion is about the **image** $F(\text{critical})$, the critical values, not the critical set itself. | ✅ `F '' criticalSet F` appears inside the measure. |
 | 6 | "Null in $N$" is stated chart by chart, for charts belonging to the smooth structure of $N$. | ✅ `∀ ψ : OpenPartialHomeomorph N (Fin n → ℝ), ψ ∈ IsManifold.maximalAtlas 𝓘(ℝ, Fin n → ℝ) ∞ N → …`. |
-| 7 | Inside a chart, only the part of the set lying in the chart's domain can be pushed forward, and its image must have Lebesgue measure zero. | ✅ `volume (ψ '' (F '' critical ∩ ψ.source)) = 0`, with `volume` the Lebesgue product measure on `Fin n → ℝ`. |
+| 7 | Inside a chart, only the part of the set lying in the chart's domain can be pushed forward, and its image must have Lebesgue measure zero. | ✅ `volume (ψ '' (F '' criticalSet F ∩ ψ.source)) = 0`, with `volume` the Lebesgue product measure on `Fin n → ℝ`. |
 | 8 | No measurability side condition anywhere. | ✅ None is imposed. A Mathlib measure applied to an arbitrary set is the induced outer measure, so `volume S = 0` already says exactly "$S$ is a null set". |
 
 ## Mistakes to check for
@@ -52,12 +52,11 @@ wrong, even if it compiles.
   proved "`mfderiv` surjective ⟺ `IsSubmersionAt`" in finite dimensions (it is a TODO in
   `Submersion.lean`), so `¬ IsSubmersionAt` is possibly a *larger* set than Lee's critical set, which
   makes our conclusion at least as strong as his — the safe direction.
-- The critical set is the named `CriticalSet F` from `Defs.lean`, not a `let` inside the statement.
+- The critical set is the named `criticalSet F` from `Defs.lean`, not a `let` inside the statement.
 - `[T2Space M]`, `[T2Space N]` and second countability are assumed, matching Lee's definition of a
   smooth manifold.
 - `[SecondCountableTopology N]` is also assumed. It is not needed for the truth of the statement,
   but it is part of Lee's definition of a smooth manifold, so keeping it is faithful.
-- This file does not import `Defs.lean`; it uses only Mathlib notions.
 
 ## Grading (out of 100)
 

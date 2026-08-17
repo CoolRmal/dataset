@@ -22,7 +22,7 @@ choices behind them.
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
 | 1 | $X$ is Tychonoff. | ✅ `[T35Space X]`, mathlib's exact analogue of Engelking's Tychonoff. |
-| 2 | "Compactification" is a dense embedding into a compact **Hausdorff** space. | ✅ `IsCompactification e := IsEmbedding e ∧ DenseRange e ∧ IsCompact (univ : Set K) ∧ T2Space K`. |
+| 2 | "Compactification" is a dense embedding into a compact **Hausdorff** space. | ✅ `IsCompactification e := IsDenseEmbedding e ∧ CompactSpace K ∧ T2Space K`. |
 | 3 | The proximity axioms: $\emptyset$ is close to nothing; overlapping sets are close; the relation is symmetric; $A \cup B$ is close to $C$ exactly when $A$ or $B$ is. | ✅ The fields `empty_left`, `intersects`, `symmetric`, `union_left` of the `Proximity` structure. |
 | 4 | The strong (Efremovič) axiom: if $A$ is not close to $B$, there is a set $E$ with $A$ not close to $E$ and $E^{c}$ not close to $B$. | ✅ `strong : ∀ A B, ¬close A B → ∃ E, ¬close A E ∧ ¬close Eᶜ B`. |
 | 5 | The proximity is compatible with the **given** topology of $X$: $\overline{A}$ is the set of points close to $A$. | ✅ `closure_eq : ∀ A : Set X, closure A = {x \| close {x} A}`, using the ambient `closure`. |
@@ -61,11 +61,13 @@ wrong, even if it compiles.
   which suffices given `symmetric`.
 - `IsCompactification` bundles `CompactSpace K` and `T2Space K` as `Prop`-conjuncts, which is forced
   because the topology on `K` is a bound variable rather than an instance.
-- Every index type quantified in the statement lives in `X`'s own universe. That costs no
-  generality — a cover of `X` can always be re-indexed by its image in `Set X` — and it removes
-  the free universe parameter, so the statement is about all covers rather than about covers in
-  one arbitrary universe. The generic family predicates in `Defs.lean` stay polymorphic in their
-  index type, as they should.
+- The compactification spaces `K` and `L` quantified in the four clauses live in `X`'s own
+  universe, `Type u`. For quantified *spaces* this needs a genuine argument, and it has one: a
+  compactification is a compact Hausdorff space with a dense copy of `X`, so its cardinality is at
+  most $2^{2^{|X|}}$ and a homeomorphic copy of it — an equivalent compactification of `X` — lives
+  in `Type u`. Hence the universal clauses (a), (c) and the converse lose no strength, the
+  existential clause (b) loses no witnesses, and a candidate quantifying the spaces over an
+  arbitrary universe is equally correct.
 
 ## Grading (out of 100)
 

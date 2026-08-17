@@ -23,7 +23,7 @@ choices behind them.
 | 2 | "Metrizable" means the **given** topology is induced by a metric, not that some metric structure exists on the type. | ✅ `MetrizableSpace X`, whose unfolding carries a uniformity with `toTopologicalSpace = t` and countably generated `𝓤 X`, plus `T0Space`. |
 | 3 | The $T_1$ axiom is present, since Engelking's "regular" bundles it in. | ✅ `[T1Space X]` as an instance hypothesis, so `RegularSpace X` on the right is exactly Engelking's regularity. |
 | 4 | Regularity appears as a conjunct of the right-hand side, not as a standing hypothesis. | ✅ `RegularSpace X` sits inside the `↔`. |
-| 5 | The $\sigma$-locally finite base is countably many families $\mathcal{B}_n$, indexed by $\mathbb{N}$. | ✅ `∃ (ι : ℕ → Type v) (B : ∀ n, ι n → Set X), …`. |
+| 5 | The $\sigma$-locally finite base is countably many families $\mathcal{B}_n$, indexed by $\mathbb{N}$. | ✅ `∃ (ι : ℕ → Type u) (B : ∀ n, ι n → Set X), …`. |
 | 6 | It is the **union** of those families that is a base for the topology. | ✅ `IsTopologicalBasis {V \| ∃ n i, B n i = V}`. |
 | 7 | It is each individual family, not the union, that is required to be locally finite. | ✅ `∀ n, LocallyFinite (B n)`. |
 

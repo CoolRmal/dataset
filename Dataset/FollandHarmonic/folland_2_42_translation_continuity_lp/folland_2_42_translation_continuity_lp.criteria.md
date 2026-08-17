@@ -48,9 +48,11 @@ wrong, even if it compiles.
 
 ## Notes on the ground truth
 
-- `leftTranslate` and `rightTranslate` are one-line definitions in `Defs.lean`, shared by four
-  problems in this book. Mathlib has no $L_y$/$R_y$ for scalar functions on a general group, so
-  defining them is warranted rather than a pointless wrapper.
+- `leftTranslate` and `rightTranslate` are one-line definitions in `Defs.lean`, used directly here
+  and, through the uniform-continuity predicates `IsLeftUniformlyContinuous` and
+  `IsRightUniformlyContinuous` built on them, by `folland_2_44` and `folland_2_69`. Mathlib has no
+  $L_y$/$R_y$ for scalar functions on a general group, so defining them is warranted rather than a
+  pointless wrapper.
 - `eLpNorm` is `ℝ≥0∞`-valued, so the target of the limit is `𝓝 (0 : ℝ≥0∞)`. Nothing in the statement
   presupposes that the seminorm is finite, although `hf` makes it so.
 - `leftTranslate y f - f` is pointwise subtraction of functions `G → ℂ`, which is what the book's

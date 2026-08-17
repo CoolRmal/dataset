@@ -45,6 +45,7 @@ wrong, even if it compiles.
 | 5 | Counting the $a_\nu$-points of $f$ as $\bar N(r, a_\nu)$ for a fixed value $a_\nu$. | Only correct when $a_\nu$ is constant. For a moving target the object is the zero set of $f - a_\nu$. |
 | 6 | Asserting the inequality for every $r > 0$ rather than for all large $r$. | The $o(1)$ and $S(r,f)$ terms are only controlled asymptotically; a claim at every radius is false. |
 | 7 | Quantifying $\varepsilon$ inside the "eventually", as `∀ᶠ r, ∀ ε > 0, …`. | That would demand one radius threshold serving all $\varepsilon$ at once, which is strictly stronger and not what $o(1)$ means. |
+| 8 | Counting the zeros of $f - a_\nu$ through the literal solution set `{z \| ‖z‖ ≤ t ∧ f z - a ν z = 0}`. | Mathlib's `Meromorphic` does not pin the values of `f` on discrete sets, so a re-valued representative can hide all the genuine zeros of the three functions $f - a_\nu$ at once, zeroing all three $\bar N$ terms while $T(r,f)$ is unchanged — the inequality then fails for large $r$. An earlier version of the ground truth had exactly this defect; the current `distinctCount` incorporates the repair by testing membership with positive `meromorphicOrderAt`, which depends only on the germ. |
 
 ## Notes on the ground truth
 
@@ -59,7 +60,10 @@ wrong, even if it compiles.
 - `hsmall` is a statement about the ratio of characteristics; because $T(r,f)\to\infty$, division by
   zero never occurs for large $r$, so the ratio form is safe.
 - The reduced counting function is applied to `fun z ↦ f z - a ν z`. Mathlib's meromorphic functions
-  are ordinary functions, so this subtraction is literal pointwise subtraction, including at poles.
+  are ordinary functions, so this subtraction is literal pointwise subtraction, including at poles —
+  but `distinctCount` tests membership by `0 < meromorphicOrderAt`, which sees only the meromorphic
+  germ of the difference, so junk values at poles or on any discrete set never add or remove counted
+  zeros.
 
 ## Grading (out of 100)
 
@@ -92,3 +96,4 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 - The inequality holds eventually in $r$, not for every $r$.
 - Distinctness of the $a_\nu$ is as functions, not pointwise at each $z$.
 - Admissibility of $f$ must be assumed.
+- Junk value — representatives: the zeros of $f - a_\nu$ must be counted through the germ (positive meromorphic order), not through the literal values of the chosen representative, which are unconstrained on discrete sets.

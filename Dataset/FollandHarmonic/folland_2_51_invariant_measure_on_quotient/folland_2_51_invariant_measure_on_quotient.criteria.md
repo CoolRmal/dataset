@@ -5,14 +5,15 @@
 ## What the theorem says
 
 Let $G$ be a locally compact group and $H$ a closed subgroup. The coset space $G/H$ carries a left
-action of $G$, and one may ask for a nonzero measure on $G/H$ invariant under that action. The
-theorem says such a measure exists exactly when the modular function of $G$, restricted to $H$,
+action of $G$, and one may ask for a nonzero *Radon* measure on $G/H$ invariant under that action.
+The theorem says such a measure exists exactly when the modular function of $G$, restricted to $H$,
 agrees with the modular function of $H$ itself: $\Delta_G|_H = \Delta_H$. These are two different
 functions on the same set $H$, computed in two different groups, and the condition is a real
 restriction — for $G$ the $ax+b$ group and $H$ the $a$-axis it fails.
 
-When the condition holds, the invariant measure is unique up to a positive constant, and with the
-constant chosen correctly one has Weil's formula: for continuous compactly supported $f$ on $G$,
+When the condition holds, the invariant Radon measure is unique up to a positive constant among
+nonzero invariant Radon measures, and with the constant chosen correctly one has Weil's formula:
+for continuous compactly supported $f$ on $G$,
 
 $$\int_G f\,d\lambda = \int_{G/H}\Big(\int_H f(x\xi)\,d\xi\Big)\,d\mu(xH).$$
 
@@ -34,6 +35,8 @@ choices behind them.
 | 7 | Weil's formula (2.52) is part of the left side, not a separate afterthought. | ✅ `∫ x, f x ∂μ = ∫ q : G ⧸ H, (∫ y : H, f (Quotient.out q * y) ∂ν) ∂ρ`. |
 | 8 | Weil's formula is asserted for $f$ continuous with compact support. | ✅ `∀ f : G → ℂ, Continuous f → HasCompactSupport f → …`. |
 | 9 | The right side of the equivalence compares $\Delta_G$ evaluated at the image of $y$ in $G$ with $\Delta_H$ evaluated at $y$ in $H$ — two different groups. | ✅ `∀ y : H, ((Measure.modularCharacterFun (y : G) : ℝ≥0) : ℝ) = ((Measure.modularCharacterFun y : ℝ≥0) : ℝ)`. |
+| 10 | The measure produced is a **Radon** measure. | ✅ `ρ.Regular` — Mathlib's `Measure.Regular` bundles finiteness on compact sets, outer regularity, and inner regularity on open sets, which is exactly Folland's Radon property. |
+| 11 | Uniqueness up to a positive finite constant is asserted, quantified over nonzero invariant **Radon** measures only. | ✅ `∀ ρ' : Measure (G ⧸ H), ρ' ≠ 0 → ρ'.Regular → (∀ g : G, ρ'.map (fun q ↦ g • q) = ρ') → ∃ c : ℝ≥0∞, 0 < c ∧ c < ∞ ∧ ρ' = c • ρ`. |
 
 ## Mistakes to check for
 
@@ -50,17 +53,25 @@ wrong, even if it compiles.
 | 6 | Dropping the closedness of $H$. | If $H$ is not closed, $G/H$ is not Hausdorff, $H$ has no Haar measure of its own, and neither side of the equivalence makes sense. |
 | 7 | Using right cosets $H\backslash G$ or the right action $q \mapsto q \cdot g$. | The invariance in the theorem is under left multiplication on left cosets; on a non-unimodular group the two sides are genuinely different. |
 | 8 | Asserting Weil's formula for all $f \in L^1(G)$. | The printed formula is for $C_c(G)$. The $L^1$ version needs the a.e. existence of the inner integral, which is a further theorem. |
+| 9 | Quantifying the uniqueness clause over **all** nonzero invariant measures, with no Radon restriction. | This makes the (condition → existence) direction of the iff provably false: already for $G = \mathbb{R}$ and $H$ trivial, counting measure on the quotient is a nonzero invariant measure that is no finite scalar multiple of Lebesgue measure, so no `ρ` can satisfy the clause. An earlier version of the ground truth had this defect; the current ground truth restricts the competitors to Radon measures. |
+| 10 | Encoding "Radon" as inner regularity on all measurable sets plus outer regularity, or omitting finiteness on compacts. | Folland's Radon measure is outer regular, inner regular on *open* sets, and finite on *compact* sets. Inner regularity on all measurable sets is stronger than Radon, and dropping finiteness on compacts is weaker (it admits the invariant measure assigning $\infty$ to every nonempty set); either variant can flip the existence direction on non-$\sigma$-compact groups. An earlier version of the ground truth wrote `ρ.InnerRegular ∧ ρ.OuterRegular`; the current ground truth uses Mathlib's `Measure.Regular`, which matches Folland exactly. |
 
 ## Notes on the ground truth
 
 - Uniqueness of $\mu$ up to a positive constant is part of the left-hand side: any other nonzero
-  invariant measure on the quotient is `c • ρ` for some `0 < c < ∞`.
+  invariant **Radon** measure on the quotient is `c • ρ` for some `0 < c < ∞`. The restriction of
+  the competitors to Radon measures is load-bearing: an unrestricted uniqueness clause is refutable
+  (counting measure is invariant and nonzero) and would make the (condition → existence) direction
+  of the iff provably false.
 - The "suitably chosen constant factor" is absorbed into the existential over `ρ`: the statement
-  asks for *some* nonzero invariant measure that makes (2.52) hold, which is the honest reading.
+  asks for *some* nonzero invariant Radon measure that makes (2.52) hold, which is the honest
+  reading.
 - The inner integral uses `Quotient.out` to pick a coset representative. The value does not depend on
   the choice, since $\xi$ ranges over all of $H$ against a Haar measure on $H$, which is exactly why
   Weil's formula is well posed.
-- "Radon" means inner **and** outer regular, and both are asserted of the measure produced.
+- "Radon" is rendered as Mathlib's `Measure.Regular` — finite on compact sets, outer regular, and
+  inner regular on open sets — which is exactly Folland's definition of a Radon measure. It is
+  asserted both of the measure produced and of the competitors in the uniqueness clause.
 - The measurable space and Borel structure on `G ⧸ H` are instance arguments because Mathlib fixes no
   canonical measurable structure there; the topology is the quotient topology, taken from the
   canonical instance rather than as a free variable.
@@ -77,7 +88,7 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 
 | Band | Points | This problem |
 |---|---|---|
-| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| A. Completeness | 50 | The requirement table above has 11 rows, so each row is worth 4.5 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
 | B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
 | C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
 | D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
@@ -90,6 +101,7 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 - Requirement 2 with $H$ not required closed: $G/H$ is then not Hausdorff and the statement is not Folland's.
 - Requirement 5 with the invariant measure allowed to be zero, which makes existence trivial.
 - Requirement 9 comparing $\Delta_G$ with $\Delta_G$, or $\Delta_H$ extended to $G$: the condition compares two genuinely different modular functions on $H$.
+- Requirement 11 with the uniqueness clause quantified over all nonzero invariant measures rather than invariant Radon measures: the (condition → existence) direction is then provably false.
 
 ### Domain-specific pitfalls for this problem
 
@@ -97,4 +109,7 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 - $\Delta_G|_H$ and $\Delta_H$ are different functions; the equality is convention-independent as long as one convention is used throughout.
 - The zero measure is invariant, so nonvanishing has to be asserted.
 - Weil's formula is stated for continuous compactly supported $f$, and its inner integral is over $H$ against a Haar measure on $H$; the choice of coset representative is immaterial but must be handled explicitly.
-- "Unique up to a constant factor" is a further assertion of the theorem beyond existence.
+- "Unique up to a constant factor" is a further assertion of the theorem beyond existence, and it
+  ranges over nonzero invariant *Radon* measures only; unrestricted uniqueness is provably false.
+- "Radon" is finite on compacts, outer regular, and inner regular on open sets — not inner
+  regularity on all measurable sets, and not regularity without finiteness on compacts.

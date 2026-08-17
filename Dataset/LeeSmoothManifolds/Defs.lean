@@ -87,7 +87,7 @@ def IsNormalVector {n : ℕ} (M : Set ((Fin n → ℝ)))
     γ 0 = x → (∀ᶠ t in 𝓝 0, γ t ∈ M) → HasDerivAt γ velocity 0 →
       ∑ i, v i * velocity i = 0
 
-/-- The variable-radius normal disk bundle of an embedded (Fin submanifold → ℝ). -/
+/-- The variable-radius normal disk bundle of an embedded submanifold of `ℝⁿ`. -/
 def normalDiskBundle {n : ℕ} (M : Set ((Fin n → ℝ)))
     (radius : M → ℝ) : Set (M × (Fin n → ℝ)) :=
   {p | IsNormalVector M p.1 p.2 ∧ ∑ i, (p.2 i) ^ 2 < (radius p.1) ^ 2}

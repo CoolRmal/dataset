@@ -22,18 +22,18 @@ choices behind them.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
-| 1 | The period is positive and $A$ repeats with that period at every time. | ✅ `hω : 0 < ω` and `PeriodicLinearEquation ω A`. |
+| 1 | The period is positive and $A$ repeats with that period at every time. | ✅ `hω : 0 < ω` and `hperiodic : Function.Periodic A ω` (mathlib's `∀ t, A (t + ω) = A t`). |
 | 2 | Kong's system (H-p) also assumes $A$ continuous. | ✅ `hA : Continuous A`. It is not actually used — `hV` already hands over a fundamental matrix $X$, and for any trajectory $y$ the function $X^{-1}y$ has derivative $0$, so the solution set is $\{X(t)c\}$ whatever the regularity of $A$ — but the printed theorem states it, so the ground truth does too. |
 | 3 | $V$ is the one-period transition matrix built from **some** fundamental matrix solution on all of $\mathbb{R}$, pushed into the complex matrices. | ✅ `IsPeriodTransitionMatrix ω A V`, which is `∃ X, FundamentalMatrixSolution univ A X ∧ V = (X ω * (X 0)⁻¹).map (algebraMap ℝ ℂ)`. |
 | 4 | $\mu$ is a list of exactly $n$ complex numbers: all eigenvalues of $V$, each repeated as often as its algebraic multiplicity. | ✅ `CharacteristicMultipliers V μ`, which is `Matrix.charpoly V = ∏ i, (Polynomial.X - Polynomial.C (μ i))`. Since the characteristic polynomial is monic of degree $n$, this pins $\mu$ down as the multiset of its roots. |
 | 5 | "In the diagonal Jordan block" means every Jordan block of $V$ for that eigenvalue is $1\times 1$, equivalently $\ker(V - \mu)^2 = \ker(V - \mu)$. | ✅ `InDiagonalJordanBlock V μ`, which is `∀ v, (V - μ • 1) *ᵥ ((V - μ • 1) *ᵥ v) = 0 → (V - μ • 1) *ᵥ v = 0`. |
-| 6 | Uniform stability picks $\delta$ before the initial time $t_0$, and controls the solution forward in time. | ✅ `UniformlyStableZeroSolution F` is `∀ ε > 0, ∃ δ > 0, ∀ t₀ x, 0 ≤ t₀ → IsTrajectory F x → ‖x t₀‖ < δ → ∀ t, t₀ ≤ t → ‖x t‖ < ε` — the `δ` is bound before `t₀`. |
-| 7 | Asymptotic stability is uniform stability **plus** a single attraction radius, also independent of $t_0$. | ✅ `AsymptoticallyStableZeroSolution F` is `UniformlyStableZeroSolution F ∧ ∃ δ > 0, ∀ t₀ x, 0 ≤ t₀ → IsTrajectory F x → ‖x t₀‖ < δ → Tendsto x atTop (𝓝 0)`. |
+| 6 | Uniform stability picks $\delta$ before the initial time $t_0$, and controls the solution forward in time. | ✅ `UniformlyStableZeroSolution F` is `∀ ε > 0, ∃ δ > 0, ∀ t₀ x, 0 ≤ t₀ → IsTrajectoryOn (Set.Ici t₀) F x → ‖x t₀‖ < δ → ∀ t, t₀ ≤ t → ‖x t‖ < ε` — the `δ` is bound before `t₀`. |
+| 7 | Asymptotic stability is uniform stability **plus** a single attraction radius, also independent of $t_0$. | ✅ `AsymptoticallyStableZeroSolution F` is `UniformlyStableZeroSolution F ∧ ∃ δ > 0, ∀ t₀ x, 0 ≤ t₀ → IsTrajectoryOn (Set.Ici t₀) F x → ‖x t₀‖ < δ → Tendsto x atTop (𝓝 0)`. |
 | 8 | All three statements are equivalences, not one-way implications. | ✅ Three conjoined `↔`s. |
 | 9 | (a) reads: uniformly stable $\iff$ every $\lvert\mu_i\rvert \le 1$, and $\lvert\mu_i\rvert = 1$ only when $\mu_i$ is semisimple. | ✅ `∀ i, ‖μ i‖ ≤ 1 ∧ (‖μ i‖ = 1 → InDiagonalJordanBlock V (μ i))`. |
 | 10 | (b) reads: asymptotically stable $\iff$ every $\lvert\mu_i\rvert < 1$. | ✅ `∀ i, ‖μ i‖ < 1`. |
 | 11 | (c) reads: unstable $\iff$ some $\mu_i$ has modulus $> 1$, or modulus $1$ and is not semisimple. | ✅ `∃ i, 1 < ‖μ i‖ ∨ (‖μ i‖ = 1 ∧ ¬InDiagonalJordanBlock V (μ i))`. |
-| 12 | The stability predicates are about the linear field $x \mapsto A(t)x$, and the solutions quantified over are genuine ones. | ✅ `UniformlyStableLinearEquation A := UniformlyStableZeroSolution fun t x ↦ A t *ᵥ x`, with `IsTrajectory F x := ∀ t, HasDerivAt x (F t (x t)) t`. |
+| 12 | The stability predicates are about the linear field $x \mapsto A(t)x$, and the solutions quantified over are genuine ones. | ✅ `UniformlyStableLinearEquation A := UniformlyStableZeroSolution fun t x ↦ A t *ᵥ x`, with the solutions quantified over being genuine forward solutions: `IsTrajectoryOn (Set.Ici t₀) F x := ∀ t ∈ Set.Ici t₀, HasDerivWithinAt x (F t (x t)) (Set.Ici t₀) t`. |
 
 ## Mistakes to check for
 
@@ -55,7 +55,7 @@ wrong, even if it compiles.
 
 - The transition matrix is only pinned down up to the choice of fundamental matrix solution, but the choice does not matter: two fundamental matrices differ by a constant right factor, $\tilde X = XM$, and then $\tilde X(\omega)\tilde X(0)^{-1} = X(\omega)X(0)^{-1}$. Kong's $V$ comes from $X(t+\omega) = X(t)V$, i.e. $X^{-1}(0)X(\omega)$, which is conjugate to ours, so both the multipliers and the semisimplicity condition are unchanged.
 - Because `UnstableLinearEquation A` is defined as `¬UniformlyStableLinearEquation A`, part (c) is literally the contrapositive of part (a) and carries no independent mathematical content. We keep it because the text lists it. Note also that Kong's "unstable" negates plain stability while ours negates uniform stability; for periodic linear systems these agree.
-- Requiring trajectories to be defined on all of $\mathbb{R}$ is exactly right here: every maximal solution of a linear system is global.
+- The stability predicates quantify over forward solutions defined on the whole half-line $[t_0,\infty)$ (`IsTrajectoryOn (Set.Ici t₀)`), Kong's forward-time notion. Nothing is lost for a linear system with continuous coefficients: every forward solution extends to a global one, so the class quantified over is exactly the class of restrictions of Kong's maximal solutions.
 
 ## Grading (out of 100)
 

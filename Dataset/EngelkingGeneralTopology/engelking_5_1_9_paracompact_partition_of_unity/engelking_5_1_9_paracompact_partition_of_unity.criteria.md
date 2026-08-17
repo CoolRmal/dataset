@@ -21,9 +21,9 @@ choices behind them.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
-| 1 | The three items appear in Engelking's order as a single equivalence. | ✅ `List.TFAE [ParacompactSpace X, locallyFinitePartition, partition]`. |
-| 2 | Hausdorffness is present, because Engelking's "paracompact" includes it and mathlib's `ParacompactSpace` does not. | ✅ `[T2Space X]` as an instance hypothesis, so item (i) `ParacompactSpace X` is Engelking's notion. |
-| 3 | Items (ii) and (iii) quantify over **all** open covers of $X$, with an arbitrary index type. | ✅ `∀ (ι : Type v) (U : ι → Set X), IsOpenCover U → …` in both. |
+| 1 | The three items appear in Engelking's order as a single equivalence. | ✅ `List.TFAE [T2Space X ∧ ParacompactSpace X, locallyFinitePartition, partition]`. |
+| 2 | Hausdorffness is present, because Engelking's "paracompact" includes it and mathlib's `ParacompactSpace` does not. | ✅ Item (i) is the conjunction `T2Space X ∧ ParacompactSpace X`, exactly Engelking's notion; the ambient hypothesis is only `[T1Space X]`, matching the printed "$T_1$-space". |
+| 3 | Items (ii) and (iii) quantify over **all** open covers of $X$, with an arbitrary index type. | ✅ `∀ (ι : Type u) (U : ι → Set X), IsOpenCover U → …` in both. |
 | 4 | "Open cover" is: every member open, and the members' union is everything. | ✅ `IsOpenCover U := (∀ i, IsOpen (U i)) ∧ ⋃ i, U i = univ`. |
 | 5 | Item (ii)'s partition of unity is locally finite: the supports form a locally finite family. | ✅ `PartitionOfUnity ι X`, which bundles `LocallyFinite fun i ↦ support (toFun i)` together with continuity, nonnegativity and the sum condition. |
 | 6 | Item (iii) has the same data **minus** local finiteness, so it must be written out by hand. | ✅ `∃ ρ : ι → C(X, ℝ), 0 ≤ ρ ∧ (∀ x, HasSum (fun i ↦ ρ i x) 1) ∧ ∀ i, tsupport (ρ i) ⊆ U i`. |
@@ -38,25 +38,27 @@ wrong, even if it compiles.
 
 | # | Mistake | Why it is wrong |
 |---|---------|-----------------|
-| 1 | Assuming only `[T1Space X]` (or nothing) and taking item (i) to be bare `ParacompactSpace X`. | The equivalence becomes false. Take $X = \mathbb{N}$ with the cofinite topology: it is $T_1$ and compact, hence `ParacompactSpace` by mathlib's `paracompact_of_compact` (which assumes no separation). But two nonempty cofinite sets always meet, so every continuous $f \colon X \to \mathbb{R}$ is constant. For the cover $U_n = \mathbb{N} \setminus \{n\}$, any subordinated family has some $\rho_i \neq 0$ with $\operatorname{supp}\rho_i = X \not\subseteq U_i$, under either subordination convention. So (i) holds and (ii), (iii) fail. |
+| 1 | Taking item (i) to be bare `ParacompactSpace X`, with no Hausdorff clause anywhere. | The equivalence becomes false. Take $X = \mathbb{N}$ with the cofinite topology: it is $T_1$ and compact, hence `ParacompactSpace` by mathlib's `paracompact_of_compact` (which assumes no separation). But two nonempty cofinite sets always meet, so every continuous $f \colon X \to \mathbb{R}$ is constant. For the cover $U_n = \mathbb{N} \setminus \{n\}$, any subordinated family has some $\rho_i \neq 0$ with $\operatorname{supp}\rho_i = X \not\subseteq U_i$, under either subordination convention. So (i) holds and (ii), (iii) fail. |
 | 2 | Using mathlib's `PartitionOfUnity` for item (iii) as well as item (ii). | `PartitionOfUnity` carries the field `locallyFinite'`, so the two items would be literally the same statement and the theorem would degenerate into a two-way equivalence. |
 | 3 | Writing the sum in item (iii) as `∑ᶠ i, ρ i x = 1` (finsum). | Lean defines `finsum` to be `0` unless the support is finite. So item (iii) would secretly demand that only finitely many $\rho_i$ are nonzero at each point — a much stronger condition. |
 | 4 | Writing the sum in item (iii) as `∑' i, ρ i x = 1` (tsum). | `tsum` returns `0` for families that are not summable, so a non-summable family could accidentally satisfy or fail the equation for the wrong reason. `HasSum` states summability and the value together. |
 | 5 | Dropping nonnegativity of the $\rho_i$. | Signed families summing to $1$ exist on any space, so the condition would stop characterizing anything. |
 | 6 | Requiring $\rho_i \le 1$ as an extra hypothesis and treating it as essential. | Not an error of substance, but redundant: nonnegativity plus $\sum_i \rho_i(x) = 1$ already forces $\rho_i \le 1$. |
 | 7 | Hand-rolling item (ii) as separate conjuncts and forgetting local finiteness. | Item (ii) then becomes item (iii) and the equivalence is again only two-way. |
+| 8 | Hoisting Hausdorffness into an ambient instance `[T2Space X]` and taking item (i) to be bare `ParacompactSpace X`. | Weaker than Engelking's statement, which is about $T_1$-spaces: over a $T_1$ space, items (ii) and (iii) genuinely *force* Hausdorffness, so assuming `T2Space X` globally discards that content from the (iii) $\Rightarrow$ (i) direction. An earlier version of the ground truth made exactly this mistake; the current file incorporates the repair, keeping `T2Space X` inside item (i). |
 
 ## Notes on the ground truth
 
-- **Repaired ground truth.** An earlier version of this statement assumed only `[T1Space X]` and was
-  false for the reason in mistake row 1. The current file assumes `[T2Space X]`; candidates must keep
-  Hausdorffness, whether as an instance or as an explicit conjunct `T2Space X ∧ ParacompactSpace X`
-  in item (i). Note that the mathlib route to (i) $\Rightarrow$ (ii) is
-  `PartitionOfUnity.exists_isSubordinate`, which needs `[NormalSpace X]`, supplied by
-  `T4Space.of_paracompactSpace_t2Space` — precisely the missing Hausdorff hypothesis.
-- The printed statement says "$T_1$-space"; the Lean file says `T2Space`. This is a deliberate
-  departure, since Engelking's paracompactness silently includes Hausdorff and item (i) would
-  otherwise not mean what he means.
+- **Repaired ground truth.** Two earlier versions of this statement were defective. The first
+  assumed only `[T1Space X]` with item (i) a bare `ParacompactSpace X`, which is false for the
+  reason in mistake row 1. The second hoisted `[T2Space X]` into the ambient instances, which is
+  true but strictly weaker than Engelking's statement, for the reason in mistake row 8. The current
+  file incorporates the repair: the ambient hypothesis is `[T1Space X]`, matching the printed
+  "$T_1$-space", and Hausdorffness lives inside item (i) as the conjunct
+  `T2Space X ∧ ParacompactSpace X`, which is Engelking's paracompactness. Note that the mathlib
+  route to (i) $\Rightarrow$ (ii) is `PartitionOfUnity.exists_isSubordinate`, which needs
+  `[NormalSpace X]`, supplied by `T4Space.of_paracompactSpace_t2Space` — exactly the Hausdorff
+  conjunct of item (i).
 - Subordination is `∀ i, tsupport (ρ i) ⊆ U i`, the closed-support form. It implies Engelking's
   condition that the sets $\{\rho_i \ne 0\}$ refine the cover, and is the standard rendering.
 - Every index type quantified in the statement lives in `X`'s own universe. That costs no

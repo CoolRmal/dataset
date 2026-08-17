@@ -59,7 +59,8 @@ wrong, even if it compiles.
 - `hk : k ≤ m ∧ k ≤ n` is redundant: the rank of a linear map $\mathbb{R}^m \to \mathbb{R}^n$ is at
   most $\min(m,n)$, and `hp : p ∈ U` makes the rank hypothesis non-empty. A candidate that omits
   `hk` has produced a slightly stronger, equally faithful statement and should not be penalised.
-- The centring conditions $\varphi(p) = 0$, $\psi(F(p)) = 0$ are absent; see requirement row 10.
+- The centring conditions are present: `φ.toFun p = 0 ∧ ψ.toFun (F p) = 0`, matching Lee's charts
+  centred at $p$ and $F(p)$ (requirement row 10).
 
 ## Grading (out of 100)
 

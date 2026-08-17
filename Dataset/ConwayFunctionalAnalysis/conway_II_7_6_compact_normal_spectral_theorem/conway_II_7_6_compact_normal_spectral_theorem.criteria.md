@@ -24,7 +24,7 @@ choices behind them.
 | 3 | $T$ is compact. | ✅ `hcompact : IsCompactOperator T`. |
 | 4 | The eigenvalues come in a countable family. | ✅ `∃ (ι : Type) (_ : Countable ι) (eigenvalue : ι → ℂ) …`. |
 | 5 | The listed eigenvalues are nonzero and distinct. | ✅ `(∀ i, eigenvalue i ≠ 0)` and `Function.Injective eigenvalue`. |
-| 6 | Each $P_i$ is an *orthogonal* projection — idempotent **and** self-adjoint. | ✅ `∀ i, IsOrthogonalProjection (projection i)`, which `Defs.lean` sets equal to Mathlib's `IsStarProjection`. |
+| 6 | Each $P_i$ is an *orthogonal* projection — idempotent **and** self-adjoint. | ✅ `∀ i, IsStarProjection (projection i)`, Mathlib's predicate for a self-adjoint idempotent. |
 | 7 | The range of $P_i$ is exactly the eigenspace $\ker(T - \lambda_i)$, not just contained in it. | ✅ `LinearMap.range (projection i).toLinearMap = LinearMap.ker (T - eigenvalue i • ContinuousLinearMap.id ℂ H).toLinearMap`. |
 | 8 | No $P_i$ is the zero operator. | ✅ `∀ i, projection i ≠ 0`. Together with row 7 this forces each $\lambda_i$ to be a genuine eigenvalue: if $P_i$ could be $0$ the range condition would say $\ker(T-\lambda_i) = 0$, and the family could list numbers that are not eigenvalues at all. |
 | 9 | $P_iP_j = 0$ whenever $i \ne j$, for both orders of the product. | ✅ `Pairwise (fun i j ↦ (projection i).comp (projection j) = 0)`, which unfolds to `∀ i j, i ≠ j → …` over ordered pairs and so covers $P_iP_j$ and $P_jP_i$. |
@@ -55,8 +55,8 @@ wrong, even if it compiles.
 - The clause `∀ ε : ℝ, 0 < ε → {i : ι | ε ≤ ‖eigenvalue i‖}.Finite` is an extra conclusion not in the
   transcribed II.7.6. It is true, and in fact follows from the rest, so it only strengthens an
   existence statement. A candidate that omits it should not be penalized.
-- Normality is written out as an equation on adjoints rather than as `IsStarNormal T`. The two are
-  the same statement; the equation is just less idiomatic.
+- Normality is `IsStarNormal T`, Mathlib's predicate. A candidate writing out the equation
+  $T^*T = TT^*$ on adjoints instead states the same thing and loses nothing.
 
 ## Grading (out of 100)
 

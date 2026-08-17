@@ -22,9 +22,9 @@ choices behind them.
 |---|-------------|-------------------------------|
 | 1 | Both functions are meromorphic on the whole plane. | ✅ `h₁ : Meromorphic f₁` and `h₂ : Meromorphic f₂`, each unfolding to `∀ x, MeromorphicAt _ x`. |
 | 2 | There are five values, and they are pairwise different. | ✅ `a : Fin 5 → ℂ` together with `ha : Function.Injective a`. |
-| 3 | $E_j(a)$ is the *set* of solutions of $f_j(z) = a$, with no multiplicity data. | ✅ `{z : ℂ \| f₁ z = a ν}` and the same for `f₂`. |
-| 4 | The shared-value hypothesis is set equality, for each of the five values. | ✅ `hE : ∀ ν, {z : ℂ \| f₁ z = a ν} = {z : ℂ \| f₂ z = a ν}`. |
-| 5 | The conclusion is a disjunction: the functions are equal, or both are constant. | ✅ `f₁ = f₂ ∨ ((∃ c₁, ∀ z, f₁ z = c₁) ∧ ∃ c₂, ∀ z, f₂ z = c₂)`. |
+| 3 | $E_j(a)$ is the *set* of solutions of $f_j(z) = a$, with no multiplicity data. | ✅ `{z : ℂ \| 0 < meromorphicOrderAt (fun w ↦ f₁ w - a ν) z}` and the same for `f₂`: a bare set of $a$-points (positive order of $f_j - a$, the representative-independent reading), with no multiplicity attached. |
+| 4 | The shared-value hypothesis is set equality, for each of the five values. | ✅ `hE : ∀ ν, {z : ℂ \| 0 < meromorphicOrderAt (fun w ↦ f₁ w - a ν) z} = {z : ℂ \| 0 < meromorphicOrderAt (fun w ↦ f₂ w - a ν) z}`. |
+| 5 | The conclusion is a disjunction: the functions are equal (as meromorphic functions), or both are constant. | ✅ `f₁ =ᶠ[Filter.codiscrete ℂ] f₂ ∨ ((∃ c₁, ∀ z, f₁ z = c₁) ∧ ∃ c₂, ∀ z, f₂ z = c₂)` — equality away from a discrete set, which is what equality of meromorphic functions means under Mathlib's junk-value encoding. |
 | 6 | In the second branch, *both* functions must be constant, not just one. | ✅ The second branch is a conjunction of two constancy statements. |
 
 ## Mistakes to check for
@@ -36,10 +36,12 @@ wrong, even if it compiles.
 |---|---------|-----------------|
 | 1 | Using four shared values instead of five. | False. $e^{z}$ and $e^{-z}$ share $0,1,-1,\infty$ and are not equal, so the four-value version of this conclusion fails. |
 | 2 | Taking the values from an arbitrary `Set ℂ` with no distinctness condition, or an unindexed family with repeats. | Repeated values give fewer than five genuine conditions, so the hypothesis is weaker than intended and the theorem is no longer true. |
-| 3 | Comparing counting functions, divisors, or zero multiplicities instead of point sets. | Sharing values *with multiplicity* is a much stronger hypothesis (four values then suffice). The difficulty of Theorem 2.6 comes precisely from ignoring multiplicity. |
+| 3 | Comparing counting functions, divisors *with their multiplicities*, or zero multiplicities instead of bare point sets. | Sharing values *with multiplicity* is a much stronger hypothesis (four values then suffice). The difficulty of Theorem 2.6 comes precisely from ignoring multiplicity. The ground truth compares only the *sets* of $a$-points (positive order at a point, however high), with no multiplicity data. |
 | 4 | Dropping the "both constant" branch and concluding only $f_1 = f_2$. | False: two different constants $c_1 \ne c_2$, neither equal to any $a_\nu$, have $E_1(a_\nu) = E_2(a_\nu) = \emptyset$ for all five values. |
 | 5 | Weakening the second branch to "$f_1$ is constant or $f_2$ is constant". | If only one is constant, the empty-set coincidences cannot happen; the honest statement requires both. |
 | 6 | Assuming $f_1, f_2$ are only meromorphic on a disk, with no admissibility hypothesis. | Hayman notes right after the proof that the finite-disk version needs admissibility. Without a growth hypothesis the disk version is false. |
+| 7 | Writing $E_j(a)$ as the literal solution set `{z \| f_j z = a}` with nothing to pin the representatives. | Mathlib's `Meromorphic` leaves the values of $f_j$ on discrete sets unconstrained, so the literal sets measure the chosen representatives, not the meromorphic functions: junk values can add or delete "shared" points on either side. The order-based sets in `hE` are the representative-independent reading. |
+| 8 | Concluding everywhere-equality `f₁ = f₂` of the total functions. | Provably false under Mathlib's encoding: two representatives of the same meromorphic function may differ at poles and on any discrete set, and nothing in the hypotheses pins those values. Hayman's $f_1 \equiv f_2$ is equality *as meromorphic functions*, rendered as `f₁ =ᶠ[Filter.codiscrete ℂ] f₂`. An earlier version of the ground truth asserted `f₁ = f₂`; the current one incorporates the repair. |
 
 ## Notes on the ground truth
 
@@ -50,12 +52,13 @@ wrong, even if it compiles.
   therefore a special case of the printed statement, and a candidate that allows $\infty$ (values in
   `WithTop ℂ`, with $E_j(\infty)$ the pole set) is at least as strong.
 - Mathlib models a meromorphic function as an ordinary `f : ℂ → ℂ` that is `MeromorphicAt` at every
-  point, so `f` still has a value at each pole. The set `{z \| f z = a}` can therefore include a
-  point where the analytic part is not really equal to $a$. Hayman means $a$-points of the analytic
-  part. This is the standing modelling hazard for every set of the form `{z \| f z = a}` in this
-  book.
-- No integrals, suprema or coercions appear, so there is no default-value hazard beyond the pole
-  convention above.
+  point, with values on discrete sets unconstrained — the standing modelling hazard of this book.
+  The statement is immune to it on both sides: the sets in `hE` test membership by positive
+  `meromorphicOrderAt` of $f_j - a_\nu$, which sees only the germ, and the equality conclusion is
+  along `Filter.codiscrete ℂ`, so junk values at poles or on tampered discrete sets neither create
+  nor destroy shared values and are not required to agree in the conclusion.
+- No integrals, suprema or coercions appear, so there is no default-value hazard beyond the
+  representative convention above.
 
 ## Grading (out of 100)
 
@@ -86,4 +89,4 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 - $E_j(a)$ is a bare solution set; adding multiplicity data strengthens the hypothesis and weakens the theorem.
 - The number five is sharp and is part of the statement.
 - The conclusion is a disjunction, and its second branch is a conjunction of two constancy claims.
-- "$f_1 \equiv f_2$" is equality of functions on all of $\mathbb{C}$.
+- "$f_1 \equiv f_2$" is equality *as meromorphic functions* — equality away from a discrete set. Demanding everywhere-equality of the total-function representatives asserts something about junk values and is false.

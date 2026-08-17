@@ -27,7 +27,7 @@ choices behind them.
 | 4 | The smoothness hypothesis must be present so that `mfderiv` is the honest differential. | ✅ `hΦ` is there. Without it the rank predicate would be satisfied by any sufficiently bad $\Phi$ with $k = 0$. |
 | 5 | The conclusion is asserted for **every** $c \in N$, with $c$ quantified inside the conclusion. | ✅ `∀ c, …`. |
 | 6 | The level set is closed in $M$. | ✅ `IsClosed {p \| Φ p = c}`. |
-| 7 | The same level set is an embedded submanifold of codimension exactly $k$, expressed by Lee's local slice condition. | ✅ `EmbeddedSubmanifoldOfCodimension (m := m) {p \| Φ p = c} k`: for each $p$ in the set there is a chart `φ ∈ IsManifold.maximalAtlas 𝓘(ℝ, Fin m → ℝ) ∞ M` with `p ∈ φ.source` and `φ '' (S ∩ φ.source) = {x ∈ φ.target \| ∀ i, m - codim ≤ i.1 → x i = 0}`. |
+| 7 | The same level set is an embedded submanifold of codimension exactly $k$, expressed by Lee's local slice condition. | ✅ `EmbeddedSubmanifoldOfCodimension (m := m) {p \| Φ p = c} k`: the guarded dimension bound `S.Nonempty → k ≤ m`, and for each $p$ in the set a chart `φ ∈ IsManifold.maximalAtlas 𝓘(ℝ, Fin m → ℝ) ∞ M` with `p ∈ φ.source` and `φ '' (S ∩ φ.source) = {x ∈ φ.target \| ∀ i, m - codim ≤ i.1 → x i = 0}`. |
 | 8 | The chart used in the slice condition must belong to the smooth structure, not merely be a homeomorphism. | ✅ Membership in `IsManifold.maximalAtlas … ∞ M` is required inside the definition. |
 | 9 | The slice condition is relative to the chart's image: the chart carries $S \cap U$ onto the slice **of $\varphi(U)$**, not onto a whole coordinate hyperplane. | ✅ The right-hand side is `{x ∈ φ.target \| …}`. |
 
@@ -45,6 +45,7 @@ wrong, even if it compiles.
 | 5 | Dropping the `IsClosed` conjunct, or asserting it about a different set from the submanifold clause. | "Closed embedded submanifold" is two claims about one and the same level set; both are part of the statement. |
 | 6 | Writing the slice condition as `φ '' (S ∩ φ.source) = {x \| ∀ i, m - k ≤ i.1 → x i = 0}` with no `x ∈ φ.target` restriction. | That would demand the chart image fill an entire coordinate hyperplane of $\mathbb{R}^m$, which is false for any chart whose image is a bounded ball. |
 | 7 | Giving the codimension as $m - k$ (the dimension of the level set) instead of $k$. | Lee's statement is about codimension, and codimension $k$ is what the constant rank supplies. Confusing the two gives the wrong number whenever $k \ne m - k$. |
+| 8 | Making the conclusion assert the dimension bound $k \le m$ unconditionally, e.g. as a bare conjunct of the submanifold encoding. | For an empty $M$ the hypotheses (`ContMDiff` and constant rank) are vacuous, so any $k$ — say $k = m + 1$ — satisfies them, and an unguarded $k \le m$ in the conclusion makes the statement provably false; Lee's claim is vacuously true there. An earlier version of `EmbeddedSubmanifoldOfCodimension` asserted `codim ≤ m` unconditionally and was repaired: the ground truth now guards it as `S.Nonempty → codim ≤ m`. (Adding $k \le \min(m,n)$ as a *hypothesis* instead is not false but needlessly excludes those vacuous cases — a lesser defect, cf. the redundant `hk` of `lee_7_8`/`lee_7_13`.) |
 
 ## Notes on the ground truth
 
@@ -53,11 +54,15 @@ wrong, even if it compiles.
   characterises embedded submanifolds. This is the right call given the state of the library.
 - Using the *first* `codim` coordinates instead of the last would be an equally faithful convention:
   compose the chart with a coordinate permutation, which stays in the maximal atlas.
-- No bound `k ≤ min(m,n)` is imposed, and none is needed: `ConstantRank` already forces it whenever
-  $M$ is nonempty. This is cleaner than `lee_7_8` and `lee_7_13`, which carry a redundant `hk`.
+- No bound `k ≤ min(m,n)` is imposed as a hypothesis, and none is needed: the dimension bound inside
+  `EmbeddedSubmanifoldOfCodimension` is guarded as `S.Nonempty → codim ≤ m`, and a nonempty level
+  set makes $M$ nonempty, where `ConstantRank` forces $k \le \min(m,n)$. For an empty $M$ (where the
+  hypotheses admit any $k$) both conjuncts of the conclusion are trivially satisfied, matching Lee.
+  This is cleaner than `lee_7_8` and `lee_7_13`, which carry a redundant `hk`.
   `m - codim` is truncated natural subtraction, so `codim > m` would silently read as
-  `codim = m`; nothing here can reach that branch, but candidates that reintroduce a free dimension
-  parameter should be checked for it.
+  `codim = m`; the guard keeps the slice condition from being read through that branch at any point
+  of a nonempty level set, but candidates that reintroduce a free dimension parameter should be
+  checked for it.
 - `IsClosed` is genuinely provable here with no separation typeclass on $N$: a
   `ChartedSpace (Fin n → ℝ) N` is automatically T1, so singletons are closed and $\Phi$ is
   continuous. A candidate that adds `[T2Space N]` for this purpose is harmless but unnecessary.

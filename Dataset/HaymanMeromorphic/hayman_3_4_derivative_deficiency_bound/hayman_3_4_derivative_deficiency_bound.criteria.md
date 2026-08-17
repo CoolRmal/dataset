@@ -28,7 +28,7 @@ choices behind them.
 | 6 | The sum is over finite values only; $a = \infty$ is excluded. | ✅ `∑ a ∈ s` with `s : Finset ℂ`, so only complex values appear. |
 | 7 | The bound on the sum is exactly $1 + \frac{1}{l+1}$, and it depends on $l$. | ✅ `≤ 1 + 1 / (l + 1 : ℝ)`, with `l` the same natural number as in `hψ`. |
 | 8 | A sum over a possibly infinite value set needs a convergence-free meaning. | ✅ Every finite subset satisfies the bound: `∀ s : Finset ℂ, …`. Since each $\Theta \ge 0$ this is equivalent to the sum bound. |
-| 9 | The "in particular" clause: the set of finite values $\psi$ takes only finitely often has at most one element. | ✅ Second conjunct, `{a : ℂ \| ¬ {z : ℂ \| ψ z = a}.Infinite}.Subsingleton`. |
+| 9 | The "in particular" clause: the set of finite values $\psi$ takes only finitely often has at most one element. | ✅ Second conjunct, `{a : ℂ \| ¬ {z : ℂ \| 0 < meromorphicOrderAt (fun w ↦ ψ w - a) z}.Infinite}.Subsingleton` — an $a$-point of $\psi$ is a point where $\psi - a$ has positive meromorphic order, the representative-independent reading. |
 
 ## Mistakes to check for
 
@@ -45,14 +45,14 @@ wrong, even if it compiles.
 | 6 | Keeping only the "in particular" clause and dropping the inequality. | The inequality is the quantitative statement; the clause about exceptional values is a consequence of it. |
 | 7 | Replacing "takes the value infinitely often" by "takes the value at least once". | Strictly weaker; the theorem gives infinitude. |
 | 8 | Dropping the transcendence hypothesis. | For a rational $f$, all the Nevanlinna ratios degenerate and $\psi$ can omit values freely. Transcendence is what makes $T(r,\psi)\to\infty$. |
+| 9 | Reading "$\psi$ takes the value $a$" as the literal `ψ z = a` of the total-function representative. | Mathlib's `Meromorphic` leaves the values of `f` — and hence of `ψ = iteratedDeriv l f`, which junk-vanishes at discontinuity points — unconstrained on discrete sets. Tampering the representative of `f` at the $a$-points of $f^{(l)}$ hides them, drives `nevanlinnaTheta ψ a` to $1$ for several values and manufactures several exceptional values, refuting both conjuncts. An earlier version of the ground truth had exactly this defect in the second conjunct; the current one incorporates the repair by counting $a$-points through positive `meromorphicOrderAt`. |
 
 ## Notes on the ground truth
 
-- **`htr` is unsatisfiable as written, so the theorem is empty.** The hypothesis is
-  `¬ ∃ p q : Polynomial ℂ, ∀ z, q.eval z ≠ 0 → f z = p.eval z / q.eval z`. Taking $q = 0$ makes
-  `q.eval z ≠ 0` false for every $z$, so the implication holds everywhere and the inner existential
-  is true for *every* $f$; hence `htr` is false for every $f$. Requiring `q ≠ 0` inside the
-  existential repairs it. A candidate that includes `q ≠ 0` is better here, not worse.
+- The `q ≠ 0` conjunct in `htr` is load-bearing. Without it, $q = 0$ makes the guard
+  `q.eval z ≠ 0` false for every $z$, the inner existential holds for *every* $f$, and the
+  hypothesis is unsatisfiable — the theorem would be empty. Non-rationality must be stated in a form
+  the zero denominator cannot satisfy, exactly as the ground truth does.
 - $\psi$ is introduced as a separate variable pinned down by `hψ : ψ = iteratedDeriv l f`, so that
   the statement reads like the book. Inlining `iteratedDeriv l f` would say the same thing with one
   fewer hypothesis.
@@ -63,9 +63,11 @@ wrong, even if it compiles.
   a non-integrable integrand the integral $0$, and `limsup` of an unbounded family falls back to a
   default. None of these fire for a transcendental meromorphic $f$, but a candidate should not lean
   on that silently.
-- Mathlib models meromorphic functions as ordinary functions with a value at each pole, so the set
-  `{z \| ψ z = a}` may include an accidental hit at a pole of $\psi$. Extra points only make the set
-  larger, so the "infinitely often" conclusion is not weakened by this.
+- Mathlib models meromorphic functions as ordinary functions whose values on discrete sets carry no
+  meaning, so the second conjunct counts $a$-points of $\psi$ by positive `meromorphicOrderAt` of
+  $\psi - a$ rather than by the literal equation `ψ z = a`. Positive order excludes both deleted
+  $a$-points at tampered/discontinuity points and spurious literal hits at poles, so the
+  "infinitely often" clause measures the meromorphic function itself.
 
 ## Grading (out of 100)
 
@@ -98,3 +100,4 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 - Junk value — `tsum`: quantifying over all finite subsums avoids an unordered sum over an uncountable index.
 - The "in particular" clause is a second assertion and models routinely omit it.
 - The bound depends on $l$ and requires $l \ge 1$.
+- Junk value — representatives: "$\psi$ takes the value $a$" must be read through the germ (positive order of $\psi - a$), not through the literal values of the chosen representative, which are unconstrained on discrete sets.

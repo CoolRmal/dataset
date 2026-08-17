@@ -10,4 +10,4 @@
 
 **Proposition (§2.4).** Any rational fraction $a/b$ is expressible as a terminating decimal or an infinite periodic decimal; conversely, any decimal expansion which is either terminating or infinite periodic is equal to some rational number.
 
-**Notation.** The decimal expansion of $x \in [0,1)$ is the digit sequence $d_k = \lfloor 10^{k+1}x\rfloor \bmod 10$. A terminating expansion is the eventually periodic one whose repeating digit is $0$, so "terminating or infinite periodic" is exactly "eventually periodic" (§2.5, *Terminating Decimals Written as Periodic Decimals*).
+**Notation.** The decimal expansion of a real $x \ge 0$ is the digit sequence of its digits after the point, $d_k = \lfloor 10^{k+1}x\rfloor \bmod 10$; for $x \in [0,1)$ this is the standard expansion $0.d_0d_1d_2\ldots$. A terminating expansion is the eventually periodic one whose repeating digit is $0$, so "terminating or infinite periodic" is exactly "eventually periodic" (§2.5, *Terminating Decimals Written as Periodic Decimals*).

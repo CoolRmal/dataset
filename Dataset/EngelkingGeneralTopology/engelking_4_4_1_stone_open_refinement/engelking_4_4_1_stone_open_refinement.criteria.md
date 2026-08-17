@@ -21,7 +21,7 @@ choices behind them.
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
 | 1 | The space is metrizable, and it is the *given* topology that comes from a metric. | ✅ `[MetrizableSpace X]`, whose definition ties the metric uniformity to the ambient topology. |
-| 2 | The statement holds for **every** open cover, with an arbitrary index type. | ✅ `∀ (ι : Type v) (U : ι → Set X), IsOpenCover U → …`. |
+| 2 | The statement holds for **every** open cover, with an arbitrary index type. | ✅ `∀ (ι : Type u) (U : ι → Set X), IsOpenCover U → …`. |
 | 3 | "Open cover" means all members are open **and** their union is everything. | ✅ `IsOpenCover U := (∀ i, IsOpen (U i)) ∧ ⋃ i, U i = univ`. |
 | 4 | The refinement produced is itself an open cover of $X$. | ✅ `IsOpenCover V` is asserted about the new family. |
 | 5 | It refines the given cover in the right direction: every new member lies inside some old member. | ✅ `Refines V U := ∀ j, ∃ i, V j ⊆ U i`. |
@@ -49,11 +49,6 @@ wrong, even if it compiles.
 
 - Assuming `[MetricSpace X]` instead of `[MetrizableSpace X]` is acceptable — every metrizable space
   can be given a compatible metric — so a candidate doing that should not be penalized.
-- Every index type quantified in the statement lives in `X`'s own universe. That costs no
-  generality — a cover of `X` can always be re-indexed by its image in `Set X` — and it removes
-  the free universe parameter, so the statement is about all covers rather than about covers in
-  one arbitrary universe. The generic family predicates in `Defs.lean` stay polymorphic in their
-  index type, as they should.
 - Every index type quantified in the statement lives in `X`'s own universe. That costs no
   generality — a cover of `X` can always be re-indexed by its image in `Set X` — and it removes
   the free universe parameter, so the statement is about all covers rather than about covers in

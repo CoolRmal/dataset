@@ -4,8 +4,9 @@
 
 ## What the theorem says
 
-Let $E \subset \mathbb{R}^n$ be measurable with $\mathcal{H}^m(E) < \infty$. The theorem says four
-descriptions of $E$ are equivalent. The first is that $E$ is $m$-rectifiable: countably many
+Let $E \subset \mathbb{R}^n$ be measurable with $\mathcal{H}^m(E) < \infty$, where $m$ is a positive
+integer (the chapter's standing convention). The theorem says four descriptions of $E$ are
+equivalent. The first is that $E$ is $m$-rectifiable: countably many
 Lipschitz images of $\mathbb{R}^m$ cover all of $E$ except an $\mathcal{H}^m$-null set. The second is
 that $E$ is linearly approximable: near almost every point of $E$, and at every small scale, $E$
 looks close to an $m$-plane — it fills that plane densely and almost none of it strays far from the
@@ -23,7 +24,7 @@ choices behind them.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
-| 1 | The hypotheses: $E$ is $\mathcal{H}^m$ measurable and $\mathcal{H}^m(E) < \infty$. | ✅ `hEmeas : NullMeasurableSet E μH[(m : ℝ)]` — Carathéodory $\mathcal{H}^m$-measurability, which is what the book means — and `hEfinite : μH[(m : ℝ)] E < ∞`. |
+| 1 | The hypotheses: $m$ is a positive integer (the chapter's standing convention), $E$ is $\mathcal{H}^m$ measurable and $\mathcal{H}^m(E) < \infty$. | ✅ `hm : 1 ≤ m`, `hEmeas : NullMeasurableSet E μH[(m : ℝ)]` — Carathéodory $\mathcal{H}^m$-measurability, which is what the book means — and `hEfinite : μH[(m : ℝ)] E < ∞`. |
 | 2 | All four conditions are asserted equivalent, as one equivalence rather than a chain of implications. | ✅ `List.TFAE [ … ]` with four entries. |
 | 3 | Rectifiability (15.3): countably many Lipschitz maps $\mathbb{R}^m \to \mathbb{R}^n$, **each with its own** Lipschitz constant, whose ranges cover $E$ up to an $\mathcal{H}^m$-null set. | ✅ `RectifiableSet n m E = ∃ f : ℕ → …, (∀ j, ∃ K : ℝ≥0, LipschitzWith K (f j)) ∧ μH[(m:ℝ)] (E \ ⋃ j, range (f j)) = 0`. |
 | 4 | Linear approximability (15.7): for almost every $a \in E$ and **every** $\eta > 0$ there are a plane, a scale $r_0$ and a constant $c$ — all allowed to depend on $\eta$ — such that both displayed inequalities hold for all $0 < r < r_0$. | ✅ `LinearlyApproximableSet`: `∀ᵐ a ∂μH[(m:ℝ)].restrict E, ∀ η, 0 < η → ∃ V, ∃ r₀ c, 0 < r₀ ∧ 0 < c ∧ ∀ r, 0 < r → r < r₀ → …`. |
@@ -48,6 +49,7 @@ wrong, even if it compiles.
 | 6 | Letting the plane, $r_0$ and $c$ in 15.7 be chosen before $\eta$. | The definition allows all three to depend on $\eta$; hoisting them out changes the condition into a stronger one. |
 | 7 | Replacing the equivalence by a chain of implications, or listing only some of the four items. | The theorem asserts all four are equivalent. |
 | 8 | Dropping $\mathcal{H}^m(E) < \infty$. | For sets of infinite measure the four conditions come apart, so the equivalence fails. |
+| 9 | Stating the theorem for every $m : \mathbb{N}$, without $1 \le m$. | The book's chapter convention makes $m$ a positive integer, and at $m = 0$ the equivalence is refutable: a singleton $E$ is trivially $0$-rectifiable, but for the unique $0$-plane the cone complement is the whole space, so the cone-complement density is $1$ rather than $0$ and items (3) and (4) fail while item (1) holds. The ground truth incorporates this repair as `hm : 1 ≤ m`. |
 
 ## Notes on the ground truth
 
@@ -64,6 +66,9 @@ wrong, even if it compiles.
 - The slab complement is the complement of the open $\eta r$-neighbourhood of the plane. Since
   $\eta$ is universally quantified, the open and closed readings define the same condition.
 - Measurability of `E` is Carathéodory measurability for $\mathcal{H}^m$, matching the book.
+- `hm : 1 ≤ m` records the book's standing convention that $m$ is a positive integer; without it the
+  TFAE is refutable at $m = 0$ (Mistake 9). No `m ≤ n` hypothesis is needed: for $m \ge 1$ the
+  statement is true (trivially or vacuously) regardless of $n$.
 - All quotients are `ℝ≥0∞`-valued with denominators `ENNReal.ofReal (r ^ (m:ℝ))`, which are positive
   and finite for `r > 0`, and all limits are along `𝓝[>] 0`, so the junk values of `Real.rpow` at
   nonpositive base are never seen.

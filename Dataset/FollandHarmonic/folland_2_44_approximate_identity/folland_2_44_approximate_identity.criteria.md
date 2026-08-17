@@ -8,11 +8,15 @@ On a locally compact group with a left Haar measure, convolution has no unit, bu
 approximate units. Call a function $\psi$ a *bump for $U$* when its closed support is compact and
 contained in the neighbourhood $U$ of the identity, when $\psi \ge 0$, and when $\int\psi = 1$.
 
-The proposition says that for $1 \le p < \infty$ and $f \in L^p$, convolving with such a bump
-returns something close to $f$, and the closeness is controlled by $U$ alone: given $\varepsilon > 0$
-there is a neighbourhood $U$ of $1$ such that *every* bump for $U$ already satisfies
-$\lVert \psi * f - f\rVert_p < \varepsilon$. If the bump is also symmetric, $\psi(x^{-1}) = \psi(x)$, the same
-holds for the convolution on the other side, $\lVert f * \psi - f\rVert_p < \varepsilon$.
+The proposition takes a neighbourhood base $\mathcal{U}$ at $1$ and, for each $U \in \mathcal{U}$,
+a bump $\psi_U$ for $U$, and concludes that $\psi_U * f \to f$ as $U \to \{1\}$: in the $L^p$ norm
+when $1 \le p < \infty$ and $f \in L^p$, and in the uniform norm when $p = \infty$ and $f$ is left
+uniformly continuous. If in addition every bump is symmetric, $\psi_U(x^{-1}) = \psi_U(x)$, the
+same holds on the other side, $f * \psi_U \to f$, with *right* uniform continuity as the
+hypothesis in the $p = \infty$ case. Because the base and the family of bumps are arbitrary, this
+is Folland's reading — given $\varepsilon > 0$ there is a neighbourhood $U$ of $1$ such that
+*every* bump for $U$ already satisfies $\lVert \psi * f - f\rVert_p < \varepsilon$ — the
+closeness is controlled by $U$ alone.
 
 ## What a correct formalization must contain
 
@@ -24,13 +28,13 @@ choices behind them.
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
 | 1 | $G$ is a locally compact topological group with its Borel structure, and $\mu$ is a left Haar measure. | ✅ `[IsTopologicalGroup G] [LocallyCompactSpace G] [BorelSpace G]`, `(μ : Measure G) [μ.IsHaarMeasure]`. |
-| 2 | The exponent satisfies $1 \le p < \infty$, and $f$ lies in $L^p$. | ✅ `hp : 1 ≤ p`, `hp' : p ≠ ∞`, `hf : MemLp f p μ`. |
-| 3 | The quantifiers run: given $\varepsilon > 0$, there is a neighbourhood $U$ of the identity, such that **every** admissible bump supported in $U$ works. | ✅ `(ε : ℝ≥0∞) (hε : 0 < ε)` then `∃ U ∈ 𝓝 (1 : G), ∀ ψ : G → ℝ, …`. |
-| 4 | Condition (i): the bump has compact support, and its closed support lies inside $U$. | ✅ `HasCompactSupport ψ` and `tsupport ψ ⊆ U`. |
-| 5 | Condition (ii), first half: the bump is nonnegative. | ✅ `∀ x, 0 ≤ ψ x`. |
-| 6 | Condition (ii), second half: the bump has total mass $1$. | ✅ `∫ x, ψ x ∂μ = 1`, with `Integrable ψ μ` alongside it. |
-| 7 | The first conclusion is that $\psi * f$ is within $\varepsilon$ of $f$ in $L^p$, with $\psi$ on the **left**. | ✅ `eLpNorm (groupConv μ (fun x ↦ (ψ x : ℂ)) f - f) p μ < ε`. |
-| 8 | The second conclusion, $f * \psi$ close to $f$, is asserted only under condition (iii), $\psi(x^{-1}) = \psi(x)$. | ✅ `(∀ x, ψ x⁻¹ = ψ x) → eLpNorm (groupConv μ f (fun x ↦ (ψ x : ℂ)) - f) p μ < ε`. |
+| 2 | The exponent range is $1 \le p \le \infty$, with $f \in L^p$ for the finite-$p$ conclusions and $f$ left (resp. right) uniformly continuous for the $p = \infty$ conclusions. | ✅ `p : ℝ≥0∞`, `hp : 1 ≤ p`; the conclusions are guarded by `p ≠ ∞ → MemLp f p μ → …` and `p = ∞ → IsLeftUniformlyContinuous f → …` (resp. `IsRightUniformlyContinuous f`). |
+| 3 | The convergence must hold for **every** neighbourhood base at $1$ and **every** family of admissible bumps indexed by it, as $U \to \{1\}$ — equivalent to the `.md`'s reading: $\varepsilon$ first, then a neighbourhood $U$, then all bumps supported in $U$. | ✅ `𝓤 : Set (Set G)` with `hbase : (𝓝 (1 : G)).HasBasis (· ∈ 𝓤) id` and `ψ : Set G → G → ℝ` are universally quantified hypotheses, and the conclusion is `Tendsto … ((𝓝 (1 : G)).smallSets ⊓ Filter.principal 𝓤) (𝓝 0)`. |
+| 4 | Condition (i): each bump has compact support, and its closed support lies inside its $U$. | ✅ `hsupp : ∀ U ∈ 𝓤, HasCompactSupport (ψ U) ∧ tsupport (ψ U) ⊆ U`. |
+| 5 | Condition (ii), first half: each bump is nonnegative. | ✅ `hnonneg : ∀ U ∈ 𝓤, ∀ x, 0 ≤ ψ U x`. |
+| 6 | Condition (ii), second half: each bump has total mass $1$. | ✅ `hmass : ∀ U ∈ 𝓤, Integrable (ψ U) μ ∧ ∫ x, ψ U x ∂μ = 1`. |
+| 7 | The first conclusion is that $\lVert\psi_U * f - f\rVert_p \to 0$, with $\psi$ on the **left**, in both the $p < \infty$ and the $p = \infty$ cases. | ✅ `Tendsto (fun U ↦ eLpNorm (groupConv μ (fun x ↦ (ψ U x : ℂ)) f - f) p μ) F (𝓝 0)`, asserted under both guards of row 2. |
+| 8 | The second conclusion, $f * \psi_U \to f$, is asserted only under condition (iii), symmetry $\psi_U(x^{-1}) = \psi_U(x)$ of every bump. | ✅ `(∀ U ∈ 𝓤, ∀ x, ψ U x⁻¹ = ψ U x) → …`, with `groupConv μ f (fun x ↦ (ψ U x : ℂ))` and `IsRightUniformlyContinuous f` in the `p = ∞` case. |
 | 9 | Convolution is $\int \psi(y)\,f(y^{-1}x)\,d\mu(y)$. | ✅ `groupConv`, defined in `Defs.lean`. |
 
 ## Mistakes to check for
@@ -40,27 +44,34 @@ wrong, even if it compiles.
 
 | # | Mistake | Why it is wrong |
 |---|---------|-----------------|
-| 1 | Putting the quantifiers as `∀ ψ, ∃ U` or `∃ ψ, …`. | Both are much weaker. `∃ ψ` says only that *some* bump works, which any single approximate identity supplies; `∀ ψ, ∃ U` lets the neighbourhood depend on the bump, so it says nothing about how small the support has to be. This is the highest-value trap. |
-| 2 | Asserting the right-hand convergence $\lVert f*\psi - f\rVert_p \to 0$ without the symmetry condition (iii). | On a non-unimodular group the two-sided statement genuinely needs $\psi(x^{-1}) = \psi(x)$; without it the modular function appears and the limit is wrong. |
-| 3 | Using `Function.support ψ ⊆ U` instead of `tsupport ψ ⊆ U`. | Folland's $\operatorname{supp}\psi$ is the closed support. The open version is a weaker requirement on $\psi$, so it makes the hypothesis on the bump weaker and the theorem stronger than what is printed. |
-| 4 | Dropping $\int \psi = 1$, or dropping $\psi \ge 0$. | Without unit mass, $\psi * f$ converges to a multiple of $f$, or to nothing. Without nonnegativity, $\psi$ can have unit integral while carrying a large amount of cancelling mass, and the conclusion fails. |
-| 5 | Allowing $p = \infty$ while keeping $f$ merely in $L^\infty$. | Folland's $p = \infty$ case requires $f$ to be left (resp. right) uniformly continuous. For a general bounded measurable $f$ the conclusion is false. |
-| 6 | Convolving on the wrong side: writing $f * \psi$ for the first conclusion and $\psi * f$ for the second. | The first half of the proposition holds with no symmetry assumption only for $\psi$ on the left; swapping them attaches the hypothesis to the wrong conclusion. |
+| 1 | Weakening the quantifier structure: concluding only that *some* family of bumps works (an `∃`-family reading), or letting the neighbourhood depend on the bump. | Both are much weaker. `∃`-family says only that some approximate identity converges, which any single mollifier family supplies; letting $U$ depend on $\psi$ says nothing about how small the support has to be. The ground truth quantifies universally over the base and the family, which is equivalent to the `.md`'s $\forall\varepsilon\,\exists U\,\forall\psi$. This is the highest-value trap. |
+| 2 | Asserting the right-hand convergence $\lVert f*\psi_U - f\rVert_p \to 0$ without the symmetry condition (iii). | On a non-unimodular group the two-sided statement genuinely needs $\psi(x^{-1}) = \psi(x)$; without it the modular function appears and the limit is wrong. |
+| 3 | Using `Function.support (ψ U) ⊆ U` instead of `tsupport (ψ U) ⊆ U`. | Folland's $\operatorname{supp}\psi$ is the closed support. The open version is a weaker requirement on $\psi$, so it makes the hypothesis on the bump weaker and the theorem stronger than what is printed. |
+| 4 | Dropping $\int \psi_U = 1$, or dropping $\psi_U \ge 0$. | Without unit mass, $\psi_U * f$ converges to a multiple of $f$, or to nothing. Without nonnegativity, $\psi_U$ can have unit integral while carrying a large amount of cancelling mass, and the conclusion fails. |
+| 5 | Allowing $p = \infty$ with $f$ merely in $L^\infty$. | Folland's $p = \infty$ case requires $f$ to be left (resp. right) uniformly continuous, which is how the ground truth states it. For a general bounded measurable $f$ the conclusion is false. |
+| 6 | Convolving on the wrong side: writing $f * \psi_U$ for the first conclusion and $\psi_U * f$ for the second. | The first half of the proposition holds with no symmetry assumption only for $\psi$ on the left; swapping them attaches the hypothesis to the wrong conclusion. |
+| 7 | Omitting the $p = \infty$ clauses altogether. | Folland's proposition covers both regimes; a $p < \infty$-only statement drops the uniformly-continuous half of the theorem (charge it to rows 2, 7 and 8). |
 
 ## Notes on the ground truth
 
-- Only the $p < \infty$ half of the proposition is formalized. Folland's $p = \infty$ clause, which
-  needs $f$ left uniformly continuous for the first conclusion and right uniformly continuous for
-  the second, is omitted. That is a proper restriction of the printed statement, not a distortion
-  of it.
-- "As $U \to \{1\}$" is unpacked exactly as the `.md` explains it: $\varepsilon$ first, then a
-  neighbourhood $U$, then all bumps supported in $U$.
-- `Integrable ψ μ` is carried explicitly. It is not strictly needed to rule out a junk value —
-  Lean gives a divergent integral the value `0`, which cannot equal `1` — but it makes the intent
-  plain and is used by the conclusion.
-- $\psi$ is real-valued, matching the book, and is coerced into `ℂ` where the convolution needs it.
-- `ε` is taken in `ℝ≥0∞`, so `ε = ∞` is permitted by `0 < ε`. That instance of the statement is
-  trivially true and harmless.
+- Both halves of the proposition are formalized. The `p ≠ ∞` clauses assume `MemLp f p μ`; the
+  `p = ∞` clauses assume `IsLeftUniformlyContinuous f` for the first conclusion and
+  `IsRightUniformlyContinuous f` for the second — the `Defs.lean` renderings of Folland's
+  $C_{lu}(G)$ and $C_{ru}(G)$.
+- "As $U \to \{1\}$" is the filter limit along `(𝓝 (1 : G)).smallSets ⊓ Filter.principal 𝓤`:
+  membership in the base together with containment in an arbitrarily small neighbourhood of `1`.
+  Because the base `𝓤` (with `hbase`) and the family `ψ` are universally quantified hypotheses,
+  this renders the `.md`'s $\forall\varepsilon\,\exists U\,\forall\psi$ reading in an equivalent
+  fixed-family form: any failing $\varepsilon$–$U$–$\psi$ triple assembles into a failing family.
+- `hmass` carries `Integrable (ψ U) μ` explicitly. It is not strictly needed to rule out a junk
+  value — Lean gives a divergent integral the value `0`, which cannot equal `1` — but it makes the
+  intent plain.
+- $\psi_U$ is real-valued, matching the book, and is coerced into `ℂ` (`fun x ↦ (ψ U x : ℂ)`)
+  where the convolution needs it.
+- The norms are `eLpNorm … p μ`, valued in `ℝ≥0∞`, and the limit target is `𝓝 (0 : ℝ≥0∞)`. At
+  `p = ∞` this is the essential supremum with respect to Haar measure, which agrees with the
+  uniform norm for the uniformly continuous functions the clause concerns (Haar measure has full
+  support).
 
 ## Grading (out of 100)
 
@@ -82,14 +93,15 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 
 ### Fatal — any of these caps the total at 25
 
-- Requirement 3 with the quantifiers reordered — in particular fixing one family $\psi_U$ in advance rather than quantifying over all admissible bumps supported in $U$.
+- Requirement 3 with the quantifier structure weakened — an existential over the base or the family ("some approximate identity converges"), or the neighbourhood allowed to depend on the bump. The ground truth's universally quantified family with a filter limit is equivalent to the `.md`'s $\forall\varepsilon\,\exists U\,\forall\psi$; anything strictly weaker is fatal.
 - Requirement 8 with the right-hand conclusion asserted without the symmetry hypothesis (iii).
-- Requirement 6 with the unit-mass condition dropped: without it $\psi * f$ converges to a multiple of $f$.
+- Requirement 6 with the unit-mass condition dropped: without it $\psi_U * f$ converges to a multiple of $f$.
 
 ### Domain-specific pitfalls for this problem
 
-- The statement is $\forall \varepsilon\, \exists U\, \forall \psi$; a sequential reading ($\exists$ a family with norms tending to $0$) is strictly weaker.
+- The convergence is along the small-sets filter over an arbitrary neighbourhood base, with the family of bumps universally quantified; a reading that merely exhibits one convergent family ($\exists$-reading, or a sequential version) is strictly weaker.
 - Condition (i) is about the *closed* support being compact and contained in $U$.
 - Nonnegativity and unit mass are both needed; either alone gives a different limit.
-- Symmetry (iii) is needed only for the $f * \psi$ half, and it is the condition $\psi(x^{-1}) = \psi(x)$, not evenness in any additive sense.
-- Junk value — convolution: the convolution integral must converge for the $L^p$ estimate to be meaningful; here it does, because $\psi$ is integrable and $f \in L^p$.
+- Symmetry (iii) is needed only for the $f * \psi_U$ half, and it is the condition $\psi(x^{-1}) = \psi(x)$, not evenness in any additive sense.
+- The $p = \infty$ clauses require uniform continuity (left for $\psi * f$, right for $f * \psi$), not mere boundedness; with $f$ only in $L^\infty$ the statement is false.
+- Junk value — convolution: the convolution integral must converge for the estimate to be meaningful; here it does, because each $\psi_U$ is integrable and $f$ is in $L^p$ (or bounded and uniformly continuous in the $p = \infty$ clauses).

@@ -1,3 +1,4 @@
+import Mathlib.Topology.DenseEmbedding
 import Mathlib.Topology.PartitionOfUnity
 import Mathlib.Topology.Separation.CompletelyRegular
 
@@ -19,7 +20,7 @@ universe u v w
 /-- A concrete compactification: an embedding with dense image into a compact space. -/
 def IsCompactification {X : Type u} {K : Type v} [TopologicalSpace X]
     [TopologicalSpace K] (e : X → K) : Prop :=
-  IsEmbedding e ∧ DenseRange e ∧ CompactSpace K ∧ T2Space K
+  IsDenseEmbedding e ∧ CompactSpace K ∧ T2Space K
 
 /-- Two compactifications are equivalent when a homeomorphism commutes with their embeddings. -/
 def EquivalentCompactifications {X : Type u} {K L : Type v} [TopologicalSpace X]
@@ -41,7 +42,8 @@ def IsDiscreteFamily {X : Type u} [TopologicalSpace X] {ι : Type v}
     (U : ι → Set X) : Prop :=
   ∀ x : X, ∃ V ∈ 𝓝 x, {i : ι | (V ∩ U i).Nonempty}.Subsingleton
 
-/-- An indexed family is an open cover. -/
+/-- An indexed family is an open cover. (Deliberately `Set`-valued and indexed, matching the
+book's families `{U_s}`; mathlib's `TopologicalSpace.IsOpenCover` is `Opens`-valued.) -/
 def IsOpenCover {X : Type u} [TopologicalSpace X] {ι : Type v}
     (U : ι → Set X) : Prop :=
   (∀ i, IsOpen (U i)) ∧ ⋃ i, U i = univ

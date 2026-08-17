@@ -24,7 +24,7 @@ choices behind them.
 | 2 | $T$ is Borel measurable, and the pushforward of each $\mu_i$ along $T$ is exactly $\nu$. | ✅ `MeasurePreserving T (μ i) ν` bundles `Measurable T` with `Measure.map T (μ i) = ν`. |
 | 3 | The family is finite. | ✅ `μ : Fin n → Measure X` with `{n : ℕ}` arbitrary. |
 | 4 | Each $\mu_i$ is a Borel probability measure. | ✅ `[∀ i, IsProbabilityMeasure (μ i)]` together with `[BorelSpace X]`. |
-| 5 | Each $\mu_i$ is atomless in the book's sense: every measurable set of positive measure contains a measurable subset of positive but strictly smaller measure. | ✅ `hμ : ∀ i, is_atomless_measure (μ i)`, defined in `Defs.lean` to say exactly that. |
+| 5 | Each $\mu_i$ is atomless in the book's sense: every measurable set of positive measure contains a measurable subset of positive but strictly smaller measure. | ✅ `hμ : ∀ i, IsAtomlessMeasure (μ i)`, defined in `Defs.lean` to say exactly that. |
 | 6 | $\nu$ is an arbitrary Borel probability measure — the statement quantifies over all of them, atoms allowed. | ✅ `(ν : Measure X) [IsProbabilityMeasure ν]`, with no atomlessness hypothesis. |
 | 7 | The space is Souslin, i.e. Hausdorff and an analytic set. | ✅ `[T2Space X] [SouslinSpace X]`, where the class asserts `AnalyticSet (univ : Set X)`. |
 | 8 | The measurable structure is the Borel one coming from the topology. | ✅ `[TopologicalSpace X] [MeasurableSpace X] [BorelSpace X]`. |
@@ -49,7 +49,7 @@ wrong, even if it compiles.
 - `SouslinSpace` is a class in `Defs.lean`: a Hausdorff space whose whole underlying set is analytic,
   spelled with Mathlib's `MeasureTheory.AnalyticSet (univ : Set X)`. This is the standard equivalent
   form of "continuous image of a Polish space" and avoids re-defining Polish images from scratch.
-- `is_atomless_measure` in `Defs.lean` is the direct negation of Definition 7.14.15: no measurable
+- `IsAtomlessMeasure` in `Defs.lean` is the direct negation of Definition 7.14.15: no measurable
   set is an atom. Mathlib's `[NoAtoms μ]` is a different definition, so it was not used.
 - Probability and Borel assumptions are carried as typeclasses rather than as hypotheses such as
   `μ Set.univ = 1`, matching Mathlib style.

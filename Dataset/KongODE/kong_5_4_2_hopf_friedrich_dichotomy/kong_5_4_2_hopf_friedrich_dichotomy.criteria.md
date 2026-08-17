@@ -31,9 +31,10 @@ choices behind them.
 | 7 | The degeneracy condition $\alpha'(0) = 0$, i.e. the trace of the linearization has derivative $0$ in $\mu$ at $\mu = 0$. | ✅ `HasDerivAt (fun μ ↦ Matrix.trace (linearizationMatrix F μ)) 0 0`. |
 | 8 | The conclusion is a three-way alternative: the centre case, or a cycle for small $\mu > 0$, or a cycle for small $\mu < 0$. | ✅ `center ∨ hopf true ∨ hopf false`. |
 | 9 | The centre case has two conjuncts: every nearby nonconstant orbit at $\mu = 0$ is closed, **and** for small $\mu \ne 0$ there are no nearby closed orbits. | ✅ Both, with the first restricted to nonconstant trajectories with $\lVert x(0)\rVert < \varepsilon$ and the second as `∀ μ, 0 < abs μ → abs μ < ε → ¬∃ x, IsClosedOrbit (fun y ↦ F y μ) x ∧ ‖x 0‖ < ε`. |
-| 10 | In the cycle case, for every small $\mu$ on the chosen side there is a closed orbit with a positive period. | ✅ `IsClosedOrbit (fun y ↦ F y μ) (orbit μ) ∧ 0 < period μ ∧ ∀ t, orbit μ (t + period μ) = orbit μ t`. |
+| 10 | In the cycle case, for every small $\mu$ on the chosen side there is a closed orbit, and the period spoken about is its **minimal** period. | ✅ `IsClosedOrbit (fun y ↦ F y μ) (orbit μ) ∧ IsLeast {T \| 0 < T ∧ ∀ t, orbit μ (t + T) = orbit μ t} (period μ)` — membership gives back `0 < period μ` and the periodicity equation, leastness makes `period μ` the minimal period. |
 | 11 | That cycle is **unique** among nearby closed orbits, as a set of points rather than as a parametrized curve. | ✅ `∀ y, IsClosedOrbit (fun z ↦ F z μ) y → ‖y 0‖ < ε → range y = range (orbit μ)`. |
 | 12 | The cycle shrinks to the origin and its period tends to $2\pi/\beta$ as $\mu \to 0$. | ✅ `Tendsto (fun μ ↦ ⨆ t, ‖orbit μ t‖) …` — the supremum over the whole cycle, not just its base point — with both limits taken along the one-sided filter `𝓝[>] 0` or `𝓝[<] 0` matching the side on which the cycle exists. |
+| 13 | In the cycle case, there are **no** closed orbits near the origin for small $\mu$ on the opposite side — the "only" of the printed dichotomy. | ✅ `∀ μ, 0 < abs μ → abs μ < ε → (if positiveSide then μ < 0 else 0 < μ) → ¬∃ y, IsClosedOrbit (fun z ↦ F z μ) y ∧ ‖y 0‖ < ε`, mirroring the second conjunct of the centre case. |
 
 ## Mistakes to check for
 
@@ -48,14 +49,13 @@ wrong, even if it compiles.
 | 4 | Dropping the second conjunct of the centre case. | "All nearby orbits at $\mu = 0$ are closed" alone is too easy to satisfy; the assertion that cycles do **not** appear for $\mu \ne 0$ is what makes this alternative exclude the other. |
 | 5 | Stating uniqueness of the limit cycle as uniqueness of the solution function. | Any time-shift or reparametrization of a periodic solution traces the same cycle, so uniqueness must be uniqueness of the image set. |
 | 6 | Omitting $F(0,\mu) = 0$, or omitting $\beta > 0$. | Without the first the origin is not an equilibrium and there is no bifurcation to analyse. Without the second $\beta$ could be $0$ or negative and the period $2\pi/\beta$ is meaningless. |
-| 7 | Allowing the cycle case to be silent about whether cycles also exist on the other side. | Kong says the cycle appears for small $\mu > 0$ **only**, or for small $\mu < 0$ **only**; the exclusivity is part of the claim. |
+| 7 | Allowing the cycle case to be silent about whether cycles also exist on the other side. | Kong says the cycle appears for small $\mu > 0$ **only**, or for small $\mu < 0$ **only**; the exclusivity is part of the claim. An earlier version of the ground truth dropped it; the current file asserts it as the opposite-side conjunct of `hopf` (requirement 13). |
+| 8 | Requiring `period μ` to be merely *some* positive period of the cycle rather than the least one. | Any integer multiple of a period is again a period, so the limit claim $T(\mu) \to 2\pi/\beta$ could be met by a well-chosen non-minimal period even when the cycle's actual period tends elsewhere. The ground truth incorporates the repair: `IsLeast {T \| 0 < T ∧ ∀ t, orbit μ (t + T) = orbit μ t} (period μ)`. |
 
 ## Notes on the ground truth
 
-- The exclusivity just mentioned is in fact dropped by our statement: `hopf true` says nothing about negative $\mu$ and `hopf false` says nothing about positive $\mu$, so `center ∨ hopf true ∨ hopf false` is weaker than the printed dichotomy. A faithful version would add "and no closed orbits near the origin for $\mu$ on the other side".
-- "$\Gamma(\mu) \to (0,0)$" is encoded as convergence of $\lVert \text{orbit}\ \mu\ 0\rVert$, that is, of one point of the cycle. Convergence of the whole cycle would be $\sup_t \lVert \text{orbit}\ \mu\ t\rVert \to 0$.
-- The limits are taken along the two-sided filter `𝓝[≠] 0`, but `orbit` and `period` are constrained only on the relevant side of $0$; their values on the other side are unconstrained, so the existential can choose whatever makes the limits work. `𝓝[>] 0` and `𝓝[<] 0` would be exact.
-- `period μ` is asserted to *be* a period, not the least one. Since any integer multiple of a period is a period, the limit $2\pi/\beta$ constrains a chosen period rather than the minimal one. Adding minimality — for instance `IsLeast {T \| 0 < T ∧ Function.Periodic (orbit μ) T} (period μ)` — would be faithful.
+- An earlier version of the ground truth dropped the opposite-side exclusion from the cycle case and asked `period μ` only to be *some* positive period. Both were genuine departures from the printed dichotomy and are repaired in the current file: `hopf` carries the opposite-side no-cycle conjunct (requirement 13) and `IsLeast` pins `period μ` down as the minimal period (requirement 10). Mistake rows 7 and 8 keep the old failure modes as traps for candidates.
+- "$\Gamma(\mu) \to (0,0)$" is encoded as $\sup_t \lVert \text{orbit}\ \mu\ t\rVert \to 0$, convergence of the whole cycle, and both limits are taken along the exact one-sided filters `𝓝[>] 0` / `𝓝[<] 0`, so the values of `orbit` and `period` on the unconstrained side of $0$ cannot influence them.
 - "Orbits in a neighborhood of $(0,0)$" is encoded by a bound on the initial point $\lVert x(0)\rVert < \varepsilon$ only, not by asking the whole orbit to stay in the neighborhood.
 
 ## Grading (out of 100)
@@ -68,7 +68,7 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 
 | Band | Points | This problem |
 |---|---|---|
-| A. Completeness | 50 | The requirement table above has 12 rows, so each row is worth 4.2 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| A. Completeness | 50 | The requirement table above has 13 rows, so each row is worth 3.8 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
 | B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
 | C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
 | D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
@@ -88,4 +88,4 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 - The trace/determinant formulation of the eigenvalue hypotheses is equivalent to the printed one and avoids naming $\alpha,\beta$ as functions.
 - Case (b) is one-sided: a cycle for small $\mu>0$ *only*, or for small $\mu<0$ *only*.
 - Uniqueness of the limit cycle is as a set of points, not as a parametrized solution.
-- The limiting period is $2\pi/\beta$ with $\beta>0$ the imaginary part at $\mu=0$.
+- The limiting period is $2\pi/\beta$ with $\beta>0$ the imaginary part at $\mu=0$, and it is the cycle's *minimal* period.

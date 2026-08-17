@@ -31,7 +31,7 @@ choices behind them.
 | 8 | The invariance hypothesis: any solution whose whole orbit lies in the ball with orbital derivative $0$ throughout is the zero solution. | ✅ `NoNontrivialOrbitInZeroDerivativeSet l V F`, whose conclusion is `x = 0` as an equality of *functions*. |
 | 9 | The conclusion asserts uniform stability **and** asymptotic convergence. | ✅ `AsymptoticallyStableZeroSolution (fun _ x ↦ F x)`, which unfolds to `UniformlyStableZeroSolution … ∧ ∃ δ > 0, …`. |
 | 10 | The attraction radius is one number, independent of the initial time and of the solution, and the convergence is as $t \to +\infty$. | ✅ `∃ δ, 0 < δ ∧ ∀ t₀ x, …` with `Tendsto x atTop (𝓝 0)`. |
-| 11 | Solutions are genuine solutions of the autonomous system. | ✅ `IsAutonomousTrajectory F x := ∀ t, HasDerivAt x (F (x t)) t`. |
+| 11 | Solutions are genuine solutions of the autonomous system. | ✅ The uniqueness and invariance hypotheses use `IsAutonomousTrajectory F x := ∀ t, HasDerivAt x (F (x t)) t`; the stability conclusion quantifies over forward solutions `IsTrajectoryOn (Set.Ici t₀) (fun _ x ↦ F x) x`, a within-derivative at every $t \ge t_0$. Both carry differentiability with them. |
 
 ## Mistakes to check for
 
@@ -51,7 +51,7 @@ wrong, even if it compiles.
 ## Notes on the ground truth
 
 - The invariance hypothesis quantifies only over trajectories defined on all of $\mathbb{R}$, whereas Kong's orbits are those of maximal solutions. That makes our hypothesis weaker, hence the theorem formally stronger — an honest divergence from the text.
-- In the same way, the conclusion speaks only about solutions defined on all of $\mathbb{R}$, so it is weaker than Kong's, which also covers solutions that exist only forward in time. For the trajectories at issue here, which stay in a compact ball, the restriction is mild but it is real.
+- The conclusion's stability predicates quantify over forward solutions defined on the whole half-line $[t_0,\infty)$ (`IsTrajectoryOn (Set.Ici t₀)`), matching Kong's forward-time stability notions. Only solutions blowing up in finite forward time fall outside them, and the small solutions at issue here stay in a compact ball, so the restriction is negligible.
 - The autonomous field is fed to the time-dependent stability predicate as `fun _ x ↦ F x`. Quantifying the initial time over $[0,\infty)$ rather than a single instant is harmless because the system is invariant under time translation.
 
 ## Grading (out of 100)

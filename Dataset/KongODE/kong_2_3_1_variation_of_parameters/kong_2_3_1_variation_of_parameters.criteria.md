@@ -50,7 +50,7 @@ wrong, even if it compiles.
 
 ## Notes on the ground truth
 
-- Kong works on the open interval $(a,b)$. We allow any order-connected set $I$ and use the derivative taken within $I$, which specialises correctly to the open case and also makes the statement true on a closed interval.
+- Kong works on the open interval $(a,b)$. We allow any order-connected set $I$ and, for solutions (`IsTrajectoryOn`), use the derivative taken within $I$, which specialises correctly to the open case and also makes the statement true on a closed interval. The fundamental-matrix hypothesis `FundamentalMatrixSolution` instead asks for the ambient two-sided `HasDerivAt` of $X$ at each $t \in I$; on a non-open $I$ that is stronger than the textbook notion, but it sits on the hypothesis side, so the statement stays true — it merely applies to slightly fewer $X$ (and to exactly the textbook ones when $I$ is open).
 - `IsUnit (X t)` and `(X t).det ≠ 0` are interchangeable over $\mathbb{R}$ (`Matrix.isUnit_iff_isUnit_det`); either is a fine encoding of "nonsingular".
 - The hypotheses are exactly what keeps the two Lean default values out of the statement: continuity of $A$, $f$ and invertibility of $X$ on the interval make the integrand continuous on the compact segment between $t_0$ and $t$, so it is genuinely integrable, and `OrdConnected` puts that whole segment inside $I$ where $X$ is invertible.
 

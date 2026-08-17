@@ -31,6 +31,12 @@ choices behind them.
 | 7 | The left half of the biconditional is "$S_R f$ converges in $L^p$" — to *some* limit, not to a named operator. | ✅ `∀ f, MemLp f (ENNReal.ofReal p) μ → ∃ g, MemLp g (ENNReal.ofReal p) μ ∧ Tendsto (fun R ↦ eLpNorm (S R f - g) (ENNReal.ofReal p) μ) atTop (𝓝 0)`. |
 | 8 | The right half is one finite constant valid for all $R$ — the existential must sit outside the quantifier over $R$. | ✅ `∃ C : ℝ≥0∞, C < ∞ ∧ ∀ R, 0 < R → HasStrongType μ μ (S R) (ENNReal.ofReal p) (ENNReal.ofReal p) C`. |
 | 9 | The "furthermore" clause, for the *same* constant. | ✅ The limit operator is bounded by the same `C`, agrees with the formal limit series wherever that series is summable, and is the $L^p$ limit of $S_R f$ for every $f$. Agreement is asserted on the summable class, which **contains** $C^\infty(\mathbb{T}^n)$ (rapidly decaying coefficients against bounded multipliers), so this is stronger than the printed clause, not weaker. |
+
+## Mistakes to check for
+
+Each row is an error we expect models to make. A formalization that makes any of these is
+wrong, even if it compiles.
+
 | # | Mistake | Why it is wrong |
 |---|---------|-----------------|
 | 1 | Defining $A$ by the formula `fun f x ↦ ∑' m, aLimit m * f̂ m * e(m·x)` and then using it on all of $L^p$ — in particular naming it as the limit inside the biconditional. | For $f \in L^p$ whose Fourier coefficients are not absolutely summable, the family is not summable, so Lean's `tsum` gives `A f x = 0` at every $x$. Concrete failure: $n=1$, $p=2$, $a(m,R) = \mathbf{1}_{\lvert m\rvert\le R}$, so $a_m = 1$. The uniform-bound side holds with $C = 1$, because the Dirichlet projections are $L^2$ contractions; but for $f$ with coefficients in $\ell^2\setminus\ell^1$ one gets $A f = 0$ while $\|S_R f\|_2 \to \|f\|_2 \ne 0$, so the convergence side fails and the biconditional is false. An earlier version of the ground truth had exactly this defect. |

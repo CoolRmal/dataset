@@ -25,6 +25,7 @@ choices behind them.
 | 4 | The exceptional set is the set of values that are *not* taken infinitely often. | ✅ `{c : ℂ \| ¬ {z : ℂ \| f z = c}.Infinite}`. |
 | 5 | That exceptional set has at most two elements. | ✅ `∃ a b : ℂ, … ⊆ {a, b}`. Allowing `a = b` covers the cases of zero or one exception. |
 | 6 | The bound is on the number of exceptional values, not on how often each value is missed. | ✅ The conclusion is a containment of the exceptional set, with nothing said about the finite solution sets themselves. |
+| 7 | The solution sets $\{z \mid f(z) = a\}$ must mean the $a$-points of the meromorphic function, not of an arbitrary representative. | ✅ `hnf : ∀ z, MeromorphicNFAt f z` pins the representative to normal form: `f` is analytic (hence takes its true value) at every non-pole and takes the value `0` at poles, so the literal sets `{z \| f z = c}` read faithfully. |
 
 ## Mistakes to check for
 
@@ -39,6 +40,7 @@ wrong, even if it compiles.
 | 4 | Dropping the transcendence hypothesis. | A rational function such as $1/z$ takes each value only finitely often, so every value is exceptional and the statement collapses. |
 | 5 | Writing transcendence as "$f$ is not a polynomial". | That admits $1/z$, which is not a polynomial but is rational, and for which the conclusion fails. Polynomial-exclusion is the right notion for *entire* functions only. |
 | 6 | Assuming $f$ is entire rather than meromorphic. | A different (easier) theorem. Hayman's §2.0 statement is about meromorphic functions. |
+| 7 | Combining a bare `Meromorphic f` with the literal solution sets `{z \| f z = c}`, with nothing to pin the representative. | Mathlib's `Meromorphic` leaves the value of `f` on any discrete set unconstrained, so a representative can be re-valued to *delete* $a$-points, manufacturing extra "exceptional" values and making the statement provably false. An earlier version of the ground truth had exactly this defect; the current one incorporates the repair via `hnf : ∀ z, MeromorphicNFAt f z` (an order-based, representative-independent reading of the $a$-point sets would work too). |
 
 ## Notes on the ground truth
 
@@ -51,12 +53,15 @@ wrong, even if it compiles.
   one of the two exceptions, which is the slightly stronger reading. Both are defensible; a
   candidate that includes $\infty$ (via `WithTop ℂ`) is at least as strong.
 - Mathlib models a meromorphic function as an ordinary function `f : ℂ → ℂ` that is `MeromorphicAt`
-  at every point, so `f` still has some complex *value* at each pole. The set `{z \| f z = c}` can
-  therefore pick up an accidental hit at a pole, where Hayman means an $a$-point of the analytic
-  part. This is harmless for a bound on the number of exceptional values (extra points only make the
-  solution sets larger), but it is the recurring modelling hazard throughout this book.
+  at every point, and `Meromorphic f` alone does not determine the values of `f` on discrete sets —
+  the recurring modelling hazard throughout this book. Here the hypothesis
+  `hnf : ∀ z, MeromorphicNFAt f z` closes the gap: normal form forces `f` to be analytic, with its
+  true value, at every non-pole, and to take the value `0` at each pole. So $a$-points can no longer
+  be deleted by re-valuing the representative; the only remaining slack is that `{z \| f z = 0}` may
+  pick up extra hits at poles, which only enlarges a solution set and is harmless for a bound on the
+  number of exceptional values.
 - No integrals, suprema or `toReal` coercions appear, so there is no default-value hazard beyond the
-  pole convention above.
+  representative convention above.
 
 ## Grading (out of 100)
 
@@ -68,7 +73,7 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 
 | Band | Points | This problem |
 |---|---|---|
-| A. Completeness | 50 | The requirement table above has 6 rows, so each row is worth 8.3 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| A. Completeness | 50 | The requirement table above has 7 rows, so each row is worth 7.1 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
 | B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
 | C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
 | D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
@@ -86,5 +91,5 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 
 - For a *meromorphic* function, transcendental means not rational; the polynomial version of the condition is the entire-function notion and is too weak here.
 - Being exceptional means being attained only finitely often, not being omitted.
-- A meromorphic function represented as a total function $\mathbb{C} \to \mathbb{C}$ takes a default value at its poles, so any clause about the solution set of $f(z) = a$ must be read with that in mind.
+- A meromorphic function represented as a total function $\mathbb{C} \to \mathbb{C}$ is unconstrained on discrete sets, so any clause about the solution set of $f(z) = a$ must either pin the representative (normal form at every point) or count $a$-points in a representative-independent way; otherwise $a$-points can be silently deleted and the statement is false.
 - "At most two" is naturally written as containment in a two-element set, which correctly allows fewer than two exceptions.

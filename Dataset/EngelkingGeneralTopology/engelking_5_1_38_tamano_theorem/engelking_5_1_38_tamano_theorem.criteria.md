@@ -24,11 +24,11 @@ choices behind them.
 | 1 | $X$ is Tychonoff (completely regular and $T_1$). | ✅ `[T35Space X]`, mathlib's `T0Space` + `CompletelyRegularSpace`. |
 | 2 | All four items are present, in Engelking's order, as one equivalence. | ✅ `List.TFAE [ParacompactSpace X, everyCompactification, NormalSpace (X × StoneCech X) ∧ T1Space (X × StoneCech X), someCompactification]`. |
 | 3 | Item (i) is paracompactness. Engelking's paracompactness includes Hausdorff, which the ambient `[T35Space X]` already supplies. | ✅ `ParacompactSpace X`; combined with `[T35Space X]` this is exactly Engelking's notion. |
-| 4 | "Compactification" is a dense embedding into a compact **Hausdorff** space. | ✅ `IsCompactification e := IsEmbedding e ∧ DenseRange e ∧ IsCompact (univ : Set K) ∧ T2Space K`. |
+| 4 | "Compactification" is a dense embedding into a compact **Hausdorff** space. | ✅ `IsCompactification e := IsDenseEmbedding e ∧ CompactSpace K ∧ T2Space K`. |
 | 5 | Item (ii) is universally quantified over compactifications. | ✅ `everyCompactification := ∀ K tK e, IsCompactification e → …`, with `→` after the hypothesis. |
 | 6 | Item (iv) is existentially quantified over compactifications. | ✅ `someCompactification := ∃ K tK e, IsCompactification e ∧ …`, with `∧` after the hypothesis. |
 | 7 | Item (iii) names the Čech–Stone compactification specifically. | ✅ `NormalSpace (X × StoneCech X)`; under `[T35Space X]`, `stoneCechUnit` is a dense embedding (`isEmbedding_stoneCechUnit`, `denseRange_stoneCechUnit`), so this really is $X \times \beta X$. |
-| 8 | The product $X \times cX$ carries the **product** topology. | ✅ `@NormalSpace (X × K) (tX.induced Prod.fst ⊓ tK.induced Prod.snd)`, which is definitionally mathlib's `instTopologicalSpaceProd`. |
+| 8 | The product $X \times cX$ carries the **product** topology. | ✅ Items (ii) and (iv) bring the bound topology into scope with `letI := tK`, so `NormalSpace (X × K)` elaborates at mathlib's `instTopologicalSpaceProd` — the meet of the topologies induced by the two projections, i.e. the product topology. |
 | 9 | Engelking's "normal" includes $T_1$, so the products must be $T_1$ as well as normal. | ✅ `T1Space (X × K)` is stated explicitly alongside `NormalSpace` in items (ii)–(iv), even though it follows from `[T35Space X]` and Hausdorffness of $K$. |
 
 ## Mistakes to check for
@@ -51,11 +51,12 @@ wrong, even if it compiles.
 - Items (ii) and (iv) bring the bound topology into scope with `letI := tK`, so `IsCompactification`,
   `NormalSpace` and `T1Space` are all written uniformly, with the product carrying its canonical
   topology rather than a hand-written meet of induced topologies.
-- Every index type quantified in the statement lives in `X`'s own universe. That costs no
-  generality — a cover of `X` can always be re-indexed by its image in `Set X` — and it removes
-  the free universe parameter, so the statement is about all covers rather than about covers in
-  one arbitrary universe. The generic family predicates in `Defs.lean` stay polymorphic in their
-  index type, as they should.
+- The compactification spaces `K` quantified in items (ii) and (iv) live in `X`'s own universe,
+  `Type u`. For quantified *spaces* this needs a genuine argument, and it has one: a
+  compactification is a compact Hausdorff space with a dense copy of `X`, so its cardinality is at
+  most $2^{2^{|X|}}$ and a homeomorphic copy of it — still a compactification of `X` — lives in
+  `Type u`. Hence the universal item (ii) loses no strength and the existential item (iv) loses no
+  witnesses; a candidate quantifying `K` over an arbitrary universe is equally correct.
 - The two `let` bindings in the goal are only there to keep the `List.TFAE` line readable; they do
   not change the statement.
 

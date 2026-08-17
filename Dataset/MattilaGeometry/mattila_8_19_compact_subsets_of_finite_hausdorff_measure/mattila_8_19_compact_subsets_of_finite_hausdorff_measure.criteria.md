@@ -19,7 +19,7 @@ choices behind them.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
-| 1 | The ambient space is a compact metric space, and the statement is about $\mathcal{H}^s$ on it. | ✅ `{X : Type u} [MetricSpace X] [CompactSpace X]`, with `μH[s]` throughout. |
+| 1 | The ambient space is a compact metric space, and the statement is about $\mathcal{H}^s$ on it for an exponent $s \ge 0$ — the only range where the book defines $\mathcal{H}^s$. | ✅ `{X : Type u} [MetricSpace X] [CompactSpace X]` with `hs : 0 ≤ s`, and `μH[s]` throughout. |
 | 2 | The left-hand side is the measure of the whole space. | ✅ `μH[s] (Set.univ : Set X)`. |
 | 3 | The right-hand side is a supremum over the compact subsets of finite $\mathcal{H}^s$ measure — a supremum over a subfamily, not an existence claim. | ✅ `⨆ C : Set X, ⨆ (_ : IsCompact C), ⨆ (_ : μH[s] C < ∞), μH[s] C`. |
 | 4 | The two sides are asserted **equal**, so both inequalities are claimed. | ✅ A single equation. The `≥` half is monotonicity; the `≤` half is the content. |
@@ -40,6 +40,7 @@ wrong, even if it compiles.
 | 4 | Passing to real numbers through `ENNReal.toReal`. | `toReal` sends `∞` to `0`, so the equality would silently become `0 = 0` in the infinite case. |
 | 5 | Dropping `[CompactSpace X]`. | Compactness of the ambient space is a genuine hypothesis of 8.19. |
 | 6 | Comparing the finiteness condition against a real bound, e.g. `∃ M : ℝ, μH[s] C ≤ ENNReal.ofReal M`. | This is equivalent in substance but needlessly reintroduces reals; the direct `< ∞` is the intended condition. |
+| 7 | Quantifying over all real $s$, without $0 \le s$. | Mattila defines $\mathcal{H}^s$ only for $s \ge 0$, and for $s < 0$ mathlib's `μH[s]` is a junk object assigning $\infty$ to every nonempty set. The only compact subsets of finite measure are then empty, so for nonempty $X$ the identity would read $\infty = 0$ — provably false. The ground truth incorporates this repair as `hs : 0 ≤ s`. |
 
 ## Notes on the ground truth
 
@@ -54,7 +55,12 @@ wrong, even if it compiles.
   content.
 - The statement is universe-polymorphic in `X`, which keeps the book's generality. Specializing to
   `EuclideanSpace ℝ (Fin n)` would not be unfaithful, just narrower.
-- No positivity of `s` is assumed, matching the printed statement.
+- `0 ≤ s` is assumed even though the printed statement does not spell it out: Mattila defines
+  $\mathcal{H}^s$ only for $s \ge 0$, while mathlib's `μH[s]` is total in `s` and for `s < 0` is a
+  junk object equal to `∞` on every nonempty set. Without the hypothesis the equality would be false
+  for every nonempty `X` (left side `∞`, right side `0`, since only `C = ∅` has finite measure) —
+  see Mistake 7. Strict positivity is *not* assumed: `s = 0` is genuine (counting measure) and the
+  theorem holds there.
 
 ## Grading (out of 100)
 

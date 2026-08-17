@@ -55,8 +55,9 @@ wrong, even if it compiles.
   $\lvert s(\bigcup_{k \ge n} A_k)\rvert < \varepsilon$ for all $s \in S$ and all $n \ge N$. By
   countable additivity the measure of the tail union equals the tail series of Definition 4.6.2, so
   this matches the book without needing a separate convergence side condition.
-  `UniformlyBoundedInTotalVariation S` says there is one $C$ with $\lvert s\rvert(X) \le C$ for all
-  $s \in S$. `UniformlyAbsolutelyContinuous S μ` is the $\varepsilon$–$\delta$ form: for each
+  `UniformlyBoundedInTotalVariation S` is the printed supremum read literally:
+  `⨆ s : S, (s : SignedMeasure Ω).totalVariation univ < ∞`, taken in `ℝ≥0∞` where it is a genuine
+  least upper bound. `UniformlyAbsolutelyContinuous S μ` is the $\varepsilon$–$\delta$ form: for each
   $\varepsilon > 0$ there is $\delta > 0$ such that $\mu(A) \le \delta$ forces
   $\lvert s(A)\rvert < \varepsilon$ for all $s \in S$.
 - `range s` turns the sequence into the family that the `Uniformly…` predicates take, so the same
@@ -64,9 +65,10 @@ wrong, even if it compiles.
 - The $\varepsilon$–$\delta$ comparison `μ A ≤ ENNReal.ofReal δ` happens in `ℝ≥0∞`, so sets of
   infinite measure are handled correctly; `|s A| < ε` is an honest inequality between reals because
   signed measures take finite values.
-- Both "there exists a bound $C$" formulations (in requirement 5 and in
-  `UniformlyBoundedInTotalVariation`) could equally be written as `⨆ … < ∞`, which would read closer
-  to the printed suprema. The `∃ C` form is equivalent.
+- The boundedness of $\alpha$ in requirement 5 is written as `∃ C : ℝ≥0, ∀ t, α t ≤ C`, while
+  `UniformlyBoundedInTotalVariation` uses the supremum form `⨆ … < ∞`. The two spellings are
+  equivalent (in `ℝ≥0∞` the supremum is a genuine least upper bound), and a candidate may use
+  either for either clause.
 - Absolute continuity of a signed measure with respect to a measure is written with Mathlib's
   vector-measure relation `≪ᵥ` against `toENNRealVectorMeasure`, the standard way to compare the
   two types.

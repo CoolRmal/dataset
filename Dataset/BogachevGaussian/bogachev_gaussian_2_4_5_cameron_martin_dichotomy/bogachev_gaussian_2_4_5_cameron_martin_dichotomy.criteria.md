@@ -11,7 +11,8 @@ at most $1$; this number may be $+\infty$. The theorem is an all-or-nothing dich
 $\lvert h\rvert_{H(\gamma)} = \infty$, then $\gamma_h$ and $\gamma$ live on disjoint sets — they are
 mutually singular. If $\lvert h\rvert_{H(\gamma)} < \infty$, then $\gamma_h$ and $\gamma$ have
 exactly the same null sets — they are equivalent. Consequently the Cameron–Martin space is exactly
-the set of shifts that leave $\gamma$ equivalent to itself.
+the set of shifts that leave $\gamma$ equivalent to itself, and coincides with
+$X \cap R_\gamma(X^*)$, the set of vectors representing $R_\gamma(f)$ for some $f \in X^*$.
 
 ## What a correct formalization must contain
 
@@ -28,8 +29,8 @@ choices behind them.
 | 4 | The shift $\gamma_h = \gamma(\cdot - h)$ is the pushforward of $\gamma$ under translation by $h$. | ✅ `γ.map (· + h)`, whose value on a set `A` is `γ (A - h)`. |
 | 5 | Part (i): if $\lvert h\rvert_{H(\gamma)} = \infty$ then $\gamma_h$ and $\gamma$ are mutually singular, for every such $h$. | ✅ `∀ h : E, cameronMartinNorm γ h = ∞ → (γ.map (· + h)) ⟂ₘ γ`. |
 | 6 | Part (ii): if $\lvert h\rvert_{H(\gamma)} < \infty$ then $\gamma_h$ and $\gamma$ are equivalent, meaning each is absolutely continuous with respect to the other. | ✅ `∀ h : E, cameronMartinNorm γ h ≠ ∞ → Equivalent (γ.map (· + h)) γ`, with `Equivalent μ ν := μ ≪ ν ∧ ν ≪ μ`. |
-| 7 | The consequence (2.4.3): the Cameron–Martin space equals the set of $h$ with $\gamma_h \sim \gamma$, and equals $X \cap R_\gamma(X^*)$. | ✅ Both equalities: `cameronMartinSpace γ = {h | Equivalent (γ.map (· + h)) γ}` and `cameronMartinSpace γ = covarianceRange γ`, where `covarianceRange` is `{h | ∃ f : StrongDual ℝ E, ∀ g, g h = ∫ (f - γ[f])(g - γ[g]) ∂γ}` — the vectors of $X$ representing $R_\gamma(f)$ for some $f \in X^*$. |
-| 8 | All three assertions appear in one statement. | ✅ A three-fold conjunction. |
+| 7 | The consequence (2.4.3): the Cameron–Martin space equals the set of $h$ with $\gamma_h \sim \gamma$, and equals $X \cap R_\gamma(X^*)$. | ✅ Both equalities: `cameronMartinSpace γ = {h \| Equivalent (γ.map (· + h)) γ}` and `cameronMartinSpace γ = covarianceRange γ`, where `covarianceRange` is `{h \| ∃ f : StrongDual ℝ E, ∀ g, g h = covarianceForm γ f g}` — the vectors of $X$ representing $R_\gamma(f)$ for some $f \in X^*$. |
+| 8 | All three assertions appear in one statement. | ✅ A single conjunction containing (i), (ii) and the two equalities of (2.4.3). |
 
 ## Mistakes to check for
 
@@ -48,8 +49,8 @@ wrong, even if it compiles.
 
 ## Notes on the ground truth
 
-- Bogachev works on a locally convex space; the Lean statement is on a normed space, which is where Mathlib's `IsGaussian` lives. This narrows the scope but not the mathematical content.
-- The final clause $H(\gamma) = X \cap R_\gamma(X^*)$ of (2.4.3) is omitted, because $R_\gamma$ is not introduced anywhere in this formalization. The two retained equalities are the ones used throughout the rest of the book.
+- Bogachev works on a locally convex space, and so does the Lean statement: `[AddCommGroup E] [Module ℝ E] [TopologicalSpace E] [IsTopologicalAddGroup E] [ContinuousSMul ℝ E] [LocallyConvexSpace ℝ E]` with a Borel measurable structure. Mathlib's `IsGaussian` needs only a topological `ℝ`-module, so no normed structure is imposed. A candidate restricting to a Banach space narrows the scope but not the mathematical content.
+- The final clause $H(\gamma) = X \cap R_\gamma(X^*)$ of (2.4.3) is included: `covarianceRange γ` in `Defs.lean` is `{h | ∃ f : StrongDual ℝ E, ∀ g : StrongDual ℝ E, g h = covarianceForm γ f g}` — the vectors of $X$ that represent $R_\gamma(f)$ for some $f \in X^*$ — and the last conjunct asserts `cameronMartinSpace γ = covarianceRange γ`. The middle equality $H(\gamma) = \{h : \lvert h\rvert_{H(\gamma)} < \infty\}$ of (2.4.3) is the *definition* of `cameronMartinSpace` and so is not restated.
 - `cameronMartinNorm` uses `ENNReal.ofReal (f h)`, which clamps negative values to $0$. This is harmless: the index set is symmetric ($f$ has variance at most $1$ exactly when $-f$ does), so the supremum is unchanged.
 - `Equivalent` is our own two-line definition because Mathlib has `≪` and `⟂ₘ` but no bundled notion of equivalent measures. Both `≪` and `⟂ₘ` are taken from Mathlib.
 

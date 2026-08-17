@@ -49,7 +49,7 @@ wrong, even if it compiles.
 - The Lean writes the literal Minkowski sum `A + Metric.closedBall 0 r`, which is $\{z : \exists x \in A,\ \lVert z - x\rVert \le r\}$. For a non-closed $A$ the distance-based set $\{z : \operatorname{dist}(z,A) \le r\}$ can be slightly larger, because the infimum defining the distance need not be attained. The Minkowski sum is the smaller set, so our statement is the stronger of the two, and it is also the literal reading of Bogachev's $A + rU$. **Repair:** the `.md` notation block used to gloss $A + rU$ as the distance-based set; it now states the Minkowski sum, so the `.md` and the Lean agree.
 - `A + closedBall 0 r` is deliberately given no measurability hypothesis, matching the printed theorem, which assumes measurability of $A$ only. Mathlib measures are defined on every set (they extend to outer measures), so the expression is meaningful; where the sum happens to be non-Borel, the outer measure value is used, which only makes the asserted inequality stronger. For Borel $A$ the sum is in any case a continuous image of $A \times rU$, hence Souslin and so measurable for the completed measure — this is exactly the point Bogachev isolates in Lemma 4.3.2 for the infinite dimensional version.
 - `(stdGaussian _ A).toReal` is safe: `stdGaussian` is a probability measure, so the value is in $[0,1]$ and the `∞ ↦ 0` truncation of `toReal` never fires.
-- The inequality also holds trivially at $r = 0$. We require `0 < r` because that is what the text prints.
+- The inequality also holds trivially at $r = 0$. The Lean states it for `hr : 0 ≤ r`, a harmless strengthening of the printed hypothesis $r > 0$; a candidate writing `0 < r` matches the print exactly and is equally acceptable (requirement row 5).
 - `quantile` is shared with the Ehrhard problem via `Defs.lean`.
 
 ## Grading (out of 100)
@@ -82,4 +82,4 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 - The enlargement is the Minkowski sum with the *closed* ball, which for a non-closed $A$ is strictly smaller than $\{z : \operatorname{dist}(z,A) \le r\}$. The Minkowski form is the printed statement and the stronger claim.
 - The ball is the Euclidean one, so the ambient space must carry the inner-product norm.
 - `Measure.toReal` on `γ A` is harmless because $\gamma_n$ is a probability measure, but it would be a junk conversion for a measure that could be infinite.
-- $r > 0$ as printed; the inequality also holds at $r = 0$, so requiring $0 < r$ is a harmless narrowing rather than an error.
+- The text prints $r > 0$; the ground truth assumes only $0 \le r$, under which the inequality still holds ($r = 0$ is trivial). Either form is acceptable: `0 ≤ r` is a harmless strengthening of the theorem, and `0 < r` is the literal print.

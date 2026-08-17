@@ -16,7 +16,7 @@ namespace LeeSmoothManifolds
 
 universe u v
 
-/-- Lee 7.8, the (Fin rank → ℝ) theorem. -/
+/-- Lee 7.8, the rank theorem in Euclidean space. -/
 theorem lee_7_8_rank_theorem
     {m n k : ℕ} {U : Set ((Fin m → ℝ))} {V : Set ((Fin n → ℝ))}
     {F : (Fin m → ℝ) → (Fin n → ℝ)} {p : (Fin m → ℝ)}

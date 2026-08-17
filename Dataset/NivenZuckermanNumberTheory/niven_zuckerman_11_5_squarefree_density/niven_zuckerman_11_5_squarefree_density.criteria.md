@@ -79,7 +79,7 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 ### Fatal — any of these caps the total at 25
 
 - Requirement 1 with Schnirelmann density in place of natural density.
-- Requirement 5 with a limsup or a subsequential limit rather than the existence of the limit.
+- Requirement 1 or 6 with a limsup or a subsequential limit rather than the existence of the limit.
 - Requirement 3 with a definition of square-free that excludes $1$ or admits squares.
 
 ### Domain-specific pitfalls for this problem

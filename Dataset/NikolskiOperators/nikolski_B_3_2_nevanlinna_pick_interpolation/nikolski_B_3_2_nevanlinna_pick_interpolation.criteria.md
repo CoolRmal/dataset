@@ -23,12 +23,12 @@ choices behind them.
 | 2 | The nodes are pairwise distinct. | ✅ `hz_injective : Function.Injective z`. |
 | 3 | The competitors are Schur functions: analytic on the disc with modulus at most $1$ there. | ✅ `SchurFunction f` = `HardyClass ⊤ f ∧ ∀ z ∈ Metric.ball (0 : ℂ) 1, ‖f z‖ ≤ 1`. |
 | 4 | The interpolation conditions hold at every node. | ✅ `∀ i : Fin n, f (z i) = w i`, inside the definition of `solutions`. |
-| 5 | Solvability is equivalent to positive semidefiniteness of the Pick matrix. | ✅ `solutions.Nonempty ↔ PositiveSemidefiniteMatrix (PickMatrix z w)`. |
-| 6 | The Pick matrix has entries $\frac{1 - w_i\bar w_j}{1 - \lambda_i\bar\lambda_j}$, with the conjugate on the second index. | ✅ `PickMatrix z w i j = (1 - w i * star (w j)) / (1 - z i * star (z j))`. |
+| 5 | Solvability is equivalent to positive semidefiniteness of the Pick matrix. | ✅ `solutions.Nonempty ↔ PositiveSemidefiniteMatrix (pickMatrix z w)`. |
+| 6 | The Pick matrix has entries $\frac{1 - w_i\bar w_j}{1 - \lambda_i\bar\lambda_j}$, with the conjugate on the second index. | ✅ `pickMatrix z w i j = (1 - w i * star (w j)) / (1 - z i * star (z j))`. |
 | 7 | Positive semidefiniteness is the Hermitian quadratic form condition $\sum_{i,j}\bar c_i A_{ij} c_j \ge 0$ for every coefficient vector. | ✅ `PositiveSemidefiniteMatrix A = ∀ c, 0 ≤ Complex.re (∑ i, ∑ j, star (c i) * A i j * c j)`. |
 | 8 | The uniqueness half is conditioned on solvability. | ✅ `solutions.Nonempty → (… ↔ …)`. |
 | 9 | Uniqueness means that any two solutions agree **on the disc**. | ✅ `∀ f ∈ solutions, ∀ g ∈ solutions, Set.EqOn f g (Metric.ball (0 : ℂ) 1)`. |
-| 10 | Degeneracy of the Pick matrix is singularity. | ✅ `Matrix.det (PickMatrix z w) = 0`; `Matrix.rank < n` would be equally faithful. |
+| 10 | Degeneracy of the Pick matrix is singularity. | ✅ `Matrix.det (pickMatrix z w) = 0`; `Matrix.rank < n` would be equally faithful. |
 
 ## Mistakes to check for
 

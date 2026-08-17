@@ -23,9 +23,9 @@ choices behind them.
 | 1 | $S$ is a metric space with its Borel measurable structure, and all measures involved are probability measures. | ✅ `[MetricSpace S] [MeasurableSpace S] [BorelSpace S]`, `[IsProbabilityMeasure μ] [IsProbabilityMeasure μ']`. |
 | 2 | The random elements are measurable maps into $S$. | ✅ `hξn : ∀ n, AEMeasurable (ξn n) μ` and `hξ : AEMeasurable ξ μ'`, stated as standalone hypotheses. |
 | 3 | Condition (i) is weak convergence of the laws. | ✅ `TendstoInDistribution ξn atTop ξ (fun _ ↦ μ) μ'`, which is `Tendsto` of the pushforward laws inside `ProbabilityMeasure S`, the space carrying the weak topology. |
-| 4 | Condition (ii): for every open $G$, the limit inferior of $P\{\xi_n \in G\}$ is at least $P\{\xi \in G\}$. | ✅ `∀ G : Set S, IsOpen G → μ' (ξ ⁻¹' G) ≤ liminf (fun n ↦ μ (ξn n ⁻¹' G)) atTop`. |
-| 5 | Condition (iii): for every closed $F$, the limit superior of $P\{\xi_n \in F\}$ is at most $P\{\xi \in F\}$. | ✅ `∀ F : Set S, IsClosed F → limsup (fun n ↦ μ (ξn n ⁻¹' F)) atTop ≤ μ' (ξ ⁻¹' F)`. |
-| 6 | Condition (iv) applies to measurable sets $B$ whose *boundary in $S$* is null for the law of $\xi$, and asserts full convergence of the probabilities. | ✅ `∀ B : Set S, MeasurableSet B → μ' (ξ ⁻¹' frontier B) = 0 → Tendsto (fun n ↦ μ (ξn n ⁻¹' B)) atTop (𝓝 (μ' (ξ ⁻¹' B)))`. |
+| 4 | Condition (ii): for every open $G$, the limit inferior of $P\{\xi_n \in G\}$ is at least $P\{\xi \in G\}$. | ✅ `∀ G : Set S, IsOpen G → (μ'.map ξ) G ≤ liminf (fun n ↦ (μ.map (ξn n)) G) atTop`. |
+| 5 | Condition (iii): for every closed $F$, the limit superior of $P\{\xi_n \in F\}$ is at most $P\{\xi \in F\}$. | ✅ `∀ F : Set S, IsClosed F → limsup (fun n ↦ (μ.map (ξn n)) F) atTop ≤ (μ'.map ξ) F`. |
+| 6 | Condition (iv) applies to measurable sets $B$ whose *boundary in $S$* is null for the law of $\xi$, and asserts full convergence of the probabilities. | ✅ `∀ B : Set S, MeasurableSet B → (μ'.map ξ) (frontier B) = 0 → Tendsto (fun n ↦ (μ.map (ξn n)) B) atTop (𝓝 ((μ'.map ξ) B))`. |
 | 7 | All four conditions are asserted equivalent in one statement, in the order printed. | ✅ `List.TFAE [lawsConverge, openLowerBound, closedUpperBound, continuitySets]`. |
 
 ## Mistakes to check for
@@ -36,7 +36,7 @@ wrong, even if it compiles.
 | # | Mistake | Why it is wrong |
 |---|---------|-----------------|
 | 1 | Pairing open sets with `limsup ≤` and closed sets with `liminf ≥`. | The directions are swapped and the resulting statement is false. Take $\xi_n$ a point mass at $1/n$ and $\xi$ a point mass at $0$, with $G = (0, \infty)$: $P\{\xi_n \in G\} = 1$ for every $n$ while $P\{\xi \in G\} = 0$. |
-| 2 | Replacing `μ' (ξ ⁻¹' frontier B)` by `μ' (frontier (ξ ⁻¹' B))`. | The sample space has no topology, so the boundary of a subset of it is not defined. The condition is about the boundary of $B$ inside $S$, pulled back through $\xi$. |
+| 2 | Taking the boundary of the preimage, `μ' (frontier (ξ ⁻¹' B))`, instead of the boundary of $B$ in $S$ — i.e. instead of `(μ'.map ξ) (frontier B)`. | The sample space has no topology, so the boundary of a subset of it is not defined. The condition is about the boundary of $B$ inside $S$, pulled back through $\xi$. |
 | 3 | Dropping `MeasurableSet B` in condition (iv). | The text's class of $\xi$-continuity sets is a subclass of the Borel sets. Without measurability the two sides are outer measures rather than probabilities, condition (iv) is no longer implied by (i), and the equivalence breaks. |
 | 4 | Stating (i) as `Tendsto (fun n ↦ μ.map (ξn n)) atTop (𝓝 (μ'.map ξ))` inside `Measure S`. | The topology on `Measure S` is not the topology of weak convergence, so this is a different — and generally false — assertion. |
 | 5 | Replacing (i) by almost-sure convergence or convergence in measure. | Both are strictly stronger than convergence in distribution, so the implications from (ii)–(iv) back to (i) fail. They are also inexpressible when the $\xi_n$ and $\xi$ live on different spaces. |

@@ -19,12 +19,12 @@ choices behind them.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
-| 1 | The algebra is a *unital* $C^*$-algebra. Items (d) and (e) subtract a scalar from $a$, so a unit must exist. | ✅ `[CStarAlgebra A]`, which is Mathlib's unital class (`NonUnitalCStarAlgebra` is the other one), and the scalar enters as `algebraMap ℂ A (t : ℂ)`. |
+| 1 | The algebra is a *unital* $C^*$-algebra. Items (d) and (e) subtract a scalar from $a$, so a unit must exist. | ✅ `[CStarAlgebra A]`, which is Mathlib's unital class (`NonUnitalCStarAlgebra` is the other one), and the scalar enters as `(t : ℝ) • (1 : A)`, a real multiple of the unit. |
 | 2 | Item (a) is positivity in the $C^*$-order, which Conway defines spectrally: $a = a^*$ and $\sigma(a) \subseteq [0,\infty)$. | ✅ `0 ≤ a` with respect to `[PartialOrder A] [StarOrderedRing A]`, Mathlib's interface for that order (it is not an instance on `CStarAlgebra`, to avoid diamonds; `CStarAlgebra.spectralOrder`/`spectralOrderedRing` build it). `StarOrderedRing.nonneg_iff_spectrum_nonneg` shows it agrees with Conway's definition. |
 | 3 | Item (b): $a = b^2$ for some $b$ in the self-adjoint part $\operatorname{Re}\mathcal{A}$ — both the self-adjointness of $b$ and the equation are needed. | ✅ `∃ b : A, IsSelfAdjoint b ∧ a = b ^ 2`. |
 | 4 | Item (c): $a = x^*x$ for some $x$, with no condition on $x$. | ✅ `∃ x : A, a = star x * x`. |
-| 5 | Item (d): $a$ self-adjoint **and** $\lVert t - a\rVert \le t$ for **all** real $t \ge \lVert a\rVert$. | ✅ `IsSelfAdjoint a ∧ ∀ t : ℝ, ‖a‖ ≤ t → ‖algebraMap ℂ A (t : ℂ) - a‖ ≤ t`. |
-| 6 | Item (e): $a$ self-adjoint **and** $\lVert t - a\rVert \le t$ for **some** real $t \ge \lVert a\rVert$. | ✅ `IsSelfAdjoint a ∧ ∃ t : ℝ, ‖a‖ ≤ t ∧ ‖algebraMap ℂ A (t : ℂ) - a‖ ≤ t`. |
+| 5 | Item (d): $a$ self-adjoint **and** $\lVert t - a\rVert \le t$ for **all** real $t \ge \lVert a\rVert$. | ✅ `IsSelfAdjoint a ∧ ∀ t : ℝ, ‖a‖ ≤ t → ‖(t : ℝ) • (1 : A) - a‖ ≤ t`. |
+| 6 | Item (e): $a$ self-adjoint **and** $\lVert t - a\rVert \le t$ for **some** real $t \ge \lVert a\rVert$. | ✅ `IsSelfAdjoint a ∧ ∃ t : ℝ, ‖a‖ ≤ t ∧ ‖(t : ℝ) • (1 : A) - a‖ ≤ t`. |
 | 7 | The self-adjointness clause appears in **both** (d) and (e), not just in (d). | ✅ Both `let`s open with `IsSelfAdjoint a ∧ …`. |
 | 8 | All five items form one equivalence, with (d) and (e) kept apart. | ✅ `List.TFAE [0 ≤ a, hermitianSquare, starSquare, normBoundForAll, normBoundForSome]` — a list of length 5. |
 
@@ -83,7 +83,7 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 ### Domain-specific pitfalls for this problem
 
 - $\operatorname{Re}\mathcal{A}$ is the self-adjoint part of the algebra, not a real part of a scalar; item (b) requires $b$ self-adjoint *and* $a = b^2$.
-- $t$ is a real scalar acting through the unit: $t - a$ is $t \cdot 1 - a$, so the statement needs the algebra map from the scalars.
+- $t$ is a real scalar acting through the unit: $t - a$ is $t \cdot 1 - a$, so the statement must route $t$ through the unit — `(t : ℝ) • (1 : A)` or `algebraMap ℝ A t` both do it.
 - (d) quantifies over all $t \ge \lVert a\rVert$ and (e) over some such $t$; collapsing them loses the theorem's point.
 - Which partial order `0 ≤ a` refers to matters. In Mathlib the order on a $C^*$-algebra comes from `StarOrderedRing`, whose defining property already relates positivity to sums of elements $x^*x$; a candidate should not be scored as having proved (a) ⇔ (c) for free, but nor is using that order an error.
 - Item (c) puts no condition on $x$ at all.

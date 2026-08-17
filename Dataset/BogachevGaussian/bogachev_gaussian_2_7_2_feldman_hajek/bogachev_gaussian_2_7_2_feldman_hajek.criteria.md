@@ -42,7 +42,7 @@ wrong, even if it compiles.
 
 ## Notes on the ground truth
 
-- Bogachev states the theorem on a locally convex space. We state it on a normed space with a Borel structure, because that is where Mathlib's `IsGaussian` lives. This narrows the scope but not the mathematical content. A candidate that states it on a locally convex space with a hand-written Gaussianity predicate is at least as faithful, provided the predicate matches Definition 2.2.1 (every continuous linear functional has a real Gaussian law).
+- Bogachev states the theorem on a locally convex space, and so does the Lean: `[AddCommGroup E] [Module ℝ E] [TopologicalSpace E] [IsTopologicalAddGroup E] [ContinuousSMul ℝ E] [LocallyConvexSpace ℝ E]` with a Borel structure, which requirement row 6 records. A candidate that restricts to a normed or Banach space narrows the scope but not the mathematical content; a hand-written Gaussianity predicate is equally faithful provided it matches Definition 2.2.1 (every continuous linear functional has a real Gaussian law).
 - `Equivalent` is our own definition, in `Defs.lean`, because Mathlib supplies `≪` and `⟂ₘ` but no bundled notion of equivalent measures. A candidate writing `μ ≪ ν ∧ ν ≪ μ` inline is equally correct.
 - The statement contains no suprema, integrals or `toReal` conversions, so there is no place where a Lean default value could make it true for the wrong reason. The only modelling choice is the ambient space.
 

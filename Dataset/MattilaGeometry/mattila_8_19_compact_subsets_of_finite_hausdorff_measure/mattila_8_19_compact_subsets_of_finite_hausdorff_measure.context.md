@@ -6,4 +6,4 @@ Background needed to read the statement correctly. Natural language only: no Lea
 
 ## Notation
 
-The supremum is over compact subsets of **finite** $\mathcal{H}^s$ measure. Nothing forces $\mathcal{H}^s(X)$ to be finite, and the case $\mathcal{H}^s(X)=\infty$ is where the content lies.
+$\mathcal{H}^s$ is defined for exponents $s \ge 0$ only. The supremum is over compact subsets of **finite** $\mathcal{H}^s$ measure. Nothing forces $\mathcal{H}^s(X)$ to be finite, and the case $\mathcal{H}^s(X)=\infty$ is where the content lies.

@@ -48,7 +48,7 @@ wrong, even if it compiles.
 
 ## Notes on the ground truth
 
-- `SecondOrderEllipticOperator` is built on `EllipticOperatorData 2 L`, which carries a positive ellipticity constant and the bound $\kappa\lVert\xi\rVert^2 \le \sum_{\lvert\alpha\rvert = 2} a^\alpha(x)\xi^\alpha$. Krylov's maximum principle needs only degenerate ellipticity ($a \ge 0$ as a quadratic form). Assuming full uniform ellipticity only restricts the theorem, so it stays true, but it is more than the text asks for.
+- `SecondOrderEllipticOperator` is built on `EllipticOperatorData 2 L`, which carries a positive ellipticity constant and the bound $\kappa\lVert\xi\rVert^2 \le \sum_{\lvert\alpha\rvert = 2} a^\alpha(x)\xi^\alpha$ (the parity factor $(-1)^{m/2+1}$ in `principalSymbol` is $+1$ at $m = 2$). Krylov's maximum principle needs only degenerate ellipticity ($a \ge 0$ as a quadratic form). Assuming full uniform ellipticity only restricts the theorem, so it stays true, but it is more than the text asks for.
 - The uniform coefficient bound also covers $c$. That is harmless, because $c \le -\lambda$ is only a one-sided condition.
 - `EllipticOperatorData.formula` is quantified over *all* input functions, including nowhere-differentiable ones where `multiDerivative` returns $0$. So $L$ is pinned down as literally the junk-extended differential expression, rather than as an operator that merely agrees with it on $C^2$ functions.
 - `functionSupNorm Ω (fun x ↦ max (u x) 0)` really is $\sup_\Omega u^+$, since the inner absolute value is applied to a quantity that is already nonnegative.

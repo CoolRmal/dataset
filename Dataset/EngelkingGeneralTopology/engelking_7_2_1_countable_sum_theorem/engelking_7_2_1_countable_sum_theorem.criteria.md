@@ -49,8 +49,14 @@ wrong, even if it compiles.
 - Mathlib has no covering dimension, so `CoveringDimensionLE` and `CoverOrderLE` are hand-rolled in
   `Defs.lean` and must be read literally. `Fin m`-indexed finite families, `IsOpen`, `IsClosed` and
   `Finset.card` are the right primitives.
-- `CoverOrderLE` counts *distinct sets*, so a refinement that lists the same set twice is not
-  penalised; the order of a cover is about how many members contain a point.
+- `CoverOrderLE` counts *indices*: the `Finset ι` in the row-9 quote ranges over the refinement's
+  index type, so a refinement that lists the same set under two indices is charged for both. This
+  matches the .md's "no point belongs to more than $n+1$ members" read letter for letter. Because
+  the order condition applies only to the existentially produced refinement, a candidate counting
+  distinct member sets instead defines an equivalent `CoveringDimensionLE` — any refinement can be
+  re-indexed by its distinct members — and should not be penalised. An earlier version of
+  `Defs.lean` counted distinct sets; the current ground truth incorporates the index-counting
+  repair.
 - Engelking's "normal space" includes $T_1$, and `[T1Space X]` is assumed alongside `[NormalSpace X]`.
 - The closed cover is supplied as data with its three properties as separate hypotheses, so the
   theorem reads as Engelking states it.

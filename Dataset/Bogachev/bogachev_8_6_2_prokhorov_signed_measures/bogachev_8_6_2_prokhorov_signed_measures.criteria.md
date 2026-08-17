@@ -23,9 +23,9 @@ choices behind them.
 |---|-------------|-------------------------------|
 | 1 | The family consists of finite signed Borel measures. | ✅ `S : Set (SignedMeasure X)`. |
 | 2 | The space is a complete metric space carrying its Borel $\sigma$-algebra. | ✅ `[MetricSpace X] [CompleteSpace X] [MeasurableSpace X] [BorelSpace X]`. |
-| 3 | Weak convergence is tested against every bounded continuous real function. | ✅ `weakly_converges_signed`, quantified over `f : X →ᵇ ℝ`. |
+| 3 | Weak convergence is tested against every bounded continuous real function. | ✅ `WeaklyConvergesSigned`, quantified over `f : X →ᵇ ℝ`. |
 | 4 | The integral of $f$ against a signed measure is defined through the Jordan decomposition, $\int f\,d\mu^+ - \int f\,d\mu^-$. | ✅ `signedMeasureIntegral` in `Defs.lean`; both parts are finite measures and $f$ is bounded continuous, so both integrals genuinely exist. |
-| 5 | Condition (i) is *relative* sequential compactness: every sequence in $M$ has a subsequence converging weakly to some limit, and the limit need not lie in $M$. | ✅ `relatively_sequentially_weakly_compact_signed`: `∃ φ, StrictMono φ ∧ ∃ t, weakly_converges_signed …`, with `t` unconstrained. |
+| 5 | Condition (i) is *relative* sequential compactness: every sequence in $M$ has a subsequence converging weakly to some limit, and the limit need not lie in $M$. | ✅ `RelativelySequentiallyWeaklyCompactSigned`: `∃ φ, StrictMono φ ∧ ∃ t, WeaklyConvergesSigned …`, with `t` unconstrained. |
 | 6 | Condition (ii) part one: uniform tightness, meaning tightness of the family of total variations. | ✅ `IsTightMeasureSet ((fun s ↦ s.totalVariation) '' S)`. |
 | 7 | Condition (ii) part two: the variation norms are uniformly bounded. | ✅ `UniformlyBoundedInTotalVariation S`, now defined as `⨆ s : S, (s : SignedMeasure Ω).totalVariation univ < ∞` — the printed supremum read literally, taken in `ℝ≥0∞` where it is a genuine least upper bound. |
 | 8 | The two conditions are equivalent — the statement is an "if and only if", not one implication. | ✅ Both halves are stated with `↔`. |
@@ -50,7 +50,7 @@ wrong, even if it compiles.
 ## Notes on the ground truth
 
 - Mathlib has weak convergence only for nonnegative finite measures, so `signedMeasureIntegral`,
-  `weakly_converges_signed` and `relatively_sequentially_weakly_compact_signed` are defined in
+  `WeaklyConvergesSigned` and `RelativelySequentiallyWeaklyCompactSigned` are defined in
   `Defs.lean`. They are thin wrappers: the integral uses `toJordanDecomposition`, and tightness
   reuses Mathlib's `MeasureTheory.IsTightMeasureSet` on the image family.
 - "Separable metric space" is carried as `SecondCountableTopology X`, which for metric spaces is the

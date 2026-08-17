@@ -24,7 +24,7 @@ choices behind them.
 | 2 | Both properties of $X$ sit inside the biconditional, not among the hypotheses. | ✅ `NormalSpace X` and `IsCountablyParacompact X` are conjuncts, not instance binders. |
 | 3 | The $T_1$ axiom is present, since Engelking's "normal" includes it while mathlib's `NormalSpace` does not. | ✅ `[T1Space X]` as an instance hypothesis. |
 | 4 | Countable paracompactness carries Engelking's Hausdorff conjunct. | ✅ `IsCountablyParacompact X := T2Space X ∧ …`. |
-| 5 | It restricts to **countable** open covers. | ✅ `∀ (ι : Type v) (_ : Countable ι) (U : ι → Set X), IsOpenCover U → …`. |
+| 5 | It restricts to **countable** open covers. | ✅ `∀ (ι : Type u) (_ : Countable ι) (U : ι → Set X), IsOpenCover U → …`. |
 | 6 | The refinement it produces is again an open cover of $X$ — open members and union everything. | ✅ `IsOpenCover V`, where `IsOpenCover V := (∀ i, IsOpen (V i)) ∧ ⋃ i, V i = univ`. |
 | 7 | The refinement relation runs in the right direction: every new member sits inside some old member. | ✅ `Refines V U := ∀ j, ∃ i, V j ⊆ U i`, applied as `Refines V U` with `V` the new family. |
 | 8 | The refinement is locally finite. | ✅ `LocallyFinite V`. |

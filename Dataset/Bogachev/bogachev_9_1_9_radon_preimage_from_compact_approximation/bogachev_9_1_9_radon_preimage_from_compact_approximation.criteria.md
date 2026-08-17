@@ -57,9 +57,10 @@ wrong, even if it compiles.
   *produced* measure, which is the correct reference measure for its own completion.
 - The two parts of the theorem are packaged as one conjunction of implications so that they can
   share `hν`. Splitting into two theorems would be more idiomatic.
-- The sequence `K : ℕ → Set X` is a parameter of the whole declaration even though the second
-  conjunct never mentions it. Harmless: the second conjunct is then asserted for every choice of
-  `K`, which is the same as asserting it once.
+- The sequence `K : ℕ → Set X` is universally quantified inside the first conjunct only; the
+  second conjunct is an independent top-level conjunct that never mentions `K`. A candidate that
+  instead makes `K` a parameter of the whole declaration is logically equivalent (the second
+  conjunct would then be asserted for every choice of `K`, which is the same as asserting it once).
 
 ## Grading (out of 100)
 

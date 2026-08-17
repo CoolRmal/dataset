@@ -20,7 +20,7 @@ choices behind them.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
-| 1 | $f$ is continuous on all of $\mathbb{R}^n$. | ✅ `Continuous f`, the first conjunct of `hf`. |
+| 1 | $f$ is continuous on all of $\mathbb{R}^n$. | ✅ `hcont : Continuous f`, a named hypothesis. |
 | 2 | The decay bound $\lvert f(x)\rvert \le C(1+\lvert x\rvert)^{-n-\delta}$ for *some* $C > 0$ and $\delta > 0$, valid at every $x$. | ✅ `∃ C δ : ℝ, 0 < C ∧ 0 < δ ∧ ∀ x, ‖f x‖ ≤ C * (1 + ‖x‖) ^ (-(n : ℝ) - δ)`, with the existential inside the hypothesis and the exponent a real power on the positive base `1 + ‖x‖`. |
 | 3 | A separate hypothesis that $\widehat f$ restricted to $\mathbb{Z}^n$ is absolutely summable. | ✅ `Summable fun m : Fin n → ℤ ↦ 𝓕 f (WithLp.toLp 2 fun i ↦ (m i : ℝ))`. Over a countable index in `ℂ`, `Summable` is unconditional summability, which is the same as absolute summability. |
 | 4 | $f$ is integrable, so that $\widehat f$ is a genuine integral rather than a default value. | ✅ `hint : Integrable f`, a named hypothesis. It already follows from continuity plus the decay bound, so it is formally redundant and a candidate omitting it is still faithful. |
@@ -45,9 +45,9 @@ wrong, even if it compiles.
 
 ## Notes on the ground truth
 
-- The four hypotheses are bundled into a single anonymous conjunction `hf : Continuous f ∧
-  Integrable f ∧ (∃ C δ, …) ∧ Summable …`. Splitting them into separately named hypotheses would be
-  more usable and more legible; the mathematical content is the same.
+- The four hypotheses are separately named — `hcont : Continuous f`, `hint : Integrable f`,
+  `hdecay : ∃ C δ, …` and `hsummable : Summable …`. A candidate that bundles them into one
+  anonymous conjunction carries the same mathematical content and loses only legibility.
 - `Integrable f` is redundant given continuity and the decay bound, but it makes the encoding
   visibly free of default values: `𝓕 f w` is a Bochner integral and would be `0` for
   non-integrable $f$. A candidate that omits *both* the integrability and the decay has a statement

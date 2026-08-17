@@ -22,10 +22,10 @@ choices behind them.
 |---|-------------|-------------------------------|
 | 1 | $M$ is a smooth manifold of dimension $m$ without boundary, and $N$ one of dimension $n$. | ✅ `[ChartedSpace (Fin m → ℝ) M]` with `[IsManifold 𝓘(ℝ, Fin m → ℝ) ∞ M]`, and the same for `N` with `n`. |
 | 2 | $\Phi$ is smooth, as a hypothesis in its own right. | ✅ `hΦ : ContMDiff 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin n → ℝ) ∞ Φ`. It is not implied by regularity of $c$, which says nothing at points off the level set. |
-| 3 | "$c$ is a regular value": the condition is imposed at **every** point of the fibre $\Phi^{-1}(c)$, not at one point and not on all of $M$. | ✅ `hc : RegularValue Φ c`, which is `∀ p, Φ p = c → Manifold.IsSubmersionAt 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin n → ℝ) ∞ Φ p`. |
-| 4 | The regularity condition must be free of junk values: it must not be satisfiable by a map that has no derivative at all. | ✅ `RegularValue` is now Lee's own condition — `ContMDiffAt` at the point **and** `Function.Surjective (mfderiv … F p)`. The smoothness conjunct is what keeps `mfderiv` from being a default, and surjectivity of the differential is the printed hypothesis rather than a chart normal form. |
+| 3 | "$c$ is a regular value": the condition is imposed at **every** point of the fibre $\Phi^{-1}(c)$, not at one point and not on all of $M$. | ✅ `hc : RegularValue Φ c`, which is `∀ p, Φ p = c → ContMDiffAt 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin n → ℝ) ∞ Φ p ∧ Function.Surjective (mfderiv 𝓘(ℝ, Fin m → ℝ) 𝓘(ℝ, Fin n → ℝ) Φ p)`. |
+| 4 | The regularity condition must be free of junk values: it must not be satisfiable by a map that has no derivative at all. | ✅ `RegularValue` is Lee's own condition — `ContMDiffAt` at the point **and** `Function.Surjective (mfderiv … F p)`. The smoothness conjunct is what keeps `mfderiv` from being a default, and surjectivity of the differential is the printed hypothesis rather than a chart normal form. |
 | 5 | The level set is closed in $M$. | ✅ `IsClosed {p \| Φ p = c}`. |
-| 6 | The same level set is an embedded submanifold, expressed by Lee's local slice condition using a chart from the smooth structure. | ✅ `EmbeddedSubmanifoldOfCodimension (m := m) {p \| Φ p = c} n`, which requires for each point of the set a chart `φ ∈ IsManifold.maximalAtlas 𝓘(ℝ, Fin m → ℝ) ∞ M` with `φ '' (S ∩ φ.source) = {x ∈ φ.target \| ∀ i, m - n ≤ i.1 → x i = 0}`. |
+| 6 | The same level set is an embedded submanifold, expressed by Lee's local slice condition using a chart from the smooth structure. | ✅ `EmbeddedSubmanifoldOfCodimension (m := m) {p \| Φ p = c} n`, which requires the guarded dimension bound `S.Nonempty → n ≤ m` and, for each point of the set, a chart `φ ∈ IsManifold.maximalAtlas 𝓘(ℝ, Fin m → ℝ) ∞ M` with `φ '' (S ∩ φ.source) = {x ∈ φ.target \| ∀ i, m - n ≤ i.1 → x i = 0}`. |
 | 7 | The codimension is exactly $n = \dim N$. | ✅ The last argument is `n`, the model dimension of `N`. |
 | 8 | The statement holds for every regular value, so $c$ and its regularity hypothesis are universally quantified. | ✅ `{c : N}` and `hc` are binders, so the theorem reads "for every $c$ that is a regular value…". |
 
@@ -43,23 +43,26 @@ wrong, even if it compiles.
 | 5 | Dropping the `IsClosed` conjunct. | "Closed embedded submanifold" is two claims about the same set; only one of them is the slice condition. |
 | 6 | Adding a surjectivity or nonemptiness hypothesis on $\Phi$, or requiring $c$ to be in the image. | Lee requires neither. Every value outside the image is vacuously regular and the conclusion is true there; excluding those cases weakens the theorem. |
 | 7 | Dropping `hΦ` because `hc` looks like it already forces smoothness. | `hc` only constrains $\Phi$ at points of the fibre. Off the fibre $\Phi$ would be unconstrained, and the proof needs smoothness everywhere near the fibre. |
+| 8 | Making the conclusion assert the dimension bound $n \le m$ unconditionally, e.g. as a bare conjunct of the submanifold encoding. | When $\dim N > \dim M$ every value of $\Phi$ is still regular (vacuously, the level set being empty), and there Lee's statement is vacuously true; an unguarded $n \le m$ in the conclusion makes the statement provably false in exactly that case. An earlier version of `EmbeddedSubmanifoldOfCodimension` asserted `codim ≤ m` unconditionally and was repaired: the ground truth now guards it as `S.Nonempty → codim ≤ m`. (Adding $n \le m$ as a *hypothesis* instead is not false but needlessly excludes the vacuous cases — a lesser defect.) |
 
 ## Notes on the ground truth
 
-- We render "$d\Phi_p$ is surjective" by Mathlib's `Manifold.IsSubmersionAt`, which asks for charts
-  in which $\Phi$ reads $(u,v) \mapsto u$. `Mathlib/Geometry/Manifold/Submersion.lean` still lists
-  "`mfderiv` surjective ⟹ `IsSubmersionAt` for finite-dimensional manifolds" as a TODO, so as a
-  *hypothesis* `IsSubmersionAt` is formally stronger than Lee's condition and our theorem is
-  formally weaker. Mathematically the two agree here since both manifolds are finite-dimensional.
-  The literal alternative `MDifferentiableAt … Φ p ∧ Surjective (mfderiv … Φ p)` would be closer to
-  the text and equally free of junk values; a candidate using it should be accepted.
+- "$d\Phi_p$ is surjective" is rendered literally: `RegularValue` is
+  `ContMDiffAt … Φ p ∧ Function.Surjective (mfderiv … Φ p)` at every point of the fibre, which is
+  Lee's condition and free of junk values (the smoothness conjunct pins `mfderiv` down). The
+  alternative rendering by Mathlib's `Manifold.IsSubmersionAt`, which asks for charts in which
+  $\Phi$ reads $(u,v) \mapsto u$, is mathematically equivalent for these finite-dimensional
+  manifolds (`Mathlib/Geometry/Manifold/Submersion.lean` still lists "`mfderiv` surjective ⟹
+  `IsSubmersionAt` for finite-dimensional manifolds" as a TODO, so as a *hypothesis* it is formally
+  stronger); a candidate using it should be accepted.
 - `IsClosed` is provable with no separation typeclass on $N$: a `ChartedSpace (Fin n → ℝ) N` is
   automatically T1, so `{c}` is closed and $\Phi$ is continuous.
 - Hausdorffness and second countability are assumed of both manifolds, as Lee's definition of a
   smooth manifold requires.
 - `m - n` inside `EmbeddedSubmanifoldOfCodimension` is truncated natural subtraction. Nothing in a
-  realizable situation reaches the truncated branch (a regular value forces $n \le m$ when the fibre
-  is nonempty), but it is worth checking in candidate statements.
+  realizable situation reaches the truncated branch: the dimension bound is imposed exactly when the
+  level set is nonempty (`S.Nonempty → codim ≤ m`), and a nonempty fibre with a regular value
+  genuinely forces $n \le m$. It is still worth checking in candidate statements.
 
 ## Grading (out of 100)
 

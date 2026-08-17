@@ -8,7 +8,9 @@ Let $\gamma$ be a Gaussian measure. Call a set *invariant* if shifting it by any
 vector does not change its $\gamma$-measure. The zero–one law says such a set has measure exactly
 $0$ or exactly $1$ — nothing in between is possible. The same statement holds for functions: if a
 measurable function $f$ satisfies $f(x+h) = f(x)$ for almost every $x$, for every Cameron–Martin
-vector $h$, then $f$ is almost everywhere equal to a single constant.
+vector $h$, then $f$ is almost everywhere equal to a single constant. The theorem carries
+Bogachev's standing hypothesis $R_\gamma(X^*) \subset X$, under which $H(\gamma) = R_\gamma(X^*)$,
+so the invariance is under exactly the printed family of shifts.
 
 ## What a correct formalization must contain
 
@@ -19,15 +21,16 @@ choices behind them.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
-| 1 | $\gamma$ is an arbitrary Gaussian measure on the ambient space. | ✅ `(γ : Measure E) [IsGaussian γ]` with `[NormedAddCommGroup E] [NormedSpace ℝ E] [MeasurableSpace E] [BorelSpace E]`. |
+| 1 | $\gamma$ is an arbitrary Gaussian measure on the ambient space. | ✅ `(γ : Measure E) [IsGaussian γ]` on Bogachev's locally convex setting: `[AddCommGroup E] [Module ℝ E] [TopologicalSpace E] [IsTopologicalAddGroup E] [ContinuousSMul ℝ E] [LocallyConvexSpace ℝ E] [MeasurableSpace E] [BorelSpace E]`. |
 | 2 | Set half: the set $A$ is measurable. | ✅ `∀ A : Set E, MeasurableSet A → …`. |
 | 3 | Set half: the invariance hypothesis is $\gamma(A+h) = \gamma(A)$, where $A+h$ is the translate $\{x+h : x \in A\}$. | ✅ `γ ((fun x ↦ x + h) '' A) = γ A`. |
-| 4 | The shifts $h$ range over the Cameron–Martin space, not over the whole space and not over a single vector. | ✅ `∀ h ∈ cameronMartinSpace γ` in both halves, on the locally convex space where Bogachev states the theorem. Under his standing hypothesis $R_\gamma(X^*) \subset X$ the two descriptions of the shift group coincide, which 2.4.5 now records explicitly. |
+| 4 | The shifts $h$ range over the Cameron–Martin space, not over the whole space and not over a single vector. | ✅ `∀ h ∈ cameronMartinSpace γ` in both halves, on the locally convex space where Bogachev states the theorem. Under the standing hypothesis `hrange` ($R_\gamma(X^*) \subset X$, row 10) the two descriptions of the shift group coincide, which 2.4.5 also records explicitly. |
 | 5 | Set half: the conclusion is the two-value dichotomy $\gamma(A) \in \{0,1\}$. | ✅ `γ A = 0 ∨ γ A = 1`. |
 | 6 | Function half: $f$ is a measurable real-valued function. | ✅ `∀ f : E → ℝ, Measurable f → …`. |
 | 7 | Function half: the invariance is almost-everywhere for each fixed $h$, not everywhere. | ✅ `∀ h ∈ cameronMartinSpace γ, ∀ᵐ x ∂γ, f (x + h) = f x`. |
 | 8 | Function half: the conclusion is that a single constant works for almost every $x$ — the constant is chosen first, outside the "almost every". | ✅ `∃ c : ℝ, ∀ᵐ x ∂γ, f x = c`. |
 | 9 | Both halves appear in one statement. | ✅ A conjunction of the two. |
+| 10 | Bogachev's standing hypothesis $R_\gamma(X^*) \subset X$: every covariance functional $R_\gamma(f)$ is represented by a vector of the space. | ✅ `hrange : ∀ f : StrongDual ℝ E, ∃ h : E, ∀ g : StrongDual ℝ E, g h = covarianceForm γ f g`. |
 
 ## Mistakes to check for
 
@@ -43,10 +46,11 @@ wrong, even if it compiles.
 | 5 | Assuming the function is invariant everywhere: `∀ x, f (x + h) = f x`. | A strictly stronger hypothesis than the printed one, so a strictly weaker theorem. |
 | 6 | Concluding "$f$ is constant" rather than "$f$ equals a constant almost everywhere". | False as stated: $f$ can be modified on any $\gamma$-null set. |
 | 7 | Interpreting the translate $A+h$ as the preimage $\{x : x + h \in A\}$ without noticing the sign. | That set is $A - h$. It happens to give an equivalent hypothesis here (the Cameron–Martin space is closed under negation), but a candidate should be checked for consistency between the two halves. |
+| 8 | Dropping the standing hypothesis $R_\gamma(X^*) \subset X$ on the mistaken ground that it is automatic. | On a general locally convex space the inclusion is *not* automatic (it is automatic on a normed space, but the theorem is not stated there), and it is what identifies $H(\gamma)$ with $R_\gamma(X^*)$, the shift family Bogachev's proof uses. An earlier version of the ground truth omitted it for exactly this mistaken reason; the current file incorporates the repair as `hrange`. |
 
 ## Notes on the ground truth
 
-- Bogachev's hypothesis is $R_\gamma(X^*) \subset X$, under which $H(\gamma) = R_\gamma(X^*)$, so his shifts are exactly the Cameron–Martin shifts. Our statement uses `cameronMartinSpace γ` directly and works on a normed space, where that inclusion is automatic. This is recorded in the notation block of the `.md`.
+- Bogachev's standing hypothesis is $R_\gamma(X^*) \subset X$, under which $H(\gamma) = R_\gamma(X^*)$, so his shifts are exactly the Cameron–Martin shifts. The Lean records the hypothesis literally as `hrange : ∀ f : StrongDual ℝ E, ∃ h : E, ∀ g : StrongDual ℝ E, g h = covarianceForm γ f g` — every covariance functional is represented by a vector of `E` — and then quantifies the shifts over `cameronMartinSpace γ`. In the locally convex setting of the file this inclusion is genuine content, not decoration: it is automatic on a normed space but not in general. This is recorded in the notation block of the `.md`.
 - `cameronMartinSpace γ = {h \| cameronMartinNorm γ h ≠ ∞}`, and `cameronMartinNorm` is valued in `ℝ≥0∞`. So no vector sneaks into the space through a junk-value supremum of `0`; see the Cameron–Martin dichotomy rubric for why that matters.
 - Bogachev states the theorem for sets and functions measurable with respect to the completed $\gamma$-measurable $\sigma$-algebra. We use plain `MeasurableSet` and `Measurable`, which is a mild restriction — the completed version follows by adjusting on a null set.
 
@@ -60,7 +64,7 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 
 | Band | Points | This problem |
 |---|---|---|
-| A. Completeness | 50 | The requirement table above has 9 rows, so each row is worth 5.6 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
 | B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
 | C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
 | D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |

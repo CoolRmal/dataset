@@ -42,7 +42,7 @@ wrong, even if it compiles.
 | 4 | Dropping the uniqueness clause, or dropping the regularity hypothesis on the competitor $v$. | Existence alone is a weaker theorem, and uniqueness genuinely fails in a larger regularity class. |
 | 5 | Writing `ContDiff ℝ ⊤ ρ` for the smooth defining function. | In current mathlib `⊤` in the smoothness exponent means `ω`, i.e. real-analytic, not $C^\infty$. That is a strictly stronger and different assumption on the domain. |
 | 6 | Defining "regular domain" with a barrier that is only continuous. | `laplacian` is built from `fderiv`, which returns $0$ where the function is not differentiable, so a nowhere-differentiable barrier satisfies $\Delta b \le 0$ for free and the regularity assumption collapses to "open, bounded, nonempty". |
-| 7 | Encoding "$u \in C^{k+2+\delta}(\Omega)$" as finiteness of the Hölder gauge alone. | The gauge is `fderiv`-based, so a bounded nowhere-differentiable function has a finite gauge. Without the `ContDiffOn` clause the conclusion would not deliver a classical solution. |
+| 7 | Encoding "$u \in C^{k+2+\delta}(\Omega)$" as finiteness of the Hölder gauge alone. | The gauge is `fderivWithin`-based and returns $0$ off the differentiability locus, so a bounded nowhere-differentiable function has a finite gauge. Without the `ContDiffOn` clause the conclusion would not deliver a classical solution. |
 | 8 | Taking the Hölder norms over compact subsets of $\Omega$ instead of over $\Omega$ itself. | This is a global (up to the boundary) theorem. A local reading would be a different statement — correct for the interior regularity theorem 7.1.2, wrong here. |
 
 ## Notes on the ground truth

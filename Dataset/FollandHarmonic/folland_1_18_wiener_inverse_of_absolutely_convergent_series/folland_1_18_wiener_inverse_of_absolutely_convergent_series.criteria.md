@@ -24,11 +24,11 @@ choices behind them.
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
 | 1 | The coefficients are indexed by all the integers, so the series is two-sided. | ✅ `a : ℤ → ℂ` and `∑' n : ℤ`. |
-| 2 | The given coefficients are absolutely summable. | ✅ `ha : Summable fun n ↦ ‖a n‖`. |
+| 2 | The given coefficients are absolutely summable. | ✅ `ha : Summable a` — for a family valued in the finite-dimensional `ℂ`, unordered summability coincides with absolute summability, so this is exactly $\sum_n \lvert a_n\rvert < \infty$; see the notes. |
 | 3 | The circle is parameterised by $\theta \mapsto e^{i\theta}$, so the $n$-th term is $a_n e^{in\theta}$. | ✅ `a n * Complex.exp (n * θ * Complex.I)`. |
 | 4 | The sum is nonzero at every point of the circle, not just at some. | ✅ `hne : ∀ θ : ℝ, (∑' n : ℤ, a n * Complex.exp (n * θ * Complex.I)) ≠ 0`. |
 | 5 | The conclusion produces new coefficients. | ✅ `∃ b : ℤ → ℂ`. |
-| 6 | Those new coefficients are absolutely summable. This is the content of the theorem. | ✅ `Summable fun n ↦ ‖b n‖`, a conjunct of the conclusion. |
+| 6 | Those new coefficients are absolutely summable. This is the content of the theorem. | ✅ `Summable b`, a conjunct of the conclusion — equivalent to absolute summability exactly as in row 2. |
 | 7 | The new series is the reciprocal of the old one, at every $\theta$. | ✅ `∀ θ : ℝ, (∑' n, b n * exp …) * (∑' n, a n * exp …) = 1`. |
 
 ## Mistakes to check for
@@ -38,7 +38,7 @@ wrong, even if it compiles.
 
 | # | Mistake | Why it is wrong |
 |---|---------|-----------------|
-| 1 | Concluding only that $1/f$ has *some* Fourier series, dropping `Summable fun n ↦ ‖b n‖`. | This is the whole theorem. Without it the conclusion is a triviality about continuous functions on the circle. |
+| 1 | Concluding only that $1/f$ has *some* Fourier series, dropping `Summable b`. | This is the whole theorem. Without it the conclusion is a triviality about continuous functions on the circle. |
 | 2 | Indexing the sums by `ℕ` instead of `ℤ`. | A one-sided series is a boundary value of a function analytic in the disc. That is a different statement, and the corollary as printed is about the two-sided algebra $\ell^1(\mathbb{Z})$. |
 | 3 | Dropping `ha`, the absolute summability of the given coefficients. | Lean assigns a non-summable `∑'` the value `0`. Then `hne` would be false at every $\theta$, so the hypotheses could never be met and the theorem would say nothing. |
 | 4 | Dropping the never-vanishing hypothesis `hne`. | False: take $a_0 = 1$, $a_1 = -1$, giving $f(e^{i\theta}) = 1 - e^{i\theta}$, which vanishes at $\theta = 0$ and has no reciprocal. |
@@ -52,9 +52,13 @@ wrong, even if it compiles.
   book's literal `1/f`.
 - Quantifying $\theta$ over all of `ℝ` rather than over $[0, 2\pi)$ makes no difference: the
   exponentials are $2\pi$-periodic, so the two hypotheses are the same hypothesis.
+- The summability hypotheses are the plain `Summable a` and `Summable b`, not the spelled-out
+  `Summable fun n ↦ ‖a n‖`: over `ℂ`, a finite-dimensional space, unordered summability of the
+  family is equivalent to summability of the norms, so both spellings say $\sum \lvert a_n\rvert < \infty$
+  and a candidate may use either.
 - Both `∑'` expressions in the statement are genuine sums, not the junk value `0`: the $a$-series
   converges because of `ha` (the exponentials have modulus one), and the $b$-series converges
-  because the conclusion carries `Summable fun n ↦ ‖b n‖`.
+  because the conclusion carries `Summable b`.
 - Mathlib has no Wiener lemma and no Gelfand theory for the convolution algebra $\ell^1(\mathbb{Z})$.
   The Wiener–Ikehara theorem mentioned in `Mathlib/NumberTheory/LSeries/PrimesInAP.lean` is a
   different result.
@@ -85,7 +89,7 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 
 ### Domain-specific pitfalls for this problem
 
-- Absolute summability of a two-sided family is unordered summability of $\lVert a_n\rVert$ over $\mathbb{Z}$, which is what makes the series converge independently of any enumeration.
+- Absolute summability of a two-sided family is unordered summability of $\lVert a_n\rVert$ over $\mathbb{Z}$, which is what makes the series converge independently of any enumeration; for $\mathbb{C}$-valued families this is equivalent to plain unordered summability (`Summable a`), which is how the ground truth writes it.
 - Junk value — `tsum`: a `tsum` over a non-summable family is `0`, so the non-vanishing hypothesis must be applied to a series already known to converge, which the summability hypothesis supplies.
 - Stating the conclusion as $1/f = \sum b_n e^{in\theta}$ requires a division; multiplying up avoids it and says the same thing.
 - The non-vanishing is pointwise on the circle, i.e. for every real $\theta$.

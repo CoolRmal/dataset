@@ -82,4 +82,4 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 - Terminating expansions are not a separate case: they are eventually periodic with repeating digit $0$.
 - The digit function is $\lfloor 10^{k+1}x\rfloor \bmod 10$; a different indexing shifts every digit.
 - "Rational" means equal to some element of $\mathbb{Q}$ after coercion, not "is a quotient of integers" in some ad-hoc sense.
-- The hypothesis $x \in [0,1)$ is what makes the digit formula the expansion.
+- The hypothesis $x \ge 0$ is what protects the `Int.toNat` in the digit formula; no normalisation to $[0,1)$ is needed, and dropping non-negativity entirely makes every digit of a negative number $0$.

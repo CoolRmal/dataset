@@ -20,12 +20,12 @@ choices behind them.
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
 | 1 | $p$ is a prime. | ✅ `hp : p.Prime`. |
-| 2 | The identity is claimed for every real $x$ with $0 \le x < 1$ — the range where Euler's product converges. | ✅ `∀ x : ℝ, 0 ≤ x → x < 1 → …`, and the same range appears in the hypothesis on `φ`. |
+| 2 | The identity is claimed for every real $x$ with $0 \le x < 1$ — the range where Euler's product converges. | ✅ `∀ x : ℝ, 0 ≤ x → x < 1 → …`. |
 | 3 | $\phi$ is the Euler product $\prod_{n\ge1}(1-x^n)$, not an arbitrary function. | ✅ `eulerProduct`, defined in `Defs.lean` as `∏' n : ℕ, (1 - x ^ (n + 1))`. Passing $\phi$ in as a universally quantified function with a defining hypothesis would be weaker and less readable. |
-| 4 | The left side is $\phi(x^p)$ divided by $\phi(x)^p$: the $p$-th power is on the bottom, the substitution $x \mapsto x^p$ on the top. | ✅ `φ (x ^ p) / φ x ^ p`. |
+| 4 | The left side is $\phi(x^p)$ divided by $\phi(x)^p$: the $p$-th power is on the bottom, the substitution $x \mapsto x^p$ on the top. | ✅ `eulerProduct (x ^ p) / eulerProduct x ^ p`. |
 | 5 | The coefficients are integers. | ✅ `∃ a : ℕ → ℤ`, cast to `ℝ` only where the series is formed. |
 | 6 | The factor $p$ multiplying the series is explicit, and the constant term is exactly $1$. | ✅ `1 + p * ∑' i : ℕ, …`. |
-| 7 | The series runs over $i \ge 1$; there is no $x^0$ term inside it. | ✅ `∑' i : ℕ, (a (i + 1) : ℝ) * x ^ (i + 1)` — the exponent starts at `1`. |
+| 7 | The series runs over $i \ge 1$; there is no $x^0$ term inside it. | ✅ `∑' i : ℕ, a (i + 1) * x ^ (i + 1)` — the exponent starts at `1`, and the cast of `a (i + 1)` into `ℝ` is inserted by elaboration, with no written ascription. |
 | 8 | One single sequence of coefficients works for all $x$ at once: the existential comes before the quantifier over $x$. | ✅ `∃ a : ℕ → ℤ, ∀ x : ℝ, …` in that order. |
 
 ## Mistakes to check for
@@ -45,9 +45,12 @@ wrong, even if it compiles.
 
 ## Notes on the ground truth
 
-- Mathlib has no Euler partition product, so `φ` is a variable pinned down by the hypothesis `hφ`
-  rather than defined. A candidate that instead defines `φ` by an infinite product (`tprod`, or a
-  limit of partial products) is equally faithful.
+- Mathlib has no Euler partition product, so `eulerProduct` is defined in `Defs.lean` as
+  `∏' n : ℕ, (1 - x ^ (n + 1))`. A candidate that defines the product itself (`tprod`, or a
+  limit of partial products) is equally faithful. Passing `φ` in as a universally quantified
+  function pinned down by a defining hypothesis renders the same mathematics and loses nothing
+  under Band A, but data the statement can define should not be an argument — charge it under
+  Band E.
 - The statement never says $\phi(x) \ne 0$, and Lean gives $y/0$ the value $0$. On $0 \le x < 1$ the
   Euler product really is nonzero, so the identity is not being propped up by that convention — but
   a candidate that records $\phi(x) \ne 0$ on this range, or states the identity in the

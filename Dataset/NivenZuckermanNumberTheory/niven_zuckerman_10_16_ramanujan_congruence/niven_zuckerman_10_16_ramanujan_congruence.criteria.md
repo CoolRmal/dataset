@@ -44,8 +44,9 @@ wrong, even if it compiles.
   genuine finite count and never the $0$ that `Nat.card` returns on infinite types.
 - `partitionCount` is a thin wrapper we added in `Defs.lean` purely so the statement reads like the
   book. A candidate writing `Nat.card (Nat.Partition (5 * m + 4))` directly is equally good.
-- `% 5 = 0` on naturals is one of several equally faithful spellings; `Nat.ModEq 5 _ 0`,
-  `5 ∣ partitionCount (5 * m + 4)`, and the same divisibility cast into `ℤ` should all be accepted.
+- The ground truth writes the congruence with `Nat.ModEq` notation, `≡ 0 [MOD 5]`, matching the
+  textbook; `partitionCount (5 * m + 4) % 5 = 0`, `5 ∣ partitionCount (5 * m + 4)`, and the same
+  divisibility cast into `ℤ` are equally faithful spellings and should all be accepted.
 - The letter $p$ is overloaded in this chapter: a prime in Theorem 10.14, the partition function
   here. Only the partition function occurs in this statement.
 

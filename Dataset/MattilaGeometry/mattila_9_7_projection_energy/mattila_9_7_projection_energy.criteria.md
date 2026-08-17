@@ -4,14 +4,14 @@
 
 ## What the theorem says
 
-Take a Radon measure $\mu$ on $\mathbb{R}^n$ with compact support whose Riesz $m$-energy
+Take a nonzero Radon measure $\mu$ on $\mathbb{R}^n$ with compact support whose Riesz $m$-energy
 $I_m(\mu) = \iint \lvert x-y\rvert^{-m}\,d\mu x\,d\mu y$ is finite. Project $\mu$ onto an
 $m$-dimensional subspace $V$, giving the image measure $P_{V\#}\mu$ on $V$. The theorem says that for
 almost every $V$ — with respect to the rotation-invariant probability measure $\gamma_{n,m}$ on the
 Grassmannian $G(n,m)$ — the projected measure has a density with respect to $\mathcal{H}^m$ on $V$.
 Moreover the densities are square-integrable on average: integrating the square of the density over
-$V$ and then over all $V$ gives at most a constant times $I_m(\mu)$, with the constant depending only
-on $n$ and $m$.
+$V$ and then over all $V$ gives strictly less than a constant times $I_m(\mu)$, with the constant
+depending only on $n$ and $m$.
 
 ## What a correct formalization must contain
 
@@ -25,12 +25,12 @@ choices behind them.
 | 1 | The Grassmannian must carry a fixed measurable structure, otherwise "for $\gamma_{n,m}$ almost all $V$" is not pinned down. | ✅ `Defs.lean` gives `Grassmannian n m` the topology induced by the projection operators `V.1.starProjection`, then the Borel $\sigma$-algebra, plus a `BorelSpace` instance. |
 | 2 | $\gamma_{n,m}$ is a probability measure on $G(n,m)$ invariant under all linear isometries of $\mathbb{R}^n$. | ✅ `γ : Measure (Grassmannian n m)` with `hγ : IsInvariantGrassmannianMeasure γ`, which packages `IsProbabilityMeasure γ` together with `Measure.map (grassmannianAction Q) γ = γ` for every norm-preserving linear equivalence `Q`. |
 | 3 | The constant depends only on $n$ and $m$, so it is quantified before $\mu$, and it is finite. | ✅ `∃ c : ℝ≥0∞, c < ∞ ∧ ∀ μ, …`, with `n`, `m` and `γ` fixed earlier. |
-| 4 | $\mu$ is a Radon measure: finite on compact sets and inner regular. | ✅ `IsFiniteMeasureOnCompacts μ → Measure.InnerRegular μ → …`. |
+| 4 | $\mu$ is a **nonzero** Radon measure: Mattila's $\mu \in \mathcal{M}(\mathbb{R}^n)$ packs in $\mu \ne 0$ along with finiteness on compact sets and inner regularity. | ✅ `∀ _ : IsFiniteMeasureOnCompacts μ, ∀ _ : Measure.InnerRegular μ, μ ≠ 0 → …`. |
 | 5 | $\mu$ has compact support. | ✅ `IsCompact μ.support →`, with `μ.support` mathlib's `MeasureTheory.Measure.support`. |
 | 6 | The energy hypothesis $I_m(\mu) < \infty$, with the Riesz kernel $\lvert x-y\rvert^{-m}$ taking the value $\infty$ on the diagonal. | ✅ `rieszEnergy (m : ℝ) μ < ∞`, where `rieszEnergy s μ = ∫⁻ x, ∫⁻ y, (ENNReal.ofReal (dist x y))⁻¹ ^ s ∂μ ∂μ` — the inverse is taken *after* moving into `ℝ≥0∞`, so `x = y` contributes `∞`. |
 | 7 | First conclusion: for $\gamma$-almost every $V$, the pushforward of $\mu$ under the orthogonal projection onto $V$ is absolutely continuous with respect to $\mathcal{H}^m$ on $V$. | ✅ `∀ᵐ V ∂γ, Measure.map (fun x ↦ V.1.orthogonalProjectionOnto x) μ ≪ μH[(m : ℝ)]`. |
 | 8 | The projection must be a measurable map landing inside $V$, so that $\mathcal{H}^m$ is computed in $V$. | ✅ `Submodule.orthogonalProjectionOnto : E →L[ℝ] ↥V.1` is continuous, hence measurable, and lands in the subtype; `μH[(m:ℝ)]` there is the measure Mattila writes $\int_V \dots\,d\mathcal{H}^m u$. |
-| 9 | Second conclusion: the densities of the projected measures satisfy the energy bound — the double integral of the square of the density, over $V$ against $\mathcal{H}^m$ and over $G(n,m)$ against $\gamma$, is at most $c\,I_m(\mu)$. | ✅ `∫⁻ V, ∫⁻ x, density V x ^ (2 : ℝ) ∂μH[(m : ℝ)] ∂γ ≤ c * rieszEnergy (m : ℝ) μ`. |
+| 9 | Second conclusion: the densities of the projected measures satisfy the energy bound — the double integral of the square of the density, over $V$ against $\mathcal{H}^m$ and over $G(n,m)$ against $\gamma$, is strictly less than $c\,I_m(\mu)$, with the book's strict `<`. | ✅ `∫⁻ V, ∫⁻ x, density V x ^ (2 : ℝ) ∂μH[(m : ℝ)] ∂γ < c * rieszEnergy (m : ℝ) μ`. |
 | 10 | Every quantity is `ℝ≥0∞`-valued, since energies and density integrals can be infinite. | ✅ `rieszEnergy`, both `∫⁻`s and `c` all live in `ℝ≥0∞`. |
 
 ## Mistakes to check for
@@ -47,13 +47,15 @@ wrong, even if it compiles.
 | 5 | Using the Bochner integral `∫` for the energy or for the double integral. | Both are routinely infinite, and the Bochner integral returns the junk value $0$ when the integrand is not integrable — exactly when the bound would matter. |
 | 6 | Dropping compactness of $\mu$'s support, or the Radon conditions. | All three are hypotheses of 9.7, and compact support is genuinely used. |
 | 7 | Keeping only the energy bound and dropping the absolute continuity conclusion. | The theorem asserts both; the density in the second conclusion only exists because of the first. |
+| 8 | Omitting $\mu \ne 0$. | Mattila's $\mu \in \mathcal{M}(\mathbb{R}^n)$ means a *nonzero* Radon measure. Without the hypothesis the zero measure qualifies, and for it both sides of the strict energy bound are $0$, so `0 < 0` would be asserted — the statement becomes provably false. |
 
 ## Notes on the ground truth
 
-- Two earlier defects have been repaired and are recorded here as regression checks. The Riesz kernel
-  used to invert the distance before the coercion, making it `0` on the diagonal (Mistake 1); and the
-  measurable structure on the Grassmannian used to be an unconstrained instance argument
-  (Mistake 2).
+- Three earlier defects have been repaired and are recorded here as regression checks. The Riesz
+  kernel used to invert the distance before the coercion, making it `0` on the diagonal (Mistake 1);
+  the measurable structure on the Grassmannian used to be an unconstrained instance argument
+  (Mistake 2); and the hypothesis `μ ≠ 0` used to be missing, letting the zero measure refute the
+  strict energy bound (Mistake 8).
 - The density $D(P_{V\#}\mu, u)$ is introduced existentially,
   `∃ density : ∀ V, ↥V.1 → ℝ≥0∞` with `Measure.map … μ = μH[(m:ℝ)].withDensity (density V)` for
   almost every `V`, rather than canonically. This is sound: the values of `density V` are pinned
@@ -63,8 +65,10 @@ wrong, even if it compiles.
   which is the defining property of a Radon–Nikodym derivative and avoids depending on Mathlib's
   particular `rnDeriv` normalisation on the null set where it is not determined.
 - The bound is stated with the strict `<` the book writes.
-- Radon-ness is carried by instance binders `[IsFiniteMeasureOnCompacts μ] [Measure.InnerRegular μ]`,
-  which is what these classes are for.
+- Radon-ness is carried by the quantified hypotheses
+  `∀ _ : IsFiniteMeasureOnCompacts μ, ∀ _ : Measure.InnerRegular μ, …`: since `μ` is itself
+  universally quantified inside the statement, the class conditions appear as anonymous `∀`-binders
+  rather than square-bracket instance binders, which is the standard spelling in that position.
 - No hypothesis $m \le n$ is imposed. When $m > n$ the Grassmannian is empty, no probability measure
   exists on it, and the theorem is empty of content — harmless, but worth knowing.
 
@@ -97,5 +101,5 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 - The energy is a double integral of a nonnegative singular kernel and belongs in $[0,\infty]$.
 - The density $D(P_{V\#}\mu,\cdot)$ exists only because of the first conclusion; asserting the bound without it refers to an undefined object.
 - $\mathcal{H}^m$ on $V$ uses the metric $V$ inherits from $\mathbb{R}^n$.
-- Compact support of $\mu$ is a hypothesis.
+- Compact support of $\mu$ is a hypothesis, and so is $\mu \ne 0$ — Mattila's $\mathcal{M}(\mathbb{R}^n)$ consists of nonzero measures, and the strict energy bound fails for $\mu = 0$.
 - The constant depends only on $n$ and $m$.

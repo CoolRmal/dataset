@@ -47,7 +47,8 @@ wrong, even if it compiles.
 
 ## Notes on the ground truth
 
-- `IsDivergenceFormSolution` is a shared definition holding the weak formulation, so that the same formula is not written four times. It bundles "$u$ has generalized gradient $v$" with the tested identity.
+- `IsDivergenceFormSolution` is a shared definition holding the weak formulation, so that the same formula is not written four times. It bundles "$u$ has generalized gradient $v$" with the tested identity; membership of $u$ in $\mathcal{L}_p$ is not part of the definition but is supplied at the use site, where `u` ranges over `Lp` elements.
+- Both printed positivity hypotheses on the constants are present: `hκ : 0 < κ` and `hK : 0 < K`. An earlier revision omitted `hK`; that omission was a harmless generalization (for $K \le 0$ the coefficient bounds are unsatisfiable, so those extra instances hold vacuously), and the ground truth now carries the text's hypothesis. A candidate that drops $K > 0$ loses only hygiene, not correctness.
 - The estimate is stated for every pair $(u,v)$ satisfying the equation. Given the uniqueness clause this is the same as Krylov's "for this solution".
 - $\|Du\|_{\mathcal{L}_p}$ is the summed seminorm $\sum_j\|v_j\|$; a different convention only changes $N$.
 

@@ -24,7 +24,7 @@ choices behind them.
 | 2 | All four items appear in Engelking's order as one equivalence. | ✅ `List.TFAE [IsStronglyParacompact X, closedLocallyFiniteStarFinite, closedLocallyFiniteStarCountable, starCountableOpen]`. |
 | 3 | Strong paracompactness is "Hausdorff **and** every open cover has a star-finite open refinement". | ✅ `IsStronglyParacompact X := T2Space X ∧ ∀ ι U, IsOpenCover U → ∃ κ V, IsOpenCover V ∧ Refines V U ∧ IsStarFiniteFamily V`. |
 | 4 | Star-finite means: for each index $i$, the set of $j$ with $A_i \cap A_j \neq \emptyset$ is finite. Star-countable is the same with "countable". | ✅ `IsStarFiniteFamily A := ∀ i, {j \| (A i ∩ A j).Nonempty}.Finite`, and the `Countable` analogue. |
-| 5 | Each item is of the form "for every open cover there **exists** a refinement", with the refinement's index type existentially quantified. | ✅ `∀ (ι : Type v) (U : ι → Set X), IsOpenCover U → ∃ (κ : Type v) (F : κ → Set X), …` in all three `let` items. |
+| 5 | Each item is of the form "for every open cover there **exists** a refinement", with the refinement's index type existentially quantified. | ✅ `∀ (ι : Type u) (U : ι → Set X), IsOpenCover U → ∃ (κ : Type u) (F : κ → Set X), …` in all three `let` items. |
 | 6 | Items (ii) and (iii) ask for a **closed** refinement that actually covers $X$. | ✅ `IsClosedCover F := (∀ i, IsClosed (F i)) ∧ ⋃ i, F i = univ`, conjoined with `Refines F U`. |
 | 7 | Items (ii) and (iii) both also demand local finiteness of that closed refinement. | ✅ `LocallyFinite F` appears in both. |
 | 8 | Item (ii) demands star-finiteness, item (iii) only star-countability. | ✅ `IsStarFiniteFamily F` in (ii), `IsStarCountableFamily F` in (iii). |
@@ -45,6 +45,7 @@ wrong, even if it compiles.
 | 6 | Requiring only that each member of the refinement be a closed subset of a member of $U$, without requiring the refinement to cover $X$. | The empty family then satisfies the condition, so the item says nothing. |
 | 7 | Requiring the refinement to be indexed by the original index type $\iota$. | That is a *precise* refinement, a different and stronger statement than the one Engelking makes. |
 | 8 | Moving regularity into one of the equivalent conditions instead of the hypotheses. | Engelking states regularity as a standing assumption on $X$; folding it into an item changes which implications have to be proved. |
+| 9 | Defining star-finite/star-countable by counting *distinct member sets* — e.g. `{B \| (∃ j, A j = B) ∧ (B ∩ A i).Nonempty}.Finite` — instead of indices. | Not Engelking's definition: on families with repeated members the two disagree (the constant family $A_j = \{0\}$, $j \in \mathbb{N}$, has one distinct member, yet each member meets infinitely many members, so it is not star-finite by the letter of the text). In this theorem every star condition sits under an existentially quantified refinement, where re-indexing a refinement by its distinct members restores equivalence — so the slip is not fatal here — but as a *definition* of the star properties it is unfaithful. An earlier version of `Defs.lean` made exactly this mistake; the current ground truth incorporates the index-counting repair. |
 
 ## Notes on the ground truth
 
@@ -54,8 +55,13 @@ wrong, even if it compiles.
 - The `T2Space` conjunct inside `IsStronglyParacompact` is redundant given `[RegularSpace X]` and
   `[T1Space X]`, but it keeps the definition faithful when it is reused elsewhere.
 - A candidate writing `[T3Space X]` in place of `[RegularSpace X] [T1Space X]` is equally faithful.
-- `IsStarFiniteFamily` and `IsStarCountableFamily` count *distinct sets*, so a family that lists the
-  same set twice is not penalised — which is Engelking's reading.
+- `IsStarFiniteFamily` and `IsStarCountableFamily` count *indices*:
+  `∀ i, {j | (A i ∩ A j).Nonempty}.Finite` (and `.Countable`), which is the .md's "meets only
+  finitely many members" read letter for letter — a family listing the same nonempty set twice is
+  charged for both listings. A candidate counting distinct member sets instead states an equivalent
+  theorem *in this problem*, because all the star conditions apply to existentially chosen
+  refinements, which can be re-indexed by their distinct members; see mistake row 9 for why
+  set-counting is nevertheless not the faithful definition.
 - Every index type quantified in the statement lives in `X`'s own universe. That costs no
   generality — a cover of `X` can always be re-indexed by its image in `Set X` — and it removes
   the free universe parameter, so the statement is about all covers rather than about covers in

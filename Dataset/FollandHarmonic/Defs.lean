@@ -10,8 +10,9 @@ Custom notions used by the statement files in `Dataset/FollandHarmonic/` that ar
 not already supplied by Mathlib. The modular function is Mathlib's
 `MeasureTheory.Measure.modularCharacterFun` and the dual group is
 `PontryaginDual`; what is added here is Folland's translation operators, the
-convolution of two functions on a locally compact group, closedness of a family
-of functions in `𝓛ᵖ`, and uniform almost periodicity.
+convolution of two functions on a locally compact group, strong equivalence of
+Radon measures, unimodularity, and unitary representations with their
+irreducibility.
 -/
 
 open MeasureTheory

@@ -24,7 +24,7 @@ choices behind them.
 | 4 | Both sides are top-order seminorms: the sums run over multi-indices of order exactly $m$ and exactly $k$. | ✅ `Finset.piAntidiag Finset.univ m` and `… k`, which are the multi-indices summing to $m$ resp. $k$. |
 | 5 | $k \ge 1$, $p \ge 1$, $q > 0$. | ✅ `hk`, `hp`, `hq`. |
 | 6 | $m$ carries no assumption. | ✅ `m` is a free natural number; bounding it is half the conclusion. |
-| 7 | The conclusion is a conjunction: $m \le k$ and the exponent identity. | ✅ `m ≤ k ∧ (k : ℝ) - d / p = (m : ℝ) - d / q`. |
+| 7 | The conclusion is a conjunction: $m \le k$ and the exponent identity. | ✅ `m ≤ k ∧ (k : ℝ) - (d : ℝ) / p = (m : ℝ) - (d : ℝ) / q`. |
 
 ## Mistakes to check for
 

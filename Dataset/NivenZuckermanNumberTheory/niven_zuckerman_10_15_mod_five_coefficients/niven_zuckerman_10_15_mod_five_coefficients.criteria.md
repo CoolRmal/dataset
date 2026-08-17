@@ -21,10 +21,10 @@ choices behind them.
 |---|-------------|-------------------------------|
 | 1 | $\phi$ is Euler's product $\prod_{n\ge1}(1-x^n)$, not an arbitrary function. | ✅ `eulerProduct`, defined in `Defs.lean` by an infinite product. |
 | 2 | The claim is made for every real $x$ with $0 \le x < 1$, where the product converges. | ✅ `∀ x : ℝ, 0 ≤ x → x < 1 → …`. |
-| 3 | The function being expanded is $x\,\phi(x)^4$: the leading factor $x$ and the exponent $4$ are both part of it. | ✅ `x * φ x ^ 4`. |
+| 3 | The function being expanded is $x\,\phi(x)^4$: the leading factor $x$ and the exponent $4$ are both part of it. | ✅ `x * eulerProduct x ^ 4`. |
 | 4 | The coefficients are integers. | ✅ `∃ b : ℕ → ℤ`, cast to `ℝ` only inside the series. |
 | 5 | The divisibility conclusion: if $5$ divides $m$ then $5$ divides $b_m$. | ✅ `∀ m : ℕ, m % 5 = 0 → (5 : ℤ) ∣ b m`. |
-| 6 | The power-series identity itself: $x\phi(x)^4 = \sum_m b_m x^m$. | ✅ `x * φ x ^ 4 = ∑' m : ℕ, (b m : ℝ) * x ^ m`. |
+| 6 | The power-series identity itself: $x\phi(x)^4 = \sum_m b_m x^m$. | ✅ `x * eulerProduct x ^ 4 = ∑' m : ℕ, b m * x ^ m` — the cast of `b m` into `ℝ` is inserted by elaboration, with no written ascription. |
 | 7 | Both conclusions are about the *same* sequence $b$, and one sequence works for every $x$. | ✅ `∃ b : ℕ → ℤ, (divisibility) ∧ (∀ x, identity)` — the existential is outermost. |
 
 ## Mistakes to check for
@@ -54,9 +54,11 @@ wrong, even if it compiles.
 - Lean's `∑'` gives a non-summable family the value $0$. That cannot be abused here: if the series
   did not converge the right side would be $0$ and the identity would force $x\phi(x)^4 = 0$, which
   is false. A candidate that adds a `Summable` conjunct is more informative and should be accepted.
-- As in Theorem 10.14, `φ` is a variable characterised by a hypothesis rather than a definition,
-  because mathlib has no Euler partition product. Defining it by an infinite product is equally
-  faithful.
+- As in Theorem 10.14, `φ` is realized by the `eulerProduct` definition from `Defs.lean`
+  (mathlib has no Euler partition product). A candidate that defines the product itself is
+  equally faithful. Passing `φ` in as a variable characterised by a defining hypothesis renders
+  the same mathematics and loses nothing under Band A, but data the statement can define should
+  not be an argument — charge it under Band E.
 
 ## Grading (out of 100)
 

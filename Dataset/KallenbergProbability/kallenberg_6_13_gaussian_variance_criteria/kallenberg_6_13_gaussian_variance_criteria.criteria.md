@@ -21,7 +21,7 @@ choices behind them.
 
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
-| 1 | The array has a finite row for each $n$, of length varying with $n$. | ✅ `k : ℕ → ℕ` and `ξ : (n : ℕ) → Fin (k n + 1) → Ω → ℝ`. |
+| 1 | The array has a finite row for each $n$, of length varying with $n$. | ✅ `k : ℕ → ℕ` with `hk : ∀ n, 0 < k n`, and `ξ : (n : ℕ) → Fin (k n) → Ω → ℝ`. |
 | 2 | The variables within each row are mutually independent. | ✅ `hindep : ∀ n, iIndepFun (ξ n) μ` — mutual independence per row, not across rows. |
 | 3 | Every variable is square integrable. | ✅ `hξsq : ∀ n j, MemLp (ξ n j) 2 μ`. |
 | 4 | Every variable has mean $0$. | ✅ `hcentered : ∀ n j, ∫ ω, ξ n j ω ∂μ = 0`. |
@@ -29,7 +29,7 @@ choices behind them.
 | 6 | The comparison variable is standard normal. | ✅ `hζ : HasLaw ζ (gaussianReal 0 1) μ'`; Mathlib's `gaussianReal m v` takes `v` to be the variance, so this is $N(0,1)$. |
 | 7 | Side (i), first half: the row sums converge in distribution to that variable. | ✅ `TendstoInDistribution (fun n ω ↦ ∑ j, ξ n j ω) atTop ζ (fun _ ↦ μ) μ'`. |
 | 8 | Side (i), second half: the largest variance in row $n$ tends to $0$. | ✅ `Tendsto (fun n ↦ Finset.univ.sup' _ fun j ↦ variance (ξ n j) μ) atTop (𝓝 0)`. |
-| 9 | Side (ii): for every $\varepsilon > 0$, the summed tail second moments above the strict threshold $\varepsilon$ tend to $0$. | ✅ `∀ ε : ℝ, 0 < ε → Tendsto (fun n ↦ ∑ j, ∫ ω, (ξ n j ω) ^ 2 * Set.indicator {x : ℝ \| ε < \|x\|} (fun _ ↦ (1 : ℝ)) (ξ n j ω) ∂μ) atTop (𝓝 0)`, with the strict inequality as printed. |
+| 9 | Side (ii): for every $\varepsilon > 0$, the summed tail second moments above the strict threshold $\varepsilon$ tend to $0$. | ✅ `∀ ε : ℝ, 0 < ε → Tendsto (fun n ↦ ∑ j, ∫⁻ ω, ENNReal.ofReal ((ξ n j ω) ^ 2) * Set.indicator {x : ℝ \| ε < \|x\|} (fun _ ↦ (1 : ℝ≥0∞)) (ξ n j ω) ∂μ) atTop (𝓝 0)`, with the strict inequality as printed. |
 | 10 | The two sides are asserted equivalent, with (i) being a conjunction of its two halves. | ✅ `(sumConverges ∧ maximalVarianceVanishes) ↔ lindeberg`. |
 
 ## Mistakes to check for

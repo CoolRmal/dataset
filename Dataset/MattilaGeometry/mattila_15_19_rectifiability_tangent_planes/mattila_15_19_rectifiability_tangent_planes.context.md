@@ -6,4 +6,4 @@ Background needed to read the statement correctly. Natural language only: no Lea
 
 ## Notation
 
-**$m$-rectifiable**: countably many Lipschitz maps $\mathbb{R}^m\to\mathbb{R}^n$ covering $E$ up to an $\mathcal{H}^m$-null set. Linear approximability (15.7) is **two** inequalities: $E$ is dense enough near the plane, and does not stray far from it. An approximate tangent plane needs positive upper density **and** the cone condition.
+Throughout the chapter $m$ is a **positive** integer. **$m$-rectifiable**: countably many Lipschitz maps $\mathbb{R}^m\to\mathbb{R}^n$ covering $E$ up to an $\mathcal{H}^m$-null set. Linear approximability (15.7) is **two** inequalities: $E$ is dense enough near the plane, and does not stray far from it. An approximate tangent plane needs positive upper density **and** the cone condition.

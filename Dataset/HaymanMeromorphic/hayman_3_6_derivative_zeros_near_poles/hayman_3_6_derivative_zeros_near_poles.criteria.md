@@ -23,15 +23,16 @@ choices behind them.
 | # | Requirement | Does the ground truth have it? |
 |---|-------------|-------------------------------|
 | 1 | The disk has positive radius and $f$ is meromorphic at every point of it. | ✅ `hR : 0 < R` and `hf : ∀ z ∈ Metric.ball z₀ R, MeromorphicAt f z`. |
-| 2 | The pole set of $f$ inside the disk is named. | ✅ `hP : P = {z ∈ Metric.ball z₀ R | meromorphicOrderAt f z < 0}`. A pole is a point of negative meromorphic order, which is what Hayman means; "meromorphic but not analytic" would also admit a removable singularity carrying the wrong value. |
+| 2 | The pole set of $f$ inside the disk is named. | ✅ `hP : P = {z ∈ Metric.ball z₀ R \| meromorphicOrderAt f z < 0}`. A pole is a point of negative meromorphic order, which is what Hayman means; "meromorphic but not analytic" would also admit a removable singularity carrying the wrong value. |
 | 3 | $f$ has at least two *distinct* poles in the disk. | ✅ `htwo : ∃ p ∈ P, ∃ q ∈ P, p ≠ q`. Two distinct points, not one pole of multiplicity two. |
 | 4 | $r > 0$ and no pole lies strictly inside the circle of radius $r$ about $z_0$. | ✅ `hr : 0 < r` and membership in `{t : ℝ \| 0 < t ∧ ∀ z ∈ P, ¬ ‖z - z₀‖ < t}`. |
 | 5 | $r$ is the *largest* such radius — the maximality is what makes the two cases exhaustive. | ✅ `hrmax : IsGreatest {t : ℝ \| 0 < t ∧ ∀ z ∈ P, ¬ ‖z - z₀‖ < t} r`, which gives both membership and the upper-bound property. |
 | 6 | Case (i) is triggered by at least two distinct poles on the circle $\lVert z - z_0\rVert = r$. | ✅ `∃ p ∈ P, ∃ q ∈ P, p ≠ q ∧ ‖p - z₀‖ = r ∧ ‖q - z₀‖ = r` as the antecedent of the first conjunct. |
-| 7 | Case (i) concludes: for every $\delta > 0$, for all large $l$, some $z$ with $\lVert z - z_0\rVert < \delta$ has $f^{(l)}(z) = 0$. | ✅ `∀ δ, 0 < δ → ∀ᶠ l in atTop, ∃ z ∈ Metric.ball z₀ δ, iteratedDeriv l f z = 0`, with $\delta$ chosen before the threshold on $l$. |
+| 7 | Case (i) concludes: for every $\delta > 0$, for all large $l$, some $z$ with $\lVert z - z_0\rVert < \delta$ has $f^{(l)}(z) = 0$. | ✅ `∀ δ, 0 < δ → ∀ᶠ l in atTop, ∃ z ∈ Metric.ball z₀ δ, 0 < meromorphicOrderAt (iteratedDeriv l f) z`, with $\delta$ chosen before the threshold on $l$. The witness is a *genuine* zero (positive meromorphic order), not a junk-value hit: the literal `iteratedDeriv l f z = 0` holds automatically at every pole, which would satisfy the clause spuriously whenever $\delta > r$. |
 | 8 | Case (ii) is triggered by *exactly one* pole on that circle. | ✅ `∃! p, p ∈ P ∧ ‖p - z₀‖ = r`, using unique existence. |
 | 9 | Case (ii) concludes: for all sufficiently small $\delta > 0$, $f^{(l)} \to \infty$ **uniformly** on the closed disk of radius $\delta$. | ✅ `∀ᶠ δ in 𝓝[>] (0 : ℝ), Tendsto (fun l ↦ ⨅ z : Metric.closedBall z₀ δ, ‖iteratedDeriv l f z‖) atTop atTop`. Divergence of the infimum over the disk is exactly uniform divergence. |
 | 10 | Both cases are asserted, as two separate implications. | ✅ A conjunction of the two implications. |
+| 11 | The values of $f$ away from the poles are the honest values of the meromorphic function. | ✅ `hfa : ∀ z ∈ Metric.ball z₀ R, z ∉ P → AnalyticAt ℂ f z` pins the representative at every non-pole point of the disk. Without it, re-valuing `f` at the single point $z_0$ (allowed by `MeromorphicAt`, and leaving `P` unchanged) makes `iteratedDeriv l f z₀ = 0` for every $l \ge 1$, so case (ii)'s infimum is $0$ on every closed ball and never diverges — the statement would be provably false. |
 
 ## Mistakes to check for
 
@@ -47,6 +48,8 @@ wrong, even if it compiles.
 | 5 | Writing case (ii) as "for every $\delta > 0$" instead of "for all sufficiently small $\delta$". | False. Once $\delta$ is large enough to reach a pole, $f^{(l)}$ has poles inside the disk and the infimum of $\lVert f^{(l)}\rVert$ need not diverge. |
 | 6 | Swapping the order in case (i) to "for all large $l$, for every $\delta > 0$, …". | Strictly stronger and not what is proved. It would say that a single large $l$ gives zeros of $f^{(l)}$ arbitrarily close to $z_0$, forcing $f^{(l)}(z_0) = 0$ by continuity. Hayman fixes $\delta$ first and lets the threshold on $l$ depend on it. |
 | 7 | Using the two cases as a single disjunction of hypotheses without stating which conclusion goes with which. | The theorem pairs a specific antecedent with a specific consequent. A disjunction loses that pairing and makes the statement much weaker. |
+| 8 | Writing case (i)'s witness as the literal `iteratedDeriv l f z = 0`. | Lean's junk convention makes `iteratedDeriv l f` vanish at every pole for $l \ge 1$, so for $\delta > r$ the ball contains a pole and the clause is satisfied for free. A genuine zero is a point of positive `meromorphicOrderAt` of $f^{(l)}$, as in the ground truth. |
+| 9 | Leaving the representative of $f$ unpinned at non-pole points (no analyticity hypothesis off $P$). | `MeromorphicAt` allows `f` to carry arbitrary values on discrete sets. Re-valuing `f` at $z_0$ alone leaves the pole set unchanged but makes `iteratedDeriv l f z₀ = 0` for every $l \ge 1$, refuting case (ii)'s uniform divergence. An earlier version of the ground truth had exactly this defect; the current one incorporates the repair via `hfa`. |
 
 ## Notes on the ground truth
 
@@ -59,6 +62,14 @@ wrong, even if it compiles.
   infimum of distances. This is a clean way to say "radius of the largest pole-free circle" and
   avoids a default value from an empty infimum. It also forces the hypotheses to be unsatisfiable
   when $z_0$ is itself a pole, since then no positive $r$ works — which is the intended reading.
+  The separate hypothesis `hr : 0 < r` duplicates the first conjunct of the membership half of
+  `hrmax` (a known redundancy, kept for readability); a candidate that states positivity only once
+  is at least as clean.
+- `hfa` pins the representative: analyticity at every non-pole point forces `f`'s values there to be
+  the honest values of the meromorphic function (analytic ⇒ continuous ⇒ value = punctured limit),
+  and every closed ball of radius $\delta < r$ is pole-free, so case (ii)'s infimum measures the
+  true derivatives. The hypothesis is satisfied by the natural representative of any meromorphic
+  function.
 - The infimum in part (ii) is `⨅` over the subtype `Metric.closedBall z₀ δ`. In `ℝ` an infimum over
   a set with no lower bound returns a default value, but $\lVert\cdot\rVert$ is bounded below by
   $0$, so no default fires here.
@@ -76,7 +87,7 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 
 | Band | Points | This problem |
 |---|---|---|
-| A. Completeness | 50 | The requirement table above has 10 rows, so each row is worth 5.0 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
+| A. Completeness | 50 | The requirement table above has 11 rows, so each row is worth 4.5 points: full credit if the candidate states it in any equivalent form, half for a harmless strengthening or weakening, none if it is absent. |
 | B. Semantic fidelity | 20 | Junk values, `ℝ` vs `ℝ≥0∞`, coercions, quantifier order, a.e. vs everywhere — see the pitfalls below. |
 | C. Mathlib-concept correctness | 15 | The Mathlib notion must mean the textbook notion, with the typeclass assumptions it needs. |
 | D. Non-degeneracy | 10 | Not vacuous, not trivial, not a strictly weaker theorem. |
@@ -96,4 +107,5 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 - Junk value — infimum: an infimum over a set of reals is meaningful here because the set is nonempty and bounded below by $0$; over an empty set it would be a default.
 - In case (i) the quantifiers are $\forall \delta > 0$ then $\forall^\infty l$, and the zeros are near the **centre** $z_0$, not near the circle.
 - Case (ii) asserts the conclusion for all sufficiently small $\delta$, so the $\delta$-quantifier is an eventually-near-$0$ one.
-- Poles are the points of the disc where $f$ is meromorphic but not analytic.
+- Poles are the points of the disc where the meromorphic function has negative order (it genuinely blows up); "meromorphic but not analytic" would also admit a removable singularity carrying the wrong value, and is not the right notion.
+- The zeros in case (i) are genuine zeros of the meromorphic function $f^{(l)}$ (positive order), not literal value-hits of the representative, which vanish for free at poles.

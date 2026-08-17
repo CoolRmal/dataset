@@ -79,7 +79,7 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 ### Fatal — any of these caps the total at 25
 
 - Requirement 3 with $\pi$ merely linear or merely multiplicative: a $*$-homomorphism is all three conditions.
-- Requirement 4 weakened to injectivity or to a norm bound $\lVert \pi a\rVert \le \lVert a\rVert$.
+- Requirement 4 weakened to the norm bound $\lVert \pi a\rVert \le \lVert a\rVert$, which every $*$-homomorphism satisfies and which is therefore vacuous. (Injectivity, by contrast, is *equivalent* to isometry for a $*$-homomorphism of C$^*$-algebras and earns full credit, as the notes record.)
 - Requirement 5 omitted: the separable refinement is part of the printed theorem.
 
 ### Domain-specific pitfalls for this problem

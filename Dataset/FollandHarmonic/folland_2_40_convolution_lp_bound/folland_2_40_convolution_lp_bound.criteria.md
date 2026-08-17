@@ -33,7 +33,7 @@ choices behind them.
 | 5 | Part (a) asserts that the defining integral converges absolutely for almost every $x$. | ✅ `∀ᵐ x ∂μ, Integrable (fun y ↦ f y * g (y⁻¹ * x)) μ`. |
 | 6 | Part (a) asserts $f*g \in L^p$. | ✅ `MemLp (groupConv μ f g) p μ`. |
 | 7 | Part (a) asserts the norm bound $\lVert f*g\rVert_p \le \lVert f\rVert_1\lVert g\rVert_p$. | ✅ `eLpNorm (groupConv μ f g) p μ ≤ eLpNorm f 1 μ * eLpNorm g p μ`. |
-| 8 | Part (b) is stated only under unimodularity, and gives both $g*f \in L^p$ and the same bound. | ✅ `IsUnimodular G → …`, using the named definition. |
+| 8 | Part (b) is stated only under unimodularity, and gives all three conclusions for $g*f$: a.e. absolute convergence of the defining integrals, $g*f \in L^p$, and the same bound. | ✅ `IsUnimodular G → (∀ᵐ x ∂μ, Integrable (fun y ↦ g y * f (y⁻¹ * x)) μ) ∧ MemLp (groupConv μ g f) p μ ∧ eLpNorm (groupConv μ g f) p μ ≤ eLpNorm f 1 μ * eLpNorm g p μ`, mirroring part (a). |
 | 9 | Part (c) is stated under compact support of $f$, and gives $g*f \in L^p$. | ✅ `HasCompactSupport f → MemLp (groupConv μ g f) p μ`. |
 | 10 | All three parts are asserted, not just one. | ✅ A three-fold conjunction. |
 
@@ -51,6 +51,7 @@ wrong, even if it compiles.
 | 5 | Writing convolution additively, as $\int f(y)g(x - y)\,dy$, or as $\int f(y)g(xy^{-1})\,dy$. | The first only makes sense on an abelian group; the second is the *other* convolution, which pairs with right Haar measure and does not satisfy the printed bound. |
 | 6 | Swapping the norms, e.g. $\lVert f*g\rVert_p \le \lVert f\rVert_p\lVert g\rVert_1$. | With $f \in L^1$ and $g \in L^p$ this pairs each function with the wrong exponent; the quantities on the right need not even be finite. |
 | 7 | Adding "$G$ is not unimodular" as a hypothesis of part (c). | Folland's phrasing is rhetorical — (c) is the case not already covered by (b). Stating (c) for all $G$ is correct and stronger. |
+| 8 | Giving part (b) only the membership and norm conclusions, without the a.e. absolute-convergence conjunct for $g*f$. | Folland's (b) says "the same conclusions hold with $f*g$ replaced by $g*f$" — all three of them, including the a.e. convergence of the defining integrals. An earlier version of the ground truth dropped this conjunct; the current ground truth incorporates the repair and states (b) in full, mirroring (a). |
 
 ## Notes on the ground truth
 
@@ -89,7 +90,7 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 
 ### Domain-specific pitfalls for this problem
 
-- Junk value — convolution: a convolution defined by a Bochner integral is `0` wherever the integral diverges. Part (a)'s a.e.-convergence claim is what makes the other clauses meaningful.
+- Junk value — convolution: a convolution defined by a Bochner integral is `0` wherever the integral diverges. The a.e.-convergence claims carried by parts (a) and (b) are what make the membership and norm clauses meaningful.
 - Which factor is on the left is part of every clause; convolution on a non-abelian group is not commutative.
 - Part (c) claims membership only, not the norm bound.
 - The exponent lives in `ℝ≥0∞` and $p = \infty$ is included, so the $L^p$ norms must be `eLpNorm`-style and not presuppose finiteness.
