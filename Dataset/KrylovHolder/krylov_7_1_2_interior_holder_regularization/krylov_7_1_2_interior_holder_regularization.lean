@@ -13,15 +13,15 @@ namespace KrylovHolder
 
 /-- Krylov 7.1.2, interior Holder regularization. -/
 theorem krylov_7_1_2_interior_holder_regularization
-    {d m k : ℕ} {δ lam : ℝ} {Ω : Set (EuclideanSpace ℝ (Fin d))}
-    {L : (EuclideanSpace ℝ (Fin d) → ℝ) → EuclideanSpace ℝ (Fin d) → ℝ}
-    {u f : EuclideanSpace ℝ (Fin d) → ℝ}
-    (hδ : 0 < δ ∧ δ < 1) (hΩ : IsOpen Ω)
-    (hL : VariableCoefficientEllipticOperator m L)
-    (hcoeff : OperatorCoefficientsHolder m (k + δ) L)
-    (hu : HolderLocallyOn (m + δ) Ω u)
-    (hLu : ShiftedEllipticEquationOn Ω L lam u f) (hf : HolderLocallyOn (k + δ) Ω f) :
-    HolderLocallyOn (k + m + δ) Ω u := by
+    {d m k : ℕ} {δ κ K lam : ℝ} {Ω : Set (EuclideanSpace ℝ (Fin d))}
+    {a : (Fin d → ℕ) → EuclideanSpace ℝ (Fin d) → ℂ}
+    {u : EuclideanSpace ℝ (Fin d) → ℂ}
+    (hm : 2 ≤ m) (hδ : 0 < δ ∧ δ < 1) (hΩ : IsOpen Ω)
+    (ha : UniformlyElliptic m κ a)
+    (haK : ∀ α, krylovHolderNorm k δ Set.univ (a α) ≤ ENNReal.ofReal K)
+    (hu : MemHolderSpace m δ Ω u)
+    (hLu : MemHolderSpace k δ Ω (lambdaScaledOperator m a lam u)) :
+    MemHolderSpaceLoc (k + m) δ Ω u := by
   sorry
 
 end KrylovHolder

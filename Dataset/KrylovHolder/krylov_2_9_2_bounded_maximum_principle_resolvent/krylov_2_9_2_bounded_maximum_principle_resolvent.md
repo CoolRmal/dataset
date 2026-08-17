@@ -8,7 +8,7 @@
 
 ## Statement
 
-**Theorem 2.9.2.** Let $\Omega$ be a domain in $\mathbb{R}^d$ and $u$ be a bounded and continuous function on $\Omega$ and $u = 0$ on $\partial\Omega$ if $\partial\Omega \ne \emptyset$ (that is, if $\Omega \ne \mathbb{R}^d$). Moreover, assume that $u \in C^2_{\mathrm{loc}}(\Omega)$. Finally, let $a(x)$, $b(x)$ be bounded and $c(x) \le -\lambda$, where the constant $\lambda > 0$. Then in $\Omega$,
+**Theorem 2.9.2.** Let $\Omega$ be a domain in $\mathbb{R}^d$ and $u$ be a bounded and continuous function on $\bar\Omega$ and $u = 0$ on $\partial\Omega$ if $\partial\Omega \ne \emptyset$ (that is, if $\Omega \ne \mathbb{R}^d$). Moreover, assume that $u \in C^2_{\mathrm{loc}}(\Omega)$. Finally, let $a(x)$, $b(x)$ be bounded and $c(x) \le -\lambda$, where the constant $\lambda > 0$. Then in $\Omega$,
 
 $$u \le \lambda^{-1} \sup_\Omega (Lu)^- \qquad \text{and} \qquad |u| \le \lambda^{-1} \sup_\Omega |Lu| .$$
 
@@ -16,4 +16,4 @@ $$u \le \lambda^{-1} \sup_\Omega (Lu)^- \qquad \text{and} \qquad |u| \le \lambda
 
 $$Lu(x) = a^{ij}(x) D_{ij} u(x) + b^i(x) D_i u(x) + c(x) u(x),$$
 
-with summation over repeated indices, $D_i = \partial/\partial x_i$ and $D_{ij} = \partial^2/\partial x_i \partial x_j$; $a = (a^{ij})$ and $b = (b^i)$ are its second- and first-order coefficient arrays and $c$ its zeroth-order coefficient. For a real number $t$ we write $t^- = \max(-t, 0)$ for its negative part.
+with summation over repeated indices, $D_i = \partial/\partial x_i$ and $D_{ij} = \partial^2/\partial x_i \partial x_j$; $a = (a^{ij})$ and $b = (b^i)$ are its second- and first-order coefficient arrays and $c$ its zeroth-order coefficient. Under Sec. 2.9's standing assumptions the matrix $a(x)$ is symmetric and nonnegative definite for every $x$ (no uniform ellipticity is required). For a real number $t$ we write $t^- = \max(-t, 0)$ for its negative part.

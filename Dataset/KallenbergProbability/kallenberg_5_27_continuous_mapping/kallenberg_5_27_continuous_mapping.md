@@ -8,7 +8,7 @@
 
 ## Statement
 
-**Theorem 5.27 (continuous mapping; Mann & Wald, Prohorov, Rubin).** For any metric spaces $S, T$ and set $C \subset S$, consider some measurable functions $f, f_1, f_2, \dots : S \to T$ satisfying
+**Theorem 5.27 (continuous mapping; Mann & Wald, Prohorov, Rubin).** For any metric spaces $S, T$ and Borel set $C \in \mathcal{S}$ (the Borel $\sigma$-field of $S$), consider some measurable functions $f, f_1, f_2, \dots : S \to T$ satisfying
 
 $$s_n \to s \in C \ \Rightarrow\ f_n(s_n) \to f(s).$$
 

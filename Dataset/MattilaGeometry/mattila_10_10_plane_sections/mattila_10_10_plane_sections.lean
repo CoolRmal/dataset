@@ -21,7 +21,7 @@ theorem mattila_10_10_plane_sections
     {n m : ℕ} {t : ℝ} {A : Set (EuclideanSpace ℝ (Fin n))}
     (γ : Measure (Grassmannian n (n - m)))
     (hγ : IsInvariantGrassmannianMeasure γ)
-    (hmt : (m : ℝ) < t) (htn : t < (n : ℝ)) (hA : MeasurableSet A)
+    (hmt : (m : ℝ) ≤ t) (htn : t ≤ (n : ℝ)) (hA : MeasurableSet A)
     (hAfinite : μH[t] A < ∞) (hApos : 0 < μH[t] A) :
     let slice := fun (W : Grassmannian n (n - m)) (a : W.1ᗮ) ↦
       A ∩ {x | x - (a : EuclideanSpace ℝ (Fin n)) ∈ W.1}

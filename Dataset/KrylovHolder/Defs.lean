@@ -17,9 +17,11 @@ open scoped ContDiff ENNReal Topology
 namespace Dataset
 namespace KrylovHolder
 
+variable {F : Type*} [NormedAddCommGroup F] [NormedSpace ℝ F]
+
 /-- Repeated coordinate directional differentiation along a list of coordinate axes. -/
 noncomputable def directionalDerivativeList {d : ℕ} :
-    List (Fin d) → (EuclideanSpace ℝ (Fin d) → ℝ) → EuclideanSpace ℝ (Fin d) → ℝ
+    List (Fin d) → (EuclideanSpace ℝ (Fin d) → F) → EuclideanSpace ℝ (Fin d) → F
   | [], u => u
   | i :: indices, u => fun x ↦
       fderiv ℝ (directionalDerivativeList indices u) x (EuclideanSpace.single i 1)
@@ -30,7 +32,7 @@ noncomputable def multiIndexDirections {d : ℕ} (α : (Fin d → ℕ)) : List (
 
 /-- The classical mixed derivative selected by a multi-index. -/
 noncomputable def multiDerivative {d : ℕ} (α : (Fin d → ℕ))
-    (u : EuclideanSpace ℝ (Fin d) → ℝ) : EuclideanSpace ℝ (Fin d) → ℝ :=
+    (u : EuclideanSpace ℝ (Fin d) → F) : EuclideanSpace ℝ (Fin d) → F :=
   directionalDerivativeList (multiIndexDirections α) u
 
 /-- The iterated directional derivative taken **within** a set. On an open set this agrees with
@@ -69,11 +71,6 @@ def HolderOn {d : ℕ} (r : ℝ) (Ω : Set (EuclideanSpace ℝ (Fin d)))
   ∃ k : ℕ, ∃ δ : ℝ, r = k + δ ∧ 0 ≤ δ ∧ δ < 1 ∧
     ContDiffOn ℝ k u Ω ∧ holderGauge k δ Ω u < ⊤
 
-/-- Local Holder regularity on every compact subset of an open domain. -/
-def HolderLocallyOn {d : ℕ} (r : ℝ) (Ω : Set (EuclideanSpace ℝ (Fin d)))
-    (u : EuclideanSpace ℝ (Fin d) → ℝ) : Prop :=
-  ∀ K : Set (EuclideanSpace ℝ (Fin d)), IsCompact K → K ⊆ Ω → HolderOn r K u
-
 /-- One-dimensional `C^r` Holder regularity on a time set. -/
 def HolderOnReal (r : ℝ) (I : Set ℝ) (u : ℝ → ℝ) : Prop :=
   ∃ (k : ℕ) (δ : ℝ) (hδ : 0 ≤ δ), r = k + δ ∧ δ < 1 ∧ ContDiffOn ℝ k u I ∧
@@ -110,14 +107,6 @@ def ParabolicHolderOn {d : ℕ} (r : ℝ) (Q : Set (ℝ × EuclideanSpace ℝ (F
               multiDerivative α (fun x ↦ u (q.1, x)) q.2| ≤
             C * |p.1 - q.1| ^ ((1 + δ') / 2)
 
-/-- A bounded regular domain admitting barriers at every boundary point. -/
-def RegularBoundedDomain {d : ℕ} (Ω : Set (EuclideanSpace ℝ (Fin d))) : Prop :=
-  IsOpen Ω ∧ Bornology.IsBounded Ω ∧ Ω.Nonempty ∧
-    ∀ z ∈ frontier Ω, ∃ barrier : EuclideanSpace ℝ (Fin d) → ℝ,
-      ContinuousOn barrier (closure Ω) ∧ ContDiffOn ℝ 2 barrier Ω ∧
-      barrier z = 0 ∧ (∀ x ∈ closure Ω, x ≠ z → 0 < barrier x) ∧
-      ∀ x ∈ Ω, Δ barrier x ≤ 0
-
 /-- A unit normal which points from the domain into its complement. -/
 def IsOutwardUnitNormal {d : ℕ} (Ω : Set (EuclideanSpace ℝ (Fin d)))
     (normal : EuclideanSpace ℝ (Fin d) → EuclideanSpace ℝ (Fin d)) : Prop :=
@@ -127,17 +116,18 @@ def IsOutwardUnitNormal {d : ℕ} (Ω : Set (EuclideanSpace ℝ (Fin d)))
         inner ℝ (normal y) velocity = 0) ∧
     ∃ ε : ℝ, 0 < ε ∧ y - ε • normal y ∈ Ω ∧ y + ε • normal y ∉ closure Ω
 
-/-- A bounded domain with a smooth defining function and nonvanishing boundary gradient. -/
-def SmoothBoundedDomain {d : ℕ} (Ω : Set (EuclideanSpace ℝ (Fin d))) : Prop :=
-  RegularBoundedDomain Ω ∧ ∃ ρ : EuclideanSpace ℝ (Fin d) → ℝ,
-    ContDiff ℝ ∞ ρ ∧ Ω = {x | ρ x < 0} ∧
-      ∀ x ∈ frontier Ω, fderiv ℝ ρ x ≠ 0
-
-/-- A classical solution of `Δu=f` with prescribed boundary values. -/
-def LaplaceDirichletSolution {d : ℕ} (Ω : Set (EuclideanSpace ℝ (Fin d)))
-    (f g u : EuclideanSpace ℝ (Fin d) → ℝ) : Prop :=
-  ContDiffOn ℝ 2 u Ω ∧ ContinuousOn u (closure Ω) ∧
-    (∀ x ∈ Ω, Δ u x = f x) ∧ ∀ x ∈ frontier Ω, u x = g x
+/-- Krylov's Chapter-2 standing notion of a **regular** bounded domain: bounded, nonempty,
+and regular enough that Green's second identity holds for all `C²(Ω̄)` functions, relative to
+the given boundary measure and outward unit normal. -/
+def GreensIdentityDomain {d : ℕ} (Ω : Set (EuclideanSpace ℝ (Fin d)))
+    (boundaryMeasure : Measure (EuclideanSpace ℝ (Fin d)))
+    (normal : EuclideanSpace ℝ (Fin d) → EuclideanSpace ℝ (Fin d)) : Prop :=
+  IsOpen Ω ∧ Bornology.IsBounded Ω ∧ Ω.Nonempty ∧
+    ∀ v w : EuclideanSpace ℝ (Fin d) → ℝ, ContDiffOn ℝ 2 v (closure Ω) →
+      ContDiffOn ℝ 2 w (closure Ω) →
+        ∫ x in Ω, (v x * Δ w x - w x * Δ v x) =
+          ∫ y, (v y * fderivWithin ℝ w (closure Ω) y (normal y) -
+            w y * fderivWithin ℝ v (closure Ω) y (normal y)) ∂boundaryMeasure
 
 /-- A kernel is a fundamental solution when it represents the Dirac distribution. -/
 def IsLaplaceFundamentalSolution {d : ℕ}
@@ -147,145 +137,123 @@ def IsLaplaceFundamentalSolution {d : ℕ}
       Integrable (fun y ↦ K x y * Δ φ y) →
         ∫ y, K x y * Δ φ y = φ x
 
-/-- A coefficient representation of an elliptic differential operator of order `m`. -/
-structure EllipticOperatorData {d : ℕ} (m : ℕ)
-    (L : (EuclideanSpace ℝ (Fin d) → ℝ) → EuclideanSpace ℝ (Fin d) → ℝ) where
-  terms : Finset ((Fin d → ℕ))
-  order_le : ∀ α ∈ terms, ∑ i, α i ≤ m
-  coefficient : (Fin d → ℕ) → EuclideanSpace ℝ (Fin d) → ℝ
-  formula : ∀ u x, L u x = ∑ α ∈ terms, coefficient α x * multiDerivative α u x
-  ellipticityConstant : ℝ
-  ellipticityConstant_pos : 0 < ellipticityConstant
-  /-- Uniform ellipticity, with the sign normalised by the parity of `m / 2` so that the
-  shifted operator `L - λ` is the invertible one for `λ > 0` at every order. For `m = 2` the
-  factor is `+1`, so `Δ` is elliptic and `Δ - λ` is invertible for `λ > 0`; for `m = 4` the
-  factor is `-1`, so `-Δ²` is elliptic and `-Δ² - λ` is invertible for `λ > 0`. Without the
-  parity factor the admissible sign of `λ` would flip whenever `m` is a multiple of `4`. -/
-  principalSymbol : ∀ (x ξ : EuclideanSpace ℝ (Fin d)),
-    ellipticityConstant * ‖ξ‖ ^ m ≤
-      (-1) ^ (m / 2 + 1) *
-        ∑ α ∈ terms with ∑ i, α i = m,
-          coefficient α x * ∏ i, (ξ i) ^ (α i)
+/-- The multi-indices on `Fin d` of total order at most `m`, as a finite set. -/
+noncomputable def multiIndicesLE (d m : ℕ) : Finset (Fin d → ℕ) :=
+  ((Finset.univ : Finset (Fin d → Fin (m + 1))).image fun α i ↦ (α i : ℕ)).filter
+    fun α ↦ ∑ i, α i ≤ m
 
-/-- A uniformly elliptic operator with constant coefficients. -/
-def ConstantCoefficientEllipticOperator {d : ℕ} (m : ℕ)
-    (L : (EuclideanSpace ℝ (Fin d) → ℝ) → EuclideanSpace ℝ (Fin d) → ℝ) : Prop :=
-  ∃ data : EllipticOperatorData m L,
-    ∀ α ∈ data.terms, ∀ x y, data.coefficient α x = data.coefficient α y
+/-- Krylov's seminorm `[u]_{k;Ω}` (3.1.1): the supremum over `Ω` of the `k`-th order
+classical derivatives. -/
+noncomputable def supSeminorm {d : ℕ} (k : ℕ) (Ω : Set (EuclideanSpace ℝ (Fin d)))
+    (u : EuclideanSpace ℝ (Fin d) → F) : ℝ≥0∞ :=
+  ⨆ α : {α : Fin d → ℕ // ∑ i, α i = k}, ⨆ x : Ω,
+    ENNReal.ofReal ‖multiDerivative α.1 u x‖
 
-/-- A uniformly elliptic variable-coefficient operator. -/
-def VariableCoefficientEllipticOperator {d : ℕ} (m : ℕ)
-    (L : (EuclideanSpace ℝ (Fin d) → ℝ) → EuclideanSpace ℝ (Fin d) → ℝ) : Prop :=
-  Nonempty (EllipticOperatorData m L)
+/-- Krylov's Hölder seminorm `[u]_{k+δ;Ω}` (3.1.4): the `δ`-Hölder constants of the `k`-th
+order derivatives over `Ω`. -/
+noncomputable def holderSeminorm {d : ℕ} (k : ℕ) (δ : ℝ)
+    (Ω : Set (EuclideanSpace ℝ (Fin d))) (u : EuclideanSpace ℝ (Fin d) → F) : ℝ≥0∞ :=
+  ⨆ α : {α : Fin d → ℕ // ∑ i, α i = k}, ⨆ x : Ω, ⨆ y : Ω,
+    ⨆ _ : (x : EuclideanSpace ℝ (Fin d)) ≠ y,
+      ENNReal.ofReal (‖multiDerivative α.1 u x - multiDerivative α.1 u y‖ /
+        ‖(x : EuclideanSpace ℝ (Fin d)) - y‖ ^ δ)
 
-/-- The coefficients in an elliptic representation possess the stated Holder regularity. -/
-def OperatorCoefficientsHolder {d : ℕ} (m : ℕ) (r : ℝ)
-    (L : (EuclideanSpace ℝ (Fin d) → ℝ) → EuclideanSpace ℝ (Fin d) → ℝ) : Prop :=
-  ∃ data : EllipticOperatorData m L,
-    ∀ α ∈ data.terms, HolderOn r univ (data.coefficient α)
+/-- Krylov's norm `|u|_{k+δ;Ω}` (3.1.2): the derivative suprema through order `k` plus the
+top-order Hölder seminorm. -/
+noncomputable def krylovHolderNorm {d : ℕ} (k : ℕ) (δ : ℝ)
+    (Ω : Set (EuclideanSpace ℝ (Fin d))) (u : EuclideanSpace ℝ (Fin d) → F) : ℝ≥0∞ :=
+  ∑ j ∈ Finset.range (k + 1), supSeminorm j Ω u + holderSeminorm k δ Ω u
 
-/-- A quantitative uniform bound for the Holder gauges of all operator coefficients. -/
-def OperatorCoefficientGaugeLE {d : ℕ} (m k : ℕ) (δ : ℝ) (K : ℝ≥0∞)
-    (L : (EuclideanSpace ℝ (Fin d) → ℝ) → EuclideanSpace ℝ (Fin d) → ℝ) : Prop :=
-  ∃ data : EllipticOperatorData m L,
-    ∀ α ∈ data.terms, holderGauge k δ univ (data.coefficient α) ≤ K
+/-- Membership in Krylov's space `C^{k+δ}(Ω)` (Definition 3.1.1) for functions with values in
+a normed space: continuous derivatives through order `k` on `Ω` and finite norm
+`|u|_{k+δ;Ω}`. -/
+def MemHolderSpace {d : ℕ} (k : ℕ) (δ : ℝ) (Ω : Set (EuclideanSpace ℝ (Fin d)))
+    (u : EuclideanSpace ℝ (Fin d) → F) : Prop :=
+  ContDiffOn ℝ k u Ω ∧ krylovHolderNorm k δ Ω u < ⊤
 
-/-- A second-order elliptic operator whose zeroth coefficient is at most `-λ`. -/
-def SecondOrderEllipticOperator {d : ℕ}
-    (L : (EuclideanSpace ℝ (Fin d) → ℝ) → EuclideanSpace ℝ (Fin d) → ℝ)
-    (lam : ℝ) : Prop :=
-  ∃ data : EllipticOperatorData 2 L, ∃ zeroIndex ∈ data.terms,
-    (∀ i, zeroIndex i = 0) ∧ (∀ x, data.coefficient zeroIndex x ≤ -lam) ∧
-      ∃ C : ℝ, ∀ α ∈ data.terms, ∀ x, |data.coefficient α x| ≤ C
+/-- Krylov's local space `C^{k+δ}_{loc}(Ω)`: membership in `C^{k+δ}(Ω')` for every bounded
+open `Ω'` whose closure lies in `Ω`. -/
+def MemHolderSpaceLoc {d : ℕ} (k : ℕ) (δ : ℝ) (Ω : Set (EuclideanSpace ℝ (Fin d)))
+    (u : EuclideanSpace ℝ (Fin d) → F) : Prop :=
+  ∀ Ω' : Set (EuclideanSpace ℝ (Fin d)), IsOpen Ω' → Bornology.IsBounded Ω' →
+    closure Ω' ⊆ Ω → MemHolderSpace k δ Ω' u
 
-/-- The shifted elliptic equation `Lu - λu=f`. -/
-def ShiftedEllipticEquation {d : ℕ}
-    (L : (EuclideanSpace ℝ (Fin d) → ℝ) → EuclideanSpace ℝ (Fin d) → ℝ) (lam : ℝ)
-    (u f : EuclideanSpace ℝ (Fin d) → ℝ) : Prop :=
-  ∀ x, L u x - lam * u x = f x
+/-- `Σ_{|α| ≤ m} a^α(x) λ^{m−|α|} D^α u(x)`: Krylov's operator family `L_λ` attached to the
+`m`th-order operator `L = Σ_{|α| ≤ m} a^α D^α`; at `λ = 1` it is `L` itself. -/
+noncomputable def lambdaScaledOperator {d : ℕ} (m : ℕ)
+    (a : (Fin d → ℕ) → EuclideanSpace ℝ (Fin d) → ℂ) (lam : ℝ)
+    (u : EuclideanSpace ℝ (Fin d) → ℂ) (x : EuclideanSpace ℝ (Fin d)) : ℂ :=
+  ∑ α ∈ multiIndicesLE d m, a α x * (lam : ℂ) ^ (m - ∑ i, α i) * multiDerivative α u x
 
-/-- The shifted elliptic equation restricted to a domain. -/
-def ShiftedEllipticEquationOn {d : ℕ} (Ω : Set (EuclideanSpace ℝ (Fin d)))
-    (L : (EuclideanSpace ℝ (Fin d) → ℝ) → EuclideanSpace ℝ (Fin d) → ℝ) (lam : ℝ)
-    (u f : EuclideanSpace ℝ (Fin d) → ℝ) : Prop :=
-  ∀ x ∈ Ω, L u x - lam * u x = f x
+/-- The characteristic polynomial `p(ξ) = Σ_{|α| ≤ m} a^α(x) i^{|α|} ξ^α` of the operator
+`L = Σ_{|α| ≤ m} a^α D^α` at the point `x`. -/
+noncomputable def characteristicPolynomial {d : ℕ} (m : ℕ)
+    (a : (Fin d → ℕ) → EuclideanSpace ℝ (Fin d) → ℂ) (x : EuclideanSpace ℝ (Fin d))
+    (ξ : EuclideanSpace ℝ (Fin d)) : ℂ :=
+  ∑ α ∈ multiIndicesLE d m, a α x * Complex.I ^ (∑ i, α i) * ∏ i, (ξ i : ℂ) ^ α i
+
+/-- Ellipticity in the sense of Krylov's Definition 1.1.1 for the constant-coefficient
+operator `L = Σ_{|α| ≤ m} a^α D^α` with complex coefficients: the principal part
+`Σ_{|α| = m} a^α ξ^α` does not vanish for `ξ ≠ 0`, and the characteristic polynomial
+`Σ_{|α| ≤ m} a^α i^{|α|} ξ^α` does not vanish for any `ξ ∈ ℝ^d`. -/
+def IsElliptic {d : ℕ} (m : ℕ) (a : (Fin d → ℕ) → ℂ) : Prop :=
+  (∀ ξ : EuclideanSpace ℝ (Fin d), ξ ≠ 0 →
+      ∑ α ∈ multiIndicesLE d m with ∑ i, α i = m, a α * ∏ i, (ξ i : ℂ) ^ α i ≠ 0) ∧
+    ∀ ξ : EuclideanSpace ℝ (Fin d), characteristicPolynomial m (fun α _ ↦ a α) 0 ξ ≠ 0
+
+/-- Uniform ellipticity in the sense of Krylov's Chapter 4: the characteristic polynomial is
+bounded below by `κ(1 + |ξ|^m)`, uniformly in `x`. -/
+def UniformlyElliptic {d : ℕ} (m : ℕ) (κ : ℝ)
+    (a : (Fin d → ℕ) → EuclideanSpace ℝ (Fin d) → ℂ) : Prop :=
+  0 < κ ∧ ∀ x ξ : EuclideanSpace ℝ (Fin d),
+    κ * (1 + ‖ξ‖ ^ m) ≤ ‖characteristicPolynomial m a x ξ‖
+
+/-- `Σ_{ij} a^{ij}(x) D_i D_j u + Σ_i b^i(x) D_i u + c(x) u`: a second-order operator given
+by its coefficients. -/
+noncomputable def secondOrderOperator {d : ℕ}
+    (a : EuclideanSpace ℝ (Fin d) → Fin d → Fin d → ℝ)
+    (b : EuclideanSpace ℝ (Fin d) → Fin d → ℝ) (c : EuclideanSpace ℝ (Fin d) → ℝ)
+    (u : EuclideanSpace ℝ (Fin d) → ℝ) (x : EuclideanSpace ℝ (Fin d)) : ℝ :=
+  ∑ i, ∑ j, a x i j * directionalDerivativeList [i, j] u x +
+    ∑ i, b x i * directionalDerivativeList [i] u x + c x * u x
+
+/-- Krylov's Definition 6.1.6: a bounded domain of class `C^{n+δ}`, via boundary-straightening
+maps with uniformly controlled Hölder norms. Up to relabelling the coordinates, each boundary
+piece is flattened into the hyperplane `{y_j = 0}` with the domain mapped to its positive
+side. -/
+def IsDomainOfClass {d : ℕ} (n : ℕ) (δ : ℝ) (Ω : Set (EuclideanSpace ℝ (Fin d))) : Prop :=
+  IsOpen Ω ∧ Bornology.IsBounded Ω ∧ Ω.Nonempty ∧
+    ∃ K₀ ρ₀ : ℝ, 0 < K₀ ∧ 0 < ρ₀ ∧ ∀ x₀ ∈ frontier Ω,
+      ∃ (ψ φ : EuclideanSpace ℝ (Fin d) → EuclideanSpace ℝ (Fin d))
+        (D : Set (EuclideanSpace ℝ (Fin d))) (j : Fin d),
+        IsOpen D ∧ Set.BijOn ψ (Metric.ball x₀ ρ₀) D ∧ ψ x₀ = 0 ∧
+        (∀ x ∈ Metric.ball x₀ ρ₀, φ (ψ x) = x) ∧ (∀ y ∈ D, ψ (φ y) = y) ∧
+        ψ '' (Metric.ball x₀ ρ₀ ∩ Ω) ⊆ {y | 0 < y j} ∧
+        ψ '' (Metric.ball x₀ ρ₀ ∩ frontier Ω) = D ∩ {y | y j = 0} ∧
+        (∀ s ≤ n, supSeminorm s (Metric.ball x₀ ρ₀) ψ ≤ ENNReal.ofReal K₀ ∧
+          supSeminorm s D φ ≤ ENNReal.ofReal K₀) ∧
+        holderSeminorm n δ (Metric.ball x₀ ρ₀) ψ ≤ ENNReal.ofReal K₀ ∧
+        holderSeminorm n δ D φ ≤ ENNReal.ofReal K₀ ∧
+        ∀ y₁ ∈ D, ∀ y₂ ∈ D, ‖φ y₁ - φ y₂‖ ≤ K₀ * ‖y₁ - y₂‖
 
 /-- Extended supremum norm on a set. -/
 noncomputable def functionSupNorm {X : Type*} (Ω : Set X) (u : X → ℝ) : ℝ≥0∞ :=
   ⨆ x : Ω, ENNReal.ofReal |u x|
-
-/-- A classical elliptic Dirichlet solution. -/
-def EllipticDirichletSolution {d : ℕ} (Ω : Set (EuclideanSpace ℝ (Fin d)))
-    (L : (EuclideanSpace ℝ (Fin d) → ℝ) → EuclideanSpace ℝ (Fin d) → ℝ)
-    (f g u : EuclideanSpace ℝ (Fin d) → ℝ) : Prop :=
-  ContDiffOn ℝ 2 u Ω ∧ ContinuousOn u (closure Ω) ∧
-    (∀ x ∈ Ω, L u x = f x) ∧ ∀ x ∈ frontier Ω, u x = g x
 
 /-- The shifted heat equation `Δu-u_t-u=f`. -/
 def ShiftedHeatEquation {d : ℕ} (u f : (ℝ × EuclideanSpace ℝ (Fin d)) → ℝ) : Prop :=
   ∀ t x, Δ (fun y ↦ u (t, y)) x - deriv (fun s ↦ u (s, x)) t - u (t, x) =
     f (t, x)
 
-/-- A uniformly parabolic second-order operator with Holder coefficients. -/
-def ParabolicOperator {d : ℕ}
-    (L : ((ℝ × EuclideanSpace ℝ (Fin d)) → ℝ) →
-      (ℝ × EuclideanSpace ℝ (Fin d)) → ℝ) : Prop :=
-  ∃ (a : (ℝ × EuclideanSpace ℝ (Fin d)) → Matrix (Fin d) (Fin d) ℝ)
-    (b : (ℝ × EuclideanSpace ℝ (Fin d)) → EuclideanSpace ℝ (Fin d))
-    (c : (ℝ × EuclideanSpace ℝ (Fin d)) → ℝ) (κ : ℝ),
-    0 < κ ∧
-    (∀ (p : (ℝ × EuclideanSpace ℝ (Fin d))) (ξ : EuclideanSpace ℝ (Fin d)),
-      κ * ‖ξ‖ ^ 2 ≤ ∑ i, ∑ j, a p i j * ξ i * ξ j) ∧
-    ∀ u p, L u p =
-      ∑ i, ∑ j, a p i j *
-        directionalDerivativeList [i, j] (fun x ↦ u (p.1, x)) p.2 +
-      ∑ i, b p i * fderiv ℝ (fun x ↦ u (p.1, x)) p.2 (EuclideanSpace.single i 1) +
-      c p * u p
-
-/-- The coefficients of a parabolic operator have the stated anisotropic Holder regularity. -/
-def ParabolicOperatorCoefficientsHolder {d : ℕ} (r : ℝ)
-    (Q : Set (ℝ × EuclideanSpace ℝ (Fin d)))
-    (L : ((ℝ × EuclideanSpace ℝ (Fin d)) → ℝ) →
-      (ℝ × EuclideanSpace ℝ (Fin d)) → ℝ) : Prop :=
-  ∃ (a : (ℝ × EuclideanSpace ℝ (Fin d)) → Matrix (Fin d) (Fin d) ℝ)
-    (b : (ℝ × EuclideanSpace ℝ (Fin d)) → EuclideanSpace ℝ (Fin d))
-    (c : (ℝ × EuclideanSpace ℝ (Fin d)) → ℝ),
-    (∀ i j, ParabolicHolderOn r Q fun p ↦ a p i j) ∧
-      (∀ i, ParabolicHolderOn r Q fun p ↦ b p i) ∧ ParabolicHolderOn r Q c ∧
-      ∀ u p, L u p =
-        ∑ i, ∑ j, a p i j *
-          directionalDerivativeList [i, j] (fun x ↦ u (p.1, x)) p.2 +
-        ∑ i, b p i * fderiv ℝ (fun x ↦ u (p.1, x)) p.2 (EuclideanSpace.single i 1) +
-        c p * u p
-
-/-- The incoming parabolic boundary: the boundary points approachable from within `Q` at
-later-or-equal times. For a cylinder `(0,T) × Ω` this keeps the bottom and the lateral surface
-and excludes the top `{T} × Ω`, which `Q` reaches only from earlier times. -/
-def parabolicBoundary {d : ℕ} (Q : Set (ℝ × EuclideanSpace ℝ (Fin d))) :
-    Set (ℝ × EuclideanSpace ℝ (Fin d)) :=
-  {p ∈ frontier Q | ∀ ε : ℝ, 0 < ε →
-    ∃ q ∈ Q, p.1 ≤ q.1 ∧ dist q p < ε}
-
-/-- A bounded parabolic domain admitting a classical barrier at each incoming boundary point. -/
-def RegularParabolicDomain {d : ℕ} (Q : Set (ℝ × EuclideanSpace ℝ (Fin d)))
-    (L : ((ℝ × EuclideanSpace ℝ (Fin d)) → ℝ) →
-      (ℝ × EuclideanSpace ℝ (Fin d)) → ℝ) : Prop :=
-  IsOpen Q ∧ Bornology.IsBounded Q ∧ Q.Nonempty ∧
-    ∀ z ∈ parabolicBoundary Q, ∃ barrier : (ℝ × EuclideanSpace ℝ (Fin d)) → ℝ,
-      ContinuousOn barrier (closure Q) ∧ ParabolicHolderOn 2 Q barrier ∧ barrier z = 0 ∧
-        (∀ p ∈ closure Q, p ≠ z → 0 < barrier p) ∧
-        (∀ p ∈ Q, DifferentiableAt ℝ (fun t ↦ barrier (t, p.2)) p.1) ∧
-        ∀ p ∈ Q, L barrier p - deriv (fun t ↦ barrier (t, p.2)) p.1 ≤ 0
-
-/-- A classical parabolic Dirichlet solution. -/
-def ParabolicDirichletSolution {d : ℕ} (Q : Set (ℝ × EuclideanSpace ℝ (Fin d)))
-    (L : ((ℝ × EuclideanSpace ℝ (Fin d)) → ℝ) →
-      (ℝ × EuclideanSpace ℝ (Fin d)) → ℝ)
-    (f g u : (ℝ × EuclideanSpace ℝ (Fin d)) → ℝ) : Prop :=
-  ContinuousOn u (Q ∪ parabolicBoundary Q) ∧
-    (∀ p ∈ Q, DifferentiableAt ℝ (fun t ↦ u (t, p.2)) p.1) ∧
-    (∀ p ∈ Q, L u p - deriv (fun t ↦ u (t, p.2)) p.1 = f p) ∧
-    ∀ p ∈ parabolicBoundary Q, u p = g p
+/-- The spatial second-order operator `Σ_{ij} a^{ij}(t,x) D_i D_j + Σ_i b^i(t,x) D_i + c(t,x)`
+applied to a space-time function at `p = (t, x)`. -/
+noncomputable def parabolicSecondOrderOperator {d : ℕ}
+    (a : (ℝ × EuclideanSpace ℝ (Fin d)) → Fin d → Fin d → ℝ)
+    (b : (ℝ × EuclideanSpace ℝ (Fin d)) → Fin d → ℝ)
+    (c : (ℝ × EuclideanSpace ℝ (Fin d)) → ℝ)
+    (u : (ℝ × EuclideanSpace ℝ (Fin d)) → ℝ) (p : ℝ × EuclideanSpace ℝ (Fin d)) : ℝ :=
+  ∑ i, ∑ j, a p i j * directionalDerivativeList [i, j] (fun y ↦ u (p.1, y)) p.2 +
+    ∑ i, b p i * directionalDerivativeList [i] (fun y ↦ u (p.1, y)) p.2 + c p * u p
 
 end KrylovHolder
 end Dataset

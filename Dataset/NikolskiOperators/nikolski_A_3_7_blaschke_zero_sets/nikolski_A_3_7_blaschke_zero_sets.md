@@ -18,6 +18,6 @@ then $\sum_{n \ge 1} (1 - |\lambda_n|) < \infty$. In particular, this holds when
 
 $$B = \prod_{n \ge 1} b_{\lambda_n}$$
 
-converges uniformly on compact subsets of $\mathbb{D}$ (and even on compact subsets of $\mathbb{C} \setminus \operatorname{clos}\{1/\lambda_n\}_{n \ge 1}$). Moreover $|B| \le 1$ in $\mathbb{D}$, $|B| = 1$ a.e. on $\mathbb{T}$, and the zeros of $B$ are exactly $(\lambda_n)_{n \ge 1}$ (counting multiplicities).
+converges uniformly on compact subsets of $\mathbb{D}$ (and even on compact subsets of $\mathbb{C} \setminus \operatorname{clos}\{1/\bar{\lambda}_n\}_{n \ge 1}$). Moreover $|B| \le 1$ in $\mathbb{D}$, $|B| = 1$ a.e. on $\mathbb{T}$, and the zeros of $B$ are exactly $(\lambda_n)_{n \ge 1}$ (counting multiplicities).
 
 **3.7.2. Remark.** The condition $\sum_{n \ge 1} (1 - |\lambda_n|) < \infty$ is called the *Blaschke condition*.

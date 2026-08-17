@@ -10,6 +10,6 @@
 
 **7.2.1. Theorem (V. Adamyan, D. Arov, and M. Krein, 1971).** Let $H_\varphi$ be a Hankel operator and let $R_n$ be the set of rational functions tending to $0$ at infinity and having all poles in $\mathbb{D}$ such that their total multiplicity is less than or equal to $n$. Then
 
-$$s_n(H_\varphi) = \min\{\|H_\varphi - H_\psi\| : \operatorname{rank} H_\psi \le n\} = \operatorname{dist}_{L^\infty}(\varphi, R_n + H^\infty) = \min\{\|H_{\bar{B}\varphi}\| : B \text{ is a Blaschke product of degree} \le n\},$$
+$$s_n(H_\varphi) = \min\{\|H_\varphi - H_\psi\| : \operatorname{rank} H_\psi \le n\} = \operatorname{dist}_{L^\infty}(\varphi, R_n + H^\infty) = \min\{\|H_{B\varphi}\| : B \text{ is a Blaschke product of degree} \le n\},$$
 
 where the degree $\deg \Theta$ of an inner function $\Theta$ is equal to $n$ if $\Theta$ is a finite Blaschke product with $n$ zeros (counting multiplicities) and $\infty$ otherwise.

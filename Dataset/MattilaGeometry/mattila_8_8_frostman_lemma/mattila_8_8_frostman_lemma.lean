@@ -26,13 +26,13 @@ theorem mattila_8_8_frostman_lemma
             IsFiniteMeasure μ ∧ Measure.InnerRegular μ ∧
               μ ≠ 0 ∧ IsCompact μ.support ∧ μ.support ⊆ B ∧
               ∀ x : EuclideanSpace ℝ (Fin n), ∀ r : ℝ, 0 < r →
-                μ (closedBall x r) < ENNReal.ofReal (r ^ s)) ∧
+                μ (closedBall x r) ≤ ENNReal.ofReal (r ^ s)) ∧
           (0 < μH[s] B → ∃ μ : Measure (EuclideanSpace ℝ (Fin n)),
             IsFiniteMeasure μ ∧ Measure.InnerRegular μ ∧
               μ ≠ 0 ∧ IsCompact μ.support ∧ μ.support ⊆ B ∧
               (∀ x : EuclideanSpace ℝ (Fin n), ∀ r : ℝ, 0 < r →
-                μ (closedBall x r) < ENNReal.ofReal (r ^ s)) ∧
-              (hausdorffContent s B < ∞ → c * hausdorffContent s B < μ B)) := by
+                μ (closedBall x r) ≤ ENNReal.ofReal (r ^ s)) ∧
+              (hausdorffContent s B < ∞ → c * hausdorffContent s B ≤ μ B)) := by
   sorry
 
 end MattilaGeometry

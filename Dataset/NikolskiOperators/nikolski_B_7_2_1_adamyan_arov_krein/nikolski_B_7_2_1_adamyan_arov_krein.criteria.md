@@ -10,9 +10,9 @@ from $H_\varphi$ to arbitrary operators of rank at most $n$. The second is the d
 *Hankel* operators of rank at most $n$. The third is the distance in $L^\infty$ from $\varphi$ to
 $R_n + H^\infty$, where $R_n$ is the set of rational functions vanishing at infinity whose poles
 all lie in the disc and have total multiplicity at most $n$. The fourth is the smallest norm of the
-Hankel operators with symbol $\bar B\varphi$, over finite Blaschke products $B$ of degree at most
-$n$. The striking part is that the first two agree: restricting the approximants to be Hankel costs
-nothing.
+Hankel operators with symbol $B\varphi$ — the Blaschke product itself multiplying $\varphi$, no
+conjugate on $B$ — over finite Blaschke products $B$ of degree at most $n$. The striking part is
+that the first two agree: restricting the approximants to be Hankel costs nothing.
 
 ## What a correct formalization must contain
 
@@ -30,7 +30,7 @@ choices behind them.
 | 5 | The third quantity is the $L^\infty$ distance from $\varphi$ to $R_n + H^\infty$. | ✅ `rationalPlusHInfinityDistance φ n`, an infimum over `ψ` in $R_n$ and `h` in $H^\infty$ of `eLpNorm (φ - ψ - boundaryValue h) ∞`. |
 | 6 | $R_n$ is: rational, tending to $0$ at infinity (numerator degree strictly below denominator degree), all poles inside the disc, total pole multiplicity at most $n$ — and it contains the zero function. | ✅ `RationalVanishingAtInfinityDegreeLE n ψ` = `ψ = 0 ∨ (numerator.natDegree < denominator.natDegree ∧ denominator.natDegree ≤ n ∧ denominator ≠ 0 ∧ all roots in the ball ∧ ψ = num/den)`. |
 | 7 | The fourth quantity ranges over finite Blaschke products of degree at most $n$, with zeros counted with multiplicity and degree $0$ allowed. | ✅ `FiniteBlaschkeProductDegreeLE n B` uses `∃ m ≤ n, ∃ a : Fin m → ℂ`, so entries may repeat and `m = 0` gives a unimodular constant. |
-| 8 | The fourth quantity is the norm of the Hankel operator with symbol $\bar B\varphi$. | ✅ `finiteBlaschkeHankelDistance φ n` takes the infimum of `hankelFormNorm b` over `b` with `HasBoundedHankelSymbol b (fun ζ ↦ star (boundaryValue B ζ) * φ ζ)`. |
+| 8 | The fourth quantity is the norm of the Hankel operator with symbol $B\varphi$ — the Blaschke product itself, not its conjugate, multiplies $\varphi$. | ✅ `finiteBlaschkeHankelDistance φ n` takes the infimum of `hankelFormNorm b` over `b` with `HasBoundedHankelSymbol b (fun ζ ↦ boundaryValue B ζ * φ ζ)`. |
 | 9 | All four quantities are asserted equal. | ✅ Three conjoined equalities chaining the four terms. |
 | 10 | All four quantities live in $[0,\infty]$, so that degenerate cases are not silently rounded to $0$. | ✅ Every one of the four is an `sInf` over a subset of `ℝ≥0∞`. |
 
@@ -49,6 +49,7 @@ wrong, even if it compiles.
 | 6 | Taking the infima over sets of real numbers. | The infimum of an empty set of reals is $0$, which would make degenerate cases silently equal instead of exposing them. |
 | 7 | Requiring the Blaschke degree to be exactly $n$, or forbidding the empty product. | Degree $0$ (a unimodular constant) has to be admissible, and repeated zeros have to be admissible, or the fourth infimum is over the wrong class. |
 | 8 | Stating the equalities for an arbitrary pair (matrix data, symbol) with no relation between them. | The two sides then describe unrelated objects and the statement is false. |
+| 9 | Conjugating the Blaschke product in the fourth quantity, i.e. taking the symbol to be $\bar B\varphi$ instead of $B\varphi$. | Since $B$ is inner, $\lVert H_{\bar B\varphi}\rVert = \operatorname{dist}_{L^\infty}(\bar B\varphi, H^\infty) = \operatorname{dist}_{L^\infty}(\varphi, BH^\infty) \ge \operatorname{dist}_{L^\infty}(\varphi, H^\infty) = s_0(H_\varphi)$, and $B \equiv 1$ attains $s_0(H_\varphi)$. The minimum therefore collapses to $s_0(H_\varphi)$ for every $n$, and the chain asserts $s_n = s_0$ — false for $n \ge 1$ whenever $s_n(H_\varphi) < s_0(H_\varphi)$. The correct symbol $B\varphi$ gives $\lVert H_{B\varphi}\rVert = \operatorname{dist}_{L^\infty}(\varphi, \bar B H^\infty)$, and sweeping $B$ over degree $\le n$ is exactly what reaches $R_n + H^\infty$. |
 
 ## Notes on the ground truth
 
@@ -56,8 +57,10 @@ wrong, even if it compiles.
   optimal Blaschke product. All four quantities here are infima, so attainment is not asserted. A
   stronger formalization would add clauses such as "there is a `b` with `HankelMatrixRankLE n b`
   achieving the value", and likewise for $B$.
-- An earlier version of this file had no `ψ = 0` case in $R_n$ and no singular-value term. Both are
-  now present; Mistakes 1 and 3 record the former defects.
+- An earlier version of this file had no `ψ = 0` case in $R_n$, no singular-value term, and
+  conjugated the Blaschke product in the fourth symbol (`star (boundaryValue B ζ) * φ ζ`). All
+  three defects are now repaired — the fourth symbol is `boundaryValue B ζ * φ ζ`, i.e. $B\varphi$
+  as in the book; Mistakes 1, 3 and 9 record the former defects.
 - `MatrixRankLE` and `HankelMatrixRankLE` also require the factorizing sequences to be square
   summable. That is not part of "rank at most $n$", though it is automatic for bounded finite-rank
   Hankel operators.
@@ -97,6 +100,7 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 
 - Requirement 6 with $R_n$ not containing the zero function, or with the degree condition on the rational functions wrong.
 - Requirement 3 with the second quantity taken over arbitrary rather than Hankel operators, collapsing it into the first.
+- Requirement 8 with the Blaschke product conjugated (symbol $\bar B\varphi$ instead of $B\varphi$), which collapses the fourth quantity to $s_0(H_\varphi)$ and falsifies the chain for $n \ge 1$.
 - Requirement 9 with fewer than all four quantities asserted equal.
 
 ### Domain-specific pitfalls for this problem
@@ -105,4 +109,4 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 - $R_n$ consists of rational functions tending to $0$ at infinity with poles inside the disc; the zero function is a member, with degree $0$.
 - The degree of an inner function is the number of zeros of the corresponding finite Blaschke product, counted with multiplicity, and $\infty$ otherwise.
 - All four quantities are infima or minima and belong in $[0,\infty]$.
-- The symbol $\bar B\varphi$ carries a complex conjugate on the Blaschke product, not a harmonic conjugate.
+- The symbol of the fourth quantity is $B\varphi$: the Blaschke product itself multiplies $\varphi$, with no complex conjugate (and no harmonic conjugate) on $B$. Conjugating $B$ collapses the minimum to $s_0(H_\varphi)$.

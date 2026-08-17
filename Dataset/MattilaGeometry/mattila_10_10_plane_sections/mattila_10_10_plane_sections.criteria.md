@@ -4,7 +4,7 @@
 
 ## What the theorem says
 
-Let $A \subset \mathbb{R}^n$ be a Borel set with $0 < \mathcal{H}^t(A) < \infty$, where $m < t < n$.
+Let $A \subset \mathbb{R}^n$ be a Borel set with $0 < \mathcal{H}^t(A) < \infty$, where $m \le t \le n$ (both endpoints included).
 Slice $A$ by a family of parallel planes: fix a subspace $W$ of dimension $n-m$ and translate it by
 vectors $a$ in the orthogonal complement $W^\perp$, which is $m$-dimensional. The theorem says two
 things. First, for **every** choice of $W$, almost all the slices $A \cap (W+a)$ have finite
@@ -25,13 +25,13 @@ choices behind them.
 |---|-------------|-------------------------------|
 | 1 | The Grassmannian $G(n, n-m)$ must carry a fixed measurable structure, so that "for $\gamma_{n,n-m}$ almost all $W$" means something. | ✅ `Defs.lean` gives `Grassmannian n (n - m)` the topology induced by the projection operators, then its Borel $\sigma$-algebra and a `BorelSpace` instance. |
 | 2 | $\gamma_{n,n-m}$ is a probability measure invariant under all linear isometries of $\mathbb{R}^n$. | ✅ `γ : Measure (Grassmannian n (n - m))` with `hγ : IsInvariantGrassmannianMeasure γ`. |
-| 3 | The hypotheses $m < t$ and $t < n$. | ✅ `hmt : (m : ℝ) < t` and `htn : t < (n : ℝ)`, as two hypotheses. |
+| 3 | The hypotheses $m \le t$ and $t \le n$, inclusive at both ends. | ✅ `hmt : (m : ℝ) ≤ t` and `htn : t ≤ (n : ℝ)`, as two hypotheses. |
 | 4 | $A$ is Borel with $\mathcal{H}^t(A)$ both finite and positive. | ✅ `hA : MeasurableSet A`, `hAfinite : μH[t] A < ∞`, `hApos : 0 < μH[t] A`. |
 | 5 | The affine planes are $W_a = W + a$ indexed by $a \in W^\perp$, and the slice is $A \cap W_a$. | ✅ `slice W a = A ∩ {x \| x - (a : EuclideanSpace ℝ (Fin n)) ∈ W.1}` with `a : ↥W.1ᗮ`. |
 | 6 | Clause (1) holds for **all** $W$, and for $\mathcal{H}^m$-almost every translate $a$: the slice has finite $\mathcal{H}^{t-m}$ measure. | ✅ `∀ W, ∀ᵐ a ∂(μH[(m : ℝ)] : Measure ↥W.1ᗮ), (μH[t - m]) (slice W a) < ∞`. |
 | 7 | Clause (2) holds for $\gamma$-almost every $W$ and asserts that the translates giving slices of dimension exactly $t-m$ form a set of **positive** $\mathcal{H}^m$ measure. | ✅ `∀ᵐ W ∂γ, 0 < μH[(m : ℝ)] {a : ↥W.1ᗮ \| dimH (slice W a) = ENNReal.ofReal (t - m)}`. |
 | 8 | Both clauses are asserted, joined by "and". | ✅ A conjunction of the two. |
-| 9 | The target dimension must be compared correctly against `dimH`, which is `ℝ≥0∞`-valued. | ✅ `ENNReal.ofReal (t - m)`, with `t - m > 0` guaranteed by the hypotheses. |
+| 9 | The target dimension must be compared correctly against `dimH`, which is `ℝ≥0∞`-valued. | ✅ `ENNReal.ofReal (t - m)`, with `t - m ≥ 0` guaranteed by `hmt`, so `ENNReal.ofReal` is faithful; at the endpoint $t = m$ the target dimension is $0$. |
 
 ## Mistakes to check for
 
@@ -46,16 +46,22 @@ wrong, even if it compiles.
 | 4 | Indexing the translates by arbitrary $a \in \mathbb{R}^n$, or by $a \in W$. | Each plane would then be counted once for every point of $W$ lying in it, which destroys both the "almost every $a$" and the "positive measure of $a$" statements. The translates must run over $W^\perp$. |
 | 5 | Replacing `0 < μH[m] {a \| …}` by `∃ a, dimH (slice W a) = t - m`. | A single good translate is far weaker than a positive-measure set of them, and is not what 10.10 asserts. |
 | 6 | Formalizing only clause (1). | Clause (1) is the routine Fubini-type bound; clause (2) is the substance of the theorem. |
-| 7 | Comparing `dimH` against a real number, or writing the target dimension as an `ℝ≥0∞` subtraction `(t : ℝ≥0∞) - m`. | `dimH` lands in `ℝ≥0∞`, and subtraction there is truncated at `0`, so an `ℝ≥0∞` difference can silently become `0` and change the claim. |
+| 7 | Comparing `dimH` against a real number, or writing the target dimension as an `ℝ≥0∞` subtraction `(t : ℝ≥0∞) - m`. | `dimH` lands in `ℝ≥0∞`, and subtraction there is truncated at `0`. The truncated difference agrees with the real difference only on top of $m \le t$; a candidate that drops or misstates that hypothesis while using the truncated form silently turns the target dimension into `0` and changes the claim. |
 | 8 | Dropping $\mathcal{H}^t(A) < \infty$ or $0 < \mathcal{H}^t(A)$. | Finiteness is what clause (1) needs; positivity is what clause (2) needs. Neither is decorative. |
+| 9 | Strengthening the parameter range to strict inequalities $m < t$ and/or $t < n$. | The book's range (Thm 10.10, p. 144) is $m \le t \le n$ with both endpoints included. Strict bounds silently drop the covered endpoint cases — $t = n$, where $A$ is a Borel set of positive finite $\mathcal{H}^n$ (Lebesgue) measure, and $t = m$, where the good slices are zero-dimensional — so the strict statement is a strictly weaker theorem. |
 
 ## Notes on the ground truth
 
 - An earlier version left the measurable structure on the Grassmannian as an unconstrained instance
   argument; that defect has been repaired in `Defs.lean` and survives above as Mistake 1.
-- `Grassmannian n (n - m)` uses truncated natural subtraction. If $m \ge n$ this would silently
-  become the one-point Grassmannian `Grassmannian n 0`. The hypothesis $m < t < n$ forces $m < n$,
-  so `n - m` is the genuine difference.
+- An earlier version strengthened the parameter range to strict inequalities $m < t < n$, excluding
+  the endpoint cases $t = m$ and $t = n$ that the book covers; that defect has been repaired in the
+  statement and Lean files (`hmt`, `htn` are now `≤`) and survives above as Mistake 9.
+- `Grassmannian n (n - m)` uses truncated natural subtraction. If $m > n$ this would silently
+  become the one-point Grassmannian `Grassmannian n 0`. The hypotheses $m \le t \le n$ force
+  $m \le n$, so `n - m` is the genuine difference; at the endpoint $m = n$ the Grassmannian is
+  genuinely the single zero subspace and the slices are single points, which is the case the book
+  asserts there.
 - $\mathcal{H}^{t-m}$ of the slice is computed in the ambient $\mathbb{R}^n$. This is the same number
   as the intrinsic value inside the plane, because the inclusion of the plane is an isometry.
 - $\mathcal{H}^m$ on $W^\perp$ enters only through "almost every $a$" and "positive measure", so the
@@ -93,4 +99,5 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 - Clause (2) is about the Hausdorff **dimension** of the slice being exactly $t-m$, not about its measure.
 - Hausdorff dimension is extended-real-valued, so the comparison with $t-m$ must be made in a type that can express it.
 - The Grassmannian needs a fixed measurable structure and an invariant probability measure for the almost-all statements to have content.
+- The parameter range $m \le t \le n$ is inclusive at both ends; strict inequalities state a strictly weaker theorem.
 - Both clauses are asserted.

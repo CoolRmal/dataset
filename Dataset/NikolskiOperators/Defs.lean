@@ -248,13 +248,13 @@ def FiniteBlaschkeProductDegreeLE (n : ℕ) (B : ℂ → ℂ) : Prop :=
       ∀ z ∈ Metric.ball (0 : ℂ) 1,
         B z = c * ∏ i, (z - a i) / (1 - star (a i) * z)
 
-/-- Minimum norm of the Hankel operators with symbols `conj(B) * φ`, for finite Blaschke
+/-- Minimum norm of the Hankel operators with symbols `B * φ`, for finite Blaschke
 products `B` of degree at most `n`. -/
 noncomputable def finiteBlaschkeHankelDistance
     (φ : {z : ℂ // ‖z‖ = 1} → ℂ) (n : ℕ) : ℝ≥0∞ :=
   sInf {C : ℝ≥0∞ | ∃ (B : ℂ → ℂ) (b : ℕ → ℂ),
     FiniteBlaschkeProductDegreeLE n B ∧
-      HasBoundedHankelSymbol b (fun ζ ↦ star (boundaryValue B ζ) * φ ζ) ∧
+      HasBoundedHankelSymbol b (fun ζ ↦ boundaryValue B ζ * φ ζ) ∧
       hankelFormNorm b = C}
 
 /-- Compactness of a Hankel form, expressed by small operator-norm tails. -/

@@ -20,7 +20,8 @@ theorem kallenberg_5_27_continuous_mapping
     [MetricSpace S] [MeasurableSpace S] [BorelSpace S]
     [MetricSpace T] [MeasurableSpace T] [BorelSpace T]
     (μ : Measure Ω) (μ' : Measure Ω') [IsProbabilityMeasure μ]
-    [IsProbabilityMeasure μ'] (C : Set S) (f : S → T) (fn : ℕ → S → T)
+    [IsProbabilityMeasure μ'] (C : Set S) (hCborel : MeasurableSet C)
+    (f : S → T) (fn : ℕ → S → T)
     (hfn : ∀ n, Measurable (fn n)) (hf : Measurable f)
     (hcontinuous : ∀ s : S, s ∈ C → ∀ sn : ℕ → S,
       Tendsto sn atTop (𝓝 s) → Tendsto (fun n ↦ fn n (sn n)) atTop (𝓝 (f s)))

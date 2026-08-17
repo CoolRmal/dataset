@@ -12,11 +12,15 @@
 
 $$L_\lambda u(x) = f(x), \qquad x \in \mathbb{R}^d .$$
 
-**Notation (the operator).** $\alpha = (\alpha_1,\dots,\alpha_d)$ runs over multi-indices, $|\alpha| = \alpha_1 + \dots + \alpha_d$, $D^\alpha = D_1^{\alpha_1}\cdots D_d^{\alpha_d}$ with $D_i = \partial/\partial x_i$, and $\xi^\alpha = \xi_1^{\alpha_1}\cdots\xi_d^{\alpha_d}$. Uniform ellipticity of $L$ with ellipticity constant $\kappa > 0$ means
+**Notation (the operator, Chapter 4).** $\alpha = (\alpha_1,\dots,\alpha_d)$ runs over multi-indices, $|\alpha| = \alpha_1 + \dots + \alpha_d$, $D^\alpha = D_1^{\alpha_1}\cdots D_d^{\alpha_d}$ with $D_i = \partial/\partial x_i$, and $\xi^\alpha = \xi_1^{\alpha_1}\cdots\xi_d^{\alpha_d}$. The coefficients $a^\alpha(x)$ are *complex* functions, and uniform ellipticity of $L$ with ellipticity constant $\kappa > 0$ means
 
-$$\sum_{|\alpha| = m} a^\alpha(x)\, \xi^\alpha \ \ge\ \kappa |\xi|^m \qquad \text{for all } x, \xi \in \mathbb{R}^d ,$$
+$$\Big|\sum_{|\alpha| \le m} a^\alpha(x)\, i^{|\alpha|} \xi^\alpha\Big| \ \ge\ \kappa\,(1 + |\xi|^m) \qquad \text{for all } x, \xi \in \mathbb{R}^d ;$$
 
-and the shifted operator is $L_\lambda u := Lu - \lambda u$.
+the order obeys the book's standing assumption $m \ge 2$. For real $\lambda$ the operator family is
+
+$$L_\lambda := \sum_{|\alpha| \le m} a^\alpha(x)\, \lambda^{m-|\alpha|} D^\alpha ,$$
+
+so that $L_1 = L$. Theorem 4.1.2, under the assumption $|a^\alpha|_\delta \le K$ for all $\alpha$, furnishes constants $N_0, \lambda_0 \ge 0$ depending only on $\kappa, m, \delta, d$ and $K$ such that $[u]_{m+\delta} + |\lambda|^{m+\delta}|u|_0 \le N_0([L_\lambda u]_{\delta} + |\lambda|^{\delta}|L_\lambda u|_0)$ for all $u \in C^{m+\delta}(\mathbb{R}^d)$ and real $|\lambda| \ge \lambda_0$; it is this $\lambda_0$ that the theorem refers to.
 
 **Notation (Hölder spaces).** For an integer $k \ge 0$, $\delta \in (0,1)$ and a domain $\Omega \subseteq \mathbb{R}^d$,
 
@@ -25,4 +29,4 @@ $$[u]_{k,\Omega} = \max_{|\alpha| = k}\ \sup_{\Omega} |D^\alpha u| , \qquad
 
 $$|u|_{k+\delta,\Omega} = \sum_{j=0}^{k} [u]_{j,\Omega} \ +\ [u]_{k+\delta,\Omega} ,$$
 
-and $C^{k+\delta}(\Omega)$ is the set of functions having continuous derivatives up to order $k$ in $\Omega$ and finite norm $|u|_{k+\delta,\Omega}$. For $\Omega = \mathbb{R}^d$ the domain is omitted from the notation.
+and $C^{k+\delta}(\Omega)$ is the set of (complex-valued) functions having continuous derivatives up to order $k$ in $\Omega$ and finite norm $|u|_{k+\delta,\Omega}$. For $\Omega = \mathbb{R}^d$ the domain is omitted from the notation.

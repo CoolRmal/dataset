@@ -46,6 +46,7 @@ wrong, even if it compiles.
 | 5 | Dropping the hypothesis that the function is not identically zero. | The zero function vanishes at every point to infinite order, so any sequence at all would be its zero sequence and the forward direction fails. |
 | 6 | Stating only one implication. | The material is genuinely two-directional: 3.7.1 gives one way, 3.7.3 the other, and each is a separate theorem. |
 | 7 | Allowing $\lvert\lambda_n\rvert = 1$ (points on the circle). | The Blaschke sum is then meaningless as a condition on interior zeros, and the zeros of an analytic function on the open disc are interior points. |
+| 8 | Stating the extended convergence clause of 3.7.3 with the excluded set $\operatorname{clos}\{1/\lambda_n\}$ instead of $\operatorname{clos}\{1/\bar{\lambda}_n\}$. | The factor $b_\lambda$ has its pole at $1/\bar{\lambda}$, the reflection of $\lambda$ in the unit circle, so the set that must be removed from $\mathbb{C}$ is the closure of the conjugate-reciprocal points $\{1/\bar{\lambda}_n\}$. The unconjugated set is its mirror image across the real axis; the complement of its closure can contain poles of the factors, and there the product need not converge at all. The ground truth does not state this clause, but a candidate that adds it with the wrong set asserts something false. |
 
 ## Notes on the ground truth
 
@@ -62,7 +63,8 @@ wrong, even if it compiles.
   type, or allowing a sentinel for "no further zeros", would fix this.
 - The reverse direction only produces *some* nonzero $H^p$ function with those zeros. The extra
   content of 3.7.3 — the explicit product $B = \prod_n b_{\lambda_n}$, its uniform convergence on
-  compact subsets of the disc and of $\mathbb{C}\setminus\operatorname{clos}\{1/\lambda_n\}$, the
+  compact subsets of the disc and even of $\mathbb{C}\setminus\operatorname{clos}\{1/\bar{\lambda}_n\}$
+  (the removed points $1/\bar{\lambda}_n$ are the poles of the factors $b_{\lambda_n}$), the
   bound $\lvert B\rvert \le 1$ on the disc, and $\lvert B\rvert = 1$ almost everywhere on the
   circle — is not stated. `FiniteBlaschkeProductDegreeLE` and `InnerFunction` in `Defs.lean` show
   an infinite-product version was within reach.
@@ -103,3 +105,4 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 - The Blaschke condition is a summability condition on $1 - |\lambda_n|$, so the $\lambda_n$ approach the boundary fast enough.
 - $|B| \le 1$ holds on the open disc, while $|B^*| = 1$ holds a.e. on the circle; the two venues are different.
 - The nonzero hypothesis is about the function on the disc.
+- A candidate that goes beyond the ground truth and states 3.7.3's extended convergence clause must remove the closure of $\{1/\bar{\lambda}_n\}$ from $\mathbb{C}$ — the conjugation is essential, since $1/\bar{\lambda}_n$ is the pole of $b_{\lambda_n}$; the unconjugated $\{1/\lambda_n\}$ is the wrong (reflected) set.
