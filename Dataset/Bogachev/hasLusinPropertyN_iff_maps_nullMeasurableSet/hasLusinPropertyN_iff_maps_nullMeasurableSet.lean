@@ -15,7 +15,7 @@ namespace Bogachev
 
 /-- **Theorem 3.6.9.**
 Let `F : ℝⁿ → ℝⁿ` be Lebesgue measurable. Then
-`MeasureTheory.HasLusinPropertyN F volume volume` holds if and only if `F`
+`HasLusinPropertyN F volume volume` (the project definition) holds if and only if `F`
 sends every Lebesgue measurable set to a Lebesgue measurable set.
 -/
 theorem hasLusinPropertyN_iff_maps_nullMeasurableSet

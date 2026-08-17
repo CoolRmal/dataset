@@ -17,7 +17,8 @@ namespace BogachevGaussian
 `0` or `1`, and a measurable function invariant under all such shifts is a.e. constant. -/
 theorem bogachev_gaussian_2_5_2_zero_one_law {E : Type*} [AddCommGroup E] [Module ℝ E] [TopologicalSpace E]
     [IsTopologicalAddGroup E] [ContinuousSMul ℝ E] [LocallyConvexSpace ℝ E]
-    [MeasurableSpace E] [BorelSpace E] (γ : Measure E) [IsGaussian γ] :
+    [MeasurableSpace E] [BorelSpace E] (γ : Measure E) [IsGaussian γ]
+    (hrange : ∀ f : StrongDual ℝ E, ∃ h : E, ∀ g : StrongDual ℝ E, g h = covarianceForm γ f g) :
     (∀ A : Set E, MeasurableSet A → (∀ h ∈ cameronMartinSpace γ, γ ((fun x ↦ x + h) '' A) = γ A) →
         γ A = 0 ∨ γ A = 1) ∧
       ∀ f : E → ℝ, Measurable f →

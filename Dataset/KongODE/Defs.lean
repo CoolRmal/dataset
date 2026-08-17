@@ -47,10 +47,6 @@ def FundamentalMatrixSolution {n : ℕ} (I : Set ℝ) (A : ℝ → Matrix (Fin n
     (X : ℝ → Matrix (Fin n) (Fin n) ℝ) : Prop :=
   (∀ t ∈ I, HasDerivAt X (A t * X t) t) ∧ ∀ t ∈ I, IsUnit (X t)
 
-/-- Periodicity of the coefficient matrix. -/
-def PeriodicLinearEquation {n : ℕ} (ω : ℝ) (A : ℝ → Matrix (Fin n) (Fin n) ℝ) : Prop :=
-  ∀ t, A (t + ω) = A t
-
 /-- A list containing exactly the characteristic multipliers of a transition matrix. -/
 def CharacteristicMultipliers {n : ℕ} (V : Matrix (Fin n) (Fin n) ℂ)
     (μ : Fin n → ℂ) : Prop :=
@@ -74,15 +70,17 @@ def InDiagonalJordanBlock {n : ℕ} (V : Matrix (Fin n) (Fin n) ℂ) (μ : ℂ) 
 def UniformlyStableZeroSolution {n : ℕ}
     (F : ℝ → (Fin n → ℝ) → (Fin n → ℝ)) : Prop :=
   ∀ ε : ℝ, 0 < ε → ∃ δ : ℝ, 0 < δ ∧ ∀ t₀ x,
-    0 ≤ t₀ → IsTrajectory F x → ‖x t₀‖ < δ → ∀ t, t₀ ≤ t → ‖x t‖ < ε
+    0 ≤ t₀ → IsTrajectoryOn (Set.Ici t₀) F x → ‖x t₀‖ < δ → ∀ t, t₀ ≤ t → ‖x t‖ < ε
 
 /-- Uniform stability together with convergence of all sufficiently small solutions to zero. -/
 def AsymptoticallyStableZeroSolution {n : ℕ}
     (F : ℝ → (Fin n → ℝ) → (Fin n → ℝ)) : Prop :=
   UniformlyStableZeroSolution F ∧ ∃ δ : ℝ, 0 < δ ∧ ∀ t₀ x,
-    0 ≤ t₀ → IsTrajectory F x → ‖x t₀‖ < δ → Tendsto x atTop (𝓝 0)
+    0 ≤ t₀ → IsTrajectoryOn (Set.Ici t₀) F x → ‖x t₀‖ < δ → Tendsto x atTop (𝓝 0)
 
-/-- Instability is the negation of Lyapunov stability. -/
+/-- Instability, as the negation of uniform stability. For the periodic systems of Kong's
+Chapter 3 — the only place this is used — stability and uniform stability coincide, so this
+is also the negation of Lyapunov stability there. -/
 def UnstableZeroSolution {n : ℕ} (F : ℝ → (Fin n → ℝ) → (Fin n → ℝ)) : Prop :=
   ¬UniformlyStableZeroSolution F
 
@@ -166,14 +164,14 @@ def PeriodicSturmLiouvilleData (p q w : ℝ → ℝ) (a b : ℝ) : Prop :=
     (∀ x ∈ Set.Icc a b, 0 < p x ∧ 0 < w x)
 
 /-- Periodic, Dirichlet, and Neumann boundary conditions. -/
-def periodicBoundary (p : ℝ → ℝ) (a b : ℝ) (y y' : ℝ → ℝ) : Prop :=
+def PeriodicBoundary (p : ℝ → ℝ) (a b : ℝ) (y y' : ℝ → ℝ) : Prop :=
   y a = y b ∧ p a * y' a = p b * y' b
 
 /-- Dirichlet boundary conditions at both endpoints. -/
-def dirichletBoundary (a b : ℝ) (y _y' : ℝ → ℝ) : Prop := y a = 0 ∧ y b = 0
+def DirichletBoundary (a b : ℝ) (y _y' : ℝ → ℝ) : Prop := y a = 0 ∧ y b = 0
 
 /-- Neumann boundary conditions at both endpoints. -/
-def neumannBoundary (a b : ℝ) (_y y' : ℝ → ℝ) : Prop := y' a = 0 ∧ y' b = 0
+def NeumannBoundary (a b : ℝ) (_y y' : ℝ → ℝ) : Prop := y' a = 0 ∧ y' b = 0
 
 end KongODE
 end Dataset

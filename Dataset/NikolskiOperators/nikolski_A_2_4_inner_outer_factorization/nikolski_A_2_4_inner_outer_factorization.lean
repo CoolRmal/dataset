@@ -24,7 +24,7 @@ theorem nikolski_A_2_4_inner_outer_factorization
         (∀ z ∈ Metric.ball (0 : ℂ) 1, f z = θ' z * g' z) →
           ∃ c : ℂ, ‖c‖ = 1 ∧ ∀ z ∈ Metric.ball (0 : ℂ) 1,
             θ' z = c * θ z ∧ g' z = star c * g z) ∧
-      ∀ M : Set (ℂ → ℂ), IsShiftGenerated f M → M = InnerMultiples θ := by
+      ∀ M : Set (ℂ → ℂ), IsShiftGenerated f M → M = innerMultiples θ := by
   sorry
 
 end NikolskiOperators

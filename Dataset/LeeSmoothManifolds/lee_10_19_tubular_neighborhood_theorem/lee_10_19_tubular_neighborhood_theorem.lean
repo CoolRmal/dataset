@@ -23,11 +23,10 @@ theorem lee_10_19_tubular_neighborhood_theorem
       (∀ x, 0 < radius x) ∧ Continuous radius ∧ IsOpen U ∧ M ⊆ U ∧
       ∃ inverse : (Fin n → ℝ) → M × (Fin n → ℝ),
         Set.BijOn (fun p : M × (Fin n → ℝ) ↦ (p.1 : (Fin n → ℝ)) + p.2)
-          (NormalDiskBundle M radius) U ∧
-        ContinuousOn inverse U ∧
+          (normalDiskBundle M radius) U ∧
         ContDiffOn ℝ ∞ (fun z ↦ ((inverse z).1 : (Fin n → ℝ))) U ∧
         ContDiffOn ℝ ∞ (fun z ↦ (inverse z).2) U ∧
-        ∀ p ∈ NormalDiskBundle M radius, inverse ((p.1 : (Fin n → ℝ)) + p.2) = p := by
+        ∀ p ∈ normalDiskBundle M radius, inverse ((p.1 : (Fin n → ℝ)) + p.2) = p := by
   sorry
 
 end LeeSmoothManifolds

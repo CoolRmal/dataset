@@ -24,29 +24,29 @@ theorem kong_6_6_4_periodic_sturm_liouville_coupling
         lam (2 * n + 1) ≤ μ (2 * n + 1) ∧ lam (2 * n + 1) ≤ ν (2 * n + 2) ∧
         μ (2 * n + 1) ≤ lam (2 * n + 2) ∧ ν (2 * n + 2) ≤ lam (2 * n + 2)) ∧
       (∀ eigVal, (∃ y, IsSturmLiouvilleEigenfunction p q w a b eigVal
-        (periodicBoundary p a b) y) ↔ ∃ n, lam n = eigVal) ∧
+        (PeriodicBoundary p a b) y) ↔ ∃ n, lam n = eigVal) ∧
       (∀ eigVal, (∃ y, IsSturmLiouvilleEigenfunction p q w a b eigVal
-        (dirichletBoundary a b) y) ↔ ∃ n, μ n = eigVal) ∧
+        (DirichletBoundary a b) y) ↔ ∃ n, μ n = eigVal) ∧
       (∀ eigVal, (∃ y, IsSturmLiouvilleEigenfunction p q w a b eigVal
-        (neumannBoundary a b) y) ↔ ∃ n, ν n = eigVal) ∧
+        (NeumannBoundary a b) y) ↔ ∃ n, ν n = eigVal) ∧
       (∀ y, IsSturmLiouvilleEigenfunction p q w a b (lam 0)
-        (periodicBoundary p a b) y → {x ∈ Set.Icc a b | y x = 0} = ∅) ∧
+        (PeriodicBoundary p a b) y → {x ∈ Set.Icc a b | y x = 0} = ∅) ∧
       (∀ y₁ y₂, IsSturmLiouvilleEigenfunction p q w a b (lam 0)
-        (periodicBoundary p a b) y₁ →
+        (PeriodicBoundary p a b) y₁ →
         IsSturmLiouvilleEigenfunction p q w a b (lam 0)
-          (periodicBoundary p a b) y₂ →
+          (PeriodicBoundary p a b) y₂ →
           ∃ c : ℝ, Set.EqOn y₂ (c • y₁) (Set.Icc a b)) ∧
       (∀ n, (∃ i j, lam n = μ i ∧ lam n = ν j) ↔
         ∃ y₁ y₂, IsSturmLiouvilleEigenfunction p q w a b (lam n)
-          (periodicBoundary p a b) y₁ ∧
+          (PeriodicBoundary p a b) y₁ ∧
           IsSturmLiouvilleEigenfunction p q w a b (lam n)
-            (periodicBoundary p a b) y₂ ∧
+            (PeriodicBoundary p a b) y₂ ∧
           ¬∃ c : ℝ, Set.EqOn y₂ (c • y₁) (Set.Icc a b)) ∧
       ∀ n, (∀ y, IsSturmLiouvilleEigenfunction p q w a b (lam (2 * n + 1))
-        (periodicBoundary p a b) y →
+        (PeriodicBoundary p a b) y →
           {x ∈ Set.Ico a b | y x = 0}.ncard = 2 * n + 2) ∧
         ∀ y, IsSturmLiouvilleEigenfunction p q w a b (lam (2 * n + 2))
-          (periodicBoundary p a b) y →
+          (PeriodicBoundary p a b) y →
             {x ∈ Set.Ico a b | y x = 0}.ncard = 2 * n + 2 := by
   sorry
 

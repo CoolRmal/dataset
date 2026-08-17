@@ -32,10 +32,12 @@ theorem kong_5_4_2_hopf_friedrich_dichotomy
       ∃ ε : ℝ, ∃ orbit : ℝ → ℝ → (Fin 2 → ℝ),
         ∃ period : ℝ → ℝ, 0 < ε ∧
         (∀ μ, 0 < |μ| → |μ| < ε → (if positiveSide then 0 < μ else μ < 0) →
-          IsClosedOrbit (fun y ↦ F y μ) (orbit μ) ∧ 0 < period μ ∧
-            (∀ t, orbit μ (t + period μ) = orbit μ t) ∧
+          IsClosedOrbit (fun y ↦ F y μ) (orbit μ) ∧
+            IsLeast {T | 0 < T ∧ ∀ t, orbit μ (t + T) = orbit μ t} (period μ) ∧
             ∀ y, IsClosedOrbit (fun z ↦ F z μ) y → ‖y 0‖ < ε →
               range y = range (orbit μ)) ∧
+        (∀ μ, 0 < |μ| → |μ| < ε → (if positiveSide then μ < 0 else 0 < μ) →
+          ¬∃ y : ℝ → (Fin 2 → ℝ), IsClosedOrbit (fun z ↦ F z μ) y ∧ ‖y 0‖ < ε) ∧
         Tendsto (fun μ ↦ ⨆ t : ℝ, ‖orbit μ t‖)
           (if positiveSide then 𝓝[>] 0 else 𝓝[<] 0) (𝓝 0) ∧
         Tendsto period (if positiveSide then 𝓝[>] 0 else 𝓝[<] 0)

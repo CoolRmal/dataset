@@ -15,7 +15,7 @@ namespace KongODE
 theorem kong_3_2_3_characteristic_multiplier_stability
     {n : ℕ} {A : ℝ → Matrix (Fin n) (Fin n) ℝ} {μ : Fin n → ℂ}
     {V : Matrix (Fin n) (Fin n) ℂ} {ω : ℝ}
-    (hω : 0 < ω) (hA : Continuous A) (hperiodic : PeriodicLinearEquation ω A)
+    (hω : 0 < ω) (hA : Continuous A) (hperiodic : Function.Periodic A ω)
     (hV : IsPeriodTransitionMatrix ω A V) (hμ : CharacteristicMultipliers V μ) :
     (UniformlyStableLinearEquation A ↔
       ∀ i, ‖μ i‖ ≤ 1 ∧ (‖μ i‖ = 1 → InDiagonalJordanBlock V (μ i))) ∧

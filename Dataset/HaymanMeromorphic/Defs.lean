@@ -16,9 +16,12 @@ open Filter Set ValueDistribution
 namespace Dataset
 namespace HaymanMeromorphic
 
-/-- `n̄(t, a)`, the number of *distinct* roots of `f z = a` in the closed disk `|z| ≤ t`. -/
+/-- `n̄(t, a)`, the number of *distinct* roots of `f z = a` in the closed disk `|z| ≤ t`:
+`z` is an `a`-point exactly when `f - a` has positive meromorphic order at `z`, which is the
+representative-independent reading (re-valuing `f` on a discrete set changes neither the
+meromorphic germ nor this count, and poles are never counted as `a`-points). -/
 noncomputable def distinctCount (f : ℂ → ℂ) (a : ℂ) (t : ℝ) : ℕ :=
-  {z : ℂ | ‖z‖ ≤ t ∧ f z = a}.ncard
+  {z : ℂ | ‖z‖ ≤ t ∧ 0 < meromorphicOrderAt (fun w ↦ f w - a) z}.ncard
 
 /-- `N̄(r, a)`, the logarithmic counting function of the *distinct* `a`-points of `f`,
 in which multiple roots are counted only once. -/

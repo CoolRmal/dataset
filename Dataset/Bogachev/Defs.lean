@@ -25,16 +25,16 @@ noncomputable def signedMeasureIntegral {X : Type*} [TopologicalSpace X] [Measur
     ∫ x, f x ∂s.toJordanDecomposition.negPart
 
 /-- Weak convergence of finite signed measures against bounded continuous functions. -/
-def weakly_converges_signed {X : Type*} [TopologicalSpace X] [MeasurableSpace X]
+def WeaklyConvergesSigned {X : Type*} [TopologicalSpace X] [MeasurableSpace X]
     (s : ℕ → SignedMeasure X) (t : SignedMeasure X) : Prop :=
   ∀ f : X →ᵇ ℝ,
     Tendsto (fun n ↦ signedMeasureIntegral (s n) f) atTop (𝓝 (signedMeasureIntegral t f))
 
 /-- Every sequence in the family has a weakly convergent subsequence. -/
-def relatively_sequentially_weakly_compact_signed {X : Type*} [TopologicalSpace X]
+def RelativelySequentiallyWeaklyCompactSigned {X : Type*} [TopologicalSpace X]
     [MeasurableSpace X] (S : Set (SignedMeasure X)) : Prop :=
   ∀ s : ℕ → SignedMeasure X, (∀ n, s n ∈ S) →
-    ∃ φ : ℕ → ℕ, StrictMono φ ∧ ∃ t, weakly_converges_signed (fun n ↦ s (φ n)) t
+    ∃ φ : ℕ → ℕ, StrictMono φ ∧ ∃ t, WeaklyConvergesSigned (fun n ↦ s (φ n)) t
 
 /--
 Uniform countable additivity for a family of signed measures, expressed by
@@ -62,7 +62,7 @@ def UniformlyAbsolutelyContinuous {Ω : Type*} [MeasurableSpace Ω]
         μ A ≤ ENNReal.ofReal δ → |s A| < ε
 
 /-- A measure is atomless if every measurable set of positive mass has a smaller positive part. -/
-def is_atomless_measure {X : Type*} [MeasurableSpace X] (μ : Measure X) : Prop :=
+def IsAtomlessMeasure {X : Type*} [MeasurableSpace X] (μ : Measure X) : Prop :=
   ∀ A : Set X, MeasurableSet A → 0 < μ A →
     ∃ B : Set X, MeasurableSet B ∧ B ⊆ A ∧ 0 < μ B ∧ μ B < μ A
 
@@ -98,7 +98,7 @@ We say that `F` has Lusin's property (N) with respect to `(μ, ν)` if
 `ν (F '' A) = 0` for every measurable set `A` satisfying `μ A = 0`.
 
 When the two measure spaces coincide, this is Lusin's property (N) with respect
-to `μ`, i.e. `MeasureTheory.HasLusinPropertyN F μ μ`. In Lean, `F` is a total
+to `μ`. (A project definition; Mathlib has no Lusin-(N) predicate.) In Lean, `F` is a total
 function and hence is defined everywhere.
 -/
 def HasLusinPropertyN {X Y : Type*} [MeasurableSpace X] [MeasurableSpace Y]

@@ -28,7 +28,9 @@ noncomputable def upperHausdorffDensity {n : ℕ} (s : ℝ)
   limsup (fun r : ℝ ↦ μH[s] (A ∩ closedBall x r) /
     ENNReal.ofReal ((2 * r) ^ s)) (𝓝[>] 0)
 
-/-- The `s`-dimensional Hausdorff content, with no diameter restriction on covers. -/
+/-- The `s`-dimensional Hausdorff content for `s > 0`, with no diameter restriction on covers.
+(At `s = 0` the `ℕ`-indexed covers make this `∞` on every set, since even empty covering sets
+contribute `0 ^ 0 = 1`; every use in this book has `0 < s`.) -/
 noncomputable def hausdorffContent {X : Type u} [PseudoMetricSpace X]
     (s : ℝ) (A : Set X) : ℝ≥0∞ :=
   ⨅ U : ℕ → Set X, ⨅ (_ : A ⊆ ⋃ i, U i),

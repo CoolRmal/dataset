@@ -23,11 +23,11 @@ theorem bogachev_8_6_2_prokhorov_signed_measures
     {X : Type*} [MetricSpace X] [CompleteSpace X]
     [MeasurableSpace X] [BorelSpace X] (S : Set (SignedMeasure X)) :
     (∀ _ : SecondCountableTopology X,
-      relatively_sequentially_weakly_compact_signed S ↔
+      RelativelySequentiallyWeaklyCompactSigned S ↔
         IsTightMeasureSet ((fun s : SignedMeasure X ↦ s.totalVariation) '' S) ∧
           UniformlyBoundedInTotalVariation S) ∧
     ((∀ s ∈ S, IsTightMeasureSet {s.totalVariation}) →
-      (relatively_sequentially_weakly_compact_signed S ↔
+      (RelativelySequentiallyWeaklyCompactSigned S ↔
         IsTightMeasureSet ((fun s : SignedMeasure X ↦ s.totalVariation) '' S) ∧
           UniformlyBoundedInTotalVariation S)) := by
   sorry

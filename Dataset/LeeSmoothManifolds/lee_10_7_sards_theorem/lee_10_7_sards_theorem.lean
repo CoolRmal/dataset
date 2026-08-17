@@ -26,7 +26,7 @@ theorem lee_10_7_sards_theorem
     {F : M → N} (hF : ContMDiff 𝓘(ℝ, (Fin m → ℝ)) 𝓘(ℝ, (Fin n → ℝ)) ∞ F) :
     ∀ ψ : OpenPartialHomeomorph N (Fin n → ℝ),
       ψ ∈ IsManifold.maximalAtlas 𝓘(ℝ, (Fin n → ℝ)) ∞ N →
-        volume (ψ '' (F '' CriticalSet (m := m) (n := n) F ∩ ψ.source)) = 0 := by
+        volume (ψ '' (F '' criticalSet (m := m) (n := n) F ∩ ψ.source)) = 0 := by
   sorry
 
 end LeeSmoothManifolds

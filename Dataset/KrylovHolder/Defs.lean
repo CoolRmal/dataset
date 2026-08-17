@@ -83,14 +83,36 @@ def HolderOnReal (r : ℝ) (I : Set ℝ) (u : ℝ → ℝ) : Prop :=
   ∃ (k : ℕ) (δ : ℝ) (hδ : 0 ≤ δ), r = k + δ ∧ δ < 1 ∧ ContDiffOn ℝ k u I ∧
     ∃ C : NNReal, HolderOnWith C (⟨δ, hδ⟩ : NNReal) (iteratedDeriv k u) I
 
-/-- An anisotropic parabolic Holder condition with time exponent `r/2`. -/
+/-- An anisotropic parabolic Holder condition with time exponent `r/2`: slice-wise membership
+in the right one-variable classes, together with **one constant, uniform over `Q`**, bounding
+every pure derivative of parabolic weight at most `k` (`r = k + δ'`) and the anisotropic Holder
+quotients of the top-order data. At `r = δ < 1` this is `C^{δ/2, δ}` (the quotient falls on `u`
+itself); at `r = 2 + δ` it is Krylov's `C^{1+δ/2, 2+δ}`: `u`, `D_x u`, `D²_x u`, `u_t` bounded,
+the top-order data `D²_x u`, `u_t` anisotropically `(δ, δ/2)`-Holder, and `D_x u` Holder of
+exponent `(1+δ)/2` in time. The exponents apply to the top order, never to `u` itself when
+`r > 1` — applying `r` directly to `u` would force local constancy. -/
 def ParabolicHolderOn {d : ℕ} (r : ℝ) (Q : Set (ℝ × EuclideanSpace ℝ (Fin d)))
   (u : (ℝ × EuclideanSpace ℝ (Fin d)) → ℝ) : Prop :=
   (∀ t, HolderOn r {x | (t, x) ∈ Q} fun x ↦ u (t, x)) ∧
     (∀ x, HolderOnReal (r / 2) {t | (t, x) ∈ Q} fun t ↦ u (t, x)) ∧
-    -- one constant for the whole of `Q`, not a constant per slice
-    ∃ C : ℝ, ∀ p ∈ Q, ∀ q ∈ Q,
-      |u p - u q| ≤ C * (‖p.2 - q.2‖ ^ r + |p.1 - q.1| ^ (r / 2))
+    ∃ (k : ℕ) (δ' : ℝ), r = k + δ' ∧ 0 ≤ δ' ∧ δ' < 1 ∧
+      ∃ C : ℝ,
+        (∀ α : Fin d → ℕ, ∑ i, α i ≤ k → ∀ p ∈ Q,
+          |multiDerivative α (fun x ↦ u (p.1, x)) p.2| ≤ C) ∧
+        (∀ j : ℕ, 2 * j ≤ k → ∀ p ∈ Q,
+          |iteratedDeriv j (fun s ↦ u (s, p.2)) p.1| ≤ C) ∧
+        (∀ α : Fin d → ℕ, ∑ i, α i = k → ∀ p ∈ Q, ∀ q ∈ Q,
+          |multiDerivative α (fun x ↦ u (p.1, x)) p.2 -
+              multiDerivative α (fun x ↦ u (q.1, x)) q.2| ≤
+            C * (‖p.2 - q.2‖ ^ δ' + |p.1 - q.1| ^ (δ' / 2))) ∧
+        (∀ j : ℕ, 2 * j = k → ∀ p ∈ Q, ∀ q ∈ Q,
+          |iteratedDeriv j (fun s ↦ u (s, p.2)) p.1 -
+              iteratedDeriv j (fun s ↦ u (s, q.2)) q.1| ≤
+            C * (‖p.2 - q.2‖ ^ δ' + |p.1 - q.1| ^ (δ' / 2))) ∧
+        ∀ α : Fin d → ℕ, ∑ i, α i + 1 = k → ∀ p ∈ Q, ∀ q ∈ Q, p.2 = q.2 →
+          |multiDerivative α (fun x ↦ u (p.1, x)) p.2 -
+              multiDerivative α (fun x ↦ u (q.1, x)) q.2| ≤
+            C * |p.1 - q.1| ^ ((1 + δ') / 2)
 
 /-- A bounded regular domain admitting barriers at every boundary point. -/
 def RegularBoundedDomain {d : ℕ} (Ω : Set (EuclideanSpace ℝ (Fin d))) : Prop :=
@@ -245,7 +267,9 @@ def ParabolicOperatorCoefficientsHolder {d : ℕ} (r : ℝ)
         ∑ i, b p i * fderiv ℝ (fun x ↦ u (p.1, x)) p.2 (EuclideanSpace.single i 1) +
         c p * u p
 
-/-- The incoming parabolic boundary, expressed by approach from earlier times. -/
+/-- The incoming parabolic boundary: the boundary points approachable from within `Q` at
+later-or-equal times. For a cylinder `(0,T) × Ω` this keeps the bottom and the lateral surface
+and excludes the top `{T} × Ω`, which `Q` reaches only from earlier times. -/
 def parabolicBoundary {d : ℕ} (Q : Set (ℝ × EuclideanSpace ℝ (Fin d))) :
     Set (ℝ × EuclideanSpace ℝ (Fin d)) :=
   {p ∈ frontier Q | ∀ ε : ℝ, 0 < ε →

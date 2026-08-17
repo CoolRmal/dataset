@@ -16,9 +16,6 @@ open scoped ENNReal SchwartzMap
 namespace Dataset
 namespace KrylovSobolev
 
-/-- Coercing an `𝓛¹` function to a tempered distribution needs `Fact (1 ≤ (1 : ℝ≥0∞))`. -/
-local instance factOneLeOne : Fact (1 ≤ (1 : ℝ≥0∞)) := ⟨le_rfl⟩
-
 /-- Krylov Exercise 13.3.16: a function supported in `B_ρ` and obeying `|u(x)| ≤ N₀|x|^{-ν}` with
 `ν < d`, `0 < (ν + γ)p < d` and `γ < 0` lies in `H_p^γ`, with `‖u‖_{H_p^γ}` bounded by a constant
 depending only on `d, p, ρ, ν, γ, N₀`; and, more generally, if `|D^αu(x)| ≤ N₀|x|^{-ν}` for all

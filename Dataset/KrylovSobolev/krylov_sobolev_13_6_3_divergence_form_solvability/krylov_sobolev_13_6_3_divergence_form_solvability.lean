@@ -21,7 +21,7 @@ continuity `w`, there is a `λ₀ > 0` depending on `d, p, κ, w, K` such that f
 that solution obeys `√λ‖u‖ + ‖Du‖ ≤ N(‖g‖/√λ + ∑ᵢ‖f^i‖)` with `N` depending only on
 `d, p, κ, K` — in particular not on `w`. -/
 theorem krylov_sobolev_13_6_3_divergence_form_solvability {d : ℕ} (hd : 0 < d) (p : ℝ≥0∞)
-    [Fact (1 ≤ p)] (hp₁ : 1 < p) (hp₂ : p ≠ ⊤) (κ K : ℝ) (hκ : 0 < κ) :
+    [Fact (1 ≤ p)] (hp₁ : 1 < p) (hp₂ : p ≠ ⊤) (κ K : ℝ) (hκ : 0 < κ) (hK : 0 < K) :
     ∃ N : ℝ, ∀ w : ℝ → ℝ, Tendsto w (𝓝[>] (0 : ℝ)) (𝓝 0) → ∃ lam₀ : ℝ, 0 < lam₀ ∧
       ∀ (a : Fin d → Fin d → EuclideanSpace ℝ (Fin d) → ℝ)
         (a' b : Fin d → EuclideanSpace ℝ (Fin d) → ℝ) (c : EuclideanSpace ℝ (Fin d) → ℝ),

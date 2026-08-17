@@ -35,7 +35,8 @@ theorem kong_1_5_3_differentiable_dependence
           Set.EqOn y (fun t ↦ x t t₀ x₀ μ) (I t₀ x₀ μ)) ∧
       (let flowDomain := {p : ℝ × ℝ × (Fin n → ℝ) × (Fin k → ℝ) |
         p.1 ∈ I p.2.1 p.2.2.1 p.2.2.2};
-        ContDiffOn ℝ 1 (fun p ↦ x p.1 p.2.1 p.2.2.1 p.2.2.2) flowDomain) ∧
+        IsOpen flowDomain ∧
+          ContDiffOn ℝ 1 (fun p ↦ x p.1 p.2.1 p.2.2.1 p.2.2.2) flowDomain) ∧
       (∀ t₀ x₀ μ, (t₀, x₀, μ) ∈ D →
         let z := fun t ↦ fderiv ℝ (fun η ↦ x t t₀ x₀ η) μ
         z t₀ = 0 ∧ ∀ t ∈ I t₀ x₀ μ, HasDerivAt z

@@ -24,12 +24,13 @@ theorem folland_2_51_invariant_measure_on_quotient {G : Type*} [Group G]
     (ν : Measure H) [ν.IsHaarMeasure]
     [MeasurableSpace (G ⧸ H)] [BorelSpace (G ⧸ H)] :
     (∃ ρ : Measure (G ⧸ H), ρ ≠ 0 ∧
-        ρ.InnerRegular ∧ ρ.OuterRegular ∧
+        ρ.Regular ∧
         (∀ g : G, ρ.map (fun q ↦ g • q) = ρ) ∧
         (∀ f : G → ℂ, Continuous f → HasCompactSupport f →
           ∫ x, f x ∂μ = ∫ q : G ⧸ H, (∫ y : H, f (Quotient.out q * y) ∂ν) ∂ρ) ∧
         -- unique up to a positive constant factor
-        ∀ ρ' : Measure (G ⧸ H), ρ' ≠ 0 → (∀ g : G, ρ'.map (fun q ↦ g • q) = ρ') →
+        ∀ ρ' : Measure (G ⧸ H), ρ' ≠ 0 → ρ'.Regular →
+          (∀ g : G, ρ'.map (fun q ↦ g • q) = ρ') →
           ∃ c : ℝ≥0∞, 0 < c ∧ c < ∞ ∧ ρ' = c • ρ) ↔
       ∀ y : H, ((Measure.modularCharacterFun (y : G) : ℝ≥0) : ℝ) =
         ((Measure.modularCharacterFun y : ℝ≥0) : ℝ) := by

@@ -1,3 +1,4 @@
+import Mathlib.Analysis.Normed.Lp.lpSpace
 import Mathlib.Analysis.Calculus.IteratedDeriv.Defs
 import Mathlib.Analysis.Normed.Lp.lpSpace
 import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
@@ -37,23 +38,6 @@ def HardyClass (p : ℝ≥0∞) (f : ℂ → ℂ) : Prop :=
       eLpNorm (fun t : ℝ ↦ f (r • (unitCirclePoint t).1)) p
         (volume.restrict (Set.Ioc 0 (2 * Real.pi))) ≤ C
 
-/-- A sequence is the Taylor coefficient sequence of an analytic function on the disk. -/
-def HasTaylorSeries (f : ℂ → ℂ) (a : ℕ → ℂ) : Prop :=
-  ∀ z ∈ Metric.ball (0 : ℂ) 1, HasSum (fun n : ℕ ↦ a n * z ^ n) (f z)
-
-/-- Square-summable Taylor coefficient sequences, used as a model for `H²`. -/
-def HardySquareSummable (a : ℕ → ℂ) : Prop :=
-  Summable fun n : ℕ ↦ ‖a n‖ ^ 2
-
-/-- The Cauchy product of two Taylor coefficient sequences. -/
-noncomputable def CauchyProduct (a b : ℕ → ℂ) : ℕ → ℂ :=
-  fun n : ℕ ↦ Finset.sum (Finset.range (n + 1)) (fun k ↦ a k * b (n - k))
-
-/-- A set of Taylor coefficient sequences is a complex linear subspace. -/
-def IsComplexLinearSubspace (M : Set (ℕ → ℂ)) : Prop :=
-  (0 : ℕ → ℂ) ∈ M ∧
-    ∀ a b : ℂ, ∀ f g : ℕ → ℂ, f ∈ M → g ∈ M → a • f + b • g ∈ M
-
 /-- Lebesgue measure on one angular parametrization of the unit circle. -/
 noncomputable abbrev circleMeasure : Measure ℝ :=
   volume.restrict (Set.Ioc 0 (2 * Real.pi))
@@ -81,10 +65,6 @@ def UnimodularGeneratedSubspace (E : Set (ℝ → ℂ)) (theta : ℝ → ℂ) : 
     E = {f : ℝ → ℂ | ∃ h : ℝ → ℂ, HardyBoundaryFunction h ∧
       f =ᵐ[circleMeasure] fun t ↦ theta t * h t}
 
-/-- Shift-invariance for coefficient subspaces of `H²`. -/
-def ShiftInvariant (M : Set (ℕ → ℂ)) : Prop :=
-  ∀ f ∈ M, (fun n : ℕ ↦ if n = 0 then 0 else f (n - 1)) ∈ M
-
 /-- Convergence in `H²`: the boundary `L²` norms of the differences tend to zero. -/
 def HardyTendsto (u : ℕ → ℂ → ℂ) (g : ℂ → ℂ) : Prop :=
   Filter.Tendsto
@@ -107,7 +87,7 @@ def IsShiftGenerated (f : ℂ → ℂ) (M : Set (ℂ → ℂ)) : Prop :=
     ∀ N : Set (ℂ → ℂ), IsClosedShiftInvariant N → f ∈ N → M ⊆ N
 
 /-- `θ H²`, the set of `H²` functions that are `H²` multiples of `θ` on the disk. -/
-def InnerMultiples (θ : ℂ → ℂ) : Set (ℂ → ℂ) :=
+def innerMultiples (θ : ℂ → ℂ) : Set (ℂ → ℂ) :=
   {h | HardyClass 2 h ∧ ∃ k : ℂ → ℂ, HardyClass 2 k ∧
     ∀ z ∈ Metric.ball (0 : ℂ) 1, h z = θ z * k z}
 
@@ -150,11 +130,6 @@ noncomputable def circleHilbertTransform (v : {z : ℂ // ‖z‖ = 1} → ℝ) 
           (v (unitCirclePoint s) : ℂ) * Complex.exp (-Complex.I * k * s)) *
           Complex.exp (Complex.I * k * t)
 
-/-- The coefficient subspace `θ H²`, expressed through Cauchy products. -/
-def InnerGeneratedSubspace (M : Set (ℕ → ℂ)) (hθ : ℕ → ℂ) : Prop :=
-  HardySquareSummable hθ ∧
-    M = {f : ℕ → ℂ | ∃ g : ℕ → ℂ, HardySquareSummable g ∧ f = CauchyProduct hθ g}
-
 /-- Blaschke summability for a sequence in the disk. -/
 def BlaschkeCondition (a : ℕ → ℂ) : Prop :=
   (∀ n : ℕ, a n ∈ Metric.ball (0 : ℂ) 1) ∧ Summable (fun n : ℕ ↦ 1 - ‖a n‖)
@@ -172,7 +147,7 @@ def SchurFunction (f : ℂ → ℂ) : Prop :=
   HardyClass ⊤ f ∧ ∀ z ∈ Metric.ball (0 : ℂ) 1, ‖f z‖ ≤ 1
 
 /-- The Pick matrix for finite Nevanlinna-Pick interpolation data. -/
-noncomputable def PickMatrix {n : ℕ} (z w : Fin n → ℂ) : Matrix (Fin n) (Fin n) ℂ :=
+noncomputable def pickMatrix {n : ℕ} (z w : Fin n → ℂ) : Matrix (Fin n) (Fin n) ℂ :=
   fun i j ↦ (1 - w i * star (w j)) / (1 - z i * star (z j))
 
 /-- Positive semidefiniteness of a complex matrix, phrased by quadratic forms. -/
@@ -190,9 +165,7 @@ def BoundedHankelForm (a : ℕ → ℂ) : Prop :=
 /-- The integer Fourier coefficient of a circle function. -/
 noncomputable def circleFourierCoefficient
     (φ : {z : ℂ // ‖z‖ = 1} → ℂ) (k : ℤ) : ℂ :=
-  (2 * Real.pi : ℂ)⁻¹ *
-    ∫ t in Set.Ioc 0 (2 * Real.pi),
-      φ (unitCirclePoint t) * Complex.exp (-Complex.I * k * t)
+  angularFourierCoefficient (fun t ↦ φ (unitCirclePoint t)) k
 
 /-- A bounded symbol with the prescribed negative Fourier coefficients. -/
 def HasBoundedHankelSymbol (a : ℕ → ℂ) (φ : {z : ℂ // ‖z‖ = 1} → ℂ) : Prop :=
@@ -220,14 +193,14 @@ noncomputable def symbolDistanceToHInfinity (φ : {z : ℂ // ‖z‖ = 1} → �
 /-- A Hankel matrix has rank at most `n`, exhibited by a factorization through `Fin n`. -/
 def HankelMatrixRankLE (n : ℕ) (b : ℕ → ℂ) : Prop :=
   ∃ u v : Fin n → ℕ → ℂ,
-    (∀ q, HardySquareSummable (u q) ∧ HardySquareSummable (v q)) ∧
+    (∀ q, Memℓp (u q) 2 ∧ Memℓp (v q) 2) ∧
       ∀ i j, b (i + j) = ∑ q, u q i * v q j
 
 /-- An arbitrary infinite matrix has rank at most `n`, witnessed by a factorization through
 `Fin n`. -/
 def MatrixRankLE (n : ℕ) (B : ℕ → ℕ → ℂ) : Prop :=
   ∃ u v : Fin n → ℕ → ℂ,
-    (∀ q, HardySquareSummable (u q) ∧ HardySquareSummable (v q)) ∧
+    (∀ q, Memℓp (u q) 2 ∧ Memℓp (v q) 2) ∧
       ∀ i j, B i j = ∑ q, u q i * v q j
 
 /-- The `n`th approximation number of a Hankel form: distance to arbitrary matrices of rank at

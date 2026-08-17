@@ -35,12 +35,13 @@ theorem folland_2_69_convolution_factorization {G : Type*} [Group G]
           ∀ x, groupConv μ g h x = f x) ∧
     -- L^∞ * L¹ = C_ru * L¹ = C_ru
     (∀ f : G → ℂ, IsRightUniformlyContinuous f →
-        ∃ g h : G → ℂ, MemLp g ∞ μ ∧ Integrable h μ ∧ ∀ x, groupConv μ g h x = f x) ∧
-      (∀ g h : G → ℂ, MemLp g ∞ μ → Integrable h μ →
+        ∃ g h : G → ℂ, MemLp g ∞ μ ∧ Integrable h μ ∧ Integrable (fun y ↦ h y⁻¹) μ ∧
+          ∀ x, groupConv μ g h x = f x) ∧
+      (∀ g h : G → ℂ, MemLp g ∞ μ → Integrable h μ → Integrable (fun y ↦ h y⁻¹) μ →
         IsRightUniformlyContinuous (groupConv μ g h)) ∧
       (∀ f : G → ℂ, IsRightUniformlyContinuous f →
         ∃ g h : G → ℂ, IsRightUniformlyContinuous g ∧ Integrable h μ ∧
-          ∀ x, groupConv μ g h x = f x) := by
+          Integrable (fun y ↦ h y⁻¹) μ ∧ ∀ x, groupConv μ g h x = f x) := by
   sorry
 
 end FollandHarmonic

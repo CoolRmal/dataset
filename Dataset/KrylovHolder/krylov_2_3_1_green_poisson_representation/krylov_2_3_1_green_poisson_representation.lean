@@ -18,13 +18,14 @@ theorem krylov_2_3_1_green_poisson_representation
     {d : ℕ} {Ω : Set (EuclideanSpace ℝ (Fin d))}
     {K h G H : EuclideanSpace ℝ (Fin d) → EuclideanSpace ℝ (Fin d) → ℝ}
     {f g u : EuclideanSpace ℝ (Fin d) → ℝ}
-    (hd : 0 < d) (hΩ : RegularBoundedDomain Ω) (hΩsmooth : SmoothBoundedDomain Ω)
+    (hd : 0 < d) (hΩsmooth : SmoothBoundedDomain Ω)
     (hK : IsLaplaceFundamentalSolution K)
     (boundaryMeasure : Measure (EuclideanSpace ℝ (Fin d)))
     (hmeasure : boundaryMeasure = μH[((d : ℝ) - 1)].restrict (frontier Ω))
     (normal : EuclideanSpace ℝ (Fin d) → EuclideanSpace ℝ (Fin d))
     (hnormal : IsOutwardUnitNormal Ω normal)
     (hharmonic : ∀ x ∈ Ω, HarmonicIn Ω (h x))
+    (hcorrectorContinuous : ∀ x ∈ Ω, ContinuousOn (h x) (closure Ω))
     (hboundary : ∀ x ∈ Ω, ∀ y ∈ frontier Ω, h x y = K x y)
     (hgreen : ∀ x y, G x y = K x y - h x y)
     (hgreenHarmonic : ∀ x ∈ Ω, HarmonicIn (Ω \ {x}) (G x))
@@ -34,7 +35,7 @@ theorem krylov_2_3_1_green_poisson_representation
     (hGintegrable : ∀ x ∈ Ω, IntegrableOn (fun y ↦ G x y * f y) Ω)
     (hHintegrable : ∀ x ∈ Ω, Integrable (fun y ↦ H x y * g y) boundaryMeasure)
     (hu : LaplaceDirichletSolution Ω f g u) :
-    ∀ x ∈ Ω, u x = ∫ y in Ω, G x y * f y +
+    ∀ x ∈ Ω, u x = (∫ y in Ω, G x y * f y) +
       ∫ y, H x y * g y ∂boundaryMeasure := by
   sorry
 

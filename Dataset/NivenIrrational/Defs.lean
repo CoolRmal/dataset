@@ -15,7 +15,8 @@ periodicity, and the class of lengths constructible by straightedge and compass.
 namespace Dataset
 namespace NivenIrrational
 
-/-- The `k`-th decimal digit of `x ∈ [0,1)`, i.e. `⌊10^{k+1} x⌋ mod 10`. -/
+/-- The `k`-th decimal digit after the point, `⌊10^{k+1} x⌋ mod 10`. For `x ∈ [0,1)` this reads
+off the standard expansion; the formula is meaningful for every `x ≥ 0`. -/
 noncomputable def decimalDigit (x : ℝ) (k : ℕ) : ℕ :=
   (⌊(10 : ℝ) ^ (k + 1) * x⌋).toNat % 10
 

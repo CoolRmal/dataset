@@ -21,10 +21,11 @@ theorem grafakos_2_1_6_hardy_littlewood_maximal {n : ℕ} :
     let operators := ({hardyLittlewoodMaximal n,
       hardyLittlewoodCenteredMaximal n} : Set ((EuclideanSpace ℝ (Fin n) → ℂ) →
         EuclideanSpace ℝ (Fin n) → ℝ≥0∞))
-    (∀ M ∈ operators, ∀ f : EuclideanSpace ℝ (Fin n) → ℂ, MemLp f 1 volume →
-      ∀ α : ℝ, 0 < α → volume {x | ENNReal.ofReal α < M f x} ≤
-        ENNReal.ofReal (3 ^ n / α) *
-          ∫⁻ x in {x | ENNReal.ofReal α < M f x}, ‖f x‖ₑ) ∧
+    (∀ f : EuclideanSpace ℝ (Fin n) → ℂ, MemLp f 1 volume →
+      ∀ α : ℝ, 0 < α →
+        volume {x | ENNReal.ofReal α < hardyLittlewoodMaximal n f x} ≤
+          ENNReal.ofReal (3 ^ n / α) *
+            ∫⁻ x in {x | ENNReal.ofReal α < hardyLittlewoodMaximal n f x}, ‖f x‖ₑ) ∧
     (∀ M ∈ operators, ∀ f : EuclideanSpace ℝ (Fin n) → ℂ, MemLp f 1 volume →
       ∀ α : ℝ, 0 < α → ENNReal.ofReal α * volume {x | ENNReal.ofReal α < M f x} ≤
         ENNReal.ofReal (3 ^ n) * eLpNorm f 1 volume) ∧

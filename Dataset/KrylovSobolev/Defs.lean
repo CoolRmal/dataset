@@ -55,8 +55,9 @@ def HasWeakGradient {d : ℕ} (u : EuclideanSpace ℝ (Fin d) → ℝ)
     (∫ x, u x * partialDeriv j φ x) = -∫ x, v j x * φ x
 
 /-- Krylov's equation (13.6.1), `D_i(a^{ij}D_j u + a^i u) + b^i D_i u + cu - λu = D_i f^i + g`,
-in the sense of distributions: `u` lies in `𝓛_p` with generalized gradient `v`, and the identity
-obtained by integrating the divergence terms by parts holds against every test function. -/
+in the sense of distributions: `v` is the generalized gradient of `u`, and the identity obtained
+by integrating the divergence terms by parts holds against every test function. (Membership of
+`u` in `𝓛_p` is supplied by the caller, which instantiates `u` with an `Lp` element.) -/
 def IsDivergenceFormSolution {d : ℕ} (a : Fin d → Fin d → EuclideanSpace ℝ (Fin d) → ℝ)
     (a' b : Fin d → EuclideanSpace ℝ (Fin d) → ℝ) (c : EuclideanSpace ℝ (Fin d) → ℝ) (lam : ℝ)
     (f : Fin d → EuclideanSpace ℝ (Fin d) → ℝ) (g u : EuclideanSpace ℝ (Fin d) → ℝ)
@@ -67,9 +68,10 @@ def IsDivergenceFormSolution {d : ℕ} (a : Fin d → Fin d → EuclideanSpace �
           ∫ x, g x * φ x) =
         ∫ x, ((∑ i, b i x * v i x) + (c x - lam) * u x) * φ x
 
-/-- Krylov's Definition 13.3.1: the norm `‖g‖_{H_p^s} = ‖(1 - Δ)^{s/2} g‖_{𝓛_p}` of the Bessel
-potential space, as the `𝓛_p` norm of the representative of `besselPotential s g` when there is
-one and `⊤` otherwise. -/
+/-- The `𝓛_p` norm of `besselPotential s g` (Mathlib's normalization, symbol
+`(1+‖ξ‖²)^{s/2} = (1 - (2π)⁻²Δ)^{s/2}`) when it has an `𝓛_p` representative, and `⊤` otherwise.
+This is *equivalent to*, not equal to, Krylov's `‖(1-Δ)^{s/2} g‖_{𝓛_p}` of Definition 13.3.1;
+`besselOp` is the variant that compensates the `2π` convention exactly. -/
 noncomputable def sobolevNorm {d : ℕ} (s : ℝ) (p : ℝ≥0∞) [Fact (1 ≤ p)]
     (g : 𝓢'(EuclideanSpace ℝ (Fin d), ℂ)) : ℝ≥0∞ :=
   ⨅ f ∈ {f : Lp ℂ p (volume : Measure (EuclideanSpace ℝ (Fin d))) |

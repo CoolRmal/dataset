@@ -19,18 +19,12 @@ namespace ConwayFunctionalAnalysis
 
 universe u
 
-/-- A bounded operator on a Hilbert space is an orthogonal projection. -/
-abbrev IsOrthogonalProjection {H : Type*} [NormedAddCommGroup H]
-    [InnerProductSpace ℂ H] [CompleteSpace H] (P : H →L[ℂ] H) : Prop :=
-  IsStarProjection P
-
 /-- A countably additive projection-valued measure, with additivity in the strong topology. -/
 structure ProjectionValuedMeasure (H : Type*) [NormedAddCommGroup H]
     [InnerProductSpace ℂ H] [CompleteSpace H] where
   toFun : Set ℂ → H →L[ℂ] H
-  empty : toFun ∅ = 0
   univ : toFun univ = ContinuousLinearMap.id ℂ H
-  projection : ∀ B : Set ℂ, MeasurableSet B → IsOrthogonalProjection (toFun B)
+  projection : ∀ B : Set ℂ, MeasurableSet B → IsStarProjection (toFun B)
   nonmeasurable : ∀ B : Set ℂ, ¬MeasurableSet B → toFun B = 0
   orthogonal : ∀ B C : Set ℂ, MeasurableSet B → MeasurableSet C → Disjoint B C →
     (toFun B).comp (toFun C) = 0
@@ -54,17 +48,12 @@ def IsSelfAdjointUnbounded {H : Type*} [NormedAddCommGroup H]
   ∀ y : A.domain, ∀ z : H,
     (∀ x : A.domain, inner ℂ (A.op x) y = inner ℂ (x : H) z) → z = A.op y
 
-/-- A unitary bounded operator. -/
-def IsUnitaryOperator {H : Type*} [NormedAddCommGroup H]
-    [InnerProductSpace ℂ H] [CompleteSpace H] (U : H →L[ℂ] H) : Prop :=
-  U ∈ unitary (H →L[ℂ] H)
-
 /-- A strongly continuous one-parameter unitary group. -/
 def StronglyContinuousUnitaryGroup {H : Type*} [NormedAddCommGroup H]
     [InnerProductSpace ℂ H] [CompleteSpace H] (U : ℝ → H →L[ℂ] H) : Prop :=
   U 0 = ContinuousLinearMap.id ℂ H ∧
     (∀ s t : ℝ, U (s + t) = (U s).comp (U t)) ∧
-    (∀ t : ℝ, IsUnitaryOperator (U t)) ∧
+    (∀ t : ℝ, U t ∈ unitary (H →L[ℂ] H)) ∧
     ∀ x : H, Continuous fun t ↦ U t x
 
 /-- A unitary group is the spectral-calculus exponential of an unbounded operator. -/
@@ -77,7 +66,7 @@ def IsSpectralExponential {H : Type*} [NormedAddCommGroup H] [InnerProductSpace 
       (∀ x : A.domain, ∀ y : H, inner ℂ (A.op x) y =
         ∫ᵛ z, z ∂[ContinuousLinearMap.mul ℝ ℂ; scalarMeasure x y]) ∧
       ∀ t : ℝ, ∀ x y : H, inner ℂ (U t x) y =
-        ∫ᵛ z, Complex.exp (Complex.I * t * z)
+        ∫ᵛ z, Complex.exp (-(Complex.I * t * z))
           ∂[ContinuousLinearMap.mul ℝ ℂ; scalarMeasure x y]
 
 /-- Left invertibility modulo compact operators. -/

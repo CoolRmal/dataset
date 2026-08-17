@@ -17,13 +17,15 @@ poles whose `l`-th derivative also has finitely many zeros is `P₁ e^{P₃} / P
 `f = (Az+B)^{-n}`. -/
 theorem hayman_3_8_tumura_clunie_form (f : ℂ → ℂ) (hf : Meromorphic f) (l : ℕ) (hl : 2 ≤ l)
     (hpoles : {z : ℂ | meromorphicOrderAt f z < 0}.Finite)
-    (hzeros : {z : ℂ | f z = 0}.Finite)
-    (hlzeros : {z : ℂ | iteratedDeriv l f z = 0}.Finite) :
+    (hzeros : {z : ℂ | 0 < meromorphicOrderAt f z}.Finite)
+    (hlzeros : {z : ℂ | 0 < meromorphicOrderAt (iteratedDeriv l f) z}.Finite) :
     (∃ P₁ P₂ P₃ : Polynomial ℂ, P₂ ≠ 0 ∧
         ∀ z, P₂.eval z ≠ 0 → f z = P₁.eval z / P₂.eval z * Complex.exp (P₃.eval z)) ∧
-      (({z : ℂ | f z = 0} = ∅ ∧ {z : ℂ | iteratedDeriv l f z = 0} = ∅) →
-        (∃ A B : ℂ, ∀ z, f z = Complex.exp (A * z + B)) ∨
-          ∃ (A B : ℂ) (n : ℕ), 1 ≤ n ∧ ∀ z, A * z + B ≠ 0 → f z = (A * z + B) ^ (-(n : ℤ))) := by
+      (((∀ z, meromorphicOrderAt f z ≤ 0) ∧
+          (∀ z, meromorphicOrderAt (iteratedDeriv l f) z ≤ 0)) →
+        (∃ A B : ℂ, ∀ z, ContinuousAt f z → f z = Complex.exp (A * z + B)) ∨
+          ∃ (A B : ℂ) (n : ℕ), 1 ≤ n ∧ ∀ z, ContinuousAt f z → A * z + B ≠ 0 →
+            f z = (A * z + B) ^ (-(n : ℤ))) := by
   sorry
 
 end HaymanMeromorphic

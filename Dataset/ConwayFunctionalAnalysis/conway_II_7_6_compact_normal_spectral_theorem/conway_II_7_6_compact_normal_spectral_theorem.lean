@@ -21,7 +21,7 @@ theorem conway_II_7_6_compact_normal_spectral_theorem
     ∃ (ι : Type) (_ : Countable ι) (eigenvalue : ι → ℂ)
       (projection : ι → H →L[ℂ] H),
       (∀ i, eigenvalue i ≠ 0) ∧ Function.Injective eigenvalue ∧
-      (∀ i, projection i ≠ 0) ∧ (∀ i, IsOrthogonalProjection (projection i)) ∧
+      (∀ i, projection i ≠ 0) ∧ (∀ i, IsStarProjection (projection i)) ∧
       Pairwise (fun i j ↦ (projection i).comp (projection j) = 0) ∧
       (∀ i, LinearMap.range (projection i).toLinearMap =
         LinearMap.ker (T - eigenvalue i • ContinuousLinearMap.id ℂ H).toLinearMap) ∧

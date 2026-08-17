@@ -47,23 +47,6 @@ def rightTranslate (y : G) (f : G → ℂ) : G → ℂ := fun x ↦ f (x * y)
 noncomputable def groupConv (μ : Measure G) (f g : G → ℂ) : G → ℂ :=
   fun x ↦ ∫ y, f y * g (y⁻¹ * x) ∂μ
 
-/-- The `𝓛_p(μ)` distance used to say that a family of functions is closed in `𝓛_p`. -/
-def IsLpClosed (p : ℝ≥0∞) (μ : Measure G) (I : Set (G → ℂ)) : Prop :=
-  ∀ f : G → ℂ, MemLp f p μ →
-    (∀ ε : ℝ≥0∞, 0 < ε → ∃ g ∈ I, MemLp g p μ ∧ eLpNorm (f - g) p μ < ε) → f ∈ I
-
-/-- `ι` exhibits `K` as the Bohr compactification `bG` of `G`: `K` is a compact Hausdorff
-topological group, `ι` is a continuous homomorphism with dense range, and every continuous
-character of `G` factors through `ι`. Those conditions characterise `bG` among compactifications
-of `G` by groups. -/
-def IsBohrCompactification {G K : Type*} [CommGroup G] [TopologicalSpace G]
-    [CommGroup K] [TopologicalSpace K] [IsTopologicalGroup K] [CompactSpace K] [T2Space K]
-    (ι : G →* K) : Prop :=
-  Continuous ι ∧ DenseRange ι ∧
-    ∀ χ : PontryaginDual G, ∃ ψ : PontryaginDual K, ∀ x : G, ψ (ι x) = χ x
-
-/-! ### Unitary representations, for the Gelfand–Raikov theorem -/
-
 /-- A unitary representation of a topological group `G` on a complex Hilbert space `H`:
 a homomorphism into the unitary operators that is continuous in the strong topology. -/
 structure UnitaryRepresentation (G H : Type*) [Group G] [TopologicalSpace G]
@@ -93,12 +76,6 @@ def IsLeftUniformlyContinuous (f : G → ℂ) : Prop :=
 def IsRightUniformlyContinuous (f : G → ℂ) : Prop :=
   (∃ C : ℝ, ∀ x, ‖f x‖ ≤ C) ∧
     ∀ ε : ℝ, 0 < ε → ∃ U ∈ nhds (1 : G), ∀ y ∈ U, ∀ x, ‖rightTranslate y f x - f x‖ < ε
-
-/-- `f` is uniformly almost periodic: its right translates are totally bounded for the uniform
-norm, i.e. finitely many of them approximate all the others uniformly on `G`. -/
-def IsUniformlyAlmostPeriodic (f : G → ℂ) : Prop :=
-  ∀ ε : ℝ, 0 < ε → ∃ s : Finset G, ∀ y : G, ∃ z ∈ s, ∀ x : G,
-    ‖rightTranslate y f x - rightTranslate z f x‖ < ε
 
 end FollandHarmonic
 end Dataset
