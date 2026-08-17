@@ -1,4 +1,4 @@
-import Mathlib.MeasureTheory.Group.ModularCharacter
+import Dataset.FollandHarmonic.Defs
 
 /-!
 # `folland_2_29_unimodular_of_compact_commutator_quotient`
@@ -17,8 +17,8 @@ namespace FollandHarmonic
 compact is unimodular. -/
 theorem folland_2_29_unimodular_of_compact_commutator_quotient {G : Type*} [Group G]
     [TopologicalSpace G] [IsTopologicalGroup G] [LocallyCompactSpace G]
-    (hcpt : CompactSpace (G ⧸ (commutator G).topologicalClosure)) (x : G) :
-    Measure.modularCharacterFun x = 1 := by
+    [CompactSpace (G ⧸ (commutator G).topologicalClosure)] :
+    IsUnimodular G := by
   sorry
 
 end FollandHarmonic

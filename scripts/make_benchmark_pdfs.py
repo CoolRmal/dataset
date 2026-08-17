@@ -1283,11 +1283,11 @@ FOLLAND_HARMONIC = [
     ),
     Entry(
         3,
-        "2.31 Theorem. If λ is a left Haar measure on G and Δ is the modular function of G, then for every f ∈ L^1(G) ∫_G f(x^{-1})Δ(x^{-1}) dλ(x) = ∫_G f(x) dλ(x). Notation: Throughout, G is a locally compact group with a fixed left Haar measure, L_yf(x) = f(y^{-1}x) and R_yf(x) = f(xy) are the left and right translates of f, and f*g(x) = ∫ f(y)g(y^{-1}x) dy is convolution. L^1(G) is a Banach algebra under convolution. The modular function Δ : G → (0,∞) is determined by λ(Ex) = Δ(x)λ(E) for a left Haar measure λ; it is a continuous homomorphism and is identically 1 exactly when G is unimodular.",
+        "2.31 Proposition. To each left Haar measure λ is associated the right Haar measure ρ defined by ρ(E) = λ(E^{-1}). Then λ and ρ are strongly equivalent, and dρ(x) = Δ(x^{-1}) dλ(x). Notation: Two Radon measures μ, ν are strongly equivalent (Proposition 2.23) when there is a continuous f : X → (0,∞) with ∫ φ dν = ∫ φ f dμ for every φ ∈ C_c(X); then ν(E) = ∫_E f dμ for all Borel E. This is strictly stronger than mutual absolute continuity. Throughout, G is a locally compact group with a fixed left Haar measure, L_yf(x) = f(y^{-1}x) and R_yf(x) = f(xy) are the left and right translates of f, and f*g(x) = ∫ f(y)g(y^{-1}x) dy is convolution. L^1(G) is a Banach algebra under convolution. The modular function Δ : G → (0,∞) is determined by λ(Ex) = Δ(x)λ(E) for a left Haar measure λ; it is a continuous homomorphism and is identically 1 exactly when G is unimodular.",
         "Harmonic analysis",
         "Dataset/FollandHarmonic.lean",
-        "folland_2_31_modular_inversion_formula",
-        [],
+        "folland_2_31_left_right_haar_strongly_equivalent",
+        ["StronglyEquivalent"],
     ),
     Entry(
         4,
@@ -1339,11 +1339,11 @@ FOLLAND_HARMONIC = [
     ),
     Entry(
         10,
-        "4.81 Theorem. If f is a bounded continuous function on G, the following are equivalent: a. f is the restriction to G of a continuous function on bG. b. f is the uniform limit of linear combinations of characters on G. c. f is uniformly almost periodic. Notation: G is a locally compact abelian group, Ĝ its dual group of continuous characters ξ : G → T, and f̂(ξ) = ∫ f(x)conj(⟨ x,ξ⟩) dx the Fourier transform. For a closed ideal I ⊂ L^1(G), ν(I) = {ξ : f̂(ξ) = 0 for all f ∈ I} is its cospectrum (hull) and, for E ⊂ Ĝ, ι(E) = {f ∈ L^1(G) : f̂|_E = 0} is the kernel of E; ν(f) := ν({f}). bG is the Bohr compactification of G, and f is *uniformly almost periodic* when the set of its right translates {R_yf : y ∈ G} is totally bounded in the uniform norm.",
+        "3.34 Theorem (The Gelfand-Raikov Theorem). If G is any locally compact group, the irreducible unitary representations of G separate points on G. That is, if x and y are distinct points of G, there is an irreducible representation π such that π(x) ≠ π(y). Notation: A unitary representation of G is a homomorphism π from G into the group of unitary operators on a nonzero complex Hilbert space that is continuous for the strong operator topology; it is irreducible if the only closed π-invariant subspaces are {0} and the whole space.",
         "Harmonic analysis",
         "Dataset/FollandHarmonic.lean",
-        "folland_4_81_almost_periodic_characterization",
-        ["rightTranslate", "IsUniformlyAlmostPeriodic"],
+        "folland_3_34_gelfand_raikov",
+        ["UnitaryRepresentation", "UnitaryRepresentation.Irreducible"],
     ),
 ]
 

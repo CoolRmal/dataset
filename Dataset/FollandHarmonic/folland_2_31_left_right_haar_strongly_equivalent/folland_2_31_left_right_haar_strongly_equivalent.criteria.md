@@ -1,6 +1,6 @@
-# Criteria: folland_2_31_modular_inversion_formula
+# Criteria: folland_2_31_left_right_haar_strongly_equivalent
 
-**Statement:** [folland_2_31_modular_inversion_formula.md](folland_2_31_modular_inversion_formula.md) · **Lean:** [folland_2_31_modular_inversion_formula.lean](folland_2_31_modular_inversion_formula.lean) · **Context:** [folland_2_31_modular_inversion_formula.context.md](folland_2_31_modular_inversion_formula.context.md)
+**Statement:** [folland_2_31_left_right_haar_strongly_equivalent.md](folland_2_31_left_right_haar_strongly_equivalent.md) · **Lean:** [folland_2_31_left_right_haar_strongly_equivalent.lean](folland_2_31_left_right_haar_strongly_equivalent.lean) · **Context:** [folland_2_31_left_right_haar_strongly_equivalent.context.md](folland_2_31_left_right_haar_strongly_equivalent.context.md)
 
 ## What the theorem says
 
@@ -64,7 +64,7 @@ wrong, even if it compiles.
 ## Grading (out of 100)
 
 Grade a candidate Lean statement of this problem against the textbook statement in
-[folland_2_31_modular_inversion_formula.md](folland_2_31_modular_inversion_formula.md) and the background in [folland_2_31_modular_inversion_formula.context.md](folland_2_31_modular_inversion_formula.context.md),
+[folland_2_31_left_right_haar_strongly_equivalent.md](folland_2_31_left_right_haar_strongly_equivalent.md) and the background in [folland_2_31_left_right_haar_strongly_equivalent.context.md](folland_2_31_left_right_haar_strongly_equivalent.context.md),
 not against the ground-truth Lean file: a candidate spelled differently but
 mathematically equivalent to the text loses nothing. The scale is defined in
 [GRADING.md](../../GRADING.md); the numbers below are this problem's instance of it.

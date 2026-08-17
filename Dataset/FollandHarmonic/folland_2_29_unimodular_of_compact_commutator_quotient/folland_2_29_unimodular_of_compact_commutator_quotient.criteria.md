@@ -27,9 +27,9 @@ choices behind them.
 | 1 | $G$ is a topological group. | ✅ `[Group G] [TopologicalSpace G] [IsTopologicalGroup G]`. |
 | 2 | $G$ is locally compact. Without this there is no Haar measure and no modular function. | ✅ `[LocallyCompactSpace G]`. |
 | 3 | The subgroup being quotiented out is the *closure* of the commutator subgroup, matching Folland's "smallest closed subgroup". | ✅ `(commutator G).topologicalClosure`. |
-| 4 | The hypothesis is that the coset space is compact. | ✅ `hcpt : CompactSpace (G ⧸ (commutator G).topologicalClosure)`. |
-| 5 | The conclusion is that the modular function takes the value $1$. | ✅ `Measure.modularCharacterFun x = 1`. |
-| 6 | The conclusion holds at every group element, not at some distinguished one. | ✅ `x : G` is a universally quantified parameter of the theorem. |
+| 4 | The hypothesis is that the coset space is compact. | ✅ `[CompactSpace (G ⧸ (commutator G).topologicalClosure)]`, as an instance rather than an explicit argument. |
+| 5 | The conclusion is that the modular function takes the value $1$. | ✅ `IsUnimodular G`, defined in `Defs.lean` as `∀ y, Measure.modularCharacterFun y = 1` — the textbook's own word, rather than the equation spelled out at each use. |
+| 6 | The conclusion holds at every group element, not at some distinguished one. | ✅ Built into `IsUnimodular`, which quantifies over all of `G`. |
 
 ## Mistakes to check for
 

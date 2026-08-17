@@ -25,7 +25,7 @@ theorem folland_2_40_convolution_lp_bound {G : Type*} [Group G]
     (p : ℝ≥0∞) (hp : 1 ≤ p) (f g : G → ℂ) (hf : Integrable f μ) (hg : MemLp g p μ) :
     ((∀ᵐ x ∂μ, Integrable (fun y ↦ f y * g (y⁻¹ * x)) μ) ∧ MemLp (groupConv μ f g) p μ ∧
         eLpNorm (groupConv μ f g) p μ ≤ eLpNorm f 1 μ * eLpNorm g p μ) ∧
-      ((∀ y : G, Measure.modularCharacterFun y = 1) →
+      (IsUnimodular G →
         MemLp (groupConv μ g f) p μ ∧
           eLpNorm (groupConv μ g f) p μ ≤ eLpNorm f 1 μ * eLpNorm g p μ) ∧
       (HasCompactSupport f → MemLp (groupConv μ g f) p μ) := by

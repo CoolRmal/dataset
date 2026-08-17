@@ -33,7 +33,7 @@ choices behind them.
 | 5 | Part (a) asserts that the defining integral converges absolutely for almost every $x$. | ✅ `∀ᵐ x ∂μ, Integrable (fun y ↦ f y * g (y⁻¹ * x)) μ`. |
 | 6 | Part (a) asserts $f*g \in L^p$. | ✅ `MemLp (groupConv μ f g) p μ`. |
 | 7 | Part (a) asserts the norm bound $\lVert f*g\rVert_p \le \lVert f\rVert_1\lVert g\rVert_p$. | ✅ `eLpNorm (groupConv μ f g) p μ ≤ eLpNorm f 1 μ * eLpNorm g p μ`. |
-| 8 | Part (b) is stated only under unimodularity, and gives both $g*f \in L^p$ and the same bound. | ✅ `(∀ y : G, Measure.modularCharacterFun y = 1) → MemLp (groupConv μ g f) p μ ∧ eLpNorm (groupConv μ g f) p μ ≤ eLpNorm f 1 μ * eLpNorm g p μ`. |
+| 8 | Part (b) is stated only under unimodularity, and gives both $g*f \in L^p$ and the same bound. | ✅ `IsUnimodular G → …`, using the named definition. |
 | 9 | Part (c) is stated under compact support of $f$, and gives $g*f \in L^p$. | ✅ `HasCompactSupport f → MemLp (groupConv μ g f) p μ`. |
 | 10 | All three parts are asserted, not just one. | ✅ A three-fold conjunction. |
 

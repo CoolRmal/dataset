@@ -1,4 +1,7 @@
+import Mathlib.Analysis.InnerProductSpace.Adjoint
 import Mathlib.MeasureTheory.Integral.Bochner.Basic
+import Mathlib.MeasureTheory.Function.LpSpace.Basic
+import Mathlib.MeasureTheory.Group.ModularCharacter
 import Mathlib.Topology.Algebra.PontryaginDual
 
 /-!
@@ -20,6 +23,21 @@ namespace FollandHarmonic
 
 variable {G : Type*} [Group G] [TopologicalSpace G] [MeasurableSpace G]
 
+/-- `G` is **unimodular**: its modular function is identically `1`, i.e. a left Haar measure is
+also right invariant. -/
+def IsUnimodular (G : Type*) [TopologicalSpace G] [Group G] [IsTopologicalGroup G]
+    [LocallyCompactSpace G] : Prop :=
+  ∀ y : G, Measure.modularCharacterFun y = 1
+
+/-- Folland's **strong equivalence** of two Radon measures (Proposition 2.23): there is a
+*continuous, strictly positive* density `f` with `∫ φ dν = ∫ φ f dμ` for every compactly
+supported continuous `φ`. This is stronger than mutual absolute continuity. -/
+def StronglyEquivalent {X : Type*} [TopologicalSpace X] [MeasurableSpace X]
+    (μ ν : Measure X) : Prop :=
+  ∃ f : X → ℝ, Continuous f ∧ (∀ x, 0 < f x) ∧
+    ∀ φ : X → ℝ, Continuous φ → HasCompactSupport φ →
+      ∫ x, φ x ∂ν = ∫ x, φ x * f x ∂μ
+
 /-- Folland's left translation `L_y f (x) = f (y⁻¹ x)`. -/
 def leftTranslate (y : G) (f : G → ℂ) : G → ℂ := fun x ↦ f (y⁻¹ * x)
 
@@ -35,6 +53,40 @@ def IsLpClosed (p : ℝ≥0∞) (μ : Measure G) (I : Set (G → ℂ)) : Prop :=
   ∀ f : G → ℂ, MemLp f p μ →
     (∀ ε : ℝ≥0∞, 0 < ε → ∃ g ∈ I, MemLp g p μ ∧ eLpNorm (f - g) p μ < ε) → f ∈ I
 
+/-! ### `L¹(G)` as a convolution algebra, for Theorem 2.45 -/
+
+section L1
+
+variable {G : Type*} [Group G] [TopologicalSpace G] [IsTopologicalGroup G]
+  [LocallyCompactSpace G] [MeasurableSpace G] [BorelSpace G]
+  (μ : Measure G) [μ.IsHaarMeasure] [μ.Regular]
+
+/-- Young's inequality at `p = 1` (Folland 2.39(a)): the convolution of two integrable functions
+is integrable. Not available in Mathlib for a general multiplicative group. -/
+theorem Integrable.groupConv {f g : G → ℂ} (hf : Integrable f μ) (hg : Integrable g μ) :
+    Integrable (groupConv μ f g) μ := by
+  sorry
+
+/-- Convolution as a binary operation on `L¹(G)`. -/
+noncomputable def L1conv (f g : Lp ℂ 1 μ) : Lp ℂ 1 μ :=
+  Integrable.toL1 _ (Integrable.groupConv μ (L1.integrable_coeFn f) (L1.integrable_coeFn g))
+
+/-- Left translation on `L¹(G)`. Since `μ` is left invariant this is an isometry. -/
+noncomputable def L1leftTranslate (y : G) (f : Lp ℂ 1 μ) : Lp ℂ 1 μ :=
+  Lp.compMeasurePreserving (y⁻¹ * ·) (measurePreserving_mul_left μ y⁻¹) f
+
+/-- Right translation preserves integrability: `(· * y)` pushes `μ` to `Δ(y) • μ`. -/
+theorem Integrable.comp_mul_right_haar {f : G → ℂ} (hf : Integrable f μ) (y : G) :
+    Integrable (fun x ↦ f (x * y)) μ := by
+  sorry
+
+/-- Right translation on `L¹(G)`. Unlike left translation this is not an isometry unless `G` is
+unimodular, so it is not an instance of `Lp.compMeasurePreserving`. -/
+noncomputable def L1rightTranslate (y : G) (f : Lp ℂ 1 μ) : Lp ℂ 1 μ :=
+  Integrable.toL1 _ (Integrable.comp_mul_right_haar μ (L1.integrable_coeFn f) y)
+
+end L1
+
 /-- `ι` exhibits `K` as the Bohr compactification `bG` of `G`: `K` is a compact Hausdorff
 topological group, `ι` is a continuous homomorphism with dense range, and every continuous
 character of `G` factors through `ι`. Those conditions characterise `bG` among compactifications
@@ -44,6 +96,26 @@ def IsBohrCompactification {G K : Type*} [CommGroup G] [TopologicalSpace G]
     (ι : G →* K) : Prop :=
   Continuous ι ∧ DenseRange ι ∧
     ∀ χ : PontryaginDual G, ∃ ψ : PontryaginDual K, ∀ x : G, ψ (ι x) = χ x
+
+/-! ### Unitary representations, for the Gelfand–Raikov theorem -/
+
+/-- A unitary representation of a topological group `G` on a complex Hilbert space `H`:
+a homomorphism into the unitary operators that is continuous in the strong topology. -/
+structure UnitaryRepresentation (G H : Type*) [Group G] [TopologicalSpace G]
+    [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] where
+  toFun : G → H →L[ℂ] H
+  map_one : toFun 1 = ContinuousLinearMap.id ℂ H
+  map_mul : ∀ x y, toFun (x * y) = (toFun x).comp (toFun y)
+  mem_unitary : ∀ x, toFun x ∈ unitary (H →L[ℂ] H)
+  strongly_continuous : ∀ v : H, Continuous fun x ↦ toFun x v
+
+/-- A unitary representation is **irreducible** when the only closed invariant subspaces are the
+trivial ones. -/
+def UnitaryRepresentation.Irreducible {G H : Type*} [Group G] [TopologicalSpace G]
+    [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    (π : UnitaryRepresentation G H) : Prop :=
+  ∀ K : Submodule ℂ H, IsClosed (K : Set H) →
+    (∀ x : G, ∀ v ∈ K, π.toFun x v ∈ K) → K = ⊥ ∨ K = ⊤
 
 /-- `C_lu(G)`: the bounded, **left** uniformly continuous functions —
 `‖L_y f - f‖_∞ → 0` as `y → 1`. -/
