@@ -1315,11 +1315,11 @@ FOLLAND_HARMONIC = [
     ),
     Entry(
         7,
-        "2.45 Theorem. Let I be a closed subspace of L^1(G). Then I is a left ideal if and only if it is closed under left translations, and I is a right ideal if and only if it is closed under right translations. Notation: Throughout, G is a locally compact group with a fixed left Haar measure, L_yf(x) = f(y^{-1}x) and R_yf(x) = f(xy) are the left and right translates of f, and f*g(x) = ∫ f(y)g(y^{-1}x) dy is convolution. L^1(G) is a Banach algebra under convolution.",
+        "4.32 Theorem (The Pontrjagin Duality Theorem). The map Phi : G -> double-dual of G defined by (4.29) is an isomorphism of topological groups. Notation: G is a locally compact abelian group and its dual is the group of continuous characters xi : G -> T with the topology of compact convergence; the pairing is <x,xi> = xi(x), and (4.29) defines Phi by <Phi(x),xi> = <x,xi>, i.e. Phi(x) is evaluation at x. An isomorphism of topological groups is a group isomorphism that is also a homeomorphism.",
         "Harmonic analysis",
         "Dataset/FollandHarmonic.lean",
-        "folland_2_45_closed_ideals_are_translation_invariant",
-        ["leftTranslate", "rightTranslate", "groupConv", "IsLpClosed"],
+        "folland_4_32_pontryagin_duality",
+        [],
     ),
     Entry(
         8,

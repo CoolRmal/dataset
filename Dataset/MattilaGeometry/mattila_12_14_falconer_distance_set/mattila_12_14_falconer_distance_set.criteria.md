@@ -25,10 +25,8 @@ choices behind them.
 | 3 | $A$ is a Borel set. | ✅ `hA : MeasurableSet A`; the `MeasurableSpace` instance on `EuclideanSpace ℝ (Fin n)` is the Borel $\sigma$-algebra. |
 | 4 | Part (1): if $\dim A > (n+1)/2$ then $D(A)$ has positive Lebesgue measure. | ✅ `((n : ℝ≥0∞) + 1) / 2 < dimH A → 0 < volume D`, with `volume : Measure ℝ`. |
 | 5 | Part (2) has a **two-sided** hypothesis on $\dim A$. | ✅ `((n : ℝ≥0∞) - 1) / 2 < dimH A ∧ dimH A < ((n : ℝ≥0∞) + 1) / 2`. |
-| 6 | Part (2)'s conclusion is the strict dimension gain $\dim D(A) > \dim A - (n-1)/2$. | ✅ `dimH A - ((n : ℝ≥0∞) - 1) / 2 < dimH D`. |
-| 7 | Both parts are asserted, and every inequality in the theorem is strict. | ✅ A conjunction of two implications sharing the hypotheses on `A`; all comparisons use `<`. |
-| 8 | The dimension is at least $2$, so that the theorem is about genuine Euclidean space. | ✅ `hn : 2 ≤ n`. This is not in the transcribed statement, but without it part (2) is false (see Mistake 1). |
-| 9 | No measurability may be required of $D(A)$. | ✅ `volume D` is applied directly; `volume` is an outer measure defined on every subset of $\mathbb{R}$. |
+| 6 | Part (2)'s conclusion is the dimension gain $\dim D(A) \ge \dim A - (n-1)/2$, **non-strict**. | ✅ `dimH A - ((n : ℝ≥0∞) - 1) / 2 ≤ dimH (distanceSet A)`. |
+| 7 | Both parts are asserted. The hypotheses are strict inequalities; the conclusion of part (2) is **not**. | ✅ A conjunction, with `<` in the hypotheses of both parts and `≤` in the conclusion of part (2). |
 
 ## Mistakes to check for
 
@@ -82,7 +80,7 @@ mathematically equivalent to the text loses nothing. The scale is defined in
 
 - Requirement 5 with the two-sided hypothesis of part (2) reduced to one inequality.
 - Requirement 1 with $D(A)$ read as a set of pairs or a subset of $\mathbb{R}^n$.
-- Requirement 7 with any strict inequality relaxed to a non-strict one.
+- Requirement 6 with the conclusion of part (2) strengthened to a strict inequality: that is not what Falconer's theorem gives.
 
 ### Domain-specific pitfalls for this problem
 
