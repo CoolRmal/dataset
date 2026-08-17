@@ -1,4 +1,5 @@
 import Mathlib.Analysis.Calculus.IteratedDeriv.Defs
+import Mathlib.Analysis.InnerProductSpace.Harmonic.Basic
 import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
 import Mathlib.MeasureTheory.Measure.Hausdorff
 
@@ -10,7 +11,7 @@ not already supplied by Mathlib. Each problem file that needs them imports
 this module.
 -/
 
-open MeasureTheory Set
+open Laplacian MeasureTheory Set
 open scoped ContDiff ENNReal Topology
 
 namespace Dataset
@@ -31,11 +32,6 @@ noncomputable def multiIndexDirections {d : ℕ} (α : (Fin d → ℕ)) : List (
 noncomputable def multiDerivative {d : ℕ} (α : (Fin d → ℕ))
     (u : EuclideanSpace ℝ (Fin d) → ℝ) : EuclideanSpace ℝ (Fin d) → ℝ :=
   directionalDerivativeList (multiIndexDirections α) u
-
-/-- The Laplacian as the sum of the repeated coordinate derivatives. -/
-noncomputable def laplacian {d : ℕ} (u : EuclideanSpace ℝ (Fin d) → ℝ)
-    (x : EuclideanSpace ℝ (Fin d)) : ℝ :=
-  ∑ i, directionalDerivativeList [i, i] u x
 
 /-- The iterated directional derivative taken **within** a set. On an open set this agrees with
 `directionalDerivativeList`; on a set with boundary, such as `closure Ω`, it is the version that
@@ -120,7 +116,7 @@ def RegularBoundedDomain {d : ℕ} (Ω : Set (EuclideanSpace ℝ (Fin d))) : Pro
     ∀ z ∈ frontier Ω, ∃ barrier : EuclideanSpace ℝ (Fin d) → ℝ,
       ContinuousOn barrier (closure Ω) ∧ ContDiffOn ℝ 2 barrier Ω ∧
       barrier z = 0 ∧ (∀ x ∈ closure Ω, x ≠ z → 0 < barrier x) ∧
-      ∀ x ∈ Ω, laplacian barrier x ≤ 0
+      ∀ x ∈ Ω, Δ barrier x ≤ 0
 
 /-- A unit normal which points from the domain into its complement. -/
 def IsOutwardUnitNormal {d : ℕ} (Ω : Set (EuclideanSpace ℝ (Fin d)))
@@ -137,24 +133,19 @@ def SmoothBoundedDomain {d : ℕ} (Ω : Set (EuclideanSpace ℝ (Fin d))) : Prop
     ContDiff ℝ ∞ ρ ∧ Ω = {x | ρ x < 0} ∧
       ∀ x ∈ frontier Ω, fderiv ℝ ρ x ≠ 0
 
-/-- Classical harmonicity in a domain. -/
-def HarmonicIn {d : ℕ} (Ω : Set (EuclideanSpace ℝ (Fin d)))
-    (u : EuclideanSpace ℝ (Fin d) → ℝ) : Prop :=
-  ContDiffOn ℝ 2 u Ω ∧ ∀ x ∈ Ω, laplacian u x = 0
-
 /-- A classical solution of `Δu=f` with prescribed boundary values. -/
 def LaplaceDirichletSolution {d : ℕ} (Ω : Set (EuclideanSpace ℝ (Fin d)))
     (f g u : EuclideanSpace ℝ (Fin d) → ℝ) : Prop :=
   ContDiffOn ℝ 2 u Ω ∧ ContinuousOn u (closure Ω) ∧
-    (∀ x ∈ Ω, laplacian u x = f x) ∧ ∀ x ∈ frontier Ω, u x = g x
+    (∀ x ∈ Ω, Δ u x = f x) ∧ ∀ x ∈ frontier Ω, u x = g x
 
 /-- A kernel is a fundamental solution when it represents the Dirac distribution. -/
 def IsLaplaceFundamentalSolution {d : ℕ}
     (K : EuclideanSpace ℝ (Fin d) → EuclideanSpace ℝ (Fin d) → ℝ) : Prop :=
   ∀ x, ∀ φ : EuclideanSpace ℝ (Fin d) → ℝ,
     ContDiff ℝ ∞ φ → HasCompactSupport φ →
-      Integrable (fun y ↦ K x y * laplacian φ y) →
-        ∫ y, K x y * laplacian φ y = φ x
+      Integrable (fun y ↦ K x y * Δ φ y) →
+        ∫ y, K x y * Δ φ y = φ x
 
 /-- A coefficient representation of an elliptic differential operator of order `m`. -/
 structure EllipticOperatorData {d : ℕ} (m : ℕ)
@@ -232,7 +223,7 @@ def EllipticDirichletSolution {d : ℕ} (Ω : Set (EuclideanSpace ℝ (Fin d)))
 
 /-- The shifted heat equation `Δu-u_t-u=f`. -/
 def ShiftedHeatEquation {d : ℕ} (u f : (ℝ × EuclideanSpace ℝ (Fin d)) → ℝ) : Prop :=
-  ∀ t x, laplacian (fun y ↦ u (t, y)) x - deriv (fun s ↦ u (s, x)) t - u (t, x) =
+  ∀ t x, Δ (fun y ↦ u (t, y)) x - deriv (fun s ↦ u (s, x)) t - u (t, x) =
     f (t, x)
 
 /-- A uniformly parabolic second-order operator with Holder coefficients. -/

@@ -51,9 +51,9 @@ wrong, even if it compiles.
 - The text uses the open ball $B_R(x)$; the ground truth uses `Metric.closedBall x R` in both places. The hypothesis is then slightly stronger and the supremum is over a slightly larger set, so the statement is a little weaker than the printed one and remains true.
 - Connectedness of $\Omega$ is assumed to match the word "domain", but neither conclusion uses it. Assuming it only restricts the theorem; `IsOpen Ω` alone would be a stronger and equally faithful result.
 - `Ω.Nonempty` is redundant next to `IsConnected Ω`, since mathlib's `IsConnected` already includes nonemptiness. Harmless duplication.
-- The `sSup` is real-valued rather than `ℝ≥0∞`-valued. It is safe here only because `HarmonicIn` gives continuity on the compact ball, so the set is nonempty and bounded. A `⨆ y : Metric.closedBall x R, ENNReal.ofReal \|u y\|` (the `functionSupNorm` style used elsewhere in this book) would be safe by construction.
+- The `sSup` is real-valued rather than `ℝ≥0∞`-valued. It is safe here only because harmonicity gives continuity on the compact ball, so the set is nonempty and bounded. A `⨆ y : Metric.closedBall x R, ENNReal.ofReal \|u y\|` (the `functionSupNorm` style used elsewhere in this book) would be safe by construction.
 - The text's extra "$\cap\, C(\Omega)$" is already implied by `ContDiffOn ℝ 2`.
-- The hand-rolled `laplacian` (a sum of repeated coordinate `fderiv`s) and `HarmonicIn` duplicate notions that current mathlib provides as `InnerProductSpace.laplacian` / `laplacianWithin` (with `Δ` notation) and `HarmonicAt` / `HarmonicOnNhd`. On an open $\Omega$ the two agree, but the custom versions interact less well with mathlib's API.
+- Harmonicity is mathlib's `InnerProductSpace.HarmonicOnNhd u Ω`: at every point of $\Omega$, $u$ is $C^2$ and its Laplacian `Δ` vanishes near the point. On an open $\Omega$ this is exactly "twice continuously differentiable on $\Omega$ with $\Delta u = 0$ on $\Omega$"; a candidate that spells the latter out (e.g. `ContDiffOn ℝ 2 u Ω ∧ ∀ x ∈ Ω, Δ u x = 0`, or with a hand-rolled sum of repeated coordinate derivatives) is mathematically equivalent here, at a hygiene cost if it re-defines what mathlib provides.
 
 ## Grading (out of 100)
 

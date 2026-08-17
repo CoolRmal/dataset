@@ -28,7 +28,7 @@ choices behind them.
 | 5 | The zeroth-order shift $-u$ is present. | ✅ The `- u (t, x)` summand. |
 | 6 | The equation holds pointwise everywhere on $\mathbb{R}^{d+1}$, classically. | ✅ `∀ t x, …`, with `univ` used for both the datum and the solution. |
 | 7 | Existence **and** uniqueness, with uniqueness relative to the same regularity class. | ✅ `∃! u, ParabolicHolderOn (2 + δ) univ u ∧ ShiftedHeatEquation u f`. On the whole space, `∃!` on global functions is the right notion. |
-| 8 | The regularity assumption must accompany the equation, so that `laplacian` and `deriv` are the classical objects. | ✅ `ParabolicHolderOn` supplies `ContDiffOn ℝ 2` in $x$ and `ContDiffOn ℝ 1` in $t$ on `univ`. |
+| 8 | The regularity assumption must accompany the equation, so that `Δ` and `deriv` are the classical objects. | ✅ `ParabolicHolderOn` supplies `ContDiffOn ℝ 2` in $x$ and `ContDiffOn ℝ 1` in $t$ on `univ`. |
 
 ## Mistakes to check for
 
@@ -41,7 +41,7 @@ wrong, even if it compiles.
 | 2 | Turning $-u_t$ into $+u_t$. | That is the backward heat equation, which is ill-posed; the theorem asserted would be false. |
 | 3 | Using $\delta$ rather than $\delta/2$ for the time exponent, or $1+\delta$ rather than $1+\delta/2$. | The parabolic scaling gives time half the weight of space. With the wrong exponents both the hypothesis and the conclusion describe different function spaces. |
 | 4 | Asserting existence only, or stating uniqueness without re-imposing the regularity on the competitor. | Uniqueness genuinely fails in a larger class, so the regularity has to appear in the uniqueness clause. |
-| 5 | Stating the PDE for a merely continuous or merely measurable $u$. | `laplacian` and `deriv` return $0$ wherever the function is not differentiable. Any nowhere-differentiable $u$ would then "solve" the equation with $f = -u$, so the equation alone constrains nothing. |
+| 5 | Stating the PDE for a merely continuous or merely measurable $u$. | `Δ` and `deriv` return $0$ wherever the function is not differentiable. Any nowhere-differentiable $u$ would then "solve" the equation with $f = -u$, so the equation alone constrains nothing. |
 | 6 | Adding an initial condition, or restricting to $t \ge 0$. | The theorem is posed on all of $\mathbb{R}^{d+1}$, with no initial surface and no boundary; the uniqueness is two-sided in time. |
 | 7 | Letting $\Delta$ act on all $d+1$ variables. | $\Delta$ is the spatial Laplacian only; including $\partial_t^2$ would give an elliptic operator in space-time, a different equation. |
 | 8 | Imposing the joint Hölder quotient of exponent $r$ on $u$ itself when $r > 1$ — e.g. requiring $|u(p)-u(q)| \le C(\|p_x-q_x\|^{2+\delta} + |p_t-q_t|^{1+\delta/2})$ for the solution class. | A Hölder quotient with exponent $>1$ forces every derivative to vanish, so the "class" contains only constant functions and the asserted $\exists!$ fails for every nonconstant $f$. The exponents must fall on the top-order derivatives, never on $u$ itself. An earlier version of the ground truth had exactly this defect in `ParabolicHolderOn`'s mixed clause; the current definition incorporates the repair. |

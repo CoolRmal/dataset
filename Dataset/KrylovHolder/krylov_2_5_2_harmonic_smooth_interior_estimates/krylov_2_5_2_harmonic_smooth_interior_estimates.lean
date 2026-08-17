@@ -8,6 +8,7 @@ Natural-language statement: `krylov_2_5_2_harmonic_smooth_interior_estimates.md`
 Quality rubric: `krylov_2_5_2_harmonic_smooth_interior_estimates.criteria.md`.
 -/
 
+open InnerProductSpace
 open scoped ContDiff
 
 namespace Dataset
@@ -18,7 +19,7 @@ theorem krylov_2_5_2_harmonic_smooth_interior_estimates
     {d : ℕ} :
     ∀ α : (Fin d → ℕ), ∃ C : ℝ, 0 ≤ C ∧
       ∀ (Ω : Set (EuclideanSpace ℝ (Fin d))) (u : EuclideanSpace ℝ (Fin d) → ℝ),
-        IsOpen Ω → IsConnected Ω → Ω.Nonempty → HarmonicIn Ω u →
+        IsOpen Ω → IsConnected Ω → Ω.Nonempty → HarmonicOnNhd u Ω →
         ContDiffOn ℝ ∞ u Ω ∧ ∀ x ∈ Ω,
         ∀ R : ℝ, 0 < R → Metric.closedBall x R ⊆ Ω →
           |multiDerivative α u x| ≤ C * R ^ (-(∑ i, α i : ℤ)) *

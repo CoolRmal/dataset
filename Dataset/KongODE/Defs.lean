@@ -45,7 +45,7 @@ def LocallyLipschitzInState {n : ℕ} (D : Set (ℝ × (Fin n → ℝ)))
 /-- A nonsingular matrix solution of `X' = A X`. -/
 def FundamentalMatrixSolution {n : ℕ} (I : Set ℝ) (A : ℝ → Matrix (Fin n) (Fin n) ℝ)
     (X : ℝ → Matrix (Fin n) (Fin n) ℝ) : Prop :=
-  (∀ t ∈ I, HasDerivAt X (A t * X t) t) ∧ ∀ t ∈ I, IsUnit (X t)
+  (∀ t ∈ I, HasDerivWithinAt X (A t * X t) I t) ∧ ∀ t ∈ I, IsUnit (X t)
 
 /-- A list containing exactly the characteristic multipliers of a transition matrix. -/
 def CharacteristicMultipliers {n : ℕ} (V : Matrix (Fin n) (Fin n) ℂ)

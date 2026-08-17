@@ -22,7 +22,7 @@ choices behind them.
 |---|-------------|-------------------------------|
 | 1 | Everything happens on an interval, and the base point $t_0$ lies in it. | ✅ `hI : I.OrdConnected` and `ht₀ : t₀ ∈ I`. |
 | 2 | The coefficient matrix $A$ and the forcing term $f$ are continuous on that interval. | ✅ `hA : ContinuousOn A I` and `hf : ContinuousOn f I`. |
-| 3 | $X$ is a fundamental matrix solution: it solves $X' = A(t)X$ on the interval **and** is invertible at every point of it. | ✅ `FundamentalMatrixSolution I A X`, which is `(∀ t ∈ I, HasDerivAt X (A t * X t) t) ∧ ∀ t ∈ I, IsUnit (X t)`. |
+| 3 | $X$ is a fundamental matrix solution: it solves $X' = A(t)X$ on the interval **and** is invertible at every point of it. | ✅ `FundamentalMatrixSolution I A X`, which is `(∀ t ∈ I, HasDerivWithinAt X (A t * X t) I t) ∧ ∀ t ∈ I, IsUnit (X t)`. |
 | 4 | "The general solution is …" is an equivalence: for every function $y$, solving the inhomogeneous system on $I$ is the same as having the stated form. | ✅ `∀ y, IsTrajectoryOn I (fun t x ↦ A t *ᵥ x + f t) y ↔ ∃ c, ∀ t ∈ I, y t = …`. |
 | 5 | The constant vector $c$ is quantified inside, after $y$: each solution has its own $c$. | ✅ `∃ c : Fin n → ℝ` sits on the right of the `↔`, under the `∀ y`. |
 | 6 | The formula is $X(t)c$ plus $\int_{t_0}^{t} X(t)X^{-1}(s)f(s)\,ds$, with $X(t)$ on the left of $X^{-1}(s)$ and the matrix acting on the vector last. | ✅ `X t *ᵥ c + ∫ s in t₀..t, (X t * (X s)⁻¹) *ᵥ f s`. |
@@ -50,7 +50,7 @@ wrong, even if it compiles.
 
 ## Notes on the ground truth
 
-- Kong works on the open interval $(a,b)$. We allow any order-connected set $I$ and, for solutions (`IsTrajectoryOn`), use the derivative taken within $I$, which specialises correctly to the open case and also makes the statement true on a closed interval. The fundamental-matrix hypothesis `FundamentalMatrixSolution` instead asks for the ambient two-sided `HasDerivAt` of $X$ at each $t \in I$; on a non-open $I$ that is stronger than the textbook notion, but it sits on the hypothesis side, so the statement stays true — it merely applies to slightly fewer $X$ (and to exactly the textbook ones when $I$ is open).
+- Kong works on the open interval $(a,b)$. We allow any order-connected set $I$ and use the derivative taken within $I$ throughout — for solutions (`IsTrajectoryOn`) and for the fundamental matrix (`FundamentalMatrixSolution` uses `HasDerivWithinAt … I`) alike. On an open $I$ this coincides with the two-sided derivative, and on a closed interval it is the notion that keeps the statement true; a candidate that instead requires the ambient `HasDerivAt` of $X$ at each $t \in I$ is harmlessly stronger on the hypothesis side.
 - `IsUnit (X t)` and `(X t).det ≠ 0` are interchangeable over $\mathbb{R}$ (`Matrix.isUnit_iff_isUnit_det`); either is a fine encoding of "nonsingular".
 - The hypotheses are exactly what keeps the two Lean default values out of the statement: continuity of $A$, $f$ and invertibility of $X$ on the interval make the integrand continuous on the compact segment between $t_0$ and $t$, so it is genuinely integrable, and `OrdConnected` puts that whole segment inside $I$ where $X$ is invertible.
 

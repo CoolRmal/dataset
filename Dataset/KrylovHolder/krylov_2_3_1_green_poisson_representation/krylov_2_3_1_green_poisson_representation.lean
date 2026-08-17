@@ -8,7 +8,7 @@ Natural-language statement: `krylov_2_3_1_green_poisson_representation.md`.
 Quality rubric: `krylov_2_3_1_green_poisson_representation.criteria.md`.
 -/
 
-open MeasureTheory
+open InnerProductSpace MeasureTheory
 
 namespace Dataset
 namespace KrylovHolder
@@ -24,11 +24,11 @@ theorem krylov_2_3_1_green_poisson_representation
     (hmeasure : boundaryMeasure = μH[((d : ℝ) - 1)].restrict (frontier Ω))
     (normal : EuclideanSpace ℝ (Fin d) → EuclideanSpace ℝ (Fin d))
     (hnormal : IsOutwardUnitNormal Ω normal)
-    (hharmonic : ∀ x ∈ Ω, HarmonicIn Ω (h x))
+    (hharmonic : ∀ x ∈ Ω, HarmonicOnNhd (h x) Ω)
     (hcorrectorContinuous : ∀ x ∈ Ω, ContinuousOn (h x) (closure Ω))
     (hboundary : ∀ x ∈ Ω, ∀ y ∈ frontier Ω, h x y = K x y)
     (hgreen : ∀ x y, G x y = K x y - h x y)
-    (hgreenHarmonic : ∀ x ∈ Ω, HarmonicIn (Ω \ {x}) (G x))
+    (hgreenHarmonic : ∀ x ∈ Ω, HarmonicOnNhd (G x) (Ω \ {x}))
     (hgreenBoundary : ∀ x ∈ Ω, ∀ y ∈ frontier Ω, G x y = 0)
     (hpoisson : ∀ x ∈ Ω, ∀ y ∈ frontier Ω,
       H x y = -fderivWithin ℝ (G x) (closure Ω) y (normal y))
